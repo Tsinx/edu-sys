@@ -1,0 +1,16 @@
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Local runtimes and generated evidence
+.runtime/
+artifacts/
+logs/
+*.log
+
+# Editor and OS files
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store
