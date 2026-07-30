@@ -15,6 +15,7 @@ import {
   PlaySquare,
   Presentation
 } from "lucide-react";
+import { renderAuthoredTeachingSlide } from "./AuthoredTeachingSlides";
 import { SlideViewport } from "./SlideViewport";
 
 function StudentContextStrip({ spec }: { spec: PortManagementSlideSpec }) {
@@ -362,6 +363,173 @@ function ResilienceDiagram() {
   );
 }
 
+function EnglandFrance1700Diagram() {
+  return (
+    <svg viewBox="0 0 700 420" role="img" aria-label="1700年前后英格兰和威尔士与法国人口规模比较">
+      <path
+        className="course-diagram__land"
+        d="M86 74c28-23 64-20 82 7 17 26 7 55-4 80-10 24-4 53 13 73-26 24-64 17-81-10-14-22-6-45 0-67 7-27-29-57-10-83Zm233 24c64-38 153-31 209 18 47 41 69 103 47 160-20 54-80 77-137 68-58-9-105-49-124-100-19-49-32-111 5-146Z"
+      />
+      <path className="course-diagram__river" d="M205 36V366" opacity=".28" />
+      <g className="course-diagram__node" transform="translate(130 206)">
+        <circle r="14" />
+        <text textAnchor="middle" y="-30">英格兰和威尔士</text>
+      </g>
+      <g className="course-diagram__node" transform="translate(440 220)">
+        <circle r="14" />
+        <text textAnchor="middle" y="-30">法国</text>
+      </g>
+      <g transform="translate(58 300)">
+        <rect fill="#173f53" height="34" rx="17" width="118" />
+        <text fill="#fff" fontSize="22" fontWeight="900" textAnchor="middle" x="59" y="24">约500万</text>
+      </g>
+      <g transform="translate(300 300)">
+        <rect fill="#d38b32" height="34" rx="17" width="276" />
+        <text fill="#fff" fontSize="22" fontWeight="900" textAnchor="middle" x="138" y="24">约2000万</text>
+      </g>
+      <text className="course-diagram__caption" x="48" y="394">
+        历史估算约数 · 面积不代表领土精确比例
+      </text>
+    </svg>
+  );
+}
+
+function CantonLondonTradeDiagram() {
+  const nodes = [
+    { label: "广州", x: 590, y: 235 },
+    { label: "马六甲方向", x: 500, y: 310 },
+    { label: "印度洋", x: 364, y: 290 },
+    { label: "好望角", x: 245, y: 350 },
+    { label: "伦敦", x: 110, y: 105 }
+  ];
+  return (
+    <svg viewBox="0 0 700 420" role="img" aria-label="17至18世纪广州到伦敦远洋贸易路线复原">
+      <ArrowHead />
+      <path
+        className="course-diagram__land"
+        d="M57 48c71-28 145-17 183 22 33 34 29 77 3 111-29 37-48 81-42 128-71 13-143-17-175-72-25-43-11-87 17-121 17-21-10-49 14-68Zm289 27c93-44 221-21 294 47 42 39 42 91 9 126-28 29-73 36-112 20-44-18-84-9-116 22-52 51-129 48-172 3-39-41-29-103 15-139 30-25 38-58 82-79Z"
+      />
+      <path
+        className="course-diagram__route"
+        d="M590 235C554 271 532 301 500 310C449 325 410 291 364 290C317 289 283 327 245 350C188 333 139 239 110 105"
+        markerEnd="url(#courseDiagramArrow)"
+      />
+      {nodes.map((node) => (
+        <g className="course-diagram__node" key={node.label} transform={`translate(${node.x} ${node.y})`}>
+          <circle r="9" />
+          <text textAnchor="middle" y="-18">{node.label}</text>
+        </g>
+      ))}
+      <text className="course-diagram__caption" x="28" y="402">
+        基于时代航海条件的路线复原 · 不代表单船逐日轨迹
+      </text>
+    </svg>
+  );
+}
+
+function ComparativeAdvantageDiagram() {
+  return (
+    <svg viewBox="0 0 700 420" role="img" aria-label="江南湖广概念模型的生产可能性边界">
+      <ArrowHead />
+      <path className="course-diagram__connector" d="M90 338V54M90 338H638" />
+      <text fill="#294d5e" fontSize="17" fontWeight="850" x="20" y="64">粮（石）</text>
+      <text fill="#294d5e" fontSize="17" fontWeight="850" x="590" y="378">丝（匹）</text>
+      <path
+        d="M90 72L530 244L618 338"
+        fill="none"
+        stroke="#0d8c87"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="8"
+      />
+      <text className="course-diagram__small" x="254" y="113">先把江南劳动日转向丝：斜率 −2</text>
+      <text className="course-diagram__small" x="490" y="306">再转湖广：斜率 −5</text>
+      <g transform="translate(354 208)">
+        <circle fill="#d56d59" r="11" stroke="#fff" strokeWidth="5" />
+        <text fill="#8d463b" fontSize="16" fontWeight="850" x="-70" y="32">平均分配 60，150</text>
+      </g>
+      <g transform="translate(398 185)">
+        <circle fill="#efaa3c" r="13" stroke="#fff" strokeWidth="5" />
+        <text fill="#9a6213" fontSize="16" fontWeight="900" x="20" y="-13">重新分工 70，160</text>
+      </g>
+      <path d="M354 208L398 185" fill="none" markerEnd="url(#courseDiagramArrow)" stroke="#efaa3c" strokeWidth="4" />
+      <text className="course-diagram__caption" x="90" y="402">
+        概念模型：总劳动日不变，重新配置使产出从边界内点移动到边界
+      </text>
+    </svg>
+  );
+}
+
+function JiangnanHuguangTradeDiagram() {
+  const nodes = [
+    { label: "洞庭湖区", x: 130, y: 278 },
+    { label: "汉口", x: 270, y: 220 },
+    { label: "江南", x: 490, y: 180 },
+    { label: "海港", x: 610, y: 132 }
+  ];
+  return (
+    <svg viewBox="0 0 700 420" role="img" aria-label="洞庭湖经汉口沿长江至江南和海港的区域分工示意">
+      <ArrowHead />
+      <path
+        className="course-diagram__land"
+        d="M55 91c106-59 234-54 326-18 87 35 178 22 259 72 40 25 33 82-5 107-84 56-180 39-264 71-82 31-196 30-276-22-70-45-105-132-40-210Z"
+      />
+      <path
+        className="course-diagram__river"
+        d="M108 290C182 276 218 245 270 220C344 184 414 206 490 180C538 164 567 143 610 132"
+        markerEnd="url(#courseDiagramArrow)"
+      />
+      {nodes.map((node) => (
+        <g className="course-diagram__node" key={node.label} transform={`translate(${node.x} ${node.y})`}>
+          <circle r="10" />
+          <text textAnchor="middle" y="-20">{node.label}</text>
+        </g>
+      ))}
+      <g className="course-diagram__mode" transform="translate(74 338)">
+        <rect height="44" rx="18" width="552" />
+        <text textAnchor="middle" x="276" y="29">
+          粮食向东流动 · 丝织品与高价值商品进入更大市场
+        </text>
+      </g>
+    </svg>
+  );
+}
+
+function HistoricalTradeChainDiagram() {
+  const items = [
+    ["湖广", "粮食", "区域分工史料"],
+    ["江南", "丝织", "区域经济史料"],
+    ["中国海港", "远洋接口", "路线复原"],
+    ["伦敦", "采购与市场", "贸易档案"]
+  ];
+  return (
+    <svg viewBox="0 0 700 420" role="img" aria-label="粮食丝织海港和英国市场的历史综合链">
+      <ArrowHead />
+      {items.map(([place, role, evidence], index) => {
+        const x = 28 + index * 168;
+        return (
+          <g className="course-diagram__chain" key={place} transform={`translate(${x} 118)`}>
+            <rect height="152" rx="22" width="136" />
+            <text textAnchor="middle" x="68" y="48">{place}</text>
+            <text className="course-diagram__small" textAnchor="middle" x="68" y="82">{role}</text>
+            <text fill="#b5762c" fontSize="13" fontWeight="800" textAnchor="middle" x="68" y="119">{evidence}</text>
+            {index < items.length - 1 && (
+              <path
+                className="course-diagram__connector"
+                d="M140 76H160"
+                markerEnd="url(#courseDiagramArrow)"
+              />
+            )}
+          </g>
+        );
+      })}
+      <text className="course-diagram__caption" x="34" y="334">
+        四段证据共同解释一套网络机制，不代表同一批货物的连续追踪记录
+      </text>
+    </svg>
+  );
+}
+
 function CourseDiagram({
   type,
   spec
@@ -371,6 +539,17 @@ function CourseDiagram({
 }) {
   if (type === "voyage-route") {
     return <VoyageRouteDiagram location={spec.narrative.location} />;
+  }
+  if (type === "england-france-1700") return <EnglandFrance1700Diagram />;
+  if (type === "canton-london-trade") return <CantonLondonTradeDiagram />;
+  if (type === "comparative-advantage") {
+    return <ComparativeAdvantageDiagram />;
+  }
+  if (type === "jiangnan-huguang-trade") {
+    return <JiangnanHuguangTradeDiagram />;
+  }
+  if (type === "historical-trade-chain") {
+    return <HistoricalTradeChainDiagram />;
   }
   if (type === "route-layers") return <RouteLayersDiagram />;
   if (type === "chokepoint-chain") return <ChokepointDiagram />;
@@ -612,15 +791,20 @@ export function SlideStage({ frame }: { frame: SlideFrame }) {
   const position =
     getPortManagementLessonSlidePosition(frame.index) ??
     getPortManagementLessonSlidePosition(spec.index)!;
+  const authoredSlide = renderAuthoredTeachingSlide(
+    spec,
+    position,
+    spec.diagram ? <CourseDiagram type={spec.diagram} spec={spec} /> : undefined
+  );
   return (
     <SlideViewport
       label={`Slides 固定画布：${frame.title}，第${position.lessonNumber}讲第${position.localIndex}页，共${position.localTotal}页`}
     >
-      {spec.layout === "cover" ? (
+      {authoredSlide ?? (spec.layout === "cover" ? (
         <CoverSlide spec={spec} position={position} />
       ) : (
         <StandardSlide spec={spec} position={position} />
-      )}
+      ))}
     </SlideViewport>
   );
 }

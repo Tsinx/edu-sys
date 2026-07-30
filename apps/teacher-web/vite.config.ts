@@ -1,7 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+const teacherWebRoot = fileURLToPath(new URL(".", import.meta.url));
 const openAvatarRendererRoot = fileURLToPath(
   new URL(
     "../../components/openavatarchat/src/service/frontend_service/frontend/src/renderer/src",
@@ -11,6 +13,14 @@ const openAvatarRendererRoot = fileURLToPath(
 
 export default defineConfig({
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(teacherWebRoot, "index.html"),
+        globePreview: resolve(teacherWebRoot, "globe-preview.html")
+      }
+    }
+  },
   resolve: {
     alias: [
       {

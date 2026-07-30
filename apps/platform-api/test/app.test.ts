@@ -55,15 +55,15 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     assert.equal(initialSnapshot.slide.logicalHeight, 1000);
     assert.equal(initialSnapshot.slide.aspectRatio, "16:10");
     assert.equal(initialSnapshot.slide.index, 1);
-    assert.equal(initialSnapshot.slide.total, 108);
+    assert.equal(initialSnapshot.slide.total, 118);
     assert.equal(
       initialSnapshot.slide.title,
-      "一艘巨轮，正在等待一个答案"
+      "1700：如果只能押一个国家"
     );
-    assert.equal(initialSnapshot.slide.slideId, "l1-cold-open");
+    assert.equal(initialSnapshot.slide.slideId, "l1-1700-wager");
     assert.equal(
       initialSnapshot.slide.versionId,
-      "release-port-management-voyage-v5"
+      "release-port-management-voyage-v6"
     );
     assert.equal(initialSnapshot.participantsOnline, 0);
 
@@ -142,7 +142,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
       );
     assert.match(
       lessonCapability.parameters.readyLessons,
-      /1:一艘巨轮为什么值得启航？@1/
+      /1:英国如何把贸易变成影响力？@1/
     );
     assert.doesNotMatch(
       lessonCapability.parameters.readyLessons,
@@ -233,7 +233,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
       lessonGoToResponse.json().snapshot.activeActivity,
       "slides"
     );
-    assert.equal(lessonGoToResponse.json().snapshot.slide.index, 37);
+    assert.equal(lessonGoToResponse.json().snapshot.slide.index, 47);
     assert.equal(
       lessonGoToResponse.json().snapshot.slide.slideId,
       "l2-cover"
@@ -255,7 +255,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     });
     assert.equal(duplicateLessonResponse.statusCode, 200);
     assert.equal(duplicateLessonResponse.json().duplicate, true);
-    assert.equal(duplicateLessonResponse.json().snapshot.slide.index, 37);
+    assert.equal(duplicateLessonResponse.json().snapshot.slide.index, 47);
 
     const sameLessonResponse = await app.inject({
       method: "POST",
@@ -269,7 +269,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     });
     assert.equal(sameLessonResponse.statusCode, 200);
     assert.equal(sameLessonResponse.json().status, "noop");
-    assert.equal(sameLessonResponse.json().snapshot.slide.index, 37);
+    assert.equal(sameLessonResponse.json().snapshot.slide.index, 47);
 
     const plannedLessonResponse = await app.inject({
       method: "POST",
@@ -283,7 +283,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     });
     assert.equal(plannedLessonResponse.statusCode, 200);
     assert.equal(plannedLessonResponse.json().status, "noop");
-    assert.equal(plannedLessonResponse.json().snapshot.slide.index, 37);
+    assert.equal(plannedLessonResponse.json().snapshot.slide.index, 47);
     assert.match(
       plannedLessonResponse.json().results[0].message,
       /第4讲内容待建设/

@@ -1,0 +1,1042 @@
+{
+  "schemaVersion": 1,
+  "generatedOn": "2026-07-30T11:59:25.934Z",
+  "sources": {
+    "shippingLanes": {
+      "name": "Global Shipping Lanes v1.3.1",
+      "url": "https://raw.githubusercontent.com/newzealandpaul/Shipping-Lanes/v1.3.1/data/Shipping_Lanes_v1.geojson",
+      "repository": "https://github.com/newzealandpaul/Shipping-Lanes/tree/v1.3.1",
+      "version": "v1.3.1",
+      "commit": "3c61a2000456599b6a2d9ecb7bd1db1221cd562d",
+      "sha256": "4cf32597001bf8543790f4d39bcadb90b3a1069c98a6c437dc8287e3e8334d6e",
+      "observationYear": 2012,
+      "vectorReleaseYear": 2022,
+      "attribution": "P. Benden and Central Intelligence Agency",
+      "license": "custom CC BY-SA 4.0, with the upstream Statista exclusion"
+    },
+    "naturalEarthLand": {
+      "name": "Natural Earth 1:10m Land",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_10m_land.geojson",
+      "version": "v5.1.2",
+      "sha256": "1ac90796408bc6ad6911d69448485d3c4dbf2190370080368a09976e1c9f7416"
+    },
+    "seaRoute": {
+      "name": "Eurostat SeaRoute 5 km Marnet",
+      "repository": "https://github.com/eurostat/searoute",
+      "release": "https://github.com/eurostat/searoute/raw/master/modules/jar/release/searoute.zip",
+      "jarSha256": "146b5fff173069e0098a589d8b58dca906d73b8d23b27b8406d7e3334bd773a4",
+      "networkSha256": "75ca6cc130b3748f568196a9caf62889e9f096ec358f65223b4095ac070be0e7",
+      "resolutionKm": 5
+    },
+    "ooclLl3": {
+      "name": "OOCL LL3 port rotation",
+      "url": "https://www.oocl.com/eng/pressandmedia/pressreleases/2023/Pages/08Aug2023.aspx?lang=eng",
+      "publicationDate": "2023-08-08",
+      "roundTripDays": 84
+    },
+    "worldBankAis": {
+      "name": "Global Shipping Traffic Density",
+      "url": "https://datacatalog.worldbank.org/search/dataset/0037580/global-shipping-traffic-density",
+      "years": "2015–2021",
+      "role": "external corridor QA reference; raster data is not shipped to the browser"
+    },
+    "aisTileService": {
+      "name": "Global Ship Density - Commercial Vessels",
+      "serviceItemId": "d2c77a93295e4ac4883103b60047db2f",
+      "itemUrl": "https://www.arcgis.com/home/item.html?id=d2c77a93295e4ac4883103b60047db2f",
+      "itemMetadataUrl": "https://www.arcgis.com/sharing/rest/content/items/d2c77a93295e4ac4883103b60047db2f?f=json",
+      "serviceUrl": "https://tiledimageservices.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/Global_Ship_Density_Commercial/ImageServer",
+      "publisher": "Esri Oceans",
+      "attribution": "World Bank Group, IMF",
+      "license": "CC BY 4.0",
+      "sourceLastUpdated": "2021-05-03",
+      "level": 8,
+      "resolutionDegrees": 0.005,
+      "tileSize": 256,
+      "origin": [
+        -180.015311275,
+        85.0026479370001
+      ]
+    }
+  },
+  "hashes": {
+    "shippingSource": "4cf32597001bf8543790f4d39bcadb90b3a1069c98a6c437dc8287e3e8334d6e",
+    "naturalEarthLand": "1ac90796408bc6ad6911d69448485d3c4dbf2190370080368a09976e1c9f7416",
+    "seaRouteJar": "146b5fff173069e0098a589d8b58dca906d73b8d23b27b8406d7e3334bd773a4",
+    "seaRoute5kmNetwork": "75ca6cc130b3748f568196a9caf62889e9f096ec358f65223b4095ac070be0e7",
+    "globalOutput": "3005def5e86119811aa12ead0ddf55f0622c78ef12ef537567547731a9129cb8",
+    "ll3Output": "2cd1ca84e3d7b679810e0e9f73e99dcd21234b6ecb09ea0857470e6d4f79715e"
+  },
+  "global": {
+    "sourceFeatureCount": 3,
+    "sourcePartCounts": {
+      "Major": 52,
+      "Middle": 123,
+      "Minor": 64
+    },
+    "sourceVertexCounts": {
+      "Major": 5678,
+      "Middle": 6862,
+      "Minor": 16226
+    },
+    "detectedCrossingSegments": 143,
+    "repairedCrossingSegments": 143,
+    "removedResidualCrossingSegments": 118,
+    "removedResidualCrossingExamples": [
+      {
+        "tier": "Major",
+        "pathIndex": 2,
+        "segmentIndex": 0,
+        "start": [
+          -166.54962,
+          54.00381
+        ],
+        "end": [
+          -166.74346,
+          54.00231
+        ],
+        "landSamples": [
+          [
+            -166.67885,
+            54.00281
+          ]
+        ]
+      },
+      {
+        "tier": "Major",
+        "pathIndex": 10,
+        "segmentIndex": 373,
+        "start": [
+          -52.37017,
+          47.52938
+        ],
+        "end": [
+          -52.86999,
+          47.54756
+        ],
+        "landSamples": [
+          [
+            -52.72718,
+            47.54237
+          ],
+          [
+            -52.79859,
+            47.54496
+          ]
+        ]
+      },
+      {
+        "tier": "Major",
+        "pathIndex": 12,
+        "segmentIndex": 0,
+        "start": [
+          -63.71061,
+          44.49343
+        ],
+        "end": [
+          -63.5852,
+          44.6573
+        ],
+        "landSamples": [
+          [
+            -63.66881,
+            44.54805
+          ],
+          [
+            -63.627,
+            44.60268
+          ]
+        ]
+      },
+      {
+        "tier": "Major",
+        "pathIndex": 24,
+        "segmentIndex": 10,
+        "start": [
+          -75.1177,
+          38.7815
+        ],
+        "end": [
+          -75.2025,
+          38.76987
+        ],
+        "landSamples": [
+          [
+            -75.1601,
+            38.77568
+          ]
+        ]
+      },
+      {
+        "tier": "Major",
+        "pathIndex": 34,
+        "segmentIndex": 107,
+        "start": [
+          35.28488,
+          27.90581
+        ],
+        "end": [
+          35.66251,
+          27.45776
+        ],
+        "landSamples": [
+          [
+            35.37929,
+            27.7938
+          ],
+          [
+            35.42649,
+            27.73779
+          ],
+          [
+            35.47369,
+            27.68178
+          ],
+          [
+            35.5209,
+            27.62578
+          ]
+        ]
+      },
+      {
+        "tier": "Major",
+        "pathIndex": 34,
+        "segmentIndex": 108,
+        "start": [
+          35.66251,
+          27.45776
+        ],
+        "end": [
+          35.94243,
+          26.93184
+        ],
+        "landSamples": [
+          [
+            35.6975,
+            27.39202
+          ],
+          [
+            35.73249,
+            27.32628
+          ],
+          [
+            35.76748,
+            27.26054
+          ],
+          [
+            35.83746,
+            27.12906
+          ]
+        ]
+      },
+      {
+        "tier": "Major",
+        "pathIndex": 34,
+        "segmentIndex": 109,
+        "start": [
+          35.94243,
+          26.93184
+        ],
+        "end": [
+          36.58979,
+          25.47809
+        ],
+        "landSamples": [
+          [
+            36.52505,
+            25.62347
+          ]
+        ]
+      },
+      {
+        "tier": "Middle",
+        "pathIndex": 6,
+        "segmentIndex": 411,
+        "start": [
+          -28.186,
+          38.4055
+        ],
+        "end": [
+          -28.27664,
+          38.41718
+        ],
+        "landSamples": [
+          [
+            -28.23132,
+            38.41134
+          ]
+        ]
+      },
+      {
+        "tier": "Middle",
+        "pathIndex": 6,
+        "segmentIndex": 412,
+        "start": [
+          -28.27664,
+          38.41718
+        ],
+        "end": [
+          -28.186,
+          38.4055
+        ],
+        "landSamples": [
+          [
+            -28.23132,
+            38.41134
+          ]
+        ]
+      },
+      {
+        "tier": "Middle",
+        "pathIndex": 6,
+        "segmentIndex": 437,
+        "start": [
+          -28.186,
+          38.4055
+        ],
+        "end": [
+          -28.27664,
+          38.41718
+        ],
+        "landSamples": [
+          [
+            -28.23132,
+            38.41134
+          ]
+        ]
+      },
+      {
+        "tier": "Middle",
+        "pathIndex": 13,
+        "segmentIndex": 2,
+        "start": [
+          26.45176,
+          40.21712
+        ],
+        "end": [
+          26.37492,
+          40.12687
+        ],
+        "landSamples": [
+          [
+            26.41334,
+            40.17199
+          ]
+        ]
+      },
+      {
+        "tier": "Middle",
+        "pathIndex": 14,
+        "segmentIndex": 0,
+        "start": [
+          26.92101,
+          38.50567
+        ],
+        "end": [
+          26.7953,
+          38.62653
+        ],
+        "landSamples": [
+          [
+            26.87911,
+            38.54596
+          ]
+        ]
+      },
+      {
+        "tier": "Middle",
+        "pathIndex": 14,
+        "segmentIndex": 15,
+        "start": [
+          23.2184,
+          36.4617
+        ],
+        "end": [
+          23.057,
+          36.4484
+        ],
+        "landSamples": [
+          [
+            23.1646,
+            36.45727
+          ],
+          [
+            23.1108,
+            36.45283
+          ]
+        ]
+      },
+      {
+        "tier": "Middle",
+        "pathIndex": 15,
+        "segmentIndex": 1,
+        "start": [
+          26.99902,
+          38.48625
+        ],
+        "end": [
+          26.92099,
+          38.50566
+        ],
+        "landSamples": [
+          [
+            26.96001,
+            38.49595
+          ]
+        ]
+      },
+      {
+        "tier": "Middle",
+        "pathIndex": 15,
+        "segmentIndex": 2,
+        "start": [
+          26.92099,
+          38.50566
+        ],
+        "end": [
+          26.7953,
+          38.62653
+        ],
+        "landSamples": [
+          [
+            26.87909,
+            38.54595
+          ]
+        ]
+      },
+      {
+        "tier": "Middle",
+        "pathIndex": 16,
+        "segmentIndex": 0,
+        "start": [
+          -25.58202,
+          37.82143
+        ],
+        "end": [
+          -25.68488,
+          37.80857
+        ],
+        "landSamples": [
+          [
+            -25.63345,
+            37.815
+          ]
+        ]
+      },
+      {
+        "tier": "Middle",
+        "pathIndex": 17,
+        "segmentIndex": 0,
+        "start": [
+          -25.58202,
+          37.82143
+        ],
+        "end": [
+          -25.68488,
+          37.80857
+        ],
+        "landSamples": [
+          [
+            -25.63345,
+            37.815
+          ]
+        ]
+      },
+      {
+        "tier": "Middle",
+        "pathIndex": 18,
+        "segmentIndex": 0,
+        "start": [
+          -25.58202,
+          37.82143
+        ],
+        "end": [
+          -25.68488,
+          37.80857
+        ],
+        "landSamples": [
+          [
+            -25.63345,
+            37.815
+          ]
+        ]
+      },
+      {
+        "tier": "Middle",
+        "pathIndex": 19,
+        "segmentIndex": 0,
+        "start": [
+          -25.58202,
+          37.82143
+        ],
+        "end": [
+          -25.68488,
+          37.80857
+        ],
+        "landSamples": [
+          [
+            -25.63345,
+            37.815
+          ]
+        ]
+      },
+      {
+        "tier": "Middle",
+        "pathIndex": 19,
+        "segmentIndex": 1,
+        "start": [
+          -25.68488,
+          37.80857
+        ],
+        "end": [
+          -25.58202,
+          37.82143
+        ],
+        "landSamples": [
+          [
+            -25.63345,
+            37.815
+          ]
+        ]
+      }
+    ],
+    "pathCounts": {
+      "major": 122,
+      "middle": 788,
+      "minor": 411,
+      "total": 1321
+    },
+    "outputBytes": 690172,
+    "method": "segments sampled at <=0.08 degrees against Natural Earth 1:10m land polygons; Suez and Panama canal envelopes are classified as navigable exceptions",
+    "allowedNavigableZones": [
+      {
+        "id": "suez-canal",
+        "label": "苏伊士运河",
+        "kind": "canal",
+        "bounds": [
+          31.8,
+          28.8,
+          33.1,
+          31.6
+        ]
+      },
+      {
+        "id": "panama-canal",
+        "label": "巴拿马运河",
+        "kind": "canal",
+        "bounds": [
+          -80.6,
+          8.1,
+          -78.6,
+          9.8
+        ]
+      },
+      {
+        "id": "shanghai-fairway",
+        "label": "上海港及长江口航道",
+        "kind": "port-fairway",
+        "bounds": [
+          121.25,
+          30.95,
+          122.05,
+          31.6
+        ]
+      },
+      {
+        "id": "xiamen-fairway",
+        "label": "厦门港航道",
+        "kind": "port-fairway",
+        "bounds": [
+          117.8,
+          24.15,
+          118.75,
+          24.85
+        ]
+      },
+      {
+        "id": "pearl-river-fairways",
+        "label": "南沙、香港及盐田港航道",
+        "kind": "port-fairway",
+        "bounds": [
+          113,
+          21.55,
+          114.75,
+          22.9
+        ]
+      },
+      {
+        "id": "cai-mep-fairway",
+        "label": "盖梅港航道",
+        "kind": "port-fairway",
+        "bounds": [
+          106.45,
+          10.15,
+          107.25,
+          11.05
+        ]
+      },
+      {
+        "id": "singapore-fairway",
+        "label": "新加坡港航道",
+        "kind": "port-fairway",
+        "bounds": [
+          103.45,
+          0.85,
+          104.85,
+          1.85
+        ]
+      },
+      {
+        "id": "piraeus-fairway",
+        "label": "比雷埃夫斯港航道",
+        "kind": "port-fairway",
+        "bounds": [
+          23.35,
+          37.65,
+          24.05,
+          38.15
+        ]
+      },
+      {
+        "id": "hamburg-elbe-fairway",
+        "label": "汉堡港及易北河航道",
+        "kind": "port-fairway",
+        "bounds": [
+          8.45,
+          53.25,
+          10.2,
+          54.25
+        ]
+      },
+      {
+        "id": "rotterdam-fairway",
+        "label": "鹿特丹港航道",
+        "kind": "port-fairway",
+        "bounds": [
+          3.65,
+          51.65,
+          4.9,
+          52.25
+        ]
+      },
+      {
+        "id": "zeebrugge-fairway",
+        "label": "泽布吕赫港航道",
+        "kind": "port-fairway",
+        "bounds": [
+          2.75,
+          51.05,
+          3.55,
+          51.65
+        ]
+      },
+      {
+        "id": "valencia-fairway",
+        "label": "瓦伦西亚港航道",
+        "kind": "port-fairway",
+        "bounds": [
+          -0.65,
+          39.15,
+          0.05,
+          39.75
+        ]
+      },
+      {
+        "id": "abu-dhabi-fairway",
+        "label": "阿布扎比港航道",
+        "kind": "port-fairway",
+        "bounds": [
+          54.15,
+          24.15,
+          55.05,
+          25.15
+        ]
+      }
+    ],
+    "nonNavigableLandIntersections": 0,
+    "examples": []
+  },
+  "aisCorridorQa": {
+    "reference": {
+      "name": "Global Shipping Traffic Density",
+      "url": "https://datacatalog.worldbank.org/search/dataset/0037580/global-shipping-traffic-density",
+      "years": "2015–2021",
+      "role": "external corridor QA reference; raster data is not shipped to the browser"
+    },
+    "method": "six named corridors are gated by nearest-distance checks from published route vertices to representative port or chokepoint anchors",
+    "corridors": [
+      {
+        "id": "asia-europe",
+        "label": "亚欧走廊",
+        "maximumDistanceKm": 150,
+        "anchors": [
+          {
+            "label": "上海",
+            "coordinate": [
+              121.5,
+              31.216667
+            ],
+            "nearestLaneDistanceKm": 75,
+            "pass": true
+          },
+          {
+            "label": "新加坡",
+            "coordinate": [
+              103.822,
+              1.2644
+            ],
+            "nearestLaneDistanceKm": 13,
+            "pass": true
+          },
+          {
+            "label": "苏伊士",
+            "coordinate": [
+              32.35,
+              30.45
+            ],
+            "nearestLaneDistanceKm": 15,
+            "pass": true
+          },
+          {
+            "label": "鹿特丹",
+            "coordinate": [
+              4.483333,
+              51.9
+            ],
+            "nearestLaneDistanceKm": 101,
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "id": "trans-pacific",
+        "label": "跨太平洋走廊",
+        "maximumDistanceKm": 150,
+        "anchors": [
+          {
+            "label": "上海",
+            "coordinate": [
+              121.5,
+              31.216667
+            ],
+            "nearestLaneDistanceKm": 75,
+            "pass": true
+          },
+          {
+            "label": "洛杉矶—长滩",
+            "coordinate": [
+              -118.25,
+              33.75
+            ],
+            "nearestLaneDistanceKm": 20,
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "id": "trans-atlantic",
+        "label": "跨大西洋走廊",
+        "maximumDistanceKm": 150,
+        "anchors": [
+          {
+            "label": "鹿特丹",
+            "coordinate": [
+              4.483333,
+              51.9
+            ],
+            "nearestLaneDistanceKm": 101,
+            "pass": true
+          },
+          {
+            "label": "纽约—新泽西",
+            "coordinate": [
+              -74.05,
+              40.67
+            ],
+            "nearestLaneDistanceKm": 7,
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "id": "hormuz",
+        "label": "霍尔木兹",
+        "maximumDistanceKm": 100,
+        "anchors": [
+          {
+            "label": "霍尔木兹海峡",
+            "coordinate": [
+              56.25,
+              26.56
+            ],
+            "nearestLaneDistanceKm": 50,
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "id": "panama",
+        "label": "巴拿马",
+        "maximumDistanceKm": 100,
+        "anchors": [
+          {
+            "label": "巴拿马运河",
+            "coordinate": [
+              -79.68,
+              9.08
+            ],
+            "nearestLaneDistanceKm": 22,
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "id": "cape-good-hope",
+        "label": "好望角",
+        "maximumDistanceKm": 100,
+        "anchors": [
+          {
+            "label": "好望角",
+            "coordinate": [
+              18.47,
+              -34.36
+            ],
+            "nearestLaneDistanceKm": 22,
+            "pass": true
+          }
+        ],
+        "pass": true
+      }
+    ],
+    "pass": true,
+    "raster": {
+      "source": {
+        "name": "Global Ship Density - Commercial Vessels",
+        "serviceItemId": "d2c77a93295e4ac4883103b60047db2f",
+        "itemUrl": "https://www.arcgis.com/home/item.html?id=d2c77a93295e4ac4883103b60047db2f",
+        "itemMetadataUrl": "https://www.arcgis.com/sharing/rest/content/items/d2c77a93295e4ac4883103b60047db2f?f=json",
+        "serviceUrl": "https://tiledimageservices.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/Global_Ship_Density_Commercial/ImageServer",
+        "publisher": "Esri Oceans",
+        "attribution": "World Bank Group, IMF",
+        "license": "CC BY 4.0",
+        "sourceLastUpdated": "2021-05-03",
+        "level": 8,
+        "resolutionDegrees": 0.005,
+        "tileSize": 256,
+        "origin": [
+          -180.015311275,
+          85.0026479370001
+        ],
+        "itemModifiedOn": "2026-02-19T23:17:40.000Z"
+      },
+      "method": "level-8 LERC cells at 0.005 degrees are decoded around a published route vertex in each corridor; the 95th percentile in a 0.1-degree window must be positive and the sample must lie on the vector network",
+      "valueMeaning": "total commercial-vessel AIS positions observed from January 2015 through February 2021",
+      "minimumP95Value": 1000,
+      "corridors": [
+        {
+          "id": "asia-europe",
+          "label": "亚欧走廊",
+          "coordinate": [
+            103.90512,
+            1.34608
+          ],
+          "nearestLaneDistanceKm": 0,
+          "nearestLaneTier": "middle",
+          "tile": {
+            "level": 8,
+            "row": 65,
+            "column": 221,
+            "sha256": "ed73158af2acfc2d761d973ccf62f60f76db5d0939aa12c59d66013fa0a02b17"
+          },
+          "sampleWindow": {
+            "radiusPixels": 20,
+            "radiusDegrees": 0.1,
+            "validPixelCount": 693,
+            "exactPixelValid": false,
+            "exactValue": null,
+            "medianValue": 11160118,
+            "percentile95": 16788730,
+            "maximumValue": 17346441
+          },
+          "pass": true
+        },
+        {
+          "id": "trans-pacific",
+          "label": "跨太平洋走廊",
+          "coordinate": [
+            -170.45185,
+            50.70111
+          ],
+          "nearestLaneDistanceKm": 0,
+          "nearestLaneTier": "major",
+          "tile": {
+            "level": 8,
+            "row": 26,
+            "column": 7,
+            "sha256": "d9864949afa14cbfc86941bde8dc7a5a201f9dd5d644a79a9e24b5f975049e4e"
+          },
+          "sampleWindow": {
+            "radiusPixels": 20,
+            "radiusDegrees": 0.1,
+            "validPixelCount": 310,
+            "exactPixelValid": false,
+            "exactValue": null,
+            "medianValue": 1,
+            "percentile95": 29458750,
+            "maximumValue": 29498557
+          },
+          "pass": true
+        },
+        {
+          "id": "trans-atlantic",
+          "label": "跨大西洋走廊",
+          "coordinate": [
+            -40.05926,
+            46.37258
+          ],
+          "nearestLaneDistanceKm": 0,
+          "nearestLaneTier": "major",
+          "tile": {
+            "level": 8,
+            "row": 30,
+            "column": 109,
+            "sha256": "987dc4e7927f717b6763b219d6f3b93c981a90ab5c7fadd8f863ffd82f191972"
+          },
+          "sampleWindow": {
+            "radiusPixels": 20,
+            "radiusDegrees": 0.1,
+            "validPixelCount": 543,
+            "exactPixelValid": false,
+            "exactValue": null,
+            "medianValue": 1,
+            "percentile95": 28233585,
+            "maximumValue": 28279728
+          },
+          "pass": true
+        },
+        {
+          "id": "hormuz",
+          "label": "霍尔木兹",
+          "coordinate": [
+            56.70307,
+            26.3732
+          ],
+          "nearestLaneDistanceKm": 0,
+          "nearestLaneTier": "major",
+          "tile": {
+            "level": 8,
+            "row": 45,
+            "column": 184,
+            "sha256": "bb2f9bbeb73c39e10d6792dacd2ba35324271c4617d0e5c509e9fe36c7028ccf"
+          },
+          "sampleWindow": {
+            "radiusPixels": 20,
+            "radiusDegrees": 0.1,
+            "validPixelCount": 1510,
+            "exactPixelValid": true,
+            "exactValue": 20451215,
+            "medianValue": 20534383,
+            "percentile95": 24667134,
+            "maximumValue": 29460626
+          },
+          "pass": true
+        },
+        {
+          "id": "panama",
+          "label": "巴拿马",
+          "coordinate": [
+            -79.51152,
+            8.97891
+          ],
+          "nearestLaneDistanceKm": 0,
+          "nearestLaneTier": "middle",
+          "tile": {
+            "level": 8,
+            "row": 59,
+            "column": 78,
+            "sha256": "6851a3295abf3bbcf7a5c3c5015f545f7b17b97b56e491f1eb8eee5381bdc5b2"
+          },
+          "sampleWindow": {
+            "radiusPixels": 20,
+            "radiusDegrees": 0.1,
+            "validPixelCount": 459,
+            "exactPixelValid": false,
+            "exactValue": null,
+            "medianValue": 1874933,
+            "percentile95": 16356407,
+            "maximumValue": 18670167
+          },
+          "pass": true
+        },
+        {
+          "id": "cape-good-hope",
+          "label": "好望角",
+          "coordinate": [
+            18.23907,
+            -34.42191
+          ],
+          "nearestLaneDistanceKm": 0,
+          "nearestLaneTier": "middle",
+          "tile": {
+            "level": 8,
+            "row": 93,
+            "column": 154,
+            "sha256": "9a81426632e3863c338f68991f25df1d799bf79279a1b13d61cc44801013354c"
+          },
+          "sampleWindow": {
+            "radiusPixels": 20,
+            "radiusDegrees": 0.1,
+            "validPixelCount": 1681,
+            "exactPixelValid": true,
+            "exactValue": 4583,
+            "medianValue": 842850,
+            "percentile95": 1179661,
+            "maximumValue": 1576359
+          },
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    "limitation": "the 458.1 MB World Bank archive is not stored in the repository; bounded samples use the public Esri Oceans tiled copy of the same World Bank/IMF commercial-vessel layer and do not constitute navigation validation"
+  },
+  "ll3": {
+    "officialPortSequence": [
+      "shanghai",
+      "xiamen",
+      "nansha",
+      "hong-kong",
+      "yantian",
+      "cai-mep",
+      "singapore",
+      "piraeus",
+      "hamburg",
+      "rotterdam",
+      "zeebrugge",
+      "valencia",
+      "piraeus",
+      "abu-dhabi",
+      "singapore",
+      "shanghai"
+    ],
+    "legCount": 15,
+    "routeVertexCounts": {
+      "westbound": 700,
+      "eastbound": 576
+    },
+    "routeDistanceKm": {
+      "westbound": 22372,
+      "eastbound": 23085
+    },
+    "shorelineCorrections": {
+      "westbound": 9,
+      "eastbound": 9
+    },
+    "nonNavigableLandIntersections": 0
+  }
+}

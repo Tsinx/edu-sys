@@ -132,7 +132,7 @@ test("assistant SSE streams dialogue early and executes controls only after full
     assert.equal(provider.requests.length, 2);
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
-      /当前 Slides：第 1\/36 页（内部全局第 1\/108 页）/
+      /当前 Slides：第 1\/46 页（内部全局第 1\/118 页）/
     );
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
@@ -140,7 +140,7 @@ test("assistant SSE streams dialogue early and executes controls only after full
     );
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
-      /第1讲“一艘巨轮为什么值得启航？”：学生可见第1—36页，内部全局第1—36页/
+      /第1讲“英国如何把贸易变成影响力？”：学生可见第1—46页，内部全局第1—46页/
     );
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
@@ -148,11 +148,11 @@ test("assistant SSE streams dialogue early and executes controls only after full
     );
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
-      /<lesson_context number="1" title="一艘巨轮为什么值得启航？">/
+      /<lesson_context number="1" title="英国如何把贸易变成影响力？">/
     );
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
-      /<slide_context index="1" local_index="1" local_total="36" key="l1-cold-open" title="一艘巨轮，正在等待一个答案">/
+      /<slide_context index="1" local_index="1" local_total="46" key="l1-1700-wager" title="1700：如果只能押一个国家">/
     );
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",

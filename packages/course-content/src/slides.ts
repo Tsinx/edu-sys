@@ -5,6 +5,10 @@ import type {
   PortNarrativeMetadata,
   PortNarrativePublicLabel
 } from "./index.js";
+import {
+  PORT_MANAGEMENT_LESSON_ONE_V6_IMAGEGEN_ASSETS,
+  PORT_MANAGEMENT_LESSON_ONE_V6_SLIDES
+} from "./lesson1-v6.js";
 
 const ASSET_ROOT = "/course-assets/port-management";
 
@@ -19,8 +23,10 @@ const IMAGES = {
   l1DepartureNight: `${ASSET_ROOT}/story-l1-departure-night.png`,
   l2RouteBriefing: `${ASSET_ROOT}/story-l2-route-briefing.png`,
   l2SingaporeApproach: `${ASSET_ROOT}/story-l2-singapore-approach.png`,
+  l2TransshipmentHub: `${ASSET_ROOT}/story-l2-transshipment-hub-v2.png`,
   l2MalaccaNight: `${ASSET_ROOT}/story-l2-malacca-night.png`,
   l2SuezTransit: `${ASSET_ROOT}/story-l2-suez-transit.png`,
+  l2CanalServiceConvoy: `${ASSET_ROOT}/story-l2-canal-service-convoy-v2.png`,
   l2DisruptionRoom: `${ASSET_ROOT}/story-l2-disruption-room.png`,
   l2CapeDetour: `${ASSET_ROOT}/story-l2-cape-detour.png`,
   l2GuoyuanYangtze: `${ASSET_ROOT}/story-l2-guoyuan-yangtze.png`,
@@ -36,7 +42,10 @@ const IMAGES = {
 } as const;
 
 export const PORT_MANAGEMENT_IMAGEGEN_ASSETS: readonly string[] =
-  Object.values(IMAGES);
+  [
+    ...Object.values(IMAGES),
+    ...PORT_MANAGEMENT_LESSON_ONE_V6_IMAGEGEN_ASSETS
+  ];
 
 type ReadyLesson = 1 | 2 | 3;
 type SlideInput = Omit<
@@ -48,7 +57,7 @@ type SlideInput = Omit<
 };
 
 const LESSON_TITLES: Record<ReadyLesson, string> = {
-  1: "第一讲 · 一艘巨轮为什么值得启航？",
+  1: "第一讲 · 英国如何把贸易变成影响力？",
   2: "第二讲 · 它为什么必须走这条路？",
   3: "第三讲 · 港口为什么创造不同价值？"
 };
@@ -89,7 +98,7 @@ function page(input: SlideInput): PortManagementSlideSpec {
   };
 }
 
-export const PORT_MANAGEMENT_SLIDES: readonly PortManagementSlideSpec[] = [
+const LEGACY_PORT_MANAGEMENT_SLIDES: readonly PortManagementSlideSpec[] = [
   page({
     index: 1,
     slideKey: "l1-cold-open",
@@ -1262,6 +1271,8 @@ export const PORT_MANAGEMENT_SLIDES: readonly PortManagementSlideSpec[] = [
     layout: "sequence",
     steps: ["卸下干线箱", "进入中转堆场", "等待下一航次窗口", "匹配舱位与装船计划", "装上支线或另一干线"],
     lead: "箱子没有进入本地市场，却完成了一次关键网络重组。",
+    image: IMAGES.l2TransshipmentHub,
+    imageAlt: "大型干线船、集装箱堆场与支线船共同构成转运港的教学复原图",
     teachingCue: "让学生找出等待与信息错误可能发生在哪一步。",
     sourceIds: ["mpa-singapore"],
     narrative: beat(
@@ -1407,6 +1418,8 @@ export const PORT_MANAGEMENT_SLIDES: readonly PortManagementSlideSpec[] = [
     layout: "sequence",
     steps: ["抵达与申报", "等待编队或通行窗口", "引航与交通组织", "受控通过", "恢复远洋船期"],
     lead: "每一步都有能力、秩序和信息条件。",
+    image: IMAGES.l2CanalServiceConvoy,
+    imageAlt: "船舶编队通过苏伊士运河并接受引航与交通组织的教学复原图",
     teachingCue: "让学生把“排队”与“通航能力”分开表述。",
     narrative: beat(
       "苏伊士运河",
@@ -2698,3 +2711,15 @@ export const PORT_MANAGEMENT_SLIDES: readonly PortManagementSlideSpec[] = [
     )
   })
 ];
+
+export const PORT_MANAGEMENT_SLIDES: readonly PortManagementSlideSpec[] = [
+  ...PORT_MANAGEMENT_LESSON_ONE_V6_SLIDES,
+  ...LEGACY_PORT_MANAGEMENT_SLIDES.slice(36)
+].map((slide, offset) => ({
+  ...slide,
+  index: offset + 1,
+  narrative: {
+    ...slide.narrative,
+    progress: offset + 1
+  }
+}));

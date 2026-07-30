@@ -91,7 +91,9 @@ export class JsonStateStore {
               sanitizedRuntime.deckVersion ===
                 "release-port-management-voyage-v3" ||
               sanitizedRuntime.deckVersion ===
-                "release-port-management-voyage-v4"
+                "release-port-management-voyage-v4" ||
+              sanitizedRuntime.deckVersion ===
+                "release-port-management-voyage-v5"
                 ? rawSlideIndex <= 36
                   ? 1
                   : rawSlideIndex <= 72

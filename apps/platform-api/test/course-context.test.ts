@@ -44,7 +44,7 @@ function getStudentVisibleCopy(slide: PortManagementSlideSpec): string {
     .join("\n");
 }
 
-test("course catalog exposes sixteen honest lesson states and continuous 36-page ranges", () => {
+test("course catalog exposes sixteen honest lesson states and continuous lesson ranges", () => {
   assert.equal(PORT_MANAGEMENT_LESSONS.length, 16);
   assert.deepEqual(
     PORT_MANAGEMENT_LESSONS.map((lesson) => lesson.number),
@@ -61,9 +61,9 @@ test("course catalog exposes sixteen honest lesson states and continuous 36-page
       lesson.slideEnd
     ]),
     [
-      [1, 1, 36],
-      [2, 37, 72],
-      [3, 73, 108]
+      [1, 1, 46],
+      [2, 47, 82],
+      [3, 83, 118]
     ]
   );
   for (const lesson of readyLessons) {
@@ -85,21 +85,21 @@ test("course catalog exposes sixteen honest lesson states and continuous 36-page
     assert.equal(lesson.assistantBrief, null);
   }
 
-  assert.equal(PORT_MANAGEMENT_SLIDES.length, 108);
+  assert.equal(PORT_MANAGEMENT_SLIDES.length, 118);
   assert.deepEqual(
     PORT_MANAGEMENT_SLIDES.map((slide) => slide.index),
-    Array.from({ length: 108 }, (_, index) => index + 1)
+    Array.from({ length: 118 }, (_, index) => index + 1)
   );
   assert.equal(
     new Set(PORT_MANAGEMENT_SLIDES.map((slide) => slide.slideKey)).size,
-    108
+    118
   );
-  assert.equal(PORT_MANAGEMENT_DECK_VERSION, "release-port-management-voyage-v5");
+  assert.equal(PORT_MANAGEMENT_DECK_VERSION, "release-port-management-voyage-v6");
 });
 
 test("lesson-local page numbers map cleanly onto the internal global index", () => {
   assert.deepEqual(
-    [1, 36, 37, 72, 73, 108].map((globalIndex) => {
+    [1, 46, 47, 82, 83, 118].map((globalIndex) => {
       const position = getPortManagementLessonSlidePosition(globalIndex)!;
       return [
         position.lessonNumber,
@@ -108,8 +108,8 @@ test("lesson-local page numbers map cleanly onto the internal global index", () 
       ];
     }),
     [
-      [1, 1, 36],
-      [1, 36, 36],
+      [1, 1, 46],
+      [1, 46, 46],
       [2, 1, 36],
       [2, 36, 36],
       [3, 1, 36],
@@ -117,14 +117,15 @@ test("lesson-local page numbers map cleanly onto the internal global index", () 
     ]
   );
   assert.equal(getPortManagementGlobalSlideIndex(1, 1), 1);
-  assert.equal(getPortManagementGlobalSlideIndex(2, 12), 48);
-  assert.equal(getPortManagementGlobalSlideIndex(3, 36), 108);
+  assert.equal(getPortManagementGlobalSlideIndex(1, 46), 46);
+  assert.equal(getPortManagementGlobalSlideIndex(2, 12), 58);
+  assert.equal(getPortManagementGlobalSlideIndex(3, 36), 118);
   assert.equal(getPortManagementGlobalSlideIndex(4, 1), null);
   assert.equal(getPortManagementGlobalSlideIndex(2, 0), null);
   assert.equal(getPortManagementGlobalSlideIndex(2, 37), null);
   assert.equal(getPortManagementGlobalSlideIndex(2, 1.5), null);
   assert.equal(getPortManagementLessonSlidePosition(0), null);
-  assert.equal(getPortManagementLessonSlidePosition(109), null);
+  assert.equal(getPortManagementLessonSlidePosition(119), null);
 });
 
 test("every slide carries complete narrative and source metadata", () => {
@@ -144,7 +145,7 @@ test("every slide carries complete narrative and source metadata", () => {
     assert.ok(evidenceStates.has(slide.narrative.evidence));
     assert.ok(storyBeats.has(slide.narrative.storyBeat));
     assert.ok(slide.narrative.progress >= 1);
-    assert.ok(slide.narrative.progress <= 108);
+    assert.ok(slide.narrative.progress <= 118);
     for (const sourceId of slide.sourceIds ?? []) {
       assert.ok(
         PORT_MANAGEMENT_SOURCES[sourceId],
@@ -154,7 +155,7 @@ test("every slide carries complete narrative and source metadata", () => {
   }
 
   for (const slideKey of [
-    "l1-container-open",
+    "l1-time-has-price",
     "l2-disruption-brief",
     "l2-container-origin",
     "l3-diagnosis-brief"
@@ -184,8 +185,8 @@ test("every slide carries complete narrative and source metadata", () => {
     "路线示意"
   );
   assert.equal(
-    getPortManagementSlideByKey("l1-wrong-question")?.narrative.publicLabel,
-    "史料"
+    getPortManagementSlideByKey("l1-jiangnan-huguang-model")?.narrative.publicLabel,
+    "概念模型"
   );
 });
 
@@ -215,10 +216,10 @@ test("student-facing slide copy is free of lesson-authoring language", () => {
   }
 
   const firstSlide = PORT_MANAGEMENT_SLIDES[0]!;
-  assert.match(firstSlide.teachingCue, /让学生观察/u);
+  assert.match(firstSlide.teachingCue, /先投票/u);
   assert.doesNotMatch(
     getStudentVisibleCopy(firstSlide),
-    /让学生观察/u
+    /先投票，不给答案/u
   );
 });
 
@@ -255,64 +256,69 @@ test("assistant context stays bounded, page-specific and free of authoring notes
       new RegExp(slide.title.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"))
     );
     assert.match(context.slidePrompt, /证据状态：(真实资料|教学情境|概念模型)/);
-    assert.match(context.voyagePrompt, /OOCL Spain/);
-    assert.match(context.voyagePrompt, /教学货物/);
+    if (slide.lesson === 1 && slide.index < 39) {
+      assert.match(context.voyagePrompt, /第一讲历史主线/);
+      assert.match(context.voyagePrompt, /现代巨轮从本讲第39页/);
+      assert.doesNotMatch(context.voyagePrompt, /教学货物/);
+    } else {
+      assert.match(context.voyagePrompt, /OOCL Spain/);
+      assert.match(context.voyagePrompt, /教学货物/);
+    }
   }
 
-  const vesselScale = getPortManagementAssistantContext(3);
-  assert.match(vesselScale.slidePrompt, /24,188 TEU/);
-  assert.match(vesselScale.slidePrompt, /OOCL/);
+  const population = getPortManagementAssistantContext(2);
+  assert.match(population.slidePrompt, /约500万人/);
+  assert.match(population.slidePrompt, /约2000万人/);
+  assert.match(population.lessonPrompt, /法国仍是欧洲强国/);
 
-  const france = getPortManagementAssistantContext(13);
-  assert.match(france.slidePrompt, /法国/);
-  assert.match(france.lessonPrompt, /重要海洋强国/);
+  const cantonManifest = getPortManagementAssistantContext(8);
+  assert.match(cantonManifest.slidePrompt, /10,200件/);
+  assert.match(cantonManifest.slidePrompt, /British Library/);
 
-  const opportunityCost = getPortManagementAssistantContext(19);
+  const opportunityCost = getPortManagementAssistantContext(17);
   assert.match(opportunityCost.slidePrompt, /机会成本/);
-  assert.doesNotMatch(opportunityCost.slidePrompt, /离港审批/);
+  assert.match(opportunityCost.slidePrompt, /2石粮/);
+  assert.match(opportunityCost.slidePrompt, /5石粮/);
 
-  const maritimeShare = getPortManagementAssistantContext(31);
+  const maritimeShare = getPortManagementAssistantContext(43);
   assert.match(maritimeShare.slidePrompt, />80% \/ ≈70%/);
-  assert.match(maritimeShare.slidePrompt, /货量 \/ 价值/);
-  assert.match(maritimeShare.slidePrompt, /超过八成/);
+  assert.match(maritimeShare.slidePrompt, /国际贸易货量 \/ 贸易价值/);
   assert.match(maritimeShare.slidePrompt, /UNCTAD/);
 
-  const waterCost = getPortManagementAssistantContext(25);
-  assert.match(waterCost.slidePrompt, /17\.25% → 55\.65%/);
-  assert.match(waterCost.slidePrompt, /水路∶铁路∶公路约为1∶2∶6/);
-  assert.match(waterCost.slidePrompt, /不是全国统一报价/);
+  const waterCost = getPortManagementAssistantContext(42);
+  assert.match(waterCost.slidePrompt, /17\.25%/);
+  assert.match(waterCost.slidePrompt, /55\.65%/);
+  assert.match(waterCost.slidePrompt, /水路∶铁路∶公路＝1∶2∶6/);
 
-  const slowSteaming = getPortManagementAssistantContext(27);
-  assert.match(slowSteaming.slidePrompt, /航速 −10%/);
-  assert.match(slowSteaming.slidePrompt, /功率需求约下降27%/);
-  assert.match(slowSteaming.slidePrompt, /燃料节约约19%/);
+  const slowSteaming = getPortManagementAssistantContext(41);
+  assert.match(slowSteaming.slidePrompt, /航速下降10%/);
+  assert.match(slowSteaming.slidePrompt, /推进功率需求约下降27%/);
+  assert.match(slowSteaming.slidePrompt, /整航程燃料节约约19%/);
 
-  const leadTime = getPortManagementAssistantContext(29);
+  const leadTime = getPortManagementAssistantContext(44);
   assert.match(leadTime.slidePrompt, /平均提前期/);
-  assert.match(leadTime.slidePrompt, /提前期波动/);
-  assert.match(leadTime.slidePrompt, /不得回答成慢完全没有成本/);
+  assert.match(leadTime.slidePrompt, /30天/);
+  assert.match(leadTime.slidePrompt, /±1天/);
+  assert.match(leadTime.slidePrompt, /18天/);
+  assert.match(leadTime.slidePrompt, /±8天/);
+  assert.match(leadTime.slidePrompt, /证据状态：教学情境/);
 
-  const schedulingScenario = getPortManagementAssistantContext(30);
-  assert.match(schedulingScenario.slidePrompt, /证据状态：教学情境/);
-  assert.match(schedulingScenario.slidePrompt, /30天±1天/);
-  assert.match(schedulingScenario.slidePrompt, /18天±8天/);
-
-  const routeClassifications = getPortManagementAssistantContext(48);
+  const routeClassifications = getPortManagementAssistantContext(58);
   assert.match(routeClassifications.lessonPrompt, /不得把五大或六大航线/);
   assert.match(routeClassifications.slidePrompt, /分类口径/);
 
-  const reconstructedRoute = getPortManagementAssistantContext(57);
+  const reconstructedRoute = getPortManagementAssistantContext(67);
   assert.match(reconstructedRoute.slidePrompt, /教学路线示意/);
   assert.match(reconstructedRoute.slidePrompt, /实时轨迹/);
 
-  const disruption = getPortManagementAssistantContext(58);
+  const disruption = getPortManagementAssistantContext(68);
   assert.match(disruption.slidePrompt, /证据状态：教学情境/);
   assert.match(disruption.lessonPrompt, /不得说成OOCL Spain真实事故/);
 
-  const generationLens = getPortManagementAssistantContext(86);
+  const generationLens = getPortManagementAssistantContext(96);
   assert.match(generationLens.slidePrompt, /逐层累积/);
 
-  const automation = getPortManagementAssistantContext(87);
+  const automation = getPortManagementAssistantContext(97);
   assert.match(automation.slidePrompt, /自动化/);
   assert.match(automation.lessonPrompt, /自动化本身不能证明属于第四代/);
 
@@ -320,20 +326,20 @@ test("assistant context stays bounded, page-specific and free of authoring notes
   assert.doesNotMatch(authoringNoteSlide.slidePrompt, /只报时间、地点和船名/);
 });
 
-test("the deck declares exactly 24 unique ImageGen narrative assets", () => {
-  assert.equal(PORT_MANAGEMENT_IMAGEGEN_ASSETS.length, 24);
-  assert.equal(new Set(PORT_MANAGEMENT_IMAGEGEN_ASSETS).size, 24);
+test("the deck declares exactly 35 unique ImageGen narrative assets", () => {
+  assert.equal(PORT_MANAGEMENT_IMAGEGEN_ASSETS.length, 35);
+  assert.equal(new Set(PORT_MANAGEMENT_IMAGEGEN_ASSETS).size, 35);
   assert.equal(
     PORT_MANAGEMENT_IMAGEGEN_ASSETS.filter((asset) =>
       asset.includes("/story-l1-")
     ).length,
-    8
+    17
   );
   assert.equal(
     PORT_MANAGEMENT_IMAGEGEN_ASSETS.filter((asset) =>
       asset.includes("/story-l2-")
     ).length,
-    8
+    10
   );
   assert.equal(
     PORT_MANAGEMENT_IMAGEGEN_ASSETS.filter((asset) =>
