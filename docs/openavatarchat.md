@@ -2,7 +2,11 @@
 
 ## 组件边界
 
-OpenAvatarChat 作为独立服务保存在 `components/openavatarchat`，主教学系统后续通过 HTTP/WebSocket 与它集成。这样可以独立升级数字人组件，也能避免把上游源码与课程、模拟器、教学评价代码混在一起。
+OpenAvatarChat 作为独立服务保存在 `components/openavatarchat`，主教学系统通过
+HTTP 探测其就绪配置、通过 WebSocket 建立课堂会话。教师端按需复用上游 WebUI
+的 `AvatarHandler`、`Processor` 和 `LAMRenderer`，因此 Barbara 是真实 Gaussian
+Splat WebGL 渲染，不是 iframe 截图、静态插画或自行模拟的动画。上游服务仍可独立
+升级，课程、模拟器和教学评价代码不会混入其源码。
 
 当前固定的上游信息：
 
@@ -16,7 +20,7 @@ OpenAvatarChat 作为独立服务保存在 `components/openavatarchat`，主教�
 
 ## 本机已验证状态
 
-验证日期：2026-07-28。
+验证日期：2026-07-29。
 
 | 项目 | 结果 |
 |---|---|
@@ -28,9 +32,13 @@ OpenAvatarChat 作为独立服务保存在 `components/openavatarchat`，主教�
 | ONNX Runtime | 1.20.2 |
 | ONNX Providers | TensorRT、CUDA、CPU |
 | LAM 冷启动预热 | 49.7 秒 |
-| LAM 服务探测 | `/` = 307，`/ui/index.html` = 200，初始化接口 = 200 |
+| LAM 服务探测 | `/readiness` = 200，`/ui/index.html` = 200，初始化接口返回 `chat_mode=ws`、`avatar_type=lam` |
+| 教师端资源 | `/download/lam_asset/barbara.zip` 经同源代理加载 |
+| 教师端会话 | `/ws/session/:sessionId` 由课堂 LAM 适配器直连 |
 
-GPU 验证包含一次真实 CUDA 矩阵运算；LAM 验证包含 SenseVoice 与 LAM 权重加载、GPU 预热和 Uvicorn 服务启动。由于尚未配置用户的 `DASHSCOPE_API_KEY`，没有把云端 LLM/TTS 对话调用计为已验证。
+GPU 验证包含一次真实 CUDA 矩阵运算；LAM 验证包含 SenseVoice 与 LAM 权重加载、
+GPU 预热和 Uvicorn 服务启动。课堂页不会根据“计划状态”猜测服务可用性，而是通过
+`GET /api/avatar/runtime/status` 返回离线、预热、就绪、配置不兼容或错误。
 
 ## 运行配置
 
@@ -40,7 +48,20 @@ GPU 验证包含一次真实 CUDA 矩阵运算；LAM 验证包含 SenseVoice 与
 .\scripts\start-openavatarchat.ps1 -Profile lam
 ```
 
-对应上游配置 `config/chat_with_lam.yaml`。LAM 在浏览器侧完成 3D 渲染，服务端主要生成表情驱动数据，适合后续多课堂或多会话场景。首次启动会有明显的模型导入和预热时间。
+对应项目配置 `config/chat_with_lam_edu_orchestrated.yaml`。该图只包含
+`LamClient → VAD/百炼 ASR` 输入支路和 `AVATAR_TEXT → CosyVoice → LAM` 输出支路，
+不加载 OpenAvatarChat 内置 LLM。LAM 在浏览器侧完成 3D 渲染，服务端生成语音和
+表情驱动数据。首次启动仍会有明显的模型导入和预热时间。
+
+课堂平台通过 WebSocket `SendAvatarText` 增量注入已提取的对白。这个消息生成同一
+条可取消的 `AVATAR_TEXT` 流，并携带平台 `turn_id` 元数据；空的结束包只刷新 TTS，
+不会向云端发送空文本。
+
+启动脚本会在 `.runtime/openavatarchat/config` 生成运行时配置，默认把日志级别降为
+`WARNING`。项目自有的 `scripts/run-openavatarchat.py` 会把同一等级应用到控制台和
+文件 sink，并对形如 API key 的内容做最终脱敏；这修正了上游文件 sink 未继承日志
+等级、可能把 handler 配置写入日志的问题。需要诊断时可显式传入 `-LogLevel INFO`，
+但仍不得共享未经检查的日志文件。
 
 ### LiteAvatar
 
@@ -50,7 +71,11 @@ GPU 验证包含一次真实 CUDA 矩阵运算；LAM 验证包含 SenseVoice 与
 
 对应上游配置 `config/chat_with_openai_compatible_bailian_cosyvoice.yaml`，已下载官方 `20250408/sample_data` 示例人物，配置中的 `use_gpu: true` 保持启用。
 
-两个预设都使用本地 SenseVoice ASR，并默认调用 DashScope 的 Qwen 与 CosyVoice。密钥只放在根目录 `.env`，该文件已被 Git 忽略。
+LAM 课堂预设使用百炼 `fun-asr-realtime` 做领域语音终稿、CosyVoice 做 TTS，
+平台 API 使用 OpenAI-compatible JSON 流模型（默认 DashScope `qwen-plus`）。
+LiteAvatar 仍保留原上游一体化预设。密钥只放在根目录 `.env`，该文件已被 Git
+忽略；平台服务启动时会读取同一文件。课堂 ASR 默认不落盘麦克风 PCM，ASR/TTS
+日志只记录字符数而不记录师生原文。
 
 ## 本地生成内容
 

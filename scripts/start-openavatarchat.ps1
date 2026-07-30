@@ -6,7 +6,10 @@ param(
     [string]$BindAddress = "127.0.0.1",
 
     [ValidateRange(1, 65535)]
-    [int]$Port = 8282
+    [int]$Port = 8282,
+
+    [ValidateSet("DEBUG", "INFO", "WARNING", "ERROR")]
+    [string]$LogLevel = "WARNING"
 )
 
 Set-StrictMode -Version Latest
@@ -16,7 +19,9 @@ $RepoRoot = Split-Path -Parent $PSScriptRoot
 $ComponentRoot = Join-Path $RepoRoot "components\openavatarchat"
 $VenvRoot = Join-Path $ComponentRoot ".venv"
 $PythonExe = Join-Path $VenvRoot "Scripts\python.exe"
+$SafeRunner = Join-Path $RepoRoot "scripts\run-openavatarchat.py"
 $RuntimeBin = Join-Path $RepoRoot ".runtime\openavatarchat\bin"
+$RuntimeConfigRoot = Join-Path $RepoRoot ".runtime\openavatarchat\config"
 $EnvFile = Join-Path $RepoRoot ".env"
 
 function Import-DotEnv {
@@ -66,16 +71,38 @@ if (-not (Test-Path -LiteralPath $OpusAlias)) {
 $env:Path = "$RuntimeBin;$AvLibraries;$env:Path"
 
 $Config = switch ($Profile) {
-    "lam" { "config/chat_with_lam.yaml" }
+    "lam" { "config/chat_with_lam_edu_orchestrated.yaml" }
     "liteavatar" { "config/chat_with_openai_compatible_bailian_cosyvoice.yaml" }
 }
 
+$SourceConfigPath = Join-Path $ComponentRoot $Config
+$RuntimeConfigPath = Join-Path $RuntimeConfigRoot "$Profile.yaml"
+$ConfigContents = Get-Content -Raw -LiteralPath $SourceConfigPath
+$LogLevelPattern = "(?m)^(\s*log_level:\s*)[`"']?[A-Za-z]+[`"']?\s*$"
+$LogLevelReplacement = '${1}"' + $LogLevel + '"'
+$RuntimeConfigContents = [regex]::Replace(
+    $ConfigContents,
+    $LogLevelPattern,
+    $LogLevelReplacement,
+    1
+)
+if ($RuntimeConfigContents -eq $ConfigContents) {
+    throw "Could not set a safe OpenAvatarChat log level in $SourceConfigPath."
+}
+New-Item -ItemType Directory -Force -Path $RuntimeConfigRoot | Out-Null
+Set-Content -LiteralPath $RuntimeConfigPath -Value $RuntimeConfigContents -Encoding utf8
+$Config = $RuntimeConfigPath
+
 Write-Host "Starting OpenAvatarChat ($Profile) at http://${BindAddress}:$Port/"
+Write-Host "Runtime log level: $LogLevel (generated config: $RuntimeConfigPath)"
+if ($Profile -eq "lam") {
+    Write-Host "Education chain: cloud ASR -> platform JSON orchestrator -> streaming dialogue -> CosyVoice -> LAM"
+}
 Write-Host "The first cold start can take several minutes while Python imports and GPU models warm up."
 
 Push-Location $ComponentRoot
 try {
-    & $PythonExe "src/demo.py" `
+    & $PythonExe $SafeRunner `
         --config $Config `
         --host $BindAddress `
         --port $Port

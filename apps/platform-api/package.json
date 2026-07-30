@@ -1,0 +1,24 @@
+{
+  "name": "@edu/platform-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test test/*.test.ts"
+  },
+  "dependencies": {
+    "@edu/course-content": "workspace:*",
+    "@edu/contracts": "workspace:*",
+    "@fastify/cors": "11.3.0",
+    "fastify": "5.10.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "26.1.2",
+    "tsx": "4.23.1",
+    "typescript": "7.0.2"
+  }
+}

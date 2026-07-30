@@ -4,6 +4,11 @@
 
 ## 当前已接入
 
+- `apps/teacher-web`：可交互的教师系统入口，包含课程、课堂、模拟实验、教学评价、资源中心与个人设置路由。
+- `apps/teacher-web/src/features/classroom`：独立课堂教学子系统，包含固定 16:10 Slides 运行时、真实心跳在线人数、课堂活动切换、手动语音/文字指令和 OpenAvatarChat LAM/Barbara 渲染。
+- `apps/platform-api`：教师、课程、课堂运行状态与双模式数字人调度 API；开发阶段使用可替换的本地 JSON 持久化适配器。
+- `packages/contracts`：前后端共享的 Zod 运行时契约与 TypeScript 类型。
+- 平台课堂助手：模型返回结构化 JSON 流，服务端实时只提取 `dialogue`，完整校验后才执行 `edu.classroom.control/1.0` 白名单动作。
 - `components/openavatarchat`：官方 OpenAvatarChat Git 子模块，包含 WebUI、LAM、LiteAvatar 及其递归依赖。
 - Python 3.11 隔离环境：`components/openavatarchat/.venv`。
 - GPU 栈：PyTorch 2.8 + CUDA 12.8、ONNX Runtime GPU。
@@ -12,9 +17,31 @@
 
 第三方源码、虚拟环境和模型彼此分离：主项目只记录 OpenAvatarChat 的固定提交，不把数 GB 的环境与模型写入本仓库。
 
-## 立即运行
+## 运行教师系统入口
 
-先配置云端 LLM/TTS 所需的密钥：
+安装前端与平台 API 依赖：
+
+```powershell
+pnpm install
+```
+
+同时启动 API 与教师端：
+
+```powershell
+pnpm dev
+```
+
+浏览器访问 `http://127.0.0.1:5173/`，API 健康检查位于 `http://127.0.0.1:4300/api/health`。首次启动会在 `.runtime/platform-api/state.json` 写入李行之老师与“港口管理概论”的种子数据。
+
+入口效果图、已接通操作、接口清单与数据边界见 [教师系统入口说明](docs/system-entry.md)。
+进入课堂后的子系统边界、Slide 固定画布契约、语音交互与多设备验收见
+[课堂教学子系统说明](docs/classroom-subsystem.md)。
+数字人 JSON 动作、能力发现接口和安全边界见
+[数字人课堂控制协议](docs/avatar-control-protocol.md)。
+
+## 运行 OpenAvatarChat
+
+先配置平台 LLM、云端 ASR 与 TTS 所需的密钥：
 
 ```powershell
 Copy-Item .env.example .env
@@ -33,6 +60,13 @@ notepad .env
 .\scripts\start-openavatarchat.ps1 -Profile liteavatar
 ```
 
+LAM 完成预热后，课堂页会自动从“服务预热中”进入 Barbara 资源装载和 WebSocket
+连接；未启动时保持明确的离线状态，不显示数字人占位图。
+
+默认 LAM 配置不再运行 OpenAvatarChat 内置 LLM：语音先经云端 ASR 回到平台，
+平台模型通过 SSE 返回 JSON 流；浏览器只把实时提取出的 `dialogue` 增量送入
+CosyVoice 与 LAM。翻页和活动切换只在服务端收到并校验完整 JSON 后执行。
+
 检查 GPU、ONNX Runtime、Opus 与模型文件：
 
 ```powershell
@@ -50,3 +84,7 @@ cd edu-sys
 ```
 
 详细的组件边界、已验证状态和维护方式见 [OpenAvatarChat 集成说明](docs/openavatarchat.md)。
+
+## 项目架构
+
+总体领域模型、模块边界、数据与部署架构、课堂实时/课下轻量双级数字人方案和分阶段落地计划见 [总体架构](docs/architecture.md)。

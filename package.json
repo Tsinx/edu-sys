@@ -1,0 +1,16 @@
+{
+  "name": "edu-sys",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.9.0",
+  "scripts": {
+    "dev": "concurrently -k -n API,WEB -c cyan,magenta \"pnpm --filter @edu/platform-api dev\" \"pnpm --filter @edu/teacher-web dev\"",
+    "build": "pnpm typecheck && pnpm --filter @edu/teacher-web build",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "test": "pnpm --filter @edu/platform-api test && pnpm --filter @edu/teacher-web test"
+  },
+  "devDependencies": {
+    "concurrently": "10.0.4",
+    "typescript": "7.0.2"
+  }
+}

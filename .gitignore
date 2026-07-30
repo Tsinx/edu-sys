@@ -8,6 +8,14 @@
 artifacts/
 logs/
 *.log
+__pycache__/
+*.py[cod]
+
+# JavaScript workspace outputs
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
 
 # Editor and OS files
 .idea/
