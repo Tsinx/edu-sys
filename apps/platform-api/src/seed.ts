@@ -3,6 +3,7 @@ import type {
   AvatarControlActionResult,
   ClassroomActivity,
   ClassroomAvatarRuntime,
+  GlobePlayback,
   ClassSession,
   Course,
   Teacher
@@ -26,6 +27,7 @@ export interface ClassroomRuntimeState {
   deckVersion: string;
   runtimeVersion: number;
   avatar: ClassroomAvatarRuntime;
+  globePlayback: GlobePlayback;
   avatarControlHistory: AvatarControlReceipt[];
 }
 
@@ -45,6 +47,14 @@ export function createInitialClassroomRuntime(): ClassroomRuntimeState {
     slideKey: firstSlide.slideKey,
     deckVersion: PORT_MANAGEMENT_DECK_VERSION,
     runtimeVersion: 1,
+    globePlayback: {
+      cueId: null,
+      runId: null,
+      stepIndex: 0,
+      status: "idle",
+      stepStartedAt: null,
+      stepElapsedMs: 0
+    },
     avatarControlHistory: [],
     avatar: {
       status: "off",

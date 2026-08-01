@@ -197,6 +197,14 @@ const LL3_PORT_SEQUENCE = [
   ["shanghai", "上海", 31.216667, 121.5]
 ];
 
+const OPENING_TRADE_ROUTE_SEQUENCE = [
+  ["canton", "广州港区（南沙）", 22.65, 113.65],
+  ["malacca", "马六甲海峡", 2.5, 101.45],
+  ["cape-good-hope", "好望角", -34.36, 18.47],
+  ["dover", "多佛海峡", 51.05, 1.35],
+  ["london", "伦敦", 51.5, -0.1]
+];
+
 const EXPECTED_LL3_IDS = LL3_PORT_SEQUENCE.map(([id]) => id);
 const TIER_SLUG = {
   Major: "major",
@@ -282,6 +290,12 @@ const allowedNavigableZones = [
     label: "阿布扎比港航道",
     kind: "port-fairway",
     bounds: [54.15, 24.15, 55.05, 25.15]
+  },
+  {
+    id: "thames-london-fairway",
+    label: "泰晤士河口至伦敦港航道",
+    kind: "port-fairway",
+    bounds: [-0.2, 51.32, 1.55, 51.7]
   }
 ];
 
@@ -1325,6 +1339,95 @@ function summarizeLandAudit(tierPaths, landIndex) {
   };
 }
 
+function buildOpeningTradeRoute(
+  searouteDirectory,
+  workspace,
+  landIndex,
+  landSourcePath
+) {
+  const rows = OPENING_TRADE_ROUTE_SEQUENCE.slice(0, -1).map(
+    ([id, , latitude, longitude], index) => {
+      const [, , destinationLatitude, destinationLongitude] =
+        OPENING_TRADE_ROUTE_SEQUENCE[index + 1];
+      return {
+        id: `opening-${String(index + 1).padStart(2, "0")}-${id}`,
+        start: [longitude, latitude],
+        end: [destinationLongitude, destinationLatitude]
+      };
+    }
+  );
+  const legs = runSeaRoute(
+    rows,
+    searouteDirectory,
+    workspace,
+    "opening-trade-route-legs"
+  );
+  const rawRoute = flattenLl3Route(legs, rows, 0, rows.length);
+  const correction = correctContinuousRoute(
+    rawRoute,
+    landIndex,
+    "Opening trade route"
+  );
+  const points = correction.points;
+  validateCoordinates([points], "Opening trade route output");
+  const landAudit = summarizeLandAudit(
+    { Major: [points] },
+    landIndex
+  );
+  if (landAudit.nonNavigableLandIntersections > 0) {
+    throw new Error(
+      `Opening trade route retains ${landAudit.nonNavigableLandIntersections} land intersections`
+    );
+  }
+  const output = {
+    schemaVersion: 1,
+    source: {
+      method: "course route reconstruction",
+      seaRoute: SEAROUTE_SOURCE,
+      landQa: LAND_SOURCE
+    },
+    disclaimer:
+      "广州—马六甲—好望角—多佛—伦敦路线依据固定通道点复原，仅作教学路线示意，不代表某一批丝绸的可追踪完整航迹。",
+    forcedWaypoints: OPENING_TRADE_ROUTE_SEQUENCE.map(
+      ([id, label, latitude, longitude]) => ({
+        id,
+        label,
+        latitude,
+        longitude
+      })
+    ),
+    route: {
+      id: "canton-london-reconstruction",
+      label: "广州至伦敦历史贸易路线复原",
+      color: "#efb35e",
+      points
+    },
+    audit: {
+      naturalEarthLandSha256: sha256(landSourcePath),
+      corrections: correction.corrections.length,
+      ...landAudit,
+      pass: landAudit.nonNavigableLandIntersections === 0
+    }
+  };
+  const outputPath = join(
+    outputDirectory,
+    "opening-trade-route.json"
+  );
+  writeFileSync(outputPath, `${JSON.stringify(output, null, 2)}\n`);
+  console.log(
+    JSON.stringify(
+      {
+        outputPath,
+        waypointCount: output.forcedWaypoints.length,
+        vertexCount: points.length,
+        landQaPass: output.audit.pass
+      },
+      null,
+      2
+    )
+  );
+}
+
 async function main() {
   const argumentsMap = parseArguments();
   mkdirSync(outputDirectory, { recursive: true });
@@ -1367,6 +1470,15 @@ async function main() {
   );
   const landGeoJson = JSON.parse(readFileSync(landSourcePath, "utf8"));
   const landIndex = buildLandIndex(landGeoJson);
+  if (argumentsMap.has("opening-only")) {
+    buildOpeningTradeRoute(
+      searouteDirectory,
+      workspace,
+      landIndex,
+      landSourcePath
+    );
+    return;
+  }
   const sourceTierPaths = Object.fromEntries(
     shippingGeoJson.features.map((feature) => [
       feature.properties.Type,

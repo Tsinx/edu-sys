@@ -15,6 +15,7 @@ import {
 import administrativeBoundaryData from "../src/features/globe/data/prc-administrative-boundaries.json";
 import globalShippingLaneData from "../src/features/globe/data/global-shipping-lanes.json";
 import ll3MaritimeRouteData from "../src/features/globe/data/ll3-maritime-routes.json";
+import openingTradeRouteData from "../src/features/globe/data/opening-trade-route.json";
 import shippingLaneAudit from "../src/features/globe/data/shipping-lanes-audit.json";
 import { GLOBAL_MARITIME_LOCATIONS } from "../src/features/globe/global-maritime-preset.js";
 
@@ -85,6 +86,44 @@ test("globe renders an accessible loading shell without browser globals", () => 
   assert.match(markup, /非实时 AIS、非导航航迹/u);
   assert.match(markup, /NASA Blue Marble/u);
   assert.doesNotMatch(markup, /teachingCue|assistantCue|让学生/u);
+});
+
+test("opening trade route uses fixed waypoints and passes land QA", () => {
+  assert.equal(openingTradeRouteData.schemaVersion, 1);
+  assert.deepEqual(
+    openingTradeRouteData.forcedWaypoints.map((point) => point.id),
+    ["canton", "malacca", "cape-good-hope", "dover", "london"]
+  );
+  assert.match(openingTradeRouteData.disclaimer, /路线示意/u);
+  assert.match(openingTradeRouteData.disclaimer, /不代表某一批丝绸/u);
+  assert.equal(openingTradeRouteData.audit.pass, true);
+  assert.equal(
+    openingTradeRouteData.audit.nonNavigableLandIntersections,
+    0
+  );
+  assert.ok(openingTradeRouteData.route.points.length > 200);
+
+  const points = openingTradeRouteData.route.points;
+  const malaccaIndex = nearestAnchorIndex(
+    points,
+    [101.45, 2.5],
+    5,
+    "Malacca"
+  );
+  const capeIndex = nearestAnchorIndex(
+    points,
+    [18.47, -34.36],
+    5,
+    "Cape of Good Hope"
+  );
+  const doverIndex = nearestAnchorIndex(
+    points,
+    [1.35, 51.05],
+    5,
+    "Dover"
+  );
+  assert.ok(malaccaIndex < capeIndex);
+  assert.ok(capeIndex < doverIndex);
 });
 
 test("administrative mode exposes PRC-standard boundary choices", () => {

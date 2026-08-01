@@ -18,7 +18,10 @@ import type {
   TeacherAvatarCommandResponse,
   Teacher
 } from "@edu/contracts";
-import { assistantTurnEventSchema } from "@edu/contracts";
+import {
+  assistantTurnEventSchema,
+  classroomSnapshotSchema
+} from "@edu/contracts";
 
 export class ApiError extends Error {
   constructor(
@@ -121,6 +124,28 @@ async function streamAssistantTurn(
   }
 }
 
+function subscribeClassroomSnapshot(
+  id: string,
+  onSnapshot: (snapshot: ClassroomSnapshot) => void,
+  onConnectionChange?: (connected: boolean) => void
+) {
+  const source = new EventSource(
+    `/api/class-sessions/${id}/snapshot/stream`
+  );
+  source.addEventListener("open", () => onConnectionChange?.(true));
+  source.addEventListener("snapshot", (event) => {
+    const snapshot = classroomSnapshotSchema.parse(
+      JSON.parse((event as MessageEvent<string>).data) as unknown
+    );
+    onSnapshot(snapshot);
+  });
+  source.addEventListener("error", () => onConnectionChange?.(false));
+  return () => {
+    onConnectionChange?.(false);
+    source.close();
+  };
+}
+
 export const api = {
   getMe: () => request<Teacher>("/api/me"),
   getDashboard: () => request<Dashboard>("/api/dashboard"),
@@ -130,6 +155,7 @@ export const api = {
   getSession: (id: string) => request<ClassSession>(`/api/class-sessions/${id}`),
   getClassroomSnapshot: (id: string) =>
     request<ClassroomSnapshot>(`/api/class-sessions/${id}/snapshot`),
+  subscribeClassroomSnapshot,
   getLamRuntimeStatus: () =>
     request<LamRuntimeStatus>("/api/avatar/runtime/status"),
   heartbeatClassroomPresence: (id: string, participantId: string) =>

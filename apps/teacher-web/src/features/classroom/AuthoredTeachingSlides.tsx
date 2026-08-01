@@ -6,6 +6,7 @@ import {
 import type { ReactElement, ReactNode } from "react";
 
 export const PILOT_AUTHORED_TEACHING_SLIDE_KEYS = [
+  "l1-course-cover",
   "l1-1700-wager",
   "l1-france-england-scale",
   "l1-china-direct-trade",
@@ -241,11 +242,55 @@ function WagerOpeningSlide({ spec, position }: AuthoredSlideProps) {
           <p>人口众多 · 欧洲强国 · 陆海资源兼备</p>
         </section>
       </div>
-      <p className="authored-wager__prompt">先下注，再等待证据改变你的判断。</p>
+      <p className="authored-wager__prompt">先下注；随后沿一件丝织品追踪证据。</p>
       <div className="authored-wager__index">
         {String(position.localIndex).padStart(2, "0")} / {position.localTotal}
       </div>
     </ImageStoryFrame>
+  );
+}
+
+function CourseOpeningCoverSlide({ spec }: AuthoredSlideProps) {
+  const [lessonLine, teacherName, institution] = spec.bullets ?? [];
+  return (
+    <article
+      className="authored-slide authored-slide--course-opening-cover"
+      data-slide-composition="course-opening-cover"
+      data-slide-key={spec.slideKey}
+    >
+      {spec.image && (
+        <img
+          className="authored-course-cover__background"
+          src={spec.image}
+          alt={spec.imageAlt ?? ""}
+          style={{
+            objectFit: spec.imageFit ?? "cover",
+            objectPosition: spec.imagePosition ?? "center"
+          }}
+        />
+      )}
+      <div className="authored-course-cover__wash" />
+      <div className="authored-course-cover__grain" aria-hidden="true" />
+      <header className="authored-course-cover__brand">
+        <span>CHONGQING JIAOTONG UNIVERSITY</span>
+        <i aria-hidden="true" />
+        <strong>{spec.kicker}</strong>
+      </header>
+      <div className="authored-course-cover__copy">
+        <p>{lessonLine}</p>
+        <h1>{spec.title}</h1>
+        <blockquote>{spec.lead}</blockquote>
+      </div>
+      <footer className="authored-course-cover__teacher">
+        <span>授课教师</span>
+        <strong>{teacherName}</strong>
+        <i aria-hidden="true" />
+        <p>{institution}</p>
+      </footer>
+      <div className="authored-course-cover__folio" aria-hidden="true">
+        01
+      </div>
+    </article>
   );
 }
 
@@ -3393,6 +3438,7 @@ const authoredRenderers: Record<
   PilotAuthoredTeachingSlideKey,
   (props: AuthoredSlideProps) => ReactElement
 > = {
+  "l1-course-cover": CourseOpeningCoverSlide,
   "l1-1700-wager": WagerOpeningSlide,
   "l1-france-england-scale": ChannelComparisonSlide,
   "l1-china-direct-trade": DirectTradeEvolutionSlide,

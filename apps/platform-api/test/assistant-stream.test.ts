@@ -132,7 +132,7 @@ test("assistant SSE streams dialogue early and executes controls only after full
     assert.equal(provider.requests.length, 2);
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
-      /当前 Slides：第 1\/46 页（内部全局第 1\/118 页）/
+      /当前 Slides：第 1\/47 页（内部全局第 1\/119 页）/
     );
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
@@ -140,7 +140,7 @@ test("assistant SSE streams dialogue early and executes controls only after full
     );
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
-      /第1讲“英国如何把贸易变成影响力？”：学生可见第1—46页，内部全局第1—46页/
+      /第1讲“英国如何把贸易变成影响力？”：学生可见第1—47页，内部全局第1—47页/
     );
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
@@ -152,7 +152,7 @@ test("assistant SSE streams dialogue early and executes controls only after full
     );
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
-      /<slide_context index="1" local_index="1" local_total="46" key="l1-1700-wager" title="1700：如果只能押一个国家">/
+      /<slide_context index="1" local_index="1" local_total="47" key="l1-course-cover" title="港口管理概论">/
     );
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
@@ -165,6 +165,26 @@ test("assistant SSE streams dialogue early and executes controls only after full
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
       /"type":"lesson\.go_to"/
+    );
+    assert.match(
+      provider.requests[0]?.messages[0]?.content ?? "",
+      /"type":"globe\.play_cue"/
+    );
+    assert.match(
+      provider.requests[0]?.messages[0]?.content ?? "",
+      /l1-opening-trade-influence/
+    );
+    assert.match(
+      provider.requests[0]?.messages[0]?.content ?? "",
+      /正式封面.*不得直接播放地球仪/u
+    );
+    assert.match(
+      provider.requests[0]?.messages[0]?.content ?? "",
+      /当前页为 l1-1700-wager/u
+    );
+    assert.match(
+      provider.requests[0]?.messages[0]?.content ?? "",
+      /不得生成经纬度、持续时间、字幕或任意相机轨迹/
     );
     assert.doesNotMatch(
       provider.requests[0]?.messages[0]?.content ?? "",

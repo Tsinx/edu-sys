@@ -6,9 +6,12 @@ import type {
   TeacherAvatarCommandInput
 } from "@edu/contracts";
 import {
+  getPortManagementGlobeCue,
   getPortManagementGlobalSlideIndex,
   getPortManagementLessonSlidePosition,
-  PORT_MANAGEMENT_LESSONS
+  getPortManagementSlideByKey,
+  PORT_MANAGEMENT_LESSONS,
+  type PortManagementGlobeCueStep
 } from "@edu/course-content";
 import {
   ArrowLeft,
@@ -17,6 +20,7 @@ import {
   ChevronRight,
   CircleAlert,
   FlaskConical,
+  Globe2,
   Highlighter,
   LoaderCircle,
   Maximize2,
@@ -25,17 +29,23 @@ import {
   MonitorPlay,
   MousePointer2,
   Presentation,
+  Play,
+  Pause,
   Radio,
+  RotateCcw,
   Settings,
   ShipWheel,
   Sparkles,
   Square,
+  SkipForward,
   UsersRound,
   UserPlus,
   Video,
   X
 } from "lucide-react";
 import {
+  lazy,
+  Suspense,
   useCallback,
   useEffect,
   useMemo,
@@ -53,12 +63,22 @@ import { ActivityStage, SlideStage } from "./TeachingSlides";
 import { VoiceCommandComposer } from "./VoiceCommandComposer";
 import "./classroom.css";
 
+const ClassroomGlobeStage = lazy(() =>
+  import("./ClassroomGlobeStage").then((module) => ({
+    default: module.ClassroomGlobeStage
+  }))
+);
+
+const OPENING_GLOBE_CUE_ID = "l1-opening-trade-influence";
+const OPENING_GLOBE_CUE = getPortManagementGlobeCue(OPENING_GLOBE_CUE_ID);
+
 const activityTabs: Array<{
   id: ClassroomActivity;
   label: string;
   icon: typeof Presentation;
 }> = [
   { id: "slides", label: "Slides", icon: Presentation },
+  { id: "globe", label: "地球仪", icon: Globe2 },
   { id: "simulation", label: "模拟实验", icon: FlaskConical },
   { id: "whiteboard", label: "白板", icon: Highlighter },
   { id: "video", label: "视频", icon: Video },
@@ -115,7 +135,7 @@ export function ClassroomSubsystem() {
     "idle" | "thinking" | "streaming"
   >("idle");
   const [avatarCollapsed, setAvatarCollapsed] = useState(() =>
-    window.matchMedia("(max-width: 979px)").matches
+    window.matchMedia("(max-width: 980px)").matches
   );
   const [pointerActive, setPointerActive] = useState(false);
   const [annotationActive, setAnnotationActive] = useState(false);
@@ -134,6 +154,9 @@ export function ClassroomSubsystem() {
   const lastAsrResultRef = useRef<
     { text: string; at: number } | undefined
   >(undefined);
+  const lastReportedLamConnectedRef = useRef<boolean | undefined>(
+    undefined
+  );
 
   const refreshLamRuntime = useCallback(async () => {
     try {
@@ -177,6 +200,22 @@ export function ClassroomSubsystem() {
     };
   }, [sessionId]);
 
+  useEffect(
+    () =>
+      api.subscribeClassroomSnapshot(
+        sessionId,
+        (nextSnapshot) => {
+          setSnapshot((current) =>
+            !current ||
+            nextSnapshot.runtimeVersion >= current.runtimeVersion
+              ? nextSnapshot
+              : current
+          );
+        }
+      ),
+    [sessionId]
+  );
+
   useEffect(() => {
     let active = true;
     const refresh = async () => {
@@ -190,6 +229,27 @@ export function ClassroomSubsystem() {
       window.clearInterval(timer);
     };
   }, [refreshLamRuntime]);
+
+  useEffect(() => {
+    if (
+      snapshot?.session.status !== "live" ||
+      ["loading", "warming", "connecting"].includes(lamConnection)
+    ) {
+      return;
+    }
+    const connected = isLamConnected(lamConnection);
+    if (lastReportedLamConnectedRef.current === connected) return;
+    lastReportedLamConnectedRef.current = connected;
+    void api
+      .sendClassroomEvent(sessionId, {
+        type: "set_lam_connection",
+        connected
+      })
+      .then(setSnapshot)
+      .catch(() => {
+        lastReportedLamConnectedRef.current = undefined;
+      });
+  }, [lamConnection, sessionId, snapshot?.session.status]);
 
   useEffect(() => {
     if (snapshot?.session.status !== "live") return;
@@ -222,7 +282,7 @@ export function ClassroomSubsystem() {
   );
 
   useEffect(() => {
-    const compactViewport = window.matchMedia("(max-width: 979px)");
+    const compactViewport = window.matchMedia("(max-width: 980px)");
     const collapseForCompactViewport = (event: MediaQueryListEvent) => {
       if (event.matches) setAvatarCollapsed(true);
     };
@@ -267,6 +327,24 @@ export function ClassroomSubsystem() {
       setBusy(false);
     }
   }
+
+  const narrateGlobeStep = useCallback(
+    (step: PortManagementGlobeCueStep, narrationId: string) => {
+      setLamTranscript(step.narration);
+      const controller = lamAvatarRef.current;
+      if (
+        !controller?.isConnected() ||
+        !controller.pushDialogueDelta(
+          narrationId,
+          step.narration
+        ) ||
+        !controller.finishDialogue(narrationId)
+      ) {
+        setNotice("LAM 未连接；证据追踪继续播放并显示完整字幕。");
+      }
+    },
+    []
+  );
 
   const runAssistantTurn = useCallback(
     async (
@@ -498,7 +576,14 @@ export function ClassroomSubsystem() {
 
   const isLive = snapshot.session.status === "live";
   const isSlides = snapshot.activeActivity === "slides";
+  const isGlobe = snapshot.activeActivity === "globe";
+  const isOpeningLaunchSlide =
+    isSlides && snapshot.slide.slideId === OPENING_GLOBE_CUE?.startSlideKey;
   const lamConnected = isLamConnected(lamConnection);
+  const openingReturnSlide =
+    OPENING_GLOBE_CUE
+      ? getPortManagementSlideByKey(OPENING_GLOBE_CUE.returnSlideKey)
+      : undefined;
   const slidePosition = getPortManagementLessonSlidePosition(
     snapshot.slide.index
   )!;
@@ -617,7 +702,17 @@ export function ClassroomSubsystem() {
         </div>
       )}
 
-      <div className={avatarCollapsed ? "classroom-workspace classroom-workspace--avatar-collapsed" : "classroom-workspace"}>
+      <div
+        className={[
+          "classroom-workspace",
+          avatarCollapsed
+            ? "classroom-workspace--avatar-collapsed"
+            : "",
+          isGlobe ? "classroom-workspace--globe" : ""
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
         <section className="teaching-runtime" aria-label="课堂教学主舞台">
           <nav className="classroom-activity-tabs" aria-label="课堂活动">
             {activityTabs.map((tab) => {
@@ -649,9 +744,41 @@ export function ClassroomSubsystem() {
           >
             {isSlides ? (
               <SlideStage frame={snapshot.slide} />
+            ) : isGlobe ? (
+              <Suspense
+                fallback={
+                  <div className="classroom-globe-loading">
+                    <LoaderCircle className="spin" size={34} />
+                    <span>正在按需装载电影化地球仪</span>
+                  </div>
+                }
+              >
+                <ClassroomGlobeStage
+                  snapshot={snapshot}
+                  role="teacher"
+                  lamConnected={lamConnected}
+                  narrationBusy={
+                    lamConnection === "speaking" ||
+                    lamConnection === "thinking"
+                  }
+                  onNarrateStep={narrateGlobeStep}
+                  onAdvance={(runId, stepIndex) => {
+                    void sendEvent({
+                      type: "globe_advance",
+                      runId,
+                      fromStepIndex: stepIndex
+                    });
+                  }}
+                />
+              </Suspense>
             ) : (
               <ActivityStage
-                activity={snapshot.activeActivity as Exclude<ClassroomActivity, "slides">}
+                activity={
+                  snapshot.activeActivity as Exclude<
+                    ClassroomActivity,
+                    "slides" | "globe"
+                  >
+                }
                 frame={snapshot.slide}
               />
             )}
@@ -668,6 +795,55 @@ export function ClassroomSubsystem() {
           </div>
 
           <footer className="teaching-controlbar">
+            {isGlobe ? (
+              <div className="globe-movie-controls" aria-label="证据追踪控制">
+                <span>
+                  <Globe2 size={18} />
+                  第一讲 · 证据追踪任务
+                </span>
+                <div>
+                  <button
+                    type="button"
+                    disabled={busy || snapshot.globePlayback.status !== "playing"}
+                    onClick={() => void sendEvent({ type: "globe_pause" })}
+                  >
+                    <Pause size={17} /> 暂停
+                  </button>
+                  <button
+                    type="button"
+                    disabled={busy || snapshot.globePlayback.status !== "paused"}
+                    onClick={() => void sendEvent({ type: "globe_resume" })}
+                  >
+                    <Play size={17} /> 继续
+                  </button>
+                  <button
+                    type="button"
+                    disabled={busy}
+                    onClick={() => void sendEvent({ type: "globe_restart" })}
+                  >
+                    <RotateCcw size={17} /> 重新播放
+                  </button>
+                  <button
+                    type="button"
+                    disabled={busy || !openingReturnSlide}
+                    onClick={() => {
+                      if (!openingReturnSlide) return;
+                      lamAvatarRef.current?.interrupt();
+                      void sendEvent({
+                        type: "set_slide",
+                        index: openingReturnSlide.index
+                      });
+                    }}
+                  >
+                    <SkipForward size={17} /> 跳过
+                  </button>
+                  <button type="button" onClick={() => void toggleFullscreen()}>
+                    <Maximize2 size={17} /> 全屏
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <>
             <div className="slide-navigation-controls">
               <button
                 type="button"
@@ -722,6 +898,21 @@ export function ClassroomSubsystem() {
               >
                 <span>下一页</span> <ChevronRight size={18} />
               </button>
+              {isOpeningLaunchSlide && (
+                <button
+                  className="start-opening-button"
+                  type="button"
+                  disabled={busy || !isLive || !OPENING_GLOBE_CUE}
+                  onClick={() =>
+                    void sendEvent({
+                      type: "globe_play_cue",
+                      cueId: OPENING_GLOBE_CUE_ID
+                    })
+                  }
+                >
+                  <Play size={17} /> 沿丝绸航线寻找证据
+                </button>
+              )}
             </div>
 
             <label className="lesson-select-control">
@@ -797,10 +988,20 @@ export function ClassroomSubsystem() {
                 <Maximize2 size={17} /> <span>全屏</span>
               </button>
             </div>
+              </>
+            )}
           </footer>
         </section>
 
-        <aside className={avatarCollapsed ? "classroom-avatar-dock classroom-avatar-dock--collapsed" : "classroom-avatar-dock"}>
+        <aside
+          className={[
+            "classroom-avatar-dock",
+            avatarCollapsed ? "classroom-avatar-dock--collapsed" : "",
+            isGlobe ? "classroom-avatar-dock--cinematic" : ""
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        >
           {avatarCollapsed ? (
             <div className="collapsed-avatar-controls">
               <button
@@ -821,31 +1022,34 @@ export function ClassroomSubsystem() {
               </button>
             </div>
           ) : (
+            <header className="avatar-dock-header">
+              <div>
+                <strong>港航教学助手</strong>
+                <span>
+                  <i className={lamConnected ? "" : "avatar-state-dot--error"} />
+                  LAM 实时数字人
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setAvatarCollapsed(true)}
+              >
+                收起 <ChevronRight size={16} />
+              </button>
+            </header>
+          )}
+
+          <LamAvatarSurface
+            ref={lamAvatarRef}
+            runtime={lamRuntime}
+            concealed={avatarCollapsed}
+            onConnectionStateChange={setLamConnection}
+            onHumanTranscript={handleHumanTranscript}
+            onRetry={() => void refreshLamRuntime()}
+          />
+
+          {!avatarCollapsed && (
             <>
-              <header className="avatar-dock-header">
-                <div>
-                  <strong>港航教学助手</strong>
-                  <span>
-                    <i className={lamConnected ? "" : "avatar-state-dot--error"} />
-                    LAM 实时数字人
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setAvatarCollapsed(true)}
-                >
-                  收起 <ChevronRight size={16} />
-                </button>
-              </header>
-
-              <LamAvatarSurface
-                ref={lamAvatarRef}
-                runtime={lamRuntime}
-                onConnectionStateChange={setLamConnection}
-                onHumanTranscript={handleHumanTranscript}
-                onRetry={() => void refreshLamRuntime()}
-              />
-
               <section
                 className="avatar-subtitle-panel"
                 aria-label="数字人回答字幕"

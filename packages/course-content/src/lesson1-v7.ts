@@ -26,7 +26,7 @@ const IMAGES = {
   departureNight: `${ASSET_ROOT}/story-l1-departure-night.png`
 } as const;
 
-export const PORT_MANAGEMENT_LESSON_ONE_V6_IMAGEGEN_ASSETS =
+export const PORT_MANAGEMENT_LESSON_ONE_V7_IMAGEGEN_ASSETS =
   [
     IMAGES.londonChineseSilk,
     IMAGES.jiangnanSericulture,
@@ -78,7 +78,7 @@ function page(input: LessonOneInput): PortManagementSlideSpec {
   };
 }
 
-export const PORT_MANAGEMENT_LESSON_ONE_V6_SLIDES: readonly PortManagementSlideSpec[] =
+const PORT_MANAGEMENT_LESSON_ONE_V6_CONTENT: readonly PortManagementSlideSpec[] =
   [
     page({
       index: 1,
@@ -96,9 +96,9 @@ export const PORT_MANAGEMENT_LESSON_ONE_V6_SLIDES: readonly PortManagementSlideS
         "把你的选择写在证据出现之前"
       ],
       teachingCue:
-        "先投票，不给答案；追问学生下注依据是人口、领土、军队还是贸易网络。",
+        "先投票，不给答案；追问学生下注依据是人口、领土、军队还是贸易网络。完成选择后，点击教师控制栏“沿丝绸航线寻找证据”或使用口令“助教，开始追踪证据”启动电影化地球仪。",
       assistantCue:
-        "1700年以前应称英格兰；本页是课堂悬念，不预设英国必然胜出。",
+        "1700年以前应称英格兰；本页是课堂悬念，不预设英国必然胜出。只有在本页收到“开始追踪证据”“沿丝绸航线寻找证据”等明确口令时，才选择注册cue l1-opening-trade-influence。",
       sourceIds: ["population-europe-1700", "france-naval-history"],
       accent: "navy",
       narrative: beat(
@@ -1718,3 +1718,47 @@ export const PORT_MANAGEMENT_LESSON_ONE_V6_SLIDES: readonly PortManagementSlideS
       )
     })
   ];
+
+const COURSE_COVER = page({
+  index: 1,
+  slideKey: "l1-course-cover",
+  section: "课程开场",
+  title: "港口管理概论",
+  kicker: "PORT MANAGEMENT",
+  layout: "cover",
+  lead: "从一件丝织品，到全球航运网络",
+  image: IMAGES.shanghaiDawn,
+  imageAlt: "上海港清晨与大型集装箱船的教学复原图",
+  imagePosition: "center",
+  bullets: [
+    "第一讲 · 英国如何把贸易变成影响力？",
+    "李行之",
+    "重庆交通大学"
+  ],
+  teachingCue:
+    "完成教师与课程信息介绍后，使用下一页或口令“助教，开始第一讲”进入英法下注页；封面不直接启动地球仪。",
+  assistantCue:
+    "本页是课程正式封面。收到“助教，开始第一讲”等明确开场口令时，只跳转到 l1-1700-wager，不播放地球仪cue；等待教师完成课堂投票后再启动证据追踪。",
+  accent: "navy",
+  narrative: beat(
+    "上海港",
+    "正式开场",
+    "transition",
+    "concept",
+    1,
+    "一件丝织品，怎样连接起港口、贸易与全球影响力？",
+    "第一讲",
+  )
+});
+
+export const PORT_MANAGEMENT_LESSON_ONE_V7_SLIDES: readonly PortManagementSlideSpec[] =
+  [COURSE_COVER, ...PORT_MANAGEMENT_LESSON_ONE_V6_CONTENT].map(
+    (slide, offset) => ({
+      ...slide,
+      index: offset + 1,
+      narrative: {
+        ...slide.narrative,
+        progress: offset + 1
+      }
+    })
+  );

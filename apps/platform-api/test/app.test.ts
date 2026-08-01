@@ -55,16 +55,17 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     assert.equal(initialSnapshot.slide.logicalHeight, 1000);
     assert.equal(initialSnapshot.slide.aspectRatio, "16:10");
     assert.equal(initialSnapshot.slide.index, 1);
-    assert.equal(initialSnapshot.slide.total, 118);
+    assert.equal(initialSnapshot.slide.total, 119);
     assert.equal(
       initialSnapshot.slide.title,
-      "1700：如果只能押一个国家"
+      "港口管理概论"
     );
-    assert.equal(initialSnapshot.slide.slideId, "l1-1700-wager");
+    assert.equal(initialSnapshot.slide.slideId, "l1-course-cover");
     assert.equal(
       initialSnapshot.slide.versionId,
-      "release-port-management-voyage-v6"
+      "release-port-management-voyage-v7"
     );
+    assert.equal(initialSnapshot.globePlayback.status, "idle");
     assert.equal(initialSnapshot.participantsOnline, 0);
 
     const firstPresenceResponse = await app.inject({
@@ -134,7 +135,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
       capabilitiesResponse.json().protocol,
       "edu.classroom.control"
     );
-    assert.equal(capabilitiesResponse.json().allowedActions.length, 5);
+    assert.equal(capabilitiesResponse.json().allowedActions.length, 9);
     const lessonCapability = capabilitiesResponse
       .json()
       .allowedActions.find(
@@ -233,7 +234,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
       lessonGoToResponse.json().snapshot.activeActivity,
       "slides"
     );
-    assert.equal(lessonGoToResponse.json().snapshot.slide.index, 47);
+    assert.equal(lessonGoToResponse.json().snapshot.slide.index, 48);
     assert.equal(
       lessonGoToResponse.json().snapshot.slide.slideId,
       "l2-cover"
@@ -255,7 +256,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     });
     assert.equal(duplicateLessonResponse.statusCode, 200);
     assert.equal(duplicateLessonResponse.json().duplicate, true);
-    assert.equal(duplicateLessonResponse.json().snapshot.slide.index, 47);
+    assert.equal(duplicateLessonResponse.json().snapshot.slide.index, 48);
 
     const sameLessonResponse = await app.inject({
       method: "POST",
@@ -269,7 +270,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     });
     assert.equal(sameLessonResponse.statusCode, 200);
     assert.equal(sameLessonResponse.json().status, "noop");
-    assert.equal(sameLessonResponse.json().snapshot.slide.index, 47);
+    assert.equal(sameLessonResponse.json().snapshot.slide.index, 48);
 
     const plannedLessonResponse = await app.inject({
       method: "POST",
@@ -283,7 +284,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     });
     assert.equal(plannedLessonResponse.statusCode, 200);
     assert.equal(plannedLessonResponse.json().status, "noop");
-    assert.equal(plannedLessonResponse.json().snapshot.slide.index, 47);
+    assert.equal(plannedLessonResponse.json().snapshot.slide.index, 48);
     assert.match(
       plannedLessonResponse.json().results[0].message,
       /第4讲内容待建设/
@@ -344,6 +345,184 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     });
     assert.equal(endResponse.statusCode, 200);
     assert.equal(endResponse.json().status, "completed");
+  } finally {
+    await app.close();
+    await rm(tempDirectory, { recursive: true, force: true });
+  }
+});
+
+test("registered globe cue supports control, replay and authoritative completion", async () => {
+  const tempDirectory = await mkdtemp(
+    join(tmpdir(), "edu-platform-globe-")
+  );
+  const app = await buildApp({
+    dataFile: join(tempDirectory, "state.json"),
+    openAvatarBaseUrl: "http://127.0.0.1:1"
+  });
+
+  try {
+    const classResponse = await app.inject({
+      method: "POST",
+      url: "/api/courses/course-port-management-intro/class-sessions"
+    });
+    const sessionId = classResponse.json().id as string;
+    const controlUrl = `/api/class-sessions/${sessionId}/avatar/control`;
+
+    const invalidCue = await app.inject({
+      method: "POST",
+      url: controlUrl,
+      payload: {
+        protocol: "edu.classroom.control",
+        version: "1.0",
+        requestId: "invalid-globe-cue",
+        actions: [{ type: "globe.play_cue", cueId: "raw-camera-track" }]
+      }
+    });
+    assert.equal(invalidCue.json().status, "noop");
+    assert.equal(invalidCue.json().snapshot.activeActivity, "slides");
+
+    const blockedBeforeWager = await app.inject({
+      method: "POST",
+      url: controlUrl,
+      payload: {
+        protocol: "edu.classroom.control",
+        version: "1.0",
+        requestId: "play-before-wager",
+        actions: [
+          { type: "globe.play_cue", cueId: "l1-opening-trade-influence" }
+        ]
+      }
+    });
+    assert.equal(blockedBeforeWager.json().status, "noop");
+    assert.equal(
+      blockedBeforeWager.json().snapshot.slide.slideId,
+      "l1-course-cover"
+    );
+    assert.match(blockedBeforeWager.json().results[0].message, /l1-1700-wager/u);
+
+    const wager = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/events`,
+      payload: { type: "set_slide", index: 2 }
+    });
+    assert.equal(wager.statusCode, 201);
+    assert.equal(wager.json().slide.slideId, "l1-1700-wager");
+
+    const play = await app.inject({
+      method: "POST",
+      url: controlUrl,
+      payload: {
+        protocol: "edu.classroom.control",
+        version: "1.0",
+        requestId: "play-opening",
+        actions: [
+          { type: "globe.play_cue", cueId: "l1-opening-trade-influence" }
+        ]
+      }
+    });
+    const started = play.json().snapshot;
+    assert.equal(started.activeActivity, "globe");
+    assert.equal(started.globePlayback.status, "playing");
+    assert.equal(started.globePlayback.stepIndex, 0);
+    assert.ok(started.globePlayback.runId);
+
+    const duplicate = await app.inject({
+      method: "POST",
+      url: controlUrl,
+      payload: {
+        protocol: "edu.classroom.control",
+        version: "1.0",
+        requestId: "play-opening",
+        actions: [
+          { type: "globe.play_cue", cueId: "l1-opening-trade-influence" }
+        ]
+      }
+    });
+    assert.equal(duplicate.json().duplicate, true);
+    assert.equal(
+      duplicate.json().snapshot.globePlayback.runId,
+      started.globePlayback.runId
+    );
+
+    const pause = await app.inject({
+      method: "POST",
+      url: controlUrl,
+      payload: {
+        protocol: "edu.classroom.control",
+        version: "1.0",
+        requestId: "pause-opening",
+        actions: [{ type: "globe.pause" }]
+      }
+    });
+    assert.equal(pause.json().snapshot.globePlayback.status, "paused");
+    assert.equal(pause.json().snapshot.globePlayback.stepStartedAt, null);
+
+    const resume = await app.inject({
+      method: "POST",
+      url: controlUrl,
+      payload: {
+        protocol: "edu.classroom.control",
+        version: "1.0",
+        requestId: "resume-opening",
+        actions: [{ type: "globe.resume" }]
+      }
+    });
+    assert.equal(resume.json().snapshot.globePlayback.status, "playing");
+
+    const restart = await app.inject({
+      method: "POST",
+      url: controlUrl,
+      payload: {
+        protocol: "edu.classroom.control",
+        version: "1.0",
+        requestId: "restart-opening",
+        actions: [{ type: "globe.restart" }]
+      }
+    });
+    let playback = restart.json().snapshot.globePlayback;
+    assert.notEqual(playback.runId, started.globePlayback.runId);
+    assert.equal(playback.stepIndex, 0);
+
+    for (let stepIndex = 0; stepIndex < 7; stepIndex += 1) {
+      const advance = await app.inject({
+        method: "POST",
+        url: `/api/class-sessions/${sessionId}/events`,
+        payload: {
+          type: "globe_advance",
+          runId: playback.runId,
+          fromStepIndex: stepIndex
+        }
+      });
+      assert.equal(advance.statusCode, 201);
+      playback = advance.json().globePlayback;
+      if (stepIndex < 6) {
+        assert.equal(playback.stepIndex, stepIndex + 1);
+        assert.equal(advance.json().activeActivity, "globe");
+      } else {
+        assert.equal(playback.status, "completed");
+        assert.equal(advance.json().activeActivity, "slides");
+        assert.equal(advance.json().slide.slideId, "l1-france-england-scale");
+        assert.equal(advance.json().slide.index, 4);
+      }
+    }
+
+    const forbiddenCamera = await app.inject({
+      method: "POST",
+      url: controlUrl,
+      payload: {
+        protocol: "edu.classroom.control",
+        version: "1.0",
+        requestId: "forbidden-camera",
+        actions: [
+          {
+            type: "globe.play_cue",
+            cueId: "l1-opening-trade-influence",
+            latitude: 22.65
+          }
+        ]
+      }
+    });
+    assert.equal(forbiddenCamera.statusCode, 400);
   } finally {
     await app.close();
     await rm(tempDirectory, { recursive: true, force: true });

@@ -43,6 +43,7 @@ export interface LamAvatarController {
 
 interface LamAvatarSurfaceProps {
   runtime: LamRuntimeStatus | undefined;
+  concealed?: boolean;
   onConnectionStateChange: (state: LamConnectionState) => void;
   onHumanTranscript: (message: string) => void;
   onRetry: () => void;
@@ -149,6 +150,7 @@ export const LamAvatarSurface = forwardRef<
 >(function LamAvatarSurface(
   {
     runtime,
+    concealed = false,
     onConnectionStateChange,
     onHumanTranscript,
     onRetry
@@ -428,7 +430,13 @@ export const LamAvatarSurface = forwardRef<
 
   return (
     <div
-      className="lam-avatar-surface"
+      className={[
+        "lam-avatar-surface",
+        concealed ? "lam-avatar-surface--concealed" : ""
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      aria-hidden={concealed || undefined}
       data-lam-connection={connectionState}
       data-lam-renderer="openavatarchat"
     >

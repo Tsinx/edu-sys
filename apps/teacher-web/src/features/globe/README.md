@@ -1,7 +1,8 @@
 # Interactive Earth Globe
 
-面向课程可视化的独立三维地球组件。当前只提供组件和
-`globe-preview.html` 隔离预览入口，没有接入课堂 Slides、课程数据或主导航。
+面向课程可视化的三维地球组件。除 `globe-preview.html` 隔离预览入口外，
+它已接入第一讲的电影化证据追踪；课堂运行时只在首次进入地球仪活动时动态加载组件、
+历史复原路线和全球航线，不增加 Slides 初始包体。
 
 ## 已实现能力
 
@@ -18,6 +19,9 @@
 - 全球 16 个港口城市和 8 个通道节点均可点击；默认只显示上海、新加坡、
   鹿特丹、洛杉矶—长滩、苏伊士、巴拿马、马六甲和霍尔木兹八个标签。
 - 全球数据由预览页动态导入并传入组件，不进入主应用初始 JavaScript 包。
+- 第一讲固定 cue 共七幕、约 90 秒；教师端推进权威步骤，学生端通过 SSE
+  只读复现。LAM 离线时仍显示完整字幕。
+- WebGL 失败或系统启用“减少动态效果”时，使用相同叙事顺序的平面地球降级画面。
 
 ## 文件边界
 
@@ -26,9 +30,12 @@
 - `ll3-globe-preset.ts`：OOCL LL3 港序、港口说明和精细航线。
 - `data/global-shipping-lanes.json`：压缩的全球 Major / Middle / Minor 路径。
 - `data/ll3-maritime-routes.json`：SeaRoute 生成并经陆地相交检查的 LL3 路径。
+- `data/opening-trade-route.json`：广州—马六甲—好望角—多佛—伦敦的开场路线复原。
 - `data/shipping-lanes-audit.json`：来源哈希、数量、体积、陆地交叉和走廊门禁。
 - `data/prc-administrative-boundaries.json`：行政地图边界数据。
 - `GlobePreviewPage.tsx`：独立预览页和数据加载状态。
+- `../classroom/ClassroomGlobeStage.tsx`：1600×1000 课堂电影舞台、字幕、
+  LAM 逐幕讲解和教师/学生同步。
 - `scripts/build-globe-shipping-data.mjs`：全球与 LL3 数据的可复现构建器。
 - `scripts/build-globe-administrative-data.mjs`：行政边界数据构建器。
 
@@ -153,6 +160,17 @@ pnpm --filter @edu/teacher-web globe:data -- `
 ```powershell
 pnpm --filter @edu/teacher-web globe:data -- --ais-only
 ```
+
+只重新生成第一讲历史复原路线时，可运行：
+
+```powershell
+node scripts/build-globe-shipping-data.mjs --opening-only `
+  --searoute-dir "D:\data\searoute\release\searoute"
+```
+
+开场路线固定经过广州港区、马六甲、好望角、多佛和伦敦。构建器对路线执行同一套
+Natural Earth 1:10m 陆地相交检查，并只对港口航道和泰晤士河—伦敦段应用明确的
+通航例外。该路线始终公开标记为“路线复原”，不代表某批丝织品的完整历史轨迹。
 
 ## 行政地图边界
 

@@ -62,56 +62,62 @@ test("shared slide markup never exposes teacher-only metadata", () => {
 });
 
 test("student context strip renders only public time-and-place labels", () => {
-  const history = renderSlide(1);
+  const history = renderSlide(2);
   assert.match(history, /1700：如果只能押一个国家/u);
   assert.match(history, /英吉利海峡/u);
   assert.match(history, /约1700年/u);
   assert.match(history, /史料/u);
   assert.doesNotMatch(history, /校正问题|证据链|课程组手工编排/u);
 
-  const route = renderSlide(10);
+  const route = renderSlide(11);
   assert.match(route, /路线示意/u);
   assert.doesNotMatch(route, /事实边界|非实时信息/u);
 
-  const scenario = renderSlide(44);
+  const scenario = renderSlide(45);
   assert.match(scenario, /教学情境/u);
   assert.match(scenario, /慢但稳定，可以写进生产计划/u);
   assert.doesNotMatch(scenario, /目标不是猜新闻/u);
 });
 
 test("source footer describes evidence without exposing production tooling", () => {
-  const sourcedImage = renderSlide(4);
+  const sourcedImage = renderSlide(5);
   assert.match(sourcedImage, /来源：/u);
   assert.match(sourcedImage, /教学复原图/u);
   assert.doesNotMatch(sourcedImage, /OpenAI ImageGen/u);
 
-  const unsourcedConcept = renderSlide(13);
+  const unsourcedConcept = renderSlide(14);
   assert.doesNotMatch(unsourcedConcept, /课程组手工编排/u);
 });
 
 test("every visible slide counter uses lesson-local numbering", () => {
+  const formalCover = renderSlide(1);
+  assert.match(formalCover, /港口管理概论/u);
+  assert.match(formalCover, /李行之/u);
+  assert.match(formalCover, /重庆交通大学/u);
+  assert.doesNotMatch(formalCover, /\/119/u);
+
   const lessonStarts = [
-    [1, "01 / 46", "1/46"],
-    [47, "01 / 36", "1/36"],
-    [83, "01 / 36", "1/36"]
+    [2, "02 / 47", "2/47"],
+    [48, "01 / 36", "1/36"],
+    [84, "01 / 36", "1/36"]
   ] as const;
   for (const [index, coverCounter, footerCounter] of lessonStarts) {
     const markup = renderSlide(index);
     assert.match(markup, new RegExp(coverCounter.replace("/", "\\/"), "u"));
     assert.match(markup, new RegExp(`港口管理概论 · ${footerCounter.replace("/", "\\/")}`, "u"));
-    assert.doesNotMatch(markup, /\/118/u);
+    assert.doesNotMatch(markup, /\/119/u);
   }
 
-  assert.match(renderSlide(46), /港口管理概论 · 46\/46/u);
-  for (const index of [82, 118]) {
+  assert.match(renderSlide(47), /港口管理概论 · 47\/47/u);
+  for (const index of [83, 119]) {
     const markup = renderSlide(index);
     assert.match(markup, /港口管理概论 · 36\/36/u);
-    assert.doesNotMatch(markup, /\/118/u);
+    assert.doesNotMatch(markup, /\/119/u);
   }
 });
 
 test("the manually refined slides use authored compositions instead of web-card templates", () => {
-  assert.equal(PILOT_AUTHORED_TEACHING_SLIDE_KEYS.length, 59);
+  assert.equal(PILOT_AUTHORED_TEACHING_SLIDE_KEYS.length, 60);
   for (const slideKey of PILOT_AUTHORED_TEACHING_SLIDE_KEYS) {
     const slide = getPortManagementSlideByKey(slideKey);
     assert.ok(slide, `missing authored slide ${slideKey}`);
@@ -132,6 +138,14 @@ test("authored compositions retain the teaching evidence needed on screen", () =
     (typeof PILOT_AUTHORED_TEACHING_SLIDE_KEYS)[number],
     readonly string[]
   > = {
+    "l1-course-cover": [
+      "PORT MANAGEMENT",
+      "港口管理概论",
+      "第一讲 · 英国如何把贸易变成影响力？",
+      "李行之",
+      "重庆交通大学",
+      "从一件丝织品，到全球航运网络"
+    ],
     "l1-1700-wager": ["英格兰", "法国", "人口较少", "欧洲强国"],
     "l1-france-england-scale": ["英格兰", "法国", "英吉利海峡"],
     "l1-china-direct-trade": ["1600", "约1680", "1715后", "网络记忆"],
@@ -203,9 +217,9 @@ test("authored compositions retain the teaching evidence needed on screen", () =
   }
 });
 
-test("all 118 pages have an explicit authored composition", () => {
-  assert.equal(AUTHORED_TEACHING_SLIDE_KEYS.length, 118);
-  assert.equal(new Set(AUTHORED_TEACHING_SLIDE_KEYS).size, 118);
+test("all 119 pages have an explicit authored composition", () => {
+  assert.equal(AUTHORED_TEACHING_SLIDE_KEYS.length, 119);
+  assert.equal(new Set(AUTHORED_TEACHING_SLIDE_KEYS).size, 119);
   assert.deepEqual(
     new Set(AUTHORED_TEACHING_SLIDE_KEYS),
     new Set(PORT_MANAGEMENT_SLIDES.map((slide) => slide.slideKey))

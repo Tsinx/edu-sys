@@ -2,10 +2,12 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   getPortManagementAssistantContext,
+  getPortManagementGlobeCue,
   getPortManagementGlobalSlideIndex,
   getPortManagementLessonSlidePosition,
   getPortManagementSlideByKey,
   PORT_MANAGEMENT_DECK_VERSION,
+  PORT_MANAGEMENT_GLOBE_CUES,
   PORT_MANAGEMENT_IMAGEGEN_ASSETS,
   PORT_MANAGEMENT_LESSONS,
   PORT_MANAGEMENT_SLIDES,
@@ -61,9 +63,9 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
       lesson.slideEnd
     ]),
     [
-      [1, 1, 46],
-      [2, 47, 82],
-      [3, 83, 118]
+      [1, 1, 47],
+      [2, 48, 83],
+      [3, 84, 119]
     ]
   );
   for (const lesson of readyLessons) {
@@ -85,21 +87,21 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
     assert.equal(lesson.assistantBrief, null);
   }
 
-  assert.equal(PORT_MANAGEMENT_SLIDES.length, 118);
+  assert.equal(PORT_MANAGEMENT_SLIDES.length, 119);
   assert.deepEqual(
     PORT_MANAGEMENT_SLIDES.map((slide) => slide.index),
-    Array.from({ length: 118 }, (_, index) => index + 1)
+    Array.from({ length: 119 }, (_, index) => index + 1)
   );
   assert.equal(
     new Set(PORT_MANAGEMENT_SLIDES.map((slide) => slide.slideKey)).size,
-    118
+    119
   );
-  assert.equal(PORT_MANAGEMENT_DECK_VERSION, "release-port-management-voyage-v6");
+  assert.equal(PORT_MANAGEMENT_DECK_VERSION, "release-port-management-voyage-v7");
 });
 
 test("lesson-local page numbers map cleanly onto the internal global index", () => {
   assert.deepEqual(
-    [1, 46, 47, 82, 83, 118].map((globalIndex) => {
+    [1, 47, 48, 83, 84, 119].map((globalIndex) => {
       const position = getPortManagementLessonSlidePosition(globalIndex)!;
       return [
         position.lessonNumber,
@@ -108,8 +110,8 @@ test("lesson-local page numbers map cleanly onto the internal global index", () 
       ];
     }),
     [
-      [1, 1, 46],
-      [1, 46, 46],
+      [1, 1, 47],
+      [1, 47, 47],
       [2, 1, 36],
       [2, 36, 36],
       [3, 1, 36],
@@ -117,15 +119,15 @@ test("lesson-local page numbers map cleanly onto the internal global index", () 
     ]
   );
   assert.equal(getPortManagementGlobalSlideIndex(1, 1), 1);
-  assert.equal(getPortManagementGlobalSlideIndex(1, 46), 46);
-  assert.equal(getPortManagementGlobalSlideIndex(2, 12), 58);
-  assert.equal(getPortManagementGlobalSlideIndex(3, 36), 118);
+  assert.equal(getPortManagementGlobalSlideIndex(1, 47), 47);
+  assert.equal(getPortManagementGlobalSlideIndex(2, 12), 59);
+  assert.equal(getPortManagementGlobalSlideIndex(3, 36), 119);
   assert.equal(getPortManagementGlobalSlideIndex(4, 1), null);
   assert.equal(getPortManagementGlobalSlideIndex(2, 0), null);
   assert.equal(getPortManagementGlobalSlideIndex(2, 37), null);
   assert.equal(getPortManagementGlobalSlideIndex(2, 1.5), null);
   assert.equal(getPortManagementLessonSlidePosition(0), null);
-  assert.equal(getPortManagementLessonSlidePosition(119), null);
+  assert.equal(getPortManagementLessonSlidePosition(120), null);
 });
 
 test("every slide carries complete narrative and source metadata", () => {
@@ -145,7 +147,7 @@ test("every slide carries complete narrative and source metadata", () => {
     assert.ok(evidenceStates.has(slide.narrative.evidence));
     assert.ok(storyBeats.has(slide.narrative.storyBeat));
     assert.ok(slide.narrative.progress >= 1);
-    assert.ok(slide.narrative.progress <= 118);
+    assert.ok(slide.narrative.progress <= 119);
     for (const sourceId of slide.sourceIds ?? []) {
       assert.ok(
         PORT_MANAGEMENT_SOURCES[sourceId],
@@ -197,6 +199,7 @@ test("student-facing slide copy is free of lesson-authoring language", () => {
     /今天的任务/u,
     /先拆掉/u,
     /今天不先/u,
+    /不先给结论/u,
     /不背口号/u,
     /目标不是猜新闻/u,
     /课程组手工编排/u,
@@ -215,12 +218,47 @@ test("student-facing slide copy is free of lesson-authoring language", () => {
     }
   }
 
-  const firstSlide = PORT_MANAGEMENT_SLIDES[0]!;
-  assert.match(firstSlide.teachingCue, /先投票/u);
+  for (const cue of PORT_MANAGEMENT_GLOBE_CUES) {
+    for (const step of cue.steps) {
+      const visibleCopy = `${step.eyebrow}\n${step.title}\n${step.caption}`;
+      for (const pattern of forbiddenPatterns) {
+        assert.doesNotMatch(
+          visibleCopy,
+          pattern,
+          `${cue.id}/${step.id} contains lesson-authoring language`
+        );
+      }
+    }
+  }
+
+  const wagerSlide = getPortManagementSlideByKey("l1-1700-wager")!;
+  assert.match(wagerSlide.teachingCue, /先投票/u);
   assert.doesNotMatch(
-    getStudentVisibleCopy(firstSlide),
+    getStudentVisibleCopy(wagerSlide),
     /先投票，不给答案/u
   );
+});
+
+test("the opening globe cue is fixed, sourced and totals ninety seconds", () => {
+  assert.equal(PORT_MANAGEMENT_GLOBE_CUES.length, 1);
+  const cue = getPortManagementGlobeCue(
+    "l1-opening-trade-influence"
+  )!;
+  assert.equal(cue.startSlideKey, "l1-1700-wager");
+  assert.equal(cue.returnSlideKey, "l1-france-england-scale");
+  assert.equal(
+    cue.steps.reduce((total, step) => total + step.durationMs, 0),
+    90_000
+  );
+  assert.equal(new Set(cue.steps.map((step) => step.id)).size, 7);
+  assert.ok(cue.steps.every((step) => step.narration.length > 20));
+  assert.match(cue.steps[0]?.title ?? "", /下注完成/u);
+  assert.match(cue.steps.at(-1)?.title ?? "", /改变你的最初判断/u);
+  for (const step of cue.steps) {
+    for (const sourceId of step.sourceIds) {
+      assert.ok(PORT_MANAGEMENT_SOURCES[sourceId]);
+    }
+  }
 });
 
 test("the voyage dossier preserves the historical snapshot and teaching boundary", () => {
@@ -256,9 +294,9 @@ test("assistant context stays bounded, page-specific and free of authoring notes
       new RegExp(slide.title.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"))
     );
     assert.match(context.slidePrompt, /证据状态：(真实资料|教学情境|概念模型)/);
-    if (slide.lesson === 1 && slide.index < 39) {
+    if (slide.lesson === 1 && slide.index < 40) {
       assert.match(context.voyagePrompt, /第一讲历史主线/);
-      assert.match(context.voyagePrompt, /现代巨轮从本讲第39页/);
+      assert.match(context.voyagePrompt, /现代巨轮从本讲第40页/);
       assert.doesNotMatch(context.voyagePrompt, /教学货物/);
     } else {
       assert.match(context.voyagePrompt, /OOCL Spain/);
@@ -266,36 +304,36 @@ test("assistant context stays bounded, page-specific and free of authoring notes
     }
   }
 
-  const population = getPortManagementAssistantContext(2);
+  const population = getPortManagementAssistantContext(3);
   assert.match(population.slidePrompt, /约500万人/);
   assert.match(population.slidePrompt, /约2000万人/);
   assert.match(population.lessonPrompt, /法国仍是欧洲强国/);
 
-  const cantonManifest = getPortManagementAssistantContext(8);
+  const cantonManifest = getPortManagementAssistantContext(9);
   assert.match(cantonManifest.slidePrompt, /10,200件/);
   assert.match(cantonManifest.slidePrompt, /British Library/);
 
-  const opportunityCost = getPortManagementAssistantContext(17);
+  const opportunityCost = getPortManagementAssistantContext(18);
   assert.match(opportunityCost.slidePrompt, /机会成本/);
   assert.match(opportunityCost.slidePrompt, /2石粮/);
   assert.match(opportunityCost.slidePrompt, /5石粮/);
 
-  const maritimeShare = getPortManagementAssistantContext(43);
+  const maritimeShare = getPortManagementAssistantContext(44);
   assert.match(maritimeShare.slidePrompt, />80% \/ ≈70%/);
   assert.match(maritimeShare.slidePrompt, /国际贸易货量 \/ 贸易价值/);
   assert.match(maritimeShare.slidePrompt, /UNCTAD/);
 
-  const waterCost = getPortManagementAssistantContext(42);
+  const waterCost = getPortManagementAssistantContext(43);
   assert.match(waterCost.slidePrompt, /17\.25%/);
   assert.match(waterCost.slidePrompt, /55\.65%/);
   assert.match(waterCost.slidePrompt, /水路∶铁路∶公路＝1∶2∶6/);
 
-  const slowSteaming = getPortManagementAssistantContext(41);
+  const slowSteaming = getPortManagementAssistantContext(42);
   assert.match(slowSteaming.slidePrompt, /航速下降10%/);
   assert.match(slowSteaming.slidePrompt, /推进功率需求约下降27%/);
   assert.match(slowSteaming.slidePrompt, /整航程燃料节约约19%/);
 
-  const leadTime = getPortManagementAssistantContext(44);
+  const leadTime = getPortManagementAssistantContext(45);
   assert.match(leadTime.slidePrompt, /平均提前期/);
   assert.match(leadTime.slidePrompt, /30天/);
   assert.match(leadTime.slidePrompt, /±1天/);
@@ -303,22 +341,22 @@ test("assistant context stays bounded, page-specific and free of authoring notes
   assert.match(leadTime.slidePrompt, /±8天/);
   assert.match(leadTime.slidePrompt, /证据状态：教学情境/);
 
-  const routeClassifications = getPortManagementAssistantContext(58);
+  const routeClassifications = getPortManagementAssistantContext(59);
   assert.match(routeClassifications.lessonPrompt, /不得把五大或六大航线/);
   assert.match(routeClassifications.slidePrompt, /分类口径/);
 
-  const reconstructedRoute = getPortManagementAssistantContext(67);
+  const reconstructedRoute = getPortManagementAssistantContext(68);
   assert.match(reconstructedRoute.slidePrompt, /教学路线示意/);
   assert.match(reconstructedRoute.slidePrompt, /实时轨迹/);
 
-  const disruption = getPortManagementAssistantContext(68);
+  const disruption = getPortManagementAssistantContext(69);
   assert.match(disruption.slidePrompt, /证据状态：教学情境/);
   assert.match(disruption.lessonPrompt, /不得说成OOCL Spain真实事故/);
 
-  const generationLens = getPortManagementAssistantContext(96);
+  const generationLens = getPortManagementAssistantContext(97);
   assert.match(generationLens.slidePrompt, /逐层累积/);
 
-  const automation = getPortManagementAssistantContext(97);
+  const automation = getPortManagementAssistantContext(98);
   assert.match(automation.slidePrompt, /自动化/);
   assert.match(automation.lessonPrompt, /自动化本身不能证明属于第四代/);
 

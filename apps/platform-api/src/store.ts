@@ -22,6 +22,7 @@ import {
   type Teacher
 } from "@edu/contracts";
 import {
+  getPortManagementGlobeCue,
   getPortManagementLesson,
   getPortManagementSlide,
   getPortManagementSlideByKey,
@@ -42,6 +43,10 @@ export class JsonStateStore {
   private readonly classroomPresence = new Map<
     string,
     Map<string, number>
+  >();
+  private readonly classroomSnapshotListeners = new Map<
+    string,
+    Set<(snapshot: ClassroomSnapshot) => void>
   >();
 
   constructor(
@@ -89,6 +94,13 @@ export class JsonStateStore {
           if (!slideSpec) {
             const previousLesson =
               sanitizedRuntime.deckVersion ===
+              "release-port-management-voyage-v6"
+                ? rawSlideIndex <= 46
+                  ? 1
+                  : rawSlideIndex <= 82
+                    ? 2
+                    : 3
+                : sanitizedRuntime.deckVersion ===
                 "release-port-management-voyage-v3" ||
               sanitizedRuntime.deckVersion ===
                 "release-port-management-voyage-v4" ||
@@ -132,6 +144,8 @@ export class JsonStateStore {
             sanitizedRuntime.runtimeVersion ?? fallbackRuntime.runtimeVersion,
           activeActivity:
             sanitizedRuntime.activeActivity ?? fallbackRuntime.activeActivity,
+          globePlayback:
+            sanitizedRuntime.globePlayback ?? fallbackRuntime.globePlayback,
           avatarControlHistory
         };
       }
@@ -259,8 +273,36 @@ export class JsonStateStore {
       },
       participantsOnline: this.activeParticipantCount(session.id),
       runtimeVersion: runtime.runtimeVersion,
+      globePlayback: { ...runtime.globePlayback },
       avatar: { ...runtime.avatar }
     };
+  }
+
+  subscribeClassroomSnapshot(
+    sessionId: string,
+    listener: (snapshot: ClassroomSnapshot) => void
+  ): () => void {
+    const listeners =
+      this.classroomSnapshotListeners.get(sessionId) ??
+      new Set<(snapshot: ClassroomSnapshot) => void>();
+    listeners.add(listener);
+    this.classroomSnapshotListeners.set(sessionId, listeners);
+    return () => {
+      listeners.delete(listener);
+      if (listeners.size === 0) {
+        this.classroomSnapshotListeners.delete(sessionId);
+      }
+    };
+  }
+
+  private publishClassroomSnapshot(
+    sessionId: string,
+    snapshot: ClassroomSnapshot | undefined
+  ) {
+    if (!snapshot) return;
+    for (const listener of this.classroomSnapshotListeners.get(sessionId) ?? []) {
+      listener(snapshot);
+    }
   }
 
   getClassroomSnapshot(id: string): ClassroomSnapshot | undefined {
@@ -402,31 +444,126 @@ export class JsonStateStore {
     sessionId: string,
     input: ClassroomEventInput
   ): Promise<ClassroomSnapshot | undefined> {
-    return this.mutate((state) => {
+    const snapshot = await this.mutate((state) => {
       const session = state.classSessions.find((candidate) => candidate.id === sessionId);
       if (!session) {
         return undefined;
       }
       const runtime =
         state.classroomRuntimes[sessionId] ?? createInitialClassroomRuntime();
+      const completeActiveGlobe = () => {
+        if (runtime.globePlayback.cueId) {
+          runtime.globePlayback.status = "completed";
+          runtime.globePlayback.stepStartedAt = null;
+        }
+      };
 
       if (input.type === "next_slide") {
+        completeActiveGlobe();
         runtime.slideIndex = Math.min(
           PORT_MANAGEMENT_SLIDE_TOTAL,
           runtime.slideIndex + 1
         );
         runtime.activeActivity = "slides";
       } else if (input.type === "previous_slide") {
+        completeActiveGlobe();
         runtime.slideIndex = Math.max(1, runtime.slideIndex - 1);
         runtime.activeActivity = "slides";
       } else if (input.type === "set_slide") {
+        completeActiveGlobe();
         runtime.slideIndex = Math.min(
           PORT_MANAGEMENT_SLIDE_TOTAL,
           input.index
         );
         runtime.activeActivity = "slides";
       } else if (input.type === "set_activity") {
+        if (input.activity !== "globe") completeActiveGlobe();
         runtime.activeActivity = input.activity;
+      } else if (input.type === "globe_play_cue") {
+        const cue = getPortManagementGlobeCue(input.cueId);
+        const launchSlide = getPortManagementSlide(runtime.slideIndex);
+        if (cue && launchSlide.slideKey === cue.startSlideKey) {
+          const now = new Date().toISOString();
+          runtime.activeActivity = "globe";
+          runtime.globePlayback = {
+            cueId: cue.id,
+            runId: `globe-run-${randomUUID()}`,
+            stepIndex: 0,
+            status: "playing",
+            stepStartedAt: now,
+            stepElapsedMs: 0
+          };
+        }
+      } else if (input.type === "globe_pause") {
+        const playback = runtime.globePlayback;
+        if (playback.status === "playing" && playback.stepStartedAt) {
+          playback.stepElapsedMs = Math.max(
+            0,
+            playback.stepElapsedMs +
+              (Date.now() - new Date(playback.stepStartedAt).getTime())
+          );
+          playback.status = "paused";
+          playback.stepStartedAt = null;
+        }
+      } else if (input.type === "globe_resume") {
+        const playback = runtime.globePlayback;
+        if (playback.status === "paused" && playback.cueId) {
+          playback.status = "playing";
+          playback.stepStartedAt = new Date().toISOString();
+          runtime.activeActivity = "globe";
+        }
+      } else if (input.type === "globe_restart") {
+        const cue = runtime.globePlayback.cueId
+          ? getPortManagementGlobeCue(runtime.globePlayback.cueId)
+          : undefined;
+        if (cue) {
+          runtime.activeActivity = "globe";
+          runtime.globePlayback = {
+            cueId: cue.id,
+            runId: `globe-run-${randomUUID()}`,
+            stepIndex: 0,
+            status: "playing",
+            stepStartedAt: new Date().toISOString(),
+            stepElapsedMs: 0
+          };
+        }
+      } else if (input.type === "globe_advance") {
+        const playback = runtime.globePlayback;
+        const cue = playback.cueId
+          ? getPortManagementGlobeCue(playback.cueId)
+          : undefined;
+        if (
+          cue &&
+          playback.status === "playing" &&
+          playback.runId === input.runId &&
+          playback.stepIndex === input.fromStepIndex
+        ) {
+          const nextStepIndex = playback.stepIndex + 1;
+          if (nextStepIndex < cue.steps.length) {
+            playback.stepIndex = nextStepIndex;
+            playback.stepStartedAt = new Date().toISOString();
+            playback.stepElapsedMs = 0;
+          } else {
+            const returnSlide = getPortManagementSlideByKey(
+              cue.returnSlideKey
+            );
+            playback.status = "completed";
+            playback.stepStartedAt = null;
+            playback.stepElapsedMs = 0;
+            runtime.activeActivity = "slides";
+            if (returnSlide) {
+              runtime.slideIndex = returnSlide.index;
+              runtime.slideKey = returnSlide.slideKey;
+            }
+          }
+        }
+      } else if (input.type === "set_lam_connection") {
+        runtime.avatar.status = input.connected ? "ready" : "degraded";
+        runtime.avatar.gpuStatus = input.connected ? "ready" : "unavailable";
+        runtime.avatar.latencyMs = null;
+        runtime.avatar.lastMessage = input.connected
+          ? "OpenAvatarChat LAM 已由教师端确认连接。"
+          : "OpenAvatarChat LAM 当前未连接，课堂使用字幕降级。";
       } else {
         runtime.avatar.mode = input.mode;
         runtime.avatar.status =
@@ -445,7 +582,10 @@ export class JsonStateStore {
       runtime.slideKey = currentSlide.slideKey;
       runtime.deckVersion = PORT_MANAGEMENT_DECK_VERSION;
       runtime.runtimeVersion += 1;
-      if (input.type !== "set_avatar_mode") {
+      if (
+        input.type !== "set_avatar_mode" &&
+        input.type !== "set_lam_connection"
+      ) {
         runtime.avatar.currentTask =
           runtime.activeActivity === "slides"
             ? `已连接第 ${runtime.slideIndex} 页`
@@ -454,13 +594,15 @@ export class JsonStateStore {
       state.classroomRuntimes[sessionId] = runtime;
       return this.buildClassroomSnapshot(state, session, runtime);
     });
+    this.publishClassroomSnapshot(sessionId, snapshot);
+    return snapshot;
   }
 
   async executeAvatarControl(
     sessionId: string,
     input: AvatarControlRequest
   ): Promise<AvatarControlResponse | undefined> {
-    return this.mutate((state) => {
+    const response = await this.mutate((state) => {
       const session = state.classSessions.find(
         (candidate) => candidate.id === sessionId
       );
@@ -494,9 +636,16 @@ export class JsonStateStore {
 
       const results: AvatarControlActionResult[] = [];
       let changed = false;
+      const completeActiveGlobe = () => {
+        if (runtime.globePlayback.cueId) {
+          runtime.globePlayback.status = "completed";
+          runtime.globePlayback.stepStartedAt = null;
+        }
+      };
 
       input.actions.forEach((action, index) => {
         if (action.type === "slides.next") {
+          completeActiveGlobe();
           const nextSlide = Math.min(
             PORT_MANAGEMENT_SLIDE_TOTAL,
             runtime.slideIndex + 1
@@ -519,6 +668,7 @@ export class JsonStateStore {
         }
 
         if (action.type === "slides.previous") {
+          completeActiveGlobe();
           const previousSlide = Math.max(1, runtime.slideIndex - 1);
           const actionChanged =
             previousSlide !== runtime.slideIndex ||
@@ -538,6 +688,7 @@ export class JsonStateStore {
         }
 
         if (action.type === "slides.go_to") {
+          completeActiveGlobe();
           const targetSlide = Math.min(
             PORT_MANAGEMENT_SLIDE_TOTAL,
             action.slide
@@ -581,6 +732,7 @@ export class JsonStateStore {
             runtime.slideIndex !== lesson.slideStart ||
             runtime.activeActivity !== "slides";
           runtime.slideIndex = lesson.slideStart;
+          completeActiveGlobe();
           runtime.activeActivity = "slides";
           changed ||= actionChanged;
           results.push({
@@ -594,6 +746,135 @@ export class JsonStateStore {
           return;
         }
 
+        if (action.type === "globe.play_cue") {
+          const cue = getPortManagementGlobeCue(action.cueId);
+          if (!cue) {
+            results.push({
+              index,
+              type: action.type,
+              status: "noop",
+              message: `未注册地球仪开场 ${action.cueId}，未执行`
+            });
+            return;
+          }
+          const launchSlide = getPortManagementSlide(runtime.slideIndex);
+          if (launchSlide.slideKey !== cue.startSlideKey) {
+            results.push({
+              index,
+              type: action.type,
+              status: "noop",
+              message: `请先进入“${cue.startSlideKey}”问题页，再启动地球仪证据追踪`
+            });
+            return;
+          }
+          const alreadyPlaying =
+            runtime.activeActivity === "globe" &&
+            runtime.globePlayback.cueId === cue.id &&
+            runtime.globePlayback.status === "playing";
+          if (!alreadyPlaying) {
+            runtime.activeActivity = "globe";
+            runtime.globePlayback = {
+              cueId: cue.id,
+              runId: `globe-run-${randomUUID()}`,
+              stepIndex: 0,
+              status: "playing",
+              stepStartedAt: new Date().toISOString(),
+              stepElapsedMs: 0
+            };
+          }
+          changed ||= !alreadyPlaying;
+          results.push({
+            index,
+            type: action.type,
+            status: alreadyPlaying ? "noop" : "applied",
+            message: alreadyPlaying
+              ? `地球仪开场“${cue.title}”已经在播放`
+              : `已启动地球仪开场“${cue.title}”`
+          });
+          return;
+        }
+
+        if (action.type === "globe.pause") {
+          const playback = runtime.globePlayback;
+          const actionChanged =
+            runtime.activeActivity === "globe" &&
+            playback.status === "playing" &&
+            playback.stepStartedAt !== null;
+          if (actionChanged && playback.stepStartedAt) {
+            playback.stepElapsedMs = Math.max(
+              0,
+              playback.stepElapsedMs +
+                (Date.now() - new Date(playback.stepStartedAt).getTime())
+            );
+            playback.status = "paused";
+            playback.stepStartedAt = null;
+          }
+          changed ||= actionChanged;
+          results.push({
+            index,
+            type: action.type,
+            status: actionChanged ? "applied" : "noop",
+            message: actionChanged
+              ? "已暂停地球仪开场"
+              : "当前没有正在播放的地球仪开场"
+          });
+          return;
+        }
+
+        if (action.type === "globe.resume") {
+          const playback = runtime.globePlayback;
+          const actionChanged =
+            playback.cueId !== null && playback.status === "paused";
+          if (actionChanged) {
+            playback.status = "playing";
+            playback.stepStartedAt = new Date().toISOString();
+            runtime.activeActivity = "globe";
+          }
+          changed ||= actionChanged;
+          results.push({
+            index,
+            type: action.type,
+            status: actionChanged ? "applied" : "noop",
+            message: actionChanged
+              ? "已继续地球仪开场"
+              : "当前没有已暂停的地球仪开场"
+          });
+          return;
+        }
+
+        if (action.type === "globe.restart") {
+          const cue = runtime.globePlayback.cueId
+            ? getPortManagementGlobeCue(runtime.globePlayback.cueId)
+            : undefined;
+          if (!cue) {
+            results.push({
+              index,
+              type: action.type,
+              status: "noop",
+              message: "当前没有可重新播放的地球仪开场"
+            });
+            return;
+          }
+          runtime.activeActivity = "globe";
+          runtime.globePlayback = {
+            cueId: cue.id,
+            runId: `globe-run-${randomUUID()}`,
+            stepIndex: 0,
+            status: "playing",
+            stepStartedAt: new Date().toISOString(),
+            stepElapsedMs: 0
+          };
+          changed = true;
+          results.push({
+            index,
+            type: action.type,
+            status: "applied",
+            message: `已从头播放地球仪开场“${cue.title}”`
+          });
+          return;
+        }
+
+        if (action.activity !== "globe") completeActiveGlobe();
         const actionChanged =
           runtime.activeActivity !== action.activity;
         runtime.activeActivity = action.activity;
@@ -613,7 +894,9 @@ export class JsonStateStore {
       runtime.slideKey = currentSlide.slideKey;
       runtime.deckVersion = PORT_MANAGEMENT_DECK_VERSION;
       const executedAt = new Date().toISOString();
-      const status = changed ? "applied" : "noop";
+      const status: AvatarControlResponse["status"] = changed
+        ? "applied"
+        : "noop";
       if (changed) {
         runtime.runtimeVersion += 1;
         runtime.avatar.currentTask =
@@ -651,6 +934,8 @@ export class JsonStateStore {
         snapshot
       };
     });
+    this.publishClassroomSnapshot(sessionId, response?.snapshot);
+    return response;
   }
 
   async submitAvatarCommand(

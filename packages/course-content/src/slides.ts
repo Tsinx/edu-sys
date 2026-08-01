@@ -6,9 +6,9 @@ import type {
   PortNarrativePublicLabel
 } from "./index.js";
 import {
-  PORT_MANAGEMENT_LESSON_ONE_V6_IMAGEGEN_ASSETS,
-  PORT_MANAGEMENT_LESSON_ONE_V6_SLIDES
-} from "./lesson1-v6.js";
+  PORT_MANAGEMENT_LESSON_ONE_V7_IMAGEGEN_ASSETS,
+  PORT_MANAGEMENT_LESSON_ONE_V7_SLIDES
+} from "./lesson1-v7.js";
 
 const ASSET_ROOT = "/course-assets/port-management";
 
@@ -44,7 +44,7 @@ const IMAGES = {
 export const PORT_MANAGEMENT_IMAGEGEN_ASSETS: readonly string[] =
   [
     ...Object.values(IMAGES),
-    ...PORT_MANAGEMENT_LESSON_ONE_V6_IMAGEGEN_ASSETS
+    ...PORT_MANAGEMENT_LESSON_ONE_V7_IMAGEGEN_ASSETS
   ];
 
 type ReadyLesson = 1 | 2 | 3;
@@ -2713,7 +2713,7 @@ const LEGACY_PORT_MANAGEMENT_SLIDES: readonly PortManagementSlideSpec[] = [
 ];
 
 export const PORT_MANAGEMENT_SLIDES: readonly PortManagementSlideSpec[] = [
-  ...PORT_MANAGEMENT_LESSON_ONE_V6_SLIDES,
+  ...PORT_MANAGEMENT_LESSON_ONE_V7_SLIDES,
   ...LEGACY_PORT_MANAGEMENT_SLIDES.slice(36)
 ].map((slide, offset) => ({
   ...slide,

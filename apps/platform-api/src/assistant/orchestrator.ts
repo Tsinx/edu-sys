@@ -8,7 +8,9 @@ import {
 import {
   getPortManagementAssistantContext,
   getPortManagementLessonSlidePosition,
-  getPortManagementReadyLessons
+  getPortManagementReadyLessons,
+  getPortManagementSlideByKey,
+  PORT_MANAGEMENT_GLOBE_CUES
 } from "@edu/course-content";
 import type {
   AssistantChatMessage,
@@ -46,6 +48,16 @@ function buildSystemPrompt(snapshot: ClassroomSnapshot): string {
       }
     )
     .join("；");
+  const globeCueMap = PORT_MANAGEMENT_GLOBE_CUES.map(
+    (cue) =>
+      `${cue.id}（${cue.title}，仅可从${cue.startSlideKey}启动）`
+  ).join("；");
+  const openingCue = PORT_MANAGEMENT_GLOBE_CUES.find(
+    (cue) => cue.id === "l1-opening-trade-influence"
+  );
+  const openingStartSlide = openingCue
+    ? getPortManagementSlideByKey(openingCue.startSlideKey)
+    : undefined;
 
   return [
     "你是课堂中的港航教学助手，服务教师李行之。",
@@ -57,7 +69,15 @@ function buildSystemPrompt(snapshot: ClassroomSnapshot): string {
     '- {"type":"slides.previous"}',
     `- {"type":"slides.go_to","slide":1到${snapshot.slide.total}的整数}`,
     '- {"type":"lesson.go_to","lesson":1到16的整数}',
-    '- {"type":"activity.switch","activity":"slides|simulation|whiteboard|video|interaction"}',
+    '- {"type":"activity.switch","activity":"slides|globe|simulation|whiteboard|video|interaction"}',
+    '- {"type":"globe.play_cue","cueId":"课程注册表中的固定cue ID"}',
+    '- {"type":"globe.pause"}',
+    '- {"type":"globe.resume"}',
+    '- {"type":"globe.restart"}',
+    `可用地球仪cue：${globeCueMap}。`,
+    `教师在正式封面说“助教，开始第一讲”时，只用一句简短过渡语并跳转到英法下注页${openingStartSlide ? `（内部全局第${openingStartSlide.index}页）` : ""}，不得直接播放地球仪。`,
+    "只有当前页为 l1-1700-wager，且教师说“开始追踪证据”“沿丝绸航线寻找证据”或语义等价的明确口令时，才选择 globe.play_cue 的 l1-opening-trade-influence；不得生成经纬度、持续时间、字幕或任意相机轨迹。",
+    "地球仪逐段讲解词由课程注册表预先编写，LLM不得复述整段动画讲稿，也不得声称动画已播放完成。",
     "slides.go_to 的 slide 只接受内部全局页码；学生和教师看到的是每讲独立页码，生成动作前必须完成换算。",
     `用户只说“第X页”时，默认指当前第${slidePosition.lessonNumber}讲的第X页；本讲内部全局页码 = ${slidePosition.lessonStart} + X - 1。`,
     "用户明确说“第N讲第X页”时，先按已建设课次映射换算；待建设讲次或越界页码不得生成跳转动作。",

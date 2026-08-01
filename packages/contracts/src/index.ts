@@ -97,6 +97,7 @@ export type AvatarPresentation = z.infer<typeof avatarPresentationSchema>;
 
 export const classroomActivitySchema = z.enum([
   "slides",
+  "globe",
   "simulation",
   "whiteboard",
   "video",
@@ -144,6 +145,26 @@ export const classroomAvatarRuntimeSchema = z.object({
 });
 export type ClassroomAvatarRuntime = z.infer<typeof classroomAvatarRuntimeSchema>;
 
+export const globePlaybackStatusSchema = z.enum([
+  "idle",
+  "playing",
+  "paused",
+  "completed"
+]);
+export type GlobePlaybackStatus = z.infer<
+  typeof globePlaybackStatusSchema
+>;
+
+export const globePlaybackSchema = z.object({
+  cueId: z.string().nullable(),
+  runId: z.string().nullable(),
+  stepIndex: z.number().int().nonnegative(),
+  status: globePlaybackStatusSchema,
+  stepStartedAt: z.string().nullable(),
+  stepElapsedMs: z.number().int().nonnegative()
+});
+export type GlobePlayback = z.infer<typeof globePlaybackSchema>;
+
 export const classroomSnapshotSchema = z.object({
   session: classSessionSchema,
   courseId: z.string(),
@@ -153,6 +174,7 @@ export const classroomSnapshotSchema = z.object({
   slide: slideFrameSchema,
   participantsOnline: z.number().int().nonnegative(),
   runtimeVersion: z.number().int().positive(),
+  globePlayback: globePlaybackSchema,
   avatar: classroomAvatarRuntimeSchema
 });
 export type ClassroomSnapshot = z.infer<typeof classroomSnapshotSchema>;
@@ -197,6 +219,22 @@ export const classroomEventInputSchema = z.discriminatedUnion("type", [
     activity: classroomActivitySchema
   }),
   z.object({
+    type: z.literal("globe_play_cue"),
+    cueId: z.string().trim().min(1).max(128)
+  }),
+  z.object({ type: z.literal("globe_pause") }),
+  z.object({ type: z.literal("globe_resume") }),
+  z.object({ type: z.literal("globe_restart") }),
+  z.object({
+    type: z.literal("globe_advance"),
+    runId: z.string().trim().min(1).max(128),
+    fromStepIndex: z.number().int().nonnegative()
+  }),
+  z.object({
+    type: z.literal("set_lam_connection"),
+    connected: z.boolean()
+  }),
+  z.object({
     type: z.literal("set_avatar_mode"),
     mode: z.enum(["classroom_realtime", "selfstudy_prerecorded"])
   })
@@ -212,7 +250,11 @@ export const avatarControlActionTypeSchema = z.enum([
   "slides.previous",
   "slides.go_to",
   "lesson.go_to",
-  "activity.switch"
+  "activity.switch",
+  "globe.play_cue",
+  "globe.pause",
+  "globe.resume",
+  "globe.restart"
 ]);
 export type AvatarControlActionType = z.infer<
   typeof avatarControlActionTypeSchema
@@ -238,7 +280,16 @@ export const avatarControlActionSchema = z.discriminatedUnion("type", [
       type: z.literal("activity.switch"),
       activity: classroomActivitySchema
     })
-    .strict()
+    .strict(),
+  z
+    .object({
+      type: z.literal("globe.play_cue"),
+      cueId: z.string().trim().min(1).max(128)
+    })
+    .strict(),
+  z.object({ type: z.literal("globe.pause") }).strict(),
+  z.object({ type: z.literal("globe.resume") }).strict(),
+  z.object({ type: z.literal("globe.restart") }).strict()
 ]);
 export type AvatarControlAction = z.infer<typeof avatarControlActionSchema>;
 

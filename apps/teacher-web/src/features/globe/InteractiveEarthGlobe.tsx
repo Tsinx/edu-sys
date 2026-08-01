@@ -121,6 +121,8 @@ export interface InteractiveEarthGlobeProps {
   routes?: readonly GlobeRoute[];
   shippingLanes?: readonly GlobeShippingLanePath[];
   activeLocationIds?: readonly string[];
+  activeLocationColor?: string;
+  activeLocationColors?: Readonly<Record<string, string>>;
   initialFocus?: GlobeCoordinate;
   textureUrl?: string;
   fallbackImageUrl?: string;
@@ -128,6 +130,7 @@ export interface InteractiveEarthGlobeProps {
   maxDistance?: number;
   autoRotate?: boolean;
   autoRotateSpeed?: number;
+  forceFallback?: boolean;
   showControls?: boolean;
   showGraticule?: boolean;
   showLabels?: boolean;
@@ -176,6 +179,7 @@ type StageState = "loading" | "ready" | "error";
 interface MarkerVisual {
   group: Group;
   point: Mesh;
+  stemMaterial: MeshBasicMaterial;
   pointMaterial: MeshBasicMaterial;
   ringMaterial: MeshBasicMaterial;
   baseColor: Color;
@@ -190,6 +194,7 @@ interface RoutePulse {
 }
 
 interface MarkerPulse {
+  locationId: string;
   ring: Mesh;
   material: MeshBasicMaterial;
   phase: number;
@@ -290,6 +295,7 @@ const DEFAULT_FEATURED_ROUTE_DISTANCE = 2.75;
 const DEFAULT_MIN_DISTANCE = 1.72;
 const DEFAULT_MAX_DISTANCE = 4.6;
 const ACTIVE_COLOR = new Color("#ffbd66");
+const EMPTY_ACTIVE_LOCATION_COLORS: Readonly<Record<string, string>> = {};
 const NATURAL_EARTH_COLOR = new Color("#ffffff");
 const ADMINISTRATIVE_EARTH_COLOR = new Color("#86a1ad");
 const NATURAL_EARTH_EMISSIVE = new Color("#021424");
@@ -924,11 +930,12 @@ function locationColor(location: GlobeLocation) {
 function createMarker(
   location: GlobeLocation,
   active: boolean,
-  showLabel: boolean
+  showLabel: boolean,
+  activeColor: Color
 ) {
   const group = new Group();
   const baseColor = locationColor(location);
-  const currentColor = active ? ACTIVE_COLOR : baseColor;
+  const currentColor = active ? activeColor : baseColor;
   const normal = latLngToVector3(location).normalize();
   const markerPosition = normal.clone().multiplyScalar(1.055);
 
@@ -994,6 +1001,7 @@ function createMarker(
     hitTarget,
     labelSprite,
     markerPulse: {
+      locationId: location.id,
       ring,
       material: ringMaterial,
       phase: Math.abs(location.longitude + location.latitude) / 180
@@ -1001,6 +1009,7 @@ function createMarker(
     visual: {
       group,
       point,
+      stemMaterial,
       pointMaterial,
       ringMaterial,
       baseColor,
@@ -1069,6 +1078,8 @@ export const InteractiveEarthGlobe = forwardRef<
     routes = [],
     shippingLanes = [],
     activeLocationIds = [],
+    activeLocationColor = `#${ACTIVE_COLOR.getHexString()}`,
+    activeLocationColors = EMPTY_ACTIVE_LOCATION_COLORS,
     initialFocus = DEFAULT_GLOBAL_ROUTE_FOCUS,
     textureUrl = DEFAULT_TEXTURE,
     fallbackImageUrl = DEFAULT_TEXTURE,
@@ -1076,6 +1087,7 @@ export const InteractiveEarthGlobe = forwardRef<
     maxDistance = DEFAULT_MAX_DISTANCE,
     autoRotate = true,
     autoRotateSpeed = 0.46,
+    forceFallback = false,
     showControls = true,
     showGraticule = true,
     showLabels = true,
@@ -1312,12 +1324,15 @@ export const InteractiveEarthGlobe = forwardRef<
     const activeSet = new Set(activeLocationIds);
     runtime.markerVisuals.forEach((visual, locationId) => {
       const active = activeSet.has(locationId);
-      const color = active ? ACTIVE_COLOR : visual.baseColor;
+      const color = active
+        ? new Color(activeLocationColors[locationId] ?? activeLocationColor)
+        : visual.baseColor;
+      visual.stemMaterial.color.copy(color);
       visual.pointMaterial.color.copy(color);
       visual.ringMaterial.color.copy(color);
       visual.point.scale.setScalar(active ? 1.4 : 1);
     });
-  }, [activeLocationIds]);
+  }, [activeLocationColor, activeLocationColors, activeLocationIds]);
 
   useEffect(() => {
     const runtime = runtimeRef.current;
@@ -1366,6 +1381,12 @@ export const InteractiveEarthGlobe = forwardRef<
   useEffect(() => {
     const mount = mountRef.current;
     if (!mount) return;
+    if (forceFallback) {
+      runtimeRef.current = undefined;
+      mount.replaceChildren();
+      setStageState("error");
+      return;
+    }
 
     let disposed = false;
     let animationFrame = 0;
@@ -1542,7 +1563,10 @@ export const InteractiveEarthGlobe = forwardRef<
           const marker = createMarker(
             location,
             activeSet.has(location.id),
-            showLabels
+            showLabels,
+            new Color(
+              activeLocationColors[location.id] ?? activeLocationColor
+            )
           );
           marker.markerPulse.phase += index / Math.max(locations.length, 1);
           markerPulses.push(marker.markerPulse);
@@ -1768,10 +1792,23 @@ export const InteractiveEarthGlobe = forwardRef<
         });
 
         markerPulses.forEach((pulse) => {
+          const active = activeIdsRef.current.includes(pulse.locationId);
           const progress =
-            (elapsedSeconds * 0.42 + pulse.phase) % 1;
-          pulse.ring.scale.setScalar(1 + progress * 1.8);
-          pulse.material.opacity = (1 - progress) * 0.48;
+            (elapsedSeconds * (active ? 0.76 : 0.42) + pulse.phase) % 1;
+          pulse.ring.scale.setScalar(
+            1 + progress * (active ? 2.65 : 1.8)
+          );
+          pulse.material.opacity =
+            (1 - progress) * (active ? 0.86 : 0.36);
+        });
+
+        runtime.markerVisuals.forEach((visual, locationId) => {
+          if (!activeIdsRef.current.includes(locationId)) {
+            visual.point.scale.setScalar(1);
+            return;
+          }
+          const flash = 1.5 + (Math.sin(elapsedSeconds * 6.2) + 1) * 0.17;
+          visual.point.scale.setScalar(flash);
         });
 
         const labelScale = MathUtils.clamp(
@@ -1856,8 +1893,11 @@ export const InteractiveEarthGlobe = forwardRef<
     }
   }, [
     ariaLabel,
+    activeLocationColor,
+    activeLocationColors,
     autoRotate,
     autoRotateSpeed,
+    forceFallback,
     initialFocus.latitude,
     initialFocus.longitude,
     locations,

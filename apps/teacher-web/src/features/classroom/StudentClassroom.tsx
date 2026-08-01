@@ -7,11 +7,17 @@ import {
   ShipWheel,
   UsersRound
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../../api";
 import { SlideStage } from "./TeachingSlides";
 import "./classroom.css";
+
+const ClassroomGlobeStage = lazy(() =>
+  import("./ClassroomGlobeStage").then((module) => ({
+    default: module.ClassroomGlobeStage
+  }))
+);
 
 function getParticipantId(sessionId: string) {
   const storageKey = `edu-classroom-participant:${sessionId}`;
@@ -27,6 +33,8 @@ export function StudentClassroom() {
   const [participantId] = useState(() => getParticipantId(sessionId));
   const [snapshot, setSnapshot] = useState<ClassroomSnapshot>();
   const [presenceConnected, setPresenceConnected] = useState(false);
+  const [snapshotStreamConnected, setSnapshotStreamConnected] =
+    useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -49,6 +57,16 @@ export function StudentClassroom() {
       window.clearInterval(timer);
     };
   }, [sessionId]);
+
+  useEffect(
+    () =>
+      api.subscribeClassroomSnapshot(
+        sessionId,
+        setSnapshot,
+        setSnapshotStreamConnected
+      ),
+    [sessionId]
+  );
 
   useEffect(() => {
     let active = true;
@@ -120,6 +138,7 @@ export function StudentClassroom() {
   }
 
   const isLive = snapshot.session.status === "live";
+  const isGlobe = snapshot.activeActivity === "globe";
   const slidePosition = getPortManagementLessonSlidePosition(
     snapshot.slide.index
   )!;
@@ -151,7 +170,24 @@ export function StudentClassroom() {
       </header>
 
       <section className="student-classroom__stage" aria-label="学生课堂画面">
-        <SlideStage frame={snapshot.slide} />
+        {isGlobe ? (
+          <Suspense
+            fallback={
+              <div className="classroom-globe-loading">
+                <LoaderCircle className="spin" size={31} />
+                <span>正在按需装载电影化地球仪</span>
+              </div>
+            }
+          >
+            <ClassroomGlobeStage
+              snapshot={snapshot}
+              role="student"
+              lamConnected={snapshot.avatar.gpuStatus === "ready"}
+            />
+          </Suspense>
+        ) : (
+          <SlideStage frame={snapshot.slide} />
+        )}
       </section>
 
       <footer className="student-classroom__footer">
@@ -160,7 +196,12 @@ export function StudentClassroom() {
           当前页 {String(slidePosition.localIndex).padStart(2, "0")} /{" "}
           {slidePosition.localTotal}
         </span>
-        <span>学生端只读画面 · 教师翻页后自动同步</span>
+        <span>
+          学生端只读画面 ·{" "}
+          {snapshotStreamConnected
+            ? "课堂状态实时同步"
+            : "连接中，5秒轮询降级"}
+        </span>
       </footer>
     </main>
   );

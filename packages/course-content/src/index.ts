@@ -202,8 +202,181 @@ export interface PortManagementVoyageDossier {
   sourceIds: readonly string[];
 }
 
+export interface PortManagementGlobeCueFocus {
+  latitude: number;
+  longitude: number;
+  distance: number;
+}
+
+export type PortManagementGlobeCueVisual =
+  | "emergence"
+  | "channel"
+  | "silk"
+  | "historical-route"
+  | "london-network"
+  | "global-network"
+  | "question";
+
+export interface PortManagementGlobeCueStep {
+  id: string;
+  durationMs: number;
+  visual: PortManagementGlobeCueVisual;
+  eyebrow: string;
+  title: string;
+  caption: string;
+  narration: string;
+  focus: PortManagementGlobeCueFocus;
+  activeLocationIds: readonly string[];
+  publicLabel?: PortNarrativePublicLabel;
+  sourceIds: readonly string[];
+}
+
+export interface PortManagementGlobeCue {
+  id: string;
+  lesson: PortManagementLessonNumber;
+  title: string;
+  startSlideKey: string;
+  returnSlideKey: string;
+  estimatedDurationMs: number;
+  steps: readonly PortManagementGlobeCueStep[];
+}
+
 export const PORT_MANAGEMENT_DECK_VERSION =
-  "release-port-management-voyage-v6";
+  "release-port-management-voyage-v7";
+
+export const PORT_MANAGEMENT_GLOBE_CUES: readonly PortManagementGlobeCue[] = [
+  {
+    id: "l1-opening-trade-influence",
+    lesson: 1,
+    title: "第一讲证据追踪：贸易如何放大影响力",
+    startSlideKey: "l1-1700-wager",
+    returnSlideKey: "l1-france-england-scale",
+    estimatedDurationMs: 90_000,
+    steps: [
+      {
+        id: "year-1700",
+        durationMs: 9_000,
+        visual: "emergence",
+        eyebrow: "MISSION 01 / EVIDENCE HUNT",
+        title: "下注完成：现在沿贸易网络寻找证据",
+        caption:
+          "任务：解释一个人口与陆地资源并不占优的国家，如何把海上贸易转化为全球影响力。",
+        narration:
+          "你已经做出选择。现在把时间拨回一七零零年，沿着商品、航线、港口与组织能力，寻找能够改变最初判断的证据。",
+        focus: { latitude: 25, longitude: 15, distance: 4.15 },
+        activeLocationIds: [],
+        publicLabel: "史料",
+        sourceIds: ["population-europe-1700"]
+      },
+      {
+        id: "channel-scale",
+        durationMs: 15_000,
+        visual: "channel",
+        eyebrow: "ENGLISH CHANNEL",
+        title: "海峡两岸：四倍人口差",
+        caption:
+          "英格兰和威尔士的人口约为法国四分之一；法国仍是拥有陆海力量的欧洲强国。",
+        narration:
+          "海峡这边，英格兰和威尔士大约五百万人；另一边，法国大约两千万人。若只看人口与陆地资源，答案似乎并不难。",
+        focus: { latitude: 50.2, longitude: 0.7, distance: 2.22 },
+        activeLocationIds: ["england", "france"],
+        publicLabel: "史料",
+        sourceIds: ["population-europe-1700", "france-naval-history"]
+      },
+      {
+        id: "canton-silk",
+        durationMs: 12_000,
+        visual: "silk",
+        eyebrow: "CANTON / SILK",
+        title: "镜头转向广州：一件中国丝织品",
+        caption:
+          "1727年广州采购档案记录了10,200件织造丝绸；轻而贵的货物能承担漫长海运。",
+        narration:
+          "再把目光移到广州。一七二七年的采购档案记录了一万零二百件织造丝绸。轻而贵，让它足以承担漫长的海上旅程。",
+        focus: { latitude: 23.1, longitude: 113.3, distance: 2.18 },
+        activeLocationIds: ["canton"],
+        publicLabel: "史料",
+        sourceIds: ["bl-canton-1727"]
+      },
+      {
+        id: "reconstructed-route",
+        durationMs: 20_000,
+        visual: "historical-route",
+        eyebrow: "ROUTE RECONSTRUCTION",
+        title: "广州—马六甲—好望角—多佛—伦敦",
+        caption:
+          "这是一条依据海上通道复原的教学路线，不代表某一批丝绸的可追踪完整航迹。",
+        narration:
+          "货物离开广州，经马六甲进入印度洋，绕过好望角，再穿过多佛海峡抵达伦敦。这是路线复原，不是某一批丝绸留下的完整航迹。",
+        focus: { latitude: 8, longitude: 45, distance: 3.82 },
+        activeLocationIds: [
+          "canton",
+          "malacca",
+          "cape-good-hope",
+          "dover",
+          "london"
+        ],
+        publicLabel: "路线示意",
+        sourceIds: ["bl-eic-china-trade"]
+      },
+      {
+        id: "london-network",
+        durationMs: 12_000,
+        visual: "london-network",
+        eyebrow: "LONDON / NETWORK",
+        title: "商品抵达后，影响力才开始扩散",
+        caption:
+          "港口、市场、信用与重复航线把一次交换变成可记录、可融资、可复制的网络。",
+        narration:
+          "抵达伦敦并不是终点。港口、市场、信用和重复航线，把一次交换变成可记录、可融资、也可复制的网络。",
+        focus: { latitude: 51.5, longitude: -0.1, distance: 2.16 },
+        activeLocationIds: ["london", "bristol", "amsterdam", "lisbon"],
+        publicLabel: "概念模型",
+        sourceIds: ["bl-eic-china-trade"]
+      },
+      {
+        id: "modern-network",
+        durationMs: 13_000,
+        visual: "global-network",
+        eyebrow: "THEN → NOW",
+        title: "历史航路淡出，现代全球主干航线浮现",
+        caption:
+          "今天，超过80%的国际贸易货量由海运承担；连接能力已成为全球生产分工的基础设施。",
+        narration:
+          "三百年后，帆船航路变成全球主干航线。今天，超过八成的国际贸易货量由海运承担，连接能力已经成为生产分工的基础设施。",
+        focus: { latitude: 8, longitude: -18, distance: 4.1 },
+        activeLocationIds: [
+          "shanghai",
+          "singapore",
+          "rotterdam",
+          "los-angeles-long-beach"
+        ],
+        publicLabel: "官方资料",
+        sourceIds: ["unctad-maritime-share"]
+      },
+      {
+        id: "opening-question",
+        durationMs: 9_000,
+        visual: "question",
+        eyebrow: "MISSION REVIEW / 05 EVIDENCE FILES",
+        title: "证据已经改变你的最初判断吗？",
+        caption:
+          "人口只是起点；商品、航线、港口与组织能力决定贸易能否持续转化为全球影响力。",
+        narration:
+          "现在回看最初的下注。人口并不是影响力的上限，商品、航线、港口与组织能力，决定贸易能否被持续放大。下一页，我们核对海峡两岸真实的起点。",
+        focus: { latitude: 35, longitude: 20, distance: 4.05 },
+        activeLocationIds: ["england", "france", "canton", "london"],
+        sourceIds: []
+      }
+    ]
+  }
+] as const;
+
+export function getPortManagementGlobeCue(
+  cueId: string
+): PortManagementGlobeCue | undefined {
+  return PORT_MANAGEMENT_GLOBE_CUES.find((cue) => cue.id === cueId);
+}
 
 export const PORT_MANAGEMENT_SOURCES: Record<string, PortCourseSource> = {
   "oocl-spain-release": {
@@ -391,42 +564,42 @@ export const PORT_MANAGEMENT_LESSON_TIMINGS: Record<
     {
       label: "1700年的赌局",
       slideStart: 1,
-      slideEnd: 5,
+      slideEnd: 6,
       minutes: 10,
-      purpose: "以人口劣势之谜和一件中国丝织品建立问题。"
+      purpose: "由正式封面、英法下注和地球仪证据追踪进入人口劣势之谜。"
     },
     {
       label: "沿丝织品寻找网络",
-      slideStart: 6,
-      slideEnd: 12,
+      slideStart: 7,
+      slideEnd: 13,
       minutes: 14,
       purpose: "用英国贸易档案追踪公司、航线、清单与伦敦市场。"
     },
     {
       label: "极端比较优势模型",
-      slideStart: 13,
-      slideEnd: 22,
+      slideStart: 14,
+      slideEnd: 23,
       minutes: 20,
       purpose: "解释同时具有绝对优势时，有限时间仍会产生比较优势。"
     },
     {
       label: "江南—湖广—海港",
-      slideStart: 23,
-      slideEnd: 30,
+      slideStart: 24,
+      slideEnd: 31,
       minutes: 15,
       purpose: "用历史综合链说明区域分工如何依赖内河与海运。"
     },
     {
       label: "英国如何放大贸易",
-      slideStart: 31,
-      slideEnd: 38,
+      slideStart: 32,
+      slideEnd: 39,
       minutes: 16,
       purpose: "解释港口、账簿、金融、国家与工业化如何放大网络。"
     },
     {
       label: "现代镜像与港口结论",
-      slideStart: 39,
-      slideEnd: 46,
+      slideStart: 40,
+      slideEnd: 47,
       minutes: 15,
       purpose: "回到现代巨轮，解释水运低成本、稳定性与港口接口。"
     }
@@ -434,43 +607,43 @@ export const PORT_MANAGEMENT_LESSON_TIMINGS: Record<
   2: [
     {
       label: "恢复航海日志",
-      slideStart: 47,
-      slideEnd: 50,
+      slideStart: 48,
+      slideEnd: 51,
       minutes: 8,
       purpose: "以真实LL3港序提出路线解释任务。"
     },
     {
       label: "班轮走廊与节点",
-      slideStart: 51,
-      slideEnd: 58,
+      slideStart: 52,
+      slideEnd: 59,
       minutes: 18,
       purpose: "在航次中辨认干线、支线、枢纽、门户和腹地。"
     },
     {
       label: "马六甲与苏伊士",
-      slideStart: 59,
-      slideEnd: 67,
+      slideStart: 60,
+      slideEnd: 68,
       minutes: 22,
       purpose: "解释海峡、运河及风险传播。"
     },
     {
       label: "教学中断决策",
-      slideStart: 68,
-      slideEnd: 72,
+      slideStart: 69,
+      slideEnd: 73,
       minutes: 15,
       purpose: "比较等待、绕航和调整转运的后果。"
     },
     {
       label: "重庆集装箱支线",
-      slideStart: 73,
-      slideEnd: 79,
+      slideStart: 74,
+      slideEnd: 80,
       minutes: 17,
       purpose: "从果园港追踪集装箱进入上海海运网络。"
     },
     {
       label: "网络韧性与抵欧",
-      slideStart: 80,
-      slideEnd: 82,
+      slideStart: 81,
+      slideEnd: 83,
       minutes: 10,
       purpose: "形成完整网络图并留下港口价值悬念。"
     }
@@ -478,43 +651,43 @@ export const PORT_MANAGEMENT_LESSON_TIMINGS: Record<
   3: [
     {
       label: "抵港问题",
-      slideStart: 83,
-      slideEnd: 87,
+      slideStart: 84,
+      slideEnd: 88,
       minutes: 10,
       purpose: "由同船不同港的作业差异提出价值问题。"
     },
     {
       label: "港口能力演化",
-      slideStart: 88,
-      slideEnd: 96,
+      slideStart: 89,
+      slideEnd: 97,
       minutes: 21,
       purpose: "先观察能力变化，再命名一至四代港口。"
     },
     {
       label: "沿航次比较港口",
-      slideStart: 97,
-      slideEnd: 104,
+      slideStart: 98,
+      slideEnd: 105,
       minutes: 20,
       purpose: "比较上海、新加坡、比雷埃夫斯与鹿特丹的角色。"
     },
     {
       label: "中国港口与果园港",
-      slideStart: 105,
-      slideEnd: 110,
+      slideStart: 106,
+      slideEnd: 111,
       minutes: 15,
       purpose: "把港口类型放回网络位置和腹地关系。"
     },
     {
       label: "港口诊断任务",
-      slideStart: 111,
-      slideEnd: 116,
+      slideStart: 112,
+      slideEnd: 117,
       minutes: 18,
       purpose: "诊断船舶、堆场、集疏运和信息瓶颈。"
     },
     {
       label: "航次收束",
-      slideStart: 117,
-      slideEnd: 118,
+      slideStart: 118,
+      slideEnd: 119,
       minutes: 6,
       purpose: "回看整条价值链并衔接码头生产系统。"
     }
@@ -543,7 +716,7 @@ export const PORT_MANAGEMENT_LESSONS: readonly PortManagementLessonSpec[] = [
     title: "英国如何把贸易变成影响力？",
     status: "ready",
     slideStart: 1,
-    slideEnd: 46,
+    slideEnd: 47,
     timing: PORT_MANAGEMENT_LESSON_TIMINGS[1],
     assistantBrief: {
       objective:
@@ -576,8 +749,8 @@ export const PORT_MANAGEMENT_LESSONS: readonly PortManagementLessonSpec[] = [
     label: "第2讲",
     title: "它为什么必须走这条路？",
     status: "ready",
-    slideStart: 47,
-    slideEnd: 82,
+    slideStart: 48,
+    slideEnd: 83,
     timing: PORT_MANAGEMENT_LESSON_TIMINGS[2],
     assistantBrief: {
       objective:
@@ -603,8 +776,8 @@ export const PORT_MANAGEMENT_LESSONS: readonly PortManagementLessonSpec[] = [
     label: "第3讲",
     title: "港口为什么创造不同价值？",
     status: "ready",
-    slideStart: 83,
-    slideEnd: 118,
+    slideStart: 84,
+    slideEnd: 119,
     timing: PORT_MANAGEMENT_LESSON_TIMINGS[3],
     assistantBrief: {
       objective:
@@ -760,11 +933,11 @@ function appendContextLine(
 }
 
 function formatVoyagePrompt(slide: PortManagementSlideSpec): string {
-  if (slide.lesson === 1 && slide.index < 39) {
+  if (slide.lesson === 1 && slide.index < 40) {
     return [
       "第一讲历史主线：从约1700年英格兰的人口劣势之谜出发，沿中国丝织品、江南—湖广区域分工和英国海上贸易网络解释影响力如何被放大。",
       "证据结构：人口与贸易档案属于史料；江南—湖广数字属于概念模型；粮食—丝绸—海港—英国属于跨时期历史综合链。",
-      "叙事边界：当前场景尚未进入OOCL Spain现代航次；现代巨轮从本讲第39页才作为历史机制的现代镜像出现。"
+      "叙事边界：当前场景尚未进入OOCL Spain现代航次；现代巨轮从本讲第40页才作为历史机制的现代镜像出现。"
     ].join("\n");
   }
 

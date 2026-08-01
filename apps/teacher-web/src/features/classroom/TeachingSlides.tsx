@@ -810,7 +810,7 @@ export function SlideStage({ frame }: { frame: SlideFrame }) {
 }
 
 const activityDetails: Record<
-  Exclude<ClassroomActivity, "slides">,
+  Exclude<ClassroomActivity, "slides" | "globe">,
   { title: string; description: string; icon: typeof FlaskConical; items: string[] }
 > = {
   simulation: {
@@ -843,7 +843,7 @@ export function ActivityStage({
   activity,
   frame
 }: {
-  activity: Exclude<ClassroomActivity, "slides">;
+  activity: Exclude<ClassroomActivity, "slides" | "globe">;
   frame: SlideFrame;
 }) {
   const detail = activityDetails[activity];

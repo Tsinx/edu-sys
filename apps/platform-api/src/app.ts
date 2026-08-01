@@ -11,7 +11,10 @@ import {
   StreamingJsonDialogueError,
   type AssistantTurnEvent
 } from "@edu/contracts";
-import { getPortManagementReadyLessons } from "@edu/course-content";
+import {
+  getPortManagementReadyLessons,
+  PORT_MANAGEMENT_GLOBE_CUES
+} from "@edu/course-content";
 import Fastify, { type FastifyInstance } from "fastify";
 import { ZodError } from "zod";
 import { JsonStateStore } from "./store.js";
@@ -125,6 +128,49 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
         });
       }
       return snapshot;
+    }
+  );
+
+  app.get<{ Params: { id: string } }>(
+    "/api/class-sessions/:id/snapshot/stream",
+    async (request, reply) => {
+      const snapshot = store.getClassroomSnapshot(request.params.id);
+      if (!snapshot) {
+        return reply.status(404).send({
+          error: "SESSION_NOT_FOUND",
+          message: "未找到这次课堂或对应课程"
+        });
+      }
+
+      reply.hijack();
+      reply.raw.writeHead(200, {
+        "Content-Type": "text/event-stream; charset=utf-8",
+        "Cache-Control": "no-cache, no-transform",
+        Connection: "keep-alive",
+        "X-Accel-Buffering": "no"
+      });
+      const writeSnapshot = (nextSnapshot: typeof snapshot) => {
+        if (!reply.raw.writableEnded) {
+          reply.raw.write(
+            `event: snapshot\ndata: ${JSON.stringify(nextSnapshot)}\n\n`
+          );
+        }
+      };
+      writeSnapshot(snapshot);
+      const unsubscribe = store.subscribeClassroomSnapshot(
+        request.params.id,
+        writeSnapshot
+      );
+      const keepAlive = setInterval(() => {
+        if (!reply.raw.writableEnded) reply.raw.write(": keep-alive\n\n");
+      }, 15_000);
+      const close = () => {
+        clearInterval(keepAlive);
+        unsubscribe();
+      };
+      reply.raw.once("close", close);
+      reply.raw.once("error", close);
+      return reply;
     }
   );
 
@@ -400,6 +446,10 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
             `${lesson.number}:${lesson.title ?? "待建设"}@${lesson.slideStart ?? "-"}`
         )
         .join("；");
+      const globeCueMap = PORT_MANAGEMENT_GLOBE_CUES.map(
+        (cue) =>
+          `${cue.id}:${cue.title}@${cue.startSlideKey}->${cue.returnSlideKey}`
+      ).join("；");
       return {
         protocol: "edu.classroom.control",
         version: "1.0",
@@ -437,15 +487,38 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
             description: "切换课堂主舞台活动",
             parameters: {
               activity:
-                "slides | simulation | whiteboard | video | interaction"
+                "slides | globe | simulation | whiteboard | video | interaction"
             }
+          },
+          {
+            type: "globe.play_cue",
+            description: "从注册的起始问题页播放电影化地球仪证据追踪",
+            parameters: {
+              cueId: globeCueMap
+            }
+          },
+          {
+            type: "globe.pause",
+            description: "暂停当前地球仪开场",
+            parameters: {}
+          },
+          {
+            type: "globe.resume",
+            description: "继续当前地球仪开场",
+            parameters: {}
+          },
+          {
+            type: "globe.restart",
+            description: "从第一幕重新播放当前地球仪开场",
+            parameters: {}
           }
         ],
         currentState: {
           sessionStatus: snapshot.session.status,
           activeActivity: snapshot.activeActivity,
           slideIndex: snapshot.slide.index,
-          slideTotal: snapshot.slide.total
+          slideTotal: snapshot.slide.total,
+          globePlayback: snapshot.globePlayback
         }
       };
     }
