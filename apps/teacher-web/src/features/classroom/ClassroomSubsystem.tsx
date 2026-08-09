@@ -69,6 +69,12 @@ const ClassroomGlobeStage = lazy(() =>
   }))
 );
 
+const ClassroomPortSimulationStage = lazy(() =>
+  import("../port-simulation/ClassroomLocalPortSimulationStage").then((module) => ({
+    default: module.ClassroomLocalPortSimulationStage
+  }))
+);
+
 const OPENING_GLOBE_CUE_ID = "l1-opening-trade-influence";
 const OPENING_GLOBE_CUE = getPortManagementGlobeCue(OPENING_GLOBE_CUE_ID);
 
@@ -577,6 +583,7 @@ export function ClassroomSubsystem() {
   const isLive = snapshot.session.status === "live";
   const isSlides = snapshot.activeActivity === "slides";
   const isGlobe = snapshot.activeActivity === "globe";
+  const isSimulation = snapshot.activeActivity === "simulation";
   const isOpeningLaunchSlide =
     isSlides && snapshot.slide.slideId === OPENING_GLOBE_CUE?.startSlideKey;
   const lamConnected = isLamConnected(lamConnection);
@@ -708,7 +715,8 @@ export function ClassroomSubsystem() {
           avatarCollapsed
             ? "classroom-workspace--avatar-collapsed"
             : "",
-          isGlobe ? "classroom-workspace--globe" : ""
+          isGlobe ? "classroom-workspace--globe" : "",
+          isSimulation ? "classroom-workspace--simulation" : ""
         ]
           .filter(Boolean)
           .join(" ")}
@@ -742,7 +750,22 @@ export function ClassroomSubsystem() {
               annotationActive ? "teaching-stage-frame--annotation" : ""
             }`}
           >
-            {isSlides ? (
+            {isSimulation ? (
+              <Suspense
+                fallback={
+                  <div className="classroom-globe-loading">
+                    <LoaderCircle className="spin" size={34} />
+                    <span>正在装载港口纯手动仿真</span>
+                  </div>
+                }
+              >
+                <ClassroomPortSimulationStage
+                  sessionId={sessionId}
+                  classroomSnapshot={snapshot}
+                  onClassroomSnapshot={setSnapshot}
+                />
+              </Suspense>
+            ) : isSlides ? (
               <SlideStage frame={snapshot.slide} />
             ) : isGlobe ? (
               <Suspense
@@ -837,10 +860,21 @@ export function ClassroomSubsystem() {
                   >
                     <SkipForward size={17} /> 跳过
                   </button>
-                  <button type="button" onClick={() => void toggleFullscreen()}>
+                  <button
+                    type="button"
+                    onClick={() => void toggleFullscreen()}
+                  >
                     <Maximize2 size={17} /> 全屏
                   </button>
                 </div>
+              </div>
+            ) : isSimulation ? (
+              <div className="simulation-classroom-footer">
+                <span><FlaskConical size={17} /> 登录后本地单机</span>
+                <span>每名学生独立体验四岗位 · 运行时无长连接</span>
+                <button type="button" onClick={() => void toggleFullscreen()}>
+                  <Maximize2 size={17} /> 全屏
+                </button>
               </div>
             ) : (
               <>
@@ -997,7 +1031,8 @@ export function ClassroomSubsystem() {
           className={[
             "classroom-avatar-dock",
             avatarCollapsed ? "classroom-avatar-dock--collapsed" : "",
-            isGlobe ? "classroom-avatar-dock--cinematic" : ""
+            isGlobe ? "classroom-avatar-dock--cinematic" : "",
+            isSimulation ? "classroom-avatar-dock--simulation" : ""
           ]
             .filter(Boolean)
             .join(" ")}

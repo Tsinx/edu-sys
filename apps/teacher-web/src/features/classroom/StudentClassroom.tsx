@@ -1,4 +1,4 @@
-import type { ClassroomSnapshot } from "@edu/contracts";
+import type { ClassroomActor, ClassroomSnapshot } from "@edu/contracts";
 import { getPortManagementLessonSlidePosition } from "@edu/course-content";
 import {
   CircleAlert,
@@ -19,25 +19,50 @@ const ClassroomGlobeStage = lazy(() =>
   }))
 );
 
-function getParticipantId(sessionId: string) {
-  const storageKey = `edu-classroom-participant:${sessionId}`;
-  const saved = window.sessionStorage.getItem(storageKey);
-  if (saved) return saved;
-  const participantId = `student-${crypto.randomUUID()}`;
-  window.sessionStorage.setItem(storageKey, participantId);
-  return participantId;
-}
+const StudentPortSimulation = lazy(() =>
+  import("../port-simulation/StudentLocalPortSimulation").then((module) => ({
+    default: module.StudentLocalPortSimulation
+  }))
+);
 
 export function StudentClassroom() {
   const { sessionId = "" } = useParams();
-  const [participantId] = useState(() => getParticipantId(sessionId));
+  const [actor, setActor] = useState<ClassroomActor>();
   const [snapshot, setSnapshot] = useState<ClassroomSnapshot>();
   const [presenceConnected, setPresenceConnected] = useState(false);
   const [snapshotStreamConnected, setSnapshotStreamConnected] =
     useState(false);
   const [error, setError] = useState("");
+  const localSimulationActive =
+    snapshot?.activeActivity === "simulation" && Boolean(snapshot.simulation);
 
   useEffect(() => {
+    let active = true;
+    const establishIdentity = async () => {
+      try {
+        let session;
+        try {
+          session = await api.getIdentitySession();
+        } catch {
+          session = await api.createDevelopmentIdentitySession("student");
+        }
+        if (!session.actor.roles.includes("student")) {
+          session = await api.createDevelopmentIdentitySession("student");
+        }
+        if (active) setActor(session.actor);
+      } catch (reason) {
+        if (active) setError((reason as Error).message);
+      }
+    };
+    void establishIdentity();
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!actor) return undefined;
+    if (localSimulationActive) return undefined;
     let active = true;
     const refreshSnapshot = async () => {
       try {
@@ -56,26 +81,32 @@ export function StudentClassroom() {
       active = false;
       window.clearInterval(timer);
     };
-  }, [sessionId]);
+  }, [actor, localSimulationActive, sessionId]);
 
-  useEffect(
-    () =>
-      api.subscribeClassroomSnapshot(
+  useEffect(() => {
+    if (localSimulationActive) {
+      setSnapshotStreamConnected(false);
+      return undefined;
+    }
+    return api.subscribeClassroomSnapshot(
         sessionId,
         setSnapshot,
         setSnapshotStreamConnected
-      ),
-    [sessionId]
-  );
+      );
+  }, [localSimulationActive, sessionId]);
 
   useEffect(() => {
+    if (!actor || localSimulationActive) {
+      setPresenceConnected(false);
+      return undefined;
+    }
     let active = true;
     let registered = false;
     let heartbeatTimer: number | undefined;
 
     const heartbeat = async () => {
       try {
-        await api.heartbeatClassroomPresence(sessionId, participantId);
+        await api.heartbeatClassroomPresence(sessionId);
         registered = true;
         if (active) setPresenceConnected(true);
       } catch {
@@ -87,7 +118,7 @@ export function StudentClassroom() {
       registered = false;
       setPresenceConnected(false);
       const payload = new Blob(
-        [JSON.stringify({ participantId })],
+        [JSON.stringify({})],
         { type: "application/json" }
       );
       const queued = navigator.sendBeacon(
@@ -95,7 +126,7 @@ export function StudentClassroom() {
         payload
       );
       if (!queued) {
-        void api.leaveClassroomPresence(sessionId, participantId).catch(
+        void api.leaveClassroomPresence(sessionId).catch(
           () => undefined
         );
       }
@@ -116,7 +147,7 @@ export function StudentClassroom() {
       window.removeEventListener("pagehide", leave);
       leave();
     };
-  }, [participantId, sessionId]);
+  }, [actor, localSimulationActive, sessionId]);
 
   if (error && !snapshot) {
     return (
@@ -128,7 +159,7 @@ export function StudentClassroom() {
     );
   }
 
-  if (!snapshot) {
+  if (!snapshot || !actor) {
     return (
       <main className="student-classroom student-classroom--centered">
         <LoaderCircle className="spin" size={31} />
@@ -139,6 +170,7 @@ export function StudentClassroom() {
 
   const isLive = snapshot.session.status === "live";
   const isGlobe = snapshot.activeActivity === "globe";
+  const isSimulation = snapshot.activeActivity === "simulation";
   const slidePosition = getPortManagementLessonSlidePosition(
     snapshot.slide.index
   )!;
@@ -155,13 +187,15 @@ export function StudentClassroom() {
         </div>
         <span
           className={
-            isLive && presenceConnected
+            isSimulation || (isLive && presenceConnected)
               ? "student-presence-status"
               : "student-presence-status student-presence-status--offline"
           }
         >
           <Radio size={15} />
-          {isLive
+          {isSimulation
+            ? "本地运行"
+            : isLive
             ? presenceConnected
               ? "已加入课堂"
               : "正在连接"
@@ -170,7 +204,22 @@ export function StudentClassroom() {
       </header>
 
       <section className="student-classroom__stage" aria-label="学生课堂画面">
-        {isGlobe ? (
+        {isSimulation ? (
+          <Suspense
+            fallback={
+              <div className="classroom-globe-loading">
+                <LoaderCircle className="spin" size={31} />
+                <span>正在装载港口纯手动仿真</span>
+              </div>
+            }
+          >
+            <StudentPortSimulation
+              participantId={actor.actorId}
+              participantDisplayName={actor.displayName}
+              classroomSnapshot={snapshot}
+            />
+          </Suspense>
+        ) : isGlobe ? (
           <Suspense
             fallback={
               <div className="classroom-globe-loading">
@@ -197,8 +246,10 @@ export function StudentClassroom() {
           {slidePosition.localTotal}
         </span>
         <span>
-          学生端只读画面 ·{" "}
-          {snapshotStreamConnected
+          {isSimulation ? "个人四岗位操作端" : "学生端只读画面"} ·{" "}
+          {isSimulation
+            ? "进度保存在本机，不建立实时连接"
+            : snapshotStreamConnected
             ? "课堂状态实时同步"
             : "连接中，5秒轮询降级"}
         </span>

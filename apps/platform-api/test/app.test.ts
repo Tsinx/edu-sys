@@ -5,6 +5,23 @@ import { join } from "node:path";
 import test from "node:test";
 import { setTimeout as wait } from "node:timers/promises";
 import { buildApp } from "../src/app.js";
+import { planPortSimulationTeamCapacities } from "../src/store.js";
+
+test("4-72 student grouping stays within 4-6 and handles seven explicitly", () => {
+  for (let students = 4; students <= 72; students += 1) {
+    const plan = planPortSimulationTeamCapacities(students);
+    assert.ok(plan.capacities.length >= 1 && plan.capacities.length <= 15);
+    assert.ok(plan.capacities.every((capacity) => capacity >= 4 && capacity <= 6));
+    assert.equal(
+      plan.capacities.reduce((sum, capacity) => sum + capacity, 0),
+      students === 7 ? 6 : students
+    );
+    assert.equal(plan.classroomObserverCount, students === 7 ? 1 : 0);
+    for (let index = 1; index < plan.capacities.length; index += 1) {
+      assert.ok(plan.capacities[index - 1]! >= plan.capacities[index]!);
+    }
+  }
+});
 
 test("seeded teacher portal supports course creation, classroom start and avatar modes", async () => {
   const tempDirectory = await mkdtemp(join(tmpdir(), "edu-platform-api-"));
@@ -345,6 +362,525 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     });
     assert.equal(endResponse.statusCode, 200);
     assert.equal(endResponse.json().status, "completed");
+  } finally {
+    await app.close();
+    await rm(tempDirectory, { recursive: true, force: true });
+  }
+});
+
+test("manual port simulation isolates teams and serializes role commands", async () => {
+  const tempDirectory = await mkdtemp(join(tmpdir(), "edu-port-simulation-api-"));
+  const app = await buildApp({
+    dataFile: join(tempDirectory, "state.json"),
+    openAvatarBaseUrl: "http://127.0.0.1:1",
+    portSimulationTickMs: 0
+  });
+
+  try {
+    const dashboardResponse = await app.inject({
+      method: "GET",
+      url: "/api/dashboard"
+    });
+    const courseId = dashboardResponse.json().featuredCourse.id as string;
+    const classResponse = await app.inject({
+      method: "POST",
+      url: `/api/courses/${courseId}/class-sessions`
+    });
+    assert.equal(classResponse.statusCode, 201);
+    const sessionId = classResponse.json().id as string;
+
+    const setupResponse = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/setup`,
+      payload: {
+        teamCount: 2,
+        teamNames: ["潮汐组", "灯塔组"]
+      }
+    });
+    assert.equal(setupResponse.statusCode, 201);
+    const setupSnapshot = setupResponse.json();
+    assert.equal(setupSnapshot.simulation.teams.length, 2);
+    assert.equal(setupSnapshot.simulation.teams[0].teamName, "潮汐组");
+    const teamOneId = setupSnapshot.simulation.teams[0].teamId as string;
+    const teamTwoId = setupSnapshot.simulation.teams[1].teamId as string;
+
+    const blockedStartResponse = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/control`,
+      payload: { type: "start", allowIncompleteTeams: false }
+    });
+    assert.equal(blockedStartResponse.statusCode, 409);
+    assert.equal(blockedStartResponse.json().error, "TEAMS_NOT_READY");
+
+    const claimResponse = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/${teamOneId}/roles/yard_gate/claim`,
+      payload: { participantId: "student-yard-01" }
+    });
+    assert.equal(claimResponse.statusCode, 201);
+    const roleSeatToken = claimResponse.json().roleSeatToken as string;
+
+    const crossTeamClaimResponse = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/${teamTwoId}/roles/marine_control/claim`,
+      payload: { participantId: "student-yard-01" }
+    });
+    assert.equal(crossTeamClaimResponse.statusCode, 409);
+    assert.equal(
+      crossTeamClaimResponse.json().error,
+      "PARTICIPANT_ALREADY_ASSIGNED"
+    );
+
+    const observerJoinResponse = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/${teamTwoId}/join`,
+      payload: { participantId: "student-observer-02" }
+    });
+    assert.equal(observerJoinResponse.statusCode, 201);
+
+    const startResponse = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/control`,
+      payload: { type: "start", allowIncompleteTeams: true }
+    });
+    assert.equal(startResponse.statusCode, 200);
+    assert.equal(startResponse.json().simulation.teams[0].status, "running");
+    assert.equal(startResponse.json().simulation.teams[1].status, "running");
+
+    const lockedJoinResponse = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/${teamTwoId}/join`,
+      payload: { participantId: "student-too-late" }
+    });
+    assert.equal(lockedJoinResponse.statusCode, 409);
+    assert.equal(lockedJoinResponse.json().error, "TEAM_SELECTION_LOCKED");
+
+    const observerClaimResponse = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/${teamTwoId}/roles/marine_control/claim`,
+      payload: { participantId: "student-observer-02" }
+    });
+    assert.equal(observerClaimResponse.statusCode, 201);
+
+    const teamOneBeforeResponse = await app.inject({
+      method: "GET",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/${teamOneId}/snapshot`
+    });
+    const teamTwoBeforeResponse = await app.inject({
+      method: "GET",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/${teamTwoId}/snapshot`
+    });
+    const teamOneBefore = teamOneBeforeResponse.json();
+    const teamTwoBefore = teamTwoBeforeResponse.json();
+    assert.match(
+      teamOneBefore.recentEvents.at(-1).message,
+      /带缺岗开局/u
+    );
+    const teamTwoGateBefore = teamTwoBefore.resources.find(
+      (resource: { id: string }) => resource.id === "gate-lane-1"
+    );
+
+    const commandPayload = {
+      requestId: "yard-close-lane-1",
+      participantId: "student-yard-01",
+      roleSeatToken,
+      expectedRevision: teamOneBefore.revision,
+      command: {
+        type: "gate.set_lane",
+        laneId: "gate-lane-1",
+        open: false
+      }
+    };
+    const commandResponse = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/${teamOneId}/commands`,
+      payload: commandPayload
+    });
+    assert.equal(commandResponse.statusCode, 200);
+    assert.equal(commandResponse.json().result.status, "applied");
+    assert.equal(
+      commandResponse
+        .json()
+        .snapshot.resources.find(
+          (resource: { id: string }) => resource.id === "gate-lane-1"
+        ).status,
+      "closed"
+    );
+
+    const duplicateResponse = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/${teamOneId}/commands`,
+      payload: commandPayload
+    });
+    assert.equal(duplicateResponse.statusCode, 200);
+    assert.equal(duplicateResponse.json().result.status, "duplicate");
+
+    const staleResponse = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/${teamOneId}/commands`,
+      payload: {
+        ...commandPayload,
+        requestId: "yard-open-stale",
+        command: {
+          type: "gate.set_lane",
+          laneId: "gate-lane-1",
+          open: true
+        }
+      }
+    });
+    assert.equal(staleResponse.statusCode, 200);
+    assert.equal(staleResponse.json().result.status, "conflict");
+    assert.equal(staleResponse.json().result.reasonCode, "STALE_REVISION");
+
+    const unauthorizedResponse = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/${teamOneId}/commands`,
+      payload: {
+        requestId: "yard-tries-marine-command",
+        participantId: "student-yard-01",
+        roleSeatToken,
+        expectedRevision: commandResponse.json().snapshot.revision,
+        command: {
+          type: "marine.authorize_transit",
+          vesselId: "vessel-haiyun",
+          direction: "inbound"
+        }
+      }
+    });
+    assert.equal(unauthorizedResponse.statusCode, 200);
+    assert.equal(unauthorizedResponse.json().result.status, "rejected");
+    assert.equal(
+      unauthorizedResponse.json().result.reasonCode,
+      "ROLE_NOT_ALLOWED"
+    );
+
+    const teamTwoAfterResponse = await app.inject({
+      method: "GET",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/${teamTwoId}/snapshot`
+    });
+    const teamTwoAfter = teamTwoAfterResponse.json();
+    assert.equal(teamTwoAfter.revision, teamTwoBefore.revision);
+    assert.deepEqual(
+      teamTwoAfter.resources.find(
+        (resource: { id: string }) => resource.id === "gate-lane-1"
+      ),
+      teamTwoGateBefore
+    );
+  } finally {
+    await app.close();
+    await rm(tempDirectory, { recursive: true, force: true });
+  }
+});
+
+test("V0.03 capacity, support seats and collaboration revisions stay isolated from business state", async () => {
+  const tempDirectory = await mkdtemp(join(tmpdir(), "edu-port-collaboration-api-"));
+  const app = await buildApp({
+    dataFile: join(tempDirectory, "state.json"),
+    openAvatarBaseUrl: "http://127.0.0.1:1",
+    portSimulationTickMs: 0
+  });
+  try {
+    const dashboard = await app.inject({ method: "GET", url: "/api/dashboard" });
+    const courseId = dashboard.json().featuredCourse.id as string;
+    const classroom = await app.inject({
+      method: "POST",
+      url: `/api/courses/${courseId}/class-sessions`
+    });
+    const sessionId = classroom.json().id as string;
+    const setup = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/setup`,
+      payload: { expectedStudentCount: 11, teamNames: ["六码组", "五码组"] }
+    });
+    assert.equal(setup.statusCode, 201);
+    assert.deepEqual(
+      setup.json().simulation.teams.map((team: { memberCapacity: number }) => team.memberCapacity),
+      [6, 5]
+    );
+    assert.equal(setup.json().simulation.scenarioVersion, "0.0.3");
+
+    const coreRoles = [
+      "marine_control",
+      "berth_operations",
+      "horizontal_transport",
+      "yard_gate"
+    ];
+    const coreClaims = new Map<string, string>();
+    for (const [index, role] of coreRoles.entries()) {
+      const claim = await app.inject({
+        method: "POST",
+        url: `/api/class-sessions/${sessionId}/simulation/teams/team-1/roles/${role}/claim`,
+        payload: { participantId: `core-${index + 1}` }
+      });
+      assert.equal(claim.statusCode, 201);
+      coreClaims.set(role, claim.json().roleSeatToken as string);
+    }
+    const coordinator = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/team-1/support-roles/operations_coordinator/claim`,
+      payload: { participantId: "coordinator-5" }
+    });
+    assert.equal(coordinator.statusCode, 201);
+    const reviewer = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/team-1/support-roles/safety_reviewer/claim`,
+      payload: { participantId: "reviewer-6" }
+    });
+    assert.equal(reviewer.statusCode, 201);
+    const full = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/team-1/join`,
+      payload: { participantId: "student-7" }
+    });
+    assert.equal(full.statusCode, 409);
+    assert.equal(full.json().error, "TEAM_FULL");
+
+    const supportSnapshot = reviewer.json().snapshot;
+    const businessRevision = supportSnapshot.revision as number;
+    const collaborationRevision = supportSnapshot.collaborationRevision as number;
+    const proposal = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/team-1/collaboration-items`,
+      payload: {
+        requestId: "proposal-1",
+        participantId: "coordinator-5",
+        supportSeatToken: coordinator.json().supportSeatToken,
+        expectedCollaborationRevision: collaborationRevision,
+        item: {
+          kind: "command_proposal",
+          targetRole: "berth_operations",
+          entityIds: ["quay-crane-1", "berth-03"],
+          reasonCode: "sequence_dependency",
+          commandDraft: {
+            type: "quay.move_crane",
+            craneId: "quay-crane-1",
+            targetSlotId: "berth-03-slot-1"
+          }
+        }
+      }
+    });
+    assert.equal(proposal.statusCode, 201);
+    assert.equal(proposal.json().result.status, "applied");
+    assert.equal(proposal.json().snapshot.revision, businessRevision);
+    assert.equal(
+      proposal.json().snapshot.collaborationRevision,
+      collaborationRevision + 1
+    );
+    const proposalItem = proposal.json().snapshot.collaborationItems.at(-1);
+
+    const supportCannotCommand = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/team-1/commands`,
+      payload: {
+        requestId: "support-command-1",
+        participantId: "coordinator-5",
+        roleSeatToken: coordinator.json().supportSeatToken,
+        expectedRevision: businessRevision,
+        command: {
+          type: "quay.move_crane",
+          craneId: "quay-crane-1",
+          targetSlotId: "berth-03-slot-1"
+        }
+      }
+    });
+    assert.equal(supportCannotCommand.statusCode, 403);
+    assert.equal(supportCannotCommand.json().error, "ROLE_TOKEN_INVALID");
+
+    const responsePayload = {
+      requestId: "proposal-response-1",
+      participantId: "core-2",
+      roleSeatToken: coreClaims.get("berth_operations"),
+      expectedCollaborationRevision:
+        proposal.json().snapshot.collaborationRevision,
+      action: "accept"
+    };
+    const accepted = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/team-1/collaboration-items/${proposalItem.id}/respond`,
+      payload: responsePayload
+    });
+    assert.equal(accepted.statusCode, 200);
+    assert.equal(accepted.json().result.status, "applied");
+    assert.equal(accepted.json().snapshot.revision, businessRevision);
+    assert.equal(
+      accepted.json().snapshot.resources.find(
+        (resource: { id: string }) => resource.id === "quay-crane-1"
+      ).status,
+      "available"
+    );
+    const duplicate = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/team-1/collaboration-items/${proposalItem.id}/respond`,
+      payload: responsePayload
+    });
+    assert.equal(duplicate.json().result.status, "duplicate");
+
+    const teamTwo = await app.inject({
+      method: "GET",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/team-2/snapshot`
+    });
+    assert.equal(teamTwo.json().collaborationRevision, 1);
+    assert.equal(teamTwo.json().collaborationItems.length, 0);
+
+    const blockedCapacityChange = await app.inject({
+      method: "PATCH",
+      url: `/api/class-sessions/${sessionId}/simulation/configuration`,
+      payload: {
+        expectedStudentCount: 11,
+        teamNames: ["六码组", "五码组"],
+        teamCapacities: [5, 6]
+      }
+    });
+    assert.equal(blockedCapacityChange.statusCode, 409);
+    assert.equal(blockedCapacityChange.json().error, "TEAM_CAPACITY_OCCUPIED");
+  } finally {
+    await app.close();
+    await rm(tempDirectory, { recursive: true, force: true });
+  }
+});
+
+test("running port simulations restart in a teacher-resumable paused state", async () => {
+  const tempDirectory = await mkdtemp(join(tmpdir(), "edu-port-restart-api-"));
+  const dataFile = join(tempDirectory, "state.json");
+  const firstApp = await buildApp({
+    dataFile,
+    openAvatarBaseUrl: "http://127.0.0.1:1",
+    portSimulationTickMs: 0
+  });
+  let firstClosed = false;
+  let restartedApp: Awaited<ReturnType<typeof buildApp>> | undefined;
+
+  try {
+    const dashboardResponse = await firstApp.inject({
+      method: "GET",
+      url: "/api/dashboard"
+    });
+    const courseId = dashboardResponse.json().featuredCourse.id as string;
+    const classResponse = await firstApp.inject({
+      method: "POST",
+      url: `/api/courses/${courseId}/class-sessions`
+    });
+    const sessionId = classResponse.json().id as string;
+
+    await firstApp.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/setup`,
+      payload: { teamCount: 1, teamNames: ["重启验证组"] }
+    });
+    const startResponse = await firstApp.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/control`,
+      payload: { type: "start", allowIncompleteTeams: true }
+    });
+    assert.equal(startResponse.statusCode, 200);
+    assert.equal(startResponse.json().simulation.teams[0].status, "running");
+
+    await firstApp.close();
+    firstClosed = true;
+    restartedApp = await buildApp({
+      dataFile,
+      openAvatarBaseUrl: "http://127.0.0.1:1",
+      portSimulationTickMs: 0
+    });
+
+    const restoredResponse = await restartedApp.inject({
+      method: "GET",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/team-1/snapshot`
+    });
+    assert.equal(restoredResponse.statusCode, 200);
+    const restored = restoredResponse.json();
+    assert.equal(restored.status, "paused");
+    assert.equal(restored.clock.wallClockAnchor, null);
+    assert.match(restored.clock.pausedReason, /服务已重新启动/u);
+    assert.match(restored.recentEvents.at(-1).message, /等待教师恢复/u);
+  } finally {
+    if (!firstClosed) await firstApp.close();
+    if (restartedApp) await restartedApp.close();
+    await rm(tempDirectory, { recursive: true, force: true });
+  }
+});
+
+test("port role leases reconnect within the grace period and reopen after expiry", async () => {
+  const tempDirectory = await mkdtemp(join(tmpdir(), "edu-port-role-lease-"));
+  const app = await buildApp({
+    dataFile: join(tempDirectory, "state.json"),
+    openAvatarBaseUrl: "http://127.0.0.1:1",
+    presenceTtlMs: 500,
+    portSimulationTickMs: 0
+  });
+
+  try {
+    const dashboardResponse = await app.inject({ method: "GET", url: "/api/dashboard" });
+    const courseId = dashboardResponse.json().featuredCourse.id as string;
+    const classResponse = await app.inject({
+      method: "POST",
+      url: `/api/courses/${courseId}/class-sessions`,
+      payload: {}
+    });
+    const sessionId = classResponse.json().id as string;
+    await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/setup`,
+      payload: { teamCount: 1 }
+    });
+    for (const participantId of ["lease-student-1", "lease-student-2"]) {
+      const joinResponse = await app.inject({
+        method: "POST",
+        url: `/api/class-sessions/${sessionId}/simulation/teams/team-1/join`,
+        payload: { participantId }
+      });
+      assert.equal(joinResponse.statusCode, 201);
+    }
+
+    const firstClaim = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/team-1/roles/marine_control/claim`,
+      payload: { participantId: "lease-student-1" }
+    });
+    assert.equal(firstClaim.statusCode, 201);
+    const firstToken = firstClaim.json().roleSeatToken as string;
+
+    await wait(20);
+    const reconnectClaim = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/team-1/roles/marine_control/claim`,
+      payload: { participantId: "lease-student-1" }
+    });
+    assert.equal(reconnectClaim.statusCode, 201);
+    assert.equal(reconnectClaim.json().roleSeatToken, firstToken);
+
+    await wait(550);
+    const expiredSnapshot = await app.inject({
+      method: "GET",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/team-1/snapshot`
+    });
+    assert.equal(
+      expiredSnapshot
+        .json()
+        .roleSeats.find(
+          (seat: { role: string }) => seat.role === "marine_control"
+        ).connected,
+      false
+    );
+
+    const replacementClaim = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/team-1/roles/marine_control/claim`,
+      payload: { participantId: "lease-student-2" }
+    });
+    assert.equal(replacementClaim.statusCode, 201);
+    assert.notEqual(replacementClaim.json().roleSeatToken, firstToken);
+
+    const staleRelease = await app.inject({
+      method: "POST",
+      url: `/api/class-sessions/${sessionId}/simulation/teams/team-1/roles/marine_control/release`,
+      payload: {
+        participantId: "lease-student-1",
+        roleSeatToken: firstToken
+      }
+    });
+    assert.equal(staleRelease.statusCode, 403);
+    assert.equal(staleRelease.json().error, "ROLE_TOKEN_INVALID");
   } finally {
     await app.close();
     await rm(tempDirectory, { recursive: true, force: true });

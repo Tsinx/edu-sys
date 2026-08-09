@@ -7,7 +7,8 @@
     "dev": "concurrently -k -n API,WEB -c cyan,magenta \"pnpm --filter @edu/platform-api dev\" \"pnpm --filter @edu/teacher-web dev\"",
     "build": "pnpm typecheck && pnpm --filter @edu/teacher-web build",
     "typecheck": "pnpm -r --if-present typecheck",
-    "test": "pnpm --filter @edu/platform-api test && pnpm --filter @edu/teacher-web test"
+    "test": "pnpm --filter @edu/port-simulation-core test && pnpm --filter @edu/platform-api test && pnpm --filter @edu/teacher-web test",
+    "test:port-load": "pnpm --filter @edu/platform-api test:port-load"
   },
   "devDependencies": {
     "concurrently": "10.0.4",

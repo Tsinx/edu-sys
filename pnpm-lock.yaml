@@ -26,6 +26,9 @@ importers:
       '@edu/course-content':
         specifier: workspace:*
         version: link:../../packages/course-content
+      '@edu/port-simulation-core':
+        specifier: workspace:*
+        version: link:../../packages/port-simulation-core
       '@fastify/cors':
         specifier: 11.3.0
         version: 11.3.0
@@ -54,6 +57,9 @@ importers:
       '@edu/course-content':
         specifier: workspace:*
         version: link:../../packages/course-content
+      '@edu/port-simulation-core':
+        specifier: workspace:*
+        version: link:../../packages/port-simulation-core
       base64-js:
         specifier: 1.5.1
         version: 1.5.1
@@ -125,6 +131,22 @@ importers:
 
   packages/course-content:
     devDependencies:
+      typescript:
+        specifier: 7.0.2
+        version: 7.0.2
+
+  packages/port-simulation-core:
+    dependencies:
+      '@edu/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+    devDependencies:
+      '@types/node':
+        specifier: 26.1.2
+        version: 26.1.2
+      tsx:
+        specifier: 4.23.1
+        version: 4.23.1
       typescript:
         specifier: 7.0.2
         version: 7.0.2

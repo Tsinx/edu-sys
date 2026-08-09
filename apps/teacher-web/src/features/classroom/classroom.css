@@ -2561,6 +2561,18 @@
   inset: 0;
 }
 
+.student-classroom__stage:has(.port-student-simulation) {
+  overflow: auto;
+  padding: 14px;
+  background: #eef3f2;
+}
+
+@media (max-width: 680px) {
+  .student-classroom__stage:has(.port-student-simulation) {
+    padding: 8px;
+  }
+}
+
 .student-classroom__footer {
   justify-content: space-between;
   color: #9fc0c8;
@@ -11779,6 +11791,64 @@
 
 .classroom-workspace--globe .teaching-runtime {
   grid-column: 1;
+}
+
+.classroom-workspace--simulation,
+.classroom-workspace--simulation.classroom-workspace--avatar-collapsed {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.classroom-workspace--simulation .teaching-runtime {
+  grid-column: 1;
+}
+
+.classroom-workspace--simulation .teaching-stage-frame {
+  overflow: auto;
+  background: #edf3f2;
+}
+
+.classroom-avatar-dock--simulation {
+  visibility: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.simulation-classroom-footer {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+  color: #526e79;
+  font-size: 10px;
+}
+
+.simulation-classroom-footer span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.simulation-classroom-footer span:nth-child(2) {
+  margin-left: auto;
+}
+
+.simulation-classroom-footer button {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid #cbdadd;
+  border-radius: 8px;
+  color: #456270;
+  background: #fff;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
 }
 
 .classroom-avatar-dock--cinematic {

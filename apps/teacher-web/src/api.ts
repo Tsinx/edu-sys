@@ -7,6 +7,8 @@ import type {
   AvatarPresentation,
   AvatarPresentationInput,
   ClassroomEventInput,
+  ClassroomActor,
+  ClassroomIdentitySession,
   ClassroomPresence,
   ClassroomSnapshot,
   ClassSession,
@@ -14,13 +16,36 @@ import type {
   CreateCourseInput,
   Dashboard,
   LamRuntimeStatus,
+  PortSimulationCollaborationCreateInput,
+  PortSimulationCollaborationResponse,
+  PortSimulationCollaborationResponseInput,
+  PortSimulationCommandEnvelope,
+  PortSimulationCommandEnvelopeV2,
+  PortSimulationCommandResultV2,
+  PortSimulationCommandResponse,
+  PortSimulationControlInput,
+  PortSimulationRole,
+  PortSimulationRoleClaimResponse,
+  PortSimulationSetupInput,
+  PortSimulationSupportRole,
+  PortSimulationSupportSeatClaimResponse,
+  PortSimulationTeamConfigurationInput,
+  PortSimulationTeamSnapshot,
+  PortSimulationCheckpoint,
+  PortSimulationEventBatch,
+  PortSimulationPreflightReport,
+  PortSimulationStreamMessage,
+  PortSimulationTeacherCommandInput,
+  PortSimulationTeacherCommandInputV2,
   TeacherAvatarCommandInput,
   TeacherAvatarCommandResponse,
   Teacher
 } from "@edu/contracts";
 import {
   assistantTurnEventSchema,
-  classroomSnapshotSchema
+  classroomSnapshotSchema,
+  portSimulationStreamMessageSchema,
+  portSimulationTeamSnapshotSchema
 } from "@edu/contracts";
 
 export class ApiError extends Error {
@@ -42,7 +67,8 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
         };
   const response = await fetch(path, {
     ...init,
-    headers
+    headers,
+    credentials: "same-origin"
   });
   if (response.status === 204) {
     return undefined as T;
@@ -76,6 +102,7 @@ async function streamAssistantTurn(
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(input),
+      credentials: "same-origin",
       signal
     }
   );
@@ -130,7 +157,8 @@ function subscribeClassroomSnapshot(
   onConnectionChange?: (connected: boolean) => void
 ) {
   const source = new EventSource(
-    `/api/class-sessions/${id}/snapshot/stream`
+    `/api/class-sessions/${id}/snapshot/stream`,
+    { withCredentials: true }
   );
   source.addEventListener("open", () => onConnectionChange?.(true));
   source.addEventListener("snapshot", (event) => {
@@ -146,7 +174,75 @@ function subscribeClassroomSnapshot(
   };
 }
 
+function subscribePortSimulationTeamSnapshot(
+  sessionId: string,
+  teamId: string,
+  onSnapshot: (snapshot: PortSimulationTeamSnapshot) => void,
+  onConnectionChange?: (connected: boolean) => void
+) {
+  const source = new EventSource(
+    `/api/class-sessions/${sessionId}/simulation/teams/${teamId}/snapshot/stream`,
+    { withCredentials: true }
+  );
+  source.addEventListener("open", () => onConnectionChange?.(true));
+  source.addEventListener("simulation-snapshot", (event) => {
+    const snapshot = portSimulationTeamSnapshotSchema.parse(
+      JSON.parse((event as MessageEvent<string>).data) as unknown
+    );
+    onSnapshot(snapshot);
+  });
+  source.addEventListener("error", () => onConnectionChange?.(false));
+  return () => {
+    onConnectionChange?.(false);
+    source.close();
+  };
+}
+
+function subscribePortSimulationEventStream(
+  sessionId: string,
+  teamId: string,
+  afterSequence: number,
+  onMessage: (message: PortSimulationStreamMessage) => void,
+  onConnectionChange?: (connected: boolean) => void
+) {
+  const source = new EventSource(
+    `/api/class-sessions/${sessionId}/simulation/teams/${teamId}/events/stream?afterSequence=${afterSequence}`,
+    { withCredentials: true }
+  );
+  source.addEventListener("open", () => onConnectionChange?.(true));
+  for (const eventName of [
+    "event",
+    "time_sync",
+    "presence",
+    "resync_required"
+  ]) {
+    source.addEventListener(eventName, (event) => {
+      const message = portSimulationStreamMessageSchema.parse(
+        JSON.parse((event as MessageEvent<string>).data) as unknown
+      );
+      onMessage(message);
+    });
+  }
+  source.addEventListener("error", () => onConnectionChange?.(false));
+  return () => {
+    onConnectionChange?.(false);
+    source.close();
+  };
+}
+
 export const api = {
+  getIdentitySession: () =>
+    request<ClassroomIdentitySession>("/api/identity/session"),
+  createDevelopmentIdentitySession: (
+    role: "teacher" | "student",
+    displayName?: string
+  ) =>
+    request<ClassroomIdentitySession>("/api/identity/development/session", {
+      method: "POST",
+      body: JSON.stringify({ role, displayName })
+    }),
+  logoutIdentitySession: () =>
+    request<void>("/api/identity/logout", { method: "POST" }),
   getMe: () => request<Teacher>("/api/me"),
   getDashboard: () => request<Dashboard>("/api/dashboard"),
   getCourses: () => request<Course[]>("/api/courses"),
@@ -156,20 +252,219 @@ export const api = {
   getClassroomSnapshot: (id: string) =>
     request<ClassroomSnapshot>(`/api/class-sessions/${id}/snapshot`),
   subscribeClassroomSnapshot,
+  setupPortSimulation: (id: string, input: PortSimulationSetupInput) =>
+    request<ClassroomSnapshot>(`/api/class-sessions/${id}/simulation/setup`, {
+      method: "POST",
+      body: JSON.stringify(input)
+    }),
+  configurePortSimulationTeams: (
+    id: string,
+    input: PortSimulationTeamConfigurationInput
+  ) =>
+    request<ClassroomSnapshot>(
+      `/api/class-sessions/${id}/simulation/configuration`,
+      { method: "PATCH", body: JSON.stringify(input) }
+    ),
+  controlPortSimulation: (id: string, input: PortSimulationControlInput) =>
+    request<ClassroomSnapshot>(`/api/class-sessions/${id}/simulation/control`, {
+      method: "POST",
+      body: JSON.stringify(input)
+    }),
+  getPortSimulationTeamSnapshot: (id: string, teamId: string) =>
+    request<PortSimulationTeamSnapshot>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/snapshot`
+    ),
+  joinPortSimulationTeam: (
+    id: string,
+    teamId: string
+  ) =>
+    request<PortSimulationTeamSnapshot>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/join`,
+      { method: "POST", body: JSON.stringify({}) }
+    ),
+  subscribePortSimulationTeamSnapshot,
+  claimPortSimulationRole: (
+    id: string,
+    teamId: string,
+    role: PortSimulationRole
+  ) =>
+    request<PortSimulationRoleClaimResponse>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/roles/${role}/claim`,
+      { method: "POST", body: JSON.stringify({}) }
+    ),
+  releasePortSimulationRole: (
+    id: string,
+    teamId: string,
+    role: PortSimulationRole,
+    roleSeatToken: string
+  ) =>
+    request<PortSimulationTeamSnapshot>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/roles/${role}/release`,
+      {
+        method: "POST",
+        body: JSON.stringify({ roleSeatToken })
+      }
+    ),
+  renewPortSimulationRoleLease: (
+    id: string,
+    teamId: string,
+    role: PortSimulationRole,
+    roleSeatToken: string
+  ) =>
+    request<{ expiresAt: string; presenceRevision: number }>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/roles/${role}/renew`,
+      { method: "POST", body: JSON.stringify({ roleSeatToken }) }
+    ),
+  teacherReleasePortSimulationRole: (
+    id: string,
+    teamId: string,
+    role: PortSimulationRole
+  ) =>
+    request<PortSimulationTeamSnapshot>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/roles/${role}/teacher-release`,
+      { method: "POST" }
+    ),
+  claimPortSimulationSupportSeat: (
+    id: string,
+    teamId: string,
+    role: PortSimulationSupportRole
+  ) =>
+    request<PortSimulationSupportSeatClaimResponse>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/support-roles/${role}/claim`,
+      { method: "POST", body: JSON.stringify({}) }
+    ),
+  releasePortSimulationSupportSeat: (
+    id: string,
+    teamId: string,
+    role: PortSimulationSupportRole,
+    supportSeatToken: string
+  ) =>
+    request<PortSimulationTeamSnapshot>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/support-roles/${role}/release`,
+      {
+        method: "POST",
+        body: JSON.stringify({ supportSeatToken })
+      }
+    ),
+  renewPortSimulationSupportLease: (
+    id: string,
+    teamId: string,
+    role: PortSimulationSupportRole,
+    supportSeatToken: string
+  ) =>
+    request<{ expiresAt: string; presenceRevision: number }>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/support-roles/${role}/renew`,
+      { method: "POST", body: JSON.stringify({ supportSeatToken }) }
+    ),
+  teacherReleasePortSimulationSupportSeat: (
+    id: string,
+    teamId: string,
+    role: PortSimulationSupportRole
+  ) =>
+    request<PortSimulationTeamSnapshot>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/support-roles/${role}/teacher-release`,
+      { method: "POST" }
+    ),
+  createPortSimulationCollaborationItem: (
+    id: string,
+    teamId: string,
+    input: PortSimulationCollaborationCreateInput
+  ) => {
+    const { participantId: _participantId, ...authenticatedInput } = input;
+    return (
+    request<PortSimulationCollaborationResponse>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/collaboration-items`,
+      { method: "POST", body: JSON.stringify(authenticatedInput) }
+    ));
+  },
+  respondToPortSimulationCollaborationItem: (
+    id: string,
+    teamId: string,
+    itemId: string,
+    input: PortSimulationCollaborationResponseInput
+  ) => {
+    const { participantId: _participantId, ...authenticatedInput } = input;
+    return (
+    request<PortSimulationCollaborationResponse>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/collaboration-items/${itemId}/respond`,
+      { method: "POST", body: JSON.stringify(authenticatedInput) }
+    ));
+  },
+  sendPortSimulationCommand: (
+    id: string,
+    teamId: string,
+    input: PortSimulationCommandEnvelope
+  ) => {
+    const { participantId: _participantId, ...authenticatedInput } = input;
+    return (
+    request<PortSimulationCommandResponse>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/commands`,
+      { method: "POST", body: JSON.stringify(authenticatedInput) }
+    ));
+  },
+  sendPortSimulationTeacherCommand: (
+    id: string,
+    teamId: string,
+    input: PortSimulationTeacherCommandInput
+  ) =>
+    request<PortSimulationCommandResponse>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/teacher-commands`,
+      { method: "POST", body: JSON.stringify(input) }
+    ),
+  sendPortSimulationCommandV2: (
+    id: string,
+    teamId: string,
+    input: PortSimulationCommandEnvelopeV2
+  ) =>
+    request<PortSimulationCommandResultV2>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/commands`,
+      { method: "POST", body: JSON.stringify(input) }
+    ),
+  sendPortSimulationTeacherCommandV2: (
+    id: string,
+    teamId: string,
+    input: PortSimulationTeacherCommandInputV2
+  ) =>
+    request<PortSimulationCommandResultV2>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/teacher-commands`,
+      { method: "POST", body: JSON.stringify(input) }
+    ),
+  getPortSimulationCheckpoint: (id: string, teamId: string) =>
+    request<PortSimulationCheckpoint>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/checkpoint`
+    ),
+  getPortSimulationEventsAfter: (
+    id: string,
+    teamId: string,
+    afterSequence: number
+  ) =>
+    request<PortSimulationEventBatch>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/events?afterSequence=${afterSequence}`
+    ),
+  subscribePortSimulationEventStream,
+  forcePortSimulationResync: (id: string, teamId: string) =>
+    request<{ status: string }>(
+      `/api/class-sessions/${id}/simulation/teams/${teamId}/resync`,
+      { method: "POST" }
+    ),
+  getPortSimulationPreflight: (id: string) =>
+    request<PortSimulationPreflightReport>(
+      `/api/class-sessions/${id}/simulation/preflight`
+    ),
   getLamRuntimeStatus: () =>
     request<LamRuntimeStatus>("/api/avatar/runtime/status"),
-  heartbeatClassroomPresence: (id: string, participantId: string) =>
+  heartbeatClassroomPresence: (id: string) =>
     request<ClassroomPresence>(
       `/api/class-sessions/${id}/presence/heartbeat`,
       {
         method: "POST",
-        body: JSON.stringify({ participantId })
+        body: JSON.stringify({})
       }
     ),
-  leaveClassroomPresence: (id: string, participantId: string) =>
+  leaveClassroomPresence: (id: string) =>
     request<void>(`/api/class-sessions/${id}/presence/leave`, {
       method: "POST",
-      body: JSON.stringify({ participantId }),
+      body: JSON.stringify({}),
       keepalive: true
     }),
   sendClassroomEvent: (id: string, input: ClassroomEventInput) =>

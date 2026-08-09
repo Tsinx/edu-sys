@@ -39,6 +39,8 @@ import {
 } from "lucide-react";
 import {
   type FormEvent,
+  lazy,
+  Suspense,
   useEffect,
   useMemo,
   useState
@@ -60,6 +62,12 @@ import { api } from "./api";
 import { HarborAssistant, PortScene } from "./art";
 import { ClassroomSubsystem } from "./features/classroom/ClassroomSubsystem";
 import { StudentClassroom } from "./features/classroom/StudentClassroom";
+
+const AuthenticatedLocalPortSimulationPage = lazy(() =>
+  import("./features/port-simulation/AuthenticatedLocalPortSimulationPage").then(
+    (module) => ({ default: module.AuthenticatedLocalPortSimulationPage })
+  )
+);
 
 interface PortalContextValue {
   openCourseModal: () => void;
@@ -102,14 +110,9 @@ export function App() {
           <Route
             path="simulations"
             element={
-              <ModulePage
-                icon={FlaskConical}
-                eyebrow="SIMULATION LAB"
-                title="模拟实验"
-                description="这里将接入自研港口生产模拟软件，组织实验场景、参数方案与学生操作记录。"
-                status="模块边界已预留"
-                details={["实验场景编排", "模拟软件启动协议", "操作过程留痕"]}
-              />
+              <Suspense fallback={<LoadingState label="正在装载本地港口仿真" />}>
+                <AuthenticatedLocalPortSimulationPage />
+              </Suspense>
             }
           />
           <Route

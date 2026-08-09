@@ -1,0 +1,2829 @@
+.port-runtime {
+  --port-runtime-ink: #16384c;
+  --port-runtime-muted: #607985;
+  --port-runtime-line: #d3dfe1;
+  --port-runtime-surface: #ffffff;
+  --port-runtime-soft: #eef5f4;
+  --port-runtime-accent: #0d8f88;
+  --port-runtime-warning: #d96b52;
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  color: var(--port-runtime-ink);
+  font-family: "Microsoft YaHei UI", "PingFang SC", sans-serif;
+}
+
+.port-runtime__statusbar {
+  display: grid;
+  grid-template-columns: minmax(210px, 1fr) auto auto;
+  align-items: center;
+  gap: 18px;
+  padding: 13px 16px;
+  border: 1px solid var(--port-runtime-line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.port-runtime__statusbar > div:first-child {
+  display: grid;
+  gap: 3px;
+}
+
+.port-runtime__statusbar > div:first-child span,
+.port-runtime__statusbar dt,
+.port-runtime__connection {
+  color: var(--port-runtime-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.port-runtime__statusbar > div:first-child strong {
+  font-size: 15px;
+}
+
+.port-runtime__statusbar dl {
+  display: flex;
+  gap: 22px;
+  margin: 0;
+}
+
+.port-runtime__statusbar dl div {
+  display: grid;
+  gap: 2px;
+}
+
+.port-runtime__statusbar dt {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.port-runtime__statusbar dt svg {
+  width: 13px;
+}
+
+.port-runtime__statusbar dd {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.port-runtime__connection {
+  padding: 7px 9px;
+  border-radius: 999px;
+  color: #146b66;
+  background: #e0f2ee;
+}
+
+.port-runtime__decision-states {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding: 8px 10px;
+  border: 1px solid var(--port-runtime-line);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.84);
+}
+
+.port-runtime__decision-states span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  color: #7b8d94;
+  background: #eef2f2;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.port-runtime__decision-states i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #9caeb3;
+}
+
+.port-runtime__decision-states span[data-active="true"] {
+  color: #126c67;
+  background: #e2f3ef;
+}
+
+.port-runtime__decision-states span[data-active="true"] i {
+  background: var(--port-runtime-accent);
+  box-shadow: 0 0 0 3px rgba(13, 143, 136, 0.13);
+}
+
+.port-runtime__decision-states span:nth-child(4)[data-active="true"],
+.port-runtime__decision-states span:nth-child(5)[data-active="true"] {
+  color: #a34b38;
+  background: #fff0eb;
+}
+
+.port-runtime__decision-states span:nth-child(4)[data-active="true"] i,
+.port-runtime__decision-states span:nth-child(5)[data-active="true"] i {
+  background: var(--port-runtime-warning);
+}
+
+.port-runtime__main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 350px);
+  gap: 14px;
+  align-items: start;
+  min-width: 0;
+}
+
+.port-runtime__map,
+.port-runtime__side {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.port-runtime__map .interactive-port-scene__canvas-shell {
+  min-height: 380px;
+}
+
+.port-runtime__selection-summary {
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid #badbd8;
+  border-radius: 10px;
+  background: #f5fbfa;
+}
+
+.port-runtime__selection-summary > header {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.port-runtime__selection-summary > header span {
+  color: var(--port-runtime-accent);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.port-runtime__selection-summary > header strong {
+  font-size: 12px;
+}
+
+.port-runtime__selection-summary > header button {
+  border: 0;
+  color: var(--port-runtime-muted);
+  background: transparent;
+  font: inherit;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.port-runtime__selection-summary dl {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0;
+}
+
+.port-runtime__selection-summary dl div {
+  display: grid;
+  gap: 2px;
+  padding: 6px;
+  border-radius: 6px;
+  background: #e9f4f2;
+  font-size: 8px;
+}
+
+.port-runtime__selection-summary dt {
+  color: var(--port-runtime-muted);
+}
+
+.port-runtime__selection-summary dd {
+  margin: 0;
+  font-weight: 800;
+}
+
+.port-runtime__selection-summary > p {
+  margin: 0;
+  color: var(--port-runtime-muted);
+  font-size: 9px;
+}
+
+.port-runtime__slot-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.port-runtime__slot-summary span {
+  padding: 6px;
+  border: 1px dashed #178ba2;
+  border-radius: 6px;
+  color: #276273;
+  background: #eff9fb;
+  font-size: 8px;
+  text-align: center;
+}
+
+.port-runtime__slot-summary span[data-slot-state="occupied"] {
+  border-color: #d59a30;
+  color: #77571d;
+  background: #fff7df;
+}
+
+.port-runtime__vessel-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.port-runtime__vessel-strip article {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--port-runtime-line);
+  border-left: 4px solid #7f9ca5;
+  border-radius: 11px;
+  background: var(--port-runtime-surface);
+}
+
+.port-runtime__vessel-strip article[data-stage="working"],
+.port-runtime__vessel-strip article[data-stage="inbound"],
+.port-runtime__vessel-strip article[data-stage="outbound"] {
+  border-left-color: var(--port-runtime-accent);
+}
+
+.port-runtime__vessel-strip article[data-stage="departed"] {
+  border-left-color: #36a575;
+  opacity: 0.72;
+}
+
+.port-runtime__vessel-strip article > svg {
+  width: 19px;
+}
+
+.port-runtime__vessel-strip article div {
+  display: grid;
+  min-width: 0;
+}
+
+.port-runtime__vessel-strip strong,
+.port-runtime__vessel-strip span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.port-runtime__vessel-strip strong {
+  font-size: 12px;
+}
+
+.port-runtime__vessel-strip span,
+.port-runtime__vessel-strip em {
+  color: var(--port-runtime-muted);
+  font-size: 10px;
+  font-style: normal;
+}
+
+.port-runtime__role-panel,
+.port-runtime__observer-panel,
+.port-runtime__pressure,
+.port-runtime__events {
+  border: 1px solid var(--port-runtime-line);
+  border-radius: 14px;
+  background: var(--port-runtime-surface);
+}
+
+.port-runtime__role-panel {
+  display: grid;
+  gap: 13px;
+  padding: 15px;
+}
+
+.port-runtime__role-panel > header,
+.port-runtime__pressure > header,
+.port-runtime__events > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.port-runtime__role-panel > header div {
+  display: grid;
+  gap: 2px;
+}
+
+.port-runtime__role-panel > header span,
+.port-runtime__pressure > header span,
+.port-runtime__events > header span {
+  color: var(--port-runtime-muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.port-runtime__role-panel > header strong {
+  font-size: 16px;
+}
+
+.port-runtime__role-panel > header i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--port-runtime-accent);
+  box-shadow: 0 0 0 6px rgba(13, 143, 136, 0.12);
+}
+
+.port-runtime__role-panel label,
+.port-runtime__role-panel fieldset,
+.port-runtime__command-stack {
+  display: grid;
+  gap: 7px;
+}
+
+.port-runtime__role-panel label,
+.port-runtime__role-panel legend {
+  color: #456674;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.port-runtime__role-panel fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.port-runtime__role-panel select,
+.port-runtime__role-panel button {
+  min-height: 34px;
+  border: 1px solid #c8d7da;
+  border-radius: 8px;
+  color: var(--port-runtime-ink);
+  background: #f9fbfb;
+  font: inherit;
+  font-size: 11px;
+}
+
+.port-runtime__role-panel select {
+  width: 100%;
+  padding: 0 9px;
+}
+
+.port-runtime__role-panel button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 10px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.port-runtime__role-panel button:hover:not(:disabled) {
+  border-color: var(--port-runtime-accent);
+  color: #086d68;
+  background: #eaf6f3;
+}
+
+.port-runtime__role-panel button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.port-runtime__role-panel button svg {
+  width: 14px;
+  height: 14px;
+}
+
+.port-runtime__command-stack > p {
+  margin: 0;
+  color: var(--port-runtime-muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.port-runtime__proposal-prefill {
+  display: grid;
+  gap: 5px;
+  padding: 10px;
+  border: 1px solid #ddb35d;
+  border-radius: 9px;
+  background: #fff7df;
+}
+
+.port-runtime__proposal-prefill strong {
+  color: #7d5b19;
+  font-size: 11px;
+}
+
+.port-runtime__proposal-prefill span {
+  color: var(--port-runtime-muted);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 9px;
+}
+
+.port-runtime__split-actions,
+.port-runtime__charge-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.port-runtime__release-list {
+  display: grid;
+  gap: 6px;
+  max-height: 150px;
+  overflow: auto;
+  padding: 8px;
+  border: 1px solid #d7e2e3;
+  border-radius: 8px;
+  background: #f4f8f7;
+}
+
+.port-runtime__release-list > span {
+  color: var(--port-runtime-muted);
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.port-runtime__resource-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+.port-runtime__resource-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 7px;
+  padding: 7px;
+  border: 1px solid #d8e2e4;
+  border-radius: 8px;
+  background: #f7faf9;
+  scroll-margin: 12px;
+}
+
+.port-runtime__resource-card[data-map-selected="true"] {
+  border-color: #0b9f96;
+  box-shadow: 0 0 0 3px rgba(11, 159, 150, 0.14);
+}
+
+.port-runtime__resource-card label {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 3px 6px;
+  align-items: center;
+}
+
+.port-runtime__resource-card label span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.port-runtime__resource-card small {
+  color: var(--port-runtime-muted);
+  font-size: 9px;
+}
+
+.port-runtime__resource-card > button {
+  min-height: 28px;
+  padding: 4px 8px;
+}
+
+.port-runtime__resource-card dl {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+  margin: 0;
+}
+
+.port-runtime__resource-card dl div {
+  display: grid;
+  gap: 1px;
+  padding: 4px 5px;
+  border-radius: 5px;
+  background: #edf3f3;
+  font-size: 8px;
+}
+
+.port-runtime__resource-card dt {
+  color: var(--port-runtime-muted);
+}
+
+.port-runtime__resource-card dd {
+  margin: 0;
+  font-weight: 800;
+}
+
+.port-runtime__crane-move {
+  display: grid;
+  gap: 7px;
+  padding: 10px;
+  border: 1px solid #e1c17b;
+  border-radius: 9px;
+  background: #fff9eb;
+}
+
+.port-runtime__crane-move > p {
+  margin: 0;
+  color: #7c6333;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.port-runtime__lane-controls {
+  display: grid;
+  gap: 7px;
+}
+
+.port-runtime__lane-controls > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-top: 1px solid #e1e8e9;
+  font-size: 10px;
+}
+
+.port-runtime__lane-controls button {
+  min-height: 28px;
+}
+
+.port-runtime__observer-panel {
+  padding: 18px;
+}
+
+.port-runtime__observer-panel span {
+  color: var(--port-runtime-accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.port-runtime__observer-panel h2 {
+  margin: 8px 0 6px;
+  font-size: 16px;
+}
+
+.port-runtime__observer-panel p {
+  margin: 0;
+  color: var(--port-runtime-muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.port-runtime__pressure {
+  padding: 14px;
+}
+
+.port-runtime__pressure header strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--port-runtime-warning);
+  font-size: 10px;
+}
+
+.port-runtime__pressure header svg {
+  width: 13px;
+}
+
+.port-runtime__pressure dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0 0;
+}
+
+.port-runtime__pressure dl div {
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--port-runtime-soft);
+}
+
+.port-runtime__pressure dt {
+  color: var(--port-runtime-muted);
+  font-size: 9px;
+}
+
+.port-runtime__pressure dd {
+  margin: 3px 0 0;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.port-runtime__pressure > p {
+  margin: 9px 0 0;
+  padding: 7px 9px;
+  border-left: 3px solid var(--port-runtime-warning);
+  color: #9f4d3d;
+  background: #fff1ec;
+  font-size: 10px;
+}
+
+.port-runtime__events {
+  overflow: hidden;
+}
+
+.port-runtime__events > header {
+  padding: 11px 14px;
+  border-bottom: 1px solid #e1e8e9;
+}
+
+.port-runtime__events > header strong {
+  color: var(--port-runtime-muted);
+  font-size: 10px;
+}
+
+.port-runtime__events ol {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.port-runtime__events li {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 95px;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 14px;
+  border-bottom: 1px solid #edf1f1;
+  font-size: 10px;
+}
+
+.port-runtime__events li:last-child {
+  border-bottom: 0;
+}
+
+.port-runtime__events li[data-outcome="rejected"] {
+  border-left: 3px solid var(--port-runtime-warning);
+  background: #fff8f5;
+}
+
+.port-runtime__events time,
+.port-runtime__events em {
+  color: var(--port-runtime-muted);
+  font-style: normal;
+}
+
+.port-runtime__events em {
+  text-align: right;
+}
+
+.port-runtime__debrief {
+  display: grid;
+  gap: 12px;
+  padding: 15px;
+  border: 1px solid var(--port-runtime-line);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.port-runtime__debrief > header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.port-runtime__debrief > header div {
+  display: grid;
+  gap: 3px;
+}
+
+.port-runtime__debrief > header span {
+  color: var(--port-runtime-accent);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.11em;
+}
+
+.port-runtime__debrief h2,
+.port-runtime__debrief h3,
+.port-runtime__debrief p {
+  margin: 0;
+}
+
+.port-runtime__debrief h2 {
+  font-size: 16px;
+}
+
+.port-runtime__debrief > header p {
+  color: var(--port-runtime-muted);
+  font-size: 10px;
+}
+
+.port-runtime__debrief-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.port-runtime__debrief-grid > article {
+  display: grid;
+  align-content: start;
+  gap: 9px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #dbe5e6;
+  border-radius: 10px;
+  background: #f8faf9;
+}
+
+.port-runtime__debrief h3 {
+  font-size: 12px;
+}
+
+.port-runtime__debrief dl {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 7px 0;
+  border-top: 1px solid #e1e8e9;
+}
+
+.port-runtime__debrief dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 9px;
+}
+
+.port-runtime__debrief dt {
+  color: var(--port-runtime-muted);
+}
+
+.port-runtime__debrief dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 750;
+}
+
+.port-runtime__debrief-grid article > p {
+  color: var(--port-runtime-muted);
+  font-size: 9px;
+}
+
+.port-student-simulation {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  color: #16384c;
+  font-family: "Microsoft YaHei UI", "PingFang SC", sans-serif;
+}
+
+.port-student-simulation--empty,
+.port-student-simulation--lobby {
+  min-height: min(680px, 75vh);
+  place-content: center;
+  padding: 28px;
+  text-align: center;
+}
+
+.port-student-simulation--empty > svg {
+  justify-self: center;
+  width: 30px;
+}
+
+.port-student-simulation--empty h1,
+.port-student-simulation--empty p,
+.port-student-simulation--lobby h1,
+.port-student-simulation--lobby p {
+  margin: 0;
+}
+
+.port-student-simulation--empty p,
+.port-student-simulation--lobby p {
+  color: #637b86;
+  line-height: 1.65;
+}
+
+.port-student-simulation--lobby > header {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.port-student-simulation--lobby > header > span {
+  color: #0d8f88;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+}
+
+.port-team-picker {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(170px, 1fr));
+  gap: 12px;
+  width: min(820px, 100%);
+}
+
+.port-team-picker button {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 5px 10px;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #cfdddf;
+  border-radius: 13px;
+  color: #16384c;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.port-team-picker button:hover {
+  border-color: #0d8f88;
+  background: #edf8f5;
+}
+
+.port-team-picker svg {
+  grid-row: 1 / span 2;
+  width: 20px;
+  color: #0d8f88;
+}
+
+.port-team-picker strong {
+  font-size: 14px;
+}
+
+.port-team-picker span,
+.port-team-picker em {
+  color: #667e88;
+  font-size: 10px;
+  font-style: normal;
+}
+
+.port-team-picker em {
+  grid-column: 1 / -1;
+  padding-top: 6px;
+  border-top: 1px solid #e6eded;
+  text-align: right;
+}
+
+.port-role-lobby {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+}
+
+.port-role-lobby > header {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 15px;
+}
+
+.port-role-lobby > header button,
+.port-student-simulation__rolebar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 7px 11px;
+  border: 1px solid #cbdadc;
+  border-radius: 8px;
+  color: #294e5e;
+  background: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.port-role-lobby > header button:disabled {
+  opacity: 0.45;
+}
+
+.port-role-lobby > header div {
+  display: grid;
+  gap: 3px;
+}
+
+.port-role-lobby > header h1,
+.port-role-lobby > header span {
+  margin: 0;
+}
+
+.port-role-lobby > header span {
+  color: #0d8f88;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.port-role-lobby > header em {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #607985;
+  font-size: 10px;
+  font-style: normal;
+}
+
+.port-role-lobby > div {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.port-role-lobby article {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid #cfdddf;
+  border-top: 4px solid #0d8f88;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.port-role-lobby article[data-occupied="true"] {
+  border-top-color: #8ba0a8;
+  opacity: 0.7;
+}
+
+.port-role-lobby article[data-support-role="operations_coordinator"] {
+  border-top-color: #d79a2c;
+}
+
+.port-role-lobby article[data-support-role="safety_reviewer"] {
+  border-top-color: #dc705e;
+}
+
+.port-role-lobby article > span {
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.port-role-lobby article p {
+  min-height: 48px;
+  margin: 0;
+  color: #607985;
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.port-role-lobby article button {
+  min-height: 34px;
+  border: 1px solid #b9d5d1;
+  border-radius: 8px;
+  color: #0a716b;
+  background: #eaf6f3;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.port-role-lobby article button:disabled {
+  color: #6d7f86;
+  background: #eef1f1;
+  cursor: not-allowed;
+}
+
+.port-student-simulation__rolebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  color: #2f5968;
+  background: #eaf5f3;
+  font-size: 11px;
+}
+
+.port-student-simulation__rolebar[data-support-role] {
+  border: 1px solid #ead6a6;
+  background: #fff8e8;
+}
+
+.port-collaboration-inbox,
+.port-collaboration-console {
+  display: grid;
+  gap: 9px;
+  padding: 12px;
+  border: 1px solid #dfcf9e;
+  border-radius: 10px;
+  background: #fffaf0;
+  color: #314f5b;
+  font-size: 10px;
+}
+
+.port-collaboration-inbox > header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.port-collaboration-inbox > header span,
+.port-collaboration-console p {
+  margin: 0;
+  color: #7a6c4c;
+}
+
+.port-collaboration-inbox article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 8px;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid #eadcb7;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.port-collaboration-inbox article[data-kind="risk_alert"] {
+  border-left: 4px solid #dc705e;
+}
+
+.port-collaboration-inbox article div {
+  display: grid;
+  gap: 2px;
+}
+
+.port-collaboration-inbox article span {
+  color: #71828a;
+  font-size: 9px;
+}
+
+.port-collaboration-inbox button,
+.port-collaboration-console button,
+.port-collaboration-console select {
+  min-height: 32px;
+  padding: 6px 10px;
+  border: 1px solid #d4c18a;
+  border-radius: 7px;
+  color: #5e4d1f;
+  background: #fff;
+  font: inherit;
+  font-weight: 750;
+}
+
+.port-collaboration-console label {
+  display: grid;
+  gap: 5px;
+  font-weight: 750;
+}
+
+.port-collaboration-console > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.port-simulation-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-left: 4px solid #0d8f88;
+  border-radius: 8px;
+  color: #196a65;
+  background: #e8f6f2;
+  font-size: 11px;
+}
+
+.port-simulation-notice--error {
+  border-left-color: #d96b52;
+  color: #994a3a;
+  background: #fff0eb;
+}
+
+.port-simulation-notice svg {
+  width: 16px;
+}
+
+.port-teacher-setup,
+.port-teacher-simulation {
+  display: grid;
+  min-width: 0;
+  color: #16384c;
+  font-family: "Microsoft YaHei UI", "PingFang SC", sans-serif;
+}
+
+.port-teacher-setup {
+  align-content: start;
+  gap: 18px;
+  height: 100%;
+  overflow: auto;
+  padding: 28px;
+  background: #edf3f2;
+}
+
+.port-teacher-setup header {
+  display: grid;
+  gap: 7px;
+}
+
+.port-teacher-setup header span {
+  color: #0d8f88;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+}
+
+.port-teacher-setup h2,
+.port-teacher-setup p {
+  margin: 0;
+}
+
+.port-teacher-setup .port-teacher-setup__plan {
+  padding: 10px 12px;
+  border-left: 4px solid #d59a30;
+  border-radius: 7px;
+  background: #fff8e8;
+  color: #6f5a2e;
+}
+
+.port-teacher-setup p {
+  max-width: 720px;
+  color: #607985;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.port-teacher-setup > label,
+.port-teacher-setup__names label {
+  display: grid;
+  gap: 6px;
+  color: #456674;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.port-teacher-setup input,
+.port-teacher-takeover select {
+  min-height: 36px;
+  padding: 0 10px;
+  border: 1px solid #c6d6d8;
+  border-radius: 8px;
+  color: #16384c;
+  background: #fff;
+  font: inherit;
+}
+
+.port-teacher-setup > label input {
+  width: 130px;
+}
+
+.port-teacher-setup__names {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(150px, 1fr));
+  gap: 10px;
+  max-width: 860px;
+}
+
+.port-teacher-setup > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: fit-content;
+  min-height: 42px;
+  padding: 9px 16px;
+  border: 0;
+  border-radius: 9px;
+  color: #fff;
+  background: #0d746f;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.port-teacher-setup > button:disabled {
+  opacity: 0.55;
+}
+
+.port-teacher-setup > button svg {
+  width: 17px;
+}
+
+.port-teacher-simulation {
+  gap: 12px;
+  height: 100%;
+  overflow: auto;
+  padding: 12px;
+  background: #edf3f2;
+}
+
+.port-teacher-simulation .port-simulation-notice {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.port-teacher-simulation .port-simulation-notice button {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  margin-left: auto;
+  place-items: center;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.port-simulation-preflight {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #cbdbe5;
+  border-radius: 18px;
+  background: rgba(248, 252, 254, 0.96);
+}
+
+.port-simulation-preflight > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.port-simulation-preflight > header div {
+  display: grid;
+  gap: 3px;
+}
+
+.port-simulation-preflight > header span,
+.port-simulation-preflight > header small {
+  color: #627887;
+  font-size: 12px;
+}
+
+.port-simulation-preflight > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 8px;
+}
+
+.port-simulation-preflight article {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 1px solid #dbe6ec;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.port-simulation-preflight article[data-status="pass"] {
+  border-left: 4px solid #0e9f8f;
+}
+
+.port-simulation-preflight article[data-status="warning"] {
+  border-left: 4px solid #d18a18;
+}
+
+.port-simulation-preflight article[data-status="blocked"] {
+  border-left: 4px solid #df6c5b;
+}
+
+.port-simulation-preflight article span {
+  color: #526a79;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.port-team-configuration {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #d9c88c;
+  border-radius: 12px;
+  background: #fffaf0;
+}
+
+.port-team-configuration > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.port-team-configuration > header div {
+  display: grid;
+  gap: 2px;
+}
+
+.port-team-configuration > header span,
+.port-team-configuration article span,
+.port-team-configuration > p {
+  margin: 0;
+  color: #766948;
+  font-size: 9px;
+}
+
+.port-team-configuration > header button {
+  min-height: 32px;
+  padding: 6px 10px;
+  border: 1px solid #c8a756;
+  border-radius: 7px;
+  color: #5e4c1d;
+  background: #fff;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.port-team-configuration > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.port-team-configuration article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 76px;
+  gap: 5px;
+}
+
+.port-team-configuration input,
+.port-team-configuration select {
+  min-width: 0;
+  min-height: 32px;
+  padding: 0 8px;
+  border: 1px solid #ded3b2;
+  border-radius: 7px;
+  background: #fff;
+  font: inherit;
+  font-size: 10px;
+}
+
+.port-team-configuration article span {
+  grid-column: 1 / -1;
+}
+
+.port-teacher-controls {
+  display: grid;
+  grid-template-columns: minmax(170px, 1fr) auto;
+  gap: 10px 16px;
+  padding: 12px 14px;
+  border: 1px solid #cfdddf;
+  border-radius: 13px;
+  background: #fff;
+}
+
+.port-teacher-controls > div:first-child {
+  display: grid;
+  gap: 3px;
+}
+
+.port-teacher-controls > div:first-child span {
+  color: #607985;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.port-teacher-controls > div:first-child strong {
+  font-size: 14px;
+}
+
+.port-teacher-controls > label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #607985;
+  font-size: 10px;
+}
+
+.port-teacher-controls > div:last-child {
+  display: flex;
+  grid-column: 1 / -1;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.port-teacher-controls button,
+.port-teacher-takeover button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 32px;
+  padding: 6px 9px;
+  border: 1px solid #c8d7da;
+  border-radius: 7px;
+  color: #294e5e;
+  background: #f8fbfa;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.port-teacher-controls button:first-child {
+  color: #fff;
+  background: #0d746f;
+  border-color: #0d746f;
+}
+
+.port-teacher-controls button:disabled,
+.port-teacher-takeover button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.port-teacher-controls svg,
+.port-teacher-takeover svg {
+  width: 14px;
+}
+
+.port-team-overview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(150px, 1fr));
+  gap: 8px;
+}
+
+.port-team-overview button {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3px 8px;
+  padding: 10px;
+  border: 1px solid #cfdddf;
+  border-radius: 10px;
+  color: #16384c;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.port-team-overview button[aria-pressed="true"] {
+  border-color: #0d8f88;
+  box-shadow: inset 0 0 0 1px #0d8f88;
+  background: #edf8f5;
+}
+
+.port-team-overview span,
+.port-team-overview strong {
+  font-size: 11px;
+}
+
+.port-team-overview small,
+.port-team-overview em {
+  color: #607985;
+  font-size: 9px;
+  font-style: normal;
+}
+
+.port-team-overview em {
+  grid-column: 1 / -1;
+  padding-top: 4px;
+  border-top: 1px solid #e7eded;
+}
+
+.port-teacher-takeover {
+  display: grid;
+  grid-template-columns: auto minmax(190px, 270px) minmax(0, 1fr);
+  gap: 12px;
+  align-items: end;
+  padding: 10px 12px;
+  border: 1px solid #cfdddf;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.port-teacher-takeover > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: center;
+  color: #607985;
+  font-size: 10px;
+}
+
+.port-teacher-takeover label {
+  display: grid;
+  gap: 4px;
+  color: #456674;
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.port-teacher-takeover > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.port-teacher-loading {
+  display: flex;
+  min-height: 260px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #607985;
+}
+
+.port-scene__entity--state-busy .port-scene__shape {
+  stroke: #0d8f88;
+  filter: drop-shadow(0 0 5px rgba(13, 143, 136, 0.28));
+}
+
+.port-scene__entity--state-moving .port-scene__shape {
+  fill: #dceff4;
+  stroke: #287f98;
+  stroke-dasharray: 9 5;
+}
+
+.port-scene__entity--state-assigned .port-scene__shape {
+  stroke: #3288a1;
+}
+
+.port-scene__entity--state-fault .port-scene__shape {
+  stroke: #d95f49;
+  filter: drop-shadow(0 0 6px rgba(217, 95, 73, 0.42));
+}
+
+.port-scene__entity--state-closed {
+  opacity: 0.55;
+}
+
+.port-scene__entity--state-completed {
+  opacity: 0.38;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .port-runtime .port-scene__entity {
+    transition: transform 650ms linear, opacity 180ms ease;
+  }
+}
+
+@media (max-width: 900px) {
+  .port-runtime__statusbar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .port-runtime__statusbar dl {
+    grid-column: 1 / -1;
+    justify-content: space-between;
+  }
+
+  .port-runtime__main {
+    grid-template-columns: 1fr;
+  }
+
+  .port-runtime__side {
+    grid-template-columns: minmax(0, 1.25fr) minmax(220px, 0.75fr);
+    align-items: start;
+  }
+
+  .port-role-lobby > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .port-team-overview,
+  .port-teacher-setup__names {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .port-teacher-takeover {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .port-teacher-takeover > div {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+
+  .port-runtime__debrief-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .port-runtime__statusbar,
+  .port-runtime__side {
+    grid-template-columns: 1fr;
+  }
+
+  .port-runtime__statusbar dl {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .port-runtime__connection {
+    justify-self: start;
+  }
+
+  .port-runtime__decision-states {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .port-runtime__debrief > header {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .port-runtime__vessel-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .port-runtime__map .interactive-port-scene__canvas-shell {
+    min-height: 290px;
+  }
+
+  .port-runtime__events li {
+    grid-template-columns: 45px minmax(0, 1fr);
+  }
+
+  .port-runtime__events em {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .port-team-picker,
+  .port-role-lobby > div {
+    grid-template-columns: 1fr;
+  }
+
+  .port-role-lobby {
+    padding: 14px;
+  }
+
+  .port-role-lobby > header {
+    grid-template-columns: 1fr;
+  }
+
+  .port-role-lobby > header button,
+  .port-role-lobby > header em {
+    justify-self: start;
+  }
+
+  .port-team-overview,
+  .port-teacher-setup__names,
+  .port-teacher-controls,
+  .port-teacher-takeover {
+    grid-template-columns: 1fr;
+  }
+
+  .port-teacher-takeover > div {
+    grid-column: auto;
+  }
+}
+
+/* V1.0 local-solo delivery ------------------------------------------------ */
+
+.port-local-simulation,
+.port-local-teacher {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+  padding: 16px;
+  color: #173d49;
+  background:
+    linear-gradient(rgba(38, 102, 118, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(38, 102, 118, 0.045) 1px, transparent 1px),
+    #f4f8f8;
+  background-size: 22px 22px;
+}
+
+.port-local-simulation__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.8fr);
+  gap: 20px;
+  padding: 20px 22px;
+  border-radius: 16px;
+  color: #f6ffff;
+  background:
+    radial-gradient(circle at 84% 20%, rgba(48, 205, 187, 0.22), transparent 34%),
+    linear-gradient(135deg, #083c4d, #0b5964);
+  box-shadow: 0 18px 42px rgba(9, 55, 68, 0.17);
+}
+
+.port-local-simulation__hero > div,
+.port-local-teacher > header {
+  display: grid;
+  gap: 7px;
+  align-content: center;
+}
+
+.port-local-simulation__hero span,
+.port-local-teacher > header span,
+.port-local-simulation__brief > div > span,
+.port-local-simulation__history header span {
+  color: #52d2c5;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.port-local-simulation__hero h1,
+.port-local-teacher > header h2,
+.port-local-simulation__brief h2,
+.port-local-simulation__history h2 {
+  margin: 0;
+}
+
+.port-local-simulation__hero h1 {
+  max-width: 720px;
+  font-size: clamp(24px, 3vw, 42px);
+  line-height: 1.08;
+}
+
+.port-local-simulation__hero p,
+.port-local-teacher > header p {
+  max-width: 760px;
+  margin: 0;
+  color: #c8e0e4;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.port-local-simulation__hero dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-self: stretch;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(196, 235, 235, 0.2);
+  border-radius: 12px;
+  background: rgba(4, 42, 52, 0.36);
+}
+
+.port-local-simulation__hero dl > div {
+  display: grid;
+  gap: 6px;
+  align-content: center;
+  min-width: 0;
+  padding: 12px;
+  border-left: 1px solid rgba(196, 235, 235, 0.15);
+}
+
+.port-local-simulation__hero dl > div:first-child {
+  border-left: 0;
+}
+
+.port-local-simulation__hero dt {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  color: #9bc5ca;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.port-local-simulation__hero dt svg {
+  width: 13px;
+}
+
+.port-local-simulation__hero dd {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  font-size: 11px;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.port-local-simulation__controls,
+.port-local-simulation__roles,
+.port-local-simulation__brief,
+.port-local-simulation__history,
+.port-local-teacher__architecture,
+.port-local-teacher__publish,
+.port-local-teacher__published {
+  border: 1px solid #d5e3e6;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 28px rgba(20, 62, 76, 0.07);
+}
+
+.port-local-simulation__controls {
+  display: grid;
+  grid-template-columns: minmax(220px, 340px) minmax(0, 1fr);
+  gap: 12px 18px;
+  align-items: end;
+  padding: 13px 15px;
+}
+
+.port-local-simulation__controls label,
+.port-local-teacher__publish label {
+  display: grid;
+  gap: 5px;
+  color: #52717b;
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.port-local-simulation__controls select,
+.port-local-teacher__publish input {
+  width: 100%;
+  min-height: 36px;
+  border: 1px solid #bad0d5;
+  border-radius: 8px;
+  padding: 0 10px;
+  color: #173d49;
+  background: #fff;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.port-local-simulation__run-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.port-local-simulation__run-buttons button,
+.port-local-teacher__publish button,
+.port-local-teacher__published a {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  border: 1px solid #b9d0d4;
+  border-radius: 8px;
+  padding: 0 12px;
+  color: #174653;
+  background: #f8fbfb;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.port-local-simulation__run-buttons button:first-child,
+.port-local-teacher__publish button,
+.port-local-teacher__published a {
+  border-color: #0c8d85;
+  color: #fff;
+  background: #0c8d85;
+}
+
+.port-local-simulation__run-buttons button:disabled {
+  opacity: 0.45;
+}
+
+.port-local-simulation__run-buttons svg,
+.port-local-teacher__publish svg {
+  width: 14px;
+}
+
+.port-local-simulation__run-buttons .port-local-simulation__finish {
+  border-color: #dd7762;
+  color: #a84d3d;
+  background: #fff6f3;
+}
+
+.port-local-simulation__controls > p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #64808a;
+  font-size: 9px;
+}
+
+.port-local-simulation__roles {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+}
+
+.port-local-simulation__roles > header,
+.port-local-simulation__history > header {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+
+.port-local-simulation__roles > header svg,
+.port-local-simulation__history > header svg {
+  width: 22px;
+  color: #0c8d85;
+}
+
+.port-local-simulation__roles > header div,
+.port-local-simulation__history > header div {
+  display: grid;
+  gap: 2px;
+}
+
+.port-local-simulation__roles > header span {
+  color: #0c8d85;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.port-local-simulation__roles > header strong {
+  font-size: 11px;
+}
+
+.port-local-simulation__roles > div {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.port-local-simulation__roles button {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  border: 1px solid #d3e0e3;
+  border-radius: 10px;
+  padding: 11px;
+  text-align: left;
+  color: #244d59;
+  background: #f6f9fa;
+  font: inherit;
+}
+
+.port-local-simulation__roles button[aria-pressed="true"] {
+  border-color: #0c8d85;
+  outline: 2px solid rgba(12, 141, 133, 0.14);
+  background: #eaf8f5;
+}
+
+.port-local-simulation__roles button span {
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.port-local-simulation__roles button small {
+  color: #607a83;
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+.port-local-simulation__roles button em {
+  color: #0c827a;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.port-local-simulation__brief {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 1fr) minmax(210px, 0.6fr);
+  gap: 14px;
+  align-items: stretch;
+  padding: 14px;
+}
+
+.port-local-simulation__brief > div,
+.port-local-simulation__brief aside {
+  display: grid;
+  gap: 5px;
+  align-content: center;
+}
+
+.port-local-simulation__brief p,
+.port-local-simulation__brief aside small {
+  margin: 0;
+  color: #617b84;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.port-local-simulation__brief ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.port-local-simulation__brief li {
+  display: grid;
+  gap: 3px;
+  border-left: 3px solid #38aa9f;
+  padding: 7px 9px;
+  background: #f1f8f7;
+}
+
+.port-local-simulation__brief li strong,
+.port-local-simulation__brief aside strong {
+  font-size: 10px;
+}
+
+.port-local-simulation__brief li span,
+.port-local-simulation__brief aside span {
+  color: #607980;
+  font-size: 8px;
+}
+
+.port-local-simulation__brief aside {
+  border-radius: 10px;
+  padding: 10px;
+  background: #edf5f6;
+}
+
+.port-local-simulation__history {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+}
+
+.port-local-simulation__history > p {
+  margin: 0;
+  color: #6b8189;
+  font-size: 10px;
+}
+
+.port-local-simulation__history [role="table"] {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid #dbe6e8;
+  border-radius: 9px;
+}
+
+.port-local-simulation__history [role="row"] {
+  display: grid;
+  grid-template-columns: 90px 80px 110px 100px minmax(130px, 1fr);
+  gap: 8px;
+  align-items: center;
+  padding: 7px 9px;
+  border-top: 1px solid #e4ecee;
+  color: #4f6d76;
+  font-size: 9px;
+}
+
+.port-local-simulation__history [role="row"]:first-child {
+  border-top: 0;
+  color: #5d747b;
+  background: #eef4f5;
+  font-weight: 900;
+}
+
+.port-local-teacher {
+  align-content: start;
+  min-height: 100%;
+}
+
+.port-local-teacher > header {
+  padding: 18px 20px;
+  border-radius: 14px;
+  color: #effdfd;
+  background: linear-gradient(135deg, #083e4f, #0d6069);
+}
+
+.port-local-teacher > header h2 {
+  font-size: 24px;
+}
+
+.port-local-teacher__architecture {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  padding: 12px;
+}
+
+.port-local-teacher__architecture article {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 3px 8px;
+  align-items: center;
+  border-radius: 9px;
+  padding: 10px;
+  background: #f0f6f7;
+}
+
+.port-local-teacher__architecture svg {
+  grid-row: 1 / 3;
+  width: 22px;
+  color: #0c8d85;
+}
+
+.port-local-teacher__architecture strong {
+  font-size: 10px;
+}
+
+.port-local-teacher__architecture span {
+  color: #607a83;
+  font-size: 8px;
+}
+
+.port-local-teacher__publish {
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) auto;
+  gap: 14px;
+  align-items: end;
+  padding: 13px;
+}
+
+.port-local-teacher__publish small {
+  color: #6b8189;
+  font-size: 8px;
+  font-weight: 500;
+}
+
+.port-local-teacher__published {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  border-color: #9fd0c9;
+  background: #edf9f6;
+}
+
+.port-local-teacher__published[data-legacy="true"] {
+  border-color: #e7b290;
+  background: #fff7ef;
+}
+
+.port-local-teacher__published > svg {
+  width: 28px;
+  color: #0c8d85;
+}
+
+.port-local-teacher__published div {
+  display: grid;
+  gap: 3px;
+}
+
+.port-local-teacher__published h3,
+.port-local-teacher__published p {
+  margin: 0;
+}
+
+.port-local-teacher__published span {
+  color: #0c8d85;
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.port-local-teacher__published p,
+.port-local-teacher > footer {
+  color: #607a83;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.port-local-auth-state {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  min-height: 420px;
+  align-content: center;
+  text-align: center;
+  color: #365e69;
+}
+
+.port-local-auth-state svg {
+  width: 30px;
+  color: #0c8d85;
+}
+
+.port-local-auth-state h1,
+.port-local-auth-state p {
+  margin: 0;
+}
+
+@media (max-width: 1050px) {
+  .port-local-simulation__hero,
+  .port-local-simulation__brief {
+    grid-template-columns: 1fr;
+  }
+
+  .port-local-simulation__roles > div,
+  .port-local-teacher__architecture {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .port-local-simulation,
+  .port-local-teacher {
+    gap: 10px;
+    padding: 9px;
+  }
+
+  .port-local-simulation__hero {
+    gap: 12px;
+    padding: 15px;
+  }
+
+  .port-local-simulation__hero dl,
+  .port-local-simulation__roles > div,
+  .port-local-teacher__architecture,
+  .port-local-teacher__publish,
+  .port-local-teacher__published {
+    grid-template-columns: 1fr;
+  }
+
+  .port-local-simulation__hero dl > div {
+    border-top: 1px solid rgba(196, 235, 235, 0.15);
+    border-left: 0;
+  }
+
+  .port-local-simulation__hero dl > div:first-child {
+    border-top: 0;
+  }
+
+  .port-local-simulation__controls {
+    grid-template-columns: 1fr;
+  }
+
+  .port-local-simulation__run-buttons button {
+    flex: 1 1 auto;
+  }
+
+  .port-local-simulation__history [role="table"] {
+    overflow-x: auto;
+  }
+
+  .port-local-simulation__history [role="row"] {
+    min-width: 560px;
+  }
+
+  .port-local-teacher__published > svg {
+    display: none;
+  }
+}
+
+.port-teacher-setup__challenges {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.port-teacher-setup__challenges legend {
+  margin-bottom: 8px;
+  color: #365a69;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.port-teacher-setup__challenges label {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #cfdee3;
+  border-radius: 14px;
+  background: #f8fbfc;
+  cursor: pointer;
+}
+
+.port-teacher-setup__challenges label[data-selected="true"] {
+  border-color: #0e8c86;
+  background: #effaf8;
+  box-shadow: 0 0 0 2px rgba(14, 140, 134, 0.12);
+}
+
+.port-teacher-setup__challenges input {
+  position: absolute;
+  inset: 12px 12px auto auto;
+}
+
+.port-teacher-setup__challenges label > span {
+  width: fit-content;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: #deedf1;
+  color: #287187;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.port-teacher-setup__challenges strong {
+  color: #133d4c;
+  font-size: 14px;
+}
+
+.port-teacher-setup__challenges p,
+.port-teacher-setup__challenges small {
+  margin: 0;
+  color: #57727d;
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.port-challenge-briefing {
+  display: grid;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 1px solid #cfe0e5;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f6fbfc 0%, #eef8f7 100%);
+}
+
+.port-challenge-briefing > header,
+.port-leaderboard > header,
+.port-student-challenge__brief > header,
+.port-student-challenge__ranking > header,
+.port-runtime__scoreboard > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.port-challenge-briefing h2,
+.port-leaderboard h2,
+.port-student-challenge h1 {
+  margin: 2px 0 0;
+  color: #123d4b;
+}
+
+.port-challenge-briefing > header span,
+.port-leaderboard > header span,
+.port-student-challenge__brief header span {
+  color: #167f7a;
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.port-challenge-briefing > p,
+.port-leaderboard > header p {
+  margin: 0;
+  color: #506d78;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.port-challenge-briefing__grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 8px;
+}
+
+.port-challenge-briefing__grid article {
+  display: flex;
+  gap: 9px;
+  padding: 10px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.port-challenge-briefing__grid svg {
+  width: 17px;
+  color: #0e8c86;
+}
+
+.port-challenge-briefing__grid p {
+  margin: 4px 0 0;
+  color: #58727c;
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.port-leaderboard {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid #c9dce2;
+  border-radius: 16px;
+  background: #f9fcfd;
+  box-shadow: 0 12px 28px rgba(20, 62, 76, 0.07);
+}
+
+.port-leaderboard > header > div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.port-leaderboard > header svg {
+  width: 24px;
+  color: #d79832;
+}
+
+.port-leaderboard > nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.port-leaderboard > nav button {
+  padding: 6px 11px;
+  border: 1px solid #c8d9df;
+  border-radius: 999px;
+  background: #fff;
+  color: #486773;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.port-leaderboard > nav button[aria-pressed="true"] {
+  border-color: #0e8c86;
+  background: #0e8c86;
+  color: #fff;
+}
+
+.port-leaderboard__table {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid #d6e2e6;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.port-leaderboard__head,
+.port-leaderboard__table > button {
+  display: grid;
+  grid-template-columns: 58px minmax(120px, 1.2fr) 100px 74px 82px minmax(120px, 1fr);
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 8px 10px;
+}
+
+.port-leaderboard__head {
+  background: #edf4f6;
+  color: #5b747d;
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.port-leaderboard__table > button {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid #e4ecef;
+  background: #fff;
+  color: #355762;
+  text-align: left;
+  font: inherit;
+}
+
+.port-leaderboard__table > button:hover,
+.port-leaderboard__table > button[data-selected="true"] {
+  background: #f0faf8;
+}
+
+.port-leaderboard__table > button[data-ranking-status="practice"] {
+  border-left: 3px solid #da715d;
+}
+
+.port-leaderboard__table [role="cell"] {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  font-size: 10px;
+}
+
+.port-leaderboard__table small {
+  color: #71868e;
+  font-size: 8px;
+}
+
+.port-leaderboard__rank {
+  grid-auto-flow: column;
+  justify-content: start;
+  align-items: center;
+  color: #a7701d;
+  font-size: 16px !important;
+  font-weight: 900;
+}
+
+.port-leaderboard__rank svg {
+  width: 18px;
+}
+
+.port-simulation-leaderboard-medal {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: #b77716;
+}
+
+.port-simulation-leaderboard-medal strong {
+  color: #70470b;
+  font-size: 11px;
+}
+
+.port-leaderboard__score {
+  grid-auto-flow: column;
+  justify-content: start;
+  align-items: baseline;
+}
+
+.port-leaderboard__score strong {
+  color: #0b7f79;
+  font-size: 18px;
+}
+
+.port-leaderboard__score em[data-positive="true"] {
+  color: #0a8b67;
+}
+
+.port-leaderboard__score em[data-positive="false"] {
+  color: #cf624f;
+}
+
+.port-leaderboard__empty {
+  margin: 0;
+  padding: 18px;
+  color: #6b8189;
+  text-align: center;
+  font-size: 10px;
+}
+
+.port-leaderboard__breakdown {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.port-leaderboard__breakdown article {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  padding: 8px;
+  border-radius: 10px;
+  background: #edf5f6;
+}
+
+.port-leaderboard__breakdown header {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  color: #315963;
+  font-size: 9px;
+}
+
+.port-leaderboard__breakdown progress,
+.port-runtime__scoreboard progress {
+  width: 100%;
+  height: 5px;
+  accent-color: #0e8c86;
+}
+
+.port-leaderboard__breakdown p {
+  margin: 0;
+  color: #6a8088;
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+.port-student-challenge {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(210px, 0.36fr);
+  gap: 10px;
+  padding: 11px;
+  border: 1px solid #cfe0e5;
+  border-radius: 14px;
+  background: #f5fafb;
+}
+
+.port-student-challenge__brief,
+.port-student-challenge__ranking {
+  display: grid;
+  gap: 8px;
+}
+
+.port-student-challenge__brief > p,
+.port-student-challenge__brief article span,
+.port-student-challenge__ranking p {
+  margin: 0;
+  color: #57727d;
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.port-student-challenge__brief header {
+  justify-content: flex-start;
+}
+
+.port-student-challenge__brief header svg,
+.port-student-challenge__ranking header svg {
+  width: 18px;
+  color: #0e8c86;
+}
+
+.port-student-challenge__brief h1 {
+  font-size: 16px;
+}
+
+.port-student-challenge__brief > div:last-child {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.port-student-challenge__brief article {
+  display: grid;
+  gap: 2px;
+  padding: 7px;
+  border-radius: 9px;
+  background: #fff;
+  font-size: 9px;
+}
+
+.port-student-challenge__ranking {
+  padding: 9px;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.port-student-challenge__ranking ol {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.port-student-challenge__ranking li {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) auto;
+  gap: 6px;
+  padding: 4px 6px;
+  border-radius: 7px;
+  color: #486772;
+  font-size: 9px;
+}
+
+.port-student-challenge__ranking li[data-own-team="true"] {
+  background: #e7f6f3;
+  color: #08766f;
+}
+
+.port-student-challenge__ranking li.port-student-challenge__ranking-empty {
+  display: block;
+  padding: 8px 6px;
+  color: #71858c;
+  text-align: center;
+}
+
+.port-runtime__scoreboard {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 9px;
+  padding: 9px;
+  border: 1px solid #d0e0e5;
+  border-radius: 13px;
+  background: #f8fbfc;
+}
+
+.port-runtime__scoreboard > header {
+  justify-content: flex-start;
+}
+
+.port-runtime__scoreboard > header svg {
+  width: 22px;
+  color: #d29736;
+}
+
+.port-runtime__scoreboard > header div {
+  display: grid;
+}
+
+.port-runtime__scoreboard > header span,
+.port-runtime__scoreboard > header p {
+  margin: 0;
+  color: #688089;
+  font-size: 8px;
+}
+
+.port-runtime__scoreboard > header strong {
+  color: #0b7e78;
+  font-size: 21px;
+}
+
+.port-runtime__scoreboard > header small {
+  font-size: 9px;
+}
+
+.port-runtime__scoreboard > div {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.port-runtime__scoreboard > div button {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  padding: 6px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: #edf4f6;
+  color: #3d606b;
+  text-align: left;
+}
+
+.port-runtime__scoreboard > div button[aria-pressed="true"] {
+  border-color: #0e8c86;
+  background: #e5f6f3;
+}
+
+.port-runtime__scoreboard button span,
+.port-runtime__scoreboard button strong {
+  font-size: 9px;
+}
+
+.port-runtime__scoreboard button small {
+  overflow: hidden;
+  color: #6d838b;
+  font-size: 7px;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.port-runtime__mission-card {
+  display: grid;
+  gap: 6px;
+  padding: 11px;
+  border: 1px solid #cce0df;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #eff9f7, #f9fcfc);
+}
+
+.port-runtime__mission-card > span {
+  color: #0b8079;
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.port-runtime__mission-card h2,
+.port-runtime__mission-card p,
+.port-runtime__mission-card ul {
+  margin: 0;
+}
+
+.port-runtime__mission-card h2 {
+  color: #183f4c;
+  font-size: 13px;
+}
+
+.port-runtime__mission-card p,
+.port-runtime__mission-card li {
+  color: #58727c;
+  font-size: 8px;
+  line-height: 1.45;
+}
+
+.port-runtime__mission-card ul {
+  display: grid;
+  gap: 3px;
+  padding-left: 16px;
+}
+
+@media (max-width: 1050px) {
+  .port-leaderboard__breakdown,
+  .port-runtime__scoreboard > div {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .port-runtime__scoreboard {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .port-teacher-setup__challenges,
+  .port-challenge-briefing__grid,
+  .port-student-challenge {
+    grid-template-columns: 1fr;
+  }
+
+  .port-leaderboard__table {
+    overflow-x: auto;
+  }
+
+  .port-leaderboard__head,
+  .port-leaderboard__table > button {
+    min-width: 650px;
+  }
+}
+
+@media (max-width: 620px) {
+  .port-leaderboard {
+    padding: 10px;
+  }
+
+  .port-leaderboard > header,
+  .port-challenge-briefing > header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .port-leaderboard__breakdown,
+  .port-runtime__scoreboard > div,
+  .port-student-challenge__brief > div:last-child {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

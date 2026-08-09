@@ -5,11 +5,33 @@ import {
   avatarControlRequestSchema,
   avatarPresentationInputSchema,
   classroomEventInputSchema,
+  developmentIdentitySessionInputSchema,
   classroomPresenceHeartbeatInputSchema,
+  portSimulationCollaborationCreateInputSchema,
+  portSimulationCollaborationResponseInputSchema,
+  portSimulationCommandEnvelopeSchema,
+  portSimulationCommandEnvelopeV2Schema,
+  portSimulationControlInputSchema,
+  portSimulationRoleClaimInputSchema,
+  portSimulationRoleLeaseRenewInputSchema,
+  portSimulationRoleReleaseInputSchema,
+  portSimulationRoleSchema,
+  portSimulationSetupInputSchema,
+  portSimulationSupportRoleSchema,
+  portSimulationSupportSeatClaimInputSchema,
+  portSimulationSupportLeaseRenewInputSchema,
+  portSimulationSupportSeatReleaseInputSchema,
+  portSimulationTeamConfigurationInputSchema,
+  portSimulationTeamJoinInputSchema,
+  portSimulationTeacherCommandInputSchema,
+  portSimulationTeacherCommandInputV2Schema,
   teacherAvatarCommandInputSchema,
   createCourseInputSchema,
   StreamingJsonDialogueError,
-  type AssistantTurnEvent
+  type AssistantTurnEvent,
+  type ClassroomActor,
+  type ClassroomActorRole,
+  type ClassroomIdentityProvider
 } from "@edu/contracts";
 import {
   getPortManagementReadyLessons,
@@ -25,6 +47,14 @@ import {
   OpenAiCompatibleAssistantProvider,
   type AssistantJsonStreamProvider
 } from "./assistant/provider.js";
+import {
+  CLASSROOM_IDENTITY_COOKIE,
+  DevelopmentIdentityProvider,
+  actorHasRole,
+  expiredIdentityCookie,
+  identityCookie,
+  parseCookieHeader
+} from "./identity.js";
 
 export interface BuildAppOptions {
   dataFile: string;
@@ -32,22 +62,120 @@ export interface BuildAppOptions {
   openAvatarBaseUrl?: string;
   openAvatarPublicUrl?: string;
   presenceTtlMs?: number;
+  portSimulationTickMs?: number;
+  portSimulationDatabaseFile?: string;
   assistantProvider?: AssistantJsonStreamProvider;
+  identityProvider?: ClassroomIdentityProvider;
+  allowDevelopmentIdentity?: boolean;
+  allowLegacyDevelopmentIdentity?: boolean;
+  secureIdentityCookie?: boolean;
 }
 
 export async function buildApp(options: BuildAppOptions): Promise<FastifyInstance> {
   const app = Fastify({ logger: options.logger ?? false });
   const store = new JsonStateStore(
     options.dataFile,
-    options.presenceTtlMs
+    options.presenceTtlMs,
+    options.portSimulationDatabaseFile
   );
   await store.initialize();
+  const allowDevelopmentIdentity =
+    options.allowDevelopmentIdentity ?? process.env.NODE_ENV !== "production";
+  const allowLegacyDevelopmentIdentity =
+    options.allowLegacyDevelopmentIdentity ?? process.env.NODE_ENV !== "production";
+  const identityProvider =
+    options.identityProvider ??
+    new DevelopmentIdentityProvider({
+      allowRoleSelection: allowDevelopmentIdentity
+    });
+  if (
+    process.env.NODE_ENV === "production" &&
+    identityProvider.source === "development" &&
+    allowDevelopmentIdentity
+  ) {
+    throw new Error("生产模式不得启用可自选角色的开发身份入口");
+  }
+  const secureIdentityCookie =
+    options.secureIdentityCookie ?? process.env.NODE_ENV === "production";
+
+  const resolveActor = async (request: {
+    headers: { cookie?: string; authorization?: string };
+  }) => {
+    const cookies = parseCookieHeader(request.headers.cookie);
+    return identityProvider.resolveActor({
+      sessionToken: cookies[CLASSROOM_IDENTITY_COOKIE] ?? null,
+      authorization: request.headers.authorization ?? null
+    });
+  };
+  const requireActor = async (
+    request: { headers: { cookie?: string; authorization?: string } },
+    requiredRole: ClassroomActorRole,
+    legacyParticipantId?: string
+  ): Promise<ClassroomActor> => {
+    const actor = await resolveActor(request);
+    if (actor) {
+      if (!actorHasRole(actor, requiredRole)) {
+        throw Object.assign(new Error("当前身份无权执行该课堂操作"), {
+          statusCode: 403,
+          code: "ACTOR_ROLE_FORBIDDEN"
+        });
+      }
+      return actor;
+    }
+    if (allowLegacyDevelopmentIdentity) {
+      return {
+        actorId:
+          legacyParticipantId ??
+          `development:${requiredRole}:legacy-${requiredRole}`,
+        displayName: requiredRole === "teacher" ? "李行之" : "课堂成员",
+        roles: [requiredRole],
+        identitySource: "development"
+      };
+    }
+    throw Object.assign(new Error("身份会话不存在或已过期，请重新进入课堂"), {
+      statusCode: 401,
+      code: "IDENTITY_SESSION_REQUIRED"
+    });
+  };
+  const requireTeamViewer = async (
+    request: { headers: { cookie?: string; authorization?: string } },
+    sessionId: string,
+    teamId: string
+  ) => {
+    const resolved = await resolveActor(request);
+    if (resolved) {
+      if (
+        actorHasRole(resolved, "teacher") ||
+        (actorHasRole(resolved, "student") &&
+          store.isPortSimulationTeamMember(sessionId, teamId, resolved.actorId))
+      ) {
+        return resolved;
+      }
+      throw Object.assign(new Error("学生只能查看自己小组的实名与运行详情"), {
+        statusCode: 403,
+        code: "TEAM_VISIBILITY_FORBIDDEN"
+      });
+    }
+    return requireActor(request, "student");
+  };
+  const portSimulationTickMs = options.portSimulationTickMs ?? 1_000;
+  const portSimulationTimer =
+    portSimulationTickMs > 0
+      ? setInterval(() => {
+          void store.tickPortSimulations().catch((error) => app.log.error(error));
+        }, portSimulationTickMs)
+      : undefined;
+  portSimulationTimer?.unref();
+  app.addHook("onClose", async () => {
+    if (portSimulationTimer) clearInterval(portSimulationTimer);
+    store.close();
+  });
   const assistantOrchestrator = new ClassroomAssistantOrchestrator(
     options.assistantProvider ?? new OpenAiCompatibleAssistantProvider()
   );
   const activeAssistantTurns = new Map<string, AbortController>();
 
-  await app.register(cors, { origin: true });
+  await app.register(cors, { origin: true, credentials: true });
 
   app.setErrorHandler((error, _request, reply) => {
     if (error instanceof ZodError) {
@@ -80,8 +208,63 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   app.get("/api/health", async () => ({
     status: "ok",
     service: "edu-platform-api",
-    persistence: "json-development-adapter"
+    persistence: "json-development-adapter+sqlite-wal-event-store",
+    identityProvider: identityProvider.source,
+    developmentIdentityEnabled: allowDevelopmentIdentity
   }));
+
+  app.post("/api/identity/development/session", async (request, reply) => {
+    if (
+      !allowDevelopmentIdentity ||
+      !(identityProvider instanceof DevelopmentIdentityProvider)
+    ) {
+      return reply.status(403).send({
+        error: "DEVELOPMENT_IDENTITY_DISABLED",
+        message: "当前部署未启用开发身份入口"
+      });
+    }
+    const input = developmentIdentitySessionInputSchema.parse(request.body);
+    const session = identityProvider.createSession(input);
+    reply.header(
+      "Set-Cookie",
+      identityCookie(session.token, {
+        secure: secureIdentityCookie,
+        maxAgeSeconds: Math.max(
+          1,
+          Math.floor((session.expiresAt - Date.now()) / 1_000)
+        )
+      })
+    );
+    return reply.status(201).send({
+      actor: session.actor,
+      expiresAt: new Date(session.expiresAt).toISOString()
+    });
+  });
+
+  app.get("/api/identity/session", async (request, reply) => {
+    const actor = await resolveActor(request);
+    if (!actor) {
+      return reply.status(401).send({
+        error: "IDENTITY_SESSION_REQUIRED",
+        message: "身份会话不存在或已过期"
+      });
+    }
+    return { actor, expiresAt: null };
+  });
+
+  app.post("/api/identity/logout", async (request, reply) => {
+    const token =
+      parseCookieHeader(request.headers.cookie)[CLASSROOM_IDENTITY_COOKIE] ??
+      null;
+    if (identityProvider instanceof DevelopmentIdentityProvider) {
+      identityProvider.revokeSession(token);
+    }
+    reply.header(
+      "Set-Cookie",
+      expiredIdentityCookie({ secure: secureIdentityCookie })
+    );
+    return reply.status(204).send();
+  });
 
   app.get("/api/me", async () => store.getTeacher());
   app.get("/api/dashboard", async () => store.getDashboard());
@@ -191,13 +374,37 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     }
   );
 
+  app.patch<{ Params: { id: string } }>(
+    "/api/class-sessions/:id/simulation/configuration",
+    async (request, reply) => {
+      await requireActor(request, "teacher");
+      const input = portSimulationTeamConfigurationInputSchema.parse(request.body);
+      const result = await store.configurePortSimulationTeams(
+        request.params.id,
+        input
+      );
+      if (!result.ok) {
+        return reply.status(result.status).send({
+          error: result.error,
+          message: result.message
+        });
+      }
+      return reply.send(result.value);
+    }
+  );
+
   app.post<{ Params: { id: string } }>(
     "/api/class-sessions/:id/presence/heartbeat",
     async (request, reply) => {
       const input = classroomPresenceHeartbeatInputSchema.parse(request.body);
+      const actor = await requireActor(
+        request,
+        "student",
+        input.participantId
+      );
       const presence = store.heartbeatClassroomPresence(
         request.params.id,
-        input.participantId
+        actor.actorId
       );
       if (!presence) {
         return reply.status(404).send({
@@ -212,9 +419,14 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   app.delete<{ Params: { id: string; participantId: string } }>(
     "/api/class-sessions/:id/presence/:participantId",
     async (request, reply) => {
+      const actor = await requireActor(
+        request,
+        "student",
+        request.params.participantId
+      );
       store.leaveClassroomPresence(
         request.params.id,
-        request.params.participantId
+        actor.actorId
       );
       return reply.status(204).send();
     }
@@ -224,9 +436,14 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     "/api/class-sessions/:id/presence/leave",
     async (request, reply) => {
       const input = classroomPresenceHeartbeatInputSchema.parse(request.body);
+      const actor = await requireActor(
+        request,
+        "student",
+        input.participantId
+      );
       store.leaveClassroomPresence(
         request.params.id,
-        input.participantId
+        actor.actorId
       );
       return reply.status(204).send();
     }
@@ -244,6 +461,687 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
         });
       }
       return reply.status(201).send(snapshot);
+    }
+  );
+
+  app.post<{ Params: { id: string } }>(
+    "/api/class-sessions/:id/simulation/setup",
+    async (request, reply) => {
+      await requireActor(request, "teacher");
+      const input = portSimulationSetupInputSchema.parse(request.body);
+      const result = await store.setupPortSimulation(request.params.id, input);
+      if (!result.ok) {
+        return reply.status(result.status).send({
+          error: result.error,
+          message: result.message
+        });
+      }
+      return reply.status(201).send(result.value);
+    }
+  );
+
+  app.post<{ Params: { id: string } }>(
+    "/api/class-sessions/:id/simulation/control",
+    async (request, reply) => {
+      await requireActor(request, "teacher");
+      const input = portSimulationControlInputSchema.parse(request.body);
+      const result = await store.controlPortSimulation(request.params.id, input);
+      if (!result.ok) {
+        return reply.status(result.status).send({
+          error: result.error,
+          message: result.message
+        });
+      }
+      return reply.send(result.value);
+    }
+  );
+
+  app.get<{ Params: { id: string } }>(
+    "/api/class-sessions/:id/simulation/preflight",
+    async (request, reply) => {
+      await requireActor(request, "teacher");
+      const simulationChecks = store.getPortSimulationPreflightChecks(
+        request.params.id
+      );
+      if (!simulationChecks) {
+        return reply.status(404).send({
+          error: "SIMULATION_NOT_FOUND",
+          message: "请先建立本次课堂的港口仿真小组"
+        });
+      }
+      const checks = [
+        {
+          id: "identity_provider",
+          status:
+            identityProvider.source === "development"
+              ? "warning" as const
+              : "pass" as const,
+          label: "身份适配器",
+          message:
+            identityProvider.source === "development"
+              ? "当前使用开发身份适配器；生产部署必须禁用自选角色入口。"
+              : "教学信息系统身份适配器可用。"
+        },
+        {
+          id: "event_sse",
+          status: "pass" as const,
+          label: "SSE 事件流",
+          message: "同源事件流已启用，支持 Last-Event-ID 和序号补取。"
+        },
+        {
+          id: "server_clock",
+          status: "pass" as const,
+          label: "服务器时间",
+          message: `服务器时间 ${new Date().toISOString()}`
+        },
+        {
+          id: "persistence",
+          status: "pass" as const,
+          label: "持久化",
+          message: "权威事件、幂等回执和检查点使用 SQLite WAL。"
+        },
+        ...simulationChecks
+      ];
+      return {
+        sessionId: request.params.id,
+        checkedAt: new Date().toISOString(),
+        identitySource: identityProvider.source,
+        rosterVersion: null,
+        serverTime: new Date().toISOString(),
+        persistence: "sqlite_wal" as const,
+        sseAvailable: true,
+        ready: checks.every((check) => check.status !== "blocked"),
+        checks
+      };
+    }
+  );
+
+  app.post<{ Params: { id: string; teamId: string } }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/join",
+    async (request, reply) => {
+      const input = portSimulationTeamJoinInputSchema.parse(request.body);
+      const actor = await requireActor(
+        request,
+        "student",
+        input.participantId
+      );
+      const result = await store.joinPortSimulationTeam(
+        request.params.id,
+        request.params.teamId,
+        actor.actorId,
+        actor.displayName
+      );
+      if (!result.ok) {
+        return reply.status(result.status).send({
+          error: result.error,
+          message: result.message
+        });
+      }
+      return reply.status(201).send(result.value);
+    }
+  );
+
+  app.get<{ Params: { id: string; teamId: string } }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/snapshot",
+    async (request, reply) => {
+      await requireTeamViewer(
+        request,
+        request.params.id,
+        request.params.teamId
+      );
+      const snapshot = store.getPortSimulationTeamSnapshot(
+        request.params.id,
+        request.params.teamId
+      );
+      if (!snapshot) {
+        return reply.status(404).send({
+          error: "SIMULATION_TEAM_NOT_FOUND",
+          message: "没有找到该仿真小组"
+        });
+      }
+      return snapshot;
+    }
+  );
+
+  app.get<{ Params: { id: string; teamId: string } }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/snapshot/stream",
+    async (request, reply) => {
+      await requireTeamViewer(
+        request,
+        request.params.id,
+        request.params.teamId
+      );
+      const snapshot = store.getPortSimulationTeamSnapshot(
+        request.params.id,
+        request.params.teamId
+      );
+      if (!snapshot) {
+        return reply.status(404).send({
+          error: "SIMULATION_TEAM_NOT_FOUND",
+          message: "没有找到该仿真小组"
+        });
+      }
+      reply.hijack();
+      reply.raw.writeHead(200, {
+        "Content-Type": "text/event-stream; charset=utf-8",
+        "Cache-Control": "no-cache, no-transform",
+        Connection: "keep-alive",
+        "X-Accel-Buffering": "no"
+      });
+      const writeSnapshot = (nextSnapshot: typeof snapshot) => {
+        if (!reply.raw.writableEnded) {
+          reply.raw.write(
+            `id: ${nextSnapshot.revision}-${nextSnapshot.collaborationRevision}\nevent: simulation-snapshot\ndata: ${JSON.stringify(nextSnapshot)}\n\n`
+          );
+        }
+      };
+      writeSnapshot(snapshot);
+      const unsubscribe = store.subscribePortSimulationTeamSnapshot(
+        request.params.id,
+        request.params.teamId,
+        writeSnapshot
+      );
+      const keepAlive = setInterval(() => {
+        if (!reply.raw.writableEnded) reply.raw.write(": keep-alive\n\n");
+      }, 15_000);
+      const close = () => {
+        clearInterval(keepAlive);
+        unsubscribe();
+      };
+      reply.raw.once("close", close);
+      reply.raw.once("error", close);
+      return reply;
+    }
+  );
+
+  app.get<{ Params: { id: string; teamId: string } }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/checkpoint",
+    async (request, reply) => {
+      await requireTeamViewer(request, request.params.id, request.params.teamId);
+      const checkpoint = store.getPortSimulationCheckpoint(
+        request.params.id,
+        request.params.teamId
+      );
+      if (!checkpoint) {
+        return reply.status(409).send({
+          error: "EVENT_STREAM_NOT_AVAILABLE",
+          message: "该旧版运行继续使用兼容快照模式"
+        });
+      }
+      return checkpoint;
+    }
+  );
+
+  app.get<{
+    Params: { id: string; teamId: string };
+    Querystring: { afterSequence?: string };
+  }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/events",
+    async (request, reply) => {
+      await requireTeamViewer(request, request.params.id, request.params.teamId);
+      const afterSequence = Math.max(
+        0,
+        Number.parseInt(request.query.afterSequence ?? "0", 10) || 0
+      );
+      const batch = store.getPortSimulationEventsAfter(
+        request.params.id,
+        request.params.teamId,
+        afterSequence
+      );
+      if (!batch) {
+        return reply.status(409).send({
+          error: "EVENT_STREAM_NOT_AVAILABLE",
+          message: "该旧版运行继续使用兼容快照模式"
+        });
+      }
+      return batch;
+    }
+  );
+
+  app.get<{
+    Params: { id: string; teamId: string };
+    Querystring: { afterSequence?: string };
+  }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/events/stream",
+    async (request, reply) => {
+      await requireTeamViewer(request, request.params.id, request.params.teamId);
+      const lastEventIdHeader = request.headers["last-event-id"];
+      const lastEventId = Array.isArray(lastEventIdHeader)
+        ? lastEventIdHeader[0]
+        : lastEventIdHeader;
+      const afterSequence = Math.max(
+        0,
+        Number.parseInt(
+          lastEventId ?? request.query.afterSequence ?? "0",
+          10
+        ) || 0
+      );
+      const batch = store.getPortSimulationEventsAfter(
+        request.params.id,
+        request.params.teamId,
+        afterSequence
+      );
+      if (!batch) {
+        return reply.status(409).send({
+          error: "EVENT_STREAM_NOT_AVAILABLE",
+          message: "该旧版运行继续使用兼容快照模式"
+        });
+      }
+
+      reply.hijack();
+      reply.raw.writeHead(200, {
+        "Content-Type": "text/event-stream; charset=utf-8",
+        "Cache-Control": "no-cache, no-transform",
+        Connection: "keep-alive",
+        "X-Accel-Buffering": "no"
+      });
+      const writeMessage = (message: Parameters<
+        typeof store.subscribePortSimulationEvents
+      >[2] extends (message: infer T) => void ? T : never) => {
+        if (reply.raw.writableEnded) return;
+        const id = message.type === "event" ? `id: ${message.event.sequence}\n` : "";
+        reply.raw.write(
+          `${id}event: ${message.type}\ndata: ${JSON.stringify(message)}\n\n`
+        );
+      };
+      if (batch.resyncRequired) {
+        writeMessage({
+          type: "resync_required",
+          runId: batch.runId,
+          latestSequence: batch.latestSequence,
+          message: "所需事件已压缩，请重新读取检查点。"
+        });
+      } else {
+        for (const event of batch.events) {
+          writeMessage({ type: "event", event });
+        }
+      }
+      const presence = store.getPortSimulationPresence(
+        request.params.id,
+        request.params.teamId
+      );
+      if (presence) writeMessage({ type: "presence", presence });
+      const unsubscribe = store.subscribePortSimulationEvents(
+        request.params.id,
+        request.params.teamId,
+        writeMessage
+      );
+      const keepAlive = setInterval(() => {
+        if (!reply.raw.writableEnded) reply.raw.write(": keep-alive\n\n");
+      }, 15_000);
+      const close = () => {
+        clearInterval(keepAlive);
+        unsubscribe();
+      };
+      reply.raw.once("close", close);
+      reply.raw.once("error", close);
+      return reply;
+    }
+  );
+
+  app.post<{ Params: { id: string; teamId: string } }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/resync",
+    async (request, reply) => {
+      await requireActor(request, "teacher");
+      if (!store.forcePortSimulationResync(request.params.id, request.params.teamId)) {
+        return reply.status(404).send({
+          error: "EVENT_STREAM_TEAM_NOT_FOUND",
+          message: "没有找到可重同步的事件流小组"
+        });
+      }
+      return reply.status(202).send({ status: "resync_requested" });
+    }
+  );
+
+  app.post<{
+    Params: { id: string; teamId: string; role: string };
+  }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/roles/:role/claim",
+    async (request, reply) => {
+      const role = portSimulationRoleSchema.parse(request.params.role);
+      const input = portSimulationRoleClaimInputSchema.parse(request.body);
+      const actor = await requireActor(
+        request,
+        "student",
+        input.participantId
+      );
+      const result = await store.claimPortSimulationRole(
+        request.params.id,
+        request.params.teamId,
+        role,
+        actor.actorId,
+        actor.displayName
+      );
+      if (!result.ok) {
+        return reply.status(result.status).send({
+          error: result.error,
+          message: result.message
+        });
+      }
+      return reply.status(201).send(result.value);
+    }
+  );
+
+  app.post<{
+    Params: { id: string; teamId: string; role: string };
+  }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/roles/:role/renew",
+    async (request, reply) => {
+      const role = portSimulationRoleSchema.parse(request.params.role);
+      const input = portSimulationRoleLeaseRenewInputSchema.parse(request.body);
+      const actor = await requireActor(request, "student");
+      const result = store.renewPortSimulationRoleLease(
+        request.params.id,
+        request.params.teamId,
+        role,
+        actor.actorId,
+        input.roleSeatToken
+      );
+      if (!result.ok) {
+        return reply.status(result.status).send({
+          error: result.error,
+          message: result.message
+        });
+      }
+      return reply.send(result.value);
+    }
+  );
+
+  app.post<{
+    Params: { id: string; teamId: string; role: string };
+  }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/roles/:role/release",
+    async (request, reply) => {
+      const role = portSimulationRoleSchema.parse(request.params.role);
+      const input = portSimulationRoleReleaseInputSchema.parse(request.body);
+      const actor = await requireActor(
+        request,
+        "student",
+        input.participantId
+      );
+      const result = await store.releasePortSimulationRole(
+        request.params.id,
+        request.params.teamId,
+        role,
+        actor.actorId,
+        input.roleSeatToken
+      );
+      if (!result.ok) {
+        return reply.status(result.status).send({
+          error: result.error,
+          message: result.message
+        });
+      }
+      return reply.send(result.value);
+    }
+  );
+
+  app.post<{
+    Params: { id: string; teamId: string; role: string };
+  }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/roles/:role/teacher-release",
+    async (request, reply) => {
+      const role = portSimulationRoleSchema.parse(request.params.role);
+      await requireActor(request, "teacher");
+      const result = await store.releasePortSimulationRole(
+        request.params.id,
+        request.params.teamId,
+        role,
+        "teacher",
+        "teacher",
+        true
+      );
+      if (!result.ok) {
+        return reply.status(result.status).send({
+          error: result.error,
+          message: result.message
+        });
+      }
+      return reply.send(result.value);
+    }
+  );
+
+  app.post<{
+    Params: { id: string; teamId: string; role: string };
+  }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/support-roles/:role/claim",
+    async (request, reply) => {
+      const role = portSimulationSupportRoleSchema.parse(request.params.role);
+      const input = portSimulationSupportSeatClaimInputSchema.parse(request.body);
+      const actor = await requireActor(
+        request,
+        "student",
+        input.participantId
+      );
+      const result = await store.claimPortSimulationSupportSeat(
+        request.params.id,
+        request.params.teamId,
+        role,
+        actor.actorId,
+        actor.displayName
+      );
+      if (!result.ok) {
+        return reply.status(result.status).send({
+          error: result.error,
+          message: result.message
+        });
+      }
+      return reply.status(201).send(result.value);
+    }
+  );
+
+  app.post<{
+    Params: { id: string; teamId: string; role: string };
+  }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/support-roles/:role/renew",
+    async (request, reply) => {
+      const role = portSimulationSupportRoleSchema.parse(request.params.role);
+      const input = portSimulationSupportLeaseRenewInputSchema.parse(request.body);
+      const actor = await requireActor(request, "student");
+      const result = store.renewPortSimulationSupportLease(
+        request.params.id,
+        request.params.teamId,
+        role,
+        actor.actorId,
+        input.supportSeatToken
+      );
+      if (!result.ok) {
+        return reply.status(result.status).send({
+          error: result.error,
+          message: result.message
+        });
+      }
+      return reply.send(result.value);
+    }
+  );
+
+  app.post<{
+    Params: { id: string; teamId: string; role: string };
+  }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/support-roles/:role/release",
+    async (request, reply) => {
+      const role = portSimulationSupportRoleSchema.parse(request.params.role);
+      const input = portSimulationSupportSeatReleaseInputSchema.parse(request.body);
+      const actor = await requireActor(
+        request,
+        "student",
+        input.participantId
+      );
+      const result = await store.releasePortSimulationSupportSeat(
+        request.params.id,
+        request.params.teamId,
+        role,
+        actor.actorId,
+        input.supportSeatToken
+      );
+      if (!result.ok) {
+        return reply.status(result.status).send({
+          error: result.error,
+          message: result.message
+        });
+      }
+      return reply.send(result.value);
+    }
+  );
+
+  app.post<{
+    Params: { id: string; teamId: string; role: string };
+  }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/support-roles/:role/teacher-release",
+    async (request, reply) => {
+      const role = portSimulationSupportRoleSchema.parse(request.params.role);
+      await requireActor(request, "teacher");
+      const result = await store.releasePortSimulationSupportSeat(
+        request.params.id,
+        request.params.teamId,
+        role,
+        "teacher",
+        "teacher",
+        true
+      );
+      if (!result.ok) {
+        return reply.status(result.status).send({
+          error: result.error,
+          message: result.message
+        });
+      }
+      return reply.send(result.value);
+    }
+  );
+
+  app.post<{ Params: { id: string; teamId: string } }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/collaboration-items",
+    async (request, reply) => {
+      const input = portSimulationCollaborationCreateInputSchema.parse(request.body);
+      const actor = await requireActor(
+        request,
+        "student",
+        input.participantId
+      );
+      const result = await store.createPortSimulationCollaborationItem(
+        request.params.id,
+        request.params.teamId,
+        { ...input, participantId: actor.actorId }
+      );
+      if (!result.ok) {
+        return reply.status(result.status).send({
+          error: result.error,
+          message: result.message
+        });
+      }
+      return reply.status(201).send(result.value);
+    }
+  );
+
+  app.post<{
+    Params: { id: string; teamId: string; itemId: string };
+  }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/collaboration-items/:itemId/respond",
+    async (request, reply) => {
+      const input = portSimulationCollaborationResponseInputSchema.parse(request.body);
+      const actor = await requireActor(
+        request,
+        "student",
+        input.participantId
+      );
+      const result = await store.respondToPortSimulationCollaborationItem(
+        request.params.id,
+        request.params.teamId,
+        request.params.itemId,
+        { ...input, participantId: actor.actorId }
+      );
+      if (!result.ok) {
+        return reply.status(result.status).send({
+          error: result.error,
+          message: result.message
+        });
+      }
+      return reply.send(result.value);
+    }
+  );
+
+  app.post<{ Params: { id: string; teamId: string } }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/commands",
+    async (request, reply) => {
+      if (
+        typeof request.body === "object" &&
+        request.body !== null &&
+        "runId" in request.body
+      ) {
+        const input = portSimulationCommandEnvelopeV2Schema.parse(request.body);
+        const actor = await requireActor(request, "student");
+        const result = await store.applyPortSimulationCommandV2(
+          request.params.id,
+          request.params.teamId,
+          input,
+          actor
+        );
+        if (!result.ok) {
+          return reply.status(result.status).send({
+            error: result.error,
+            message: result.message
+          });
+        }
+        return reply.send(result.value);
+      }
+      const input = portSimulationCommandEnvelopeSchema.parse(request.body);
+      const actor = await requireActor(
+        request,
+        "student",
+        input.participantId
+      );
+      const result = await store.applyPortSimulationCommand(
+        request.params.id,
+        request.params.teamId,
+        { ...input, participantId: actor.actorId }
+      );
+      if (!result.ok) {
+        return reply.status(result.status).send({
+          error: result.error,
+          message: result.message
+        });
+      }
+      return reply.send(result.value);
+    }
+  );
+
+  app.post<{ Params: { id: string; teamId: string } }>(
+    "/api/class-sessions/:id/simulation/teams/:teamId/teacher-commands",
+    async (request, reply) => {
+      const actor = await requireActor(request, "teacher");
+      if (
+        typeof request.body === "object" &&
+        request.body !== null &&
+        "runId" in request.body
+      ) {
+        const input = portSimulationTeacherCommandInputV2Schema.parse(request.body);
+        const result = await store.applyPortSimulationTeacherCommandV2(
+          request.params.id,
+          request.params.teamId,
+          input,
+          actor
+        );
+        if (!result.ok) {
+          return reply.status(result.status).send({
+            error: result.error,
+            message: result.message
+          });
+        }
+        return reply.send(result.value);
+      }
+      const input = portSimulationTeacherCommandInputSchema.parse(request.body);
+      const result = await store.applyPortSimulationTeacherCommand(
+        request.params.id,
+        request.params.teamId,
+        input
+      );
+      if (!result.ok) {
+        return reply.status(result.status).send({
+          error: result.error,
+          message: result.message
+        });
+      }
+      return reply.send(result.value);
     }
   );
 
