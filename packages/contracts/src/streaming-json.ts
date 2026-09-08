@@ -13,6 +13,15 @@ export class StreamingJsonDialogueError extends Error {
 
 type StringRole = "key" | "dialogue" | "other";
 
+interface DialogueEnvelope {
+  dialogue: string;
+}
+
+interface StreamingJsonDialogueExtractorOptions<TEnvelope extends DialogueEnvelope> {
+  maxBytes?: number;
+  parseEnvelope?: (value: unknown) => TEnvelope;
+}
+
 const simpleEscapeCharacters: Record<string, string> = {
   '"': '"',
   "\\": "\\",
@@ -31,8 +40,11 @@ const simpleEscapeCharacters: Record<string, string> = {
  * The complete payload is still parsed and validated by finish() before any
  * control action is trusted or executed.
  */
-export class StreamingJsonDialogueExtractor {
+export class StreamingJsonDialogueExtractor<
+  TEnvelope extends DialogueEnvelope = AssistantResponseEnvelope
+> {
   private readonly maxBytes: number;
+  private readonly parseEnvelope: (value: unknown) => TEnvelope;
   private raw = "";
   private depth = 0;
   private inString = false;
@@ -50,8 +62,14 @@ export class StreamingJsonDialogueExtractor {
   private pendingHighSurrogate = "";
   private finished = false;
 
-  constructor(options: { maxBytes?: number } = {}) {
+  constructor(
+    options: StreamingJsonDialogueExtractorOptions<TEnvelope> = {}
+  ) {
     this.maxBytes = options.maxBytes ?? 64 * 1024;
+    this.parseEnvelope =
+      options.parseEnvelope ??
+      ((value: unknown) =>
+        assistantResponseEnvelopeSchema.parse(value) as unknown as TEnvelope);
   }
 
   push(chunk: string): string {
@@ -129,7 +147,7 @@ export class StreamingJsonDialogueExtractor {
     return emitted;
   }
 
-  finish(): AssistantResponseEnvelope {
+  finish(): TEnvelope {
     if (this.finished) {
       throw new StreamingJsonDialogueError("流式 JSON 已经结束");
     }
@@ -162,9 +180,9 @@ export class StreamingJsonDialogueExtractor {
       );
     }
 
-    let envelope: AssistantResponseEnvelope;
+    let envelope: TEnvelope;
     try {
-      envelope = assistantResponseEnvelopeSchema.parse(parsed);
+      envelope = this.parseEnvelope(parsed);
     } catch (error) {
       const message =
         error instanceof z.ZodError

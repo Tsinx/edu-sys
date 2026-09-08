@@ -1154,6 +1154,39 @@ textarea:focus-visible {
   height: 100%;
 }
 
+.economic-mathematics-art {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #f4ead7;
+}
+
+.economic-mathematics-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 68% center;
+}
+
+.economic-mathematics-art::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(29, 36, 39, .58), rgba(29, 36, 39, .08) 58%, transparent);
+  content: "";
+}
+
+.economic-mathematics-art__curve {
+  position: absolute;
+  right: 7%;
+  bottom: 13%;
+  z-index: 1;
+  width: 43%;
+  height: 32%;
+  border-top: 3px solid rgba(71, 190, 196, .86);
+  border-radius: 50% 50% 0 0;
+  transform: rotate(-8deg);
+}
+
 .status-pill {
   display: inline-flex;
   align-items: center;
@@ -1248,6 +1281,54 @@ textarea:focus-visible {
   position: absolute;
   inset: 0;
 }
+
+.detail-hero > .economic-mathematics-art {
+  position: absolute;
+  inset: 0;
+}
+
+.economic-mathematics-resources {
+  display: grid;
+  gap: 7px;
+  margin-top: 22px;
+  padding: 18px 20px;
+  border: 1px solid #e4d6c1;
+  border-left: 4px solid #c94f38;
+  border-radius: 13px;
+  background: #fbf6ec;
+}
+
+.economic-mathematics-resources > span {
+  color: #b64b36;
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: .12em;
+}
+
+.economic-mathematics-resources strong { color: #243b42; font-size: 15px; }
+.economic-mathematics-resources p,
+.economic-mathematics-resources small { margin: 0; color: #6d7a78; font-size: 10px; line-height: 1.6; }
+.economic-mathematics-resources a { width: max-content; color: #167f8a; font-size: 10px; font-weight: 750; }
+
+.study-unavailable {
+  display: grid;
+  min-height: 100vh;
+  place-content: center;
+  justify-items: center;
+  gap: 13px;
+  padding: 28px;
+  color: #253a40;
+  text-align: center;
+  background: radial-gradient(circle at 70% 20%, rgba(38, 153, 166, .15), transparent 30%), #f5ecdc;
+}
+
+.study-unavailable > svg { color: #c64b36; }
+.study-unavailable > p { margin: 0; color: #2d8e9a; font-size: 10px; font-weight: 850; letter-spacing: .16em; }
+.study-unavailable h1 { margin: 0; font-size: clamp(26px, 4vw, 46px); }
+.study-unavailable > span { max-width: 560px; color: #68787b; line-height: 1.7; }
+.study-unavailable .button { margin-top: 10px; }
+
+.mode-card--unavailable { cursor: default; opacity: .78; }
 
 .detail-hero__shade {
   position: absolute;

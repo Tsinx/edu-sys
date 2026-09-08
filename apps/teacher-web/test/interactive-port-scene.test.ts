@@ -12,7 +12,7 @@ import {
   portSceneEntityFitsDefinition
 } from "../src/features/port-simulation/InteractivePortScene.js";
 import { PortSimulationPreviewPage } from "../src/features/port-simulation/PortSimulationPreviewPage.js";
-import { LocalPortSimulationStage } from "../src/features/port-simulation/LocalPortSimulationStage.js";
+import { LocalPortSimulationRunner } from "../src/features/port-simulation/LocalPortSimulationStage.js";
 import { PortSimulationWorkspace } from "../src/features/port-simulation/PortSimulationWorkspace.js";
 import {
   PORT_SCENE_CLICK_THRESHOLD,
@@ -215,16 +215,14 @@ test("preview opens on the V1.0 local-solo runner", () => {
 
   assert.match(markup, /PORT SIMULATION · V1\.0 LOCAL SOLO/u);
   assert.match(markup, /登录一次，在本机接管港口全流程/u);
-  assert.match(markup, /一个人接管四个岗位/u);
-  assert.match(markup, /当前会话内存/u);
-  assert.match(markup, /本轮不建立小组、不发送实时命令/u);
-  assert.match(markup, /上港集团尚东分公司/u);
+  assert.match(markup, /正在读取本机存档/u);
   assert.doesNotMatch(markup, /课堂主舞台|教学中枢控制/u);
 });
 
 test("local-solo runner exposes all four roles without network seats", () => {
   const markup = renderToStaticMarkup(
-    createElement(LocalPortSimulationStage, {
+    createElement(LocalPortSimulationRunner, {
+      storage:null,
       actorId: "local-actor",
       actorDisplayName: "本地学生",
       storageScope: "ssr-local",

@@ -1,0 +1,132 @@
+/* Controls and avatar remain outside the fixed, student-facing slide canvas. */
+.classroom-workspace:fullscreen {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 0;
+  width: 100vw;
+  height: 100dvh;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #050a0e;
+}
+
+.classroom-workspace:fullscreen > .teaching-runtime {
+  grid-row: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.classroom-workspace:fullscreen .teaching-stage-frame { width: 100%; height: 100%; }
+.classroom-workspace:fullscreen :is(.classroom-activity-tabs, .teaching-controlbar) { display: none; }
+.classroom-workspace:fullscreen::backdrop { background: #050a0e; }
+
+.classroom-fullscreen-controls {
+  position: relative;
+  grid-row: 2;
+  justify-self: start;
+  z-index: 70;
+  margin: 10px max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  max-width: calc(100% - 32px);
+  padding: 6px;
+  border: 1px solid rgb(215 231 219 / 24%);
+  border-radius: 14px;
+  color: #f1f5ed;
+  background: rgb(24 42 37 / 94%);
+  box-shadow: 0 6px 26px rgb(0 0 0 / 25%);
+  backdrop-filter: blur(12px);
+}
+
+.classroom-fullscreen-controls :is(.fullscreen-page-controls, .fullscreen-destination-controls) {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.fullscreen-page-controls { padding-right: 8px; margin-right: 4px; border-right: 1px solid rgb(215 231 219 / 22%); }
+.classroom-fullscreen-controls button {
+  display: inline-flex;
+  min-width: 40px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.classroom-fullscreen-controls button:hover:not(:disabled) { background: #36534a; }
+.classroom-fullscreen-controls button[aria-pressed="true"] { color: #f0dfb0; background: #36534a; }
+.classroom-fullscreen-controls button:disabled { opacity: .4; cursor: default; }
+.classroom-fullscreen-controls button:focus-visible { outline: 2px solid #e5cb8d; outline-offset: 1px; }
+.fullscreen-page-position { display: grid; gap: 2px; min-width: 60px; text-align: center; font-size: 14px; font-variant-numeric: tabular-nums; }
+.fullscreen-page-position small { color: #c5d4c6; font-size: 10px; }
+.fullscreen-page-position > span > span { color: #c5d4c6; font-size: 12px; }
+
+.classroom-workspace:fullscreen > .classroom-avatar-dock {
+  position: absolute;
+  z-index: 60;
+  inset: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) auto auto;
+  display: grid;
+  grid-template-rows: 46px minmax(0, 1fr) auto;
+  width: clamp(210px, 18vw, 260px);
+  height: clamp(240px, 32vh, 320px);
+  min-height: 0;
+  max-height: calc(100dvh - 140px);
+  border: 1px solid rgb(221 232 217 / 35%);
+  border-radius: 14px;
+  color: #edf4eb;
+  background: #1b332e;
+  box-shadow: 0 10px 40px rgb(0 0 0 / 30%);
+}
+.classroom-workspace:fullscreen .avatar-dock-header { padding: 0 12px; background: #203e35; color: #edf4eb; }
+.classroom-workspace:fullscreen .avatar-dock-header strong { color: #edf4eb; font-size: 13px; }
+.classroom-workspace:fullscreen .avatar-dock-header span { display: none; }
+.classroom-workspace:fullscreen .avatar-dock-header button { min-height: 36px; color: #d5e2d0; }
+.classroom-workspace:fullscreen .lam-avatar-surface { min-height: 0; border: 0; border-radius: 0; }
+.classroom-workspace:fullscreen :is(.teacher-command-composer, .avatar-runtime-footer, .avatar-subtitle-header) { display: none; }
+.classroom-workspace:fullscreen .avatar-subtitle-panel { display: block; min-height: 0; max-height: 76px; padding: 10px 12px; overflow: auto; background: #203e35; border: 0; }
+.classroom-workspace:fullscreen .avatar-subtitle-body { min-height: 0; max-height: none; color: #e2eadc; font-size: 12px; line-height: 1.6; }
+.classroom-workspace:fullscreen .avatar-subtitle-panel:has(.avatar-subtitle-body--empty) { display: none; }
+.classroom-workspace:fullscreen .classroom-avatar-dock--collapsed { display: none; }
+.fullscreen-classroom-notice { position: absolute; z-index: 80; top: 16px; left: 16px; max-width: min(480px, calc(100% - 32px)); padding: 12px 16px; border-radius: 10px; background: #fff4df; color: #594627; font-size: 13px; line-height: 1.7; }
+
+@media (max-width: 900px) {
+  .classroom-fullscreen-controls button > span { display: none; }
+}
+
+/* Keep the fullscreen entry reachable when the normal classroom footer wraps. */
+@media (max-width: 680px) {
+  .classroom-workspace:not(:fullscreen) > .teaching-runtime { grid-template-rows: 47px minmax(0, 1fr) auto; }
+  .classroom-workspace:not(:fullscreen) .teaching-controlbar { flex-wrap: wrap; gap: 6px; }
+  .classroom-workspace:not(:fullscreen) :is(.slide-navigation-controls, .stage-tool-controls) { flex-shrink: 0; flex-wrap: wrap; }
+  .classroom-workspace:not(:fullscreen) .lesson-select-control { order: 3; flex: 1 0 100%; }
+  .classroom-workspace:not(:fullscreen) .lesson-select-control select { width: 100%; }
+}
+
+@media (max-width: 520px) {
+  .classroom-fullscreen-controls { gap: 2px; margin: 8px 10px max(10px, env(safe-area-inset-bottom)); max-width: calc(100% - 20px); padding: 5px; }
+  .classroom-fullscreen-controls button { min-width: 38px; padding-inline: 8px; }
+  .fullscreen-page-controls { border-right: 0; }
+  .classroom-workspace:fullscreen > .classroom-avatar-dock { top: 10px; right: 10px; width: 170px; height: 225px; }
+}
+
+@media (max-height: 500px) {
+  .classroom-workspace:fullscreen > .classroom-avatar-dock { width: 185px; height: 220px; max-height: calc(100dvh - 100px); }
+}

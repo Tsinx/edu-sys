@@ -2006,8 +2006,7 @@ const LEGACY_PORT_MANAGEMENT_SLIDES: readonly PortManagementSlideSpec[] = [
       "能力观察一",
       "evidence",
       "concept",
-      79,
-      "如果只完成过岸，港口创造了什么价值？"
+      79
     )
   }),
   page({

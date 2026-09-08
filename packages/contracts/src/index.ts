@@ -5,6 +5,7 @@ export type ClassroomActorRole = z.infer<typeof classroomActorRoleSchema>;
 
 export const classroomIdentitySourceSchema = z.enum([
   "development",
+  "campus_local",
   "teaching_information_system"
 ]);
 export type ClassroomIdentitySource = z.infer<
@@ -165,9 +166,135 @@ export const avatarPresentationSchema = z.object({
   mode: z.enum(["classroom_realtime", "selfstudy_prerecorded"]),
   requiresGpu: z.boolean(),
   status: z.enum(["ready", "planned"]),
-  message: z.string()
+  message: z.string(),
+  characterId: z.string().nullable(),
+  characterVersion: z.string().nullable(),
+  manifestUrl: z.string().nullable()
 });
 export type AvatarPresentation = z.infer<typeof avatarPresentationSchema>;
+
+export const avatarCueStateSchema = z.enum([
+  "idle",
+  "listening",
+  "thinking",
+  "speaking",
+  "affirming",
+  "goodbye"
+]);
+export type AvatarCueState = z.infer<typeof avatarCueStateSchema>;
+
+export const avatarCueClipSchema = z
+  .object({
+    id: z.string().trim().min(1).max(80),
+    state: avatarCueStateSchema,
+    src: z.string().trim().min(1),
+    durationMs: z.number().int().positive(),
+    loop: z.boolean(),
+    entryPose: z.literal("neutral"),
+    exitPose: z.literal("neutral"),
+    weight: z.number().positive().default(1),
+    sha256: z.string().regex(/^[0-9a-f]{64}$/u)
+  })
+  .strict();
+export type AvatarCueClip = z.infer<typeof avatarCueClipSchema>;
+
+export const avatarCuePackSchema = z
+  .object({
+    schema: z.literal("edu.avatar.cue-pack"),
+    version: z.literal("1.0"),
+    characterId: z.string().trim().min(1),
+    characterVersion: z.string().trim().min(1),
+    displayName: z.string().trim().min(1),
+    status: z.enum(["preview", "ready"]),
+    canvas: z
+      .object({
+        width: z.number().int().positive(),
+        height: z.number().int().positive(),
+        fps: z.number().int().positive(),
+        aspectRatio: z.string().trim().min(1)
+      })
+      .strict(),
+    poster: z.string().trim().min(1),
+    posterSha256: z.string().regex(/^[0-9a-f]{64}$/u),
+    clips: z.array(avatarCueClipSchema),
+    contentHash: z.string().regex(/^[0-9a-f]{64}$/u),
+    disclosure: z.string().trim().min(1)
+  })
+  .strict();
+export type AvatarCuePack = z.infer<typeof avatarCuePackSchema>;
+
+export const avatarCharacterVersionSchema = z
+  .object({
+    id: z.string().trim().min(1),
+    displayName: z.string().trim().min(1),
+    version: z.string().trim().min(1),
+    presentationMode: z.literal("selfstudy_prerecorded"),
+    fictionalIdentity: z.literal(true),
+    requiresGpu: z.literal(false),
+    manifestUrl: z.string().trim().min(1)
+  })
+  .strict();
+export type AvatarCharacterVersion = z.infer<
+  typeof avatarCharacterVersionSchema
+>;
+
+export const studySessionModeSchema = z.enum(["student", "teacher_preview"]);
+export type StudySessionMode = z.infer<typeof studySessionModeSchema>;
+
+export const studySessionSchema = z
+  .object({
+    id: z.string(),
+    courseId: z.string(),
+    courseTitle: z.string(),
+    actorId: z.string(),
+    actorDisplayName: z.string(),
+    mode: studySessionModeSchema,
+    deckVersion: z.string(),
+    slideKey: z.string(),
+    globalIndex: z.number().int().positive(),
+    slideTotal: z.number().int().positive(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
+    presentation: avatarPresentationSchema
+  })
+  .strict();
+export type StudySession = z.infer<typeof studySessionSchema>;
+
+export const createStudySessionInputSchema = z
+  .object({ courseId: z.string().trim().min(1) })
+  .strict();
+export type CreateStudySessionInput = z.infer<
+  typeof createStudySessionInputSchema
+>;
+
+export const updateStudyProgressInputSchema = z
+  .object({
+    deckVersion: z.string().trim().min(1),
+    slideKey: z.string().trim().min(1),
+    globalIndex: z.number().int().positive()
+  })
+  .strict();
+export type UpdateStudyProgressInput = z.infer<
+  typeof updateStudyProgressInputSchema
+>;
+
+export const studyAsrInputSchema = z
+  .object({
+    audioBase64: z.string().min(4).max(14_000_000),
+    mimeType: z.string().trim().min(3).max(100),
+    durationMs: z.number().int().min(100).max(60_000)
+  })
+  .strict();
+export type StudyAsrInput = z.infer<typeof studyAsrInputSchema>;
+
+export const studyAsrResultSchema = z
+  .object({
+    text: z.string().trim().min(1),
+    provider: z.string(),
+    durationMs: z.number().int().positive()
+  })
+  .strict();
+export type StudyAsrResult = z.infer<typeof studyAsrResultSchema>;
 
 export const classroomActivitySchema = z.enum([
   "slides",
@@ -199,6 +326,36 @@ export const slideFrameSchema = z.object({
   summary: z.string()
 });
 export type SlideFrame = z.infer<typeof slideFrameSchema>;
+
+export const slideInteractionScalarSchema = z.union([
+  z.number().finite(),
+  z.boolean(),
+  z.string().max(80)
+]);
+export type SlideInteractionScalar = z.infer<
+  typeof slideInteractionScalarSchema
+>;
+
+export const slideInteractionValuesSchema = z
+  .record(z.string().trim().min(1).max(64), slideInteractionScalarSchema)
+  .refine((values) => Object.keys(values).length <= 24, {
+    message: "单页交互状态最多包含24个字段"
+  });
+export type SlideInteractionValues = z.infer<
+  typeof slideInteractionValuesSchema
+>;
+
+export const slideInteractionStateSchema = z
+  .object({
+    deckId: z.string().trim().min(1).max(128),
+    slideId: z.string().trim().min(1).max(128),
+    revision: z.number().int().positive(),
+    values: slideInteractionValuesSchema
+  })
+  .strict();
+export type SlideInteractionState = z.infer<
+  typeof slideInteractionStateSchema
+>;
 
 export const classroomAvatarRuntimeSchema = z.object({
   status: z.enum([
@@ -710,6 +867,7 @@ export const classroomSnapshotSchema = z.object({
   slide: slideFrameSchema,
   participantsOnline: z.number().int().nonnegative(),
   runtimeVersion: z.number().int().positive(),
+  slideInteraction: slideInteractionStateSchema.nullable(),
   globePlayback: globePlaybackSchema,
   simulation: portSimulationClassroomSummarySchema.nullable(),
   avatar: classroomAvatarRuntimeSchema
@@ -1306,6 +1464,21 @@ export const classroomEventInputSchema = z.discriminatedUnion("type", [
     type: z.literal("set_activity"),
     activity: classroomActivitySchema
   }),
+  z
+    .object({
+      type: z.literal("set_slide_interaction"),
+      slideId: z.string().trim().min(1).max(128),
+      expectedRevision: z.number().int().positive(),
+      patch: slideInteractionValuesSchema
+    })
+    .strict(),
+  z
+    .object({
+      type: z.literal("reset_slide_interaction"),
+      slideId: z.string().trim().min(1).max(128),
+      expectedRevision: z.number().int().positive()
+    })
+    .strict(),
   z.object({
     type: z.literal("globe_play_cue"),
     cueId: z.string().trim().min(1).max(128)
@@ -1320,7 +1493,8 @@ export const classroomEventInputSchema = z.discriminatedUnion("type", [
   }),
   z.object({
     type: z.literal("set_lam_connection"),
-    connected: z.boolean()
+    connected: z.boolean(),
+    renderer: z.enum(["lam","browser"]).optional()
   }),
   z.object({
     type: z.literal("set_avatar_mode"),
@@ -1354,13 +1528,13 @@ export const avatarControlActionSchema = z.discriminatedUnion("type", [
   z
     .object({
       type: z.literal("slides.go_to"),
-      slide: z.number().int().min(1).max(500)
+      slide: z.number().int().min(1).max(10_000)
     })
     .strict(),
   z
     .object({
       type: z.literal("lesson.go_to"),
-      lesson: z.number().int().min(1).max(16)
+      lesson: z.number().int().min(1).max(64)
     })
     .strict(),
   z
@@ -1405,6 +1579,100 @@ export const assistantTurnInputSchema = z
   })
   .strict();
 export type AssistantTurnInput = z.infer<typeof assistantTurnInputSchema>;
+
+export const studyAssistantActionSchema = z.discriminatedUnion("type", [
+  z.object({ type: z.literal("study.slides.next") }).strict(),
+  z.object({ type: z.literal("study.slides.previous") }).strict(),
+  z
+    .object({
+      type: z.literal("study.slides.go_to"),
+      lesson: z.number().int().min(1).max(16),
+      slide: z.number().int().positive()
+    })
+    .strict(),
+  z
+    .object({
+      type: z.literal("study.lesson.go_to"),
+      lesson: z.number().int().min(1).max(16)
+    })
+    .strict()
+]);
+export type StudyAssistantAction = z.infer<typeof studyAssistantActionSchema>;
+
+export const studyAssistantResponseEnvelopeSchema = z
+  .object({
+    dialogue: z.string().min(1).max(1_200),
+    actions: z.array(studyAssistantActionSchema).max(2),
+    schema: z.literal("edu.study.assistant.response"),
+    version: z.literal("1.0")
+  })
+  .strict();
+export type StudyAssistantResponseEnvelope = z.infer<
+  typeof studyAssistantResponseEnvelopeSchema
+>;
+
+export const studyNavigationResultSchema = z
+  .object({
+    action: studyAssistantActionSchema,
+    status: z.enum(["applied", "noop"]),
+    message: z.string(),
+    session: studySessionSchema
+  })
+  .strict();
+export type StudyNavigationResult = z.infer<
+  typeof studyNavigationResultSchema
+>;
+
+export const studyAssistantTurnEventSchema = z.discriminatedUnion("type", [
+  z.object({
+    type: z.literal("turn.started"),
+    turnId: z.string(),
+    startedAt: z.string()
+  }),
+  z.object({
+    type: z.literal("dialogue.delta"),
+    turnId: z.string(),
+    delta: z.string().min(1),
+    accumulated: z.string()
+  }),
+  z.object({
+    type: z.literal("speech.chunk"),
+    turnId: z.string(),
+    sequence: z.number().int().nonnegative(),
+    audioBase64: z.string().min(1),
+    sampleRate: z.literal(24_000),
+    channels: z.literal(1),
+    format: z.literal("pcm_s16le")
+  }),
+  z.object({
+    type: z.literal("navigation.command"),
+    turnId: z.string(),
+    result: studyNavigationResultSchema
+  }),
+  z.object({
+    type: z.literal("turn.completed"),
+    turnId: z.string(),
+    dialogue: z.string(),
+    completedAt: z.string(),
+    speechStatus: z.enum(["streamed", "unavailable", "disabled"]),
+    navigation: studyNavigationResultSchema.nullable()
+  }),
+  z.object({
+    type: z.literal("turn.failed"),
+    turnId: z.string(),
+    code: z.enum([
+      "PROVIDER_UNAVAILABLE",
+      "PROVIDER_RESPONSE_INVALID",
+      "TURN_ABORTED",
+      "INTERNAL_ERROR"
+    ]),
+    message: z.string(),
+    recoverable: z.boolean()
+  })
+]);
+export type StudyAssistantTurnEvent = z.infer<
+  typeof studyAssistantTurnEventSchema
+>;
 
 export const avatarControlRequestSchema = z
   .object({
@@ -1539,3 +1807,4 @@ export type TeacherAvatarCommandResponse = z.infer<
 >;
 
 export * from "./streaming-json.js";
+export * from "./classroom-participation.js";

@@ -14,6 +14,7 @@ import {
 import {
   InteractiveEarthGlobe,
   type GlobeLocation,
+  type GlobeMovingVessel,
   type GlobeRoute,
   type GlobeShippingLanePath,
   type GlobeShippingLaneState,
@@ -162,9 +163,79 @@ const LONDON_NETWORK_ROUTES: readonly GlobeRoute[] = [
     { latitude: Number(latitude), longitude: Number(longitude) }
   ]
 }));
-const EMPTY_ROUTES: readonly GlobeRoute[] = [];
-const EMPTY_LOCATIONS: readonly GlobeLocation[] = [];
+const ALL_CINEMATIC_ROUTES: readonly GlobeRoute[] = [
+  HISTORICAL_ROUTE,
+  ...LONDON_NETWORK_ROUTES
+];
+const ALL_CINEMATIC_LOCATIONS: readonly GlobeLocation[] = Array.from(
+  new Map(
+    [...GLOBAL_MARITIME_LOCATIONS, ...CINEMATIC_LOCATIONS].map(
+      (location) => [location.id, location]
+    )
+  ).values()
+);
 const EMPTY_SHIPPING_LANES: readonly GlobeShippingLanePath[] = [];
+const EMPTY_IDS: readonly string[] = [];
+
+const CAMERA_TRANSITION_MS: Record<
+  PortManagementGlobeCueStep["visual"],
+  number
+> = {
+  emergence: 2_600,
+  channel: 3_200,
+  silk: 4_400,
+  "historical-route": 0,
+  "london-network": 3_000,
+  "global-network": 4_600,
+  question: 4_000
+};
+
+function interpolateLongitude(
+  fromLongitude: number,
+  toLongitude: number,
+  amount: number
+) {
+  let delta = toLongitude - fromLongitude;
+  if (delta > 180) delta -= 360;
+  if (delta < -180) delta += 360;
+  const longitude = fromLongitude + delta * amount;
+  return ((longitude + 540) % 360) - 180;
+}
+
+function sampleOpeningRoute(progress: number) {
+  const points = OPENING_ROUTE_DATA.route.points;
+  const safeProgress = Math.max(0, Math.min(1, progress));
+  const scaledIndex = safeProgress * Math.max(0, points.length - 1);
+  const fromIndex = Math.min(points.length - 1, Math.floor(scaledIndex));
+  const toIndex = Math.min(points.length - 1, fromIndex + 1);
+  const amount = scaledIndex - fromIndex;
+  const [fromLongitude = 0, fromLatitude = 0] = points[fromIndex] ?? [];
+  const [toLongitude = fromLongitude, toLatitude = fromLatitude] =
+    points[toIndex] ?? [];
+  return {
+    latitude: fromLatitude + (toLatitude - fromLatitude) * amount,
+    longitude: interpolateLongitude(fromLongitude, toLongitude, amount)
+  };
+}
+
+function easeVoyageProgress(progress: number) {
+  const safeProgress = Math.max(0, Math.min(1, progress));
+  return safeProgress < 0.5
+    ? 2 * safeProgress * safeProgress
+    : 1 - Math.pow(-2 * safeProgress + 2, 2) / 2;
+}
+
+function vesselForRouteProgress(progress: number): GlobeMovingVessel {
+  const easedProgress = easeVoyageProgress(progress);
+  return {
+    id: "canton-silk-vessel",
+    label: "广州驶往伦敦的教学复原帆船",
+    color: "#ffb04d",
+    coordinate: sampleOpeningRoute(easedProgress),
+    headingTo: sampleOpeningRoute(Math.min(1, easedProgress + 0.0035)),
+    progress: easedProgress
+  };
+}
 
 interface MissionBriefingFact {
   label: string;
@@ -325,7 +396,6 @@ const CINEMATIC_LOCATION_IDS: Record<
   channel: ["england", "france"],
   silk: ["canton"],
   "historical-route": [
-    "canton",
     "malacca",
     "cape-good-hope",
     "dover",
@@ -336,19 +406,15 @@ const CINEMATIC_LOCATION_IDS: Record<
   question: ["england", "france", "canton", "london"]
 };
 
-function locationsForStep(
+function locationIdsForStep(
   visual: PortManagementGlobeCueStep["visual"]
-): readonly GlobeLocation[] {
+): readonly string[] {
   if (visual === "global-network") {
-    return GLOBAL_MARITIME_LOCATIONS;
+    return GLOBAL_MARITIME_LOCATIONS.map((location) => location.id);
   }
-  const visibleIds = new Set(CINEMATIC_LOCATION_IDS[visual]);
-  const cinematicLocations = CINEMATIC_LOCATIONS.filter((location) =>
-    visibleIds.has(location.id)
-  );
   return visual === "question"
-    ? [...GLOBAL_MARITIME_LOCATIONS, ...cinematicLocations]
-    : cinematicLocations;
+    ? ALL_CINEMATIC_LOCATIONS.map((location) => location.id)
+    : CINEMATIC_LOCATION_IDS[visual];
 }
 
 function elapsedInStep(snapshot: ClassroomSnapshot, now: number) {
@@ -369,26 +435,13 @@ function MissionBriefingPanel({ step }: { step: PortManagementGlobeCueStep }) {
     >
       <div className="cinematic-globe__briefing-image">
         <img src={briefing.image} alt={briefing.imageAlt} />
-        <span>{briefing.region}</span>
-        <strong>教学复原图</strong>
-        <i aria-hidden="true" />
-      </div>
-      <div className="cinematic-globe__briefing-body">
-        <header>
+        <div>
           <span>{briefing.code}</span>
-          <i aria-hidden="true" />
-          <strong>EVIDENCE TRACKING</strong>
-        </header>
-        <h3>{briefing.title}</h3>
-        <p>{briefing.objective}</p>
-        <div className="cinematic-globe__briefing-facts">
-          {briefing.facts.map((fact) => (
-            <span key={`${fact.label}-${fact.value}`}>
-              <small>{fact.label}</small>
-              <strong>{fact.value}</strong>
-            </span>
-          ))}
+          <strong>{briefing.title}</strong>
+          <small>{briefing.region}</small>
         </div>
+        <em>教学复原图</em>
+        <i aria-hidden="true" />
       </div>
     </aside>
   );
@@ -431,12 +484,6 @@ export function ClassroomGlobeStage({
   }, []);
 
   useEffect(() => {
-    if (
-      step?.visual !== "global-network" &&
-      step?.visual !== "question"
-    ) {
-      return;
-    }
     let active = true;
     setShippingLaneState("loading");
     void loadGlobalShippingLanes()
@@ -451,13 +498,17 @@ export function ClassroomGlobeStage({
     return () => {
       active = false;
     };
-  }, [step?.visual]);
+  }, []);
 
   useEffect(() => {
-    if (!step) return;
+    if (!step || step.visual === "historical-route") return;
     const timer = window.setTimeout(() => {
-      globeRef.current?.focusCoordinate(step.focus, step.focus.distance);
-    }, 160);
+      globeRef.current?.focusCoordinate(
+        step.focus,
+        step.focus.distance,
+        CAMERA_TRANSITION_MS[step.visual]
+      );
+    }, 240);
     return () => window.clearTimeout(timer);
   }, [stepIdentity, step]);
 
@@ -517,19 +568,27 @@ export function ClassroomGlobeStage({
     stepIdentity
   ]);
 
-  const locations = useMemo(
-    () => (step ? locationsForStep(step.visual) : EMPTY_LOCATIONS),
-    [step]
-  );
-  const routes = useMemo<readonly GlobeRoute[]>(
-    () =>
-      step?.visual === "historical-route"
-        ? [HISTORICAL_ROUTE]
-        : step?.visual === "london-network"
-          ? LONDON_NETWORK_ROUTES
-          : EMPTY_ROUTES,
+  const visibleLocationIds = useMemo(
+    () => (step ? locationIdsForStep(step.visual) : EMPTY_IDS),
     [step?.visual]
   );
+  const visibleRouteIds = useMemo(
+    () =>
+      step?.visual === "historical-route"
+        ? [HISTORICAL_ROUTE.id]
+        : step?.visual === "london-network"
+          ? LONDON_NETWORK_ROUTES.map((route) => route.id)
+          : EMPTY_IDS,
+    [step?.visual]
+  );
+  const routeTravelProgress =
+    step?.visual === "historical-route"
+      ? Math.max(0, Math.min(1, (progress - 0.04) / 0.92))
+      : null;
+  const movingVessel =
+    routeTravelProgress === null
+      ? undefined
+      : vesselForRouteProgress(routeTravelProgress);
   const showGlobalNetwork =
     step?.visual === "global-network" || step?.visual === "question";
   const visibleShippingLanes = showGlobalNetwork
@@ -542,10 +601,27 @@ export function ClassroomGlobeStage({
 
   if (!cue || !step) {
     return (
-      <SlideViewport label="地球仪证据追踪固定画布">
-        <article className="cinematic-globe cinematic-globe--empty">
-          <strong>地球仪证据追踪尚未启动</strong>
-          <span>请先进入“1700：如果只能押一个国家”问题页，再启动证据追踪。</span>
+      <SlideViewport label="全球港口与航运地球仪">
+        <article className="cinematic-globe">
+          <InteractiveEarthGlobe
+            ref={globeRef}
+            className="classroom-globe-explorer"
+            style={{ width: "100%", height: "100%", minHeight: 0, borderRadius: 0 }}
+            locations={GLOBAL_MARITIME_LOCATIONS}
+            shippingLanes={shippingLanes}
+            shippingLaneState={shippingLaneState}
+            defaultRouteView="global"
+            initialFocus={{ latitude: 25, longitude: 110 }}
+            autoRotate={false}
+            showControls={role === "teacher"}
+            showMapModeToggle={role === "teacher"}
+            showRouteModeToggle={false}
+            eyebrow="港口与航运"
+            title="全球港口与航道"
+            interactionHint="拖动旋转 · 滚轮缩放"
+            shippingLaneAttribution="Global Shipping Lanes v1.3.1 · 非实时AIS"
+            ariaLabel="全球港口与航运地球仪"
+          />
         </article>
       </SlideViewport>
     );
@@ -566,8 +642,10 @@ export function ClassroomGlobeStage({
         <InteractiveEarthGlobe
           ref={globeRef}
           className="cinematic-globe__earth"
-          locations={locations}
-          routes={routes}
+          locations={ALL_CINEMATIC_LOCATIONS}
+          routes={ALL_CINEMATIC_ROUTES}
+          visibleLocationIds={visibleLocationIds}
+          visibleRouteIds={visibleRouteIds}
           shippingLanes={visibleShippingLanes}
           shippingLaneState={
             showGlobalNetwork ? shippingLaneState : "ready"
@@ -577,14 +655,17 @@ export function ClassroomGlobeStage({
           activeLocationColor={briefing?.accent}
           activeLocationColors={briefing?.activeLocationColors}
           initialFocus={step.focus}
+          movingVessel={movingVessel}
+          cameraTrackingCoordinate={movingVessel?.coordinate}
+          cameraTrackingDistance={2.36}
           minDistance={1.85}
           maxDistance={4.35}
           autoRotate={step.visual === "emergence"}
-          autoRotateSpeed={0.2}
+          autoRotateSpeed={0.12}
           forceFallback={reducedMotion}
           showControls={false}
           showGraticule
-          showLabels={step.visual !== "emergence"}
+          showLabels={step.visual !== "historical-route"}
           mapMode="natural"
           showMapModeToggle={false}
           showRouteModeToggle={false}
@@ -614,6 +695,18 @@ export function ClassroomGlobeStage({
           <span>{step.eyebrow}</span>
           <h2>{step.title}</h2>
         </header>
+        {movingVessel && (
+          <div
+            className="cinematic-globe__vessel-tracker"
+            aria-label="镜头正在跟随广州驶往伦敦的教学复原帆船"
+          >
+            <span>VESSEL TRACKING</span>
+            <strong>广州 → 伦敦</strong>
+            <i aria-hidden="true">
+              <b style={{ width: `${(movingVessel.progress ?? 0) * 100}%` }} />
+            </i>
+          </div>
+        )}
         <MissionBriefingPanel step={step} />
 
         <div className="cinematic-globe__status">

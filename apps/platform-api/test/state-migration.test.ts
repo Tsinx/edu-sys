@@ -212,3 +212,74 @@ test("old numeric slide state returns to the matching new lesson cover", async (
     await rm(tempDirectory, { recursive: true, force: true });
   }
 });
+
+test("unregistered historical classroom keeps its original deck identity", async () => {
+  const tempDirectory = await mkdtemp(join(tmpdir(), "edu-unknown-deck-"));
+  const dataFile = join(tempDirectory, "state.json");
+  const state = createSeedState();
+  const unknownCourseId = "course-legacy-unregistered";
+  const sessionId = "session-legacy-unregistered";
+  const originalDeckIdentity = {
+    deckId: "deck-legacy-unregistered",
+    deckVersion: "release-legacy-unregistered-v7",
+    slideKey: "legacy-topic-custom-slide",
+    slideIndex: 37
+  };
+
+  assert.throws(
+    () => createInitialClassroomRuntime(unknownCourseId),
+    new RegExp(`COURSE_DECK_NOT_READY:${unknownCourseId}`)
+  );
+
+  state.courses.push({
+    ...state.courses[0]!,
+    id: unknownCourseId,
+    slug: "legacy-unregistered",
+    code: "LEGACY-UNREGISTERED",
+    title: "历史未注册课程",
+    featured: false
+  });
+  state.classSessions.push({
+    ...state.classSessions[0]!,
+    id: sessionId,
+    courseId: unknownCourseId,
+    courseTitle: "历史未注册课程"
+  });
+  state.classroomRuntimes[sessionId] = {
+    ...createInitialClassroomRuntime(),
+    ...originalDeckIdentity,
+    participantsOnline: 12
+  } as ClassroomRuntimeState & { participantsOnline: number };
+  await writeFile(dataFile, `${JSON.stringify(state, null, 2)}\n`, "utf8");
+
+  let store: JsonStateStore | undefined;
+  try {
+    store = new JsonStateStore(dataFile);
+    await store.initialize();
+
+    assert.equal(store.getClassroomSnapshot(sessionId), undefined);
+
+    const persisted = JSON.parse(await readFile(dataFile, "utf8")) as {
+      classroomRuntimes: Record<
+        string,
+        ClassroomRuntimeState & { participantsOnline?: number }
+      >;
+    };
+    const persistedRuntime = persisted.classroomRuntimes[sessionId];
+    assert.ok(persistedRuntime);
+    assert.deepEqual(
+      {
+        deckId: persistedRuntime.deckId,
+        deckVersion: persistedRuntime.deckVersion,
+        slideKey: persistedRuntime.slideKey,
+        slideIndex: persistedRuntime.slideIndex
+      },
+      originalDeckIdentity
+    );
+    assert.equal(persistedRuntime.participantsOnline, undefined);
+    assert.equal(persistedRuntime.simulation, null);
+  } finally {
+    store?.close();
+    await rm(tempDirectory, { recursive: true, force: true });
+  }
+});

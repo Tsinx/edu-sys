@@ -1,0 +1,94 @@
+.participation { color: #183d39; font: 15px/1.6 "Microsoft YaHei", sans-serif; text-align: left; }
+.participation *, .participation *::before, .participation *::after { box-sizing: border-box; }
+.participation h2, .participation h3, .participation p { margin: 0 0 12px; overflow-wrap: anywhere; }
+.participation h2 { display: flex; align-items: center; gap: 9px; margin: 0; font-size: 23px; }
+.participation h3 { font-size: 19px; line-height: 1.5; }
+.participation button { border: 1px solid #bed0c8; border-radius: 10px; background: #fff; color: #234e44; min-height: 40px; padding: 8px 14px; cursor: pointer; font: inherit; }
+.participation button:disabled { opacity: .48; cursor: default; }
+.participation button:focus-visible, .participation input:focus-visible, .participation textarea:focus-visible, .participation select:focus-visible { outline: 3px solid #cc9852; outline-offset: 3px; }
+.participation button.participation-primary { background: #215c4e; color: white; border-color: #215c4e; }
+.participation input:not([type="checkbox"]):not([type="radio"]), .participation textarea, .participation select { width: 100%; min-width: 0; padding: 10px 12px; background: white; border: 1px solid #bdcec5; border-radius: 8px; color: #193d37; font: inherit; }
+.participation textarea { min-height: 80px; resize: vertical; }
+.participation small { display: block; color: #61746b; font-size: 12px; }
+.participation-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 20px; }
+.participation-eyebrow { color: #637c6e; letter-spacing: .13em; font-size: 10px; }
+.participation-connection { display: flex; align-items: center; gap: 5px; white-space: nowrap; color: #61766b; font-size: 12px; }
+.participation-backdrop { position: fixed; inset: 0; z-index: 100; padding: 24px; background: #061812ab; display: flex; justify-content: center; }
+.participation-teacher { width: min(1060px, 100%); background: #f5f5ef; border: 1px solid #fff9; border-radius: 20px; padding: 28px; overflow: auto; box-shadow: 0 20px 80px #0004; }
+.participation-teacher > .participation-heading { position: sticky; top: 0; z-index: 2; background: #f5f5ef; padding: 8px 0; }
+.participation-teacher-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(240px, 1fr); gap: 20px; }
+.participation-card { border: 1px solid #dbe2d9; border-radius: 14px; background: #fffefa; padding: 20px; margin-bottom: 16px; min-width: 0; }
+.participation-tag { display: inline-block; background: #e8eee6; padding: 3px 9px; border-radius: 5px; color: #4b6756; font-size: 12px; margin-bottom: 12px; }
+.participation-summary { display: flex; align-items: center; gap: 24px; padding: 0 4px 22px; }
+.participation-summary strong { font-size: 28px; flex-shrink: 0; }
+.participation-summary small { white-space: nowrap; }
+.participation-invite { display: grid; gap: 6px; margin-bottom: 20px; font-size: 12px; color: #65756a; }
+.participation-summary > span { color: #617268; font-size: 13px; }
+.participation-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.participation-compose { display: grid; gap: 12px; }
+.participation-compose label, .participation-join label { display: grid; gap: 6px; }
+.participation-compose-option { display: flex; align-items: center; gap: 12px; }
+.participation .participation-check { display: flex; align-items: center; gap: 6px; white-space: nowrap; margin-bottom: 8px; }
+.participation-hint { color: #67756a; font-size: 12px; }
+.participation-results { margin: 14px 0; }
+.participation-result { display: grid; grid-template-columns: minmax(0, 1fr) 28% 28px; gap: 9px; align-items: center; margin: 10px 0; }
+.participation-result > span { overflow-wrap: anywhere; }
+.participation-result svg { vertical-align: middle; margin-left: 6px; }
+.participation-result meter { width: 100%; accent-color: #28674f; }
+.participation-explanation { padding: 12px; border-left: 3px solid #bc9054; background: #f6f1e5; white-space: pre-wrap; }
+.participation-roster, .participation-history { list-style: none; padding: 0; margin: 0; max-height: 430px; overflow: auto; }
+.participation-roster li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #e5e9e1; }
+.participation-roster li > span { min-width: 0; overflow-wrap: anywhere; }
+.participation-roster button { flex-shrink: 0; }
+.participation-roster i { display: inline-block; width: 7px; height: 7px; background: #b6bdb6; border-radius: 50%; margin-right: 6px; }
+.participation-roster i.is-online { background: #40855d; }
+.participation-history li { padding: 10px 0; border-bottom: 1px solid #e5e9e1; overflow-wrap: anywhere; }
+.participation-error { background: #fcebe5; color: #99402e; border-radius: 8px; padding: 10px; }
+.participation-success { color: #206242; background: #edf5e9; padding: 10px; border-radius: 8px; margin-top: 14px !important; }
+.student-classroom:has(.student-participation) { grid-template-rows: 68px auto minmax(260px, 1fr) 48px; }
+.student-participation { width: min(100% - 32px, 900px); margin: 20px auto; padding: 22px; background: #f5f5ef; border-radius: 16px; }
+.student-participation .participation-card { margin-bottom: 0; }
+.participation-join { display: flex; align-items: end; flex-wrap: wrap; gap: 12px; }
+.participation-join label { flex: 1 1 200px; }
+.participation-join small { flex-basis: 100%; }
+.participation-identity { font-size: 13px; color: #657365; }
+.participation-options { border: 0; padding: 0; margin: 12px 0 18px; display: grid; gap: 10px; }
+.participation-options legend { color: #637464; font-size: 12px; margin-bottom: 10px; }
+.participation-options label { display: flex; align-items: center; gap: 12px; padding: 14px; border: 1px solid #d4ded1; border-radius: 10px; background: white; cursor: pointer; }
+.participation-options label.is-selected { border-color: #347459; background: #edf3e9; }
+.participation-options label span { overflow-wrap: anywhere; min-width: 0; }
+.participation-options input { accent-color: #286447; flex-shrink: 0; }
+.exercise-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; }
+.exercise-tabs button[aria-pressed="true"] { background: #215c4e; color: white; }
+.exercise-library-heading { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+.exercise-library-heading > button { flex-shrink: 0; }
+.exercise-filters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 20px 0; align-items: end; }
+.exercise-filters label, .exercise-editor label { display: grid; gap: 6px; font-size: 13px; }
+.exercise-editor { display: grid; gap: 16px; scroll-margin-top: 100px; }
+.exercise-editor-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.exercise-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.exercise-item { display: flex; flex-direction: column; margin-bottom: 0; }
+.exercise-item > .participation-actions { margin-top: auto; padding-top: 16px; }
+.exercise-item details { margin-bottom: 12px; overflow-wrap: anywhere; }
+.exercise-item summary { cursor: pointer; color: #316751; }
+.exercise-item h4 { margin: 12px 0 6px; }
+.exercise-group-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+.exercise-group-list article { padding: 12px; background: #eef3e8; border-radius: 10px; min-width: 0; }
+.participation-join + .participation-join { margin-top: 24px; }
+.course-exercise-page { padding: 24px; background: #f5f5ef; border-radius: 16px; }
+.course-exercise-page > h2 { margin: 18px 0 8px; }
+.course-exercise-page > p { margin-bottom: 28px; }
+@media (max-width: 700px) {
+  .exercise-filters, .exercise-editor-grid, .exercise-group-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .exercise-list { grid-template-columns: minmax(0, 1fr); }
+  .course-exercise-page { padding: 16px; }
+  .participation-backdrop { padding: 8px; }
+  .participation-teacher { padding: 18px 14px; border-radius: 14px; }
+  .participation-teacher-grid { grid-template-columns: minmax(0, 1fr); }
+  .participation-card { padding: 16px; }
+  .participation-summary { gap: 16px; flex-wrap: wrap; }
+  .participation-summary > span { flex-basis: 100%; }
+  .student-participation { width: calc(100% - 20px); padding: 16px; margin: 12px auto; }
+  .student-classroom:has(.student-participation) { grid-template-rows: 60px auto minmax(230px, 1fr) 42px; }
+  .participation-heading { gap: 8px; }
+}

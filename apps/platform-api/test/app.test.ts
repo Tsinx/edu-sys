@@ -54,9 +54,16 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     const createdCourse = createResponse.json();
     assert.equal(createdCourse.status, "draft");
 
-    const classResponse = await app.inject({
+    const unavailableClassResponse = await app.inject({
       method: "POST",
       url: `/api/courses/${createdCourse.id}/class-sessions`
+    });
+    assert.equal(unavailableClassResponse.statusCode, 409);
+    assert.equal(unavailableClassResponse.json().error, "COURSE_DECK_NOT_READY");
+
+    const classResponse = await app.inject({
+      method: "POST",
+      url: `/api/courses/${dashboard.featuredCourse.id}/class-sessions`
     });
     assert.equal(classResponse.statusCode, 201);
     const liveSession = classResponse.json();
@@ -902,7 +909,8 @@ test("registered globe cue supports control, replay and authoritative completion
       url: "/api/courses/course-port-management-intro/class-sessions"
     });
     const sessionId = classResponse.json().id as string;
-    const controlUrl = `/api/class-sessions/${sessionId}/avatar/control`;
+    const controlUrl =
+      `/api/class-sessions/${sessionId}/avatar/control`;
 
     const invalidCue = await app.inject({
       method: "POST",
@@ -911,7 +919,9 @@ test("registered globe cue supports control, replay and authoritative completion
         protocol: "edu.classroom.control",
         version: "1.0",
         requestId: "invalid-globe-cue",
-        actions: [{ type: "globe.play_cue", cueId: "raw-camera-track" }]
+        actions: [
+          { type: "globe.play_cue", cueId: "raw-camera-track" }
+        ]
       }
     });
     assert.equal(invalidCue.json().status, "noop");
@@ -925,7 +935,10 @@ test("registered globe cue supports control, replay and authoritative completion
         version: "1.0",
         requestId: "play-before-wager",
         actions: [
-          { type: "globe.play_cue", cueId: "l1-opening-trade-influence" }
+          {
+            type: "globe.play_cue",
+            cueId: "l1-opening-trade-influence"
+          }
         ]
       }
     });
@@ -934,7 +947,10 @@ test("registered globe cue supports control, replay and authoritative completion
       blockedBeforeWager.json().snapshot.slide.slideId,
       "l1-course-cover"
     );
-    assert.match(blockedBeforeWager.json().results[0].message, /l1-1700-wager/u);
+    assert.match(
+      blockedBeforeWager.json().results[0].message,
+      /l1-1700-wager/u
+    );
 
     const wager = await app.inject({
       method: "POST",
@@ -952,7 +968,10 @@ test("registered globe cue supports control, replay and authoritative completion
         version: "1.0",
         requestId: "play-opening",
         actions: [
-          { type: "globe.play_cue", cueId: "l1-opening-trade-influence" }
+          {
+            type: "globe.play_cue",
+            cueId: "l1-opening-trade-influence"
+          }
         ]
       }
     });
@@ -970,7 +989,10 @@ test("registered globe cue supports control, replay and authoritative completion
         version: "1.0",
         requestId: "play-opening",
         actions: [
-          { type: "globe.play_cue", cueId: "l1-opening-trade-influence" }
+          {
+            type: "globe.play_cue",
+            cueId: "l1-opening-trade-influence"
+          }
         ]
       }
     });
@@ -991,7 +1013,10 @@ test("registered globe cue supports control, replay and authoritative completion
       }
     });
     assert.equal(pause.json().snapshot.globePlayback.status, "paused");
-    assert.equal(pause.json().snapshot.globePlayback.stepStartedAt, null);
+    assert.equal(
+      pause.json().snapshot.globePlayback.stepStartedAt,
+      null
+    );
 
     const resume = await app.inject({
       method: "POST",
@@ -1037,7 +1062,10 @@ test("registered globe cue supports control, replay and authoritative completion
       } else {
         assert.equal(playback.status, "completed");
         assert.equal(advance.json().activeActivity, "slides");
-        assert.equal(advance.json().slide.slideId, "l1-france-england-scale");
+        assert.equal(
+          advance.json().slide.slideId,
+          "l1-france-england-scale"
+        );
         assert.equal(advance.json().slide.index, 4);
       }
     }

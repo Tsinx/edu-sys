@@ -1,0 +1,141 @@
+{
+  "schema": "edu.avatar.cue-pack",
+  "version": "1.0",
+  "characterId": "lanzhou",
+  "characterVersion": "1.1.0",
+  "displayName": "澜舟",
+  "status": "ready",
+  "canvas": {
+    "width": 720,
+    "height": 960,
+    "fps": 25,
+    "aspectRatio": "3:4"
+  },
+  "poster": "/avatar/lanzhou/v1/poster.webp",
+  "posterSha256": "021f43ca8445cc78a83306cf27171889a67460048b7ce6ec155dbf32919ede56",
+  "clips": [
+    {
+      "id": "idle-still",
+      "state": "idle",
+      "src": "/avatar/lanzhou/v1/idle-still.973cc2165130.mp4",
+      "durationMs": 10000,
+      "loop": false,
+      "entryPose": "neutral",
+      "exitPose": "neutral",
+      "weight": 1,
+      "sha256": "973cc21651303f91a9bd64bae6f7c2f091e5c5689c9c76956b6f371bb4dfea5a"
+    },
+    {
+      "id": "idle-blink",
+      "state": "idle",
+      "src": "/avatar/lanzhou/v1/idle-blink.a03e53a62f10.mp4",
+      "durationMs": 5000,
+      "loop": false,
+      "entryPose": "neutral",
+      "exitPose": "neutral",
+      "weight": 2,
+      "sha256": "a03e53a62f10574402a947e28000bfba421f0b642965717bf79b345edcea6580"
+    },
+    {
+      "id": "idle-soft-smile",
+      "state": "idle",
+      "src": "/avatar/lanzhou/v1/idle-soft-smile.3a3d55d830f5.mp4",
+      "durationMs": 5000,
+      "loop": false,
+      "entryPose": "neutral",
+      "exitPose": "neutral",
+      "weight": 0.5,
+      "sha256": "3a3d55d830f5dd6c2830d9a0839a251412ca6d70e71c8176add67b35e57fc43e"
+    },
+    {
+      "id": "listening",
+      "state": "listening",
+      "src": "/avatar/lanzhou/v1/listening.5a6256f0aa9c.mp4",
+      "durationMs": 5000,
+      "loop": true,
+      "entryPose": "neutral",
+      "exitPose": "neutral",
+      "weight": 1,
+      "sha256": "5a6256f0aa9c40abb5c01740700601646a6b02586b41c8a121c8f66d175204d7"
+    },
+    {
+      "id": "thinking",
+      "state": "thinking",
+      "src": "/avatar/lanzhou/v1/thinking.2ad74ced5dfb.mp4",
+      "durationMs": 5000,
+      "loop": true,
+      "entryPose": "neutral",
+      "exitPose": "neutral",
+      "weight": 1,
+      "sha256": "2ad74ced5dfbf81dfb69cba8dcf3f62b09f18b9f0d241e7d2a61e6414988dba8"
+    },
+    {
+      "id": "speaking-calm-a",
+      "state": "speaking",
+      "src": "/avatar/lanzhou/v1/speaking-calm-a.6c9744794ca5.mp4",
+      "durationMs": 5000,
+      "loop": true,
+      "entryPose": "neutral",
+      "exitPose": "neutral",
+      "weight": 1,
+      "sha256": "6c9744794ca5a183affca659f56e9027d638f930d450415543d53da92fa26e3b"
+    },
+    {
+      "id": "speaking-calm-b",
+      "state": "speaking",
+      "src": "/avatar/lanzhou/v1/speaking-calm-b.a8e10e0cf6a5.mp4",
+      "durationMs": 5000,
+      "loop": true,
+      "entryPose": "neutral",
+      "exitPose": "neutral",
+      "weight": 1,
+      "sha256": "a8e10e0cf6a51e4259b1a8338a5ed06c012dd6d8c665457ea63dec13e1def9dd"
+    },
+    {
+      "id": "speaking-emphasis",
+      "state": "speaking",
+      "src": "/avatar/lanzhou/v1/speaking-emphasis.b1681adb9453.mp4",
+      "durationMs": 5000,
+      "loop": true,
+      "entryPose": "neutral",
+      "exitPose": "neutral",
+      "weight": 0.55,
+      "sha256": "b1681adb94539674693a47fa069c8ddeaad86e86e5601ea9165357b156a33cec"
+    },
+    {
+      "id": "nod",
+      "state": "affirming",
+      "src": "/avatar/lanzhou/v1/nod.2c013b5e3304.mp4",
+      "durationMs": 5000,
+      "loop": false,
+      "entryPose": "neutral",
+      "exitPose": "neutral",
+      "weight": 1,
+      "sha256": "2c013b5e3304b5301843655bada7ea49007d960bca3314fbdb025c4bdf509484"
+    },
+    {
+      "id": "encourage",
+      "state": "affirming",
+      "src": "/avatar/lanzhou/v1/encourage.ebba9c4baae1.mp4",
+      "durationMs": 5000,
+      "loop": false,
+      "entryPose": "neutral",
+      "exitPose": "neutral",
+      "weight": 1,
+      "sha256": "ebba9c4baae1007a22659b5c4fcb7039d593eeed149b7e111b8db91a4ca1a56a"
+    },
+    {
+      "id": "goodbye",
+      "state": "goodbye",
+      "src": "/avatar/lanzhou/v1/goodbye.585f0fad0cf0.mp4",
+      "durationMs": 5040,
+      "loop": false,
+      "entryPose": "neutral",
+      "exitPose": "neutral",
+      "weight": 1,
+      "sha256": "585f0fad0cf0ae833cd2a8af4b6f95c9430dad58a025cc6568c56b44b831001f"
+    }
+  ],
+  "contentHash": "275f938657cc0e5a4c8f3361aeefc9cd2d54b6df9d122026e1c981b4ae042c36",
+  "disclosure": "澜舟是独立设计的AI课程助教形象；动作视频为AI教学复原素材，不承诺逐音素口型同步，准确内容以字幕与课程资料为准。"
+}

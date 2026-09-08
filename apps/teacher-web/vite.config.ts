@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { campusBuild } from "./campus-build";
 
 const teacherWebRoot = fileURLToPath(new URL(".", import.meta.url));
 const openAvatarRendererRoot = fileURLToPath(
@@ -10,9 +11,14 @@ const openAvatarRendererRoot = fileURLToPath(
     import.meta.url
   )
 );
+const developmentPort = Number(process.env.EDU_WEB_PORT ?? 5173);
+const apiProxyTarget =
+  process.env.EDU_API_PROXY_URL ?? "http://127.0.0.1:4300";
+const releaseId=process.env.EDU_RELEASE_ID ?? `campus-${new Date().toISOString().replace(/[^0-9]/g,"")}`;
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [campusBuild(releaseId),react()],
+  define: { "import.meta.env.VITE_EDU_RELEASE_ID":JSON.stringify(releaseId) },
   build: {
     rollupOptions: {
       input: {
@@ -42,11 +48,11 @@ export default defineConfig({
     ]
   },
   server: {
-    port: 5173,
+    port: developmentPort,
     strictPort: true,
     proxy: {
       "/api": {
-        target: "http://127.0.0.1:4300",
+        target: apiProxyTarget,
         changeOrigin: true
       },
       "/openavatarchat-runtime": {

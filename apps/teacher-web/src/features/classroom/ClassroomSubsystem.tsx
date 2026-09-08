@@ -3,8 +3,10 @@ import type {
   ClassroomEventInput,
   ClassroomSnapshot,
   LamRuntimeStatus,
+  SlideInteractionValues,
   TeacherAvatarCommandInput
 } from "@edu/contracts";
+import type { CourseDeckDescriptor } from "@edu/course-content/deck-registry";
 import {
   getPortManagementGlobeCue,
   getPortManagementGlobalSlideIndex,
@@ -58,10 +60,15 @@ import {
   LamAvatarSurface,
   type LamAvatarController,
   type LamConnectionState
-} from "./LamAvatarSurface";
+} from "../../campus/BrowserAvatarSurface";
+import { runtimeConfig } from "../../campus/runtime";
 import { ActivityStage, SlideStage } from "./TeachingSlides";
 import { VoiceCommandComposer } from "./VoiceCommandComposer";
+import { ClassroomFullscreenControls } from "./ClassroomFullscreenControls";
+import { TeacherParticipation } from "./ClassroomParticipation";
+import { useClassroomFullscreen } from "./useClassroomFullscreen";
 import "./classroom.css";
+import "./classroom-fullscreen.css";
 
 const ClassroomGlobeStage = lazy(() =>
   import("./ClassroomGlobeStage").then((module) => ({
@@ -77,6 +84,7 @@ const ClassroomPortSimulationStage = lazy(() =>
 
 const OPENING_GLOBE_CUE_ID = "l1-opening-trade-influence";
 const OPENING_GLOBE_CUE = getPortManagementGlobeCue(OPENING_GLOBE_CUE_ID);
+const ECONOMIC_MATHEMATICS_COURSE_ID = "course-economic-mathematics";
 
 const activityTabs: Array<{
   id: ClassroomActivity;
@@ -126,8 +134,11 @@ function isLamConnected(state: LamConnectionState) {
 
 export function ClassroomSubsystem() {
   const { sessionId = "" } = useParams();
+  const sessionIdRef = useRef(sessionId);
+  sessionIdRef.current = sessionId;
   const navigate = useNavigate();
   const [snapshot, setSnapshot] = useState<ClassroomSnapshot>();
+  const [courseDeck, setCourseDeck] = useState<CourseDeckDescriptor | null>(null);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -143,12 +154,14 @@ export function ClassroomSubsystem() {
   const [avatarCollapsed, setAvatarCollapsed] = useState(() =>
     window.matchMedia("(max-width: 980px)").matches
   );
+  const [fullscreenAvatarCollapsed, setFullscreenAvatarCollapsed] = useState(false);
+  const [participationOpen, setParticipationOpen] = useState(false);
+  const closeParticipation = useCallback(() => setParticipationOpen(false), []);
   const [pointerActive, setPointerActive] = useState(false);
   const [annotationActive, setAnnotationActive] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [endDialogOpen, setEndDialogOpen] = useState(false);
   const [now, setNow] = useState(Date.now());
-  const stageFrameRef = useRef<HTMLDivElement>(null);
   const skipNextSlideInputBlurRef = useRef(false);
   const lamAvatarRef = useRef<LamAvatarController>(null);
   const assistantAbortRef = useRef<AbortController | undefined>(
@@ -162,6 +175,109 @@ export function ClassroomSubsystem() {
   >(undefined);
   const lastReportedLamConnectedRef = useRef<boolean | undefined>(
     undefined
+  );
+  const snapshotRef = useRef<ClassroomSnapshot | undefined>(undefined);
+  const interactionSyncRef = useRef<{
+    timer?: number;
+    inFlight?: Promise<void>;
+    inFlightPatch: SlideInteractionValues;
+    resetInFlight?: Promise<void>;
+    slideId?: string;
+    pending: SlideInteractionValues;
+  }>({ inFlightPatch: {}, pending: {} });
+
+  const mergeSnapshot = useCallback((nextSnapshot: ClassroomSnapshot) => {
+    if (nextSnapshot.session.id !== sessionIdRef.current) {
+      return snapshotRef.current;
+    }
+    const current = snapshotRef.current;
+    if (
+      current?.session.id === nextSnapshot.session.id &&
+      nextSnapshot.runtimeVersion < current.runtimeVersion
+    ) {
+      return current;
+    }
+
+    const queue = interactionSyncRef.current;
+    const optimisticPatch = {
+      ...queue.inFlightPatch,
+      ...queue.pending
+    };
+    const mergedSnapshot =
+      current?.session.id === nextSnapshot.session.id &&
+      nextSnapshot.slideInteraction &&
+      queue.slideId === nextSnapshot.slide.slideId &&
+      nextSnapshot.slideInteraction.slideId === nextSnapshot.slide.slideId &&
+      Object.keys(optimisticPatch).length > 0
+        ? {
+            ...nextSnapshot,
+            slideInteraction: {
+              ...nextSnapshot.slideInteraction,
+              values: {
+                ...nextSnapshot.slideInteraction.values,
+                ...optimisticPatch
+              }
+            }
+          }
+        : nextSnapshot;
+
+    snapshotRef.current = mergedSnapshot;
+    setSnapshot((existing) =>
+      existing?.session.id === mergedSnapshot.session.id &&
+      mergedSnapshot.runtimeVersion < existing.runtimeVersion
+        ? existing
+        : mergedSnapshot
+    );
+    return mergedSnapshot;
+  }, []);
+
+  useEffect(() => {
+    snapshotRef.current = undefined;
+    setSnapshot(undefined);
+    setCourseDeck(null);
+  }, [sessionId]);
+
+  useEffect(() => {
+    snapshotRef.current = snapshot;
+  }, [snapshot]);
+
+  useEffect(() => {
+    let active = true;
+    if (snapshot?.courseId !== ECONOMIC_MATHEMATICS_COURSE_ID) {
+      setCourseDeck(null);
+      return () => {
+        active = false;
+      };
+    }
+    void import("@edu/course-content/deck-registry")
+      .then((module) => {
+        if (active) {
+          setCourseDeck(module.getCourseDeckByCourseId(snapshot.courseId) ?? null);
+        }
+      })
+      .catch((reason: Error) => {
+        if (active) setError(`经济数学课件注册表装载失败：${reason.message}`);
+      });
+    return () => {
+      active = false;
+    };
+  }, [snapshot?.courseId]);
+
+  useEffect(() => {
+    const queue = interactionSyncRef.current;
+    if (queue.timer !== undefined) window.clearTimeout(queue.timer);
+    queue.timer = undefined;
+    queue.inFlightPatch = {};
+    queue.pending = {};
+    queue.slideId = snapshot?.slide.slideId;
+  }, [sessionId, snapshot?.slide.slideId]);
+
+  useEffect(
+    () => () => {
+      const queue = interactionSyncRef.current;
+      if (queue.timer !== undefined) window.clearTimeout(queue.timer);
+    },
+    []
   );
 
   const refreshLamRuntime = useCallback(async () => {
@@ -191,7 +307,7 @@ export function ClassroomSubsystem() {
       .getClassroomSnapshot(sessionId)
       .then((result) => {
         if (active) {
-          setSnapshot(result);
+          mergeSnapshot(result);
           setError("");
         }
       })
@@ -204,22 +320,17 @@ export function ClassroomSubsystem() {
     return () => {
       active = false;
     };
-  }, [sessionId]);
+  }, [mergeSnapshot, sessionId]);
 
   useEffect(
     () =>
       api.subscribeClassroomSnapshot(
         sessionId,
         (nextSnapshot) => {
-          setSnapshot((current) =>
-            !current ||
-            nextSnapshot.runtimeVersion >= current.runtimeVersion
-              ? nextSnapshot
-              : current
-          );
+          mergeSnapshot(nextSnapshot);
         }
       ),
-    [sessionId]
+    [mergeSnapshot, sessionId]
   );
 
   useEffect(() => {
@@ -249,13 +360,14 @@ export function ClassroomSubsystem() {
     void api
       .sendClassroomEvent(sessionId, {
         type: "set_lam_connection",
-        connected
+        connected,
+        renderer: runtimeConfig.avatar
       })
-      .then(setSnapshot)
+      .then(mergeSnapshot)
       .catch(() => {
         lastReportedLamConnectedRef.current = undefined;
       });
-  }, [lamConnection, sessionId, snapshot?.session.status]);
+  }, [lamConnection, mergeSnapshot, sessionId, snapshot?.session.status]);
 
   useEffect(() => {
     if (snapshot?.session.status !== "live") return;
@@ -263,7 +375,7 @@ export function ClassroomSubsystem() {
     const refresh = async () => {
       try {
         const nextSnapshot = await api.getClassroomSnapshot(sessionId);
-        if (active) setSnapshot(nextSnapshot);
+        if (active) mergeSnapshot(nextSnapshot);
       } catch {
         // A transient presence refresh must not interrupt the teacher's class.
       }
@@ -273,7 +385,7 @@ export function ClassroomSubsystem() {
       active = false;
       window.clearInterval(timer);
     };
-  }, [sessionId, snapshot?.session.status]);
+  }, [mergeSnapshot, sessionId, snapshot?.session.status]);
 
   useEffect(() => {
     const timer = window.setInterval(() => setNow(Date.now()), 1000);
@@ -305,13 +417,14 @@ export function ClassroomSubsystem() {
 
   useEffect(() => {
     if (!snapshot) return;
-    const position = getPortManagementLessonSlidePosition(
-      snapshot.slide.index
-    );
-    if (position) {
-      setSlidePageDraft(String(position.localIndex));
+    if (snapshot.courseId === ECONOMIC_MATHEMATICS_COURSE_ID) {
+      const position = courseDeck?.getLessonPosition(snapshot.slide.index);
+      if (position) setSlidePageDraft(String(position.localIndex));
+      return;
     }
-  }, [snapshot?.slide.index]);
+    const position = getPortManagementLessonSlidePosition(snapshot.slide.index);
+    if (position) setSlidePageDraft(String(position.localIndex));
+  }, [courseDeck, snapshot?.courseId, snapshot?.slide.index]);
 
   const elapsed = useMemo(
     () => (snapshot ? formatElapsed(snapshot.session.startsAt, now) : "00:00:00"),
@@ -319,18 +432,180 @@ export function ClassroomSubsystem() {
   );
 
   async function sendEvent(input: ClassroomEventInput): Promise<boolean> {
-    if (!snapshot || busy) return false;
+    if (!snapshotRef.current || busy) return false;
     setBusy(true);
     setError("");
     try {
-      const nextSnapshot = await api.sendClassroomEvent(snapshot.session.id, input);
-      setSnapshot(nextSnapshot);
+      if (
+        input.type === "previous_slide" ||
+        input.type === "next_slide" ||
+        input.type === "set_slide"
+      ) {
+        const resetInFlight = interactionSyncRef.current.resetInFlight;
+        if (resetInFlight) await resetInFlight;
+        await flushSlideInteractionQueue();
+      }
+      const current = snapshotRef.current;
+      if (!current) return false;
+      const nextSnapshot = await api.sendClassroomEvent(current.session.id, input);
+      mergeSnapshot(nextSnapshot);
       return true;
     } catch (reason) {
       setError((reason as Error).message);
       return false;
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function flushSlideInteractionQueue() {
+    const queue = interactionSyncRef.current;
+    if (queue.timer !== undefined) window.clearTimeout(queue.timer);
+    queue.timer = undefined;
+    if (queue.resetInFlight) {
+      await queue.resetInFlight;
+      return;
+    }
+    if (queue.inFlight) {
+      await queue.inFlight;
+      return flushSlideInteractionQueue();
+    }
+    const current = snapshotRef.current;
+    if (
+      !queue.slideId ||
+      Object.keys(queue.pending).length === 0 ||
+      !current?.slideInteraction ||
+      current.slide.slideId !== queue.slideId ||
+      current.slideInteraction.slideId !== queue.slideId
+    ) {
+      return;
+    }
+
+    const slideId = queue.slideId;
+    const interaction = current.slideInteraction;
+    const patch = queue.pending;
+    queue.pending = {};
+    queue.inFlightPatch = patch;
+    const request = (async () => {
+      try {
+        const nextSnapshot = await api.sendClassroomEvent(current.session.id, {
+          type: "set_slide_interaction",
+          slideId,
+          expectedRevision: interaction.revision,
+          patch
+        });
+        if (
+          snapshotRef.current?.session.id === current.session.id &&
+          snapshotRef.current.slide.slideId === slideId
+        ) {
+          mergeSnapshot(nextSnapshot);
+        }
+      } catch (reason) {
+        setError((reason as Error).message);
+        queue.inFlightPatch = {};
+        try {
+          const latest = await api.getClassroomSnapshot(current.session.id);
+          if (
+            snapshotRef.current?.session.id === current.session.id &&
+            snapshotRef.current.slide.slideId === slideId
+          ) {
+            mergeSnapshot(latest);
+          }
+        } catch {
+          // The existing five-second snapshot poll remains the final recovery path.
+        }
+      }
+    })();
+    queue.inFlight = request;
+    try {
+      await request;
+    } finally {
+      if (queue.inFlight === request) queue.inFlight = undefined;
+      queue.inFlightPatch = {};
+    }
+    if (
+      queue.slideId === snapshotRef.current?.slide.slideId &&
+      Object.keys(queue.pending).length > 0
+    ) {
+      queue.timer = window.setTimeout(
+        () => void flushSlideInteractionQueue(),
+        100
+      );
+    }
+  }
+
+  function previewSlideInteraction(patch: SlideInteractionValues) {
+    const current = snapshotRef.current;
+    const interaction = current?.slideInteraction;
+    if (!current || !interaction || interaction.slideId !== current.slide.slideId) {
+      return;
+    }
+    const queue = interactionSyncRef.current;
+    if (queue.resetInFlight) return;
+    if (queue.slideId !== interaction.slideId) {
+      queue.pending = {};
+      queue.slideId = interaction.slideId;
+    }
+    queue.pending = { ...queue.pending, ...patch };
+    const optimisticSnapshot: ClassroomSnapshot = {
+      ...current,
+      slideInteraction: {
+        ...interaction,
+        values: { ...interaction.values, ...patch }
+      }
+    };
+    snapshotRef.current = optimisticSnapshot;
+    setSnapshot(optimisticSnapshot);
+    if (queue.timer !== undefined) window.clearTimeout(queue.timer);
+    queue.timer = window.setTimeout(
+      () => void flushSlideInteractionQueue(),
+      100
+    );
+  }
+
+  async function resetSlideInteraction() {
+    const queue = interactionSyncRef.current;
+    if (queue.resetInFlight) return queue.resetInFlight;
+    if (queue.timer !== undefined) window.clearTimeout(queue.timer);
+    queue.timer = undefined;
+    queue.pending = {};
+    const resetRequest = (async () => {
+      if (queue.inFlight) await queue.inFlight;
+      if (queue.timer !== undefined) window.clearTimeout(queue.timer);
+      queue.timer = undefined;
+      queue.pending = {};
+      const current = snapshotRef.current;
+      const interaction = current?.slideInteraction;
+      if (
+        !current ||
+        !interaction ||
+        interaction.slideId !== current.slide.slideId
+      ) {
+        return;
+      }
+      try {
+        const nextSnapshot = await api.sendClassroomEvent(current.session.id, {
+          type: "reset_slide_interaction",
+          slideId: interaction.slideId,
+          expectedRevision: interaction.revision
+        });
+        if (
+          snapshotRef.current?.session.id === current.session.id &&
+          snapshotRef.current.slide.slideId === interaction.slideId
+        ) {
+          mergeSnapshot(nextSnapshot);
+        }
+      } catch (reason) {
+        setError((reason as Error).message);
+        const latest = await api.getClassroomSnapshot(current.session.id);
+        mergeSnapshot(latest);
+      }
+    })();
+    queue.resetInFlight = resetRequest;
+    try {
+      await resetRequest;
+    } finally {
+      if (queue.resetInFlight === resetRequest) queue.resetInFlight = undefined;
     }
   }
 
@@ -394,7 +669,7 @@ export function ClassroomSubsystem() {
 
             if (event.type === "control.result") {
               controlApplied = true;
-              setSnapshot(event.result.snapshot);
+              mergeSnapshot(event.result.snapshot);
               const summary = event.result.results
                 .map((item) => item.message)
                 .join("；");
@@ -449,24 +724,25 @@ export function ClassroomSubsystem() {
         }
       }
     },
-    [sessionId]
+    [mergeSnapshot, sessionId]
   );
 
   async function sendTeacherCommand(input: TeacherAvatarCommandInput) {
-    if (!snapshot) return;
+    const current = snapshotRef.current;
+    if (!current) return;
     const response = await api.sendAvatarCommand(
-      snapshot.session.id,
+      current.session.id,
       input
     );
-    setSnapshot((current) =>
-      current
-        ? {
-            ...current,
-            avatar: response.avatar,
-            runtimeVersion: current.runtimeVersion + 1
-          }
-        : current
-    );
+    const latest = snapshotRef.current;
+    if (latest?.session.id === current.session.id) {
+      const optimisticSnapshot = {
+        ...latest,
+        avatar: response.avatar
+      };
+      snapshotRef.current = optimisticSnapshot;
+      setSnapshot(optimisticSnapshot);
+    }
 
     if (input.inputMode === "text") {
       setNotice("教师文字已进入平台课堂助手。");
@@ -528,19 +804,30 @@ export function ClassroomSubsystem() {
       await navigator.clipboard.writeText(inviteUrl);
       setNotice("学生课堂链接已复制；学生打开后才会计入在线人数。");
     } catch {
-      setError("浏览器未允许复制，请从地址栏手动复制课堂链接。");
+      setParticipationOpen(true);
+      setNotice("可在课堂活动面板中选中并复制学生加入链接。");
     }
   }
 
-  async function toggleFullscreen() {
+  const { containerRef: fullscreenRef, isFullscreen, toggleFullscreen, exitFullscreen } =
+    useClassroomFullscreen({
+      canTurnPages: snapshot?.activeActivity === "slides" &&
+        snapshot.session.status === "live" && !busy && !settingsOpen && !endDialogOpen && !participationOpen,
+      pageIndex: snapshot?.slide.index ?? 1,
+      pageTotal: snapshot?.slide.total ?? 1,
+      onPageTurn: (direction) => sendEvent({ type: direction }),
+      onError: setError
+    });
+  const avatarConcealed = isFullscreen ? fullscreenAvatarCollapsed : avatarCollapsed;
+  const setAvatarConcealed = isFullscreen ? setFullscreenAvatarCollapsed : setAvatarCollapsed;
+
+  async function returnToWorkspace() {
     try {
-      if (document.fullscreenElement) {
-        await document.exitFullscreen();
-      } else {
-        await stageFrameRef.current?.requestFullscreen();
-      }
+      await exitFullscreen();
+      await flushSlideInteractionQueue();
+      navigate("/");
     } catch {
-      setError("当前浏览器未允许全屏显示。");
+      setError("暂时无法返回工作台，请重试。");
     }
   }
 
@@ -580,20 +867,53 @@ export function ClassroomSubsystem() {
     );
   }
 
+  const isEconomicMathematics =
+    snapshot.courseId === ECONOMIC_MATHEMATICS_COURSE_ID;
+  if (isEconomicMathematics && !courseDeck) {
+    return (
+      <main className="classroom-subsystem classroom-subsystem--centered">
+        {error ? <CircleAlert size={34} /> : <LoaderCircle className="spin" size={32} />}
+        <p>{error || "正在按需装载经济数学课程注册表"}</p>
+      </main>
+    );
+  }
+
   const isLive = snapshot.session.status === "live";
   const isSlides = snapshot.activeActivity === "slides";
-  const isGlobe = snapshot.activeActivity === "globe";
-  const isSimulation = snapshot.activeActivity === "simulation";
+  const isGlobe =
+    !isEconomicMathematics && snapshot.activeActivity === "globe";
+  const isSimulation =
+    !isEconomicMathematics && snapshot.activeActivity === "simulation";
   const isOpeningLaunchSlide =
-    isSlides && snapshot.slide.slideId === OPENING_GLOBE_CUE?.startSlideKey;
+    !isEconomicMathematics &&
+    isSlides &&
+    snapshot.slide.slideId === OPENING_GLOBE_CUE?.startSlideKey;
   const lamConnected = isLamConnected(lamConnection);
   const openingReturnSlide =
-    OPENING_GLOBE_CUE
+    !isEconomicMathematics && OPENING_GLOBE_CUE
       ? getPortManagementSlideByKey(OPENING_GLOBE_CUE.returnSlideKey)
       : undefined;
-  const slidePosition = getPortManagementLessonSlidePosition(
-    snapshot.slide.index
-  )!;
+  const slidePosition = isEconomicMathematics
+    ? courseDeck!.getLessonPosition(snapshot.slide.index)!
+    : getPortManagementLessonSlidePosition(snapshot.slide.index)!;
+  const lessonOptions = isEconomicMathematics
+    ? courseDeck!.lessons.map((lesson) => ({
+        number: lesson.number,
+        label: `第${lesson.number}讲`,
+        title: lesson.title,
+        slideStart: lesson.slideStart,
+        status: lesson.status
+      }))
+    : PORT_MANAGEMENT_LESSONS.map((lesson) => ({
+        number: lesson.number,
+        label: lesson.label,
+        title: lesson.title,
+        slideStart: lesson.slideStart,
+        status: lesson.status
+      }));
+  const visibleActivityTabs = isEconomicMathematics
+    ? activityTabs.filter((tab) => tab.id === "slides")
+    : activityTabs;
 
   async function commitSlidePageInput() {
     if (!snapshot) return;
@@ -615,10 +935,12 @@ export function ClassroomSubsystem() {
     }
 
     const localIndex = Number(rawValue);
-    const globalIndex = getPortManagementGlobalSlideIndex(
-      slidePosition.lessonNumber,
-      localIndex
-    );
+    const globalIndex = isEconomicMathematics
+      ? courseDeck!.getGlobalIndex(slidePosition.lessonNumber, localIndex)
+      : getPortManagementGlobalSlideIndex(
+          slidePosition.lessonNumber,
+          localIndex
+        );
     if (globalIndex === null) {
       restoreCurrentValue();
       setError(
@@ -644,7 +966,7 @@ export function ClassroomSubsystem() {
       <header className="classroom-commandbar">
         <div className="classroom-commandbar__course">
           <Link className="classroom-brand-mark" to="/" aria-label="返回教学中枢">
-            <ShipWheel size={23} />
+            {isEconomicMathematics ? <Sparkles size={23} /> : <ShipWheel size={23} />}
           </Link>
           <div>
             <strong>{snapshot.courseTitle}</strong>
@@ -710,11 +1032,14 @@ export function ClassroomSubsystem() {
       )}
 
       <div
+        ref={fullscreenRef}
+        tabIndex={-1}
         className={[
           "classroom-workspace",
-          avatarCollapsed
+          avatarConcealed
             ? "classroom-workspace--avatar-collapsed"
             : "",
+          isFullscreen ? "classroom-workspace--fullscreen" : "",
           isGlobe ? "classroom-workspace--globe" : "",
           isSimulation ? "classroom-workspace--simulation" : ""
         ]
@@ -723,7 +1048,7 @@ export function ClassroomSubsystem() {
       >
         <section className="teaching-runtime" aria-label="课堂教学主舞台">
           <nav className="classroom-activity-tabs" aria-label="课堂活动">
-            {activityTabs.map((tab) => {
+            {visibleActivityTabs.map((tab) => {
               const Icon = tab.icon;
               const active = snapshot.activeActivity === tab.id;
               return (
@@ -734,21 +1059,41 @@ export function ClassroomSubsystem() {
                   disabled={busy}
                   key={tab.id}
                   onClick={() =>
-                    void sendEvent({ type: "set_activity", activity: tab.id })
+                    tab.id === "interaction" ? setParticipationOpen(true) : void sendEvent({ type: "set_activity", activity: tab.id })
                   }
                 >
                   <Icon size={18} /> {tab.label}
                 </button>
               );
             })}
+            {isEconomicMathematics && <button type="button" className="classroom-activity-tab" onClick={() => setParticipationOpen(true)}><UsersRound size={18} />课堂活动</button>}
             <span className="runtime-version">课堂状态 v{snapshot.runtimeVersion}</span>
           </nav>
 
           <div
-            ref={stageFrameRef}
-            className={`teaching-stage-frame ${pointerActive ? "teaching-stage-frame--pointer" : ""} ${
-              annotationActive ? "teaching-stage-frame--annotation" : ""
+            className={`teaching-stage-frame ${!isEconomicMathematics && pointerActive ? "teaching-stage-frame--pointer" : ""} ${
+              !isEconomicMathematics && annotationActive ? "teaching-stage-frame--annotation" : ""
             }`}
+            onBlurCapture={(event) => {
+              if (event.target instanceof HTMLInputElement && event.target.type === "range") {
+                void flushSlideInteractionQueue();
+              }
+            }}
+            onKeyUpCapture={(event) => {
+              if (event.target instanceof HTMLInputElement && event.target.type === "range") {
+                void flushSlideInteractionQueue();
+              }
+            }}
+            onPointerCancelCapture={(event) => {
+              if (event.target instanceof HTMLInputElement && event.target.type === "range") {
+                void flushSlideInteractionQueue();
+              }
+            }}
+            onPointerUpCapture={(event) => {
+              if (event.target instanceof HTMLInputElement && event.target.type === "range") {
+                void flushSlideInteractionQueue();
+              }
+            }}
           >
             {isSimulation ? (
               <Suspense
@@ -762,11 +1107,17 @@ export function ClassroomSubsystem() {
                 <ClassroomPortSimulationStage
                   sessionId={sessionId}
                   classroomSnapshot={snapshot}
-                  onClassroomSnapshot={setSnapshot}
+                  onClassroomSnapshot={mergeSnapshot}
                 />
               </Suspense>
             ) : isSlides ? (
-              <SlideStage frame={snapshot.slide} />
+              <SlideStage
+                frame={snapshot.slide}
+                interaction={snapshot.slideInteraction}
+                onInteractionPatch={previewSlideInteraction}
+                onInteractionReset={() => void resetSlideInteraction()}
+                readOnly={false}
+              />
             ) : isGlobe ? (
               <Suspense
                 fallback={
@@ -805,12 +1156,12 @@ export function ClassroomSubsystem() {
                 frame={snapshot.slide}
               />
             )}
-            {pointerActive && (
+            {!isEconomicMathematics && pointerActive && (
               <div className="teacher-pointer-indicator" aria-hidden="true">
                 <MousePointer2 size={22} />
               </div>
             )}
-            {annotationActive && (
+            {!isEconomicMathematics && annotationActive && (
               <div className="annotation-mode-indicator">
                 <Highlighter size={15} /> 批注模式
               </div>
@@ -827,22 +1178,34 @@ export function ClassroomSubsystem() {
                 <div>
                   <button
                     type="button"
-                    disabled={busy || snapshot.globePlayback.status !== "playing"}
-                    onClick={() => void sendEvent({ type: "globe_pause" })}
+                    disabled={
+                      busy ||
+                      snapshot.globePlayback.status !== "playing"
+                    }
+                    onClick={() =>
+                      void sendEvent({ type: "globe_pause" })
+                    }
                   >
                     <Pause size={17} /> 暂停
                   </button>
                   <button
                     type="button"
-                    disabled={busy || snapshot.globePlayback.status !== "paused"}
-                    onClick={() => void sendEvent({ type: "globe_resume" })}
+                    disabled={
+                      busy ||
+                      snapshot.globePlayback.status !== "paused"
+                    }
+                    onClick={() =>
+                      void sendEvent({ type: "globe_resume" })
+                    }
                   >
                     <Play size={17} /> 继续
                   </button>
                   <button
                     type="button"
                     disabled={busy}
-                    onClick={() => void sendEvent({ type: "globe_restart" })}
+                    onClick={() =>
+                      void sendEvent({ type: "globe_restart" })
+                    }
                   >
                     <RotateCcw size={17} /> 重新播放
                   </button>
@@ -862,6 +1225,7 @@ export function ClassroomSubsystem() {
                   </button>
                   <button
                     type="button"
+                    aria-label="全屏"
                     onClick={() => void toggleFullscreen()}
                   >
                     <Maximize2 size={17} /> 全屏
@@ -872,7 +1236,7 @@ export function ClassroomSubsystem() {
               <div className="simulation-classroom-footer">
                 <span><FlaskConical size={17} /> 登录后本地单机</span>
                 <span>每名学生独立体验四岗位 · 运行时无长连接</span>
-                <button type="button" onClick={() => void toggleFullscreen()}>
+                <button type="button" aria-label="全屏" onClick={() => void toggleFullscreen()}>
                   <Maximize2 size={17} /> 全屏
                 </button>
               </div>
@@ -956,7 +1320,7 @@ export function ClassroomSubsystem() {
                 disabled={busy}
                 value={snapshot.slide.lessonNumber}
                 onChange={(event) => {
-                  const selectedLesson = PORT_MANAGEMENT_LESSONS.find(
+                  const selectedLesson = lessonOptions.find(
                     (lesson) => lesson.number === Number(event.target.value)
                   );
                   if (
@@ -973,7 +1337,7 @@ export function ClassroomSubsystem() {
                   });
                 }}
               >
-                {PORT_MANAGEMENT_LESSONS.map((lesson) => (
+                {lessonOptions.map((lesson) => (
                   <option
                     disabled={lesson.status === "planned"}
                     key={lesson.number}
@@ -989,34 +1353,39 @@ export function ClassroomSubsystem() {
             </label>
 
             <div className="stage-tool-controls">
-              <button
-                type="button"
-                className={pointerActive ? "stage-tool-button stage-tool-button--active" : "stage-tool-button"}
-                aria-pressed={pointerActive}
-                onClick={() => setPointerActive((active) => !active)}
-              >
-                <MousePointer2 size={17} /> <span>指针</span>
-              </button>
-              <button
-                type="button"
-                className={annotationActive ? "stage-tool-button stage-tool-button--active" : "stage-tool-button"}
-                aria-pressed={annotationActive}
-                onClick={() => setAnnotationActive((active) => !active)}
-              >
-                <Highlighter size={17} /> <span>批注</span>
-              </button>
+              {!isEconomicMathematics && (
+                <>
+                  <button
+                    type="button"
+                    className={pointerActive ? "stage-tool-button stage-tool-button--active" : "stage-tool-button"}
+                    aria-pressed={pointerActive}
+                    onClick={() => setPointerActive((active) => !active)}
+                  >
+                    <MousePointer2 size={17} /> <span>指针</span>
+                  </button>
+                  <button
+                    type="button"
+                    className={annotationActive ? "stage-tool-button stage-tool-button--active" : "stage-tool-button"}
+                    aria-pressed={annotationActive}
+                    onClick={() => setAnnotationActive((active) => !active)}
+                  >
+                    <Highlighter size={17} /> <span>批注</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="stage-tool-button"
+                    onClick={() =>
+                      setParticipationOpen(true)
+                    }
+                  >
+                    <UsersRound size={17} /> <span>学生互动</span>
+                  </button>
+                </>
+              )}
               <button
                 type="button"
                 className="stage-tool-button"
-                onClick={() =>
-                  void sendEvent({ type: "set_activity", activity: "interaction" })
-                }
-              >
-                <UsersRound size={17} /> <span>学生互动</span>
-              </button>
-              <button
-                type="button"
-                className="stage-tool-button"
+                aria-label="全屏"
                 onClick={() => void toggleFullscreen()}
               >
                 <Maximize2 size={17} /> <span>全屏</span>
@@ -1030,19 +1399,19 @@ export function ClassroomSubsystem() {
         <aside
           className={[
             "classroom-avatar-dock",
-            avatarCollapsed ? "classroom-avatar-dock--collapsed" : "",
+            avatarConcealed ? "classroom-avatar-dock--collapsed" : "",
             isGlobe ? "classroom-avatar-dock--cinematic" : "",
             isSimulation ? "classroom-avatar-dock--simulation" : ""
           ]
             .filter(Boolean)
             .join(" ")}
         >
-          {avatarCollapsed ? (
+          {avatarConcealed ? (
             <div className="collapsed-avatar-controls">
               <button
                 type="button"
-                aria-label="展开港航教学助手"
-                onClick={() => setAvatarCollapsed(false)}
+                aria-label={`展开${isEconomicMathematics ? "经数助教" : "港航教学助手"}`}
+                onClick={() => setAvatarConcealed(false)}
               >
                 <ChevronLeft size={19} />
               </button>
@@ -1051,7 +1420,7 @@ export function ClassroomSubsystem() {
               <button
                 type="button"
                 aria-label="展开语音输入"
-                onClick={() => setAvatarCollapsed(false)}
+                onClick={() => setAvatarConcealed(false)}
               >
                 <Mic size={19} />
               </button>
@@ -1059,15 +1428,16 @@ export function ClassroomSubsystem() {
           ) : (
             <header className="avatar-dock-header">
               <div>
-                <strong>港航教学助手</strong>
+                <strong>{isEconomicMathematics ? "经数助教" : "港航教学助手"}</strong>
                 <span>
                   <i className={lamConnected ? "" : "avatar-state-dot--error"} />
-                  LAM 实时数字人
+                  {runtimeConfig.avatar === "browser" ? "本机数字人" : "LAM 实时数字人"}
                 </span>
               </div>
               <button
                 type="button"
-                onClick={() => setAvatarCollapsed(true)}
+                aria-label={isFullscreen ? "收起数字人浮窗" : "收起数字人"}
+                onClick={() => setAvatarConcealed(true)}
               >
                 收起 <ChevronRight size={16} />
               </button>
@@ -1077,13 +1447,13 @@ export function ClassroomSubsystem() {
           <LamAvatarSurface
             ref={lamAvatarRef}
             runtime={lamRuntime}
-            concealed={avatarCollapsed}
+            concealed={avatarConcealed}
             onConnectionStateChange={setLamConnection}
             onHumanTranscript={handleHumanTranscript}
             onRetry={() => void refreshLamRuntime()}
           />
 
-          {!avatarCollapsed && (
+          {!avatarConcealed && (
             <>
               <section
                 className="avatar-subtitle-panel"
@@ -1138,7 +1508,7 @@ export function ClassroomSubsystem() {
               <footer className="avatar-runtime-footer">
                 <span>
                   <MonitorPlay size={15} />
-                  {lamConnected
+                  {runtimeConfig.avatar === "browser" ? "数字人在本机播放 · AI 由校园服务器代理" : lamConnected
                     ? `OpenAvatarChat 已连接${lamRuntime?.version ? ` · ${lamRuntime.version}` : ""}`
                     : lamRuntime?.message ?? "OpenAvatarChat 未连接"}
                 </span>
@@ -1158,6 +1528,30 @@ export function ClassroomSubsystem() {
             </>
           )}
         </aside>
+        <TeacherParticipation key={sessionId} sessionId={sessionId} open={participationOpen} onClose={closeParticipation} />
+        {isFullscreen && (
+          <>
+            <ClassroomFullscreenControls
+              activity={snapshot.activeActivity}
+              allowedActivities={visibleActivityTabs.map((tab) => tab.id)}
+              busy={busy}
+              isLive={isLive}
+              pageIndex={snapshot.slide.index}
+              pageTotal={snapshot.slide.total}
+              localIndex={slidePosition.localIndex}
+              localTotal={slidePosition.localTotal}
+              lessonNumber={slidePosition.lessonNumber}
+              avatarCollapsed={avatarConcealed}
+              onPageTurn={(direction) => void sendEvent({ type: direction })}
+              onActivityChange={(activity) => void sendEvent({ type: "set_activity", activity })}
+              onToggleAvatar={() => setFullscreenAvatarCollapsed((collapsed) => !collapsed)}
+              onExit={() => void toggleFullscreen()}
+              onWorkspace={() => void returnToWorkspace()}
+              onParticipation={() => setParticipationOpen(true)}
+            />
+            {(error || notice) && <div className="fullscreen-classroom-notice" role="status">{error || notice}</div>}
+          </>
+        )}
       </div>
 
       {settingsOpen && (

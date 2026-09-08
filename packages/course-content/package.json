@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./deck-registry": "./src/deck-registry.ts",
+    "./economic-mathematics": "./src/economic-mathematics/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

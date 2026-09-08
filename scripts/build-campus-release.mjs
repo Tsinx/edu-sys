@@ -1,0 +1,21 @@
+import { build } from "esbuild";
+import { cp, mkdir, readFile, writeFile } from "node:fs/promises";
+import { resolve, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
+const root=resolve(fileURLToPath(new URL("..",import.meta.url)));
+const destination=resolve(process.argv[2] ?? join(root,"output",`campus-server-${new Date().toISOString().replace(/[^0-9]/g,"")}`));
+await mkdir(destination,{recursive:false});
+const dependencies=JSON.parse(await readFile(join(root,"apps/platform-api/package.json"),"utf8")).dependencies;
+const external=Object.keys(dependencies).filter(name=>!name.startsWith("@edu/"));
+await build({entryPoints:{server:join(root,"apps/platform-api/src/server.ts"),admin:join(root,"apps/platform-api/src/campus/admin.ts")},
+  outdir:destination,outExtension:{".js":".mjs"},bundle:true,platform:"node",format:"esm",target:"node24",external,logLevel:"warning"});
+await cp(join(root,"apps/teacher-web/dist"),join(destination,"web"),{recursive:true});
+await cp(join(root,"deploy/campus"),destination,{recursive:true});
+await cp(join(root,"docs/campus-deployment.md"),join(destination,"DEPLOYMENT.md"));
+await cp(join(root,"docs/architecture.md"),join(destination,"ARCHITECTURE.md"));
+await writeFile(join(destination,"package.json"),JSON.stringify({name:"edu-campus-server",version:"1.0.0",private:true,type:"module",engines:{node:">=24"},scripts:{start:"node server.mjs",accounts:"node admin.mjs list"},dependencies:Object.fromEntries(external.map(name=>[name,dependencies[name]]))},null,2));
+await writeFile(join(destination,"release.json"),JSON.stringify({createdAt:new Date().toISOString(),web:JSON.parse(await readFile(join(destination,"web/offline-manifest.json"),"utf8")).releaseId,requiresGpu:false,requiresSubmodules:false},null,2));
+const npm=spawnSync(process.platform==="win32"?"npm.cmd":"npm",["install","--package-lock-only","--ignore-scripts","--no-audit","--no-fund"],{cwd:destination,stdio:"inherit",shell:process.platform==="win32"});
+if(npm.status!==0)throw new Error("运行依赖锁文件生成失败，不能交付该运行包。");
+console.log(destination);

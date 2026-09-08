@@ -1,6 +1,7 @@
 import type {
   AssistantTurnEvent,
   AssistantTurnInput,
+  AvatarCuePack,
   AvatarControlCapabilities,
   AvatarControlRequest,
   AvatarControlResponse,
@@ -13,8 +14,14 @@ import type {
   ClassroomSnapshot,
   ClassSession,
   Course,
+  CreateStudySessionInput,
   CreateCourseInput,
   Dashboard,
+  StudyAsrInput,
+  StudyAsrResult,
+  StudyAssistantTurnEvent,
+  StudySession,
+  UpdateStudyProgressInput,
   LamRuntimeStatus,
   PortSimulationCollaborationCreateInput,
   PortSimulationCollaborationResponse,
@@ -41,11 +48,14 @@ import type {
   TeacherAvatarCommandResponse,
   Teacher
 } from "@edu/contracts";
+import { cachedRequest } from "./campus/offline-api";
 import {
   assistantTurnEventSchema,
+  avatarCuePackSchema,
   classroomSnapshotSchema,
   portSimulationStreamMessageSchema,
-  portSimulationTeamSnapshotSchema
+  portSimulationTeamSnapshotSchema,
+  studyAssistantTurnEventSchema
 } from "@edu/contracts";
 
 export class ApiError extends Error {
@@ -65,11 +75,12 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
           "Content-Type": "application/json",
           ...init.headers
         };
-  const response = await fetch(path, {
+  const options:RequestInit={
     ...init,
     headers,
     credentials: "same-origin"
-  });
+  };
+  const response = await cachedRequest(path,options,()=>fetch(path,options));
   if (response.status === 204) {
     return undefined as T;
   }
@@ -138,6 +149,65 @@ async function streamAssistantTurn(
         for (const line of block.split("\n")) {
           if (!line.startsWith("data:")) continue;
           const event = assistantTurnEventSchema.parse(
+            JSON.parse(line.slice(5).trimStart()) as unknown
+          );
+          onEvent(event);
+        }
+        boundary = buffer.indexOf("\n\n");
+      }
+      if (done) break;
+    }
+  } finally {
+    reader.releaseLock();
+  }
+}
+
+async function streamStudyAssistantTurn(
+  id: string,
+  input: AssistantTurnInput,
+  onEvent: (event: StudyAssistantTurnEvent) => void,
+  signal?: AbortSignal
+): Promise<void> {
+  const response = await fetch(
+    `/api/study-sessions/${id}/assistant/turns`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(input),
+      credentials: "same-origin",
+      signal
+    }
+  );
+  if (!response.ok) {
+    let message = "课下学习助手请求失败";
+    try {
+      const payload = (await response.json()) as { message?: unknown };
+      if (typeof payload.message === "string") message = payload.message;
+    } catch {
+      // Keep the stable fallback for a non-JSON gateway error.
+    }
+    throw new ApiError(message, response.status);
+  }
+  if (!response.body) {
+    throw new ApiError("浏览器未收到课下学习助手流", 502);
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      buffer += decoder.decode(value, { stream: !done });
+      buffer = buffer.replace(/\r\n/gu, "\n");
+
+      let boundary = buffer.indexOf("\n\n");
+      while (boundary >= 0) {
+        const block = buffer.slice(0, boundary);
+        buffer = buffer.slice(boundary + 2);
+        for (const line of block.split("\n")) {
+          if (!line.startsWith("data:")) continue;
+          const event = studyAssistantTurnEventSchema.parse(
             JSON.parse(line.slice(5).trimStart()) as unknown
           );
           onEvent(event);
@@ -230,7 +300,13 @@ function subscribePortSimulationEventStream(
   };
 }
 
+async function getAvatarCuePack(manifestUrl: string): Promise<AvatarCuePack> {
+  const payload = await request<unknown>(manifestUrl);
+  return avatarCuePackSchema.parse(payload);
+}
+
 export const api = {
+  login: (username:string,password:string)=>request<ClassroomIdentitySession>("/api/identity/login",{method:"POST",body:JSON.stringify({username,password})}),
   getIdentitySession: () =>
     request<ClassroomIdentitySession>("/api/identity/session"),
   createDevelopmentIdentitySession: (
@@ -247,6 +323,25 @@ export const api = {
   getDashboard: () => request<Dashboard>("/api/dashboard"),
   getCourses: () => request<Course[]>("/api/courses"),
   getCourse: (id: string) => request<Course>(`/api/courses/${id}`),
+  createStudySession: (input: CreateStudySessionInput) =>
+    request<StudySession>("/api/study-sessions", {
+      method: "POST",
+      body: JSON.stringify(input)
+    }),
+  getStudySession: (id: string) =>
+    request<StudySession>(`/api/study-sessions/${id}`),
+  updateStudyProgress: (id: string, input: UpdateStudyProgressInput) =>
+    request<StudySession>(`/api/study-sessions/${id}/progress`, {
+      method: "PATCH",
+      body: JSON.stringify(input)
+    }),
+  transcribeStudyAudio: (id: string, input: StudyAsrInput) =>
+    request<StudyAsrResult>(`/api/study-sessions/${id}/asr`, {
+      method: "POST",
+      body: JSON.stringify(input)
+    }),
+  streamStudyAssistantTurn,
+  getAvatarCuePack,
   getSessions: () => request<ClassSession[]>("/api/class-sessions"),
   getSession: (id: string) => request<ClassSession>(`/api/class-sessions/${id}`),
   getClassroomSnapshot: (id: string) =>

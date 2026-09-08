@@ -2,11 +2,22 @@
 
 面向完整教学流程的模块化系统，规划覆盖课堂 Slides、自研模拟软件、教学管理、学习评价与数字人交互。
 
+## 校园单 PC 部署（当前默认生产架构）
+
+生产模式采用 HTTPS 入口、一个 Node API 进程和本机 SQLite。师生浏览器运行仿真、课件与轻量数字人，缓存课程资源并保存个人存档；校园服务器处理账号、课堂记录、同步及服务商 API 代理。服务器无需 GPU 或 OpenAvatarChat 运行环境。
+
+```powershell
+pnpm install --frozen-lockfile
+pnpm build:campus
+```
+
+运行包生成在 `output/campus-server-*`，包含编译后的服务端、网页、运行依赖锁文件、账号工具和配置示例。部署机器只需安装运行依赖，无需复制源码或子模块。详见 [当前架构](docs/architecture.md) 与 [服务器部署及验收说明](docs/campus-deployment.md)。下方 `pnpm dev` 和 OpenAvatarChat 章节属于开发/增强模式，不是校园服务器部署步骤。
+
 ## 当前已接入
 
 - `apps/teacher-web`：可交互的教师系统入口，包含课程、课堂、模拟实验、教学评价、资源中心与个人设置路由。
 - `apps/teacher-web/src/features/classroom`：独立课堂教学子系统，包含固定 16:10 Slides 运行时、真实心跳在线人数、课堂活动切换、手动语音/文字指令和 OpenAvatarChat LAM/Barbara 渲染。
-- `apps/platform-api`：教师、课程、课堂运行状态与双模式数字人调度 API；开发阶段使用可替换的本地 JSON 持久化适配器。
+- `apps/platform-api`：教师、课程、课堂运行状态、账号和 AI 代理；校园模式使用 SQLite，开发模式保留 JSON 适配器。
 - `packages/contracts`：前后端共享的 Zod 运行时契约与 TypeScript 类型。
 - 平台课堂助手：模型返回结构化 JSON 流，服务端实时只提取 `dialogue`，完整校验后才执行 `edu.classroom.control/1.0` 白名单动作。
 - `components/openavatarchat`：官方 OpenAvatarChat Git 子模块，包含 WebUI、LAM、LiteAvatar 及其递归依赖。

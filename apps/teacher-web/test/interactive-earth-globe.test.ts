@@ -88,6 +88,26 @@ test("globe renders an accessible loading shell without browser globals", () => 
   assert.doesNotMatch(markup, /teachingCue|assistantCue|让学生/u);
 });
 
+test("globe exposes a declarative moving vessel and camera-follow contract", () => {
+  const markup = renderToStaticMarkup(
+    createElement(InteractiveEarthGlobe, {
+      movingVessel: {
+        id: "canton-silk-vessel",
+        coordinate: { latitude: 22.65, longitude: 113.65 },
+        headingTo: { latitude: 2.5, longitude: 101.45 },
+        progress: 0.18
+      },
+      cameraTrackingCoordinate: {
+        latitude: 22.65,
+        longitude: 113.65
+      }
+    })
+  );
+
+  assert.match(markup, /data-moving-vessel="canton-silk-vessel"/u);
+  assert.match(markup, /data-camera-tracking="true"/u);
+});
+
 test("opening trade route uses fixed waypoints and passes land QA", () => {
   assert.equal(openingTradeRouteData.schemaVersion, 1);
   assert.deepEqual(

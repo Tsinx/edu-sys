@@ -41,7 +41,7 @@ export interface LamAvatarController {
   isConnected: () => boolean;
 }
 
-interface LamAvatarSurfaceProps {
+export interface LamAvatarSurfaceProps {
   runtime: LamRuntimeStatus | undefined;
   concealed?: boolean;
   onConnectionStateChange: (state: LamConnectionState) => void;

@@ -56,7 +56,7 @@ export function AuthenticatedLocalPortSimulationPage() {
       actorDisplayName={actor.displayName}
       storageScope={`standalone:${actor.actorId}`}
       initialChallengeId="joint-watch"
-      sourceLabel={`${actor.identitySource === "development" ? "开发身份" : "教学信息系统身份"}已确认`}
+      sourceLabel={`${actor.identitySource === "development" ? "开发身份" : "校园账号"}已确认`}
     />
   );
 }

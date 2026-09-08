@@ -1,0 +1,13 @@
+# 将域名及证书路径改为学校分配的值。后端只绑定本机回环接口。
+classroom.example.edu {
+    tls ./certs/fullchain.pem ./certs/private-key.pem
+    encode zstd gzip
+    header {
+        X-Content-Type-Options nosniff
+        Referrer-Policy same-origin
+        X-Frame-Options SAMEORIGIN
+    }
+    reverse_proxy 127.0.0.1:4300 {
+        flush_interval -1
+    }
+}

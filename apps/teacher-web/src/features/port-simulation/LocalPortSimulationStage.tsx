@@ -44,6 +44,8 @@ import {
   type LocalPortSimulationRunSave
 } from "./local-port-simulation";
 import { PortSimulationWorkspace } from "./PortSimulationWorkspace";
+import { IndexedSimulationStorage, restoreCloudRecords } from "../../campus/sync";
+import { getRecords } from "../../campus/storage";
 
 export interface LocalPortSimulationStageProps {
   actorId: string;
@@ -52,15 +54,6 @@ export interface LocalPortSimulationStageProps {
   initialChallengeId?: PortSimulationChallengeId;
   challengeLocked?: boolean;
   sourceLabel?: string;
-}
-
-function localStorageOrNull() {
-  if (typeof window === "undefined") return null;
-  try {
-    return window.localStorage;
-  } catch {
-    return null;
-  }
 }
 
 function createRunId() {
@@ -161,15 +154,34 @@ function roleResponsibility(role: PortSimulationRole) {
   return "堆场批次、闸口通道与集卡压力";
 }
 
-export function LocalPortSimulationStage({
+export function LocalPortSimulationStage(props:LocalPortSimulationStageProps) {
+  const [storage,setStorage]=useState<IndexedSimulationStorage>();
+  const [error,setError]=useState("");
+  useEffect(()=>{
+    let active=true;
+    void (async()=>{
+      if(!(await getRecords(props.actorId)).length && !import.meta.env.DEV) {
+        try {await restoreCloudRecords(props.actorId);} catch { /* A new offline run remains available. */ }
+      }
+      const next=await IndexedSimulationStorage.create(props.actorId,props.storageScope);
+      if(active)setStorage(next);
+    })().catch(reason=>{if(active)setError((reason as Error).message);});
+    return()=>{active=false;};
+  },[props.actorId,props.storageScope]);
+  if(error)return <section className="port-local-auth-state" role="alert"><h1>本机存档暂不可用</h1><p>{error}</p><p>请检查浏览器存储空间和隐私模式后重新打开。</p></section>;
+  if(!storage)return <section className="port-local-auth-state" role="status">正在读取本机存档…</section>;
+  return <LocalPortSimulationRunner {...props} storage={storage}/>;
+}
+
+export function LocalPortSimulationRunner({
   actorId,
   actorDisplayName,
   storageScope,
   initialChallengeId = "joint-watch",
   challengeLocked = false,
-  sourceLabel = "登录身份已确认"
-}: LocalPortSimulationStageProps) {
-  const storage = useMemo(localStorageOrNull, []);
+  sourceLabel = "登录身份已确认",
+  storage
+}: LocalPortSimulationStageProps & {storage:IndexedSimulationStorage|null}) {
   const [history, setHistory] = useState<LocalPortSimulationAttemptSummary[]>(
     () => (storage ? loadLocalPortSimulationHistory(storage, storageScope) : [])
   );
@@ -263,7 +275,7 @@ export function LocalPortSimulationStage({
       try {
         const save = { ...run, savedAt: new Date().toISOString() };
         saveLocalPortSimulationRun(storage, storageScope, save);
-        setLastSavedAt(save.savedAt);
+        void storage.flush().then(()=>setLastSavedAt(save.savedAt)).catch(()=>setError("浏览器未能写入本地存档；请立即导出当前实验。"));
       } catch {
         setError("浏览器未能写入本地存档；本页关闭后进度可能丢失。");
       }
@@ -516,7 +528,7 @@ export function LocalPortSimulationStage({
           ) : null}
           <button type="button" onClick={exportReview}><Download aria-hidden="true" /> 导出复盘</button>
         </div>
-        <p>{sourceLabel} · 本轮不建立小组、不发送实时命令、不上传过程状态。</p>
+        <p>{sourceLabel} · 仿真在本机运行，存档检查点定期同步。</p>
       </section>
 
       <section className="port-local-simulation__roles" aria-label="四岗位切换">

@@ -1,4 +1,5 @@
 import { createHash, randomUUID } from "node:crypto";
+import { CampusStateRepository } from "./campus/state-repository.js";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
 import {
@@ -18,6 +19,7 @@ import {
   type Course,
   type CreateCourseInput,
   type Dashboard,
+  type AvatarPresentation,
   type PortSimulationClassroomSummary,
   type PortSimulationChallengeId,
   type PortSimulationCollaborationItem,
@@ -49,10 +51,16 @@ import {
   type PortSimulationTimeSync,
   type TeacherAvatarCommandInput,
   type TeacherAvatarCommandResponse,
+  type StudyAssistantAction,
+  type StudyNavigationResult,
+  type StudySession,
+  type UpdateStudyProgressInput,
   type Teacher
 } from "@edu/contracts";
 import {
+  getPortManagementGlobalSlideIndex,
   getPortManagementLesson,
+  getPortManagementLessonSlidePosition,
   getPortManagementGlobeCue,
   getPortManagementSlide,
   getPortManagementSlideByKey,
@@ -60,6 +68,8 @@ import {
   PORT_MANAGEMENT_DECK_VERSION,
   PORT_MANAGEMENT_SLIDE_TOTAL
 } from "@edu/course-content";
+import { ECONOMIC_MATHEMATICS_COURSE_ID } from "@edu/course-content/economic-mathematics";
+import { getCourseDeckByCourseId } from "@edu/course-content/deck-registry";
 import {
   DEFAULT_PORT_SIMULATION_CHALLENGE_ID,
   PORT_SIMULATION_ROLE_LABELS,
@@ -108,6 +118,25 @@ interface IssuedPortSimulationStateHash {
 }
 
 const PORT_SIMULATION_STATE_HASH_GRACE_MS = 20_000;
+
+export const LANZHOU_CHARACTER_VERSION = "1.1.0";
+export const LANZHOU_MANIFEST_URL = "/avatar/lanzhou/v1/manifest.json";
+export const PORT_MANAGEMENT_STUDY_COURSE_ID =
+  "course-port-management-intro";
+
+function studyAvatarPresentation(sessionId: string): AvatarPresentation {
+  return {
+    id: `avatar-presentation-${sessionId}`,
+    mode: "selfstudy_prerecorded",
+    requiresGpu: false,
+    status: "ready",
+    message:
+      "澜舟课下助手已就绪；B版角色、十一段预录动作、准确字幕与专属音色均不占用实时渲染GPU。",
+    characterId: "lanzhou",
+    characterVersion: LANZHOU_CHARACTER_VERSION,
+    manifestUrl: LANZHOU_MANIFEST_URL
+  };
+}
 
 /**
  * Produce the most even legal 4-6 person grouping. Seven students is the
@@ -178,20 +207,23 @@ export class JsonStateStore {
     PortSimulationCanonicalEvent
   >();
   private readonly eventRepository: PortSimulationEventRepository;
+  private readonly campusState?: CampusStateRepository;
 
   constructor(
     private readonly dataFile: string,
     private readonly presenceTtlMs = 45_000,
-    eventDatabaseFile = `${dataFile}.simulation.sqlite`
+    eventDatabaseFile = `${dataFile}.simulation.sqlite`,
+    stateDatabaseFile?: string
   ) {
     this.eventRepository = new PortSimulationEventRepository(eventDatabaseFile);
+    if (stateDatabaseFile) this.campusState = new CampusStateRepository(stateDatabaseFile);
   }
 
   async initialize(): Promise<void> {
     await mkdir(dirname(this.dataFile), { recursive: true });
     try {
-      const raw = await readFile(this.dataFile, "utf8");
-      const parsed = JSON.parse(raw) as PlatformState;
+      const persisted = this.campusState?.load();
+      const parsed = persisted ?? JSON.parse(await readFile(this.dataFile, "utf8")) as PlatformState;
       let runtimeStateChanged = false;
       const classroomRuntimes: Record<string, ClassroomRuntimeState> = {};
       for (const [sessionId, runtime] of Object.entries(
@@ -218,55 +250,91 @@ export class JsonStateStore {
           typeof sanitizedRuntime.slideIndex === "number"
             ? sanitizedRuntime.slideIndex
             : 1;
+        const classroomSession = parsed.classSessions.find(
+          (candidate) => candidate.id === sessionId
+        );
+        // Historical classrooms keep their original content identity on restart.
+        if (classroomSession?.status === "completed") {
+          classroomRuntimes[sessionId] = { ...sanitizedRuntime, avatarControlHistory } as ClassroomRuntimeState;
+          continue;
+        }
+        const runtimeCourseId = classroomSession?.courseId;
+        const runtimeDeck = runtimeCourseId
+          ? getCourseDeckByCourseId(runtimeCourseId)
+          : undefined;
+        if (!runtimeDeck) {
+          if (sanitizedRuntime.simulation !== null) {
+            runtimeStateChanged = true;
+          }
+          classroomRuntimes[sessionId] = {
+            ...sanitizedRuntime,
+            slideIndex: rawSlideIndex,
+            simulation: null,
+            avatarControlHistory,
+            slideInteractions:
+              sanitizedRuntime.slideInteractions &&
+              typeof sanitizedRuntime.slideInteractions === "object"
+                ? sanitizedRuntime.slideInteractions
+                : {}
+          } as ClassroomRuntimeState;
+          continue;
+        }
         let slideSpec =
           typeof sanitizedRuntime.slideKey === "string"
-            ? getPortManagementSlideByKey(sanitizedRuntime.slideKey)
+            ? runtimeDeck.getSlideByKey(sanitizedRuntime.slideKey)
             : undefined;
 
-        if (sanitizedRuntime.deckVersion !== PORT_MANAGEMENT_DECK_VERSION) {
-          if (!slideSpec) {
-            const previousLesson =
-              sanitizedRuntime.deckVersion ===
-              "release-port-management-voyage-v6"
-                ? rawSlideIndex <= 46
-                  ? 1
-                  : rawSlideIndex <= 82
-                    ? 2
-                    : 3
-                : sanitizedRuntime.deckVersion ===
-                "release-port-management-voyage-v3" ||
-              sanitizedRuntime.deckVersion ===
-                "release-port-management-voyage-v4" ||
-              sanitizedRuntime.deckVersion ===
-                "release-port-management-voyage-v5"
-                ? rawSlideIndex <= 36
-                  ? 1
-                  : rawSlideIndex <= 72
-                    ? 2
-                    : 3
-                : rawSlideIndex <= 27
-                  ? 1
-                  : rawSlideIndex <= 56
-                    ? 2
-                    : 3;
-            const lessonStart =
-              getPortManagementLesson(
-                previousLesson as PortManagementLessonNumber
-              ).slideStart ?? 1;
-            slideSpec = getPortManagementSlide(lessonStart);
+        if (runtimeCourseId === "course-port-management-intro") {
+          if (sanitizedRuntime.deckVersion !== PORT_MANAGEMENT_DECK_VERSION) {
+            if (!slideSpec) {
+              const previousLesson =
+                sanitizedRuntime.deckVersion ===
+                "release-port-management-voyage-v6"
+                  ? rawSlideIndex <= 46
+                    ? 1
+                    : rawSlideIndex <= 82
+                      ? 2
+                      : 3
+                  : sanitizedRuntime.deckVersion ===
+                      "release-port-management-voyage-v3" ||
+                      sanitizedRuntime.deckVersion ===
+                        "release-port-management-voyage-v4" ||
+                      sanitizedRuntime.deckVersion ===
+                        "release-port-management-voyage-v5"
+                    ? rawSlideIndex <= 36
+                      ? 1
+                      : rawSlideIndex <= 72
+                        ? 2
+                        : 3
+                    : rawSlideIndex <= 27
+                      ? 1
+                      : rawSlideIndex <= 56
+                        ? 2
+                        : 3;
+              const lessonStart =
+                getPortManagementLesson(
+                  previousLesson as PortManagementLessonNumber
+                ).slideStart ?? 1;
+              slideSpec = runtimeDeck.getSlide(lessonStart);
+            }
+            runtimeStateChanged = true;
           }
-          runtimeStateChanged = true;
-        } else if (!slideSpec) {
-          slideSpec = getPortManagementSlide(
-            Math.min(PORT_MANAGEMENT_SLIDE_TOTAL, Math.max(1, rawSlideIndex))
+        }
+        if (!slideSpec) {
+          slideSpec = runtimeDeck.getSlide(
+            Math.min(runtimeDeck.slideTotal, Math.max(1, rawSlideIndex))
           );
           runtimeStateChanged = true;
-        } else if (slideSpec.index !== rawSlideIndex) {
+        } else if (
+          slideSpec.index !== rawSlideIndex ||
+          sanitizedRuntime.deckVersion !== runtimeDeck.versionId ||
+          sanitizedRuntime.deckId !== runtimeDeck.deckId
+        ) {
           runtimeStateChanged = true;
         }
 
-        const fallbackRuntime = createInitialClassroomRuntime();
-        const simulation = sanitizedRuntime.simulation
+        const fallbackRuntime = createInitialClassroomRuntime(runtimeCourseId);
+        const simulation = runtimeCourseId === "course-port-management-intro" && sanitizedRuntime.simulation
           ? structuredClone(sanitizedRuntime.simulation)
           : null;
         if (simulation) {
@@ -606,7 +674,8 @@ export class JsonStateStore {
           ...sanitizedRuntime,
           slideIndex: slideSpec.index,
           slideKey: slideSpec.slideKey,
-          deckVersion: PORT_MANAGEMENT_DECK_VERSION,
+          deckId: runtimeDeck.deckId,
+          deckVersion: runtimeDeck.versionId,
           avatar: sanitizedRuntime.avatar ?? fallbackRuntime.avatar,
           runtimeVersion:
             sanitizedRuntime.runtimeVersion ?? fallbackRuntime.runtimeVersion,
@@ -616,12 +685,66 @@ export class JsonStateStore {
             sanitizedRuntime.globePlayback ??
             fallbackRuntime.globePlayback,
           simulation,
-          avatarControlHistory
+          avatarControlHistory,
+          slideInteractions:
+            sanitizedRuntime.slideInteractions &&
+            typeof sanitizedRuntime.slideInteractions === "object"
+              ? sanitizedRuntime.slideInteractions
+              : {}
         };
+      }
+      const parsedStudySessions = parsed.studySessions ?? [];
+      if (!Array.isArray(parsed.studySessions)) {
+        runtimeStateChanged = true;
+      }
+      const studySessions = parsedStudySessions.map((session) => {
+        const slide =
+          getPortManagementSlideByKey(session.slideKey) ??
+          getPortManagementSlide(
+            Math.min(
+              PORT_MANAGEMENT_SLIDE_TOTAL,
+              Math.max(1, session.globalIndex ?? 1)
+            )
+          );
+        const presentation = studyAvatarPresentation(session.id);
+        if (
+          session.deckVersion !== PORT_MANAGEMENT_DECK_VERSION ||
+          session.slideKey !== slide.slideKey ||
+          session.globalIndex !== slide.index ||
+          session.slideTotal !== PORT_MANAGEMENT_SLIDE_TOTAL ||
+          session.presentation?.characterVersion !==
+            presentation.characterVersion
+        ) {
+          runtimeStateChanged = true;
+        }
+        return {
+          ...session,
+          deckVersion: PORT_MANAGEMENT_DECK_VERSION,
+          slideKey: slide.slideKey,
+          globalIndex: slide.index,
+          slideTotal: PORT_MANAGEMENT_SLIDE_TOTAL,
+          presentation
+        } satisfies StudySession;
+      });
+      const courses = [...(parsed.courses ?? [])];
+      if (
+        !courses.some(
+          (course) => course.id === ECONOMIC_MATHEMATICS_COURSE_ID
+        )
+      ) {
+        const builtinEconomicMathematics = createSeedState().courses.find(
+          (course) => course.id === ECONOMIC_MATHEMATICS_COURSE_ID
+        );
+        if (builtinEconomicMathematics) {
+          courses.push(builtinEconomicMathematics);
+          runtimeStateChanged = true;
+        }
       }
       this.state = {
         ...parsed,
-        classroomRuntimes
+        courses,
+        classroomRuntimes,
+        studySessions
       };
       for (const [sessionId, runtime] of Object.entries(classroomRuntimes)) {
         for (const team of runtime.simulation?.teams ?? []) {
@@ -630,7 +753,7 @@ export class JsonStateStore {
           }
         }
       }
-      if (runtimeStateChanged) {
+      if (runtimeStateChanged || (this.campusState && !persisted)) {
         await this.persist();
       }
     } catch (error) {
@@ -649,14 +772,19 @@ export class JsonStateStore {
     return this.state;
   }
 
-  private async persist(): Promise<void> {
+  private async persist(state = this.current): Promise<void> {
+    if (this.campusState) {
+      this.campusState.save(state);
+      return;
+    }
     const temporaryFile = `${this.dataFile}.tmp`;
-    await writeFile(temporaryFile, `${JSON.stringify(this.current, null, 2)}\n`, "utf8");
+    await writeFile(temporaryFile, `${JSON.stringify(state, null, 2)}\n`, "utf8");
     await rename(temporaryFile, this.dataFile);
   }
 
   close() {
     this.eventRepository.close();
+    this.campusState?.close();
   }
 
   private portSimulationStateHash(team: PortSimulationTeamRuntimeState) {
@@ -718,12 +846,22 @@ export class JsonStateStore {
   ): Promise<T> {
     let result!: T;
     const queued = this.mutationQueue.then(async () => {
-      result = operation(this.current);
+      const committed = this.current;
+      const candidate = structuredClone(committed);
+      // Helpers read this.current during the synchronous command. Readers see
+      // only the previous committed state while asynchronous persistence runs.
+      this.state = candidate;
+      try {
+        result = operation(candidate);
+      } finally {
+        this.state = committed;
+      }
       const persistResult =
         typeof shouldPersist === "function"
           ? shouldPersist(result)
           : shouldPersist;
-      if (persistResult) await this.persist();
+      if (persistResult) await this.persist(candidate);
+      this.state = candidate;
     });
     this.mutationQueue = queued.catch(() => undefined);
     await queued;
@@ -744,6 +882,167 @@ export class JsonStateStore {
 
   getCourse(id: string): Course | undefined {
     return this.current.courses.find((course) => course.id === id);
+  }
+
+  async createOrResumeStudySession(
+    courseId: string,
+    actor: ClassroomActor
+  ): Promise<StudySession | undefined> {
+    const course = this.getCourse(courseId);
+    if (!course || course.id !== PORT_MANAGEMENT_STUDY_COURSE_ID) {
+      return undefined;
+    }
+
+    return this.mutate((state) => {
+      const existing = state.studySessions.find(
+        (session) =>
+          session.courseId === courseId && session.actorId === actor.actorId
+      );
+      if (existing) {
+        existing.presentation = studyAvatarPresentation(existing.id);
+        return structuredClone(existing);
+      }
+
+      const now = new Date().toISOString();
+      const firstSlide = getPortManagementSlide(1);
+      const id = `study-session-${randomUUID()}`;
+      const session: StudySession = {
+        id,
+        courseId,
+        courseTitle: course.title,
+        actorId: actor.actorId,
+        actorDisplayName: actor.displayName,
+        mode:
+          actor.roles.includes("student") &&
+          !actor.roles.includes("teacher")
+            ? "student"
+            : "teacher_preview",
+        deckVersion: PORT_MANAGEMENT_DECK_VERSION,
+        slideKey: firstSlide.slideKey,
+        globalIndex: firstSlide.index,
+        slideTotal: PORT_MANAGEMENT_SLIDE_TOTAL,
+        createdAt: now,
+        updatedAt: now,
+        presentation: studyAvatarPresentation(id)
+      };
+      state.studySessions.push(session);
+      return structuredClone(session);
+    });
+  }
+
+  getStudySession(
+    sessionId: string,
+    actor: ClassroomActor
+  ): StudySession | undefined {
+    const session = this.current.studySessions.find(
+      (candidate) =>
+        candidate.id === sessionId && candidate.actorId === actor.actorId
+    );
+    return session ? structuredClone(session) : undefined;
+  }
+
+  async updateStudyProgress(
+    sessionId: string,
+    actor: ClassroomActor,
+    input: UpdateStudyProgressInput
+  ): Promise<StudySession | undefined> {
+    return this.mutate(
+      (state) => {
+        const session = state.studySessions.find(
+          (candidate) =>
+            candidate.id === sessionId &&
+            candidate.actorId === actor.actorId
+        );
+        if (!session) return undefined;
+
+        const byKey = getPortManagementSlideByKey(input.slideKey);
+        const byIndex =
+          input.deckVersion === PORT_MANAGEMENT_DECK_VERSION &&
+          input.globalIndex <= PORT_MANAGEMENT_SLIDE_TOTAL
+            ? getPortManagementSlide(input.globalIndex)
+            : undefined;
+        const slide = byKey ?? byIndex;
+        if (!slide) return undefined;
+
+        session.deckVersion = PORT_MANAGEMENT_DECK_VERSION;
+        session.slideKey = slide.slideKey;
+        session.globalIndex = slide.index;
+        session.slideTotal = PORT_MANAGEMENT_SLIDE_TOTAL;
+        session.updatedAt = new Date().toISOString();
+        session.presentation = studyAvatarPresentation(session.id);
+        return structuredClone(session);
+      },
+      (result) => result !== undefined
+    );
+  }
+
+  async applyStudyAssistantAction(
+    sessionId: string,
+    actor: ClassroomActor,
+    action: StudyAssistantAction
+  ): Promise<StudyNavigationResult | undefined> {
+    return this.mutate(
+      (state) => {
+        const session = state.studySessions.find(
+          (candidate) =>
+            candidate.id === sessionId &&
+            candidate.actorId === actor.actorId
+        );
+        if (!session) return undefined;
+
+        let targetIndex: number | null = null;
+        if (action.type === "study.slides.next") {
+          targetIndex = Math.min(
+            PORT_MANAGEMENT_SLIDE_TOTAL,
+            session.globalIndex + 1
+          );
+        } else if (action.type === "study.slides.previous") {
+          targetIndex = Math.max(1, session.globalIndex - 1);
+        } else if (action.type === "study.slides.go_to") {
+          targetIndex = getPortManagementGlobalSlideIndex(
+            action.lesson,
+            action.slide
+          );
+        } else {
+          targetIndex = getPortManagementLesson(
+            action.lesson as PortManagementLessonNumber
+          ).slideStart;
+        }
+
+        if (targetIndex === null) {
+          return {
+            action,
+            status: "noop",
+            message: "目标课次尚未建设或页码超出范围。",
+            session: structuredClone(session)
+          };
+        }
+        if (targetIndex === session.globalIndex) {
+          return {
+            action,
+            status: "noop",
+            message: "已经位于目标页面。",
+            session: structuredClone(session)
+          };
+        }
+
+        const slide = getPortManagementSlide(targetIndex);
+        session.globalIndex = slide.index;
+        session.slideKey = slide.slideKey;
+        session.deckVersion = PORT_MANAGEMENT_DECK_VERSION;
+        session.slideTotal = PORT_MANAGEMENT_SLIDE_TOTAL;
+        session.updatedAt = new Date().toISOString();
+        session.presentation = studyAvatarPresentation(session.id);
+        const position = getPortManagementLessonSlidePosition(slide.index)!;
+        return {
+          action,
+          status: "applied",
+          message: `已进入第${position.lessonNumber}讲第${position.localIndex}页。`,
+          session: structuredClone(session)
+        };
+      },
+      (result) => result?.status === "applied"
+    );
   }
 
   listSessions(): ClassSession[] {
@@ -1182,42 +1481,63 @@ export class JsonStateStore {
     if (!course) {
       return undefined;
     }
+    const deck = getCourseDeckByCourseId(course.id);
+    if (!deck) return undefined;
     const slideSpec =
-      getPortManagementSlideByKey(runtime.slideKey) ??
-      getPortManagementSlide(runtime.slideIndex);
-    const slideSummary = [
-      slideSpec.lead,
-      ...(slideSpec.bullets ?? []),
-      ...(slideSpec.steps ?? [])
-    ]
-      .filter(Boolean)
-      .join("；");
+      deck.getSlideByKey(runtime.slideKey) ?? deck.getSlide(runtime.slideIndex);
+    const savedInteraction = runtime.slideInteractions[slideSpec.slideKey];
+    const interactionDefaults = deck.getInteractionDefaults(slideSpec.slideKey);
+    const savedInteractionIsValid = Boolean(
+      interactionDefaults &&
+      savedInteraction &&
+      deck.validateInteractionPatch(
+        slideSpec.slideKey,
+        savedInteraction.values,
+        interactionDefaults
+      )
+    );
+    const slideInteraction = interactionDefaults
+      ? {
+          deckId: deck.deckId,
+          slideId: slideSpec.slideKey,
+          revision: savedInteractionIsValid ? savedInteraction!.revision : 1,
+          values: structuredClone(
+            savedInteractionIsValid ? savedInteraction!.values : interactionDefaults
+          )
+        }
+      : null;
 
     return {
       session,
       courseId: course.id,
       courseTitle: course.title,
       chapterTitle: slideSpec.lessonTitle,
-      activeActivity: runtime.activeActivity,
+      activeActivity: deck.allowedActivities.includes(runtime.activeActivity)
+        ? runtime.activeActivity
+        : "slides",
       slide: {
-        deckId: `deck-${course.id}-foundations`,
-        versionId: PORT_MANAGEMENT_DECK_VERSION,
+        deckId: deck.deckId,
+        versionId: deck.versionId,
         slideId: slideSpec.slideKey,
         index: slideSpec.index,
-        total: PORT_MANAGEMENT_SLIDE_TOTAL,
+        total: deck.slideTotal,
         logicalWidth: SLIDE_LOGICAL_WIDTH,
         logicalHeight: SLIDE_LOGICAL_HEIGHT,
         aspectRatio: SLIDE_ASPECT_RATIO,
         title: slideSpec.title,
-        lessonNumber: slideSpec.lesson,
+        lessonNumber: slideSpec.lessonNumber,
         lessonTitle: slideSpec.lessonTitle,
         section: slideSpec.section,
-        summary: slideSummary || slideSpec.title
+        summary: slideSpec.summary
       },
       participantsOnline: this.activeParticipantCount(session.id),
       runtimeVersion: runtime.runtimeVersion,
+      slideInteraction,
       globePlayback: { ...runtime.globePlayback },
-      simulation: this.buildPortSimulationSummary(runtime.simulation),
+      simulation:
+        course.id === "course-port-management-intro"
+          ? this.buildPortSimulationSummary(runtime.simulation)
+          : null,
       avatar: { ...runtime.avatar }
     };
   }
@@ -1454,7 +1774,9 @@ export class JsonStateStore {
     if (!session) {
       return undefined;
     }
-    const runtime = this.current.classroomRuntimes[id] ?? createInitialClassroomRuntime();
+    const runtime =
+      this.current.classroomRuntimes[id] ??
+      createInitialClassroomRuntime(session.courseId);
     return this.buildClassroomSnapshot(this.current, session, runtime);
   }
 
@@ -1649,8 +1971,17 @@ export class JsonStateStore {
           message: "只能为正在进行的课堂建立仿真"
         };
       }
+      if (session.courseId !== "course-port-management-intro") {
+        return {
+          ok: false as const,
+          status: 409,
+          error: "COURSE_ACTIVITY_NOT_AVAILABLE",
+          message: "这门课程未开放港口仿真活动"
+        };
+      }
       const runtime =
-        state.classroomRuntimes[sessionId] ?? createInitialClassroomRuntime();
+        state.classroomRuntimes[sessionId] ??
+        createInitialClassroomRuntime(session.courseId);
       const deliveryMode = input.deliveryMode ?? "network_teams_legacy";
       let expectedStudentCount: number;
       let classroomObserverCount = 0;
@@ -3611,7 +3942,9 @@ export class JsonStateStore {
         assistantMode: "classroom_realtime"
       };
       state.classSessions.push(session);
-      state.classroomRuntimes[session.id] = createInitialClassroomRuntime();
+      state.classroomRuntimes[session.id] = createInitialClassroomRuntime(
+        course.id
+      );
       const activity: Activity = {
         id: `activity-${randomUUID()}`,
         type: "class_started",
@@ -3633,8 +3966,26 @@ export class JsonStateStore {
       if (!session) {
         return undefined;
       }
+      if (session.status !== "live") throw Object.assign(new Error("课堂已结束，不能继续控制。"), { statusCode:409,code:"SESSION_NOT_LIVE" });
       const runtime =
-        state.classroomRuntimes[sessionId] ?? createInitialClassroomRuntime();
+        state.classroomRuntimes[sessionId] ??
+        createInitialClassroomRuntime(session.courseId);
+      const deck = getCourseDeckByCourseId(session.courseId);
+      if (!deck) {
+        throw Object.assign(new Error("这门课程尚未发布课堂课件"), {
+          statusCode: 409,
+          code: "COURSE_DECK_NOT_READY"
+        });
+      }
+      if (
+        input.type.startsWith("globe_") &&
+        session.courseId !== "course-port-management-intro"
+      ) {
+        throw Object.assign(new Error("经济数学课堂不提供港口地球仪活动"), {
+          statusCode: 409,
+          code: "COURSE_ACTIVITY_NOT_AVAILABLE"
+        });
+      }
       const completeActiveGlobe = () => {
         if (runtime.globePlayback.cueId) {
           runtime.globePlayback.status = "completed";
@@ -3645,7 +3996,7 @@ export class JsonStateStore {
       if (input.type === "next_slide") {
         completeActiveGlobe();
         runtime.slideIndex = Math.min(
-          PORT_MANAGEMENT_SLIDE_TOTAL,
+          deck.slideTotal,
           runtime.slideIndex + 1
         );
         runtime.activeActivity = "slides";
@@ -3656,13 +4007,75 @@ export class JsonStateStore {
       } else if (input.type === "set_slide") {
         completeActiveGlobe();
         runtime.slideIndex = Math.min(
-          PORT_MANAGEMENT_SLIDE_TOTAL,
+          deck.slideTotal,
           input.index
         );
         runtime.activeActivity = "slides";
       } else if (input.type === "set_activity") {
+        if (!deck.allowedActivities.includes(input.activity)) {
+          throw Object.assign(
+            new Error("这门课程未开放所选课堂活动"),
+            {
+              statusCode: 409,
+              code: "COURSE_ACTIVITY_NOT_AVAILABLE"
+            }
+          );
+        }
         if (input.activity !== "globe") completeActiveGlobe();
         runtime.activeActivity = input.activity;
+      } else if (input.type === "set_slide_interaction") {
+        const currentSlide = deck.getSlide(runtime.slideIndex);
+        const currentState = runtime.slideInteractions[input.slideId];
+        const defaults = deck.getInteractionDefaults(input.slideId);
+        if (
+          currentSlide.slideKey !== input.slideId ||
+          !defaults ||
+          !deck.validateInteractionPatch(
+            input.slideId,
+            input.patch,
+            currentState?.values ?? defaults
+          )
+        ) {
+          throw Object.assign(new Error("本页不接受这组交互参数"), {
+            statusCode: 400,
+            code: "SLIDE_INTERACTION_INVALID"
+          });
+        }
+        const currentRevision = currentState?.revision ?? 1;
+        if (currentRevision !== input.expectedRevision) {
+          throw Object.assign(new Error("交互状态已更新，请重新读取课堂快照"), {
+            statusCode: 409,
+            code: "SLIDE_INTERACTION_REVISION_CONFLICT"
+          });
+        }
+        runtime.slideInteractions[input.slideId] = {
+          revision: currentRevision + 1,
+          values: {
+            ...(currentState?.values ?? defaults),
+            ...input.patch
+          }
+        };
+      } else if (input.type === "reset_slide_interaction") {
+        const currentSlide = deck.getSlide(runtime.slideIndex);
+        const defaults = deck.getInteractionDefaults(input.slideId);
+        if (currentSlide.slideKey !== input.slideId || !defaults) {
+          throw Object.assign(new Error("当前页没有可重置的交互实验"), {
+            statusCode: 409,
+            code: "SLIDE_INTERACTION_NOT_AVAILABLE"
+          });
+        }
+        const currentRevision =
+          runtime.slideInteractions[input.slideId]?.revision ?? 1;
+        if (currentRevision !== input.expectedRevision) {
+          throw Object.assign(new Error("交互状态已更新，请重新读取课堂快照"), {
+            statusCode: 409,
+            code: "SLIDE_INTERACTION_REVISION_CONFLICT"
+          });
+        }
+        runtime.slideInteractions[input.slideId] = {
+          revision: currentRevision + 1,
+          values: structuredClone(defaults)
+        };
       } else if (input.type === "globe_play_cue") {
         const cue = getPortManagementGlobeCue(input.cueId);
         const launchSlide = getPortManagementSlide(runtime.slideIndex);
@@ -3743,11 +4156,11 @@ export class JsonStateStore {
         }
       } else if (input.type === "set_lam_connection") {
         runtime.avatar.status = input.connected ? "ready" : "degraded";
-        runtime.avatar.gpuStatus = input.connected
+        runtime.avatar.gpuStatus = input.renderer === "browser" ? "idle" : input.connected
           ? "ready"
           : "unavailable";
         runtime.avatar.latencyMs = null;
-        runtime.avatar.lastMessage = input.connected
+        runtime.avatar.lastMessage = input.renderer === "browser" ? "数字人在教师浏览器播放，服务器不占用推理 GPU。" : input.connected
           ? "OpenAvatarChat LAM 已由教师端确认连接。"
           : "OpenAvatarChat LAM 当前未连接，课堂使用字幕降级。";
       } else {
@@ -3763,10 +4176,11 @@ export class JsonStateStore {
             : "已切换为轻量卡通助手，不占用实时 GPU。";
       }
 
-      const currentSlide = getPortManagementSlide(runtime.slideIndex);
+      const currentSlide = deck.getSlide(runtime.slideIndex);
       runtime.slideIndex = currentSlide.index;
       runtime.slideKey = currentSlide.slideKey;
-      runtime.deckVersion = PORT_MANAGEMENT_DECK_VERSION;
+      runtime.deckId = deck.deckId;
+      runtime.deckVersion = deck.versionId;
       runtime.runtimeVersion += 1;
       if (
         input.type !== "set_avatar_mode" &&
@@ -3795,9 +4209,12 @@ export class JsonStateStore {
       if (!session) {
         return undefined;
       }
+      if (session.status !== "live") throw Object.assign(new Error("课堂已结束，助手动作已取消。"), { statusCode:409,code:"SESSION_NOT_LIVE" });
       const runtime =
         state.classroomRuntimes[sessionId] ??
-        createInitialClassroomRuntime();
+        createInitialClassroomRuntime(session.courseId);
+      const deck = getCourseDeckByCourseId(session.courseId);
+      if (!deck) return undefined;
       const previousReceipt = runtime.avatarControlHistory.find(
         (receipt) => receipt.requestId === input.requestId
       );
@@ -3833,7 +4250,7 @@ export class JsonStateStore {
         if (action.type === "slides.next") {
           completeActiveGlobe();
           const nextSlide = Math.min(
-            PORT_MANAGEMENT_SLIDE_TOTAL,
+            deck.slideTotal,
             runtime.slideIndex + 1
           );
           const actionChanged =
@@ -3876,7 +4293,7 @@ export class JsonStateStore {
         if (action.type === "slides.go_to") {
           completeActiveGlobe();
           const targetSlide = Math.min(
-            PORT_MANAGEMENT_SLIDE_TOTAL,
+            deck.slideTotal,
             action.slide
           );
           const actionChanged =
@@ -3897,19 +4314,15 @@ export class JsonStateStore {
         }
 
         if (action.type === "lesson.go_to") {
-          const lesson = getPortManagementLesson(
-            action.lesson as PortManagementLessonNumber
+          const lesson = deck.lessons.find(
+            (candidate) => candidate.number === action.lesson
           );
-          if (
-            lesson.status !== "ready" ||
-            lesson.slideStart === null ||
-            lesson.title === null
-          ) {
+          if (!lesson || lesson.status !== "ready") {
             results.push({
               index,
               type: action.type,
               status: "noop",
-              message: `${lesson.label}内容待建设，未执行课堂跳转`
+              message: `第${action.lesson}讲内容待建设，未执行课堂跳转`
             });
             return;
           }
@@ -3926,13 +4339,22 @@ export class JsonStateStore {
             type: action.type,
             status: actionChanged ? "applied" : "noop",
             message: actionChanged
-              ? `已跳转到${lesson.label}“${lesson.title}”封面（Slides 第 ${lesson.slideStart} 页）`
-              : `已经位于${lesson.label}“${lesson.title}”封面`
+              ? `已跳转到第${lesson.number}讲“${lesson.title}”（Slides 第 ${lesson.slideStart} 页）`
+              : `已经位于第${lesson.number}讲“${lesson.title}”`
           });
           return;
         }
 
         if (action.type === "globe.play_cue") {
+          if (session.courseId !== "course-port-management-intro") {
+            results.push({
+              index,
+              type: action.type,
+              status: "noop",
+              message: "经济数学课堂不提供港口地球仪活动"
+            });
+            return;
+          }
           const cue = getPortManagementGlobeCue(action.cueId);
           if (!cue) {
             results.push({
@@ -3981,6 +4403,10 @@ export class JsonStateStore {
         }
 
         if (action.type === "globe.pause") {
+          if (session.courseId !== "course-port-management-intro") {
+            results.push({ index, type: action.type, status: "noop", message: "当前课程没有地球仪活动" });
+            return;
+          }
           const playback = runtime.globePlayback;
           const actionChanged =
             runtime.activeActivity === "globe" &&
@@ -4008,6 +4434,10 @@ export class JsonStateStore {
         }
 
         if (action.type === "globe.resume") {
+          if (session.courseId !== "course-port-management-intro") {
+            results.push({ index, type: action.type, status: "noop", message: "当前课程没有地球仪活动" });
+            return;
+          }
           const playback = runtime.globePlayback;
           const actionChanged =
             playback.cueId !== null &&
@@ -4030,6 +4460,10 @@ export class JsonStateStore {
         }
 
         if (action.type === "globe.restart") {
+          if (session.courseId !== "course-port-management-intro") {
+            results.push({ index, type: action.type, status: "noop", message: "当前课程没有地球仪活动" });
+            return;
+          }
           const cue = runtime.globePlayback.cueId
             ? getPortManagementGlobeCue(runtime.globePlayback.cueId)
             : undefined;
@@ -4061,6 +4495,15 @@ export class JsonStateStore {
           return;
         }
 
+        if (!deck.allowedActivities.includes(action.activity)) {
+          results.push({
+            index,
+            type: action.type,
+            status: "noop",
+            message: "当前课程未开放所选课堂活动"
+          });
+          return;
+        }
         if (action.activity !== "globe") completeActiveGlobe();
         const actionChanged =
           runtime.activeActivity !== action.activity;
@@ -4076,10 +4519,11 @@ export class JsonStateStore {
         });
       });
 
-      const currentSlide = getPortManagementSlide(runtime.slideIndex);
+      const currentSlide = deck.getSlide(runtime.slideIndex);
       runtime.slideIndex = currentSlide.index;
       runtime.slideKey = currentSlide.slideKey;
-      runtime.deckVersion = PORT_MANAGEMENT_DECK_VERSION;
+      runtime.deckId = deck.deckId;
+      runtime.deckVersion = deck.versionId;
       const executedAt = new Date().toISOString();
       const status: AvatarControlResponse["status"] = changed
         ? "applied"
@@ -4135,7 +4579,8 @@ export class JsonStateStore {
         return undefined;
       }
       const runtime =
-        state.classroomRuntimes[sessionId] ?? createInitialClassroomRuntime();
+        state.classroomRuntimes[sessionId] ??
+        createInitialClassroomRuntime(session.courseId);
       const acceptedAt = new Date().toISOString();
       const commandSummary =
         input.inputMode === "text"
@@ -4177,11 +4622,11 @@ export class JsonStateStore {
       const session = state.classSessions.find(
         (candidate) => candidate.id === sessionId
       );
-      if (!session) return undefined;
+      if (!session || session.status !== "live") return undefined;
 
       const runtime =
         state.classroomRuntimes[sessionId] ??
-        createInitialClassroomRuntime();
+        createInitialClassroomRuntime(session.courseId);
       runtime.avatar = {
         ...runtime.avatar,
         ...patch
@@ -4200,7 +4645,8 @@ export class JsonStateStore {
       }
       session.status = "completed";
       const runtime =
-        state.classroomRuntimes[sessionId] ?? createInitialClassroomRuntime();
+        state.classroomRuntimes[sessionId] ??
+        createInitialClassroomRuntime(session.courseId);
       runtime.avatar = {
         ...runtime.avatar,
         status: "off",

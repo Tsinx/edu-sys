@@ -116,7 +116,7 @@ const PORT_MANAGEMENT_LESSON_ONE_V6_CONTENT: readonly PortManagementSlideSpec[] 
       index: 2,
       slideKey: "l1-population-gap",
       section: "1700年的赌局",
-      title: "四倍人口差",
+      title: "四倍人口差，并没有给出答案",
       kicker: "第一组证据 · 人口",
       layout: "stat",
       lead: "约1700年，英格兰和威尔士约500万人；法国约2000万人。",
@@ -128,8 +128,8 @@ const PORT_MANAGEMENT_LESSON_ONE_V6_CONTENT: readonly PortManagementSlideSpec[] 
       diagram: "england-france-1700",
       bullets: [
         "法国拥有更大的国内市场与征税基础",
-        "英格兰的人口规模并不支持“天然大国”想象",
-        "人口是能力来源之一，却不是影响力的唯一上限"
+        "英格兰人口更少，资源取舍也更尖锐",
+        "人口提供能力，却不能单独解释全球影响力"
       ],
       teachingCue:
         "让学生用第一次投票解释人口证据是否改变判断，再进入国家基础比较。",
@@ -194,7 +194,7 @@ const PORT_MANAGEMENT_LESSON_ONE_V6_CONTENT: readonly PortManagementSlideSpec[] 
       index: 4,
       slideKey: "l1-silk-in-london",
       section: "1700年的赌局",
-      title: "一件中国丝织品进入伦敦",
+      title: "伦敦不产丝绸，却组织它的全球流通",
       kicker: "镜头转向泰晤士河",
       layout: "image",
       lead: "它不产自英格兰，却能在伦敦被记录、融资、储存、出售并再次流通。",
@@ -202,9 +202,9 @@ const PORT_MANAGEMENT_LESSON_ONE_V6_CONTENT: readonly PortManagementSlideSpec[] 
       imageAlt: "约1700年伦敦仓库中中国丝织品到港的教学复原图",
       imagePosition: "center",
       bullets: [
-        "产地在中国，目的市场在欧洲",
-        "价值要跨越港口、海洋、信用与时间",
-        "影响力开始表现为组织远距离交换的能力"
+        "产地与市场相隔半个世界",
+        "港口让货物可记录、可融资、可储存",
+        "贸易网络把一次到港变成持续流通"
       ],
       teachingCue:
         "以丝织品为故事物件，让学生找出画面中的货物、账簿、仓储和运输角色。",
@@ -233,9 +233,9 @@ const PORT_MANAGEMENT_LESSON_ONE_V6_CONTENT: readonly PortManagementSlideSpec[] 
       lead: "一个国家可以不生产所有商品，却控制商品抵达市场的方式。",
       prompt: "哪一种能力最可能把有限人口放大为全球影响力？",
       steps: [
-        "生产更多本国商品",
+        "生产更多商品",
         "连接更多产地与市场",
-        "降低交换成本并稳定履约",
+        "降低交换成本，稳定履约",
         "把商业网络转化为金融与国家能力"
       ],
       teachingCue:
@@ -257,19 +257,19 @@ const PORT_MANAGEMENT_LESSON_ONE_V6_CONTENT: readonly PortManagementSlideSpec[] 
       index: 6,
       slideKey: "l1-eic-charter",
       section: "沿丝织品寻找网络",
-      title: "1600：一纸特许状",
-      kicker: "网络的组织者出现",
+      title: "一纸特许，把一次远航变成持续经营",
+      kicker: "1600 · 组织能力被制度化",
       layout: "statement",
-      lead: "王室特许把远航贸易交给一个可持续筹资、签约和组织船队的公司。",
+      lead: "王室特许不只给出经营权，也把筹资、签约与船队组织装进同一套制度。",
       stat: {
         value: "1600",
         label: "英格兰东印度公司获得特许",
         detail: "特许带来经营权，也制造垄断与权力不对称。"
       },
       bullets: [
-        "单次冒险被组织为持续经营",
-        "投资、船舶、人员和风险进入同一制度框架",
-        "公司权力从商业逐步延伸到政治与军事"
+        "一次冒险，变成可以反复组织的经营",
+        "投资、船舶、人员与风险进入同一制度框架",
+        "商业权力后来继续延伸至政治与军事"
       ],
       teachingCue:
         "把特许状解释为组织技术与权力安排，不把公司史讲成单纯商业成功。",
@@ -398,16 +398,16 @@ const PORT_MANAGEMENT_LESSON_ONE_V6_CONTENT: readonly PortManagementSlideSpec[] 
       index: 10,
       slideKey: "l1-canton-london-route",
       section: "沿丝织品寻找网络",
-      title: "从广州到伦敦",
+      title: "从广州到伦敦，航线本身就是成本",
       kicker: "海上路径复原",
       layout: "image",
-      lead: "货物要跨过季风、补给点、海峡、好望角与大西洋，才进入泰晤士河市场。",
+      lead: "季风、补给、海峡与绕角，共同决定货物要走多久、承担多少风险。",
       diagram: "canton-london-trade",
       bullets: [
-        "广州出海后进入南海与马六甲方向",
-        "横跨印度洋并绕过好望角",
-        "沿大西洋北上抵达伦敦",
-        "路线是基于时代航海条件的教学复原"
+        "广州出海：南海 → 马六甲方向",
+        "远洋航段：印度洋 → 好望角",
+        "北上抵港：大西洋 → 伦敦",
+        "依据时代航海条件复原，不代表单船逐日轨迹"
       ],
       teachingCue:
         "沿路线只讲关键空间约束，不把示意线当作某艘船的逐日轨迹。",
@@ -465,19 +465,19 @@ const PORT_MANAGEMENT_LESSON_ONE_V6_CONTENT: readonly PortManagementSlideSpec[] 
       index: 12,
       slideKey: "l1-connects-not-makes",
       section: "沿丝织品寻找网络",
-      title: "英国没有生产一切，它连接一切",
+      title: "英国没有生产一切，却把分散的世界连接起来",
       kicker: "第一条答案",
       layout: "statement",
-      lead: "当生产地、消费地、船舶、港口、账簿与资本被重复连接，有限的国内产量也能撬动更大的贸易网络。",
+      lead: "产地、市场、船舶、港口、账簿与资本被反复接续，有限产量也能进入更大的贸易网络。",
       stat: {
         value: "连接",
         label: "把分散的比较优势组织成持续货流",
         detail: "网络位置不替代生产，却能放大生产与交换的范围。"
       },
       bullets: [
-        "连接更多产地与市场",
-        "降低搜索、交易与履约成本",
-        "让一次贸易沉淀为可重复能力"
+        "产地与市场被接入同一条货流",
+        "重复组织降低搜索、交易与履约成本",
+        "一次贸易沉淀为可以再次调用的能力"
       ],
       teachingCue:
         "在此首次给出“连接”答案，立即追问货流为何会存在，转入比较优势。",
@@ -498,15 +498,15 @@ const PORT_MANAGEMENT_LESSON_ONE_V6_CONTENT: readonly PortManagementSlideSpec[] 
       index: 13,
       slideKey: "l1-double-absolute-advantage",
       section: "极端比较优势模型",
-      title: "一个地区两种产品都更快，还需要贸易吗？",
+      title: "两种产品都更快，就不需要贸易吗？",
       kicker: "概念实验 · 两地两品",
       layout: "question",
-      lead: "江南型地区生产丝和粮都更高效；湖广型地区还有什么值得交换？",
-      prompt: "如果江南型地区在两种产品上都具有绝对优势，分工是否已经失去意义？",
+      lead: "江南型地区生产丝和粮都更高效；直觉会说“全部自己做”，有限时间却会逼出另一种答案。",
+      prompt: "两种产品都更快，是否等于两种产品都应该自己做？",
       steps: [
-        "比较每种产品的生产速度",
-        "再比较多生产一种产品必须放弃什么",
-        "把有限的100个劳动日重新分配"
+        "先看：谁生产得更多",
+        "再看：多做一种必须放弃什么",
+        "最后：重新分配有限的100个劳动日"
       ],
       teachingCue:
         "先收集直觉答案，不立即定义比较优势；强调这是一组人工数字。",
@@ -706,19 +706,20 @@ const PORT_MANAGEMENT_LESSON_ONE_V6_CONTENT: readonly PortManagementSlideSpec[] 
       index: 19,
       slideKey: "l1-exchange-range",
       section: "极端比较优势模型",
-      title: "交换区间：2＜P＜5",
+      title: "只有 2 与 5 之间，双方才可能愿意交易",
       kicker: "分工以后还需要成交条件",
       layout: "statement",
-      lead: "若1匹丝能交换P石粮，价格介于两地机会成本之间，双方才可能都愿意交易。",
+      lead: "1匹丝若交换P石粮，P必须高于江南型地区的2石、低于湖广型地区的5石。",
       stat: {
         value: "2 ＜ P ＜ 5",
         label: "每匹丝可交换的粮食石数",
         detail: "江南型地区得到多于2石，湖广型地区付出少于5石。"
       },
       bullets: [
-        "P≤2：江南型地区不如自己转回粮食生产",
-        "P≥5：湖广型地区不如自己生产丝",
-        "区间说明可能互利，不保证现实成交与收益分配"
+        "P≤2：江南型地区退出——不如自己生产粮食",
+        "2＜P＜5：双方可能留在交易中",
+        "P≥5：湖广型地区退出——不如自己生产丝",
+        "区间只说明可能互利，不保证成交与分配公平"
       ],
       teachingCue:
         "用双方的退出条件夹出区间，不给一个虚假的唯一成交价。",
@@ -744,7 +745,7 @@ const PORT_MANAGEMENT_LESSON_ONE_V6_CONTENT: readonly PortManagementSlideSpec[] 
       title: "总时间有限，选择决定总产出",
       kicker: "生产可能性边界",
       layout: "image",
-      lead: "生产率没有变化，仅仅改变劳动日用途，整体可获得的丝与粮组合就改变了。",
+      lead: "生产率没有变化，变化的是200个劳动日如何被使用。",
       diagram: "comparative-advantage",
       bullets: [
         "每个点都代表同一组有限劳动日",

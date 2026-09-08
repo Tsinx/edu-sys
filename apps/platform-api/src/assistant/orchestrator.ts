@@ -12,6 +12,11 @@ import {
   getPortManagementSlideByKey,
   PORT_MANAGEMENT_GLOBE_CUES
 } from "@edu/course-content";
+import {
+  ECONOMIC_MATHEMATICS_COURSE_ID,
+  getEconomicMathematicsSlideByKey
+} from "@edu/course-content/economic-mathematics";
+import { getCourseDeckByCourseId } from "@edu/course-content/deck-registry";
 import type {
   AssistantChatMessage,
   AssistantJsonStreamProvider
@@ -33,6 +38,65 @@ interface ConversationTurn {
 }
 
 function buildSystemPrompt(snapshot: ClassroomSnapshot): string {
+  if (snapshot.courseId === ECONOMIC_MATHEMATICS_COURSE_ID) {
+    const deck = getCourseDeckByCourseId(snapshot.courseId);
+    const position = deck?.getLessonPosition(snapshot.slide.index);
+    const slide = getEconomicMathematicsSlideByKey(snapshot.slide.slideId);
+    if (!deck || !position || !slide) {
+      throw new Error("ECONOMIC_MATHEMATICS_ASSISTANT_CONTEXT_MISSING");
+    }
+    const lessonMap = deck.lessons
+      .map(
+        (lesson) =>
+          `第${lesson.number}讲“${lesson.title}”：全局第${lesson.slideStart}—${lesson.slideEnd}页`
+      )
+      .join("；");
+    const interactionValues = snapshot.slideInteraction?.values;
+    const specialRevealSatisfied =
+      slide.interactionId === "elasticity-profit-lab"
+        ? interactionValues?.revealOptimum === true
+        : slide.interactionId === "budget-constraint-lab" &&
+            /最优|16:9|比例|份额/u.test(slide.assistantCue)
+          ? interactionValues?.revealOptimum === true
+          : slide.interactionId === "unconstrained-optimum-lab" &&
+              /Hessian|负定|极大|峰顶/u.test(slide.assistantCue)
+            ? interactionValues?.revealClassification === true
+            : true;
+    const interactionRevealed =
+      interactionValues?.revealStep === true && specialRevealSatisfied;
+    const answerWithheld =
+      slide.kind === "exercise" ||
+      (Boolean(slide.interactionId) && !interactionRevealed);
+    const assistantBoundary = answerWithheld
+      ? "当前答案尚未公开。只可依据学生可见摘要给出变量识别、第一步关系或检查方法，不得复述作者答案、最优点、最终数值或完整推导。"
+      : slide.assistantCue;
+    return [
+      "你是重庆交通大学《经济数学》课堂中的经数助教，服务市场营销专业大一学生。",
+      "你必须只返回一个 JSON 对象，禁止 Markdown、代码围栏、前后缀或额外说明。",
+      "顶层键必须按顺序输出：dialogue、actions、schema、version。",
+      'dialogue 是可直接朗读的简洁中文；actions 只能使用 slides.next、slides.previous、slides.go_to、lesson.go_to 或 activity.switch 到 slides。',
+      `slides.go_to 的范围是1到${snapshot.slide.total}；lesson.go_to 的范围是1到32。`,
+      "不得生成 globe、simulation、whiteboard、video 或学生作答动作。",
+      "回答顺序：先说明变量或已知条件，再写关系与计算路径，最后解释单位、定义域、假设和管理含义。",
+      "工具只能用于绘图与复核；不得用自动答案替代学生独立推导。",
+      "教学情境必须明确属于虚构品牌“山城新饮”，不得写成真实企业经营数据。",
+      "若问题超出当前页，先给必要提示，再指出后续讲次；未知事实不得编造。",
+      answerWithheld
+        ? "当前页答案尚未揭示：只给策略性提示，不得说出最终答案、最优点或完整推导。"
+        : "当前页不是未揭示练习，可以解释本页已经公开的推导与结论。",
+      `可跳转课次：${lessonMap}。`,
+      'schema 固定为 "edu.classroom.assistant.response"，version 固定为 "1.0"。',
+      `当前课程：${snapshot.courseTitle}`,
+      `当前讲次：第${position.lessonNumber}讲“${snapshot.slide.lessonTitle}”`,
+      `当前页：讲内第${position.localIndex}/${position.localTotal}页；全局第${snapshot.slide.index}/${snapshot.slide.total}页`,
+      `当前标题：${snapshot.slide.title}`,
+      `当前小节：${snapshot.slide.section}`,
+      `学生可见摘要：${snapshot.slide.summary}`,
+      `<assistant_boundary>${assistantBoundary}</assistant_boundary>`,
+      `<course_progression>函数描述关系 → 极限研究趋近 → 导数刻画变化 → 导数支持决策 → 不定积分恢复总量 → 定积分形成累计 → 多元微分分解多因素 → 约束优化形成营销建议</course_progression>`
+    ].join("\n");
+  }
+
   const assistantContext = getPortManagementAssistantContext(
     snapshot.slide.index
   );

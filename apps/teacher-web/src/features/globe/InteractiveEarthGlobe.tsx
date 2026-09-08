@@ -3,11 +3,13 @@ import {
   AdditiveBlending,
   AmbientLight,
   BackSide,
+  BoxGeometry,
   BufferAttribute,
   BufferGeometry,
   CanvasTexture,
   CatmullRomCurve3,
   Color,
+  ConeGeometry,
   Curve,
   CylinderGeometry,
   DirectionalLight,
@@ -17,6 +19,7 @@ import {
   LineBasicMaterial,
   LineLoop,
   LineSegments,
+  Matrix4,
   MathUtils,
   Mesh,
   MeshBasicMaterial,
@@ -105,11 +108,21 @@ export interface GlobeShippingLanePath {
   points: readonly GlobeCoordinate[];
 }
 
+export interface GlobeMovingVessel {
+  id: string;
+  coordinate: GlobeCoordinate;
+  headingTo?: GlobeCoordinate;
+  color?: string;
+  label?: string;
+  progress?: number;
+}
+
 export interface InteractiveEarthGlobeHandle {
   focusLocation: (locationId: string) => void;
   focusCoordinate: (
     coordinate: GlobeCoordinate,
-    distance?: number
+    distance?: number,
+    durationMs?: number
   ) => void;
   resetView: () => void;
   zoomIn: () => void;
@@ -121,6 +134,8 @@ export interface InteractiveEarthGlobeProps {
   routes?: readonly GlobeRoute[];
   shippingLanes?: readonly GlobeShippingLanePath[];
   activeLocationIds?: readonly string[];
+  visibleLocationIds?: readonly string[];
+  visibleRouteIds?: readonly string[];
   activeLocationColor?: string;
   activeLocationColors?: Readonly<Record<string, string>>;
   initialFocus?: GlobeCoordinate;
@@ -145,6 +160,9 @@ export interface InteractiveEarthGlobeProps {
   shippingLaneDetail?: GlobeShippingLaneDetail;
   defaultShippingLaneDetail?: GlobeShippingLaneDetail;
   shippingLaneState?: GlobeShippingLaneState;
+  movingVessel?: GlobeMovingVessel;
+  cameraTrackingCoordinate?: GlobeCoordinate;
+  cameraTrackingDistance?: number;
   showProvinceBoundaries?: boolean;
   showSouthChinaSeaLine?: boolean;
   administrativeFocus?: GlobeCoordinate;
@@ -231,6 +249,13 @@ interface ShippingLaneVisual {
   tier: GlobeShippingLaneTier;
 }
 
+interface MovingVesselVisual {
+  group: Group;
+  glow: Mesh;
+  glowMaterial: MeshBasicMaterial;
+  accentMaterials: Array<MeshBasicMaterial | MeshPhongMaterial>;
+}
+
 interface GlobeRuntime {
   camera: PerspectiveCamera;
   controls: OrbitControls;
@@ -251,6 +276,7 @@ interface GlobeRuntime {
   shippingLaneDetail: GlobeShippingLaneDetail;
   shippingLaneVisuals: ShippingLaneVisual[];
   featuredRouteObjects: Object3D[];
+  movingVesselVisual: MovingVesselVisual;
   cameraTween?: CameraTween;
 }
 
@@ -1018,6 +1044,140 @@ function createMarker(
   };
 }
 
+function createMovingVesselVisual(): MovingVesselVisual {
+  const group = new Group();
+  group.visible = false;
+
+  const hullMaterial = new MeshPhongMaterial({
+    color: "#ffb04d",
+    emissive: "#9a4308",
+    emissiveIntensity: 0.55,
+    shininess: 24
+  });
+  const deckMaterial = new MeshPhongMaterial({
+    color: "#f7e7ca",
+    emissive: "#5d4331",
+    emissiveIntensity: 0.32,
+    shininess: 18
+  });
+  const mastMaterial = new MeshBasicMaterial({
+    color: "#ffe6a7",
+    toneMapped: false
+  });
+
+  const hull = new Mesh(
+    new BoxGeometry(0.064, 0.024, 0.112),
+    hullMaterial
+  );
+  hull.position.set(0, 0.026, -0.006);
+  group.add(hull);
+
+  const bow = new Mesh(
+    new ConeGeometry(0.038, 0.074, 5),
+    hullMaterial
+  );
+  bow.rotation.x = Math.PI / 2;
+  bow.position.set(0, 0.026, 0.084);
+  group.add(bow);
+
+  const deck = new Mesh(
+    new BoxGeometry(0.046, 0.025, 0.052),
+    deckMaterial
+  );
+  deck.position.set(0, 0.05, -0.016);
+  group.add(deck);
+
+  [-0.032, 0.018].forEach((zPosition) => {
+    const mast = new Mesh(
+      new CylinderGeometry(0.003, 0.003, 0.105, 7),
+      mastMaterial
+    );
+    mast.position.set(0, 0.104, zPosition);
+    group.add(mast);
+  });
+
+  const wakeMaterial = new MeshBasicMaterial({
+    blending: AdditiveBlending,
+    color: "#dffbff",
+    opacity: 0.66,
+    transparent: true,
+    depthWrite: false,
+    toneMapped: false
+  });
+  [-0.018, 0.018].forEach((xPosition) => {
+    const wake = new Mesh(
+      new BoxGeometry(0.008, 0.004, 0.09),
+      wakeMaterial
+    );
+    wake.position.set(xPosition, 0.008, -0.105);
+    wake.rotation.y = xPosition < 0 ? -0.13 : 0.13;
+    group.add(wake);
+  });
+
+  const glowMaterial = new MeshBasicMaterial({
+    blending: AdditiveBlending,
+    color: "#ffb04d",
+    opacity: 0.72,
+    side: DoubleSide,
+    transparent: true,
+    depthWrite: false,
+    toneMapped: false
+  });
+  const glow = new Mesh(
+    new RingGeometry(0.06, 0.078, 48),
+    glowMaterial
+  );
+  glow.rotation.x = -Math.PI / 2;
+  glow.position.y = 0.008;
+  group.add(glow);
+
+  group.traverse((object) => {
+    object.renderOrder = 12;
+  });
+
+  return {
+    group,
+    glow,
+    glowMaterial,
+    accentMaterials: [hullMaterial, mastMaterial]
+  };
+}
+
+function updateMovingVesselVisual(
+  visual: MovingVesselVisual,
+  vessel: GlobeMovingVessel,
+  elapsedSeconds: number
+) {
+  const position = latLngToVector3(vessel.coordinate, 1.085);
+  const outward = position.clone().normalize();
+  const headingPoint =
+    vessel.headingTo && isValidCoordinate(vessel.headingTo)
+    ? latLngToVector3(vessel.headingTo)
+    : undefined;
+  const forward = headingPoint
+    ? headingPoint
+        .sub(outward.clone().multiplyScalar(headingPoint.dot(outward)))
+        .normalize()
+    : new Vector3(0, 0, 1);
+  const right = outward.clone().cross(forward).normalize();
+  const correctedForward = right.clone().cross(outward).normalize();
+  const orientation = new Matrix4().makeBasis(
+    right,
+    outward,
+    correctedForward
+  );
+  const color = new Color(vessel.color ?? "#ffb04d");
+
+  visual.group.visible = true;
+  visual.group.position.copy(position);
+  visual.group.quaternion.setFromRotationMatrix(orientation);
+  visual.group.scale.setScalar(1 + Math.sin(elapsedSeconds * 4.8) * 0.055);
+  visual.glow.scale.setScalar(1 + (Math.sin(elapsedSeconds * 5.4) + 1) * 0.1);
+  visual.glowMaterial.opacity = 0.48 + (Math.sin(elapsedSeconds * 5.4) + 1) * 0.16;
+  visual.glowMaterial.color.copy(color);
+  visual.accentMaterials.forEach((material) => material.color.copy(color));
+}
+
 function createAtmosphere() {
   return new Mesh(
     new SphereGeometry(1.09, 72, 48),
@@ -1078,6 +1238,8 @@ export const InteractiveEarthGlobe = forwardRef<
     routes = [],
     shippingLanes = [],
     activeLocationIds = [],
+    visibleLocationIds,
+    visibleRouteIds,
     activeLocationColor = `#${ACTIVE_COLOR.getHexString()}`,
     activeLocationColors = EMPTY_ACTIVE_LOCATION_COLORS,
     initialFocus = DEFAULT_GLOBAL_ROUTE_FOCUS,
@@ -1102,6 +1264,9 @@ export const InteractiveEarthGlobe = forwardRef<
     shippingLaneDetail,
     defaultShippingLaneDetail = "major",
     shippingLaneState = "ready",
+    movingVessel,
+    cameraTrackingCoordinate,
+    cameraTrackingDistance = 2.34,
     showProvinceBoundaries = true,
     showSouthChinaSeaLine = true,
     administrativeFocus = DEFAULT_ADMINISTRATIVE_FOCUS,
@@ -1135,7 +1300,12 @@ export const InteractiveEarthGlobe = forwardRef<
   const runtimeRef = useRef<GlobeRuntime | undefined>(undefined);
   const callbackRef = useRef(onLocationSelect);
   const activeIdsRef = useRef(activeLocationIds);
+  const visibleLocationIdsRef = useRef(visibleLocationIds);
+  const visibleRouteIdsRef = useRef(visibleRouteIds);
   const autoRotatingRef = useRef(autoRotate);
+  const movingVesselRef = useRef(movingVessel);
+  const cameraTrackingCoordinateRef = useRef(cameraTrackingCoordinate);
+  const cameraTrackingDistanceRef = useRef(cameraTrackingDistance);
   const pendingFocusRef = useRef<string | undefined>(undefined);
   const previousRouteViewRef =
     useRef<GlobeRouteView>(defaultRouteView);
@@ -1166,7 +1336,12 @@ export const InteractiveEarthGlobe = forwardRef<
 
   callbackRef.current = onLocationSelect;
   activeIdsRef.current = activeLocationIds;
+  visibleLocationIdsRef.current = visibleLocationIds;
+  visibleRouteIdsRef.current = visibleRouteIds;
   autoRotatingRef.current = autoRotating;
+  movingVesselRef.current = movingVessel;
+  cameraTrackingCoordinateRef.current = cameraTrackingCoordinate;
+  cameraTrackingDistanceRef.current = cameraTrackingDistance;
 
   const changeAdministrativeDetail = (
     nextDetail: GlobeAdministrativeDetail
@@ -1342,6 +1517,13 @@ export const InteractiveEarthGlobe = forwardRef<
   }, [autoRotating]);
 
   useEffect(() => {
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setAutoRotating(autoRotate && !prefersReducedMotion);
+  }, [autoRotate]);
+
+  useEffect(() => {
     const runtime = runtimeRef.current;
     if (!runtime) return;
     runtime.mapMode = resolvedMapMode;
@@ -1482,6 +1664,7 @@ export const InteractiveEarthGlobe = forwardRef<
         createAdministrativeBoundaryVisuals();
       const shippingLaneVisuals =
         createShippingLaneVisuals(shippingLanes);
+      const movingVesselVisual = createMovingVesselVisual();
       renderer.domElement.dataset.shippingLaneBatches = String(
         shippingLaneVisuals.length
       );
@@ -1506,7 +1689,8 @@ export const InteractiveEarthGlobe = forwardRef<
         routeView: resolvedRouteView,
         shippingLaneDetail: resolvedShippingLaneDetail,
         shippingLaneVisuals,
-        featuredRouteObjects
+        featuredRouteObjects,
+        movingVesselVisual
       };
       runtimeRef.current = runtime;
 
@@ -1526,6 +1710,7 @@ export const InteractiveEarthGlobe = forwardRef<
       earth.rotation.y = 0;
       scene.add(earth);
       scene.add(createAtmosphere());
+      scene.add(movingVesselVisual.group);
 
       if (showGraticule) {
         scene.add(createGraticule());
@@ -1606,6 +1791,7 @@ export const InteractiveEarthGlobe = forwardRef<
             toneMapped: false
           })
         );
+        tube.userData.featuredRouteId = route.id;
         scene.add(tube);
         featuredRouteObjects.push(tube);
 
@@ -1619,6 +1805,7 @@ export const InteractiveEarthGlobe = forwardRef<
                 toneMapped: false
               })
             );
+            pulse.userData.featuredRouteId = route.id;
             pulse.position.copy(curve.getPointAt(offset));
             scene.add(pulse);
             featuredRouteObjects.push(pulse);
@@ -1692,11 +1879,35 @@ export const InteractiveEarthGlobe = forwardRef<
       intersectionObserver.observe(mount);
 
       const startedAt = performance.now();
+      let previousFrameAt = startedAt;
       const renderFrame = (now: number) => {
         if (disposed) return;
         const elapsedSeconds = Math.max(0, (now - startedAt) / 1000);
+        const frameDeltaMs = MathUtils.clamp(now - previousFrameAt, 0, 64);
+        previousFrameAt = now;
+        const trackingCoordinate = cameraTrackingCoordinateRef.current;
 
-        if (runtime.cameraTween) {
+        if (
+          trackingCoordinate &&
+          isValidCoordinate(trackingCoordinate)
+        ) {
+          runtime.cameraTween = undefined;
+          controls.autoRotate = false;
+          const trackingDistance = MathUtils.clamp(
+            cameraTrackingDistanceRef.current,
+            controls.minDistance,
+            controls.maxDistance
+          );
+          const targetPosition = latLngToVector3(
+            trackingCoordinate,
+            trackingDistance
+          );
+          const followWeight = prefersReducedMotion
+            ? 1
+            : 1 - Math.exp(-frameDeltaMs / 620);
+          camera.position.lerp(targetPosition, followWeight);
+          camera.lookAt(0, 0, 0);
+        } else if (runtime.cameraTween) {
           const progress = MathUtils.clamp(
             (now - runtime.cameraTween.startedAt) /
               runtime.cameraTween.duration,
@@ -1774,12 +1985,21 @@ export const InteractiveEarthGlobe = forwardRef<
             );
         });
         runtime.featuredRouteObjects.forEach((object) => {
-          object.visible = runtime.routeView === "featured";
+          const visibleRouteIds = visibleRouteIdsRef.current;
+          object.visible =
+            runtime.routeView === "featured" &&
+            (visibleRouteIds === undefined ||
+              visibleRouteIds.includes(
+                String(object.userData.featuredRouteId ?? "")
+              ));
         });
-        runtime.markerVisuals.forEach((visual) => {
+        runtime.markerVisuals.forEach((visual, locationId) => {
+          const visibleLocationIds = visibleLocationIdsRef.current;
           visual.group.visible =
-            visual.visibilityScope === "all" ||
-            visual.visibilityScope === runtime.routeView;
+            (visual.visibilityScope === "all" ||
+              visual.visibilityScope === runtime.routeView) &&
+            (visibleLocationIds === undefined ||
+              visibleLocationIds.includes(locationId));
         });
 
         routePulses.forEach((pulse) => {
@@ -1810,6 +2030,28 @@ export const InteractiveEarthGlobe = forwardRef<
           const flash = 1.5 + (Math.sin(elapsedSeconds * 6.2) + 1) * 0.17;
           visual.point.scale.setScalar(flash);
         });
+
+        const vessel = movingVesselRef.current;
+        if (vessel && isValidCoordinate(vessel.coordinate)) {
+          updateMovingVesselVisual(
+            runtime.movingVesselVisual,
+            vessel,
+            elapsedSeconds
+          );
+          renderer.domElement.dataset.vesselVisible = "true";
+          renderer.domElement.dataset.vesselProgress = String(
+            MathUtils.clamp(vessel.progress ?? 0, 0, 1).toFixed(3)
+          );
+        } else {
+          runtime.movingVesselVisual.group.visible = false;
+          renderer.domElement.dataset.vesselVisible = "false";
+          renderer.domElement.dataset.vesselProgress = "0.000";
+        }
+        renderer.domElement.dataset.cameraTracking = String(
+          Boolean(
+            trackingCoordinate && isValidCoordinate(trackingCoordinate)
+          )
+        );
 
         const labelScale = MathUtils.clamp(
           camera.position.length() / 2.85,
@@ -1893,13 +2135,8 @@ export const InteractiveEarthGlobe = forwardRef<
     }
   }, [
     ariaLabel,
-    activeLocationColor,
-    activeLocationColors,
-    autoRotate,
     autoRotateSpeed,
     forceFallback,
-    initialFocus.latitude,
-    initialFocus.longitude,
     locations,
     maxDistance,
     minDistance,
@@ -1960,6 +2197,8 @@ export const InteractiveEarthGlobe = forwardRef<
       data-route-view={resolvedRouteView}
       data-shipping-lane-detail={resolvedShippingLaneDetail}
       data-shipping-lane-batches={shippingLaneBatchCount}
+      data-moving-vessel={movingVessel?.id ?? "none"}
+      data-camera-tracking={Boolean(cameraTrackingCoordinate)}
       data-administrative-detail={
         resolvedAdministrativeDetail
       }

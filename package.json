@@ -8,10 +8,18 @@
     "build": "pnpm typecheck && pnpm --filter @edu/teacher-web build",
     "typecheck": "pnpm -r --if-present typecheck",
     "test": "pnpm --filter @edu/port-simulation-core test && pnpm --filter @edu/platform-api test && pnpm --filter @edu/teacher-web test",
-    "test:port-load": "pnpm --filter @edu/platform-api test:port-load"
+    "avatar:verify": "node scripts/verify-lanzhou-assets.mjs",
+    "avatar:create-voice": "node scripts/create-lanzhou-voice.mjs",
+    "avatar:wan": "node scripts/generate-lanzhou-wan-cues.mjs",
+    "test:port-load": "pnpm --filter @edu/platform-api test:port-load",
+    "test:classroom-load": "pnpm --filter @edu/platform-api test:classroom-load",
+    "build:campus": "pnpm build && node scripts/build-campus-release.mjs",
+    "release:campus": "node scripts/build-campus-release.mjs",
+    "test:campus-load": "pnpm --filter @edu/platform-api exec tsx scripts/campus-load-test.ts"
   },
   "devDependencies": {
     "concurrently": "10.0.4",
+    "esbuild": "^0.28.2",
     "lerc": "4.2.0",
     "typescript": "7.0.2"
   }

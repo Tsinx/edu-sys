@@ -61,6 +61,7 @@ async function* readSseData(
     while (true) {
       const { done, value } = await reader.read();
       buffer += decoder.decode(value, { stream: !done });
+      if (buffer.length > 256 * 1024) throw new AssistantProviderError("模型返回的数据帧过大。", "PROVIDER_RESPONSE_INVALID");
       buffer = buffer.replace(/\r\n/gu, "\n");
 
       let boundary = buffer.indexOf("\n\n");
@@ -86,6 +87,7 @@ async function* readSseData(
       .join("\n");
     if (trailing) yield trailing;
   } finally {
+    await reader.cancel().catch(() => undefined);
     reader.releaseLock();
   }
 }
@@ -127,6 +129,9 @@ export class OpenAiCompatibleAssistantProvider
 
     let response: Response;
     try {
+      if (request.messages.reduce((sum,item)=>sum+item.content.length,0) > 60_000) {
+        throw new AssistantProviderError("教学上下文过长，请缩短问题后再试。");
+      }
       response = await this.fetchImplementation(
         endpointFromBaseUrl(this.apiUrl),
         {
@@ -140,9 +145,10 @@ export class OpenAiCompatibleAssistantProvider
             messages: request.messages,
             stream: true,
             temperature: 0.2,
+            max_tokens: 2048,
             response_format: { type: "json_object" }
           }),
-          signal: request.signal
+          signal: AbortSignal.any([AbortSignal.timeout(120_000), ...(request.signal ? [request.signal] : [])])
         }
       );
     } catch (error) {
@@ -167,6 +173,7 @@ export class OpenAiCompatibleAssistantProvider
       );
     }
 
+    let outputCharacters=0;
     for await (const data of readSseData(response.body)) {
       if (data === "[DONE]") break;
 
@@ -181,6 +188,8 @@ export class OpenAiCompatibleAssistantProvider
       }
       const content = chunk.choices?.[0]?.delta?.content;
       if (typeof content === "string" && content) {
+        outputCharacters+=content.length;
+        if(outputCharacters>64_000) throw new AssistantProviderError("模型响应超出单次限制。","PROVIDER_RESPONSE_INVALID");
         yield content;
       }
     }

@@ -6,6 +6,8 @@
 # Local runtimes and generated evidence
 .runtime/
 artifacts/
+output/
+tmp/
 logs/
 *.log
 __pycache__/

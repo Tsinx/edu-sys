@@ -1,9 +1,18 @@
 import { randomUUID } from "node:crypto";
+import fastifyStatic from "@fastify/static";
+import { z } from "zod";
+import { CampusIdentityProvider } from "./campus/accounts.js";
+import { registerCampusAccess } from "./campus/access.js";
+import { EdgeRecordRepository, registerEdgeRecords } from "./campus/edge-records.js";
+import { AiAdmission, registerAiAdmission, aiSignal, type AiLimits } from "./campus/ai-admission.js";
+import { ClassroomParticipation } from "./classroom-participation.js";
+import { registerParticipationRoutes } from "./classroom-participation-routes.js";
 import cors from "@fastify/cors";
 import {
   assistantTurnInputSchema,
   avatarControlRequestSchema,
   avatarPresentationInputSchema,
+  createStudySessionInputSchema,
   classroomEventInputSchema,
   developmentIdentitySessionInputSchema,
   classroomPresenceHeartbeatInputSchema,
@@ -26,20 +35,34 @@ import {
   portSimulationTeacherCommandInputSchema,
   portSimulationTeacherCommandInputV2Schema,
   teacherAvatarCommandInputSchema,
+  studyAsrInputSchema,
+  updateStudyProgressInputSchema,
   createCourseInputSchema,
   StreamingJsonDialogueError,
   type AssistantTurnEvent,
+  type AvatarControlCapability,
   type ClassroomActor,
   type ClassroomActorRole,
-  type ClassroomIdentityProvider
+  type ClassroomIdentityProvider,
+  type StudyAssistantTurnEvent
 } from "@edu/contracts";
 import {
+  getPortManagementAssistantContext,
   getPortManagementReadyLessons,
   PORT_MANAGEMENT_GLOBE_CUES
 } from "@edu/course-content";
+import {
+  getCourseDeckByCourseId,
+  isCourseDeckReady
+} from "@edu/course-content/deck-registry";
 import Fastify, { type FastifyInstance } from "fastify";
 import { ZodError } from "zod";
-import { JsonStateStore } from "./store.js";
+import {
+  JsonStateStore,
+  LANZHOU_CHARACTER_VERSION,
+  LANZHOU_MANIFEST_URL,
+  PORT_MANAGEMENT_STUDY_COURSE_ID
+} from "./store.js";
 import { getLamRuntimeStatus } from "./avatar-runtime.js";
 import { ClassroomAssistantOrchestrator } from "./assistant/orchestrator.js";
 import {
@@ -47,6 +70,12 @@ import {
   OpenAiCompatibleAssistantProvider,
   type AssistantJsonStreamProvider
 } from "./assistant/provider.js";
+import { StudyAssistantOrchestrator } from "./study/orchestrator.js";
+import {
+  DashScopeStudySpeechProvider,
+  StudySpeechProviderError,
+  type StudySpeechProvider
+} from "./study/speech.js";
 import {
   CLASSROOM_IDENTITY_COOKIE,
   DevelopmentIdentityProvider,
@@ -65,31 +94,54 @@ export interface BuildAppOptions {
   portSimulationTickMs?: number;
   portSimulationDatabaseFile?: string;
   assistantProvider?: AssistantJsonStreamProvider;
+  studySpeechProvider?: StudySpeechProvider;
   identityProvider?: ClassroomIdentityProvider;
   allowDevelopmentIdentity?: boolean;
   allowLegacyDevelopmentIdentity?: boolean;
   secureIdentityCookie?: boolean;
+  campusMode?: boolean;
+  stateDatabaseFile?: string;
+  publicOrigin?: string;
+  staticRoot?: string;
+  aiLimits?: Partial<AiLimits>;
+}
+
+function extractCompleteSpeechSegments(value: string): {
+  segments: string[];
+  remainder: string;
+} {
+  const segments: string[] = [];
+  const matcher = /[^。！？!?；;\n]+[。！？!?；;\n]+/gu;
+  let consumed = 0;
+  for (const match of value.matchAll(matcher)) {
+    const segment = match[0].trim();
+    if (segment) segments.push(segment);
+    consumed = (match.index ?? consumed) + match[0].length;
+  }
+  return { segments, remainder: value.slice(consumed) };
 }
 
 export async function buildApp(options: BuildAppOptions): Promise<FastifyInstance> {
-  const app = Fastify({ logger: options.logger ?? false });
+  const campusMode = options.campusMode ?? process.env.NODE_ENV === "production";
+  const app = Fastify({ logger: options.logger ? { redact: ["req.headers.cookie", "req.headers.authorization", "req.body"] } : false, bodyLimit: 8 * 1024 * 1024 });
   const store = new JsonStateStore(
     options.dataFile,
     options.presenceTtlMs,
-    options.portSimulationDatabaseFile
+    options.portSimulationDatabaseFile,
+    options.stateDatabaseFile ?? (campusMode ? `${options.dataFile}.platform.sqlite` : undefined)
   );
   await store.initialize();
   const allowDevelopmentIdentity =
-    options.allowDevelopmentIdentity ?? process.env.NODE_ENV !== "production";
+    options.allowDevelopmentIdentity ?? !campusMode;
   const allowLegacyDevelopmentIdentity =
-    options.allowLegacyDevelopmentIdentity ?? process.env.NODE_ENV !== "production";
+    options.allowLegacyDevelopmentIdentity ?? (!campusMode && allowDevelopmentIdentity);
   const identityProvider =
     options.identityProvider ??
-    new DevelopmentIdentityProvider({
+    (campusMode ? new CampusIdentityProvider(`${options.dataFile}.accounts.sqlite`) : new DevelopmentIdentityProvider({
       allowRoleSelection: allowDevelopmentIdentity
-    });
+    }));
   if (
-    process.env.NODE_ENV === "production" &&
+    (campusMode || process.env.NODE_ENV === "production") &&
     identityProvider.source === "development" &&
     allowDevelopmentIdentity
   ) {
@@ -107,6 +159,13 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       authorization: request.headers.authorization ?? null
     });
   };
+  registerCampusAccess(app, resolveActor, { enforce: !allowLegacyDevelopmentIdentity, publicOrigin: options.publicOrigin, campusMode });
+  const edgeRecords = new EdgeRecordRepository(`${options.dataFile}.edge.sqlite`);
+  registerEdgeRecords(app, edgeRecords, resolveActor);
+  const aiAdmission = campusMode ? new AiAdmission(`${options.dataFile}.ai.sqlite`, {
+    concurrency: 6, queue: 30, dailyRequests: 100, timeoutMs: 120_000, ...options.aiLimits
+  }) : undefined;
+  if (aiAdmission) registerAiAdmission(app, aiAdmission, resolveActor);
   const requireActor = async (
     request: { headers: { cookie?: string; authorization?: string } },
     requiredRole: ClassroomActorRole,
@@ -137,6 +196,24 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       code: "IDENTITY_SESSION_REQUIRED"
     });
   };
+  const resolveStudyActor = async (request: {
+    headers: { cookie?: string; authorization?: string };
+  }): Promise<ClassroomActor> => {
+    const actor = await resolveActor(request);
+    if (actor) {
+      if (
+        !actorHasRole(actor, "student") &&
+        !actorHasRole(actor, "teacher")
+      ) {
+        throw Object.assign(new Error("当前身份无权进入课下学习"), {
+          statusCode: 403,
+          code: "STUDY_ROLE_FORBIDDEN"
+        });
+      }
+      return actor;
+    }
+    return requireActor(request, "student");
+  };
   const requireTeamViewer = async (
     request: { headers: { cookie?: string; authorization?: string } },
     sessionId: string,
@@ -158,7 +235,8 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     }
     return requireActor(request, "student");
   };
-  const portSimulationTickMs = options.portSimulationTickMs ?? 1_000;
+  const portSimulationTickMs = campusMode ? 0 : (options.portSimulationTickMs ?? 1_000);
+  const participation = new ClassroomParticipation(`${options.dataFile}.participation.sqlite`, id => store.getSession(id)?.status === "live", options.presenceTtlMs);
   const portSimulationTimer =
     portSimulationTickMs > 0
       ? setInterval(() => {
@@ -169,13 +247,29 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   app.addHook("onClose", async () => {
     if (portSimulationTimer) clearInterval(portSimulationTimer);
     store.close();
+    participation.close();
+    edgeRecords.close();
+    aiAdmission?.close();
+    if (identityProvider instanceof CampusIdentityProvider) identityProvider.close();
   });
+  const assistantProvider =
+    options.assistantProvider ?? new OpenAiCompatibleAssistantProvider();
   const assistantOrchestrator = new ClassroomAssistantOrchestrator(
-    options.assistantProvider ?? new OpenAiCompatibleAssistantProvider()
+    assistantProvider
   );
+  const studyAssistantOrchestrator = new StudyAssistantOrchestrator(
+    assistantProvider
+  );
+  const studySpeechProvider =
+    options.studySpeechProvider ?? new DashScopeStudySpeechProvider();
   const activeAssistantTurns = new Map<string, AbortController>();
+  const activeStudyAssistantTurns = new Map<string, AbortController>();
 
-  await app.register(cors, { origin: true, credentials: true });
+  await app.register(cors, { origin: campusMode ? (options.publicOrigin ?? false) : true, credentials: true });
+  app.addHook("preClose", async()=>{
+    for(const controller of activeAssistantTurns.values())controller.abort("server-closing");
+    for(const controller of activeStudyAssistantTurns.values())controller.abort("server-closing");
+  });
 
   app.setErrorHandler((error, _request, reply) => {
     if (error instanceof ZodError) {
@@ -205,6 +299,8 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     });
   });
 
+  registerParticipationRoutes(app, participation, id => store.getSession(id)?.courseId, resolveActor, id => Boolean(store.getCourse(id)));
+
   app.get("/api/health", async () => ({
     status: "ok",
     service: "edu-platform-api",
@@ -212,6 +308,22 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     identityProvider: identityProvider.source,
     developmentIdentityEnabled: allowDevelopmentIdentity
   }));
+
+  app.get("/api/runtime/config", async () => ({
+    profile: campusMode ? "campus" : "development",
+    identity: identityProvider.source,
+    avatar: campusMode ? "browser" : "lam",
+    simulation: "local_solo",
+    synchronization: "checkpoints-v1",
+    speech: { asr: studySpeechProvider.asrConfigured, tts: studySpeechProvider.ttsConfigured }
+  }));
+  app.post("/api/identity/login", async (request,reply) => {
+    if (!(identityProvider instanceof CampusIdentityProvider)) return reply.code(404).send({ message: "当前使用开发身份入口。" });
+    const input = z.object({ username: z.string().min(2).max(80), password: z.string().min(1).max(256) }).strict().parse(request.body);
+    const session = await identityProvider.login(input.username,input.password,request.ip);
+    reply.header("Set-Cookie",identityCookie(session.token,{ secure:secureIdentityCookie,maxAgeSeconds:Math.floor((session.expiresAt-Date.now())/1000) }));
+    return { actor:session.actor,expiresAt:new Date(session.expiresAt).toISOString() };
+  });
 
   app.post("/api/identity/development/session", async (request, reply) => {
     if (
@@ -249,14 +361,15 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
         message: "身份会话不存在或已过期"
       });
     }
-    return { actor, expiresAt: null };
+    return { actor, expiresAt: identityProvider instanceof CampusIdentityProvider
+      ? identityProvider.expiresAt(parseCookieHeader(request.headers.cookie)[CLASSROOM_IDENTITY_COOKIE] ?? null) : null };
   });
 
   app.post("/api/identity/logout", async (request, reply) => {
     const token =
       parseCookieHeader(request.headers.cookie)[CLASSROOM_IDENTITY_COOKIE] ??
       null;
-    if (identityProvider instanceof DevelopmentIdentityProvider) {
+    if (identityProvider instanceof DevelopmentIdentityProvider || identityProvider instanceof CampusIdentityProvider) {
       identityProvider.revokeSession(token);
     }
     reply.header(
@@ -266,13 +379,19 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     return reply.status(204).send();
   });
 
-  app.get("/api/me", async () => store.getTeacher());
-  app.get("/api/dashboard", async () => store.getDashboard());
+  app.get("/api/me", async request => {
+    const actor=await resolveActor(request);
+    return actor && campusMode ? {...store.getTeacher(),id:actor.actorId,name:actor.displayName} : store.getTeacher();
+  });
+  app.get("/api/dashboard", async request => {
+    const dashboard=store.getDashboard(); const actor=await resolveActor(request);
+    return actor && campusMode ? {...dashboard,teacher:{...dashboard.teacher,id:actor.actorId,name:actor.displayName}} : dashboard;
+  });
   app.get("/api/courses", async () => store.listCourses());
   app.get("/api/class-sessions", async () => store.listSessions());
 
   app.get("/api/avatar/runtime/status", async () =>
-    getLamRuntimeStatus(
+    campusMode ? { service:"openavatarchat", renderer:"lam", avatar:"barbara", status:"offline",version:null,uiUrl:null,assetUrl:null,websocketUrl:null,checkedAt:new Date().toISOString(),message:"数字人由当前浏览器播放；校园服务器不启动 GPU 服务。" } : getLamRuntimeStatus(
       options.openAvatarBaseUrl ??
         process.env.OPENAVATARCHAT_URL ??
         "http://127.0.0.1:8282",
@@ -284,6 +403,27 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     )
   );
 
+  app.post("/api/teacher/asr", async request => {
+    const input=studyAsrInputSchema.parse(request.body);
+    const text=await studySpeechProvider.transcribe({ ...input,context:"教学课堂语音指令。",signal:aiSignal(request) });
+    return {text};
+  });
+  app.post("/api/teacher/tts", async (request,reply) => {
+    const {text}=z.object({text:z.string().min(1).max(3000)}).parse(request.body);
+    if(!studySpeechProvider.ttsConfigured) return reply.code(503).send({message:"尚未配置课堂语音，文字回答可正常使用。"});
+    reply.hijack();
+    reply.raw.writeHead(200,{"Content-Type":"text/event-stream","Cache-Control":"no-store","X-Accel-Buffering":"no"});
+    const controller=new AbortController(); reply.raw.once("close",()=>controller.abort());
+    try {
+      for await(const chunk of studySpeechProvider.synthesize(text,aiSignal(request,controller.signal))) {
+        if(reply.raw.destroyed || reply.raw.writableEnded) break;
+        if(reply.raw.writableLength>512*1024) {controller.abort(); break;}
+        reply.raw.write(`data: ${JSON.stringify(chunk)}\n\n`);
+      }
+    } catch { if(!reply.raw.destroyed) reply.raw.write(`data: ${JSON.stringify({error:"语音暂时不可用，请阅读字幕。"})}\n\n`); }
+    finally {reply.raw.end();}
+  });
+
   app.get<{ Params: { id: string } }>("/api/courses/:id", async (request, reply) => {
     const course = store.getCourse(request.params.id);
     if (!course) {
@@ -291,6 +431,277 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     }
     return course;
   });
+
+  app.post("/api/study-sessions", async (request, reply) => {
+    const actor = await resolveStudyActor(request);
+    const input = createStudySessionInputSchema.parse(request.body);
+    if (!store.getCourse(input.courseId)) {
+      return reply.status(404).send({
+        error: "COURSE_NOT_FOUND",
+        message: "未找到这门课程"
+      });
+    }
+    if (input.courseId !== PORT_MANAGEMENT_STUDY_COURSE_ID) {
+      return reply.status(409).send({
+        error: "STUDY_DECK_NOT_READY",
+        message: "这门课程尚未发布课下学习课件"
+      });
+    }
+    const session = await store.createOrResumeStudySession(
+      input.courseId,
+      actor
+    );
+    if (!session) throw new Error("课下学习会话创建失败");
+    return reply.status(201).send(session);
+  });
+
+  app.get<{ Params: { id: string } }>(
+    "/api/study-sessions/:id",
+    async (request, reply) => {
+      const actor = await resolveStudyActor(request);
+      const session = store.getStudySession(request.params.id, actor);
+      if (!session) {
+        return reply.status(404).send({
+          error: "STUDY_SESSION_NOT_FOUND",
+          message: "未找到这次课下学习记录"
+        });
+      }
+      return reply.send(session);
+    }
+  );
+
+  app.patch<{ Params: { id: string } }>(
+    "/api/study-sessions/:id/progress",
+    async (request, reply) => {
+      const actor = await resolveStudyActor(request);
+      const input = updateStudyProgressInputSchema.parse(request.body);
+      const session = await store.updateStudyProgress(
+        request.params.id,
+        actor,
+        input
+      );
+      if (!session) {
+        return reply.status(400).send({
+          error: "STUDY_PROGRESS_INVALID",
+          message: "学习页不存在或页码已经失效"
+        });
+      }
+      return reply.send(session);
+    }
+  );
+
+  app.post<{ Params: { id: string } }>(
+    "/api/study-sessions/:id/asr",
+    async (request, reply) => {
+      const actor = await resolveStudyActor(request);
+      const session = store.getStudySession(request.params.id, actor);
+      if (!session) {
+        return reply.status(404).send({
+          error: "STUDY_SESSION_NOT_FOUND",
+          message: "未找到这次课下学习记录"
+        });
+      }
+      const input = studyAsrInputSchema.parse(request.body);
+      const assistantContext = getPortManagementAssistantContext(
+        session.globalIndex
+      );
+      try {
+        const text = await studySpeechProvider.transcribe({
+          audioBase64: input.audioBase64,
+          mimeType: input.mimeType,
+          signal: aiSignal(request),
+          context: [
+            "请准确识别学生关于港口管理课程的提问。",
+            `课程：${session.courseTitle}`,
+            `本讲：${assistantContext.lessonTitle}`,
+            `本页：${assistantContext.slideTitle}`,
+            "常见术语：比较优势、机会成本、港口、腹地、集疏运、班轮、航线、咽喉点、TEU、OOCL Spain、果园港、马六甲、苏伊士。"
+          ].join("\n")
+        });
+        return reply.send({
+          text,
+          provider: studySpeechProvider.name,
+          durationMs: input.durationMs
+        });
+      } catch (error) {
+        if (error instanceof StudySpeechProviderError) {
+          return reply.status(503).send({
+            error: "STUDY_ASR_UNAVAILABLE",
+            message: error.message
+          });
+        }
+        throw error;
+      }
+    }
+  );
+
+  app.post<{ Params: { id: string } }>(
+    "/api/study-sessions/:id/assistant/turns",
+    async (request, reply) => {
+      const actor = await resolveStudyActor(request);
+      const session = store.getStudySession(request.params.id, actor);
+      if (!session) {
+        return reply.status(404).send({
+          error: "STUDY_SESSION_NOT_FOUND",
+          message: "未找到这次课下学习记录"
+        });
+      }
+      const input = assistantTurnInputSchema.parse(request.body);
+      const turnId = `study-turn-${randomUUID()}`;
+      const startedAt = new Date().toISOString();
+
+      activeStudyAssistantTurns.get(request.params.id)?.abort(
+        "replaced-by-new-turn"
+      );
+      const controller = new AbortController();
+      activeStudyAssistantTurns.set(request.params.id, controller);
+
+      reply.hijack();
+      reply.raw.writeHead(200, {
+        "Content-Type": "text/event-stream; charset=utf-8",
+        "Cache-Control": "no-cache, no-transform",
+        Connection: "keep-alive",
+        "X-Accel-Buffering": "no"
+      });
+      reply.raw.flushHeaders();
+
+      const writeEvent = (event: StudyAssistantTurnEvent) => {
+        if (reply.raw.destroyed || reply.raw.writableEnded) return;
+        reply.raw.write(`data: ${JSON.stringify(event)}\n\n`);
+      };
+      const abortOnDisconnect = () => {
+        if (!reply.raw.writableEnded) {
+          controller.abort("client-disconnected");
+        }
+      };
+      reply.raw.once("close", abortOnDisconnect);
+      writeEvent({ type: "turn.started", turnId, startedAt });
+
+      const stream = studyAssistantOrchestrator.startTurn(
+        session,
+        input,
+        aiSignal(request, controller.signal)
+      );
+      void stream.result.catch(() => undefined);
+      let speechBuffer = "";
+      let speechSequence = 0;
+      let speechEnabled = studySpeechProvider.ttsConfigured;
+      let speechStatus: "streamed" | "unavailable" | "disabled" =
+        speechEnabled ? "unavailable" : "disabled";
+
+      const synthesizeSegment = async (text: string) => {
+        if (!speechEnabled || !text.trim()) return;
+        try {
+          for await (const chunk of studySpeechProvider.synthesize(
+            text,
+            aiSignal(request, controller.signal)
+          )) {
+            speechStatus = "streamed";
+            writeEvent({
+              type: "speech.chunk",
+              turnId,
+              sequence: speechSequence,
+              audioBase64: chunk.audioBase64,
+              sampleRate: chunk.sampleRate,
+              channels: chunk.channels,
+              format: chunk.format
+            });
+            speechSequence += 1;
+          }
+        } catch (error) {
+          if (controller.signal.aborted) throw error;
+          speechEnabled = false;
+          speechStatus = "unavailable";
+          app.log.warn(
+            { error, studySessionId: session.id },
+            "study TTS degraded to subtitles"
+          );
+        }
+      };
+
+      try {
+        for await (const chunk of stream.deltas) {
+          if (controller.signal.aborted) break;
+          writeEvent({
+            type: "dialogue.delta",
+            turnId,
+            delta: chunk.delta,
+            accumulated: chunk.accumulated
+          });
+          speechBuffer += chunk.delta;
+          const extracted = extractCompleteSpeechSegments(speechBuffer);
+          speechBuffer = extracted.remainder;
+          for (const segment of extracted.segments) {
+            await synthesizeSegment(segment);
+          }
+        }
+
+        if (controller.signal.aborted) {
+          throw new DOMException("课下学习助手回答已中断", "AbortError");
+        }
+
+        const envelope = await stream.result;
+        await synthesizeSegment(speechBuffer);
+
+        let navigation = null;
+        for (const action of envelope.actions) {
+          const result = await store.applyStudyAssistantAction(
+            session.id,
+            actor,
+            action
+          );
+          if (!result) {
+            throw new Error("学习导航执行时会话不存在");
+          }
+          navigation = result;
+          writeEvent({
+            type: "navigation.command",
+            turnId,
+            result
+          });
+        }
+
+        writeEvent({
+          type: "turn.completed",
+          turnId,
+          dialogue: envelope.dialogue,
+          completedAt: new Date().toISOString(),
+          speechStatus,
+          navigation
+        });
+      } catch (error) {
+        const aborted =
+          controller.signal.aborted ||
+          (error instanceof DOMException && error.name === "AbortError");
+        const code = aborted
+          ? "TURN_ABORTED"
+          : error instanceof AssistantProviderError
+            ? error.code
+            : error instanceof StreamingJsonDialogueError
+              ? "PROVIDER_RESPONSE_INVALID"
+              : "INTERNAL_ERROR";
+        writeEvent({
+          type: "turn.failed",
+          turnId,
+          code,
+          message: aborted
+            ? "课下学习助手回答已中断"
+            : error instanceof Error
+              ? error.message
+              : "课下学习助手处理失败",
+          recoverable: true
+        });
+      } finally {
+        reply.raw.off("close", abortOnDisconnect);
+        if (
+          activeStudyAssistantTurns.get(request.params.id) === controller
+        ) {
+          activeStudyAssistantTurns.delete(request.params.id);
+        }
+        if (!reply.raw.writableEnded) reply.raw.end();
+      }
+    }
+  );
 
   app.get<{ Params: { id: string } }>("/api/class-sessions/:id", async (request, reply) => {
     const session = store.getSession(request.params.id);
@@ -310,7 +721,9 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
           message: "未找到这次课堂或对应课程"
         });
       }
-      return snapshot;
+      const actor=await resolveActor(request);
+      return actor?.roles.includes("student") && !actor.roles.includes("teacher")
+        ? {...snapshot,avatar:{...snapshot.avatar,currentTask:null,lastMessage:null}} : snapshot;
     }
   );
 
@@ -325,6 +738,8 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
         });
       }
 
+      const actor=await resolveActor(request);
+      const studentView=actor?.roles.includes("student") && !actor.roles.includes("teacher");
       reply.hijack();
       reply.raw.writeHead(200, {
         "Content-Type": "text/event-stream; charset=utf-8",
@@ -335,7 +750,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       const writeSnapshot = (nextSnapshot: typeof snapshot) => {
         if (!reply.raw.writableEnded) {
           reply.raw.write(
-            `event: snapshot\ndata: ${JSON.stringify(nextSnapshot)}\n\n`
+            `event: snapshot\ndata: ${JSON.stringify(studentView?{...nextSnapshot,avatar:{...nextSnapshot.avatar,currentTask:null,lastMessage:null}}:nextSnapshot)}\n\n`
           );
         }
       };
@@ -366,6 +781,19 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   app.post<{ Params: { id: string } }>(
     "/api/courses/:id/class-sessions",
     async (request, reply) => {
+      const course = store.getCourse(request.params.id);
+      if (!course) {
+        return reply.status(404).send({
+          error: "COURSE_NOT_FOUND",
+          message: "未找到这门课程"
+        });
+      }
+      if (!isCourseDeckReady(course.id)) {
+        return reply.status(409).send({
+          error: "COURSE_DECK_NOT_READY",
+          message: "这门课程尚未发布课堂课件"
+        });
+      }
       const session = await store.startClass(request.params.id);
       if (!session) {
         return reply.status(404).send({ error: "COURSE_NOT_FOUND", message: "未找到这门课程" });
@@ -412,6 +840,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
           message: "未找到正在进行的课堂"
         });
       }
+      participation.touch(request.params.id, actor.actorId);
       return presence;
     }
   );
@@ -452,6 +881,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   app.post<{ Params: { id: string } }>(
     "/api/class-sessions/:id/events",
     async (request, reply) => {
+      await requireActor(request, "teacher");
       const input = classroomEventInputSchema.parse(request.body);
       const snapshot = await store.applyClassroomEvent(request.params.id, input);
       if (!snapshot) {
@@ -1224,7 +1654,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       const stream = assistantOrchestrator.startTurn(
         snapshot,
         input,
-        controller.signal
+        aiSignal(request, controller.signal)
       );
       // Attach a rejection handler immediately; the generator and result
       // promise fail together when the provider or JSON parser rejects.
@@ -1238,7 +1668,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
             firstDialogueDelta = false;
             await store.updateAvatarRuntime(request.params.id, {
               status: "speaking",
-              gpuStatus: "ready",
+              gpuStatus: campusMode ? "idle" : "ready",
               latencyMs: Date.now() - startedAtMs,
               lastMessage: "课堂助手已开始流式回答。"
             });
@@ -1277,7 +1707,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
 
         await store.updateAvatarRuntime(request.params.id, {
           status: "ready",
-          gpuStatus: "ready",
+          gpuStatus: campusMode ? "idle" : "ready",
           currentTask: null,
           lastMessage: envelope.dialogue
         });
@@ -1338,62 +1768,75 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
           message: "未找到这次课堂"
         });
       }
-      const readyLessonMap = getPortManagementReadyLessons()
-        .map(
-          (lesson) =>
-            `${lesson.number}:${lesson.title ?? "待建设"}@${lesson.slideStart ?? "-"}`
-        )
-        .join("；");
-      const globeCueMap = PORT_MANAGEMENT_GLOBE_CUES.map(
-        (cue) =>
-          `${cue.id}:${cue.title}@${cue.startSlideKey}->${cue.returnSlideKey}`
-      ).join("；");
-      return {
-        protocol: "edu.classroom.control",
-        version: "1.0",
-        sessionId: snapshot.session.id,
-        executeUrl: `/api/class-sessions/${snapshot.session.id}/avatar/control`,
-        maxActionsPerRequest: 8,
-        allowedActions: [
-          {
-            type: "slides.next",
-            description: "切换到 Slides 并前往下一页",
-            parameters: {}
-          },
-          {
-            type: "slides.previous",
-            description: "切换到 Slides 并返回上一页",
-            parameters: {}
-          },
-          {
-            type: "slides.go_to",
-            description: "切换到 Slides 并跳转到指定页",
-            parameters: {
-              slide: `1 到 ${snapshot.slide.total} 的整数`
-            }
-          },
-          {
-            type: "lesson.go_to",
-            description: "切换到 Slides 并跳转到指定已建设课次的封面",
-            parameters: {
-              lesson: "1 到 16 的整数",
-              readyLessons: readyLessonMap
-            }
-          },
-          {
-            type: "activity.switch",
-            description: "切换课堂主舞台活动",
-            parameters: {
-              activity:
-                "slides | globe | simulation | whiteboard | video | interaction"
-            }
-          },
+      const deck = getCourseDeckByCourseId(snapshot.courseId);
+      if (!deck) {
+        return reply.status(409).send({
+          error: "COURSE_DECK_NOT_READY",
+          message: "这门课程尚未发布课堂课件"
+        });
+      }
+      const isPortManagement =
+        snapshot.courseId === "course-port-management-intro";
+      const readyLessonMap = isPortManagement
+        ? getPortManagementReadyLessons()
+            .map(
+              (lesson) =>
+                `${lesson.number}:${lesson.title ?? "待建设"}@${lesson.slideStart ?? "-"}`
+            )
+            .join("；")
+        : deck.lessons
+            .filter((lesson) => lesson.status === "ready")
+            .map(
+              (lesson) =>
+                `${lesson.number}:${lesson.title}@${lesson.slideStart}`
+            )
+            .join("；");
+      const allowedActions: AvatarControlCapability[] = [
+        {
+          type: "slides.next",
+          description: "切换到 Slides 并前往下一页",
+          parameters: {}
+        },
+        {
+          type: "slides.previous",
+          description: "切换到 Slides 并返回上一页",
+          parameters: {}
+        },
+        {
+          type: "slides.go_to",
+          description: "切换到 Slides 并跳转到指定页",
+          parameters: {
+            slide: `1 到 ${snapshot.slide.total} 的整数`
+          }
+        },
+        {
+          type: "lesson.go_to",
+          description: "切换到 Slides 并跳转到指定已建设课次的封面",
+          parameters: {
+            lesson: `1 到 ${deck.lessons.length} 的整数`,
+            readyLessons: readyLessonMap
+          }
+        }
+      ];
+      if (deck.allowedActivities.length > 1) {
+        allowedActions.push({
+          type: "activity.switch",
+          description: "切换课堂主舞台活动",
+          parameters: {
+            activity: deck.allowedActivities.join(" | ")
+          }
+        });
+      }
+      if (isPortManagement) {
+        const globeCueMap = PORT_MANAGEMENT_GLOBE_CUES.map(
+          (cue) =>
+            `${cue.id}:${cue.title}@${cue.startSlideKey}->${cue.returnSlideKey}`
+        ).join("；");
+        allowedActions.push(
           {
             type: "globe.play_cue",
             description: "从注册的起始问题页播放电影化地球仪证据追踪",
-            parameters: {
-              cueId: globeCueMap
-            }
+            parameters: { cueId: globeCueMap }
           },
           {
             type: "globe.pause",
@@ -1410,13 +1853,20 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
             description: "从第一幕重新播放当前地球仪开场",
             parameters: {}
           }
-        ],
+        );
+      }
+      return {
+        protocol: "edu.classroom.control",
+        version: "1.0",
+        sessionId: snapshot.session.id,
+        executeUrl: `/api/class-sessions/${snapshot.session.id}/avatar/control`,
+        maxActionsPerRequest: 8,
+        allowedActions,
         currentState: {
           sessionStatus: snapshot.session.status,
           activeActivity: snapshot.activeActivity,
           slideIndex: snapshot.slide.index,
-          slideTotal: snapshot.slide.total,
-          globePlayback: snapshot.globePlayback
+          slideTotal: snapshot.slide.total
         }
       };
     }
@@ -1456,6 +1906,8 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   app.post<{ Params: { id: string } }>(
     "/api/class-sessions/:id/end",
     async (request, reply) => {
+      await requireActor(request, "teacher");
+      activeAssistantTurns.get(request.params.id)?.abort("classroom-ended");
       const session = await store.endClass(request.params.id);
       if (!session) {
         return reply.status(404).send({
@@ -1463,6 +1915,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
           message: "未找到这次课堂"
         });
       }
+      participation.end(request.params.id);
       return reply.send(session);
     }
   );
@@ -1472,17 +1925,43 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     if (!store.getCourse(input.courseId)) {
       return reply.status(404).send({ error: "COURSE_NOT_FOUND", message: "未找到这门课程" });
     }
+    if (
+      input.courseId === "course-economic-mathematics" &&
+      input.scene === "selfstudy"
+    ) {
+      return reply.status(409).send({
+        error: "COURSE_STUDY_NOT_AVAILABLE",
+        message: "经济数学课下学习暂未开放"
+      });
+    }
     const isClassroom = input.scene === "classroom";
     return reply.status(201).send({
       id: `avatar-presentation-${randomUUID()}`,
       mode: isClassroom ? "classroom_realtime" : "selfstudy_prerecorded",
-      requiresGpu: isClassroom,
-      status: isClassroom ? "planned" : "ready",
-      message: isClassroom
+      requiresGpu: isClassroom && !campusMode,
+      status: isClassroom && !campusMode ? "planned" : "ready",
+      message: campusMode ? "数字人动作和口型在当前浏览器运行，语音与语言模型请求由校园服务器代理。" : isClassroom
         ? "已创建实时数字人课堂计划；进入课堂后可接入 OpenAvatarChat GPU 服务。"
-        : "课下轻量助手已就绪，将使用预录动作与表情，不占用实时 GPU。"
+        : "澜舟课下助手已就绪；B版角色、十一段预录动作、字幕与文本问答不占用实时渲染 GPU。",
+      characterId: isClassroom && !campusMode ? null : "lanzhou",
+      characterVersion: isClassroom && !campusMode ? null : LANZHOU_CHARACTER_VERSION,
+      manifestUrl: isClassroom && !campusMode ? null : LANZHOU_MANIFEST_URL
     });
   });
 
+  if (options.staticRoot) {
+    await app.register(fastifyStatic, {
+      root: options.staticRoot, dotfiles:"deny", index:"index.html",
+      setHeaders(response,path) {
+        response.setHeader("X-Content-Type-Options","nosniff");
+        response.setHeader("Cache-Control", /[.-][a-zA-Z0-9_-]{8,}\.(js|css|webp|mp4|png)$/.test(path) ? "public, max-age=31536000, immutable" : "no-cache");
+      }
+    });
+    app.setNotFoundHandler((request,reply)=> {
+      const path=request.url.split("?")[0]!;
+      if(request.method!=="GET" || path.startsWith("/api/") || /\.[a-z0-9]+$/i.test(path)) return reply.code(404).send({error:"NOT_FOUND"});
+      return reply.sendFile("index.html");
+    });
+  }
   return app;
 }

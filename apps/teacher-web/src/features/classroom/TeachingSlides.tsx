@@ -6,7 +6,12 @@ import {
   type PortManagementSlideSpec,
   type PortSlideDiagram
 } from "@edu/course-content";
-import type { ClassroomActivity, SlideFrame } from "@edu/contracts";
+import type {
+  ClassroomActivity,
+  SlideFrame,
+  SlideInteractionState,
+  SlideInteractionValues
+} from "@edu/contracts";
 import {
   BarChart3,
   CheckCircle2,
@@ -15,8 +20,17 @@ import {
   PlaySquare,
   Presentation
 } from "lucide-react";
+import { lazy, Suspense } from "react";
 import { renderAuthoredTeachingSlide } from "./AuthoredTeachingSlides";
 import { SlideViewport } from "./SlideViewport";
+
+const EconomicMathematicsSlideStage = lazy(() =>
+  import("../economic-mathematics/EconomicMathematicsSlideStage").then(
+    (module) => ({ default: module.EconomicMathematicsSlideStage })
+  )
+);
+
+const ECONOMIC_MATHEMATICS_DECK_ID = "deck-economic-mathematics-2026";
 
 function StudentContextStrip({ spec }: { spec: PortManagementSlideSpec }) {
   const { location, publicLabel, timeMarker } = spec.narrative;
@@ -636,7 +650,6 @@ function CoverSlide({
   return (
     <article
       className={`course-slide course-slide--cover course-slide--${spec.accent ?? "teal"}`}
-      data-slide-key={spec.slideKey}
     >
       <StudentContextStrip spec={spec} />
       {spec.image && (
@@ -700,7 +713,6 @@ function StandardSlide({
   return (
     <article
       className={`course-slide course-slide--${spec.layout} course-slide--${spec.accent ?? "teal"}`}
-      data-slide-key={spec.slideKey}
     >
       <StudentContextStrip spec={spec} />
       <SlideHeader spec={spec} position={position} />
@@ -786,7 +798,38 @@ function StandardSlide({
   );
 }
 
-export function SlideStage({ frame }: { frame: SlideFrame }) {
+export function SlideStage({
+  frame,
+  interaction = null,
+  readOnly = true,
+  onInteractionPatch,
+  onInteractionReset
+}: {
+  frame: SlideFrame;
+  interaction?: SlideInteractionState | null;
+  readOnly?: boolean;
+  onInteractionPatch?: (patch: SlideInteractionValues) => void;
+  onInteractionReset?: () => void;
+}) {
+  if (frame.deckId === ECONOMIC_MATHEMATICS_DECK_ID) {
+    return (
+      <Suspense
+        fallback={
+          <SlideViewport label={`正在装载经济数学课件：${frame.title}`}>
+            <div className="econmath-slide econmath-slide--loading">正在装载本讲手工课件…</div>
+          </SlideViewport>
+        }
+      >
+        <EconomicMathematicsSlideStage
+          frame={frame}
+          interaction={interaction}
+          onInteractionPatch={onInteractionPatch}
+          onInteractionReset={onInteractionReset}
+          readOnly={readOnly}
+        />
+      </Suspense>
+    );
+  }
   const spec = getPortManagementSlide(frame.index);
   const position =
     getPortManagementLessonSlidePosition(frame.index) ??

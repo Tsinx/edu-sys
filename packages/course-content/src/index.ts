@@ -255,7 +255,7 @@ export const PORT_MANAGEMENT_GLOBE_CUES: readonly PortManagementGlobeCue[] = [
     steps: [
       {
         id: "year-1700",
-        durationMs: 9_000,
+        durationMs: 8_000,
         visual: "emergence",
         eyebrow: "MISSION 01 / EVIDENCE HUNT",
         title: "下注完成：现在沿贸易网络寻找证据",
@@ -270,7 +270,7 @@ export const PORT_MANAGEMENT_GLOBE_CUES: readonly PortManagementGlobeCue[] = [
       },
       {
         id: "channel-scale",
-        durationMs: 15_000,
+        durationMs: 12_000,
         visual: "channel",
         eyebrow: "ENGLISH CHANNEL",
         title: "海峡两岸：四倍人口差",
@@ -285,7 +285,7 @@ export const PORT_MANAGEMENT_GLOBE_CUES: readonly PortManagementGlobeCue[] = [
       },
       {
         id: "canton-silk",
-        durationMs: 12_000,
+        durationMs: 11_000,
         visual: "silk",
         eyebrow: "CANTON / SILK",
         title: "镜头转向广州：一件中国丝织品",
@@ -300,14 +300,14 @@ export const PORT_MANAGEMENT_GLOBE_CUES: readonly PortManagementGlobeCue[] = [
       },
       {
         id: "reconstructed-route",
-        durationMs: 20_000,
+        durationMs: 28_000,
         visual: "historical-route",
         eyebrow: "ROUTE RECONSTRUCTION",
-        title: "广州—马六甲—好望角—多佛—伦敦",
+        title: "货物离开广州：跟随帆船驶向伦敦",
         caption:
-          "这是一条依据海上通道复原的教学路线，不代表某一批丝绸的可追踪完整航迹。",
+          "帆船沿广州—马六甲—好望角—多佛—伦敦路线航行；镜头持续跟随，路线属于教学复原。",
         narration:
-          "货物离开广州，经马六甲进入印度洋，绕过好望角，再穿过多佛海峡抵达伦敦。这是路线复原，不是某一批丝绸留下的完整航迹。",
+          "现在跟住这艘离开广州的帆船。它经马六甲进入印度洋，绕过好望角，再穿过多佛海峡抵达伦敦。这是路线复原，不是某一批丝绸留下的完整航迹。",
         focus: { latitude: 8, longitude: 45, distance: 3.82 },
         activeLocationIds: [
           "canton",
@@ -321,7 +321,7 @@ export const PORT_MANAGEMENT_GLOBE_CUES: readonly PortManagementGlobeCue[] = [
       },
       {
         id: "london-network",
-        durationMs: 12_000,
+        durationMs: 11_000,
         visual: "london-network",
         eyebrow: "LONDON / NETWORK",
         title: "商品抵达后，影响力才开始扩散",
@@ -336,7 +336,7 @@ export const PORT_MANAGEMENT_GLOBE_CUES: readonly PortManagementGlobeCue[] = [
       },
       {
         id: "modern-network",
-        durationMs: 13_000,
+        durationMs: 11_000,
         visual: "global-network",
         eyebrow: "THEN → NOW",
         title: "历史航路淡出，现代全球主干航线浮现",

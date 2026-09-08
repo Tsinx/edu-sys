@@ -1,0 +1,269 @@
+/* Teacher workspace only. Classroom canvases retain their authored palettes. */
+.app-shell,
+.portal-modal {
+  --ink: #253d39;
+  --muted: #65746f;
+  --line: #dce2dc;
+  --portal-accent: #286358;
+  --portal-paper: #f6f6f2;
+  --shadow: 0 12px 32px rgb(31 51 44 / 7%);
+  --soft-shadow: 0 4px 16px rgb(31 51 44 / 4%);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-shell { background: var(--portal-paper); }
+.app-shell .sidebar { background: #203d39; box-shadow: none; }
+.app-shell .sidebar::after { display: none; }
+.app-shell .brand { gap: 12px; padding-bottom: 36px; }
+.app-shell .brand__mark { border-radius: 12px; color: #e7efe4; background: #34514a; box-shadow: none; }
+.app-shell .brand strong { font-size: 19px; letter-spacing: .04em; }
+.app-shell .brand small { color: #a5bbb1; font-size: 10px; }
+.app-shell .nav-item { min-height: 48px; color: #bccdc5; font-weight: 500; }
+.app-shell .nav-item--active { color: #fff; background: #36564b; box-shadow: none; }
+.app-shell .nav-item--active::before { background: #d7bd84; height: 20px; width: 3px; }
+.app-shell .system-status { border-color: #4b655b; background: transparent; }
+.app-shell .system-status small { color: #b4c5ba; font-size: 11px; }
+.app-shell .system-status strong { font-size: 12px; }
+.app-shell .sidebar__footer > p { color: #a6bcb0; font-size: 10px; }
+.app-shell .status-dot { background: #a5c9a1; box-shadow: none; }
+
+.app-shell .topbar { border-color: var(--line); background: rgb(250 251 248 / 96%); }
+.app-shell .topbar__eyebrow { color: var(--muted); font-size: 10px; letter-spacing: .12em; }
+.app-shell .topbar__title h1 { font-size: 17px; font-weight: 600; }
+.app-shell .profile-button__copy strong { color: var(--ink); font-size: 13px; }
+.app-shell .profile-button__copy small { color: var(--muted); font-size: 11px; }
+.app-shell .avatar { border-radius: 50%; background: #e8ece2; color: #385746; }
+.app-shell .icon-button { border-color: var(--line); color: var(--muted); }
+.app-shell .page-container { padding-top: 36px; padding-bottom: 48px; }
+
+:is(.app-shell, .portal-modal) .button {
+  min-height: 44px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: none;
+}
+:is(.app-shell, .portal-modal) .button--primary { background: var(--portal-accent); }
+:is(.app-shell, .portal-modal) .button--primary:hover:not(:disabled) { background: #204f46; box-shadow: none; }
+:is(.app-shell, .portal-modal) .button--secondary { color: #315e51; border-color: #ccd9cd; background: #edf2e9; }
+:is(.app-shell, .portal-modal) .button--ghost { color: #425a51; }
+:is(.app-shell, .portal-modal) .button--coral { color: #fff; background: #a44f32; }
+:is(.app-shell, .portal-modal) .button--coral:hover:not(:disabled) { background: #8b4029; }
+.app-shell .button--light { color: #fff; background: rgb(255 255 255 / 10%); border: 1px solid rgb(255 255 255 / 40%); }
+.app-shell .button--small { min-height: 40px; font-size: 12px; }
+.app-shell .text-action { min-height: 36px; font-size: 13px; color: var(--portal-accent); }
+:is(.app-shell, .portal-modal) :is(button, a, input, textarea, select):focus-visible {
+  outline: 3px solid #9f823e;
+  outline-offset: 4px;
+}
+
+.app-shell .welcome-row { margin-bottom: 30px; align-items: center; }
+.app-shell :is(.section-kicker, .page-heading > div > p) { color: #536c5d; font-size: 11px; letter-spacing: .1em; }
+.app-shell .welcome-row h2 { color: var(--ink); font-size: clamp(26px, 2.3vw, 34px); font-weight: 650; letter-spacing: -.025em; }
+.app-shell .welcome-row > div > p:last-child { margin-top: 12px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.app-shell .date-chip { padding: 10px 0 10px 22px; border: 0; border-left: 1px solid #ccd5cb; border-radius: 0; background: transparent; }
+.app-shell .date-chip > svg { color: #7c895f; }
+.app-shell .date-chip strong { font-size: 14px; font-weight: 500; }
+.app-shell .date-chip small { margin-top: 4px; color: var(--muted); font-size: 12px; }
+.app-shell .dashboard-grid { grid-template-columns: minmax(0, 2.2fr) minmax(280px, 1fr); gap: 22px; }
+.app-shell .course-hero { min-height: 344px; border-radius: 16px; box-shadow: none; background: #24483f; }
+.app-shell .course-hero > .port-scene { filter: saturate(.55); }
+.app-shell .course-hero > .economic-mathematics-art { position: absolute; inset: 0; }
+.app-shell .portal-course-art { position: absolute; inset: 0; background: #263e3b; }
+.app-shell .portal-course-art img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 58%; }
+.app-shell .course-card__art-label { position: absolute; bottom: 12px; left: 16px; color: #fff; background: rgb(27 43 37 / 72%); padding: 4px 8px; border-radius: 4px; font-size: 11px; }
+.app-shell .course-hero__shade { background: linear-gradient(90deg, rgb(24 51 44 / 98%), rgb(24 51 44 / 75%) 46%, rgb(24 51 44 / 16%)); }
+.app-shell .course-hero__content { width: min(76%, 590px); min-height: 344px; padding: 28px 32px; gap: 24px; }
+.app-shell .hero-tag { border-color: rgb(255 255 255 / 25%); color: #eff4e8; background: rgb(255 255 255 / 8%); font-size: 12px; font-weight: 500; }
+.app-shell .live-dot { background: #d6c68b; box-shadow: none; }
+.app-shell .course-hero__content > div:nth-child(2) > p:first-child { font-size: 12px; color: #c4d4c6; }
+.app-shell .course-hero__content h2 { margin-top: 10px; font-size: clamp(30px, 3vw, 42px); font-weight: 650; letter-spacing: -.025em; }
+.app-shell .hero-lesson { font-size: 13px; line-height: 1.65; color: #e0e8dc; }
+.app-shell .hero-progress { max-width: 320px; }
+.app-shell .hero-progress > div:first-child { font-size: 12px; color: #d0ddce; }
+.app-shell .progress-track { height: 3px; background: rgb(255 255 255 / 20%); }
+.app-shell .progress-track span { background: #d9c58f; }
+.app-shell .hero-actions { flex-wrap: wrap; }
+.app-shell .hero-actions .button--coral { color: #263f35; background: #e4d3a4; }
+.app-shell .hero-actions .button--coral:hover:not(:disabled) { background: #efdfb9; }
+
+.app-shell .assistant-card { min-height: 344px; border-radius: 16px; border-color: #dce2d6; background: #eaf0e4; box-shadow: none; }
+.app-shell .assistant-card::before { display: none; }
+.app-shell .assistant-card__copy { width: 100%; padding: 28px 26px 140px; }
+.app-shell .assistant-label { font-size: 12px; font-weight: 500; color: #41624f; }
+.app-shell .assistant-card h3 { max-width: none; margin: 20px 0 12px; font-size: 23px; color: #2b493e; line-height: 1.5; font-weight: 600; }
+.app-shell .assistant-card p { max-width: 255px; color: #536954; font-size: 13px; line-height: 1.9; }
+.app-shell .assistant-card .text-action { margin-top: 14px; }
+.app-shell .assistant-character { width: 142px; right: 6px; bottom: -4px; filter: saturate(.55); }
+.app-shell .assistant-card__note { position: absolute; bottom: 28px; left: 26px; max-width: 145px; color: #61735a; font-size: 12px; line-height: 1.8; }
+
+.app-shell .metrics-grid { gap: 0; margin-top: 24px; border-block: 1px solid var(--line); }
+.app-shell .metric-card { padding: 21px 20px; gap: 12px; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.app-shell .metric-card + .metric-card { border-left: 1px solid var(--line); }
+.app-shell .metric-card:hover { background: #eef0e8; transform: none; box-shadow: none; }
+.app-shell .metric-card__icon { width: 36px; height: 36px; border-radius: 10px; color: #647554; background: #e9eddf; }
+.app-shell .metric-card > div > span { color: #4a6157; font-size: 12px; font-weight: 500; }
+.app-shell .metric-card strong { margin: 7px 0 5px; color: #2c4539; font-size: 28px; font-weight: 550; font-variant-numeric: tabular-nums; }
+.app-shell .metric-card small { color: var(--muted); font-size: 11px; }
+.app-shell .metric-card__arrow { color: #839181; width: 14px; flex-shrink: 0; }
+.app-shell .lower-grid { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); align-items: start; gap: 22px; margin-top: 30px; }
+.app-shell .panel { border-color: var(--line); border-radius: 14px; box-shadow: none; }
+.app-shell :is(.upcoming-panel, .activity-panel) { padding: 24px 24px 8px; }
+.app-shell .panel-header { gap: 16px; padding-bottom: 18px; border-color: #e5e9e0; }
+.app-shell .panel-header h3 { color: var(--ink); font-size: 17px; font-weight: 600; line-height: 1.65; }
+.app-shell .panel-header p { color: var(--muted); font-size: 12px; line-height: 1.7; }
+.app-shell .panel-header > :is(a, button) { flex-shrink: 0; color: var(--portal-accent); font-size: 12px; min-height: 32px; }
+.app-shell .class-row { padding-block: 20px; }
+.app-shell .date-badge { border-radius: 10px; color: #4e653c; background: #eef1e5; }
+.app-shell .date-badge strong { font-size: 23px; font-weight: 550; }
+.app-shell .date-badge span { color: #607352; font-size: 11px; }
+.app-shell .class-row__content strong { color: var(--ink); font-size: 14px; }
+.app-shell .class-row__content > span { color: var(--muted); font-size: 12px; }
+.app-shell .class-row__content small { color: var(--muted); font-size: 11px; flex-wrap: wrap; row-gap: 6px; }
+.app-shell .activity-row { padding-block: 18px; gap: 13px; }
+.app-shell .activity-icon { color: #6c795c; background: #eef1e6; border-radius: 50%; width: 32px; height: 32px; }
+.app-shell .activity-row strong { color: var(--ink); font-size: 13px; font-weight: 600; }
+.app-shell .activity-row p { color: var(--muted); font-size: 12px; line-height: 1.8; white-space: normal; overflow-wrap: anywhere; }
+.app-shell .activity-row small { color: var(--muted); font-size: 11px; }
+
+.app-shell .page-heading { margin-bottom: 32px; }
+.app-shell .page-heading h2 { color: var(--ink); font-size: clamp(28px, 3vw, 38px); font-weight: 650; letter-spacing: -.025em; }
+.app-shell .page-heading span { color: var(--muted); font-size: 14px; }
+.app-shell .course-list-caption { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+.app-shell .course-list-caption > span:first-child { color: #465c50; font-size: 14px; font-weight: 600; }
+.app-shell .course-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
+.app-shell .course-card { display: flex; flex-direction: column; border-color: var(--line); border-radius: 14px; box-shadow: none; }
+.app-shell .course-card:hover { border-color: #9aaa95; box-shadow: var(--shadow); transform: translateY(-3px); }
+.app-shell .course-card__art { height: auto; aspect-ratio: 2.25; }
+.app-shell .course-card__art .port-scene { filter: saturate(.65); }
+.app-shell .economic-mathematics-art__curve { opacity: .45; }
+.app-shell .status-pill { font-size: 12px; font-weight: 500; padding: 5px 10px; }
+.app-shell :is(.status-pill--active, .status-pill--live) { color: #355843; background: #eef3e7; }
+.app-shell :is(.status-pill--draft, .status-pill--scheduled) { color: #7a6029; background: #f5edda; }
+.app-shell .course-card__art .status-pill { top: 16px; right: 16px; }
+.app-shell .course-card__body { display: flex; flex: 1; flex-direction: column; padding: 24px 26px; }
+.app-shell .course-card__body > span { color: var(--muted); font-size: 12px; }
+.app-shell .course-card__body h3 { margin-block: 12px 8px; color: var(--ink); font-size: 25px; font-weight: 600; }
+.app-shell .course-card__body p { min-height: 3.5em; margin-bottom: 20px; color: var(--muted); font-size: 14px; line-height: 1.75; }
+.app-shell .course-card__progress-label { display: flex; justify-content: space-between; margin-top: auto; color: #66735f; font-size: 12px; font-variant-numeric: tabular-nums; }
+.app-shell .mini-progress { height: 4px; margin-block: 10px 20px; background: #e9ede3; }
+.app-shell .mini-progress span { background: #7a9871; }
+.app-shell .course-card__body footer { padding-top: 15px; border-top: 1px solid #edf0e8; }
+.app-shell .course-card__body footer small { color: var(--muted); font-size: 12px; }
+.app-shell .course-card__body footer strong { color: var(--portal-accent); font-size: 13px; font-weight: 600; }
+
+.app-shell .detail-hero { height: 270px; border-radius: 16px; box-shadow: none; }
+.app-shell .detail-hero__shade { background: linear-gradient(90deg, rgb(24 51 44 / 95%), rgb(24 51 44 / 50%) 55%, rgb(24 51 44 / 5%)); }
+.app-shell .detail-hero__content { padding: 26px 32px 30px; }
+.app-shell .detail-hero__content > :is(a, span, strong) { font-size: 12px; color: #d2dece; }
+.app-shell .detail-hero__content h2 { font-size: 40px; font-weight: 600; }
+.app-shell .detail-hero__content p { color: #dce5d4; font-size: 13px; }
+.app-shell .detail-layout { margin-top: 26px; gap: 26px; align-items: start; }
+.app-shell :is(.lesson-editor, .launch-card) { padding: 28px; }
+.app-shell .lesson-summary { color: #55685b; font-size: 14px; line-height: 1.9; }
+.app-shell .lesson-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.app-shell .lesson-step { padding: 16px 14px; border-color: #e0e5dc; border-radius: 10px; background: #fafbf7; }
+.app-shell .lesson-step > div { min-width: 0; }
+.app-shell .lesson-step strong { font-size: 13px; color: #3f5849; }
+.app-shell .lesson-step small { color: var(--muted); font-size: 12px; line-height: 1.7; }
+.app-shell .lesson-step--done > span { background: #e5eddf; color: #537345; }
+.app-shell .economic-mathematics-resources { padding: 20px; border-color: #dfdfca; border-left-color: #a08b50; background: #f7f6ee; }
+.app-shell .economic-mathematics-resources > span { color: #776535; font-size: 12px; }
+.app-shell .economic-mathematics-resources strong { font-size: 15px; line-height: 1.8; }
+.app-shell .economic-mathematics-resources :is(p, small, a) { color: #62705d; font-size: 12px; line-height: 1.8; }
+.app-shell .economic-mathematics-resources a { color: var(--portal-accent); text-decoration: underline; text-underline-offset: 4px; }
+.app-shell .launch-card { background: #edf1e7; border-color: #d7dfd0; }
+.app-shell .launch-card__icon { color: #4d6c44; background: #e0e8d7; border-radius: 12px; }
+.app-shell .launch-card h3 { font-size: 22px; color: var(--ink); }
+.app-shell .launch-card > p { color: #586c55; font-size: 13px; line-height: 1.9; }
+.app-shell .launch-card .button--wide + .button--wide { margin-top: 10px; }
+.app-shell .launch-card ul { border-color: #d5ddcc; }
+.app-shell .launch-card li { color: #586b50; font-size: 12px; line-height: 1.7; }
+.app-shell .launch-card li svg { flex-shrink: 0; color: #647e52; }
+.app-shell .editor-preview label,
+.app-shell .editor-preview textarea { font-size: 14px; }
+.app-shell .editor-preview > small { font-size: 12px; line-height: 1.8; }
+.app-shell .schedule-card { padding: 24px; border-color: var(--line); box-shadow: none; }
+.app-shell .schedule-card__body h3 { font-size: 18px; color: var(--ink); }
+.app-shell .schedule-card__body > p { font-size: 14px; color: var(--muted); }
+.app-shell .schedule-card__body small { font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+
+.app-shell :is(.module-preview, .settings-panel) { box-shadow: none; border-color: var(--line); }
+.app-shell :is(.module-preview > p, .toggle-row small, .timeline__item p) { color: var(--muted); font-size: 14px; line-height: 1.8; }
+.app-shell :is(.module-status, .module-detail-grid strong, .timeline__item small) { font-size: 12px; }
+.app-shell .popover { border-color: var(--line); border-radius: 12px; box-shadow: var(--shadow); }
+.app-shell .notification-popover p { color: var(--muted); font-size: 13px; }
+.app-shell :is(.notification-popover a, .popover__header button) { font-size: 12px; }
+.portal-modal .modal { border-radius: 18px; border: 1px solid var(--line); box-shadow: 0 24px 80px rgb(18 36 28 / 20%); }
+.portal-modal { background: rgb(20 37 30 / 48%); backdrop-filter: blur(4px); }
+.portal-modal :is(.modal__heading, .assistant-modal__heading) { padding-right: 42px; gap: 12px; }
+.portal-modal :is(.modal__heading, .assistant-modal__heading) > span { width: 40px; height: 40px; flex-shrink: 0; color: #496b4e; background: #e8efe1; }
+.portal-modal :is(.modal__heading, .assistant-modal__heading) > div { min-width: 0; }
+.portal-modal :is(.modal__heading, .assistant-modal__heading) h2 { color: var(--ink); font-size: 20px; line-height: 1.45; overflow-wrap: anywhere; }
+.portal-modal :is(.modal__heading, .assistant-modal__heading) p { color: var(--muted); font-size: 10px; line-height: 1.6; letter-spacing: .06em; }
+.portal-modal .field > span { color: #476053; font-size: 13px; }
+.portal-modal .field :is(input, select) { min-height: 46px; border-color: #cbd6ca; font-size: 14px; border-radius: 8px; }
+.portal-modal .modal__close { min-height: 44px; min-width: 44px; }
+.portal-modal .mode-card p { font-size: 14px; line-height: 1.8; }
+.portal-modal :is(.mode-card span, .mode-result p) { font-size: 12px; }
+
+@media (max-width: 1250px) {
+  .app-shell .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .app-shell .metric-card:nth-child(3) { border-left: 0; }
+  .app-shell .metric-card:nth-child(n + 3) { border-top: 1px solid var(--line); }
+  .app-shell .dashboard-grid { grid-template-columns: minmax(0, 1.7fr) minmax(260px, 1fr); }
+  .app-shell .course-hero__content { width: 100%; }
+}
+
+@media (max-width: 1020px) {
+  .app-shell :is(.dashboard-grid, .lower-grid, .detail-layout) { grid-template-columns: 1fr; }
+  .app-shell .assistant-card { min-height: 230px; }
+  .app-shell .assistant-card__copy { width: 70%; padding: 26px; }
+  .app-shell .assistant-card h3 { margin-top: 12px; }
+  .app-shell .assistant-character { right: 24px; width: 160px; }
+  .app-shell .assistant-card__note { right: 190px; left: auto; bottom: 22px; max-width: none; }
+}
+
+@media (max-width: 720px) {
+  .app-shell .page-container { padding: 26px 20px 92px; }
+  .app-shell .topbar { min-height: 68px; padding-inline: 16px; }
+  .app-shell .topbar__actions { gap: 8px; }
+  .app-shell .topbar__create { display: inline-flex; width: 40px; padding: 0; }
+  .app-shell .topbar__create > span { display: none; }
+  .app-shell .welcome-row { margin-bottom: 24px; }
+  .app-shell .course-hero__content { min-height: 354px; padding: 26px 24px; gap: 24px; }
+  .app-shell .course-hero__shade { background: linear-gradient(90deg, rgb(24 51 44 / 94%), rgb(24 51 44 / 60%)); }
+  .app-shell .course-hero__content h2 { font-size: 32px; }
+  .app-shell .hero-actions .button { flex: 1; padding-inline: 12px; }
+  .app-shell .assistant-card { min-height: 268px; }
+  .app-shell .assistant-card__copy { width: 100%; padding: 24px 24px 90px; }
+  .app-shell .assistant-card h3 { font-size: 22px; }
+  .app-shell .assistant-card p { max-width: 240px; }
+  .app-shell .assistant-character { width: 112px; right: 0; }
+  .app-shell .assistant-card__note { left: 24px; right: auto; bottom: 22px; max-width: 190px; font-size: 11px; }
+  .app-shell .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .app-shell .metric-card { padding: 18px 12px; gap: 8px; align-items: flex-start; }
+  .app-shell .metric-card__icon { height: 28px; width: 28px; }
+  .app-shell .metric-card__icon svg { width: 18px; }
+  .app-shell .metric-card__arrow { display: none; }
+  .app-shell .metric-card > div > span { font-size: 11px; }
+  .app-shell .metric-card small { white-space: normal; font-size: 11px; line-height: 1.6; }
+  .app-shell :is(.upcoming-panel, .activity-panel, .lesson-editor, .launch-card) { padding: 22px 20px; }
+  .app-shell .panel-header { gap: 10px; }
+  .app-shell .panel-header h3 { font-size: 16px; }
+  .app-shell .class-row .button { display: inline-flex; grid-column: 2; justify-self: start; }
+  .app-shell .course-grid { grid-template-columns: 1fr; gap: 24px; }
+  .app-shell .course-card__body { padding: 22px; }
+  .app-shell .course-card__body h3 { font-size: 24px; }
+  .app-shell .course-card__body p { min-height: 0; }
+  .app-shell .detail-hero { height: 260px; }
+  .app-shell .detail-hero__content { padding: 24px; }
+  .app-shell .detail-hero__content h2 { font-size: 34px; }
+  .app-shell .lesson-steps { grid-template-columns: 1fr; }
+  .app-shell .lesson-editor .panel-header { flex-wrap: wrap; }
+  .app-shell .schedule-card { padding: 20px; gap: 12px; }
+  .app-shell .schedule-card__body h3 { font-size: 16px; line-height: 1.6; }
+  .app-shell .notification-popover { width: min(300px, calc(100vw - 40px)); right: -50px; }
+  .portal-modal { padding: 16px; }
+}
