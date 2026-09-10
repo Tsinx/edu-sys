@@ -24,3 +24,6 @@ coverage/
 .vscode/
 Thumbs.db
 .DS_Store
+
+# Downloaded and checksum-verified browser KWS runtime/model
+apps/teacher-web/public/vendor/local-kws/

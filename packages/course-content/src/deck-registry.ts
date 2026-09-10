@@ -1,4 +1,5 @@
 import { PORT_MANAGEMENT_SLIDES } from "./slides.js";
+import { PORT_LBL_LEGACY_KEYS } from "./port-lbl-migration.js";
 import {
   ECONOMIC_MATHEMATICS_COURSE_CODE,
   ECONOMIC_MATHEMATICS_COURSE_ID,
@@ -141,7 +142,7 @@ const portDescriptor: CourseDeckDescriptor = {
   slug: "gangkou-guanli-gailun",
   code: "PM-INTRO-001",
   deckId: "deck-course-port-management-intro-foundations",
-  versionId: "release-port-management-voyage-v7",
+  versionId: "release-port-management-lbl-v8",
   title: "港口管理概论",
   totalHours: 32,
   slideTotal: PORT_MANAGEMENT_SLIDES.length,
@@ -166,8 +167,9 @@ const portDescriptor: CourseDeckDescriptor = {
   },
   getSlide: summarizePortSlide,
   getSlideByKey(slideKey) {
+    const resolvedKey=PORT_LBL_LEGACY_KEYS[slideKey]??slideKey;
     const slide = PORT_MANAGEMENT_SLIDES.find(
-      (candidate) => candidate.slideKey === slideKey
+      (candidate) => candidate.slideKey === resolvedKey
     );
     return slide ? summarizePortSlide(slide.index) : undefined;
   },

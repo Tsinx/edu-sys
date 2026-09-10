@@ -8,6 +8,8 @@ import type {
   AssistantJsonStreamRequest
 } from "../src/assistant/provider.js";
 import { buildApp } from "../src/app.js";
+import { ClassroomAssistantOrchestrator } from "../src/assistant/orchestrator.js";
+import { classroomSnapshotSchema } from "@edu/contracts";
 
 class QueuedAssistantProvider implements AssistantJsonStreamProvider {
   readonly name = "queued-test-provider";
@@ -43,7 +45,7 @@ function parseSseEvents(raw: string): Array<Record<string, unknown>> {
     );
 }
 
-test("assistant SSE streams dialogue early and executes controls only after full JSON validation", async () => {
+test("assistant SSE suppresses legacy control acknowledgements and validates actions before execution", async () => {
   const tempDirectory = await mkdtemp(
     join(tmpdir(), "edu-assistant-stream-")
   );
@@ -88,7 +90,8 @@ test("assistant SSE streams dialogue early and executes controls only after full
       .filter((event) => event.type === "dialogue.delta")
       .map((event) => event.delta)
       .join("");
-    assert.equal(dialogue, "我们翻到下一页，继续看港口功能。");
+    assert.equal(dialogue, "");
+    assert.equal(firstEvents.at(-1)?.dialogue, "");
     assert.equal(
       firstEvents.some((event) => event.type === "control.result"),
       true
@@ -116,7 +119,7 @@ test("assistant SSE streams dialogue early and executes controls only after full
     const invalidEvents = parseSseEvents(invalidResponse.body);
     assert.equal(
       invalidEvents.some((event) => event.type === "dialogue.delta"),
-      true
+      false
     );
     assert.equal(invalidEvents.at(-1)?.type, "turn.failed");
     assert.equal(
@@ -132,7 +135,7 @@ test("assistant SSE streams dialogue early and executes controls only after full
     assert.equal(provider.requests.length, 2);
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
-      /当前 Slides：第 1\/47 页（内部全局第 1\/119 页）/
+      /当前 Slides：第 1\/47 页（内部全局第 1\/153 页）/
     );
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
@@ -190,6 +193,55 @@ test("assistant SSE streams dialogue early and executes controls only after full
       provider.requests[0]?.messages[0]?.content ?? "",
       /左侧深色区覆盖/
     );
+  } finally {
+    await app.close();
+    await rm(tempDirectory, { recursive: true, force: true });
+  }
+});
+
+test("control-only turns stay silent while questions and explicitly requested explanations remain spoken", async () => {
+  const tempDirectory = await mkdtemp(join(tmpdir(), "edu-assistant-silent-"));
+  const cases = [
+    { text: "下一页", replyKind: "control", dialogue: "", actions: [{ type: "slides.next" }], index: 2, spoken: "" },
+    { text: "上一页", replyKind: "control", dialogue: "好的，已经为您翻页。", actions: [{ type: "slides.previous" }], index: 1, spoken: "" },
+    { text: "翻到下一页并讲解", replyKind: "answer", dialogue: "港口连接水运与陆运。", actions: [{ type: "slides.next" }], index: 2, spoken: "港口连接水运与陆运。" },
+    { text: "为什么需要港口？", replyKind: "answer", dialogue: "港口承担货物换装与集散。", actions: [], index: 2, spoken: "港口承担货物换装与集散。" }
+  ];
+  const provider = new QueuedAssistantProvider(cases.map(item => JSON.stringify({
+    replyKind: item.replyKind, dialogue: item.dialogue, actions: item.actions,
+    schema: "edu.classroom.assistant.response", version: "1.0"
+  })));
+  const app = await buildApp({ dataFile: join(tempDirectory, "state.json"), assistantProvider: provider });
+  try {
+    const created = await app.inject({ method: "POST", url: "/api/courses/course-port-management-intro/class-sessions" });
+    const id = created.json().id;
+    for (const [index, item] of cases.entries()) {
+      const response = await app.inject({ method: "POST", url: `/api/class-sessions/${id}/assistant/turns`,
+        payload: { text: item.text, source: index % 2 ? "voice_asr" : "text" } });
+      const events = parseSseEvents(response.body);
+      assert.equal(events.at(-1)?.type, "turn.completed", response.body);
+      assert.equal(events.at(-1)?.dialogue, item.spoken);
+      assert.equal(events.filter(event => event.type === "dialogue.delta").map(event => event.delta).join(""), item.spoken);
+      assert.equal(events.some(event => event.type === "control.result"), item.actions.length > 0);
+      const current = await app.inject({ url: `/api/class-sessions/${id}/snapshot` });
+      assert.equal(current.json().slide.index, item.index);
+      assert.equal(current.json().avatar.status, "ready");
+    }
+    assert.match(provider.requests[0]!.messages[0]!.content, /禁止生成.*确认语/);
+    assert.match(provider.requests[0]!.messages[0]!.content, /翻页并讲解/);
+
+    const snapshot = classroomSnapshotSchema.parse((await app.inject({ url: `/api/class-sessions/${id}/snapshot` })).json());
+    let providerFinished = false;
+    const streaming = new ClassroomAssistantOrchestrator({ name: "early-answer-test", async *streamJson() {
+      yield '{"replyKind":"answer","dialogue":"先解释港口的作用';
+      providerFinished = true;
+      yield '。","actions":[],"schema":"edu.classroom.assistant.response","version":"1.0"}';
+    }}).startTurn(snapshot, { text: "解释港口的作用", source: "text" });
+    const first = await streaming.deltas.next();
+    assert.equal(providerFinished, false, "ordinary answers must keep streaming before the provider finishes");
+    assert.equal(first.value?.delta, "先解释港口的作用");
+    for await (const _ of streaming.deltas) { /* consume the remaining response */ }
+    assert.equal((await streaming.result).dialogue, "先解释港口的作用。");
   } finally {
     await app.close();
     await rm(tempDirectory, { recursive: true, force: true });

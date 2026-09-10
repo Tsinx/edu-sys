@@ -82,7 +82,7 @@ test("self-study session persists progress and exposes a zero-GPU Lanzhou presen
     assert.equal(first.mode, "student");
     assert.equal(first.globalIndex, 1);
     assert.equal(first.slideKey, "l1-course-cover");
-    assert.equal(first.slideTotal, 119);
+    assert.equal(first.slideTotal, 153);
     assert.equal(first.presentation.mode, "selfstudy_prerecorded");
     assert.equal(first.presentation.requiresGpu, false);
     assert.equal(first.presentation.characterId, "lanzhou");
@@ -99,7 +99,7 @@ test("self-study session persists progress and exposes a zero-GPU Lanzhou presen
     });
     assert.equal(target.statusCode, 200);
     assert.equal(target.json().globalIndex, 48);
-    assert.equal(target.json().slideKey, "l2-cover");
+    assert.equal(target.json().slideKey, "l2-lbl-cover");
 
     await app.close();
     app = await buildApp({ dataFile });

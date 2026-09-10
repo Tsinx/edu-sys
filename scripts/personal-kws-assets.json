@@ -1,0 +1,12 @@
+{
+  "id": "personal-20260909",
+  "format": "FP32 ONNX",
+  "sourceDirectory": "output/kws-personal-training-20260909/model",
+  "trainingReport": "output/kws-personal-training-20260909/README.md",
+  "files": {
+    "encoder.onnx": "67ef6fd84a312d74549e2cf823106db6c10d3dcf477d7ae260bba177d9abe2ab",
+    "decoder.onnx": "fe681cf77150d50160a9cab7bf59fa374820905228961f9fd8c52183c04b25d0",
+    "joiner.onnx": "ded9fe2a45cb5925aa5e1f533399fa6cbff55651a1cf18e3ab2cc418179674ef",
+    "tokens.txt": "72316508d9119696145abc6f1f8cdc46287535c34e5ce7e595f845cb1499cf2e"
+  }
+}

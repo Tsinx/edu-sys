@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "vite build",
+    "build": "node ../../scripts/setup-local-kws.mjs --check && node ../../scripts/setup-personal-kws.mjs --check && node ../../scripts/setup-personal-kws.mjs --model xiaomai-20260909-epoch10 --check && vite build",
     "globe:data": "node ../../scripts/build-globe-shipping-data.mjs",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test test/*.test.ts test/*.test.tsx"

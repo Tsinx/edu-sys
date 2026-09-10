@@ -1563,10 +1563,18 @@ export const assistantResponseEnvelopeSchema = z
   .object({
     schema: assistantResponseSchemaNameSchema,
     version: assistantResponseVersionSchema,
-    dialogue: z.string().min(1).max(4_000),
+    replyKind: z.enum(["answer", "control"]).optional(),
+    dialogue: z.string().max(4_000),
     actions: z.array(avatarControlActionSchema).max(8)
   })
-  .strict();
+  .strict()
+  .refine(value => value.dialogue.trim().length > 0 || value.actions.length > 0, {
+    message: "助手响应必须包含回答或课堂动作"
+  })
+  .refine(value => (value.replyKind !== "control" || value.actions.length > 0) &&
+    (value.replyKind !== "answer" || value.dialogue.trim().length > 0), {
+    message: "操作响应必须包含动作，教学回答必须包含正文"
+  });
 export type AssistantResponseEnvelope = z.infer<
   typeof assistantResponseEnvelopeSchema
 >;

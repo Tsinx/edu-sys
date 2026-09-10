@@ -1,3 +1,7 @@
+import { PORT_LBL_SOURCES } from "./port-lbl-sources.js";
+import { PORT_LBL_LEGACY_KEYS } from "./port-lbl-migration.js";
+export { PORT_LBL_LEGACY_KEYS } from "./port-lbl-migration.js";
+export { PORT_LBL_SLIDES, PORT_LBL_LESSON_TWO, PORT_LBL_LESSON_THREE, PORT_LBL_TITLES, type PortLblPage } from "./port-lbl.js";
 import {
   PORT_MANAGEMENT_IMAGEGEN_ASSETS,
   PORT_MANAGEMENT_SLIDES
@@ -242,7 +246,7 @@ export interface PortManagementGlobeCue {
 }
 
 export const PORT_MANAGEMENT_DECK_VERSION =
-  "release-port-management-voyage-v7";
+  "release-port-management-lbl-v8";
 
 export const PORT_MANAGEMENT_GLOBE_CUES: readonly PortManagementGlobeCue[] = [
   {
@@ -379,6 +383,7 @@ export function getPortManagementGlobeCue(
 }
 
 export const PORT_MANAGEMENT_SOURCES: Record<string, PortCourseSource> = {
+  ...PORT_LBL_SOURCES,
   "oocl-spain-release": {
     label: "OOCL · OOCL Spain发布及LL3港序（2023）",
     url: "https://www.oocl.com/jpn/pressandmedia/pressreleases/2023/Pages/16Feb2023.aspx?lang=eng&site=china"
@@ -606,90 +611,62 @@ export const PORT_MANAGEMENT_LESSON_TIMINGS: Record<
   ],
   2: [
     {
-      label: "恢复航海日志",
+      label: "海外订单与出运准备",
       slideStart: 48,
-      slideEnd: 51,
-      minutes: 8,
-      purpose: "以真实LL3港序提出路线解释任务。"
-    },
-    {
-      label: "班轮走廊与节点",
-      slideStart: 52,
       slideEnd: 59,
-      minutes: 18,
-      purpose: "在航次中辨认干线、支线、枢纽、门户和腹地。"
+      minutes: 20,
+      purpose: "以教学箱C-01建立货物、箱体、参与者与出运条件。"
     },
     {
-      label: "马六甲与苏伊士",
+      label: "长江接力与海港换装",
       slideStart: 60,
-      slideEnd: 68,
-      minutes: 22,
-      purpose: "解释海峡、运河及风险传播。"
-    },
-    {
-      label: "教学中断决策",
-      slideStart: 69,
       slideEnd: 73,
-      minutes: 15,
-      purpose: "比较等待、绕航和调整转运的后果。"
+      minutes: 25,
+      purpose: "沿果园港、船闸与上海水水换装解释作业衔接；上半课45分钟收束。"
     },
     {
-      label: "重庆集装箱支线",
+      label: "装船与班轮航次",
       slideStart: 74,
-      slideEnd: 80,
-      minutes: 17,
-      purpose: "从果园港追踪集装箱进入上海海运网络。"
+      slideEnd: 87,
+      minutes: 23,
+      purpose: "逐步演示装船接力，辨认挂靠、换船与服务循环。"
     },
     {
-      label: "网络韧性与抵欧",
-      slideStart: 81,
-      slideEnd: 83,
-      minutes: 10,
-      purpose: "形成完整网络图并留下港口价值悬念。"
+      label: "到门交付、空箱与全程复盘",
+      slideStart: 88,
+      slideEnd: 99,
+      minutes: 22,
+      purpose: "区分相关提离条件与三种循环，由教师演算时间账与错过周班案例。"
     }
   ],
   3: [
     {
-      label: "抵港问题",
-      slideStart: 84,
-      slideEnd: 88,
-      minutes: 10,
-      purpose: "由同船不同港的作业差异提出价值问题。"
+      label: "货物、船舶与专业码头",
+      slideStart: 100,
+      slideEnd: 115,
+      minutes: 28,
+      purpose: "由城市需求进入干散货、液体、LNG、滚装与件杂货的设施适配。"
     },
     {
-      label: "港口能力演化",
-      slideStart: 89,
-      slideEnd: 97,
-      minutes: 21,
-      purpose: "先观察能力变化，再命名一至四代港口。"
+      label: "全球市场与货物流向",
+      slideStart: 116,
+      slideEnd: 125,
+      minutes: 17,
+      purpose: "切换大洋中心与货类视角，建立洲际联系和能源、矿石网络认识。"
     },
     {
-      label: "沿航次比较港口",
-      slideStart: 98,
-      slideEnd: 105,
-      minutes: 20,
-      purpose: "比较上海、新加坡、比雷埃夫斯与鹿特丹的角色。"
+      label: "货流层次、通道与时政案例",
+      slideStart: 126,
+      slideEnd: 141,
+      minutes: 27,
+      purpose: "区分出口依赖、绕航与水资源约束，以冻结日期资料解释风险传递。"
     },
     {
-      label: "中国港口与果园港",
-      slideStart: 106,
-      slideEnd: 111,
-      minutes: 15,
-      purpose: "把港口类型放回网络位置和腹地关系。"
-    },
-    {
-      label: "港口诊断任务",
-      slideStart: 112,
-      slideEnd: 117,
+      label: "服务组织与港口管理",
+      slideStart: 142,
+      slideEnd: 153,
       minutes: 18,
-      purpose: "诊断船舶、堆场、集疏运和信息瓶颈。"
-    },
-    {
-      label: "航次收束",
-      slideStart: 118,
-      slideEnd: 119,
-      minutes: 6,
-      purpose: "回看整条价值链并衔接码头生产系统。"
+      purpose: "教师演算周班配船，解释挂港与转运选择，再回到海陆接口管理。"
     }
   ]
 };
@@ -747,55 +724,55 @@ export const PORT_MANAGEMENT_LESSONS: readonly PortManagementLessonSpec[] = [
   {
     number: 2,
     label: "第2讲",
-    title: "它为什么必须走这条路？",
+    title: "一只集装箱如何走向世界？",
     status: "ready",
     slideStart: 48,
-    slideEnd: 83,
+    slideEnd: 99,
     timing: PORT_MANAGEMENT_LESSON_TIMINGS[2],
     assistantBrief: {
       objective:
-        "沿LL3历史港序，用走廊、咽喉、节点和腹地解释班轮网络的空间组织、风险传播与改道决策。",
+        "跟随教学箱C-01从重庆工厂到欧洲客户，理解出运、内河、换装、班轮、到门交付与空箱归还的完整过程。",
       coreClaims: [
-        "港序连接货源、市场、枢纽和服务网络，真实班轮航线不是地图上的最短直线。",
-        "干线、支线、枢纽港、门户港和腹地描述不同网络关系，不能混为同一层级。",
-        "马六甲与苏伊士等咽喉会把局部容量或安全问题放大为时间、库存与可靠性冲击。",
-        "韧性来自替代路径、时间缓冲、运力配置和信息透明，而不是永不受阻。"
+        "货物、箱体与船舶有不同的旅程和循环，货物交付不等于箱体与船舶循环结束。",
+        "本箱从内河船抵达上海，经堆场再装远洋船；陆侧分支是其他箱子的路径。",
+        "挂靠不等于本箱中转，直达不等于不停港，换船会增加衔接条件。",
+        "移动、作业与等待组成全程时间；14小时到达延误可能导致周班出发晚168小时。"
       ],
       guardrails: [
-        "不得把五大或六大航线说成唯一、永久不变的标准。",
-        "中断、等待和绕好望角均为教学情境，不得说成OOCL Spain真实事故。",
-        "果园港到上海是教学集装箱的内河来路，不是远洋船舶航段。",
-        "港序后的逐段海上路径是课程复原图，不是实时AIS轨迹。"
+        "C-01、班期与40天时间账是教学设定，不是真实订单或服务承诺。",
+        "VGM是装船必要条件之一，不保证箱子一定装船；监管、承运人与码头条件不能混为一体。",
+        "船闸与升船机不同；生成背景不代表真实港口设备布局。",
+        "2023年LL3港序和课程重建路径不是当前班表、实时AIS或导航轨迹。"
       ],
       responsePolicy:
-        "先说明当前地点和网络层级，再回答路线或决策问题；涉及港口功能时提示第三讲继续。"
+        "先说明本箱当前位置、实际作业与衔接条件，再解释机制；由教师完整示范，不要求学生登录或提交活动。全球货类与通道在第三讲展开。"
     }
   },
   {
     number: 3,
     label: "第3讲",
-    title: "港口为什么创造不同价值？",
+    title: "世界货物如何流动？",
     status: "ready",
-    slideStart: 84,
-    slideEnd: 119,
+    slideStart: 100,
+    slideEnd: 153,
     timing: PORT_MANAGEMENT_LESSON_TIMINGS[3],
     assistantBrief: {
       objective:
-        "沿同一航次观察港口能力与网络角色，使用代际框架和系统诊断解释港口价值差异。",
+        "从货类与设施适配，理解全球运输方向、关键通道、服务组织及港口接口的价值。",
       coreClaims: [
-        "港口价值不仅发生在船边，还来自产业、物流、腹地连接、信息协同和治理。",
-        "一至四代港口是能力演化的分析框架，同一港口可同时保留多代特征。",
-        "自动化、绿色与韧性是跨代能力，自动化本身不能证明属于第四代。",
-        "门户、转运、工业、城市与内河枢纽角色应按货流和网络关系判断，不能只比吞吐量。"
+        "货物性质、装运形态与大宗交易是不同分类视角；专业码头需要成套适配。",
+        "集装箱、油气、矿石与粮食的贸易方向不同，不能合为单一班轮网络。",
+        "霍尔木兹出口约束、红海绕航与巴拿马水资源约束具有不同机制。",
+        "固定周班的循环由70天变为84天，简化模型配船由10艘增为12艘；不代表运价同比变化。"
       ],
       guardrails: [
-        "不得把港口代际当成先进程度排行榜。",
-        "不得把比雷埃夫斯的挂港事实扩写成未经来源支持的经营结论。",
-        "港口诊断场景是教学情境，不对应某一真实港口事故。",
-        "不能用单一吞吐量替代效率、连接、服务、韧性和治理能力。"
+        "绕好望角不能消除湾内油轮驶出霍尔木兹的约束，其他替代方式也有容量与设施条件。",
+        "红海与巴拿马采用2023—2024历史案例；IMO页面为2026-09-09冻结快照，不作为即时新闻。",
+        "生成场景与手工路线为教学示意；线宽不表示运量，航道分段数不表示服务数量。",
+        "匿名舱位合作不对应当前联盟名单；港口角色可重叠，不做代际或吞吐量排行榜。"
       ],
       responsePolicy:
-        "先诊断当前港口的功能与瓶颈，再指出需要的证据；涉及码头微观生产时衔接第四讲。"
+        "先从货物、地理、通道和组织中的当前层次回答，再联系港口接口。数字均按资料日期或教学设定解释；不发布活动，不自动转入仿真。"
     }
   },
   plannedLesson(4),
@@ -830,7 +807,8 @@ export function getPortManagementSlide(
 export function getPortManagementSlideByKey(
   slideKey: string
 ): PortManagementSlideSpec | undefined {
-  return PORT_MANAGEMENT_SLIDES.find((slide) => slide.slideKey === slideKey);
+  const resolvedKey=PORT_LBL_LEGACY_KEYS[slideKey]??slideKey;
+  return PORT_MANAGEMENT_SLIDES.find((slide) => slide.slideKey === resolvedKey);
 }
 
 export function getPortManagementLesson(
@@ -933,6 +911,12 @@ function appendContextLine(
 }
 
 function formatVoyagePrompt(slide: PortManagementSlideSpec): string {
+  if(slide.slideKey.includes("-lbl-"))return [
+    "双讲LBL主线：教学货物为普通工业零件，使用40英尺干货箱C-01。",
+    "教学旅程：重庆工厂—果园港—长江—上海水水换装—亚欧海运—鹿特丹—公路到杜伊斯堡附近客户—指定地点还空箱。",
+    "对象边界：教学货物、箱体与船舶有不同循环。OOCL Spain及LL3仅用于2023年历史服务参考，不对应本票真实承运。",
+    "第三讲扩展：货物与船舶码头适配、洲际联系、通道约束与服务组织。路线不作为实时AIS或导航，日期资料不冒充当前实况。"
+  ].join("\n");
   if (slide.lesson === 1 && slide.index < 40) {
     return [
       "第一讲历史主线：从约1700年英格兰的人口劣势之谜出发，沿中国丝织品、江南—湖广区域分工和英国海上贸易网络解释影响力如何被放大。",

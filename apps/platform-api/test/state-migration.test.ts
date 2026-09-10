@@ -42,7 +42,8 @@ test("old numeric slide state returns to the matching new lesson cover", async (
     { ...baseSession, id: "v5-missing-key" },
     { ...baseSession, id: "v6-key-survives" },
     { ...baseSession, id: "v6-missing-key" },
-    { ...baseSession, id: "stable-key-wins" }
+    { ...baseSession, id: "stable-key-wins" },
+    { ...baseSession, id: "v7-missing-key" }
   ];
   state.classroomRuntimes = {
     "legacy-lesson-1": legacyRuntime(20),
@@ -96,6 +97,12 @@ test("old numeric slide state returns to the matching new lesson cover", async (
       slideKey: "removed-v6-slide",
       deckVersion: "release-port-management-voyage-v6"
     },
+    "v7-missing-key": {
+      ...createInitialClassroomRuntime(),
+      slideIndex: 84,
+      slideKey: "removed-v7-slide",
+      deckVersion: "release-port-management-voyage-v7"
+    },
     "stable-key-wins": {
       ...createInitialClassroomRuntime(),
       slideIndex: 1,
@@ -115,11 +122,11 @@ test("old numeric slide state returns to the matching new lesson cover", async (
         store.getClassroomSnapshot("legacy-lesson-2")?.slide.index,
         store.getClassroomSnapshot("legacy-lesson-3")?.slide.index
       ],
-      [1, 48, 84]
+      [1, 48, 100]
     );
     assert.equal(
       store.getClassroomSnapshot("v3-key-survives")?.slide.index,
-      69
+      132
     );
     assert.equal(
       store.getClassroomSnapshot("v3-missing-key")?.slide.index,
@@ -127,11 +134,11 @@ test("old numeric slide state returns to the matching new lesson cover", async (
     );
     assert.equal(
       store.getClassroomSnapshot("v4-key-survives")?.slide.index,
-      102
+      139
     );
     assert.equal(
       store.getClassroomSnapshot("v4-missing-key")?.slide.index,
-      84
+      100
     );
     assert.equal(
       store.getClassroomSnapshot("v5-key-survives")?.slide.index,
@@ -143,7 +150,7 @@ test("old numeric slide state returns to the matching new lesson cover", async (
     );
     assert.equal(
       store.getClassroomSnapshot("v6-key-survives")?.slide.index,
-      69
+      132
     );
     assert.equal(
       store.getClassroomSnapshot("v6-missing-key")?.slide.index,
@@ -151,11 +158,11 @@ test("old numeric slide state returns to the matching new lesson cover", async (
     );
     assert.equal(
       store.getClassroomSnapshot("stable-key-wins")?.slide.index,
-      84
+      100
     );
     assert.equal(
       store.getClassroomSnapshot("stable-key-wins")?.slide.slideId,
-      "l3-cover"
+      "l3-lbl-cover"
     );
 
     const persisted = JSON.parse(await readFile(dataFile, "utf8")) as {
@@ -170,7 +177,7 @@ test("old numeric slide state returns to the matching new lesson cover", async (
         persisted.classroomRuntimes["legacy-lesson-2"]?.slideKey,
         persisted.classroomRuntimes["legacy-lesson-3"]?.slideKey
       ],
-      ["l1-course-cover", "l2-cover", "l3-cover"]
+      ["l1-course-cover", "l2-lbl-cover", "l3-lbl-cover"]
     );
     assert.equal(
       persisted.classroomRuntimes["legacy-lesson-2"]?.deckVersion,
@@ -178,19 +185,19 @@ test("old numeric slide state returns to the matching new lesson cover", async (
     );
     assert.equal(
       persisted.classroomRuntimes["v3-key-survives"]?.slideKey,
-      "l2-disruption-brief"
+      "l3-lbl-redsea-case"
     );
     assert.equal(
       persisted.classroomRuntimes["v3-missing-key"]?.slideKey,
-      "l2-cover"
+      "l2-lbl-cover"
     );
     assert.equal(
       persisted.classroomRuntimes["v4-key-survives"]?.slideKey,
-      "l3-piraeus-call"
+      "l3-lbl-gibraltar"
     );
     assert.equal(
       persisted.classroomRuntimes["v4-missing-key"]?.slideKey,
-      "l3-cover"
+      "l3-lbl-cover"
     );
     assert.equal(
       persisted.classroomRuntimes["v5-key-survives"]?.slideKey,
@@ -198,16 +205,18 @@ test("old numeric slide state returns to the matching new lesson cover", async (
     );
     assert.equal(
       persisted.classroomRuntimes["v5-missing-key"]?.slideKey,
-      "l2-cover"
+      "l2-lbl-cover"
     );
     assert.equal(
       persisted.classroomRuntimes["v6-key-survives"]?.slideKey,
-      "l2-disruption-brief"
+      "l3-lbl-redsea-case"
     );
     assert.equal(
       persisted.classroomRuntimes["v6-missing-key"]?.slideKey,
-      "l2-cover"
+      "l2-lbl-cover"
     );
+    assert.equal(store.getClassroomSnapshot("v7-missing-key")?.slide.index, 100);
+    store.close();
   } finally {
     await rm(tempDirectory, { recursive: true, force: true });
   }

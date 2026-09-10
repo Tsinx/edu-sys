@@ -25,6 +25,8 @@ import {
   MeshBasicMaterial,
   MeshPhongMaterial,
   PerspectiveCamera,
+  PlaneGeometry,
+  Quaternion,
   Points,
   PointsMaterial,
   Raycaster,
@@ -45,6 +47,9 @@ import {
   type Object3D
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { Line2 } from "three/examples/jsm/lines/Line2.js";
+import { LineGeometry } from "three/examples/jsm/lines/LineGeometry.js";
+import { LineMaterial } from "three/examples/jsm/lines/LineMaterial.js";
 import {
   forwardRef,
   useEffect,
@@ -61,6 +66,7 @@ import {
   ZoomIn,
   ZoomOut
 } from "lucide-react";
+import { sampleVoyageFrame, type GlobeVoyageMotion } from "./voyage-motion";
 import administrativeBoundaryData from "./data/prc-administrative-boundaries.json";
 
 export interface GlobeCoordinate {
@@ -115,6 +121,7 @@ export interface GlobeMovingVessel {
   color?: string;
   label?: string;
   progress?: number;
+  motion?: GlobeVoyageMotion;
 }
 
 export interface InteractiveEarthGlobeHandle {
@@ -161,6 +168,8 @@ export interface InteractiveEarthGlobeProps {
   defaultShippingLaneDetail?: GlobeShippingLaneDetail;
   shippingLaneState?: GlobeShippingLaneState;
   movingVessel?: GlobeMovingVessel;
+  presentationMode?: boolean;
+  onRenderStateChange?: (state: "loading" | "ready" | "error") => void;
   cameraTrackingCoordinate?: GlobeCoordinate;
   cameraTrackingDistance?: number;
   showProvinceBoundaries?: boolean;
@@ -205,6 +214,7 @@ interface MarkerVisual {
 }
 
 interface RoutePulse {
+  routeId: string;
   curve: Curve<Vector3>;
   mesh: Mesh;
   offset: number;
@@ -381,7 +391,7 @@ function sphericalInterpolate(
     .multiplyScalar(radius);
 }
 
-class PiecewiseGeodesicCurve extends Curve<Vector3> {
+export class PiecewiseGeodesicCurve extends Curve<Vector3> {
   private readonly points: Vector3[];
   private readonly cumulativeDistances: number[];
   private readonly totalDistance: number;
@@ -907,7 +917,7 @@ function createStarField() {
   );
 }
 
-function createLabelSprite(name: string, color: Color) {
+function createLabelSprite(name: string, color: Color, minimal = false) {
   const canvas = document.createElement("canvas");
   canvas.width = 512;
   canvas.height = 128;
@@ -932,6 +942,15 @@ function createLabelSprite(name: string, color: Color) {
     '700 45px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif';
   context.textBaseline = "middle";
   context.fillText(name, 82, 66, 400);
+  if (minimal) {
+    context.clearRect(0, 0, 512, 128);
+    context.font = '500 46px "Microsoft YaHei", sans-serif';
+    context.textAlign = "center";
+    context.shadowColor = "#061520";
+    context.shadowBlur = 9;
+    context.fillStyle = "#f0eee5";
+    context.fillText(name, 256, 58, 492);
+  }
 
   const texture = new CanvasTexture(canvas);
   texture.colorSpace = SRGBColorSpace;
@@ -957,7 +976,8 @@ function createMarker(
   location: GlobeLocation,
   active: boolean,
   showLabel: boolean,
-  activeColor: Color
+  activeColor: Color,
+  minimal = false
 ) {
   const group = new Group();
   const baseColor = locationColor(location);
@@ -977,13 +997,15 @@ function createMarker(
   stem.position.copy(markerPosition);
   stem.quaternion.setFromUnitVectors(UP, normal);
   group.add(stem);
+  if(minimal)stem.visible=false;
 
   const pointMaterial = new MeshBasicMaterial({
     color: currentColor,
+    transparent: true,
     toneMapped: false
   });
-  const point = new Mesh(new SphereGeometry(0.026, 18, 14), pointMaterial);
-  point.position.copy(normal.clone().multiplyScalar(1.098));
+  const point = new Mesh(new SphereGeometry(minimal ? 0.01 : 0.026, 18, 14), pointMaterial);
+  point.position.copy(normal.clone().multiplyScalar(minimal ? 1.039 : 1.098));
   point.scale.setScalar(active ? 1.4 : 1);
   group.add(point);
 
@@ -999,6 +1021,7 @@ function createMarker(
   ring.position.copy(normal.clone().multiplyScalar(1.105));
   ring.quaternion.setFromUnitVectors(FORWARD, normal);
   group.add(ring);
+  if(minimal)ring.visible=false;
 
   const hitTarget = new Mesh(
     new SphereGeometry(0.075, 12, 8),
@@ -1014,9 +1037,9 @@ function createMarker(
 
   let labelSprite: Sprite | undefined;
   if (showLabel && location.showLabel !== false) {
-    const label = createLabelSprite(location.name, currentColor);
+    const label = createLabelSprite(location.name, currentColor, minimal);
     if (label) {
-      label.position.copy(normal.clone().multiplyScalar(1.22));
+      label.position.copy(normal.clone().multiplyScalar(minimal ? 1.06 : 1.22));
       group.add(label);
       labelSprite = label;
     }
@@ -1044,8 +1067,9 @@ function createMarker(
   };
 }
 
-function createMovingVesselVisual(): MovingVesselVisual {
+function createMovingVesselVisual(modern = false): MovingVesselVisual {
   const group = new Group();
+  group.name = "globe-moving-vessel";
   group.visible = false;
 
   const hullMaterial = new MeshPhongMaterial({
@@ -1087,14 +1111,32 @@ function createMovingVesselVisual(): MovingVesselVisual {
   deck.position.set(0, 0.05, -0.016);
   group.add(deck);
 
-  [-0.032, 0.018].forEach((zPosition) => {
+  (modern ? [] : [-0.032, 0.018]).forEach((zPosition) => {
     const mast = new Mesh(
       new CylinderGeometry(0.003, 0.003, 0.105, 7),
       mastMaterial
     );
     mast.position.set(0, 0.104, zPosition);
     group.add(mast);
+    const sail = new Mesh(
+      new PlaneGeometry(0.068, 0.055, 8, 1),
+      new MeshPhongMaterial({ color: "#fff2d4", side: DoubleSide, shininess: 8 })
+    );
+    const vertices = sail.geometry.attributes.position!;
+    for (let index = 0; index < vertices.count; index += 1) {
+      vertices.setZ(index, 0.012 * Math.cos(vertices.getX(index) / 0.068 * Math.PI));
+    }
+    sail.geometry.computeVertexNormals();
+    sail.position.set(0, 0.117, zPosition + 0.005);
+    group.add(sail);
   });
+  if(modern){
+    deck.position.set(0,0.05,-0.04);
+    const forwardCargo=new Mesh(new BoxGeometry(0.046,0.025,0.035),deckMaterial);
+    forwardCargo.position.set(0,0.055,0.014);group.add(forwardCargo);
+    const bridge=new Mesh(new BoxGeometry(0.04,0.04,0.018),deckMaterial);
+    bridge.position.set(0,0.07,-0.048);group.add(bridge);
+  }
 
   const wakeMaterial = new MeshBasicMaterial({
     blending: AdditiveBlending,
@@ -1130,6 +1172,7 @@ function createMovingVesselVisual(): MovingVesselVisual {
   glow.rotation.x = -Math.PI / 2;
   glow.position.y = 0.008;
   group.add(glow);
+  if(modern)glow.visible=false;
 
   group.traverse((object) => {
     object.renderOrder = 12;
@@ -1146,19 +1189,26 @@ function createMovingVesselVisual(): MovingVesselVisual {
 function updateMovingVesselVisual(
   visual: MovingVesselVisual,
   vessel: GlobeMovingVessel,
-  elapsedSeconds: number
+  elapsedSeconds: number,
+  frameDeltaMs: number,
+  voyageFrame?: ReturnType<typeof sampleVoyageFrame>
 ) {
-  const position = latLngToVector3(vessel.coordinate, 1.085);
+  const position = voyageFrame?.position ?? latLngToVector3(vessel.coordinate, 1.032);
   const outward = position.clone().normalize();
   const headingPoint =
     vessel.headingTo && isValidCoordinate(vessel.headingTo)
     ? latLngToVector3(vessel.headingTo)
     : undefined;
-  const forward = headingPoint
+  const forward = voyageFrame?.forward ?? (headingPoint
     ? headingPoint
         .sub(outward.clone().multiplyScalar(headingPoint.dot(outward)))
         .normalize()
-    : new Vector3(0, 0, 1);
+    : new Vector3(0, 0, 1));
+  if (forward.lengthSq() < 1e-12 || Math.abs(forward.dot(outward)) > 0.999) {
+    forward.set(0, 1, 0).addScaledVector(outward, -outward.y);
+    if (forward.lengthSq() < 1e-12) forward.set(1, 0, 0);
+    forward.normalize();
+  }
   const right = outward.clone().cross(forward).normalize();
   const correctedForward = right.clone().cross(outward).normalize();
   const orientation = new Matrix4().makeBasis(
@@ -1168,10 +1218,15 @@ function updateMovingVesselVisual(
   );
   const color = new Color(vessel.color ?? "#ffb04d");
 
+  const targetOrientation = new Quaternion().setFromRotationMatrix(orientation);
+  if (visual.group.visible) {
+    visual.group.quaternion.slerp(targetOrientation, 1 - Math.exp(-frameDeltaMs / 90));
+  } else {
+    visual.group.quaternion.copy(targetOrientation);
+  }
   visual.group.visible = true;
   visual.group.position.copy(position);
-  visual.group.quaternion.setFromRotationMatrix(orientation);
-  visual.group.scale.setScalar(1 + Math.sin(elapsedSeconds * 4.8) * 0.055);
+  visual.group.scale.setScalar(1);
   visual.glow.scale.setScalar(1 + (Math.sin(elapsedSeconds * 5.4) + 1) * 0.1);
   visual.glowMaterial.opacity = 0.48 + (Math.sin(elapsedSeconds * 5.4) + 1) * 0.16;
   visual.glowMaterial.color.copy(color);
@@ -1265,6 +1320,8 @@ export const InteractiveEarthGlobe = forwardRef<
     defaultShippingLaneDetail = "major",
     shippingLaneState = "ready",
     movingVessel,
+    presentationMode = false,
+    onRenderStateChange,
     cameraTrackingCoordinate,
     cameraTrackingDistance = 2.34,
     showProvinceBoundaries = true,
@@ -1310,6 +1367,7 @@ export const InteractiveEarthGlobe = forwardRef<
   const previousRouteViewRef =
     useRef<GlobeRouteView>(defaultRouteView);
   const [stageState, setStageState] = useState<StageState>("loading");
+  useEffect(()=>{onRenderStateChange?.(stageState);},[stageState,onRenderStateChange]);
   const [autoRotating, setAutoRotating] = useState(autoRotate);
   const [internalMapMode, setInternalMapMode] =
     useState<GlobeMapMode>(defaultMapMode);
@@ -1576,6 +1634,7 @@ export const InteractiveEarthGlobe = forwardRef<
     let intersectionObserver: IntersectionObserver | undefined;
     let isVisible = true;
     const routePulses: RoutePulse[] = [];
+    const routeCurves = new Map<string, Curve<Vector3>>();
     const featuredRouteObjects: Object3D[] = [];
     const markerPulses: MarkerPulse[] = [];
     const markerLabels: MarkerLabel[] = [];
@@ -1664,7 +1723,7 @@ export const InteractiveEarthGlobe = forwardRef<
         createAdministrativeBoundaryVisuals();
       const shippingLaneVisuals =
         createShippingLaneVisuals(shippingLanes);
-      const movingVesselVisual = createMovingVesselVisual();
+      const movingVesselVisual = createMovingVesselVisual(presentationMode);
       renderer.domElement.dataset.shippingLaneBatches = String(
         shippingLaneVisuals.length
       );
@@ -1709,7 +1768,7 @@ export const InteractiveEarthGlobe = forwardRef<
       );
       earth.rotation.y = 0;
       scene.add(earth);
-      scene.add(createAtmosphere());
+      if(!presentationMode)scene.add(createAtmosphere());
       scene.add(movingVesselVisual.group);
 
       if (showGraticule) {
@@ -1739,6 +1798,7 @@ export const InteractiveEarthGlobe = forwardRef<
         MathUtils.degToRad(18)
       );
       scene.add(orbitalRing);
+      orbitalRing.visible = !presentationMode;
 
       locations
         .filter(isValidCoordinate)
@@ -1751,15 +1811,15 @@ export const InteractiveEarthGlobe = forwardRef<
             showLabels,
             new Color(
               activeLocationColors[location.id] ?? activeLocationColor
-            )
+            ), presentationMode
           );
           marker.markerPulse.phase += index / Math.max(locations.length, 1);
           markerPulses.push(marker.markerPulse);
           if (marker.labelSprite) {
             markerLabels.push({
               sprite: marker.labelSprite,
-              width: 0.46,
-              height: 0.115
+              width: presentationMode ? 0.25 : 0.46,
+              height: presentationMode ? 0.0625 : 0.115
             });
           }
           hitTargets.push(marker.hitTarget);
@@ -1770,8 +1830,12 @@ export const InteractiveEarthGlobe = forwardRef<
       routes.forEach((route, routeIndex) => {
         const curve = createRouteCurve(route);
         if (!curve) return;
+        routeCurves.set(route.id, curve);
         const color = new Color(route.color ?? "#5de7ff");
-        const tube = new Mesh(
+        const tube = presentationMode ? new Line2(
+          new LineGeometry().setPositions(curve.getPoints(Math.min(3600,Math.max(180,route.points.length*3))).flatMap(point=>[point.x,point.y,point.z])),
+          new LineMaterial({color,linewidth:2.5,transparent:true,opacity:.95,toneMapped:false,resolution:new Vector2(mount.clientWidth,mount.clientHeight)})
+        ) : new Mesh(
           new TubeGeometry(
             curve,
             Math.min(
@@ -1810,6 +1874,7 @@ export const InteractiveEarthGlobe = forwardRef<
             scene.add(pulse);
             featuredRouteObjects.push(pulse);
             routePulses.push({
+              routeId: route.id,
               curve,
               mesh: pulse,
               offset,
@@ -1885,7 +1950,12 @@ export const InteractiveEarthGlobe = forwardRef<
         const elapsedSeconds = Math.max(0, (now - startedAt) / 1000);
         const frameDeltaMs = MathUtils.clamp(now - previousFrameAt, 0, 64);
         previousFrameAt = now;
-        const trackingCoordinate = cameraTrackingCoordinateRef.current;
+        const vessel = movingVesselRef.current;
+        const voyageCurve = vessel?.motion ? routeCurves.get(vessel.motion.routeId) : undefined;
+        const voyageFrame = voyageCurve && vessel?.motion
+          ? sampleVoyageFrame(voyageCurve, vessel.motion, Date.now()) : undefined;
+        const trackingCoordinate = cameraTrackingCoordinateRef.current
+          ? voyageFrame?.coordinate ?? cameraTrackingCoordinateRef.current : undefined;
 
         if (
           trackingCoordinate &&
@@ -1995,7 +2065,14 @@ export const InteractiveEarthGlobe = forwardRef<
         });
         runtime.markerVisuals.forEach((visual, locationId) => {
           const visibleLocationIds = visibleLocationIdsRef.current;
+          const locationVector = locationVectors.get(locationId);
+          const vesselClearance = !presentationMode && voyageFrame && locationVector
+            ? MathUtils.smoothstep(voyageFrame.position.angleTo(locationVector), 0.07, 0.2)
+            : 1;
+          visual.pointMaterial.opacity = vesselClearance;
+          visual.stemMaterial.opacity = 0.72 * vesselClearance;
           visual.group.visible =
+            vesselClearance > 0.001 &&
             (visual.visibilityScope === "all" ||
               visual.visibilityScope === runtime.routeView) &&
             (visibleLocationIds === undefined ||
@@ -2003,6 +2080,13 @@ export const InteractiveEarthGlobe = forwardRef<
         });
 
         routePulses.forEach((pulse) => {
+          if (voyageFrame && pulse.routeId === vessel?.motion?.routeId) {
+            // A voyage has one position marker, anchored exactly beneath the hull.
+            pulse.mesh.visible = pulse.mesh.visible && pulse.offset === 0;
+            pulse.mesh.position.copy(voyageFrame.position);
+            pulse.mesh.scale.setScalar(1);
+            return;
+          }
           const rawProgress =
             pulse.offset + elapsedSeconds * pulse.speed;
           const progress = ((rawProgress % 1) + 1) % 1;
@@ -2019,10 +2103,17 @@ export const InteractiveEarthGlobe = forwardRef<
             1 + progress * (active ? 2.65 : 1.8)
           );
           pulse.material.opacity =
-            (1 - progress) * (active ? 0.86 : 0.36);
+            (1 - progress) * (active ? 0.86 : 0.36) *
+            (runtime.markerVisuals.get(pulse.locationId)?.pointMaterial.opacity ?? 1);
         });
 
         runtime.markerVisuals.forEach((visual, locationId) => {
+          if(presentationMode){
+            const depth=visual.point.position.distanceTo(camera.position);
+            const pixel=2*depth*Math.tan(MathUtils.degToRad(camera.fov/2))/Math.max(1,mount.clientHeight);
+            visual.point.scale.setScalar(pixel*(activeIdsRef.current.includes(locationId)?4:3)/.01);
+            return;
+          }
           if (!activeIdsRef.current.includes(locationId)) {
             visual.point.scale.setScalar(1);
             return;
@@ -2031,16 +2122,22 @@ export const InteractiveEarthGlobe = forwardRef<
           visual.point.scale.setScalar(flash);
         });
 
-        const vessel = movingVesselRef.current;
         if (vessel && isValidCoordinate(vessel.coordinate)) {
           updateMovingVesselVisual(
             runtime.movingVesselVisual,
             vessel,
-            elapsedSeconds
+            elapsedSeconds,
+            frameDeltaMs,
+            voyageFrame
           );
           renderer.domElement.dataset.vesselVisible = "true";
+          if(presentationMode){
+            const depth=runtime.movingVesselVisual.group.position.distanceTo(camera.position);
+            const pixel=2*depth*Math.tan(MathUtils.degToRad(camera.fov/2))/Math.max(1,mount.clientHeight);
+            runtime.movingVesselVisual.group.scale.setScalar(pixel*36/.24);
+          }
           renderer.domElement.dataset.vesselProgress = String(
-            MathUtils.clamp(vessel.progress ?? 0, 0, 1).toFixed(3)
+            MathUtils.clamp(voyageFrame?.progress ?? vessel.progress ?? 0, 0, 1).toFixed(6)
           );
         } else {
           runtime.movingVesselVisual.group.visible = false;
@@ -2059,6 +2156,12 @@ export const InteractiveEarthGlobe = forwardRef<
           1.35
         );
         markerLabels.forEach((label) => {
+          if(presentationMode){
+            const depth=label.sprite.position.distanceTo(camera.position);
+            const height=2*depth*Math.tan(MathUtils.degToRad(camera.fov/2))*64/Math.max(1,mount.clientHeight);
+            label.sprite.scale.set(height*4,height,1);
+            return;
+          }
           label.sprite.scale.set(
             label.width * labelScale,
             label.height * labelScale,
@@ -2141,6 +2244,7 @@ export const InteractiveEarthGlobe = forwardRef<
     maxDistance,
     minDistance,
     routes,
+    presentationMode,
     shippingLanes,
     showGraticule,
     showLabels,

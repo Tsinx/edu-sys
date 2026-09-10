@@ -101,6 +101,32 @@
 .classroom-workspace:fullscreen .avatar-dock-header button { min-height: 36px; color: #d5e2d0; }
 .classroom-workspace:fullscreen .lam-avatar-surface { min-height: 0; border: 0; border-radius: 0; }
 .classroom-workspace:fullscreen :is(.teacher-command-composer, .avatar-runtime-footer, .avatar-subtitle-header) { display: none; }
+/* Keep an active microphone's status and off switch reachable on the classroom overlay. */
+.classroom-avatar-dock:has(.hands-free-control) {
+  grid-template-rows: 52px minmax(60px, 1fr) minmax(0, 76px) minmax(100px, 300px) 40px;
+}
+.classroom-avatar-dock:has(.hands-free-control) .teacher-command-composer {
+  min-height: 0;
+  overflow-y: auto;
+}
+.classroom-avatar-dock:has(.hands-free-control) .campus-avatar { min-height: 0; overflow: hidden; }
+.classroom-avatar-dock:has(.hands-free-control) .campus-avatar .lanzhou-avatar { min-height: 0; grid-template-rows: minmax(0, 1fr); }
+.classroom-avatar-dock:has(.hands-free-control) .lanzhou-avatar__visual { min-height: 0; height: 100%; aspect-ratio: auto; }
+/* The classroom already has its own subtitle panel below the avatar surface. */
+.classroom-avatar-dock:has(.hands-free-control) .lanzhou-avatar__subtitle { display: none; }
+.classroom-workspace:fullscreen > .classroom-avatar-dock:has(.hands-free-control),
+.classroom-avatar-dock--cinematic:has(.hands-free-control) {
+  height: min(560px, calc(100dvh - 140px));
+  grid-template-rows: 46px minmax(80px, 1fr) auto auto;
+}
+.classroom-workspace:fullscreen .teacher-command-composer:has(.hands-free-control),
+.classroom-avatar-dock--cinematic .teacher-command-composer:has(.hands-free-control) {
+  display: block;
+  max-height: 280px;
+  overflow-y: auto;
+  background: #f5faf7;
+  margin-bottom: 10px;
+}
 .classroom-workspace:fullscreen .avatar-subtitle-panel { display: block; min-height: 0; max-height: 76px; padding: 10px 12px; overflow: auto; background: #203e35; border: 0; }
 .classroom-workspace:fullscreen .avatar-subtitle-body { min-height: 0; max-height: none; color: #e2eadc; font-size: 12px; line-height: 1.6; }
 .classroom-workspace:fullscreen .avatar-subtitle-panel:has(.avatar-subtitle-body--empty) { display: none; }
@@ -130,3 +156,48 @@
 @media (max-height: 500px) {
   .classroom-workspace:fullscreen > .classroom-avatar-dock { width: 185px; height: 220px; max-height: calc(100dvh - 100px); }
 }
+
+/* The compact overlay uses the same mounted capture controls as the expanded dock. */
+.teacher-command-composer--compact .teacher-command-composer__header,
+.teacher-command-composer--compact .hands-free-control > p:not(.hands-free-control__notice),
+.teacher-command-composer--compact .hands-free-control > small { display: none; }
+.teacher-command-composer--compact { padding: 8px; margin: 0; gap: 6px; }
+.teacher-command-composer--compact .command-input-modes { gap: 3px; }
+.teacher-command-composer--compact .command-input-modes button { min-width: 0; padding: 6px 2px; font-size: 10px; }
+.teacher-command-composer--compact .hands-free-control { gap: 5px; }
+.hands-free-control > button { display: flex; align-items: center; justify-content: center; gap: 6px; }
+.teacher-command-composer--compact .hands-free-control > button { min-height: 40px; }
+.teacher-command-composer--compact .hands-free-control__notice { max-height: 36px; overflow: auto; font-size: 10px; }
+.classroom-workspace:fullscreen .teacher-command-composer,
+.classroom-avatar-dock--cinematic .teacher-command-composer { display: grid; background: #f5faf7; min-height: 0; overflow: auto; }
+.classroom-workspace:fullscreen > .classroom-avatar-dock:has(.teacher-command-composer),
+.classroom-avatar-dock--cinematic:has(.teacher-command-composer) {
+  display: grid;
+  height: min(420px, calc(100dvh - 140px));
+  grid-template-rows: 46px minmax(40px, 1fr) auto auto;
+}
+.classroom-avatar-dock--collapsed .collapsed-avatar-controls { height: auto; gap: 8px; padding: 8px 4px; }
+.classroom-avatar-dock--collapsed .collapsed-avatar-mark,
+.classroom-avatar-dock--collapsed .collapsed-avatar-controls > button:last-child { display: none; }
+.classroom-avatar-dock--collapsed .teacher-command-composer--concealed { display: grid; margin: 0; padding: 4px; overflow: visible; }
+.teacher-command-composer--concealed .command-input-modes,
+.teacher-command-composer--concealed .text-command-row,
+.teacher-command-composer--concealed .hands-free-control__notice { display: none; }
+.teacher-command-composer--concealed .hands-free-control__model { display: none; }
+.teacher-command-composer--concealed .hands-free-control__status { justify-content: center; }
+.teacher-command-composer--concealed .hands-free-control__status strong,
+.teacher-command-composer--concealed .hands-free-control > button :is(strong, span) {
+  position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.teacher-command-composer--concealed .hands-free-control > button,
+.compact-text-expand { width: 100%; min-width: 0; min-height: 40px; padding: 4px; border-radius: 8px; }
+.classroom-workspace:fullscreen > .classroom-avatar-dock--collapsed:has(.teacher-command-composer),
+.classroom-avatar-dock--cinematic.classroom-avatar-dock--collapsed:has(.teacher-command-composer) {
+  display: block; width: 62px; height: auto; max-height: calc(100dvh - 140px); overflow-y: auto;
+}
+@media (max-height: 500px) {
+  .classroom-workspace:fullscreen > .classroom-avatar-dock:not(.classroom-avatar-dock--collapsed):has(.teacher-command-composer) {
+    height: calc(100dvh - 100px); grid-template-rows: 36px minmax(0, 1fr) auto auto;
+  }
+}
+.teacher-command-composer .text-command-row { grid-template-columns: minmax(0, 1fr) 40px; }

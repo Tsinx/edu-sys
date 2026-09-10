@@ -30,6 +30,9 @@ pnpm build:campus
 
 ## 运行教师系统入口
 
+本机一键启动前后端、LAM 和语音检测资源：双击桌面的“教学系统一键启动”，
+或项目根目录的 `start-classroom.bat`。使用与日志说明见 [Windows 一键启动](docs/classroom-launcher.md)。
+
 安装前端与平台 API 依赖：
 
 ```powershell

@@ -1,3 +1,4 @@
+import { PORT_LBL_SLIDES } from "./port-lbl.js";
 import type {
   PortManagementSlideSpec,
   PortNarrativeBeat,
@@ -44,7 +45,21 @@ const IMAGES = {
 export const PORT_MANAGEMENT_IMAGEGEN_ASSETS: readonly string[] =
   [
     ...Object.values(IMAGES),
-    ...PORT_MANAGEMENT_LESSON_ONE_V7_IMAGEGEN_ASSETS
+    ...PORT_MANAGEMENT_LESSON_ONE_V7_IMAGEGEN_ASSETS,
+    `${ASSET_ROOT}/lbl/container-dawn.png`,
+    `${ASSET_ROOT}/lbl/terminal-aerial.png`,
+    `${ASSET_ROOT}/lbl/factory-order.png`,
+    `${ASSET_ROOT}/lbl/ocean-voyage.png`,
+    `${ASSET_ROOT}/lbl/container-cutout.png`,
+    `${ASSET_ROOT}/lbl/river-port.png`,
+    `${ASSET_ROOT}/lbl/europe-delivery.png`,
+    `${ASSET_ROOT}/lbl/dry-bulk.png`,
+    `${ASSET_ROOT}/lbl/liquid-bulk.png`,
+    `${ASSET_ROOT}/lbl/lng.png`,
+    `${ASSET_ROOT}/lbl/roro.png`,
+    `${ASSET_ROOT}/lbl/city-needs.png`,
+    `${ASSET_ROOT}/lbl/grain-terminal.png`,
+    `${ASSET_ROOT}/lbl/breakbulk.png`
   ];
 
 type ReadyLesson = 1 | 2 | 3;
@@ -2713,7 +2728,7 @@ const LEGACY_PORT_MANAGEMENT_SLIDES: readonly PortManagementSlideSpec[] = [
 
 export const PORT_MANAGEMENT_SLIDES: readonly PortManagementSlideSpec[] = [
   ...PORT_MANAGEMENT_LESSON_ONE_V7_SLIDES,
-  ...LEGACY_PORT_MANAGEMENT_SLIDES.slice(36)
+  ...PORT_LBL_SLIDES
 ].map((slide, offset) => ({
   ...slide,
   index: offset + 1,

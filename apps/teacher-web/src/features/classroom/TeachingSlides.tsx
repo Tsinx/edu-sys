@@ -23,6 +23,8 @@ import {
 import { lazy, Suspense } from "react";
 import { renderAuthoredTeachingSlide } from "./AuthoredTeachingSlides";
 import { SlideViewport } from "./SlideViewport";
+import { PortLblStage } from "../port-lbl/PortLblStage";
+import { PORT_LBL_SLIDES } from "@edu/course-content";
 
 const EconomicMathematicsSlideStage = lazy(() =>
   import("../economic-mathematics/EconomicMathematicsSlideStage").then(
@@ -831,6 +833,8 @@ export function SlideStage({
     );
   }
   const spec = getPortManagementSlide(frame.index);
+  const lblPage = PORT_LBL_SLIDES.find(page=>page.slideKey===spec.slideKey);
+  if(lblPage)return <PortLblStage key={lblPage.slideKey} page={lblPage} readOnly={readOnly}/>;
   const position =
     getPortManagementLessonSlidePosition(frame.index) ??
     getPortManagementLessonSlidePosition(spec.index)!;

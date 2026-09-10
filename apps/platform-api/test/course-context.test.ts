@@ -13,6 +13,7 @@ import {
   PORT_MANAGEMENT_SLIDES,
   PORT_MANAGEMENT_SLIDE_CONTEXT_MAX_CHARS,
   PORT_MANAGEMENT_SOURCES,
+  PORT_LBL_SLIDES, PORT_LBL_LEGACY_KEYS,
   PORT_MANAGEMENT_VOYAGE_DOSSIER,
   type PortManagementSlideSpec
 } from "@edu/course-content";
@@ -64,8 +65,8 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
     ]),
     [
       [1, 1, 47],
-      [2, 48, 83],
-      [3, 84, 119]
+      [2, 48, 99],
+      [3, 100, 153]
     ]
   );
   for (const lesson of readyLessons) {
@@ -87,21 +88,21 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
     assert.equal(lesson.assistantBrief, null);
   }
 
-  assert.equal(PORT_MANAGEMENT_SLIDES.length, 119);
+  assert.equal(PORT_MANAGEMENT_SLIDES.length, 153);
   assert.deepEqual(
     PORT_MANAGEMENT_SLIDES.map((slide) => slide.index),
-    Array.from({ length: 119 }, (_, index) => index + 1)
+    Array.from({ length: 153 }, (_, index) => index + 1)
   );
   assert.equal(
     new Set(PORT_MANAGEMENT_SLIDES.map((slide) => slide.slideKey)).size,
-    119
+    153
   );
-  assert.equal(PORT_MANAGEMENT_DECK_VERSION, "release-port-management-voyage-v7");
+  assert.equal(PORT_MANAGEMENT_DECK_VERSION, "release-port-management-lbl-v8");
 });
 
 test("lesson-local page numbers map cleanly onto the internal global index", () => {
   assert.deepEqual(
-    [1, 47, 48, 83, 84, 119].map((globalIndex) => {
+    [1, 47, 48, 99, 100, 153].map((globalIndex) => {
       const position = getPortManagementLessonSlidePosition(globalIndex)!;
       return [
         position.lessonNumber,
@@ -112,22 +113,22 @@ test("lesson-local page numbers map cleanly onto the internal global index", () 
     [
       [1, 1, 47],
       [1, 47, 47],
-      [2, 1, 36],
-      [2, 36, 36],
-      [3, 1, 36],
-      [3, 36, 36]
+      [2, 1, 52],
+      [2, 52, 52],
+      [3, 1, 54],
+      [3, 54, 54]
     ]
   );
   assert.equal(getPortManagementGlobalSlideIndex(1, 1), 1);
   assert.equal(getPortManagementGlobalSlideIndex(1, 47), 47);
   assert.equal(getPortManagementGlobalSlideIndex(2, 12), 59);
-  assert.equal(getPortManagementGlobalSlideIndex(3, 36), 119);
+  assert.equal(getPortManagementGlobalSlideIndex(3, 54), 153);
   assert.equal(getPortManagementGlobalSlideIndex(4, 1), null);
   assert.equal(getPortManagementGlobalSlideIndex(2, 0), null);
-  assert.equal(getPortManagementGlobalSlideIndex(2, 37), null);
+  assert.equal(getPortManagementGlobalSlideIndex(2, 53), null);
   assert.equal(getPortManagementGlobalSlideIndex(2, 1.5), null);
   assert.equal(getPortManagementLessonSlidePosition(0), null);
-  assert.equal(getPortManagementLessonSlidePosition(120), null);
+  assert.equal(getPortManagementLessonSlidePosition(154), null);
 });
 
 test("every slide carries complete narrative and source metadata", () => {
@@ -147,7 +148,7 @@ test("every slide carries complete narrative and source metadata", () => {
     assert.ok(evidenceStates.has(slide.narrative.evidence));
     assert.ok(storyBeats.has(slide.narrative.storyBeat));
     assert.ok(slide.narrative.progress >= 1);
-    assert.ok(slide.narrative.progress <= 119);
+    assert.ok(slide.narrative.progress <= 153);
     for (const sourceId of slide.sourceIds ?? []) {
       assert.ok(
         PORT_MANAGEMENT_SOURCES[sourceId],
@@ -158,9 +159,9 @@ test("every slide carries complete narrative and source metadata", () => {
 
   for (const slideKey of [
     "l1-time-has-price",
-    "l2-disruption-brief",
-    "l2-container-origin",
-    "l3-diagnosis-brief"
+    "l2-lbl-order",
+    "l2-lbl-missed-week",
+    "l3-lbl-management"
   ]) {
     assert.equal(
       getPortManagementSlideByKey(slideKey)?.narrative.evidence,
@@ -183,8 +184,8 @@ test("every slide carries complete narrative and source metadata", () => {
     }
   }
   assert.equal(
-    getPortManagementSlideByKey("l2-reconstructed-route")?.narrative.publicLabel,
-    "路线示意"
+    getPortManagementSlideByKey("l2-lbl-rotation")?.narrative.publicLabel,
+    "官方资料"
   );
   assert.equal(
     getPortManagementSlideByKey("l1-jiangnan-huguang-model")?.narrative.publicLabel,
@@ -341,32 +342,27 @@ test("assistant context stays bounded, page-specific and free of authoring notes
   assert.match(leadTime.slidePrompt, /±8天/);
   assert.match(leadTime.slidePrompt, /证据状态：教学情境/);
 
-  const routeClassifications = getPortManagementAssistantContext(59);
-  assert.match(routeClassifications.lessonPrompt, /不得把五大或六大航线/);
-  assert.match(routeClassifications.slidePrompt, /分类口径/);
-
-  const reconstructedRoute = getPortManagementAssistantContext(68);
-  assert.match(reconstructedRoute.slidePrompt, /教学路线示意/);
-  assert.match(reconstructedRoute.slidePrompt, /实时轨迹/);
-
-  const disruption = getPortManagementAssistantContext(69);
-  assert.match(disruption.slidePrompt, /证据状态：教学情境/);
-  assert.match(disruption.lessonPrompt, /不得说成OOCL Spain真实事故/);
-
-  const generationLens = getPortManagementAssistantContext(97);
-  assert.match(generationLens.slidePrompt, /逐层累积/);
-
-  const automation = getPortManagementAssistantContext(98);
-  assert.match(automation.slidePrompt, /自动化/);
-  assert.match(automation.lessonPrompt, /自动化本身不能证明属于第四代/);
+  const containerJourney = getPortManagementAssistantContext(50);
+  assert.match(containerJourney.voyagePrompt,/C-01/);
+  assert.match(containerJourney.voyagePrompt,/普通工业零件/);
+  assert.match(containerJourney.lessonPrompt,/挂靠不等于本箱中转/);
+  const hormuz = getPortManagementAssistantContext(137);
+  assert.match(hormuz.slidePrompt,/通道仍在/);
+  assert.match(hormuz.lessonPrompt,/2026-09-09/);
+  assert.match(hormuz.lessonPrompt,/不能消除湾内油轮/);
+  assert.doesNotMatch(hormuz.voyagePrompt,/电动车|新能源汽车/);
+  const fleet = getPortManagementAssistantContext(144);
+  assert.match(fleet.slidePrompt,/证据状态：教学情境/);
+  assert.match(fleet.lessonPrompt,/10艘增为12艘/);
 
   const authoringNoteSlide = getPortManagementAssistantContext(1);
   assert.doesNotMatch(authoringNoteSlide.slidePrompt, /只报时间、地点和船名/);
 });
 
-test("the deck declares exactly 35 unique ImageGen narrative assets", () => {
-  assert.equal(PORT_MANAGEMENT_IMAGEGEN_ASSETS.length, 35);
-  assert.equal(new Set(PORT_MANAGEMENT_IMAGEGEN_ASSETS).size, 35);
+test("the deck retains previous assets and adds fourteen LBL images", () => {
+  assert.equal(PORT_MANAGEMENT_IMAGEGEN_ASSETS.length, 49);
+  assert.equal(new Set(PORT_MANAGEMENT_IMAGEGEN_ASSETS).size, 49);
+  assert.equal(PORT_MANAGEMENT_IMAGEGEN_ASSETS.filter(asset=>asset.includes("/lbl/")).length,14);
   assert.equal(
     PORT_MANAGEMENT_IMAGEGEN_ASSETS.filter((asset) =>
       asset.includes("/story-l1-")
@@ -385,4 +381,16 @@ test("the deck declares exactly 35 unique ImageGen narrative assets", () => {
     ).length,
     8
   );
+});
+
+test("each LBL lecture lasts ninety minutes and has a forty-five minute midpoint",()=>{
+  for(const lesson of [2,3]){
+    const pages=PORT_LBL_SLIDES.filter(p=>p.lesson===lesson);
+    assert.equal(pages.reduce((n,p)=>n+p.durationSeconds,0),5400);
+    assert.equal(pages.slice(0,26).reduce((n,p)=>n+p.durationSeconds,0),2700);
+  }
+  assert.equal(Object.keys(PORT_LBL_LEGACY_KEYS).length,72);
+  for(const [oldKey,newKey] of Object.entries(PORT_LBL_LEGACY_KEYS)){
+    assert.equal(getPortManagementSlideByKey(oldKey)?.slideKey,newKey);
+  }
 });

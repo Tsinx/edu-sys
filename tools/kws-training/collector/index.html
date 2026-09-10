@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>声样本 · 助手语音采集</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+<main>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="声样本首页"><span class="brand-mark" aria-hidden="true">▥</span> 声样本 <span class="brand-sub">VOICE LAB</span></a>
+    <span class="local-badge"><i></i> 本机采集 · 暂不训练</span>
+  </header>
+  <section class="intro">
+    <div><p class="eyebrow">给助手一份你的声音</p><h1>四组词语，<br class="mobile-break">各说二十次。</h1><p class="intro-copy">用自然的声音录下唤醒词与结束词。每次只说屏幕上的一句，<br class="desktop-break">像平时叫助手一样，不必刻意朗读。</p></div>
+    <div class="overall"><span id="total-count">0 <small>/ 80</small></span><span>条录音已保存</span><div class="overall-track"><i id="overall-progress"></i></div></div>
+  </section>
+
+  <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+  <div class="workspace">
+    <section class="recording-panel" aria-label="录制区">
+      <div class="category-tabs" role="group" aria-label="选择录音组">
+        <button id="wake-tab" class="category selected" aria-pressed="true"><span class="category-top"><span>01 · 唤醒词</span><span id="wake-count">0 / 20</span></span><strong id="wake-phrase">你好助手</strong><span class="category-track"><i id="wake-progress"></i></span></button>
+        <button id="end-tab" class="category" aria-pressed="false"><span class="category-top"><span>02 · 结束词</span><span id="end-count">0 / 20</span></span><strong id="end-phrase">非常感谢</strong><span class="category-track"><i id="end-progress"></i></span></button>
+        <button id="wake_xiaomai-tab" class="category" aria-pressed="false"><span class="category-top"><span>03 · 唤醒词</span><span id="wake_xiaomai-count">0 / 20</span></span><strong id="wake_xiaomai-phrase">小麦老师</strong><span class="category-track"><i id="wake_xiaomai-progress"></i></span></button>
+        <button id="end_thanks-tab" class="category" aria-pressed="false"><span class="category-top"><span>04 · 短结束词</span><span id="end_thanks-count">0 / 20</span></span><strong id="end_thanks-phrase">谢谢</strong><span class="category-track"><i id="end_thanks-progress"></i></span></button>
+      </div>
+      <div class="studio">
+        <div class="take-label" id="take-label">准备录制第 01 条</div>
+        <h2 id="prompt">你好助手</h2>
+        <p id="record-hint">点击开始，稍停半秒，再自然地说出这句话。</p>
+        <div class="wave-area"><canvas id="waveform" width="760" height="90" aria-label="录音音量波形"></canvas><div class="timer"><span id="record-status">麦克风未开启</span><span id="timer">00.0 <small>/ 08 秒</small></span></div></div>
+        <button id="record" class="record-button" disabled><span class="record-dot" aria-hidden="true"></span><span id="record-label">开始录音</span></button>
+        <p class="keyboard-hint">空格键开始 / 停止 · 最长 8 秒</p>
+        <div id="draft" class="draft" hidden>
+          <div class="draft-heading"><strong>听一听，再保存</strong><span id="draft-duration"></span></div>
+          <audio id="draft-audio" controls preload="metadata" aria-label="试听刚录下的声音"></audio>
+          <p id="quality-hint"></p>
+          <div class="draft-actions"><button id="discard" class="secondary">重录这一条</button><button id="save" class="primary">保存这一条 <span aria-hidden="true">↗</span></button></div>
+        </div>
+        <div id="group-done" class="group-done" hidden><strong>这一组收齐了。</strong><p>可以试听检查，或继续另一组录音。</p><button id="next-group" class="primary">录制结束词 →</button></div>
+      </div>
+      <footer class="studio-footer"><span>WAV · 16 kHz · 单声道</span><span>保存到项目本地文件夹</span></footer>
+    </section>
+
+    <aside class="side-panel">
+      <section class="guide"><p class="eyebrow">让声音更有变化</p><h3 id="tip-title">先用平常的语气。</h3><p id="tip-copy">前 5 条保持舒适的语速和距离。每条前后留一点安静，避免切掉开头或结尾。</p><div class="tip-steps" aria-hidden="true"><i class="active"></i><i></i><i></i><i></i></div><p class="guide-footnote">后面再轻微改变语速、音量与距离。无需制造噪声，也无需喊叫。</p></section>
+      <section class="checklist"><h3>每次录制前</h3><p><span>01</span> 只说当前显示的词语，不带额外指令。</p><p><span>02</span> 暂停其他页面的语音唤醒和扬声器播放。</p><p><span>03</span> 避免碰麦克风；说错了直接重录。</p></section>
+      <details id="phrase-settings" class="settings"><summary>修改要录的词语</summary><form id="config-form"><label>01 · 唤醒词<input id="wake-input" value="你好助手" maxlength="32" required></label><label>02 · 结束词<input id="end-input" value="非常感谢" maxlength="32" required></label><label>03 · 唤醒词<input id="wake_xiaomai-input" value="小麦老师" maxlength="32" required></label><label>04 · 短结束词<input id="end_thanks-input" value="谢谢" maxlength="32" required></label><p>已有录音的那一组会锁定词语，避免声音与标签不一致。此处不修改助手的在线唤醒设置。</p><button id="apply-config" class="secondary" type="submit">保存词语</button></form></details>
+    </aside>
+  </div>
+
+  <section class="library" aria-labelledby="library-title">
+    <div class="library-header"><div><p class="eyebrow">你的声音档案</p><h3 id="library-title">已保存的录音 <span id="library-count">0</span></h3></div><a id="export" class="secondary export disabled" href="/api/export" aria-disabled="true" download="kws-recordings.zip">↓ 导出全部 ZIP</a></div>
+    <div id="clip-list" class="clip-list"></div>
+    <div id="empty" class="empty"><span aria-hidden="true">◌</span><p>第一条声音，从上方开始。</p><small>保存后会出现在这里；刷新或关闭页面不会丢失已保存的录音。</small></div>
+  </section>
+  <footer class="page-footer"><p>音频只保存到本机，不发送至云端。此页面只采集录音，不运行模型或启动训练。</p><p>存储位置：<code id="storage-path">正在连接…</code></p></footer>
+</main>
+</body>
+</html>

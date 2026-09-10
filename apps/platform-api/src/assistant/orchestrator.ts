@@ -34,8 +34,15 @@ export interface AssistantTurnStream {
 
 interface ConversationTurn {
   user: string;
-  assistant: string;
+  assistant: AssistantResponseEnvelope;
 }
+
+const responseInstructions = [
+  "顶层键必须按以下顺序输出：replyKind、dialogue、actions、schema、version。",
+  'replyKind 必须为 "control" 或 "answer"，先判断教师是否需要教学回答。',
+  '只要求翻页、跳转课次、切换活动、播放/暂停/继续地球仪等操作时，replyKind="control"，dialogue=""，只填写actions。禁止生成“好的”“已翻页”“我们翻到下一页”等确认语或过渡语。',
+  '提问、讲解、分析等需要实质回答时，replyKind="answer"，dialogue仅填写教学回答；明确要求“翻页并讲解”时可以同时填写actions，但不添加操作确认语。无法执行或需要澄清时也用answer解释原因。'
+];
 
 function buildSystemPrompt(snapshot: ClassroomSnapshot): string {
   if (snapshot.courseId === ECONOMIC_MATHEMATICS_COURSE_ID) {
@@ -73,7 +80,7 @@ function buildSystemPrompt(snapshot: ClassroomSnapshot): string {
     return [
       "你是重庆交通大学《经济数学》课堂中的经数助教，服务市场营销专业大一学生。",
       "你必须只返回一个 JSON 对象，禁止 Markdown、代码围栏、前后缀或额外说明。",
-      "顶层键必须按顺序输出：dialogue、actions、schema、version。",
+      ...responseInstructions,
       'dialogue 是可直接朗读的简洁中文；actions 只能使用 slides.next、slides.previous、slides.go_to、lesson.go_to 或 activity.switch 到 slides。',
       `slides.go_to 的范围是1到${snapshot.slide.total}；lesson.go_to 的范围是1到32。`,
       "不得生成 globe、simulation、whiteboard、video 或学生作答动作。",
@@ -126,7 +133,7 @@ function buildSystemPrompt(snapshot: ClassroomSnapshot): string {
   return [
     "你是课堂中的港航教学助手，服务教师李行之。",
     "你必须只返回一个 JSON 对象，禁止 Markdown、代码围栏、前后缀或额外说明。",
-    "顶层键必须按以下顺序输出：dialogue、actions、schema、version。",
+    ...responseInstructions,
     'dialogue 必须是可直接朗读给课堂听众的简洁中文字符串；不要在 dialogue 中朗读 JSON、动作名或控制参数。',
     "actions 必须是数组，只能使用以下动作：",
     '- {"type":"slides.next"}',
@@ -139,20 +146,21 @@ function buildSystemPrompt(snapshot: ClassroomSnapshot): string {
     '- {"type":"globe.resume"}',
     '- {"type":"globe.restart"}',
     `可用地球仪cue：${globeCueMap}。`,
-    `教师在正式封面说“助教，开始第一讲”时，只用一句简短过渡语并跳转到英法下注页${openingStartSlide ? `（内部全局第${openingStartSlide.index}页）` : ""}，不得直接播放地球仪。`,
+    `教师在正式封面说“助教，开始第一讲”时，静默跳转到英法下注页${openingStartSlide ? `（内部全局第${openingStartSlide.index}页）` : ""}，不得直接播放地球仪。`,
     "只有当前页为 l1-1700-wager，且教师说“开始追踪证据”“沿丝绸航线寻找证据”或语义等价的明确口令时，才选择 globe.play_cue 的 l1-opening-trade-influence；不得生成经纬度、持续时间、字幕或任意相机轨迹。",
     "地球仪逐段讲解词由课程注册表预先编写，LLM不得复述整段动画讲稿，也不得声称动画已播放完成。",
     "slides.go_to 的 slide 只接受内部全局页码；学生和教师看到的是每讲独立页码，生成动作前必须完成换算。",
     `用户只说“第X页”时，默认指当前第${slidePosition.lessonNumber}讲的第X页；本讲内部全局页码 = ${slidePosition.lessonStart} + X - 1。`,
     "用户明确说“第N讲第X页”时，先按已建设课次映射换算；待建设讲次或越界页码不得生成跳转动作。",
-    "不需要控制课堂时返回空数组。不要声称已经执行动作，只说明你准备做什么或直接回答。",
+    "不需要控制课堂时actions返回空数组。操作不需要语音确认；需要教学回答时直接回答，不声称动作已经执行。",
     `可跳转的已建设课次：${readyLessonMap}。第4到16讲尚未建设，不得为其虚构标题、页码或教学内容。`,
     "回答课程问题时以当前页为第一依据、当前讲知识包为第二依据；跨讲问题只作简短衔接，并说明在哪一讲展开。",
     "页面上下文会标明真实资料、教学情境或概念模型。教学情境必须说“在本教学情境中”，不得改写成真实船舶事故、真实货物或实时班期。",
     "航次港序是2023年历史快照；依据港序绘制的逐段路线是教学示意，不得声称为实时AIS轨迹。",
     "未知数据、未提供的案例事实和未建设课程内容必须明确说明不知道或尚未配置，不得编造。",
     'schema 固定为 "edu.classroom.assistant.response"，version 固定为 "1.0"。',
-    '合法示例：{"dialogue":"港口通常由水域、陆域和连接设施构成。","actions":[],"schema":"edu.classroom.assistant.response","version":"1.0"}',
+    '回答示例：{"replyKind":"answer","dialogue":"港口通常由水域、陆域和连接设施构成。","actions":[],"schema":"edu.classroom.assistant.response","version":"1.0"}',
+    '操作示例：{"replyKind":"control","dialogue":"","actions":[{"type":"slides.next"}],"schema":"edu.classroom.assistant.response","version":"1.0"}',
     `当前课程：${snapshot.courseTitle}`,
     `当前章节：${snapshot.chapterTitle}`,
     `当前活动：${snapshot.activeActivity}`,
@@ -196,10 +204,11 @@ export class ClassroomAssistantOrchestrator {
         {
           role: "assistant",
           content: JSON.stringify({
-            dialogue: turn.assistant,
-            actions: [],
-            schema: "edu.classroom.assistant.response",
-            version: "1.0"
+            replyKind: turn.assistant.replyKind,
+            dialogue: turn.assistant.dialogue,
+            actions: turn.assistant.actions,
+            schema: turn.assistant.schema,
+            version: turn.assistant.version
           })
         }
       );
@@ -240,21 +249,36 @@ export class ClassroomAssistantOrchestrator {
     signal?: AbortSignal
   ): AsyncGenerator<AssistantDialogueDelta> {
     try {
+      let emittedLength = 0;
       for await (const content of this.provider.streamJson({
         messages,
         signal
       })) {
-        const delta = extractor.push(content);
-        if (delta) {
+        extractor.push(content);
+        // Only an explicit leading answer decision may enter TTS before the
+        // response is complete. Legacy/misordered envelopes wait for validation.
+        const answerFirst = /^\s*\{\s*"replyKind"\s*:\s*"answer"\s*,/u.test(extractor.rawJson);
+        const delta = extractor.dialogue.slice(emittedLength);
+        if (answerFirst && delta) {
+          emittedLength = extractor.dialogue.length;
           yield {
             delta,
             accumulated: extractor.dialogue
           };
         }
       }
-      const envelope = extractor.finish();
+      const parsed = extractor.finish();
+      const shouldSpeak = parsed.replyKind === "answer" ||
+        (parsed.replyKind === undefined && parsed.actions.length === 0);
+      const envelope: AssistantResponseEnvelope = {
+        ...parsed, replyKind: shouldSpeak ? "answer" : "control", dialogue: shouldSpeak ? parsed.dialogue : ""
+      };
+      // Old providers may still include an acknowledgement with their actions.
+      // It is suppressed even if it arrived before the action array.
+      const remaining = envelope.dialogue.slice(emittedLength);
+      if (remaining) yield { delta: remaining, accumulated: envelope.dialogue };
       const turns = this.history.get(sessionId) ?? [];
-      turns.push({ user: userText, assistant: envelope.dialogue });
+      turns.push({ user: userText, assistant: envelope });
       this.history.set(sessionId, turns.slice(-6));
       resolveResult(envelope);
     } catch (error) {

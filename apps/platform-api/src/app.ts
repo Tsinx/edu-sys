@@ -73,6 +73,7 @@ import {
 import { StudyAssistantOrchestrator } from "./study/orchestrator.js";
 import {
   DashScopeStudySpeechProvider,
+  StudyAsrNoSpeechError,
   StudySpeechProviderError,
   type StudySpeechProvider
 } from "./study/speech.js";
@@ -403,10 +404,17 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     )
   );
 
-  app.post("/api/teacher/asr", async request => {
+  app.post("/api/teacher/asr", async (request, reply) => {
     const input=studyAsrInputSchema.parse(request.body);
-    const text=await studySpeechProvider.transcribe({ ...input,context:"教学课堂语音指令。",signal:aiSignal(request) });
-    return {text};
+    if (!studySpeechProvider.asrConfigured) return reply.code(503).send({ message: "尚未配置课堂语音识别，请使用文字输入。" });
+    try {
+      const text=await studySpeechProvider.transcribe({ ...input,context:"教学课堂语音。可能出现的口令：助教你好、你好助教、谢谢助教、助教请回答、助教取消。助教别名：澜舟，也可能出现澜舟你好、谢谢澜舟、澜舟取消。仅转写实际听到的内容，不补写口令。",signal:aiSignal(request) });
+      return {text};
+    } catch (error) {
+      // Continuous capture can contain a click, breath or background noise. Keep listening.
+      if (error instanceof StudyAsrNoSpeechError) return { text: "", status: "no_speech" };
+      throw error;
+    }
   });
   app.post("/api/teacher/tts", async (request,reply) => {
     const {text}=z.object({text:z.string().min(1).max(3000)}).parse(request.body);
@@ -1692,7 +1700,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
             protocol: "edu.classroom.control",
             version: "1.0",
             requestId: turnId,
-            reason: envelope.dialogue.slice(0, 200),
+            reason: (envelope.dialogue || input.text).slice(0, 200),
             actions: envelope.actions
           });
           if (!control) {
@@ -1709,7 +1717,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
           status: "ready",
           gpuStatus: campusMode ? "idle" : "ready",
           currentTask: null,
-          lastMessage: envelope.dialogue
+          lastMessage: envelope.dialogue || control?.results.map(item => item.message).join("；") || "课堂操作已完成。"
         });
         writeEvent({
           type: "turn.completed",

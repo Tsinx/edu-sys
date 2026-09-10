@@ -15,7 +15,13 @@
     "test:classroom-load": "pnpm --filter @edu/platform-api test:classroom-load",
     "build:campus": "pnpm build && node scripts/build-campus-release.mjs",
     "release:campus": "node scripts/build-campus-release.mjs",
-    "test:campus-load": "pnpm --filter @edu/platform-api exec tsx scripts/campus-load-test.ts"
+    "test:campus-load": "pnpm --filter @edu/platform-api exec tsx scripts/campus-load-test.ts",
+    "kws:setup": "node scripts/setup-local-kws.mjs",
+    "kws:check": "node scripts/setup-local-kws.mjs --check",
+    "kws:personal:setup": "node scripts/setup-personal-kws.mjs",
+    "kws:personal:check": "node scripts/setup-personal-kws.mjs --check",
+    "kws:xiaomai:setup": "node scripts/setup-personal-kws.mjs --model xiaomai-20260909-epoch10",
+    "kws:xiaomai:check": "node scripts/setup-personal-kws.mjs --model xiaomai-20260909-epoch10 --check"
   },
   "devDependencies": {
     "concurrently": "10.0.4",

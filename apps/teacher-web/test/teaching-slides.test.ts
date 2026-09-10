@@ -105,9 +105,7 @@ test("every visible slide counter uses lesson-local numbering", () => {
   assert.doesNotMatch(formalCover, /\/119/u);
 
   const lessonStarts = [
-    [2, "02 / 47", "2/47"],
-    [48, "01 / 36", "1/36"],
-    [84, "01 / 36", "1/36"]
+    [2, "02 / 47", "2/47"]
   ] as const;
   for (const [index, coverCounter, footerCounter] of lessonStarts) {
     const markup = renderSlide(index);
@@ -117,16 +115,17 @@ test("every visible slide counter uses lesson-local numbering", () => {
   }
 
   assert.match(renderSlide(47), /港口管理概论 · 47\/47/u);
-  for (const index of [83, 119]) {
+  for (const [index, local, total] of [[48,"01",52],[99,"52",52],[100,"01",54],[153,"54",54]] as const) {
     const markup = renderSlide(index);
-    assert.match(markup, /港口管理概论 · 36\/36/u);
-    assert.doesNotMatch(markup, /\/119/u);
+    assert.match(markup, new RegExp(`<i>${local}</i><em>/ ${total}</em>`));
+    assert.doesNotMatch(markup, /\/153/u);
   }
 });
 
-test("the manually refined slides use authored compositions instead of web-card templates", () => {
-  assert.equal(PILOT_AUTHORED_TEACHING_SLIDE_KEYS.length, 119);
-  for (const slideKey of PILOT_AUTHORED_TEACHING_SLIDE_KEYS) {
+test("the first lesson retains its individually authored compositions", () => {
+  const retainedKeys=PILOT_AUTHORED_TEACHING_SLIDE_KEYS.filter(key=>key.startsWith("l1-"));
+  assert.equal(retainedKeys.length,47);
+  for (const slideKey of retainedKeys) {
     const slide = getPortManagementSlideByKey(slideKey);
     assert.ok(slide, `missing authored slide ${slideKey}`);
     const markup = renderSlide(slide.index);
@@ -300,7 +299,7 @@ test("authored compositions retain the teaching evidence needed on screen", () =
     "l3-next-lesson": ["NEXT", "04", "泊位计划", "岸桥分配", "堆场组织", "集卡调度"]
   };
 
-  for (const slideKey of PILOT_AUTHORED_TEACHING_SLIDE_KEYS) {
+  for (const slideKey of PILOT_AUTHORED_TEACHING_SLIDE_KEYS.filter(key=>key.startsWith("l1-"))) {
     const slide = getPortManagementSlideByKey(slideKey);
     assert.ok(slide);
     const markup = renderSlide(slide.index);
@@ -313,9 +312,9 @@ test("authored compositions retain the teaching evidence needed on screen", () =
   assert.doesNotMatch(exchangeRange, /重庆基地|欧洲基地/u);
 });
 
-test("all 119 pages have an explicit authored composition", () => {
-  assert.equal(AUTHORED_TEACHING_SLIDE_KEYS.length, 119);
-  assert.equal(new Set(AUTHORED_TEACHING_SLIDE_KEYS).size, 119);
+test("all 153 pages have an explicit authored composition", () => {
+  assert.equal(AUTHORED_TEACHING_SLIDE_KEYS.length, 153);
+  assert.equal(new Set(AUTHORED_TEACHING_SLIDE_KEYS).size, 153);
   assert.deepEqual(
     new Set(AUTHORED_TEACHING_SLIDE_KEYS),
     new Set(PORT_MANAGEMENT_SLIDES.map((slide) => slide.slideKey))
@@ -328,11 +327,32 @@ test("all 119 pages have an explicit authored composition", () => {
       /data-slide-composition=/u,
       `${slide.slideKey} exposed its authored composition identifier`
     );
-    assert.match(markup, /class="[^"]*\bauthored-slide\b/u);
+    assert.match(markup, /class="[^"]*\b(?:authored-slide|lbl-slide)\b/u);
     assert.doesNotMatch(
       markup,
       /course-slide__(?:columns|stat|steps|table|bullets)/u,
       `${slide.slideKey} fell back to a web-card primitive`
     );
   }
+});
+
+test("LBL works as a projection without student activities or teacher controls",()=>{
+  for(const slide of PORT_MANAGEMENT_SLIDES.filter(s=>s.lesson===2||s.lesson===3)){
+    const markup=renderSlide(slide.index);
+    assert.match(markup,/class="lbl-slide /);
+    assert.doesNotMatch(markup,/教师动画控制|lbl-controls|二维码|提交答案|排行榜|随机点名|先投票/);
+    assert.doesNotMatch(markup,/让学生|告诉学生|课程组手工|制作说明/);
+    assert.match(markup,/1600x1000/);
+  }
+});
+
+test("LBL numerical examples and important distinctions remain on the student canvas",()=>{
+  assert.match(renderSlide(98),/166 小时/);
+  assert.match(renderSlide(98),/154 小时/);
+  assert.match(renderSlide(98),/168 小时/);
+  assert.match(renderSlide(144),/70 ÷ 7/);
+  assert.match(renderSlide(144),/84 ÷ 7/);
+  assert.match(renderSlide(81),/直达服务 ≠ 途中不停港/);
+  assert.match(renderSlide(138),/不能消除湾口出口约束/);
+  assert.match(renderSlide(137),/2026年9月资料快照/);
 });

@@ -1,0 +1,38 @@
+[project]
+name = "edu-kws-training"
+version = "0.1.0"
+description = "Isolated Linux environment for Chinese Zipformer KWS training and ONNX export"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "torch==2.8.0",
+    "torchaudio==2.8.0",
+    "k2",
+    "kaldifeat",
+    "lhotse",
+    "lilcom",
+    "icefall",
+    "numpy==1.26.4",
+    "scipy",
+    "soundfile",
+    "librosa>=0.11,<0.12",
+    "huggingface-hub",
+    "sherpa-onnx==1.13.7",
+    "sherpa-onnx-core==1.13.7",
+    "pytest",
+]
+
+[tool.uv]
+package = false
+environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+torchaudio = { index = "pytorch-cu128" }
+k2 = { url = "https://huggingface.co/csukuangfj2/k2/resolve/main/ubuntu-cuda/1.24.4.dev20260625/k2-1.24.4.dev20260625+cuda12.8.torch2.8.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl" }
+kaldifeat = { url = "https://huggingface.co/csukuangfj/kaldifeat/resolve/main/cuda/1.25.5.dev20241029/linux/kaldifeat-1.25.5.dev20250807+cuda12.8.torch2.8.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl" }
+icefall = { path = "vendor/icefall", editable = true }
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true

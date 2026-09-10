@@ -33,6 +33,14 @@ export class StudySpeechProviderError extends Error {
   }
 }
 
+/** A valid ASR response with no speech is not a transport/provider outage. */
+export class StudyAsrNoSpeechError extends StudySpeechProviderError {
+  constructor() {
+    super("没有识别到可用语音，请继续说话。");
+    this.name = "StudyAsrNoSpeechError";
+  }
+}
+
 interface DashScopeStudySpeechProviderOptions {
   apiKey?: string;
   apiUrl?: string;
@@ -203,10 +211,10 @@ export class DashScopeStudySpeechProvider implements StudySpeechProvider {
       );
     }
     const payload = (await response.json()) as DashScopeAsrResponse;
-    const text = payload.choices?.[0]?.message?.content?.trim();
-    if (!text) {
-      throw new StudySpeechProviderError("课下ASR没有返回可用文字");
-    }
+    const content = payload.choices?.[0]?.message?.content;
+    if (typeof content !== "string") throw new StudySpeechProviderError("课下ASR返回格式无效");
+    const text = content.trim();
+    if (!text) throw new StudyAsrNoSpeechError();
     return text;
   }
 

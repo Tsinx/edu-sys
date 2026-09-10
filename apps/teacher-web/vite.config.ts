@@ -24,6 +24,7 @@ export default defineConfig({
       input: {
         main: resolve(teacherWebRoot, "index.html"),
         globePreview: resolve(teacherWebRoot, "globe-preview.html"),
+        portLblPreview: resolve(teacherWebRoot, "port-lbl-preview.html"),
         portSimulationPreview: resolve(
           teacherWebRoot,
           "port-simulation-preview.html"

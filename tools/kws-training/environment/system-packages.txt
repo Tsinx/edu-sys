@@ -1,0 +1,13 @@
+build-essential
+cmake
+ninja-build
+pkg-config
+python3-dev
+ffmpeg
+sox
+libsox-fmt-all
+libsndfile1
+git-lfs
+unzip
+ca-certificates
+curl

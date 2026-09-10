@@ -3,8 +3,7 @@ import type {
   ClassroomEventInput,
   ClassroomSnapshot,
   LamRuntimeStatus,
-  SlideInteractionValues,
-  TeacherAvatarCommandInput
+  SlideInteractionValues
 } from "@edu/contracts";
 import type { CourseDeckDescriptor } from "@edu/course-content/deck-registry";
 import {
@@ -165,9 +164,6 @@ export function ClassroomSubsystem() {
   const skipNextSlideInputBlurRef = useRef(false);
   const lamAvatarRef = useRef<LamAvatarController>(null);
   const assistantAbortRef = useRef<AbortController | undefined>(
-    undefined
-  );
-  const pendingVoiceCommandIdRef = useRef<string | undefined>(
     undefined
   );
   const lastAsrResultRef = useRef<
@@ -647,6 +643,7 @@ export function ClassroomSubsystem() {
       let failedMessage = "";
       let lamDeliveryAvailable = true;
       let controlApplied = false;
+      let dialogueStarted = false;
 
       try {
         await api.streamAssistantTurn(
@@ -654,6 +651,7 @@ export function ClassroomSubsystem() {
           { text, source, commandId },
           (event) => {
             if (event.type === "dialogue.delta") {
+              dialogueStarted = true;
               setAssistantPhase("streaming");
               setLamTranscript(event.accumulated);
               if (
@@ -684,7 +682,7 @@ export function ClassroomSubsystem() {
             if (event.type === "turn.completed") {
               setLamTranscript(event.dialogue);
               if (
-                !lamAvatarRef.current?.finishDialogue(event.turnId)
+                dialogueStarted && !lamAvatarRef.current?.finishDialogue(event.turnId)
               ) {
                 lamDeliveryAvailable = false;
               }
@@ -727,12 +725,12 @@ export function ClassroomSubsystem() {
     [mergeSnapshot, sessionId]
   );
 
-  async function sendTeacherCommand(input: TeacherAvatarCommandInput) {
+  async function sendTeacherCommand(text: string, source: "text" | "voice_asr") {
     const current = snapshotRef.current;
-    if (!current) return;
+    if (!current || current.session.status !== "live") return;
     const response = await api.sendAvatarCommand(
       current.session.id,
-      input
+      { inputMode: "text", text }
     );
     const latest = snapshotRef.current;
     if (latest?.session.id === current.session.id) {
@@ -744,21 +742,9 @@ export function ClassroomSubsystem() {
       setSnapshot(optimisticSnapshot);
     }
 
-    if (input.inputMode === "text") {
-      setNotice("教师文字已进入平台课堂助手。");
-      await runAssistantTurn(input.text, "text", response.id);
-      return;
-    }
-
-    pendingVoiceCommandIdRef.current = response.id;
-    setLamTranscript("");
-    const delivered =
-      (await lamAvatarRef.current?.sendVoice(input)) ?? false;
-    if (!delivered) {
-      pendingVoiceCommandIdRef.current = undefined;
-      throw new Error("LAM 尚未连接，语音无法送入 ASR");
-    }
-    setNotice("语音已送入 OpenAvatarChat ASR，等待识别结果。");
+    if (snapshotRef.current?.session.id !== current.session.id || snapshotRef.current.session.status !== "live") return;
+    setNotice(source === "voice_asr" ? `ASR 已识别：“${text}”` : "教师文字已进入平台课堂助手。");
+    await runAssistantTurn(text, source, response.id);
   }
 
   const handleHumanTranscript = useCallback(
@@ -773,13 +759,10 @@ export function ClassroomSubsystem() {
         return;
       }
       lastAsrResultRef.current = { text: normalized, at: now };
-      const commandId = pendingVoiceCommandIdRef.current;
-      pendingVoiceCommandIdRef.current = undefined;
       setNotice(`ASR 已识别：“${normalized}”`);
       void runAssistantTurn(
         normalized,
-        "voice_asr",
-        commandId
+        "voice_asr"
       ).catch((reason: Error) => {
         setError(reason.message);
       });
@@ -911,7 +894,8 @@ export function ClassroomSubsystem() {
         slideStart: lesson.slideStart,
         status: lesson.status
       }));
-  const visibleActivityTabs = isEconomicMathematics
+  const isPortLbl = !isEconomicMathematics && /^l[23]-lbl-/.test(snapshot.slide.slideId);
+  const visibleActivityTabs = isEconomicMathematics || isPortLbl
     ? activityTabs.filter((tab) => tab.id === "slides")
     : activityTabs;
 
@@ -1453,9 +1437,8 @@ export function ClassroomSubsystem() {
             onRetry={() => void refreshLamRuntime()}
           />
 
-          {!avatarConcealed && (
-            <>
-              <section
+          <>
+              {!avatarConcealed && <section
                 className="avatar-subtitle-panel"
                 aria-label="数字人回答字幕"
                 aria-live="polite"
@@ -1494,18 +1477,20 @@ export function ClassroomSubsystem() {
                             : "可使用文字助手；LAM 连接后将同步语音和数字人。")}
                   </p>
                 </div>
-              </section>
+              </section>}
 
               <VoiceCommandComposer
+                key={sessionId}
+                concealed={avatarConcealed}
+                compact={isFullscreen || isGlobe}
+                onExpand={() => setAvatarConcealed(false)}
                 disabled={!isLive}
-                voiceDisabled={!isLive || !lamConnected}
-                onSendText={(text) =>
-                  sendTeacherCommand({ inputMode: "text", text })
-                }
-                onSendVoice={(input) => sendTeacherCommand(input)}
+                continuousAsrConfigured={runtimeConfig.speech.asr}
+                assistantBusy={assistantPhase !== "idle" || lamConnection === "speaking" || lamConnection === "thinking" || (isGlobe && snapshot.globePlayback.status === "playing")}
+                onCommand={sendTeacherCommand}
               />
 
-              <footer className="avatar-runtime-footer">
+              {!avatarConcealed && <footer className="avatar-runtime-footer">
                 <span>
                   <MonitorPlay size={15} />
                   {runtimeConfig.avatar === "browser" ? "数字人在本机播放 · AI 由校园服务器代理" : lamConnected
@@ -1524,9 +1509,8 @@ export function ClassroomSubsystem() {
                   <Square size={13} />
                   中断讲解
                 </button>
-              </footer>
-            </>
-          )}
+              </footer>}
+          </>
         </aside>
         <TeacherParticipation key={sessionId} sessionId={sessionId} open={participationOpen} onClose={closeParticipation} />
         {isFullscreen && (

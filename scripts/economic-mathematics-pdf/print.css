@@ -1,0 +1,56 @@
+@page {
+  size: 1600px 1000px;
+  margin: 0;
+}
+
+:root {
+  color-scheme: light;
+  background: #ffffff;
+}
+
+html,
+body,
+#root,
+.econmath-pdf-deck {
+  width: 1600px;
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+}
+
+body {
+  overflow: visible;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.econmath-pdf-sheet {
+  box-sizing: border-box;
+  contain: strict;
+  width: 1600px;
+  height: 1000px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  break-after: page;
+  page-break-after: always;
+}
+
+.econmath-pdf-sheet:last-child {
+  break-after: auto;
+  page-break-after: auto;
+}
+
+@media print {
+  html,
+  body,
+  #root,
+  .econmath-pdf-deck,
+  .econmath-pdf-sheet {
+    width: 1600px !important;
+  }
+
+  .econmath-pdf-sheet {
+    height: 1000px !important;
+  }
+}

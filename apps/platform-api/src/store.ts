@@ -288,6 +288,9 @@ export class JsonStateStore {
           if (sanitizedRuntime.deckVersion !== PORT_MANAGEMENT_DECK_VERSION) {
             if (!slideSpec) {
               const previousLesson =
+                sanitizedRuntime.deckVersion === "release-port-management-voyage-v7"
+                  ? rawSlideIndex <= 47 ? 1 : rawSlideIndex <= 83 ? 2 : 3
+                  :
                 sanitizedRuntime.deckVersion ===
                 "release-port-management-voyage-v6"
                   ? rawSlideIndex <= 46
