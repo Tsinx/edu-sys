@@ -64,6 +64,7 @@ import { HarborAssistant, PortScene } from "./art";
 import { ClassroomSubsystem } from "./features/classroom/ClassroomSubsystem";
 import { StudentClassroom } from "./features/classroom/StudentClassroom";
 import { CourseExercisePage } from "./features/classroom/ExerciseLibrary";
+import { AssistantPromptEditor } from "./features/classroom/AssistantPromptEditor";
 
 const AuthenticatedLocalPortSimulationPage = lazy(() =>
   import("./features/port-simulation/AuthenticatedLocalPortSimulationPage").then(
@@ -167,6 +168,7 @@ export function App() {
           <Route path="courses" element={<CoursesPage />} />
           <Route path="courses/:courseId" element={<CourseDetailPage />} />
           <Route path="courses/:courseId/exercises" element={<CourseExercisePage />} />
+          <Route path="courses/:courseId/assistant-prompts" element={<AssistantPromptEditor />} />
           <Route path="classrooms" element={<ClassroomsPage />} />
           <Route
             path="simulations"
@@ -475,7 +477,7 @@ function DashboardPage() {
         <article className="assistant-card">
           <div className="assistant-card__copy">
             <span className="assistant-label">
-              <Sparkles size={15} /> 港航教学助手
+              <Sparkles size={15} /> 小麦老师
             </span>
             <h3>给教学多一份支持</h3>
             <p>选择课堂讲解或课下学习，查看适合的助手模式。</p>
@@ -803,6 +805,7 @@ function CourseDetailPage() {
 
         <aside className="panel launch-card">
           <Link className="button button--secondary button--wide" to={`/courses/${course.id}/exercises`}><ClipboardCheck size={17} />管理习题与活动</Link>
+          <Link className="button button--secondary button--wide" to={`/courses/${course.id}/assistant-prompts`}><Sparkles size={17} />小麦老师 · 提示词设置</Link>
           <span className="launch-card__icon"><MonitorPlay size={23} /></span>
           <h3>准备进入课堂</h3>
           <p>打开课件与课堂控制台，开始这一堂课。</p>
@@ -1074,7 +1077,7 @@ function AssistantModal({ course, onClose }: { course: Course; onClose: () => vo
               <GraduationCap size={24} />
               <strong>课下学习暂未开放</strong>
               <p>本轮不建设经济数学自主学习模式，也不会回落到“澜舟”或港口课件。</p>
-              <span>课堂内由经数助教按揭示状态提供提示</span>
+              <span>课堂内由小麦老师按揭示状态提供提示</span>
             </div>
           ) : (
             <button

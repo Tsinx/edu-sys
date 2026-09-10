@@ -65,6 +65,7 @@ import {
 } from "./store.js";
 import { getLamRuntimeStatus } from "./avatar-runtime.js";
 import { ClassroomAssistantOrchestrator } from "./assistant/orchestrator.js";
+import { registerAssistantPromptRoutes } from "./assistant/prompt-routes.js";
 import {
   AssistantProviderError,
   OpenAiCompatibleAssistantProvider,
@@ -256,10 +257,10 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   const assistantProvider =
     options.assistantProvider ?? new OpenAiCompatibleAssistantProvider();
   const assistantOrchestrator = new ClassroomAssistantOrchestrator(
-    assistantProvider
+    assistantProvider, () => store.getAssistantPromptSettings()
   );
   const studyAssistantOrchestrator = new StudyAssistantOrchestrator(
-    assistantProvider
+    assistantProvider, () => store.getAssistantPromptSettings()
   );
   const studySpeechProvider =
     options.studySpeechProvider ?? new DashScopeStudySpeechProvider();
@@ -301,6 +302,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   });
 
   registerParticipationRoutes(app, participation, id => store.getSession(id)?.courseId, resolveActor, id => Boolean(store.getCourse(id)));
+  registerAssistantPromptRoutes(app, store, request => requireActor(request, "teacher"));
 
   app.get("/api/health", async () => ({
     status: "ok",
@@ -408,7 +410,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     const input=studyAsrInputSchema.parse(request.body);
     if (!studySpeechProvider.asrConfigured) return reply.code(503).send({ message: "尚未配置课堂语音识别，请使用文字输入。" });
     try {
-      const text=await studySpeechProvider.transcribe({ ...input,context:"教学课堂语音。可能出现的口令：助教你好、你好助教、谢谢助教、助教请回答、助教取消。助教别名：澜舟，也可能出现澜舟你好、谢谢澜舟、澜舟取消。仅转写实际听到的内容，不补写口令。",signal:aiSignal(request) });
+      const text=await studySpeechProvider.transcribe({ ...input,context:"教学课堂语音。可能出现的口令：助教你好、你好助教、谢谢助教、助教请回答、助教取消。助教名称：小麦老师；兼容别名：澜舟，也可能出现澜舟你好、谢谢澜舟、澜舟取消。仅转写实际听到的内容，不补写口令。",signal:aiSignal(request) });
       return {text};
     } catch (error) {
       // Continuous capture can contain a click, breath or background noise. Keep listening.
@@ -1950,7 +1952,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       status: isClassroom && !campusMode ? "planned" : "ready",
       message: campusMode ? "数字人动作和口型在当前浏览器运行，语音与语言模型请求由校园服务器代理。" : isClassroom
         ? "已创建实时数字人课堂计划；进入课堂后可接入 OpenAvatarChat GPU 服务。"
-        : "澜舟课下助手已就绪；B版角色、十一段预录动作、字幕与文本问答不占用实时渲染 GPU。",
+        : "小麦老师课下助手已就绪；B版角色、十一段预录动作、字幕与文本问答不占用实时渲染 GPU。",
       characterId: isClassroom && !campusMode ? null : "lanzhou",
       characterVersion: isClassroom && !campusMode ? null : LANZHOU_CHARACTER_VERSION,
       manifestUrl: isClassroom && !campusMode ? null : LANZHOU_MANIFEST_URL

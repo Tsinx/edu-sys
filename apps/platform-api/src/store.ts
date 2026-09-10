@@ -131,7 +131,7 @@ function studyAvatarPresentation(sessionId: string): AvatarPresentation {
     requiresGpu: false,
     status: "ready",
     message:
-      "澜舟课下助手已就绪；B版角色、十一段预录动作、准确字幕与专属音色均不占用实时渲染GPU。",
+      "小麦老师课下助手已就绪；B版角色、十一段预录动作、准确字幕与专属音色均不占用实时渲染GPU。",
     characterId: "lanzhou",
     characterVersion: LANZHOU_CHARACTER_VERSION,
     manifestUrl: LANZHOU_MANIFEST_URL
@@ -877,6 +877,24 @@ export class JsonStateStore {
       throw new Error("Seed teacher is missing");
     }
     return teacher;
+  }
+
+  getAssistantPromptSettings(): import("@edu/contracts").AssistantPromptSettings {
+    return structuredClone(this.current.assistantPrompts ?? { revision: 0, overrides: {} });
+  }
+
+  async updateAssistantPrompt(input: import("@edu/contracts").AssistantPromptUpdate, actorId: string) {
+    return this.mutate(state => {
+      const settings = state.assistantPrompts ?? { revision: 0, overrides: {} };
+      if (settings.revision !== input.expectedRevision) {
+        throw Object.assign(new Error("提示词已被其他教师修改，请重新载入后再保存。"), { statusCode: 409 });
+      }
+      const key = JSON.stringify([input.scope, input.key]);
+      if (input.text === null) delete settings.overrides[key];
+      else settings.overrides[key] = input.text;
+      state.assistantPrompts = { ...settings, revision: settings.revision + 1, updatedAt: new Date().toISOString(), updatedBy: actorId };
+      return structuredClone(state.assistantPrompts);
+    });
   }
 
   listCourses(): Course[] {

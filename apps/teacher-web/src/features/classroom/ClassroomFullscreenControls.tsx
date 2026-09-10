@@ -1,4 +1,5 @@
 import type { ClassroomActivity } from "@edu/contracts";
+import type { Ref } from "react";
 import {
   ChevronLeft, ChevronRight, FlaskConical, Globe2, Home,
   Minimize2, Presentation, Sparkles, UsersRound
@@ -21,6 +22,7 @@ interface FullscreenControlsProps {
   onExit: () => void;
   onWorkspace: () => void;
   onParticipation: () => void;
+  playbackControlsRef?: Ref<HTMLDivElement>;
 }
 
 const shortcuts = [
@@ -51,6 +53,7 @@ export function ClassroomFullscreenControls(props: FullscreenControlsProps) {
           </button>
         </div>
       )}
+      {activity === "slides" && <div className="classroom-playback-slot" ref={props.playbackControlsRef} />}
       <div className="fullscreen-destination-controls">
         <button type="button" aria-label="返回工作台" title="返回工作台（保留课堂）" onClick={props.onWorkspace}>
           <Home size={18} /><span>工作台</span>

@@ -161,7 +161,7 @@ const portDescriptor: CourseDeckDescriptor = {
     description: "沿货物、航线与港口网络理解现代港口管理。",
     heroImage: "/course-assets/port-management/images/lesson1/oocl-spain-shanghai.png",
     accent: "port",
-    assistantName: "澜舟",
+    assistantName: "小麦老师",
     supportsStudy: true,
     resources: []
   },
@@ -247,7 +247,7 @@ const economicMathematicsDescriptor: CourseDeckDescriptor = {
     heroImage:
       "/course-assets/economic-mathematics/unit-01-functions-hero.webp",
     accent: "economic-mathematics",
-    assistantName: "经数助教",
+    assistantName: "小麦老师",
     supportsStudy: false,
     resources: ECONOMIC_MATHEMATICS_TEXTBOOKS.map((book) => ({
       role: book.role,

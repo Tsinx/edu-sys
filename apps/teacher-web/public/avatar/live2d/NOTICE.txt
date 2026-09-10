@@ -1,0 +1,26 @@
+Live2D avatar for edu-sys (personal use)
+
+Haru model and Cubism Core: Copyright Live2D Inc. All rights reserved.
+This content uses sample data owned and copyrighted by Live2D Inc.
+The sample data are utilized in accordance with terms and conditions set by
+Live2D Inc. This content itself is created at the author's sole discretion.
+
+Source: official Cubism SDK for Web 4 R7 distribution, downloaded 2026-09-10.
+https://cubism.live2d.com/sdk-web/bin/CubismSdkForWeb-4-r.7.zip
+Core/live2dcubismcore.min.js and Samples/Resources/Haru are copied unchanged.
+See SDK-LICENSE.txt and CORE-LICENSE.txt in this directory.
+
+Cubism Core is proprietary software, not MIT software:
+https://www.live2d.com/eula/live2d-proprietary-software-license-agreement_en.html
+Cubism Framework license:
+https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html
+Haru sample data license and character terms:
+https://www.live2d.com/eula/live2d-free-material-license-agreement_en.html
+https://www.live2d.com/en/learn/sample/model-terms/
+
+Rendering adapter: pixi-live2d-display 0.4.0 (MIT), PixiJS 6.5.10 (MIT).
+https://github.com/guansss/pixi-live2d-display
+https://github.com/pixijs/pixijs
+
+Only the bundled Cubism 4 model/Core combination is validated by this project.
+Newer Cubism model features may require a renderer and Core upgrade.

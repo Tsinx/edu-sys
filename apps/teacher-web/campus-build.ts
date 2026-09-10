@@ -48,7 +48,7 @@ export function campusBuild(releaseId:string):Plugin {
         const bytes=(await stat(path)).size;
         const sha256=createHash("sha256").update(await readFile(path)).digest("hex");
         const shell=/\.(js|css|woff2?|ttf)$/.test(name) || ["index.html","student.html","app.webmanifest","icon.svg"].includes(name);
-        const group=shell?"shell":name.startsWith("avatar/lanzhou/")?"avatar":name.startsWith("course-assets/economic-mathematics/")?"economic":"port";
+        const group=name.startsWith("avatar/live2d/")?"avatar":shell?"shell":name.startsWith("avatar/lanzhou/")?"avatar":name.startsWith("course-assets/economic-mathematics/")?"economic":"port";
         entries.push({url:`/${name}`,bytes,sha256,group});
       }
       await writeFile(resolve(outDir,"offline-manifest.json"),JSON.stringify({version:1,releaseId,groups:[{id:"shell",label:"基础程序"},{id:"port",label:"港口管理课程与仿真"},{id:"economic",label:"经济数学课程"},{id:"avatar",label:"数字人动作素材"}],files:entries}));

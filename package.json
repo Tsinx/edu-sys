@@ -9,6 +9,8 @@
     "typecheck": "pnpm -r --if-present typecheck",
     "test": "pnpm --filter @edu/port-simulation-core test && pnpm --filter @edu/platform-api test && pnpm --filter @edu/teacher-web test",
     "avatar:verify": "node scripts/verify-lanzhou-assets.mjs",
+    "avatar:live2d:verify": "node scripts/verify-live2d-assets.mjs",
+    "avatar:live2d:test": "node scripts/verify-live2d-browser.mjs",
     "avatar:create-voice": "node scripts/create-lanzhou-voice.mjs",
     "avatar:wan": "node scripts/generate-lanzhou-wan-cues.mjs",
     "test:port-load": "pnpm --filter @edu/platform-api test:port-load",

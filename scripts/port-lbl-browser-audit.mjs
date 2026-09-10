@@ -16,6 +16,7 @@ const checks=[];
 await page.goto(`${base}/port-lbl-preview.html?page=0`,{waitUntil:'networkidle'});
 for(const index of pages){
   await page.getByLabel('选择课件页').selectOption(String(index));
+  if(await page.locator('.lbl-process-scene').count())await page.locator('.lbl-process-scene:not([data-render-state="loading"])').waitFor();
   if(await page.locator('.lbl-globe').count()){
     await page.waitForFunction(()=>[...document.querySelectorAll('.lbl-globe .earth-globe')].every(e=>e.classList.contains('earth-globe--ready')||e.classList.contains('earth-globe--error')));
     await page.waitForTimeout(350);

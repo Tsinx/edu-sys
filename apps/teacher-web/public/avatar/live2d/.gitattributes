@@ -1,0 +1,2 @@
+# Preserve upstream SDK/model bytes and the hashes recorded in assets.json.
+* -text

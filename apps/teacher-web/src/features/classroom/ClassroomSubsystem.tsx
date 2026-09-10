@@ -61,9 +61,12 @@ import {
   type LamConnectionState
 } from "../../campus/BrowserAvatarSurface";
 import { runtimeConfig } from "../../campus/runtime";
+import { useAvatarRenderer } from "../avatar/avatar-preference";
+import { AvatarSelector } from "../avatar/AvatarSelector";
 import { ActivityStage, SlideStage } from "./TeachingSlides";
 import { VoiceCommandComposer } from "./VoiceCommandComposer";
 import { ClassroomFullscreenControls } from "./ClassroomFullscreenControls";
+import { ClassroomPlaybackSlot } from "./ClassroomPlaybackSlot";
 import { TeacherParticipation } from "./ClassroomParticipation";
 import { useClassroomFullscreen } from "./useClassroomFullscreen";
 import "./classroom.css";
@@ -132,6 +135,8 @@ function isLamConnected(state: LamConnectionState) {
 }
 
 export function ClassroomSubsystem() {
+  const avatarRenderer = useAvatarRenderer();
+  const audioBackend = avatarRenderer === "lam" && runtimeConfig.profile !== "campus" ? "lam" : "browser";
   const { sessionId = "" } = useParams();
   const sessionIdRef = useRef(sessionId);
   sessionIdRef.current = sessionId;
@@ -154,6 +159,8 @@ export function ClassroomSubsystem() {
     window.matchMedia("(max-width: 980px)").matches
   );
   const [fullscreenAvatarCollapsed, setFullscreenAvatarCollapsed] = useState(false);
+  const [playbackSlot, setPlaybackSlot] = useState<HTMLDivElement | null>(null);
+  const [fullscreenPlaybackSlot, setFullscreenPlaybackSlot] = useState<HTMLDivElement | null>(null);
   const [participationOpen, setParticipationOpen] = useState(false);
   const closeParticipation = useCallback(() => setParticipationOpen(false), []);
   const [pointerActive, setPointerActive] = useState(false);
@@ -169,7 +176,7 @@ export function ClassroomSubsystem() {
   const lastAsrResultRef = useRef<
     { text: string; at: number } | undefined
   >(undefined);
-  const lastReportedLamConnectedRef = useRef<boolean | undefined>(
+  const lastReportedLamConnectedRef = useRef<string | undefined>(
     undefined
   );
   const snapshotRef = useRef<ClassroomSnapshot | undefined>(undefined);
@@ -277,6 +284,7 @@ export function ClassroomSubsystem() {
   );
 
   const refreshLamRuntime = useCallback(async () => {
+    if (audioBackend !== "lam") return;
     try {
       const runtime = await api.getLamRuntimeStatus();
       setLamRuntime(runtime);
@@ -294,7 +302,7 @@ export function ClassroomSubsystem() {
         message: (reason as Error).message
       });
     }
-  }, []);
+  }, [audioBackend]);
 
   useEffect(() => {
     let active = true;
@@ -351,19 +359,19 @@ export function ClassroomSubsystem() {
       return;
     }
     const connected = isLamConnected(lamConnection);
-    if (lastReportedLamConnectedRef.current === connected) return;
-    lastReportedLamConnectedRef.current = connected;
+    if (lastReportedLamConnectedRef.current === `${audioBackend}:${connected}`) return;
+    lastReportedLamConnectedRef.current = `${audioBackend}:${connected}`;
     void api
       .sendClassroomEvent(sessionId, {
         type: "set_lam_connection",
         connected,
-        renderer: runtimeConfig.avatar
+        renderer: audioBackend
       })
       .then(mergeSnapshot)
       .catch(() => {
         lastReportedLamConnectedRef.current = undefined;
       });
-  }, [lamConnection, mergeSnapshot, sessionId, snapshot?.session.status]);
+  }, [audioBackend, lamConnection, mergeSnapshot, sessionId, snapshot?.session.status]);
 
   useEffect(() => {
     if (snapshot?.session.status !== "live") return;
@@ -1015,6 +1023,7 @@ export function ClassroomSubsystem() {
         </div>
       )}
 
+      <ClassroomPlaybackSlot.Provider value={isFullscreen ? fullscreenPlaybackSlot : playbackSlot}>
       <div
         ref={fullscreenRef}
         tabIndex={-1}
@@ -1297,6 +1306,7 @@ export function ClassroomSubsystem() {
               )}
             </div>
 
+            {isSlides && <div className="classroom-playback-slot" ref={setPlaybackSlot} />}
             <label className="lesson-select-control">
               <span className="sr-only">选择课次</span>
               <select
@@ -1394,7 +1404,7 @@ export function ClassroomSubsystem() {
             <div className="collapsed-avatar-controls">
               <button
                 type="button"
-                aria-label={`展开${isEconomicMathematics ? "经数助教" : "港航教学助手"}`}
+                aria-label="展开小麦老师"
                 onClick={() => setAvatarConcealed(false)}
               >
                 <ChevronLeft size={19} />
@@ -1412,11 +1422,12 @@ export function ClassroomSubsystem() {
           ) : (
             <header className="avatar-dock-header">
               <div>
-                <strong>{isEconomicMathematics ? "经数助教" : "港航教学助手"}</strong>
+                <strong>小麦老师</strong>
                 <span>
                   <i className={lamConnected ? "" : "avatar-state-dot--error"} />
-                  {runtimeConfig.avatar === "browser" ? "本机数字人" : "LAM 实时数字人"}
+                  <AvatarSelector compact allowLam={runtimeConfig.profile !== "campus"} onBeforeChange={interruptAssistant}/>
                 </span>
+                <Link target="_blank" rel="noopener noreferrer" to={`/courses/${snapshot.courseId}/assistant-prompts?index=${snapshot.slide.index}&activity=${snapshot.activeActivity}&session=${sessionId}`}>提示词设置</Link>
               </div>
               <button
                 type="button"
@@ -1493,7 +1504,7 @@ export function ClassroomSubsystem() {
               {!avatarConcealed && <footer className="avatar-runtime-footer">
                 <span>
                   <MonitorPlay size={15} />
-                  {runtimeConfig.avatar === "browser" ? "数字人在本机播放 · AI 由校园服务器代理" : lamConnected
+                  {audioBackend === "browser" ? "数字人在本机播放 · 语音与问答由平台提供" : lamConnected
                     ? `OpenAvatarChat 已连接${lamRuntime?.version ? ` · ${lamRuntime.version}` : ""}`
                     : lamRuntime?.message ?? "OpenAvatarChat 未连接"}
                 </span>
@@ -1516,6 +1527,7 @@ export function ClassroomSubsystem() {
         {isFullscreen && (
           <>
             <ClassroomFullscreenControls
+              playbackControlsRef={setFullscreenPlaybackSlot}
               activity={snapshot.activeActivity}
               allowedActivities={visibleActivityTabs.map((tab) => tab.id)}
               busy={busy}
@@ -1538,6 +1550,7 @@ export function ClassroomSubsystem() {
         )}
       </div>
 
+      </ClassroomPlaybackSlot.Provider>
       {settingsOpen && (
         <div className="classroom-dialog-backdrop">
           <section className="classroom-dialog" role="dialog" aria-modal="true" aria-labelledby="classroom-settings-title">

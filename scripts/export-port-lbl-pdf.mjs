@@ -8,12 +8,27 @@ const root='output/port-lbl-qa/pdf-pages';await fs.mkdir(root,{recursive:true});
 const selected=process.argv.find(value=>value.startsWith('--page='));
 const start=selected?Number(selected.split('=')[1]):0;
 if(!Number.isInteger(start)||start<0||start>105)throw new Error('Invalid page index');
-await page.goto(`http://127.0.0.1:8198/port-lbl-preview.html?projection=1&page=${start}`,{waitUntil:'networkidle'});
+await page.goto(`${process.env.PORT_LBL_BASE_URL||'http://127.0.0.1:8198'}/port-lbl-preview.html?projection=1&page=${start}`,{waitUntil:'networkidle'});
 await page.addStyleTag({content:'@page{size:1600px 1000px;margin:0}html,body,#root{width:1600px!important;height:1000px!important;margin:0!important;overflow:hidden!important}.lbl-preview{height:1000px!important;grid-template-rows:1000px!important}.lbl-stage{height:1000px!important}.slide-logical-canvas{transform:translate(-50%,-50%) scale(1)!important}.lbl-print-globe{display:none}@media print{.lbl-print-globe{display:block!important}.lbl-globe .earth-globe{visibility:hidden!important}}'});
 const metadata=selected?JSON.parse(await fs.readFile(`${root}/page-metadata.json`,'utf8')):[];
+await page.addStyleTag({content:'.lbl-print-process{display:none}@media print{.lbl-print-process{display:block!important}.lbl-process-scene[data-render-state="ready"] canvas{visibility:hidden!important}}'});
 const limit=selected?start+1:process.argv.includes('--sample')?3:106;
 for(let index=start;index<limit;index++){
+  // Static backups must capture the complete page, independent of entry autoplay.
+  await page.keyboard.press('f');
   await page.waitForFunction(()=>[...document.images].every(image=>image.complete));
+  for(const process of await page.locator('.lbl-process-scene').all()){
+    await process.evaluate(element=>new Promise(resolve=>{
+      if(element.dataset.renderState!=='loading')return resolve();
+      const observer=new MutationObserver(()=>{if(element.dataset.renderState!=='loading'){observer.disconnect();resolve();}});
+      observer.observe(element,{attributes:true,attributeFilter:['data-render-state']});
+    }));
+    if(await process.getAttribute('data-render-state')==='ready'){
+      await page.waitForFunction(()=>[...document.querySelectorAll('.lbl-process-scene canvas')].every(canvas=>Number(canvas.dataset.progress)===1));
+      const bitmap=await process.screenshot({type:'png'});
+      await process.evaluate((element,bitmap)=>{const image=document.createElement('img');image.className='lbl-print-process';image.src='data:image/png;base64,'+bitmap;Object.assign(image.style,{position:'absolute',inset:'0',width:'100%',height:'100%'});element.append(image);},bitmap.toString('base64'));
+    }
+  }
   if(await page.locator('.lbl-globe').count()){
     await page.waitForFunction(()=>[...document.querySelectorAll('.lbl-globe .earth-globe')].every(e=>e.classList.contains('earth-globe--ready')));
     await page.waitForTimeout(300);
@@ -29,7 +44,7 @@ for(let index=start;index<limit;index++){
   }
   metadata[index]=await page.evaluate(()=>({title:document.querySelector('.lbl-title')?.textContent,text:document.querySelector('.lbl-slide')?.textContent}));
   await page.pdf({path:`${root}/page-${String(index+1).padStart(3,'0')}.pdf`,printBackground:true,preferCSSPageSize:true,displayHeaderFooter:false});
-  await page.evaluate(()=>document.querySelectorAll('.lbl-print-globe').forEach(e=>e.remove()));
+  await page.evaluate(()=>document.querySelectorAll('.lbl-print-globe,.lbl-print-process').forEach(e=>e.remove()));
   await page.keyboard.press('ArrowRight');
   if(index%20===0)console.log(`PDF ${index+1}/${limit}`);
 }

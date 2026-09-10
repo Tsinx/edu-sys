@@ -1,3 +1,4 @@
+import { PortProcessScene } from "./PortProcessScene";
 import type { PortLblPage } from "../../../../../packages/course-content/src/port-lbl";
 import { Paper, Photo, Shade, H, T, Rule, Reveal, Box, Diagram, RouteStroke, useLblPlayback, phase } from "./PortLblPrimitives";
 import { LblGlobe } from "./LblGlobe";
@@ -37,39 +38,45 @@ export function PortLblLessonThree({page}:{page:PortLblPage}) {
       <Diagram label="货物特性影响四类设施和衔接"><circle cx="800" cy="571" r="113" fill="#6dcddd15" stroke="#6dcddd" strokeWidth="2"/><path d="M690 565H249M908 565H1357M799 685V831M799 459V349" stroke="#9cafad" strokeWidth="2"/></Diagram>
       <T x={712} y={540} size={43}>货物</T><T x={93} y={501} size={40}>船舶</T><T x={1210} y={501} size={40}>岸上装卸</T><T x={721} y={319} size={34}>储存设施</T><Reveal at={.45}><T x={714} y={835} size={34}>后方运输</T></Reveal><T x={96} y={797} w={422} size={28} className="lbl-muted">观察位置相同，<br/>具体工艺各不相同。</T>
     </Paper>;
-    case 7:return <Paper page={page} source="干散货装卸概念 · AI生成矿石码头场景">
-      <Photo name="dry-bulk" alt="矿石堆场与连续输送装船设施"/><Shade/>
-      <T x={95} y={102} size={22} className="lbl-label">DRY BULK / IRON ORE</T><H y={236} w={859} size={84}>铁矿石码头</H><T x={96} y={411} w={633} size={34}>大批量货物，<br/>通过船岸转运与连续输送衔接。</T>
-      <Rule x={96} y={610} w={581}/><T x={96} y={653} w={700} size={29}>出口方向：堆场 → 输送 → 装船<br/>进口方向：卸船 → 输送 → 堆场</T><Reveal at={.48}><T x={96} y={831} size={28} color="#e4be85">照片示意出口装船；两端工艺方向需要分别识别。</T></Reveal>
+    case 7:return <Paper page={page} source="矿石出口装船 · 三维教学工艺示意，非工程设计">
+      <H>铁矿石码头</H><T x={95} y={230} size={31}>从堆场取料，经输送带与装船机进入散货船货舱。</T>
+      <PortProcessScene kind="bulk" label="矿石由堆场进入输送带，沿装船机臂架输送并从溜筒落入货舱"/>
+      <T x={95} y={884} size={25}>本页演示出口装船；进口方向为卸船 → 输送 → 堆场，需分别识别。</T>
     </Paper>;
-    case 8:return <Paper page={page} tone="paper" source="干散货输送与堆取料的概念简图，非工程设计">
-      <H>堆存缓冲与连续输送</H><T x={95} y={234} size={31}>煤炭堆场在船舶与后方需求之间，吸收作业节奏差异。</T>
-      <Diagram label="煤炭堆场通过堆取料设备连接输送带"><path d="M146 736L330 505L514 736ZM371 736L591 448L811 736Z" fill="#3d555d"/><path d="M418 685L617 552L796 685" stroke="#b39869" strokeWidth="9" fill="none"/><path d="M617 552L1017 494H1443" stroke="#577a76" strokeWidth="15" fill="none"/><RouteStroke d="M635 545L1017 483H1434" color="#bf9555" width={5}/><path d="M1131 499V735M1350 499V735" stroke="#5d7670" strokeWidth="9"/><text x="303" y="801">堆存缓冲</text><text x="914" y="605">连续输送</text><text x="1280" y="805">后方需求</text></Diagram>
-      <Reveal at={.54}><T x={93} y={863} size={30}>堆取料组织、设备衔接与粉尘管理，需要一并考虑。</T></Reveal>
+    case 8:return <Paper page={page} source="煤炭堆取料与连续输送 · 三维教学简化，非工程设计">
+      <H>堆存缓冲与连续输送</H><T x={95} y={230} size={31}>煤炭堆场吸收作业节奏差异，再通过输送系统衔接后方需求。</T>
+      <PortProcessScene kind="coal" label="堆场取出的煤炭沿连续输送设备送向后方接运端"/>
+      <T x={95} y={884} size={25}>堆取料组织、设备衔接与粉尘管理，需要一并考虑。</T>
     </Paper>;
-    case 9:return <Paper page={page} source="粮食储运设施 · AI生成粮港场景">
-      <Photo name="grain-terminal" alt="粮食港口的筒仓与输送设施"/><Shade/>
-      <T x={95} y={100} size={22} className="lbl-label">DRY BULK / GRAIN</T><H y={230} w={832} size={79}>粮食为什么<br/>进入筒仓？</H><T x={95} y={497} w={616} size={33}>同属干散货，<br/>储存和作业条件仍然不同。</T><Reveal at={.4}><T x={95} y={735} w={652} size={30}>防潮、清洁与品质保持，<br/>会改变储运设施的选择。</T></Reveal><T x={95} y={870} size={22} className="lbl-muted">筒仓是典型设施之一，粮食也可采用其他适宜储存方式。</T>
+    case 9:return <Paper page={page} source="粮食筒仓与装船接口 · 三维教学示意，非工程设计">
+      <H>粮食为什么进入筒仓？</H><T x={95} y={230} size={31}>防潮、清洁与品质保持，改变了储运设施的选择。</T>
+      <PortProcessScene kind="grain" label="粮食筒仓、输送设备与船舶构成连续储运连接"/>
+      <T x={95} y={884} size={25}>筒仓是典型设施之一；粮食也可采用其他适宜储存方式。图中颗粒表示货物流向。</T>
     </Paper>;
-    case 10:return <Paper page={page} source="液体散货概念 · AI生成油码头场景；管线为教学示意">
-      <Photo name="liquid-bulk" alt="油轮装卸臂管线与储罐区" style={{opacity:.58}}/><Shade/><H y={102} w={1160}>原油：从船舶进入储罐。</H>
-      <Diagram label="船舶通过装卸连接和管线接入储罐"><RouteStroke d="M465 682H805V546H1090V361H1375" color="#e2b873" width={8}/><circle cx="805" cy="682" r="15" fill="#cdae73"/><circle cx="1090" cy="546" r="15" fill="#cdae73"/></Diagram>
-      <T x={95} y={365} w={492} size={38}>流动的货物，<br/>需要连续的管线接口。</T><T x={407} y={730} size={30}>船舶</T><Reveal at={.2}><T x={734} y={716} size={30}>装卸连接</T></Reveal><Reveal at={.45}><T x={1016} y={586} size={30}>管线</T></Reveal><Reveal at={.7}><T x={1324} y={395} size={30}>储罐</T></Reveal>
+    case 10:return <Paper page={page} source="原油卸船至储罐 · 三维教学管线示意，亮点仅表示流向">
+      <H>原油：从船舶进入储罐。</H><T x={95} y={230} size={31}>装卸臂、管线与储罐连续衔接，货物沿封闭系统输送。</T>
+      <PortProcessScene kind="oil" label="油轮经关节式装卸连接和岸上管线向储罐输送，亮点表示内部流动方向"/>
+      <T x={95} y={884} size={25}>流动的货物，需要连续的管线接口。亮点是流向示意，不表示液体暴露在空气中。</T>
     </Paper>;
     case 11:return <Paper page={page} tone="paper">
       <H>液体货物，不能任意共用设施。</H><T x={95} y={231} size={31}>不同货物，需要各自适配的储罐、管线与装卸安排。</T>
       <Diagram label="三种液体货物分别经独立连接进入各自储存区的概念示意"><path d="M241 505V763H1369M735 505V681H1369M1197 505V601H1369" fill="none" stroke="#c6b389" strokeWidth="6"/><path d="M115 464V384Q115 350 239 350Q363 350 363 384V464Q363 498 239 498Q115 498 115 464M612 464V384Q612 350 735 350Q858 350 858 384V464Q858 498 735 498Q612 498 612 464M1074 464V384Q1074 350 1197 350Q1320 350 1320 384V464Q1320 498 1197 498Q1074 498 1074 464" fill="#a7bbb247" stroke="#6e8d80" strokeWidth="3"/></Diagram>
       <T x={193} y={544} size={32}>原油</T><T x={659} y={544} size={32}>成品油</T><T x={1097} y={544} size={32}>化工液体</T><Reveal at={.46}><T x={95} y={845} w={1400} size={31}>分区与适配，是设施组织的一部分；不能据示意图判断物料兼容性。</T></Reveal>
     </Paper>;
-    case 12:return <Paper page={page} source="LNG专用储运 · AI生成接收站场景，球罐船仅为一种船型">
-      <Photo name="lng" alt="具有球形货舱的LNG船及专用接收设施"/><Shade/><T x={95} y={104} size={23} className="lbl-label">LIQUEFIED NATURAL GAS</T><H y={240} w={946} size={86}>LNG，<br/>专用储运设施。</H><T x={95} y={527} w={685} size={32}>液化天然气的低温储运要求，<br/>由专用船舶与接收设施承接。</T><Rule x={95} y={716} w={107}/><Reveal at={.5}><T x={95} y={764} w={1120} size={30}>卸载 → 低温储存 → 再气化 → 接入管网</T></Reveal>
+    case 12:return <Paper page={page} source="LNG专用储运 · 三维教学示意，球罐船仅为一种船型">
+      <H>LNG，专用储运设施。</H><T x={95} y={230} size={31}>液化天然气的低温储运要求，由专用船舶与接收设施承接。</T>
+      <PortProcessScene kind="lng" label="球形货舱LNG船通过专用连接向低温储罐卸载，亮点表示管线内部流向"/>
+      <T x={95} y={884} size={25}>卸载 → 低温储存 → 再气化 → 接入管网；本段展示卸载与储存接口。</T>
     </Paper>;
-    case 13:return <Paper page={page} source="汽车滚装工艺 · AI生成教学场景，路径为概念示意">
-      <Photo name="roro" alt="汽车经跳板驶入多层甲板滚装船"/><Shade style={{background:"linear-gradient(90deg,#081823ed,transparent 85%)"}}/><H y={152} w={956} size={79}>汽车怎样驶上船？</H><T x={95} y={310} w={631} size={34}>停车区、跳板与船内甲板，<br/>组成连续的滚装路径。</T>
-      <Diagram label="车辆从停车区经跳板进入船内"><RouteStroke d="M322 769H702L1063 571H1368" color="#ebc17b" width={7}/></Diagram><T x={185} y={817} size={31}>停车区</T><Reveal at={.3}><T x={826} y={668} size={31}>跳板</T></Reveal><Reveal at={.6}><T x={1241} y={617} size={31}>船内甲板</T></Reveal>
+    case 13:return <Paper page={page} source="汽车滚装 · 三维教学工艺示意，非车辆调度或绑扎方案">
+      <H>汽车怎样驶上船？</H><T x={95} y={230} size={31}>车辆从停车区出发，转向跳板，沿坡道驶入船内甲板。</T>
+      <PortProcessScene kind="roro" label="汽车依次从停车区驶上船岸跳板，车体随坡度倾斜后进入滚装船甲板"/>
+      <T x={95} y={884} size={25}>停车区、跳板与船内甲板，组成连续的滚装路径；装船后还需按要求停放与系固。</T>
     </Paper>;
-    case 14:return <Paper page={page} source="件杂货与重大件 · AI生成教学场景，非吊装工程方案">
-      <Photo name="breakbulk" alt="港口起重机吊运大型工业构件"/><Shade/><H y={216} w={952} size={82}>一件货物，<br/>就可能改变整套安排。</H><T x={95} y={508} w={668} size={35}>件杂货与重大件：<br/>尺寸、重量与批次各不相同。</T><Reveal at={.46}><T x={95} y={765} w={716} size={30}>吊装设备、作业空间与后方接运，<br/>需要针对货物组织。</T></Reveal>
+    case 14:return <Paper page={page} source="件杂货与重大件 · 三维教学示意，非吊装工程方案">
+      <H>一件货物，就可能改变整套安排。</H><T x={95} y={230} size={31}>大型工业构件的尺寸、重量与吊点，改变装卸和接运要求。</T>
+      <PortProcessScene kind="heavy" label="起重设备通过吊点连接大型圆筒构件，提升、横移并落到船上"/>
+      <T x={95} y={884} size={25}>吊装设备、作业空间与后方接运，需要针对货物组织；本图不提供实际吊装参数。</T>
     </Paper>;
     case 15:return <Paper page={page} tone="paper">
       <H>为什么不能任意换码头？</H><T x={94} y={227} size={31}>同样是工业货物，整箱零件和散装矿石需要不同的适配。</T>

@@ -33,10 +33,11 @@ for(const index of indices){
   checks.push({page:index+1,positions});
   if(checks.length%10===0)console.log(`motion ${checks.length}/${indices.length}`);
 }
-// Teacher transport and per-page bookmarks are verified on actual browser state.
+// Returning to a page resets it; teacher transport still takes over immediately.
 await page.getByLabel('选择课件页').selectOption('14');await seek(500);
 await page.getByLabel('选择课件页').selectOption('15');await page.getByLabel('选择课件页').selectOption('14');
-assert.equal(await page.getByLabel('动画进度').inputValue(),'500');
+assert.equal(await page.getByLabel('动画进度').inputValue(),'0');
+await seek(500);
 await page.getByRole('button',{name:'播放',exact:true}).click();await page.waitForTimeout(600);
 await page.getByRole('button',{name:'暂停',exact:true}).click();
 const paused=await page.getByLabel('动画进度').inputValue();assert.ok(Number(paused)>500);
@@ -46,5 +47,5 @@ await page.keyboard.press('r');await page.waitForTimeout(600);await page.keyboar
 await page.keyboard.press('Escape');assert.ok(Number(await page.getByLabel('动画进度').inputValue())>0);
 assert.ok(Number(await page.getByLabel('动画进度').inputValue())<150);
 assert.equal(await page.getByLabel('选择课件页').inputValue(),'14');
-await fs.writeFile(`${output}/${requested.length?'motion-recheck':'motion-check'}.json`,JSON.stringify({checks,errors,transport:{pause:true,replayInProjection:true,pageBookmark:true,noAutoAdvance:true}},null,2));
+await fs.writeFile(`${output}/${requested.length?'motion-recheck':'motion-check'}.json`,JSON.stringify({checks,errors,transport:{pause:true,replayInProjection:true,pageEntryReset:true,noAutoAdvance:true}},null,2));
 assert.deepEqual(errors,[]);console.log(`Verified ${indices.length} authored motion pages and teacher controls.`);await browser.close();

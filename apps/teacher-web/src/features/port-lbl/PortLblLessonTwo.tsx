@@ -1,3 +1,4 @@
+import { PortProcessScene } from "./PortProcessScene";
 import type { PortLblPage } from "../../../../../packages/course-content/src/port-lbl";
 import { Paper, Photo, Shade, H, T, Rule, Reveal, Box, Diagram, RouteStroke, Keyline, useLblPlayback, phase } from "./PortLblPrimitives";
 import { LblGlobe, JOURNEY_CAMERA } from "./LblGlobe";
@@ -138,17 +139,15 @@ export function PortLblLessonTwo({page}:{page:PortLblPage}) {
       <Rule x={91} y={482} w={120} color="#cfad78"/><T x={91} y={538} w={470} size={34}>果园港把内陆货源<br/>接入更远的运输网络。</T>
       <Reveal at={.42}><T x={90} y={778} size={27}>C-01 的第一段水上旅程即将开始。</T></Reveal>
     </Paper>;
-    case 14: return <Paper page={page} tone="paper">
-      <H>进入码头：交接与场内组织</H><T x={92} y={229} w={1200} size={32}>箱子离开公路运输，接入港内作业。</T>
-      <Diagram label="公路车辆经交接进入堆场，再由内河船承运的示意"><path d="M80 646H1520" stroke="#b3bbb6" strokeWidth="50"/><path d="M560 404V734M681 404V734M560 420H681" stroke="#758880" strokeWidth="13"/><path d="M1140 430H1440V689H1140Z" fill="#176b761c"/><RouteStroke d="M160 627H1220" color="#1e8193" width={5}/><text x="572" y="787">交接点</text><text x="1210" y="787">待装区</text></Diagram>
-      <Box x={126+1020*phase(progress,.08,.74)} y={493} w={233}/>
-      <Reveal at={.76}><T x={93} y={840} size={31}>下一步：按装船安排，提取这只箱子。</T></Reveal>
+    case 14: return <Paper page={page} source="码头陆侧交接 · 三维教学工艺示意">
+      <H>进入码头：交接与场内组织</H><T x={95} y={230} size={31}>车辆经过交接点，箱子接入港内作业。</T>
+      <PortProcessScene kind="gate" label="载箱车辆在闸口停留核对，栏杆开启后进入作业区"/>
+      <T x={95} y={884} size={25}>交接完成后，按后续装船安排组织堆存与提取。</T>
     </Paper>;
-    case 15: return <Paper page={page}>
-      <H>箱子登上内河船</H><T x={93} y={234} size={32} className="lbl-muted">抓取 → 提升 → 水平移动 → 落位</T>
-      <Diagram label="岸吊把教学箱从岸上移入内河船的四阶段示意"><rect x="0" y="730" width="780" height="220" fill="#45585b"/><rect x="780" y="780" width="820" height="170" fill="#144653"/><path d="M610 727V368H1250M645 727V370M500 370H1200" stroke="#a6adb0" strokeWidth="12" fill="none"/><path d="M910 738H1440L1395 803H965Z" fill="#71828a"/><path d={`M${490+640*phase(progress,.35,.68)} 373V${613-186*phase(progress,.12,.34)+195*phase(progress,.7,.92)}`} stroke="#c8c5b0" strokeWidth="3"/><text x="122" y="804">岸侧</text><text x="1135" y="864">内河船</text></Diagram>
-      <Box x={380+640*phase(progress,.35,.68)} y={585-186*phase(progress,.12,.34)+195*phase(progress,.7,.92)} w={240}/>
-      <T x={91} y={872} size={26}>船型改变，箱子的身份延续。</T>
+    case 15: return <Paper page={page} source="船岸交接 · 三维教学工艺示意，非设备操作规程">
+      <H>箱子登上内河船</H><T x={95} y={230} size={31}>吊具抓住角件，箱体随起升与小车横移进入船上位置。</T>
+      <PortProcessScene kind="load" label="吊具对位连接箱体，提升后向水侧横移，再落入内河船"/>
+      <T x={95} y={884} size={25}>抓取 → 提升 → 水平移动 → 落位。船型改变，箱子的身份延续。</T>
     </Paper>;
     case 16: return <Paper page={page} source="长江走廊 · 路线为教学概括，非通航图；AI生成背景">
       <Photo name="river-port" alt="长江内河运输场景" style={{opacity:.25}}/><Shade style={{background:"linear-gradient(0deg,#0b1722,transparent)"}}/><H y={88}>沿长江向东</H>
@@ -163,15 +162,10 @@ export function PortLblLessonTwo({page}:{page:PortLblPage}) {
       <Reveal at={.3}><Rule x={95} y={574} w={582}/><T x={96} y={617} size={37}>通行与班期</T><T x={96} y={682} w={645} size={28} className="lbl-muted">上游通行安排，连接下游换装窗口。</T></Reveal>
       <Reveal at={.68}><T x={95} y={822} w={665} size={30} color="#e1c18d">一段运输，要接得上下一段。</T></Reveal>
     </Paper>;
-    case 18: return <Paper page={page} tone="paper" source="船闸单级原理简化 · 三峡船闸为多级衔接，区别于升船机">
-      <H>船闸：水位改变，船舶随之升降。</H><T x={95} y={223} size={30}>以下演示由高水位向低水位通行。</T>
-      <Diagram label="上游船进入闸室，关闸降水，水位与下游齐平后出闸"><defs><clipPath id="lbl-lock-water"><path d="M85 432H1505V816H85Z"/></clipPath></defs><path d="M85 823H1505" stroke="#aaa99a" strokeWidth="25"/>
-        <g clipPath="url(#lbl-lock-water)"><rect x="85" y="509" width="401" height="307" fill="#147a993b"/><rect x="486" y={509+172*phase(progress,.4,.68)} width="571" height="307" fill="#147a995e"/><rect x="1057" y="681" width="448" height="135" fill="#147a993b"/></g>
-        <path d={`M486 ${460+355*(1-phase(progress,.22,.32))}V824M1057 ${460+355*phase(progress,.73,.83)}V824`} stroke="#877c5d" strokeWidth="15"/>
-        <g transform={`translate(${145+477*phase(progress,0,.2)+523*phase(progress,.84,1)} ${465+172*phase(progress,.4,.68)})`}><path d="M0 0H221L193 45H27Z" fill="#284b59"/><rect x="32" y="-38" width="106" height="35" fill="#64a5b8"/><rect x="145" y="-44" width="35" height="41" fill="#d4c5a7"/></g>
-        <text x="198" y="881">上游高水位</text><text x="659" y="881">闸室</text><text x="1176" y="881">下游低水位</text>
-      </Diagram>
-      <T x={95} y={321} size={34} color="#16728a">{progress<.22?"① 船舶进入闸室":progress<.4?"② 关闭上游闸门":progress<.73?"③ 闸室水位降至下游水位":progress<.84?"④ 打开下游闸门":"⑤ 船舶驶出，继续航程"}</T>
+    case 18: return <Paper page={page} source="船闸单级原理简化 · 三峡船闸为多级衔接，区别于升船机">
+      <H>船闸：水位改变，船舶随之升降。</H><T x={95} y={230} size={31}>由高水位向低水位通行：先关门降水，再开门出闸。</T>
+      <PortProcessScene kind="lock" label="船舶进入闸室后上游闸门关闭，闸室降水至下游水位，开下游闸门驶出"/>
+      <T x={95} y={884} size={25}>{progress<.22?"① 船舶进入闸室":progress<.4?"② 关闭上游闸门":progress<.73?"③ 闸室水位降至下游水位":progress<.84?"④ 打开下游闸门":"⑤ 船舶驶出，继续航程"} · 船舶由浮力支撑，随闸室水位变化。</T>
     </Paper>;
     case 19: return <Paper page={page} source="港群层面的教学连接 · AI生成码头场景">
       <Photo name="terminal-aerial" alt="内河与远洋船舶衔接的海港教学场景"/><Shade/>
@@ -190,17 +184,15 @@ export function PortLblLessonTwo({page}:{page:PortLblPage}) {
       <T x={104} y={375} size={42}>水侧</T><Reveal at={.2}><T x={741} y={523} size={42}>岸线</T></Reveal><Reveal at={.4}><T x={987} y={669} size={42}>堆场</T></Reveal><Reveal at={.6}><T x={1232} y={838} size={42}>陆侧</T></Reveal>
       <T x={91} y={814} w={800} size={32}>交换发生在接口，<br/>衔接贯穿整个码头。</T>
     </Paper>;
-    case 22: return <Paper page={page}>
-      <H w={690}>卸下内河船</H><T x={93} y={236} w={670} size={34}>船岸交接，把箱子交给码头。</T>
-      <Diagram label="教学箱由内河船吊起后落至码头车辆"><rect x="810" y="726" width="790" height="220" fill="#41585c"/><rect x="0" y="781" width="810" height="165" fill="#125364"/><path d="M140 743H635L583 804H197Z" fill="#75888c"/><path d="M945 727V350H325M1000 727V350M849 350H1210" stroke="#bab7a4" strokeWidth="13"/><path d={`M${394+780*phase(progress,.4,.68)} 355V${631-170*phase(progress,.08,.32)+131*phase(progress,.73,.94)}`} stroke="#ddd3b7" strokeWidth="3"/><rect x="1080" y="704" width="270" height="20" fill="#d3b17d"/><circle cx="1120" cy="735" r="18" fill="#091522"/><circle cx="1285" cy="735" r="18" fill="#091522"/></Diagram>
-      <Box x={300+780*phase(progress,.4,.68)} y={604-170*phase(progress,.08,.32)+131*phase(progress,.73,.94)} w={230}/>
-      <T x={91} y={855} size={29} className="lbl-muted">同一个 C-01，从船上进入场内作业链。</T>
+    case 22: return <Paper page={page} source="内河船卸船 · 三维教学工艺示意">
+      <H>卸下内河船</H><T x={95} y={230} size={31}>吊具在船上抓取箱体，经起升、横移后交给岸侧车辆。</T>
+      <PortProcessScene kind="unload" label="教学箱由船上提升至安全高度，随岸吊小车横移，落在码头车辆上"/>
+      <T x={95} y={884} size={25}>同一个 C-01，从船上进入场内作业链；接箱车辆需要提前衔接。</T>
     </Paper>;
-    case 23: return <Paper page={page} tone="paper">
-      <H>水平运输：把岸边接到堆场。</H><T x={92} y={231} size={31}>车辆周转与两端作业，需要相互衔接。</T>
-      <Diagram label="运载箱子的车辆由岸边沿场内车道到达堆场"><path d="M100 645H1500" stroke="#b6b7aa" strokeWidth="112"/><path d="M100 645H1500" stroke="#e8e7da" strokeWidth="3" strokeDasharray="22 16"/><path d="M204 459V584M1290 414V584" stroke="#4b6f73" strokeWidth="11"/><text x="140" y="766">岸边交接</text><text x="1214" y="766">堆场交接</text>
-        <g transform={`translate(${140+1040*phase(progress,.1,.85)} 587)`}><path d="M0 0H278V24H0Z" fill="#697a78"/><circle cx="35" cy="39" r="17" fill="#17333b"/><circle cx="238" cy="39" r="17" fill="#17333b"/></g></Diagram>
-      <Box x={133+1040*phase(progress,.1,.85)} y={426} w={265}/><T x={93} y={841} w={1380} size={28}>人工驾驶车辆与自动化车辆，是不同配置；AGV 并非所有码头的必备设备。</T>
+    case 23: return <Paper page={page} source="场内水平运输 · 三维教学车辆示意">
+      <H>水平运输：把岸边接到堆场。</H><T x={95} y={230} size={31}>车辆承载箱体沿车道运行，两端作业决定一次运输能否顺利完成。</T>
+      <PortProcessScene kind="transport" label="载箱牵引车由岸边驶向堆场，箱体与车架共同移动"/>
+      <T x={95} y={884} size={25}>人工驾驶车辆与自动化车辆是不同配置；AGV 并非所有码头的必备设备。</T>
     </Paper>;
     case 24: return <Paper page={page}>
       <H w={830}>堆场：箱子暂时停在哪里？</H><T x={95} y={234} w={740} size={32}>堆位安排，要看下一次提取。</T>
@@ -209,11 +201,10 @@ export function PortLblLessonTwo({page}:{page:PortLblPage}) {
         <RouteStroke d="M690 595H1080V473" width={5}/><rect x={696+337*phase(progress,.1,.45)} y={568-108*phase(progress,.5,.8)} width="90" height="47" fill="#68d3dd"/><text x="744" y="859">堆区</text><text x="1040" y="859">通道</text><text x="1249" y="859">堆区</text></Diagram>
       <T x={95} y={429} w={487} size={43}>缓冲</T><T x={95} y={503} w={483} size={29} className="lbl-muted">暂存箱子，吸收不同环节的节奏差异。</T><Reveal at={.52}><Rule x={96} y={648} w={429}/><T x={95} y={684} w={474} size={36}>占用，也会累积。</T><T x={95} y={748} w={490} size={28} className="lbl-muted">停留越久，可用空间越少。</T></Reveal>
     </Paper>;
-    case 25: return <Paper page={page} tone="paper">
-      <H w={1320}>取出一个箱子，先移动另一个。</H><T x={92} y={229} size={30}>堆叠节约空间，也可能增加重复搬移。</T>
-      <Diagram label="先把压在目标箱上的箱子移到旁边，再提取目标箱"><path d="M100 804H1480" stroke="#86938c" strokeWidth="5"/><rect x="1040" y="561" width="332" height="243" fill="none" stroke="#81958a" strokeWidth="2" strokeDasharray="8 8"/><path d="M463 437V354H1209V545" fill="none" stroke="#71887c" strokeWidth="2" strokeDasharray="8 9"/><text x="1109" y="855">临时移位</text></Diagram>
-      <Box x={320} y={578-314*phase(progress,.69,.97)} w={373}/><Box x={320+704*phase(progress,.24,.48)} y={442-180*phase(progress,.05,.23)+316*phase(progress,.49,.65)} w={373} label="需要先移位的上层箱" style={{filter:"sepia(.9) saturate(.5)"}}/>
-      <T x={91} y={638-314*phase(progress,.69,.97)} w={203} size={28} color="#166f83">目标箱<br/>C-01</T><Reveal at={.71}><T x={772} y={336} w={623} size={38}>这一次额外搬移，<br/>叫作“翻箱”。</T></Reveal>
+    case 25: return <Paper page={page} source="堆场翻箱 · 三维概念模型，非实际堆位或设备方案">
+      <H>取出一个箱子，先移动另一个。</H><T x={95} y={230} size={31}>金色上层箱先移至旁边，吊具返回后才能提取蓝色目标箱。</T>
+      <PortProcessScene kind="rehandle" label="先吊起上层箱放到旁边，吊具空载返回，再提取下层目标箱"/>
+      <T x={95} y={884} size={25}>这一次额外搬移，叫作“翻箱”。堆叠节约空间，也可能增加重复搬移。</T>
     </Paper>;
     case 26: return <Paper page={page} source="上半讲回顾 · AI生成场景">
       <Photo name="container-dawn" alt="进入堆场等待后续装船的教学箱" x={570} y={0} w={1030} h={1000} style={{opacity:.45}}/><Shade/><H y={151} w={1130} size={80}>箱子就位，<br/>信息也要就位。</H>
@@ -231,16 +222,15 @@ export function PortLblLessonTwo({page}:{page:PortLblPage}) {
       <Diagram label="船舶横剖面简化舱位，不对应生产配载方案"><defs><pattern id="lbl-stow" width="136" height="89" patternUnits="userSpaceOnUse"><rect x="5" y="5" width="124" height="77" fill="#6c9392"/></pattern><clipPath id="lbl-hull"><path d="M411 470H1483L1344 806H535Z"/></clipPath></defs><path d="M411 470H1483L1344 806H535Z" fill="#314e5b"/><g clipPath="url(#lbl-hull)"><rect x="483" y="475" width="926" height="292" fill="url(#lbl-stow)"/><rect x="819" y="539" width="124" height="77" fill="#d2ac6d"/></g><path d="M382 476H1515" stroke="#547478" strokeWidth="4"/><text x="840" y="867">船舶横剖面示意</text></Diagram>
       <T x={95} y={416} w={279} size={42}>装在哪里，<br/>有约束。</T><Reveal at={.4}><T x={95} y={616} w={271} size={28} className="lbl-muted">本图用于理解舱位，<br/>不作为实际配载方案。</T></Reveal>
     </Paper>;
-    case 29: return <Paper page={page}>
-      <H>装船前的作业接力</H><T x={95} y={227} size={31}>堆场提取 → 水平运输 → 岸桥作业</T>
-      <Diagram label="箱子从堆场移向岸桥的作业衔接"><path d="M125 752H1464" stroke="#5c7a80" strokeWidth="6"/><path d="M220 754V431H502V754M1111 754V377H1490" stroke="#aab2a7" strokeWidth="12"/><rect x="271" y="671" width="182" height="77" fill="#557b86"/><path d="M603 647H892V669H603Z" fill="#cfba93"/><circle cx="639" cy="689" r="17" fill="#405c6a"/><circle cx="853" cy="689" r="17" fill="#405c6a"/><RouteStroke d="M360 413H749V584H1266V437" width={3}/><text x="254" y="819">堆场提取</text><text x="658" y="819">水平运输</text><text x="1231" y="819">岸边交接</text></Diagram>
-      <Box x={268+390*phase(progress,.2,.4)+583*phase(progress,.57,.8)} y={535-125*phase(progress,0,.17)+98*phase(progress,.42,.54)-100*phase(progress,.83,1)} w={225}/>
+    case 29: return <Paper page={page} source="装船作业接力 · 三维教学工艺示意">
+      <H>装船前的作业接力</H><T x={95} y={230} size={31}>堆场提取 → 水平运输 → 岸桥作业</T>
+      <PortProcessScene kind="relay" label="来自堆场的载箱车辆到达岸桥，岸桥对位抓取后完成装船"/>
+      <T x={95} y={884} size={25}>本段从车辆抵达岸边开始。车辆与岸桥互相等待，会影响整条作业链。</T>
     </Paper>;
-    case 30: return <Paper page={page}>
-      <H>岸桥把箱子送上船</H><T x={94} y={226} size={31}>一只箱子的落位，完成一次船岸交接。</T>
-      <Diagram label="岸桥从车辆抓取集装箱移至远洋船舱位"><rect x="0" y="760" width="806" height="187" fill="#3a5258"/><rect x="806" y="822" width="794" height="125" fill="#154b61"/><path d="M960 735H1500L1455 831H1020Z" fill="#75858a"/><path d="M700 756V345H1441M758 756V345M536 345H1441" stroke="#c0b69f" strokeWidth="13"/><path d={`M${446+820*phase(progress,.34,.67)} 352V${645-215*phase(progress,.05,.29)+190*phase(progress,.72,.94)}`} stroke="#dfd3b9" strokeWidth="3"/><rect x="1010" y="663" width="118" height="64" fill="#5e7f87"/><rect x="1400" y="663" width="75" height="64" fill="#8d8c7c"/></Diagram>
-      <Box x={330+820*phase(progress,.34,.67)} y={618-215*phase(progress,.05,.29)+190*phase(progress,.72,.94)} w={235}/>
-      <Reveal at={.94}><T x={94} y={856} size={32} color="#71d2db">箱子已落位。对应的作业状态仍需记录。</T></Reveal>
+    case 30: return <Paper page={page} source="岸桥装船 · 三维教学工艺示意，非配载方案">
+      <H>岸桥把箱子送上船</H><T x={95} y={230} size={31}>起升时保持连接，横移后对准目标位置，落箱后吊具脱离。</T>
+      <PortProcessScene kind="load" label="岸桥小车把车辆上的集装箱吊起，移过岸线，放入船舶目标箱位"/>
+      <T x={95} y={884} size={25}>{progress<.9?"一只箱子的落位，完成一次船岸交接。":"箱子已落位。对应的作业状态仍需记录。"}</T>
     </Paper>;
     case 31: return <Paper page={page} tone="paper">
       <H>陆侧还有其他箱子</H><T x={92} y={227} size={31}>公路、铁路与内河，从不同方向接入同一码头。</T>

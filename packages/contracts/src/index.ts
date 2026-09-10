@@ -1,4 +1,5 @@
 import { z } from "zod";
+export * from "./assistant-prompts.js";
 
 export const classroomActorRoleSchema = z.enum(["teacher", "student"]);
 export type ClassroomActorRole = z.infer<typeof classroomActorRoleSchema>;

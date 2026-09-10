@@ -87,7 +87,7 @@ self.addEventListener("fetch",event=>{
     if(cached)return request.headers.has("Range")?rangeResponse(cached,request.headers.get("Range")):cached;
     try {
       const response=await fetch(request);
-      if(response.ok && response.status===200 && /\.(js|css|webp|png|svg|json|woff2?)$/.test(url.pathname) && url.pathname!==manifestUrl) {
+      if(response.ok && response.status===200 && /\.(js|css|webp|png|svg|json|moc3|woff2?)$/.test(url.pathname) && url.pathname!==manifestUrl) {
         const cache=await caches.open(`${PREFIX}runtime`);await cache.put(url.pathname,response.clone());
       }
       return response;

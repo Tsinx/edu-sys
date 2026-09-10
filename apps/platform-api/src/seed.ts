@@ -124,6 +124,7 @@ export interface PortSimulationClassroomRuntimeState {
 }
 
 export interface PlatformState {
+  assistantPrompts?: import("@edu/contracts").AssistantPromptSettings;
   teachers: Teacher[];
   courses: Course[];
   classSessions: ClassSession[];
@@ -164,7 +165,7 @@ export function createInitialClassroomRuntime(
       currentTask: null,
       lastMessage:
         courseId === ECONOMIC_MATHEMATICS_COURSE_ID
-          ? "经数助教已连接课程上下文，等待课堂指令。"
+          ? "小麦老师已连接课程上下文，等待课堂指令。"
           : "等待课堂前端连接 OpenAvatarChat LAM 服务。"
     }
   };
