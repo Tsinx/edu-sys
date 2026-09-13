@@ -1449,7 +1449,7 @@ export function ClassroomSubsystem() {
           />
 
           <>
-              {!avatarConcealed && <section
+              {!avatarConcealed && !isFullscreen && <section
                 className="avatar-subtitle-panel"
                 aria-label="数字人回答字幕"
                 aria-live="polite"
@@ -1494,6 +1494,7 @@ export function ClassroomSubsystem() {
                 key={sessionId}
                 concealed={avatarConcealed}
                 compact={isFullscreen || isGlobe}
+                collapsible={isFullscreen}
                 onExpand={() => setAvatarConcealed(false)}
                 disabled={!isLive}
                 continuousAsrConfigured={runtimeConfig.speech.asr}

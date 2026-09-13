@@ -5,6 +5,7 @@ import { HandsFreeVoiceControl } from "./HandsFreeVoiceControl";
 interface VoiceCommandComposerProps {
   concealed?: boolean;
   compact?: boolean;
+  collapsible?: boolean;
   onExpand?: () => void;
   disabled?: boolean;
   continuousAsrConfigured?: boolean;
@@ -13,12 +14,14 @@ interface VoiceCommandComposerProps {
 }
 
 export function VoiceCommandComposer({
-  concealed = false, compact = false, onExpand, disabled = false, continuousAsrConfigured = false, assistantBusy = false, onCommand
+  concealed = false, compact = false, collapsible = false, onExpand, disabled = false, continuousAsrConfigured = false, assistantBusy = false, onCommand
 }: VoiceCommandComposerProps) {
   const [mode, setMode] = useState<"manual" | "handsfree" | "text">("manual");
   const [text, setText] = useState("");
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+  const [inputsExpanded, setInputsExpanded] = useState(false);
+  const inputsCollapsed = collapsible && !inputsExpanded && !concealed;
   const pending = useRef(false);
   const active = useRef(false);
   const blocked = useRef(false);
@@ -52,7 +55,12 @@ export function VoiceCommandComposer({
   }
 
   return (
-    <div className={`teacher-command-composer ${compact || concealed ? "teacher-command-composer--compact" : ""} ${concealed ? "teacher-command-composer--concealed" : ""}`}>
+    <div className={`teacher-command-composer ${compact || concealed ? "teacher-command-composer--compact" : ""} ${concealed ? "teacher-command-composer--concealed" : ""} ${inputsCollapsed ? "teacher-command-composer--inputs-collapsed" : ""}`}>
+      {collapsible && !concealed && <button type="button" className="command-input-toggle"
+        aria-label={inputsExpanded ? "隐藏输入面板" : "显示输入面板"} aria-expanded={inputsExpanded}
+        onClick={() => setInputsExpanded(value => !value)}>
+        <Keyboard size={15} />{inputsExpanded ? "隐藏输入" : "显示输入"}
+      </button>}
       <div className="teacher-command-composer__header"><strong>向助教发出指令</strong><span>选择输入方式</span></div>
       <div className="command-input-modes" aria-label="选择输入方式">
         {([["handsfree", "检测输入"], ["manual", "按键输入"], ["text", "文字输入"]] as const).map(([value, label]) => (
@@ -76,7 +84,7 @@ export function VoiceCommandComposer({
           </button>
         </form>
       )}
-      {concealed && mode === "text" && <button type="button" className="compact-text-expand" aria-label="展开文字输入" onClick={onExpand}><Keyboard size={20} /></button>}
+      {concealed && mode === "text" && <button type="button" className="compact-text-expand" aria-label="展开文字输入" onClick={() => { setInputsExpanded(true); onExpand?.(); }}><Keyboard size={20} /></button>}
       {error && <p className="command-composer-error" role="alert">{error}</p>}
     </div>
   );

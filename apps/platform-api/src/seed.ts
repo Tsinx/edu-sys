@@ -111,6 +111,8 @@ export interface PortSimulationTeamRuntimeState {
 }
 
 export interface PortSimulationClassroomRuntimeState {
+  learningStage?: "arrival" | "cargo" | "yard" | "planning" | "departure" | "full";
+  trainingMode?: "practice" | "battle";
   scenarioId: string;
   scenarioVersion: string;
   challengeId: PortSimulationChallengeId;

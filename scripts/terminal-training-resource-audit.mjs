@@ -1,0 +1,32 @@
+import {createRequire} from 'node:module';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+import {applyTrainingCommand as act,createTerminalTraining,createNormalTrainingSetup,serializeTraining,restoreTraining,trainingScore,trainingStorageKey} from '../packages/port-simulation-core/src/terminal-training.ts';
+const {chromium}=createRequire('C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/entry.js')('playwright');
+const setup=createNormalTrainingSetup();setup.dispatch.drivers=0;
+let s=act(createTerminalTraining('practice',setup),{kind:'start'});
+for(const c of [{kind:'order',order:{kind:'harbor',vessel:0,action:'admit'}},{kind:'resume'},{kind:'tick',seconds:720},{kind:'order',order:{kind:'harbor',vessel:0,action:'secure'}},{kind:'order',order:{kind:'operate',target:'crane-a',running:true}},{kind:'resume'},{kind:'tick',seconds:3600},{kind:'pause'}])s=act(s,c);
+assert.equal(s.simulation.queues[0],60);
+const base=process.env.TERMINAL_TEST_URL??'http://127.0.0.1:4173';
+const b=await chromium.launch({headless:true,args:['--enable-webgl','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+const errors=[];
+try{
+ const p=await b.newPage({viewport:{width:1280,height:950}});p.setDefaultTimeout(30000);p.on('pageerror',e=>errors.push(e.message));
+ await p.addInitScript(({key,raw})=>{localStorage.setItem(key,raw);const now=Date.now.bind(Date);window.offset=0;Date.now=()=>now()+window.offset;},{key:trainingStorageKey('preview','regular','practice'),raw:serializeTraining(s)});
+ await p.goto(`${base}/port-simulation-preview.html?lab=legacy`);await p.locator('[data-renderer="ready"]').waitFor({timeout:60000});
+ await p.locator('[data-event-id="transport"]').click();assert.match(await p.locator('.terminal-event-card').innerText(),/没有可出勤车辆/);
+ await p.getByRole('button',{name:'调整设备与人员',exact:true}).click();await p.getByLabel('运输司机',{exact:true}).fill('12');await p.getByRole('button',{name:'下达调度方案',exact:true}).click();
+ await p.waitForFunction(()=>document.querySelector('[data-event-id="transport"]').dataset.status==='pending');
+ const dock=p.getByLabel('实时作业控制台');await dock.getByRole('button',{name:'暂停 A 泊位岸桥',exact:true}).click();
+ for(const name of ['启动水平运输','启动堆场接箱','启动闸口交付'])await dock.getByRole('button',{name,exact:true}).click();
+ await p.getByLabel('仿真速度').selectOption('600');await p.getByRole('button',{name:'继续运行',exact:true}).click();await p.evaluate(()=>{window.offset+=1000});
+ await p.waitForFunction(()=>['transport','yard','gate'].every(id=>document.querySelector(`[data-event-id="${id}"]`).dataset.status==='resolved'));
+ await p.getByRole('button',{name:'暂停时钟',exact:true}).click();
+ const raw=await p.evaluate(key=>localStorage.getItem(key),trainingStorageKey('preview','regular','practice'));const after=restoreTraining(raw);
+ assert.ok(after.simulation.delivered>0);assert.ok(after.simulation.queues[0]<60);assert.equal(trainingScore(after).deductions,0);
+ assert.ok(after.events.filter(e=>['yard','gate'].includes(e.id)).every(e=>!e.noticed),'pre-armed crews satisfy nodes without extra click or pause');
+ assert.deepEqual(errors,[]);
+ const report={verified:true,base,checks:['zero-driver event offers resource correction','dispatch and control dock restart blocked cargo','full quay buffer drains after resuming downstream work','pre-armed yard and gate resolve from actual cargo without repause'],before:{minute:s.simulation.minute,quay:60,drivers:0},after:{minute:after.simulation.minute,quay:after.simulation.queues[0],delivered:after.simulation.delivered,score:trainingScore(after)},errors};
+ await fs.writeFile(fileURLToPath(new URL('../output/terminal-3d-qa/training-resources-report.json',import.meta.url)),JSON.stringify(report,null,2));console.log(JSON.stringify(report));
+}finally{await b.close()}

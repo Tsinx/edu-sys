@@ -128,11 +128,13 @@ export function createPortProcessScene(canvas:HTMLCanvasElement,kind:PortProcess
     // The near wall is cut away so the hull and changing water level remain visible.
     box(0,-.4,3.4,32,.45,.8,"#8e9992");
     box(-11,.3625,0,10,1.925,6,"#287c90");const chamber=box(0,.3625,0,12,1.925,6,"#398da0");box(11,-.3625,0,10,.475,6,"#287c90");
-    const ship=add(vessel(),-11,1.3,0);ship.scale.setScalar(.38);
-    const gates=[-6,6].map(x=>{const g=new THREE.Group();add(g,x,1.1,-3);box(0,0,3,.3,4,6,"#566967",g);for(let y=-1;y<=1;y++)box(.2,y,3,.15,.1,5.8,"#9aab9e",g);return g;});
+    const ship=add(vessel(),-11,1.3,0);ship.name="lock-vessel";ship.scale.setScalar(.38);
+    const gates=[-6,6].map((x,i)=>{const g=new THREE.Group();g.name=i===0?"lock-upstream-gate":"lock-downstream-gate";add(g,x,1.1,-3);box(0,0,3,.3,4,6,"#566967",g);for(let y=-1;y<=1;y++)box(.2,y,3,.15,.1,5.8,"#9aab9e",g);return g;});
     updates.push(p=>{
       const drop=smooth(p,.4,.68);chamber.scale.y=(1.925-1.45*drop)/1.925;chamber.position.y=.3625-.725*drop;ship.position.set(-11+11*smooth(p,0,.2)+11*smooth(p,.84,1),1.3-1.45*drop,0);
-      gates[0]!.rotation.y=-Math.PI/2*(1-smooth(p,.23,.33));gates[1]!.rotation.y=-Math.PI/2*smooth(p,.73,.83);
+      // Both leaves fold away from the chamber: upstream toward -X, downstream toward +X.
+      // Opening the downstream leaf into the chamber sweeps through the waiting vessel.
+      gates[0]!.rotation.y=-Math.PI/2*(1-smooth(p,.23,.33));gates[1]!.rotation.y=Math.PI/2*smooth(p,.73,.83);
     });
   }else if(["bulk","coal","grain"].includes(kind)){
     if(kind!=="coal")add(vessel("bulk"),0,.2,-5);

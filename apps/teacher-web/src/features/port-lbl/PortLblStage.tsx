@@ -28,7 +28,7 @@ function PortLblPlaybackStage({page,readOnly,projection}:{page:PortLblPage;readO
   // Read-only previews and exports retain the complete static composition.
   useEffect(()=>{
     if(readOnly)return;
-    autoPlayTimer.current=setTimeout(()=>{autoPlayTimer.current=null;setPlaying(true);},5000);
+    autoPlayTimer.current=setTimeout(()=>{autoPlayTimer.current=null;setPlaying(true);},1000);
     return cancelAutoPlay;
   },[readOnly,cancelAutoPlay]);
   useEffect(()=>{

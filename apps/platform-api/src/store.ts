@@ -1484,6 +1484,8 @@ export class JsonStateStore {
       challengeId: simulation.challengeId,
       challengeVersion: simulation.challengeVersion,
       deliveryMode: simulation.deliveryMode,
+      trainingMode: simulation.trainingMode ?? "practice",
+      learningStage: simulation.learningStage ?? "full",
       assignmentSource: simulation.assignmentSource,
       assignmentAdjusted: simulation.assignmentAdjusted,
       expectedStudentCount: simulation.expectedStudentCount,
@@ -2057,6 +2059,8 @@ export class JsonStateStore {
             )
           );
       runtime.simulation = {
+        learningStage: input.learningStage ?? runtime.simulation?.learningStage ?? "full",
+        trainingMode: (input.learningStage ?? runtime.simulation?.learningStage ?? "full") !== "full" ? "practice" : input.trainingMode ?? runtime.simulation?.trainingMode ?? "practice",
         scenarioId: challenge.scenarioId,
         scenarioVersion: challenge.scenarioVersion,
         challengeId: challenge.id,

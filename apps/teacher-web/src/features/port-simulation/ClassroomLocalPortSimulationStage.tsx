@@ -3,9 +3,10 @@ import type {
   PortSimulationChallengeId
 } from "@edu/contracts";
 import {
-  PORT_SIMULATION_CHALLENGES,
-  getPortSimulationChallenge
+  PORT_OPERATIONS_COURSE_PRESETS as PORT_SIMULATION_CHALLENGES,
+  getPortOperationsCoursePreset as getPortSimulationChallenge
 } from "@edu/port-simulation-core";
+import { PORT_COURSE_UNITS, portCourseDefinition, recommendPortCourse, type PortCourseSelection } from "@edu/port-simulation-core";
 import {
   CheckCircle2,
   CircleAlert,
@@ -36,6 +37,8 @@ export function ClassroomLocalPortSimulationStage({
       classroomSnapshot.simulation?.challengeId ?? "joint-watch"
     );
   const [expectedStudentCount, setExpectedStudentCount] = useState(30);
+  const [learningStage, setLearningStage] = useState<PortCourseSelection>(classroomSnapshot.simulation?.learningStage ?? recommendPortCourse(classroomSnapshot.chapterTitle));
+  const [trainingMode, setTrainingMode] = useState<"practice" | "battle">(classroomSnapshot.simulation?.trainingMode ?? "practice");
   const [identityReady, setIdentityReady] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -48,6 +51,8 @@ export function ClassroomLocalPortSimulationStage({
   useEffect(() => {
     if (simulation?.challengeId) setSelectedChallengeId(simulation.challengeId);
   }, [simulation?.challengeId]);
+  useEffect(() => { setTrainingMode(simulation?.trainingMode ?? "practice"); }, [simulation?.trainingMode]);
+  useEffect(() => { setLearningStage(simulation?.learningStage ?? recommendPortCourse(classroomSnapshot.chapterTitle)); }, [simulation?.learningStage, classroomSnapshot.chapterTitle]);
 
   useEffect(() => {
     let active = true;
@@ -87,6 +92,8 @@ export function ClassroomLocalPortSimulationStage({
     try {
       const snapshot = await api.setupPortSimulation(sessionId, {
         deliveryMode: "local_solo",
+        trainingMode: learningStage === "full" ? trainingMode : "practice",
+        learningStage,
         challengeId: selectedChallengeId,
         expectedStudentCount
       });
@@ -106,10 +113,10 @@ export function ClassroomLocalPortSimulationStage({
   return (
     <section className="port-local-teacher" aria-label="港口仿真本地单机课堂配置">
       <header>
-        <span>PORT SIMULATION · V1.0</span>
-        <h2>发布登录后本地运行的个人挑战</h2>
+        <span>PORT OPERATIONS · COURSE LAB</span>
+        <h2>按课程进度发布实训</h2>
         <p>
-          服务器只处理登录和首次挑战配置。学生开始后，各自在浏览器中运行完整四岗位流程。
+          选择本课作业分段，直接从相应现场开始。课程后期可发布完整 48 小时挑战。
         </p>
       </header>
 
@@ -120,11 +127,11 @@ export function ClassroomLocalPortSimulationStage({
         </div>
       ) : null}
 
-      <section className="port-local-teacher__architecture" aria-label="本地运行边界">
-        <article><LogIn aria-hidden="true" /><strong>登录一次</strong><span>确认教学系统身份并读取挑战</span></article>
-        <article><MonitorSmartphone aria-hidden="true" /><strong>每人一套引擎</strong><span>四岗位由同一学生依次切换</span></article>
-        <article><HardDrive aria-hidden="true" /><strong>本机自动存档</strong><span>进度和个人历史不持续上传</span></article>
-        <article><ServerOff aria-hidden="true" /><strong>运行零长连接</strong><span>不建立SSE、小组席位或服务端时钟</span></article>
+      <section className="port-local-teacher__architecture" aria-label="四类实验任务">
+        <article><LogIn aria-hidden="true" /><strong>熟悉流程</strong><span>现场事件、真实指令与箱流验证</span></article>
+        <article><MonitorSmartphone aria-hidden="true" /><strong>调度协同</strong><span>连续到港、等泊与班组调度</span></article>
+        <article><HardDrive aria-hidden="true" /><strong>设备选型</strong><span>预算、能力、能耗与实验对照</span></article>
+        <article><ServerOff aria-hidden="true" /><strong>港区规划</strong><span>六地块用途、货批分配与实际移箱</span></article>
       </section>
 
       <fieldset className="port-teacher-setup__challenges">
@@ -147,6 +154,20 @@ export function ClassroomLocalPortSimulationStage({
       </fieldset>
 
       <section className="port-local-teacher__publish">
+        <label>本课实训分段
+          <select aria-label="本课实训分段" value={learningStage} onChange={e => setLearningStage(e.target.value as PortCourseSelection)}>
+            {PORT_COURSE_UNITS.map(unit => <option key={unit.id} value={unit.id}>{unit.title} · {unit.course}</option>)}
+          </select>
+          <small>{portCourseDefinition(learningStage).prepared}</small>
+          <a href={`/port-simulation-preview.html?course=${learningStage === "full" ? "arrival" : learningStage}&demo=1`} target="_blank" rel="noreferrer">▶ 打开课程标准演示</a>
+        </label>
+        <label>场次规则
+          <select aria-label="课堂训练场规则" disabled={learningStage !== "full"} value={learningStage === "full" ? trainingMode : "practice"} onChange={event => setTrainingMode(event.target.value as "practice" | "battle")}>
+            <option value="practice">教学模式 · 首次新流程暂停，错误解释不扣分</option>
+            <option value="battle">实战模式 · 48 小时固定 60×，流程错误去重扣分</option>
+          </select>
+          <small>{learningStage === "full" ? "综合实训可选择教学或实战规则。" : "分段采用教学规则，记录实际目标与处置过程。"}学生载入后锁定本课分段；记录保存在本机。</small>
+        </label>
         <label>
           预计登录人数
           <input
@@ -174,9 +195,11 @@ export function ClassroomLocalPortSimulationStage({
           <div>
             <span>{simulation?.deliveryMode === "local_solo" ? "当前已发布" : "检测到旧版多人配置"}</span>
             <h3>{activeChallenge.title}</h3>
+            <p>当前分段：{portCourseDefinition(simulation?.learningStage ?? "full").title}</p>
+            <p>{simulation?.trainingMode === "battle" ? "实战模式 · 48 小时固定 60× · 流程错误每种扣 5 分一次" : "教学模式 · 首次新流程暂停 · 错误解释不扣分"}</p>
             <p>
               {simulation?.deliveryMode === "local_solo"
-                ? "学生首次载入后可以断开实时连接，教师端不再显示运行状态、命令或排行榜。"
+                ? "学生可旋转、缩放并选择三维设施；实验支持本机存档、方案对比和复盘导出。"
                 : "点击“发布本地挑战”即可转换；旧小组运行数据会留在持久化历史中，但不再作为默认入口。"}
             </p>
           </div>
@@ -185,7 +208,7 @@ export function ClassroomLocalPortSimulationStage({
       ) : null}
 
       <footer>
-        本地成绩可导出为不含姓名的复盘文件，但 V1.0 不自动回传成绩，也不提供联网排行榜。
+        3D 实验结果和操作过程可导出为不含姓名的复盘文件。设备参数、预算与能耗使用教学假设。
       </footer>
     </section>
   );

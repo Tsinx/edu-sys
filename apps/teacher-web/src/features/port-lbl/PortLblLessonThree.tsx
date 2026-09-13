@@ -4,6 +4,11 @@ import { Paper, Photo, Shade, H, T, Rule, Reveal, Box, Diagram, RouteStroke, use
 import { LblGlobe } from "./LblGlobe";
 import { PACIFIC, ATLANTIC, PANAMA, CAPE, NORTH_SOUTH, SOUTH_SOUTH, GULF_EXIT, GULF_ASIA, MINERAL_ROUTES, GRAIN_ATLANTIC, ASIA_EUROPE, CAPE_COMPARISON, SUEZ_EASTCOAST, LNG_ROUTES, COAL_INDONESIA, GRAIN_ROUTES } from "./LblRoutes";
 
+const DESTINATION_ROUTE_CATALOG=[...ASIA_EUROPE,PACIFIC,SOUTH_SOUTH];
+const EAST_COAST_ROUTE_CATALOG=[PANAMA,SUEZ_EASTCOAST,PACIFIC];
+const DRY_BULK_ROUTE_CATALOG=[...MINERAL_ROUTES,COAL_INDONESIA];
+const CARGO_ROUTE_CATALOG=[...ASIA_EUROPE,GULF_ASIA,...MINERAL_ROUTES,GRAIN_ATLANTIC];
+
 export function PortLblLessonThree({page}:{page:PortLblPage}) {
   const {progress}=useLblPlayback();
   switch(page.localPage){
@@ -87,7 +92,7 @@ export function PortLblLessonThree({page}:{page:PortLblPage}) {
       <T x={95} y={414} w={650} size={38}>专业码头</T><T x={95} y={481} w={681} size={30} className="lbl-muted">围绕具体货物，配置设备与工艺。</T><Rule x={95} y={599} w={574}/><Reveal at={.4}><T x={95} y={643} size={38}>综合港</T><T x={95} y={710} w={680} size={30} className="lbl-muted">连接多种产业与市场，容纳多种码头。</T></Reveal>
     </Paper>;
     case 17:return <Paper page={page} source="代表运输方向 · 教学路线示意，不表示当前可订服务">
-      <LblGlobe x={303} w={1350} h={1000} routes={progress<.34?ASIA_EUROPE:progress<.67?[PACIFIC]:[SOUTH_SOUTH]} keys={[{at:0,latitude:22,longitude:75,distance:3.4},{at:.34,latitude:28,longitude:180,distance:3.5},{at:.67,latitude:-16,longitude:30,distance:3.6}]}/><Shade style={{background:"linear-gradient(90deg,#0b1722 8%,#0b1722b0 28%,transparent 67%)"}}/>
+      <LblGlobe x={303} w={1350} h={1000} routeCatalog={DESTINATION_ROUTE_CATALOG} routes={progress<.34?ASIA_EUROPE:progress<.67?[PACIFIC]:[SOUTH_SOUTH]} keys={[{at:0,latitude:22,longitude:75,distance:3.4},{at:.34,latitude:28,longitude:180,distance:3.5},{at:.67,latitude:-16,longitude:30,distance:3.6}]}/><Shade style={{background:"linear-gradient(90deg,#0b1722 8%,#0b1722b0 28%,transparent 67%)"}}/>
       <H y={113} w={950} size={79}>目的地改变，<br/>路线怎样改变？</H><T x={95} y={417} w={535} size={34}>同一出发地，<br/>连接不同方向的海外市场。</T>
       <T x={95} y={772} w={1247} size={43} color="#d8bc86">{progress<.34?"欧洲方向":progress<.67?"北美方向":"南美方向"}</T>
     </Paper>;
@@ -101,7 +106,7 @@ export function PortLblLessonThree({page}:{page:PortLblPage}) {
       <T x={92} y={733} w={550} size={33}>从太平洋中心看，<br/>两岸属于同一运输联系。</T><T x={1035} y={733} w={452} size={33}>港口之后，<br/>还有各自的腹地。</T>
     </Paper>;
     case 20:return <Paper page={page} source="北美东岸连接方式 · 教学地理比较，不保证所有船型或班期适用">
-      <LblGlobe x={646} y={57} w={1050} h={887} routes={progress<.36?[PANAMA]:progress<.69?[SUEZ_EASTCOAST]:[PACIFIC]} keys={[{at:0,latitude:22,longitude:-110,distance:3.5},{at:.36,latitude:25,longitude:65,distance:3.6},{at:.55,latitude:30,longitude:-35,distance:3.6},{at:.69,latitude:36,longitude:-110,distance:3.3}]} labels={["shanghai","panama","suez","los-angeles-long-beach","new-york-new-jersey"]}/><Shade style={{background:"linear-gradient(90deg,#0b1722 29%,transparent 67%)"}}/>
+      <LblGlobe x={646} y={57} w={1050} h={887} routeCatalog={EAST_COAST_ROUTE_CATALOG} routes={progress<.36?[PANAMA]:progress<.69?[SUEZ_EASTCOAST]:[PACIFIC]} keys={[{at:0,latitude:22,longitude:-110,distance:3.5},{at:.36,latitude:25,longitude:65,distance:3.6},{at:.55,latitude:30,longitude:-35,distance:3.6},{at:.69,latitude:36,longitude:-110,distance:3.3}]} labels={["shanghai","panama","suez","los-angeles-long-beach","new-york-new-jersey"]}/><Shade style={{background:"linear-gradient(90deg,#0b1722 29%,transparent 67%)"}}/>
       <H y={98} w={944} size={68}>去北美东岸的不同路径</H>
       <T x={95} y={303} w={570} size={39} color={progress<.36?"#dabc83":undefined}>① 经巴拿马的海路</T><T x={95} y={401} w={570} size={39} color={progress>=.36&&progress<.69?"#dabc83":undefined}>② 经苏伊士方向的海路</T><T x={95} y={499} w={570} size={39} color={progress>=.69?"#dabc83":undefined}>③ 美西港口接陆桥</T>
       <Diagram label="美西到美东的陆桥以虚线单列，不误标为海上航线"><path d="M132 726H600" stroke="#cad4c4" strokeWidth="3" strokeDasharray="12 10"/></Diagram><T x={96} y={764} size={25}>美西港口</T><T x={486} y={764} size={25}>东部市场</T><T x={95} y={861} w={1431} size={25}>虚线表示陆路联系。具体选择受起讫港、船型、通道条件与服务安排影响。</T>
@@ -131,7 +136,7 @@ export function PortLblLessonThree({page}:{page:PortLblPage}) {
       <T x={95} y={826} w={640} size={29}>液体货物连接储罐、管线与工业需求。</T><T x={865} y={826} w={640} size={29}>LNG 贸易同时连接亚洲与大西洋市场。</T>
     </Paper>;
     case 26:return <Paper page={page} source="UNCTAD · 矿石与煤炭贸易；代表方向示意，线宽不表示运量">
-      <LblGlobe x={310} y={10} w={1340} h={970} routes={progress<.65?MINERAL_ROUTES:[COAL_INDONESIA]} keys={[{at:0,latitude:-3,longitude:117,distance:3.2},{at:.38,latitude:-14,longitude:20,distance:3.8},{at:.7,latitude:9,longitude:118,distance:3.1}]} labels={["shanghai","cape-good-hope"]}/><Shade/>
+      <LblGlobe x={310} y={10} w={1340} h={970} routeCatalog={DRY_BULK_ROUTE_CATALOG} routes={progress<.65?MINERAL_ROUTES:[COAL_INDONESIA]} keys={[{at:0,latitude:-3,longitude:117,distance:3.2},{at:.38,latitude:-14,longitude:20,distance:3.8},{at:.7,latitude:9,longitude:118,distance:3.1}]} labels={["shanghai","cape-good-hope"]}/><Shade/>
       <H y={113} w={962} size={76}>矿石与煤炭运输地图</H><T x={95} y={321} w={589} size={32}>资源产地与工业需求，<br/>通过专业港口连接。</T>
       <T x={95} y={531} w={705} size={36} color="#dfae85">矿石：澳大利亚、巴西 → 亚洲</T><Reveal at={.46}><T x={95} y={656} w={705} size={34} color="#b7bdc1">煤炭：印度尼西亚 → 东亚</T><T x={95} y={724} w={633} size={29}>同属干散货，各自的贸易分布仍不同。</T></Reveal><T x={95} y={868} size={24}>当前图层：{progress<.65?"矿石的两组代表方向":"煤炭的一组代表方向"} · 非实时船流</T>
     </Paper>;
@@ -139,7 +144,7 @@ export function PortLblLessonThree({page}:{page:PortLblPage}) {
       <LblGlobe x={505} w={1120} h={1000} routes={GRAIN_ROUTES} keys={[{at:0,latitude:23,longitude:-32,distance:3.7},{at:.62,latitude:35,longitude:26,distance:2.6}]} labels={["gibraltar","turkish-straits"]}/><Shade/><T x={95} y={102} size={22} className="lbl-label">GRAIN TRADE</T><H y={241} w={852} size={83}>粮食运输地图</H><T x={95} y={425} w={623} size={33}>出口产区与进口市场，<br/>通过粮港和海运相连。</T><Rule x={95} y={599} w={109}/><T x={95} y={642} size={29} color="#b6c983">南美洲 → 地中海</T><T x={95} y={694} size={29} color="#d2bb7e">美国 → 地中海</T><T x={95} y={746} size={29} color="#88c6b5">黑海 → 地中海</T><T x={95} y={855} size={24}>区域之间的联系，受作物、季节、贸易条件与运输安排影响。</T>
     </Paper>;
     case 28:return <Paper page={page}>
-      <LblGlobe x={253} w={1345} h={1000} routes={progress<.25?ASIA_EUROPE:progress<.5?[GULF_ASIA]:progress<.75?MINERAL_ROUTES:[GRAIN_ATLANTIC]} keys={[{at:0,latitude:25,longitude:70,distance:3.7},{at:.3,latitude:15,longitude:70,distance:3.7},{at:.6,latitude:-10,longitude:35,distance:3.7},{at:.86,latitude:15,longitude:-20,distance:3.7}]}/><Shade/>
+      <LblGlobe x={253} w={1345} h={1000} routeCatalog={CARGO_ROUTE_CATALOG} routes={progress<.25?ASIA_EUROPE:progress<.5?[GULF_ASIA]:progress<.75?MINERAL_ROUTES:[GRAIN_ATLANTIC]} keys={[{at:0,latitude:25,longitude:70,distance:3.7},{at:.3,latitude:15,longitude:70,distance:3.7},{at:.6,latitude:-10,longitude:35,distance:3.7},{at:.86,latitude:15,longitude:-20,distance:3.7}]}/><Shade/>
       <H y={102} w={1400} size={68}>同一片海洋，多张运输网络。</H><T x={95} y={310} w={605} size={34}>换一种货物，<br/>地图上的重点也会改变。</T><T x={93} y={526} size={86} color={progress<.25?"#6dcddd":progress<.5?"#dfb575":progress<.75?"#d6a080":"#b6c983"}>{progress<.25?"集装箱":progress<.5?"油气":progress<.75?"矿石":"粮食"}</T><T x={95} y={826} w={1240} size={30}>货物结构、设施适配与贸易方向，共同塑造网络。</T>
     </Paper>;
     case 29:return <Paper page={page} source="EIA · 世界能源通道；地理位置示意，非实时船流">

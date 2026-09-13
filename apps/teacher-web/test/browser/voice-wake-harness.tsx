@@ -29,7 +29,7 @@ function Harness() {
     {overlay && <><header className={concealed ? 'collapsed-avatar-controls' : 'avatar-dock-header'}><strong>课堂助教</strong></header>
       {!concealed && <div className="lam-avatar-surface" style={{ background: '#c5ded5', minHeight: 0 }}>数字人画面占位</div>}
     </>}
-    {mounted && <VoiceCommandComposer key={session} concealed={concealed} compact={isFullscreen}
+    {mounted && <VoiceCommandComposer key={session} concealed={concealed} compact={isFullscreen} collapsible={isFullscreen}
       onExpand={() => (isFullscreen ? setFullscreenCollapsed : setCollapsed)(false)} disabled={disabled} continuousAsrConfigured={configured} assistantBusy={busy}
       onCommand={async (text, source) => {
         const response = await fetch('/api/class-sessions/test/assistant/turns', { method: 'POST', body: JSON.stringify({ text, source }) });

@@ -14,7 +14,7 @@ if ((Test-Path -LiteralPath $shortcutPath) -and $shortcut.TargetPath -ne $target
 }
 $shortcut.TargetPath = $target
 $shortcut.WorkingDirectory = $repoRoot
-$shortcut.Description = '启动教学前后端、LAM数字人，准备本地语音检测，并打开教学页面'
+$shortcut.Description = '启动教学前后端，准备本地语音检测，并打开教学页面；LAM 按需手动启动'
 $shortcut.IconLocation = "$env:SystemRoot\System32\shell32.dll,137"
 $shortcut.WindowStyle = 1
 $shortcut.Save()

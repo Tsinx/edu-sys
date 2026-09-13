@@ -30,8 +30,8 @@ export const JOURNEY_CAMERA: readonly LblCameraKey[] = [
   {at:.94,latitude:25,longitude:65,distance:3.5}
 ];
 
-export function LblGlobe({x=530,y=0,w=1120,h=940,keys=WORLD_CAMERA,global=false,routes=WESTBOUND_ROUTES,labels=DEFAULT_LABELS,className="",highlight=EMPTY_IDS}:{
-  x?:number;y?:number;w?:number;h?:number;keys?:readonly LblCameraKey[];global?:boolean;routes?:readonly GlobeRoute[];labels?:readonly string[];className?:string;highlight?:readonly string[];
+export function LblGlobe({x=530,y=0,w=1120,h=940,keys=WORLD_CAMERA,global=false,routes=WESTBOUND_ROUTES,routeCatalog,labels=DEFAULT_LABELS,className="",highlight=EMPTY_IDS}:{
+  x?:number;y?:number;w?:number;h?:number;keys?:readonly LblCameraKey[];global?:boolean;routes?:readonly GlobeRoute[];routeCatalog?:readonly GlobeRoute[];labels?:readonly string[];className?:string;highlight?:readonly string[];
 }) {
   const ref=useRef<InteractiveEarthGlobeHandle>(null);
   const {progress,reducedMotion}=useLblPlayback();
@@ -42,15 +42,19 @@ export function LblGlobe({x=530,y=0,w=1120,h=940,keys=WORLD_CAMERA,global=false,
   const next=keys.find(k=>k.at>progress)??previous;
   const mix=next===previous?0:phase(progress,previous.at,next.at);
   const longitudeDelta=((next.longitude-previous.longitude+540)%360)-180;
-  const camera={latitude:previous.latitude+(next.latitude-previous.latitude)*mix,longitude:previous.longitude+longitudeDelta*mix,distance:previous.distance+(next.distance-previous.distance)*mix};
+  // Keep the short path across the date line within the globe's valid range.
+  const longitude=((previous.longitude+longitudeDelta*mix+540)%360)-180;
+  const camera={latitude:previous.latitude+(next.latitude-previous.latitude)*mix,longitude,distance:previous.distance+(next.distance-previous.distance)*mix};
   const keyId=`${camera.latitude}:${camera.longitude}:${camera.distance}`;
   useEffect(()=>{let active=true;if(global)loadGlobalShippingLanes().then(data=>{if(active)setLanes(data)}).catch(()=>{if(active)setLaneError(true)});return()=>{active=false}},[global]);
   useEffect(()=>{ref.current?.focusCoordinate(camera as GlobeCoordinate,camera.distance,0)},[keyId,reducedMotion]);
   const routeKey=routes.map(r=>r.id).join("|");
   const stableRoutes=useMemo(()=>routes,[routeKey]);
   const routeIds=useMemo(()=>stableRoutes.map(r=>r.id),[stableRoutes]);
+  // Pages that compare routes supply one fixed catalog. Only visibility and
+  // vessel motion change during playback, preserving the canvas and texture.
   return <div className={`lbl-globe ${className}`} style={{left:x,top:y,width:w,height:h}}>
-    <InteractiveEarthGlobe ref={ref} locations={LBL_LOCATIONS} routes={stableRoutes}
+    <InteractiveEarthGlobe ref={ref} locations={LBL_LOCATIONS} routes={routeCatalog??stableRoutes}
       shippingLanes={lanes} shippingLaneState={global?(laneError?"error":lanes.length?"ready":"loading"):"ready"}
       routeView={global?"global":"featured"} shippingLaneDetail="major" initialFocus={camera}
       globalRouteFocus={camera} featuredRouteFocus={camera} globalRouteDistance={camera.distance} featuredRouteDistance={camera.distance}

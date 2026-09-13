@@ -1,6 +1,20 @@
-# 港口仿真 V1.0：登录后本地单机版
+# 港口仿真实验室：课程分段与实时三维实训
 
-V1.0 的默认交付模式为 `local_solo`。服务器只在页面进入时确认登录身份并读取课堂挑战；仿真时钟、命令校验、状态推进、计分、事件记录和存档均在学生浏览器完成，不建立小组席位、SSE、服务端仿真时钟或实时排行榜。
+## 课程分段、标准演示与全屏
+
+默认从“船舶入港”开始，依次可选装卸、堆场、规划、离港及 48 小时综合挑战。各短分段直接载入对应起始现场，保存独立练习记录。黄色“标准演示”支持自动播放、暂停和单步观看；演示与自主练习分离。舞台全屏后保留计划、操作和目标抽屉。教师可发布并锁定 `learningStage`。使用与接口说明见 [课程分段说明](../../../../../docs/design/port-course-segments.md)。
+
+当前入口为 `TerminalStudio`，由课程分段进入相应 Three.js 港区现场。学生通过手续、船舶通行、货批、设备与岗位安排操作现场，任务由实际船舶状态和箱流验证。设备、人员和布局影响排队、成本及作业结果；练习记录可在本机保存、导出和重放。
+
+任务说明、模型参数、比较实验步骤和复查命令见 [实时 3D 仿真说明](../../../../../docs/design/port-simulation-3d-v2.md)。V1 数据与历史多人模块继续保留，但新版预览不再展示旧二维入口。
+
+## 48 小时综合实训
+
+综合挑战入口支持连续到港、港内等泊、船舶手续、进口与出口货批、逐箱记录、堆场规划和最终交班。支持教学/实战、同船期重练、新船期挑战、本地历史与重放导出；本期不联网提交成绩。实现与接口边界见 [48 小时综合实训说明](../../../../../docs/design/port-operations-48h.md)。页面底部或 `?lab=legacy` 可打开旧版。
+
+## 正常流程实训（兼容入口）
+
+新增练习场和实战场：侧边流程事件调用真实作业指令，9 个流程节点与全量交付共 100 分。练习场精确暂停并解释错误；实战场固定 60×，同一节点同种流程错误扣 5 分一次。教师可预设并锁定规则，历史 2.0 / 2.1 文件不补算新分数。实现、存档与当前验证方法见 [正常流程实训说明](../../../../../docs/design/port-simulation-normal-training.md)。
 
 ## 领域研究
 
@@ -15,16 +29,25 @@ V1.0 的默认交付模式为 `local_solo`。服务器只在页面进入时确�
 http://127.0.0.1:5173/port-simulation-preview.html
 ```
 
-独立入口默认展示 V1.0 本地单机运行器，同时保留浏览演示和 V0.05 协同兼容入口用于回归验收。正式入口为登录后的 `/simulations`，课堂 `simulation` Activity 也使用同一本地运行器。
+独立入口直接展示 3D 实验室。正式入口为登录后的 `/simulations`，课堂 `simulation` Activity 也使用同一实验室；教师发布的工况锁定，学生可以切换四类任务。
 
 ## 组件边界
+
+- `TerminalControlDock.tsx`：船舶放行、系泊、独立班组启停与实时队列反馈。
+- `TerminalStudio.tsx`：四类任务、配置编辑、调度下达、指标、存档和方案比较。
+- `TerminalScene3D.tsx`：三维相机、拾取、渲染、状态投影、窗口尺寸适配和 WebGL 恢复。
+- `terminal-3d-world.ts`：原创设备与设施模型、批量几何、道路和视觉路径。
+- `@edu/port-simulation-core/src/terminal-lab.ts`：固定步长箱流、能力约束、预算与布局校验、确定性重放。
+- `LocalPortSimulationStage.tsx`：课程身份和 IndexedDB 存档适配，默认返回新版实验室。
+
+以下组件保留用于历史数据、二维和多人模式兼容：
 
 - `InteractivePortScene.tsx`：通用 SVG 视口、平移缩放、设施选择、分层高亮、键盘操作和演示运动层。
 - `port-scene-camera.ts`：无浏览器依赖的相机与路径插值数学。
 - `port-scene-types.ts`：场景、分层、实体、几何、详情与运动路径的公开类型。
 - `yangshan-container-scene.ts`：港口总体环境与集装箱码头功能结构场景。
 - `PortSimulationWorkspace.tsx`：共享态势、岗位命令和复盘信息的通用运行工作区。
-- `LocalPortSimulationStage.tsx`：单人四岗位轮换、本地时钟、自动暂停、个人计分、复盘导出和个人历史入口。
+- `LocalPortSimulationStage.tsx` 中的 `LocalPortSimulationRunner`：历史 V1 四岗位运行器。
 - `local-port-simulation.ts`：版本化本地存档、恢复校验、个人历史和工作区投影。
 - `StudentLocalPortSimulation.tsx`：登录课堂中的本地运行包装层；不认领小组或岗位席位。
 - `ClassroomLocalPortSimulationStage.tsx`：教师发布挑战与说明本地运行边界，不监控学生过程状态。

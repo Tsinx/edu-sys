@@ -285,6 +285,7 @@ interface GlobeRuntime {
   routeView: GlobeRouteView;
   shippingLaneDetail: GlobeShippingLaneDetail;
   shippingLaneVisuals: ShippingLaneVisual[];
+  shippingLaneData: readonly GlobeShippingLanePath[];
   featuredRouteObjects: Object3D[];
   movingVesselVisual: MovingVesselVisual;
   cameraTween?: CameraTween;
@@ -1417,6 +1418,16 @@ export const InteractiveEarthGlobe = forwardRef<
     const runtime = runtimeRef.current;
     if (!runtime) return;
     runtime.controls.autoRotate = false;
+    // Playback already interpolates its camera every frame. A zero-duration
+    // focus is a direct update, not a tween: equal frame timestamps yield 0/0.
+    if (duration <= 0) {
+      runtime.cameraTween = undefined;
+      runtime.camera.position.copy(targetPosition);
+      runtime.camera.lookAt(0, 0, 0);
+      runtime.controls.update();
+      runtime.controls.autoRotate = autoRotatingRef.current;
+      return;
+    }
     runtime.cameraTween = {
       from: runtime.camera.position.clone(),
       to: targetPosition,
@@ -1748,6 +1759,7 @@ export const InteractiveEarthGlobe = forwardRef<
         routeView: resolvedRouteView,
         shippingLaneDetail: resolvedShippingLaneDetail,
         shippingLaneVisuals,
+        shippingLaneData: shippingLanes,
         featuredRouteObjects,
         movingVesselVisual
       };
@@ -2245,11 +2257,26 @@ export const InteractiveEarthGlobe = forwardRef<
     minDistance,
     routes,
     presentationMode,
-    shippingLanes,
     showGraticule,
     showLabels,
     textureUrl
   ]);
+
+  useEffect(() => {
+    const runtime = runtimeRef.current;
+    if (!runtime || runtime.shippingLaneData === shippingLanes) return;
+    // Lazy route data can arrive after playback starts. Replace its layer in
+    // place so the earth texture, camera, canvas and animation keep running.
+    const visuals = createShippingLaneVisuals(shippingLanes);
+    runtime.shippingLaneVisuals.forEach((visual) => {
+      runtime.scene.remove(visual.object);
+      visual.object.traverse(disposeObject);
+    });
+    visuals.forEach((visual) => runtime.scene.add(visual.object));
+    runtime.shippingLaneVisuals = visuals;
+    runtime.shippingLaneData = shippingLanes;
+    runtime.renderer.domElement.dataset.shippingLaneBatches = String(visuals.length);
+  }, [shippingLanes]);
 
   const routeDataIsLoading =
     resolvedRouteView === "global" &&

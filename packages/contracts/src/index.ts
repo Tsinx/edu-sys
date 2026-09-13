@@ -841,10 +841,12 @@ export type PortSimulationTeamSummary = z.infer<
 >;
 
 export const portSimulationClassroomSummarySchema = z.object({
+  learningStage: z.enum(["arrival", "cargo", "yard", "planning", "departure", "full"]).default("full"),
   scenarioId: z.string(),
   scenarioVersion: z.string(),
   challengeId: portSimulationChallengeIdSchema.default("compound-disruption"),
   challengeVersion: z.string().default("1.0.0"),
+  trainingMode: z.enum(["practice", "battle"]).default("practice"),
   deliveryMode: portSimulationDeliveryModeSchema.default(
     "network_teams_legacy"
   ),
@@ -876,6 +878,8 @@ export const classroomSnapshotSchema = z.object({
 export type ClassroomSnapshot = z.infer<typeof classroomSnapshotSchema>;
 
 export const portSimulationSetupInputSchema = z.object({
+  learningStage: z.enum(["arrival", "cargo", "yard", "planning", "departure", "full"]).optional(),
+  trainingMode: z.enum(["practice", "battle"]).optional(),
   expectedStudentCount: z.number().int().min(4).max(72).optional(),
   teamCount: z.number().int().min(1).max(15).optional(),
   teamNames: z.array(z.string().trim().min(1).max(24)).max(15).optional(),

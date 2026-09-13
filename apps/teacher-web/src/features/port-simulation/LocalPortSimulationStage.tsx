@@ -13,6 +13,7 @@ import {
   createInitialPortSimulationState,
   getPortSimulationChallenge,
   getPortSimulationScenarioForChallenge,
+  getPortOperationsCoursePreset as getTerminalCoursePreset,
   pausePortSimulation,
   resumePortSimulation,
   setPortSimulationSpeed,
@@ -46,8 +47,13 @@ import {
 import { PortSimulationWorkspace } from "./PortSimulationWorkspace";
 import { IndexedSimulationStorage, restoreCloudRecords } from "../../campus/sync";
 import { getRecords } from "../../campus/storage";
+import { TerminalStudio } from "./TerminalStudio";
 
 export interface LocalPortSimulationStageProps {
+  initialLearningStage?: import("@edu/port-simulation-core").PortCourseSelection;
+  learningStageLocked?: boolean;
+  initialTrainingMode?: "practice" | "battle";
+  trainingModeLocked?: boolean;
   actorId: string;
   actorDisplayName: string;
   storageScope: string;
@@ -170,7 +176,12 @@ export function LocalPortSimulationStage(props:LocalPortSimulationStageProps) {
   },[props.actorId,props.storageScope]);
   if(error)return <section className="port-local-auth-state" role="alert"><h1>本机存档暂不可用</h1><p>{error}</p><p>请检查浏览器存储空间和隐私模式后重新打开。</p></section>;
   if(!storage)return <section className="port-local-auth-state" role="status">正在读取本机存档…</section>;
-  return <LocalPortSimulationRunner {...props} storage={storage}/>;
+  const preset = getTerminalCoursePreset(props.initialChallengeId);
+  return <TerminalStudio key={`${props.storageScope}:${props.initialChallengeId}:${props.initialTrainingMode}:${props.initialLearningStage}`} storage={storage}
+    storageScope={props.storageScope} initialScenario={preset.scenario} initialMode={preset.mode} scenarioLocked={props.challengeLocked}
+    initialTrainingMode={props.initialTrainingMode} trainingModeLocked={props.trainingModeLocked}
+    initialLearningStage={props.initialLearningStage} learningStageLocked={props.learningStageLocked}
+    sourceLabel={props.sourceLabel ?? "课程实验"} />;
 }
 
 export function LocalPortSimulationRunner({
