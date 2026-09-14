@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { MANAGEMENT_SOURCE_MAP } from '@edu/course-content/management-principles/source-map';
 import fastifyStatic from "@fastify/static";
 import { z } from "zod";
 import { CampusIdentityProvider } from "./campus/accounts.js";
@@ -391,6 +392,14 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     return actor && campusMode ? {...dashboard,teacher:{...dashboard.teacher,id:actor.actorId,name:actor.displayName}} : dashboard;
   });
   app.get("/api/courses", async () => store.listCourses());
+  app.get<{Params:{courseId:string}}>("/api/courses/:courseId/source-map", async (request,reply) => {
+    // Original notes and authoring records require a real teacher identity, including in development.
+    if (!await resolveActor(request)) return reply.code(401).send({message:'请以教师身份登录'});
+    await requireActor(request,'teacher');
+    reply.header('Cache-Control','private, no-store');
+    if(request.params.courseId!=='management-principles'||!store.getCourse(request.params.courseId))return reply.code(404).send({message:'该课程没有来源对照'});
+    return {courseId:request.params.courseId,mappings:MANAGEMENT_SOURCE_MAP};
+  });
   app.get("/api/class-sessions", async () => store.listSessions());
 
   app.get("/api/avatar/runtime/status", async () =>
@@ -1936,12 +1945,12 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       return reply.status(404).send({ error: "COURSE_NOT_FOUND", message: "未找到这门课程" });
     }
     if (
-      input.courseId === "course-economic-mathematics" &&
+      ["course-economic-mathematics", "statistical-analysis", "management-principles"].includes(input.courseId) &&
       input.scene === "selfstudy"
     ) {
       return reply.status(409).send({
         error: "COURSE_STUDY_NOT_AVAILABLE",
-        message: "经济数学课下学习暂未开放"
+        message: "这门课程课下学习暂未开放"
       });
     }
     const isClassroom = input.scene === "classroom";

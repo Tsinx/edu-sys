@@ -1,0 +1,31 @@
+{
+  "id": "mg-105",
+  "deck": "l4b",
+  "page": 1,
+  "title": "理性及其边界",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A thoughtful decision maker views a complex landscape through a precise but incomplete architectural model, clarity and uncertainty coexist. Source context: original l4b page 1, 理性及其边界. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-311e80c5-13a7-42b7-af51-88f538b585ef.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-105.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-105.webp",
+  "pages": [
+    "mg-l4b-s001-01"
+  ],
+  "originalSha256": "4ff9ec7323b8258ee3edbbd171e9f2cb666a9cbf5c84cd9b46cf118d36cd8dba",
+  "webSha256": "8e3d21128917d9334cc5ae1c8fc1c0187255a571fde94e93689638a2faec164b",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 129042
+}

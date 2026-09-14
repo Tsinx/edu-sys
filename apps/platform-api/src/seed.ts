@@ -166,7 +166,7 @@ export function createInitialClassroomRuntime(
       latencyMs: null,
       currentTask: null,
       lastMessage:
-        courseId === ECONOMIC_MATHEMATICS_COURSE_ID
+        courseId !== 'course-port-management-intro'
           ? "小麦老师已连接课程上下文，等待课堂指令。"
           : "等待课堂前端连接 OpenAvatarChat LAM 服务。"
     }
@@ -225,7 +225,19 @@ export function createSeedState(): PlatformState {
 
   return {
     teachers: [teacher],
-    courses: [course, economicMathematicsCourse],
+    courses: [course, economicMathematicsCourse, {
+      id: 'management-principles', slug: 'management-principles', code: null,
+      title: '管理学', category: '本科课程', discipline: '管理学', totalHours: null,
+      progress: 100, status: 'active', featured: false, teacherId: teacher.id,
+      currentLesson: {chapter: 1, title: '管理导论', summary: '管理学课程组 · 韦笑。前四讲根据299页原始课件建设，课程代码与总学时待完善。'},
+      createdAt: new Date().toISOString()
+    }, {
+      id: 'statistical-analysis', slug: 'statistical-analysis', code: 'statistical-analysis',
+      title: '统计分析方法', category: '研究生课程', discipline: '经济与管理', totalHours: 32,
+      progress: 0, status: 'active', featured: false, teacherId: teacher.id,
+      currentLesson: {chapter: 1, title: '从研究问题到统计证据', summary: '从一份会员消费结论出发，核查研究问题、数据口径、抽样精度与解释边界。16讲32课时，前两讲共100页已建设。'},
+      createdAt: new Date().toISOString()
+    }],
     classSessions: [
       {
         id: "session-port-20260803",

@@ -98,11 +98,11 @@ export type Lesson = z.infer<typeof lessonSchema>;
 export const courseSchema = z.object({
   id: z.string(),
   slug: z.string(),
-  code: z.string(),
+  code: z.string().nullable(),
   title: z.string(),
   category: z.string(),
   discipline: z.string(),
-  totalHours: z.number().int().positive(),
+  totalHours: z.number().int().positive().nullable(),
   progress: z.number().min(0).max(100),
   status: courseStatusSchema,
   featured: z.boolean(),

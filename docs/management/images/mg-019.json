@@ -1,0 +1,31 @@
+{
+  "id": "mg-019",
+  "deck": "l1",
+  "page": 36,
+  "title": "个体与共同目标",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: Distinct individual ceramic components come together into one functional architectural installation, people jointly assembling the structure. Source context: original l1 page 36, 个体与共同目标. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-98de5613-51ab-4340-b1f5-599189b747de.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-019.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-019.webp",
+  "pages": [
+    "mg-l1-s036-01"
+  ],
+  "originalSha256": "29da18f66ea20b8f70783ba318d0aa12703519c6e74362c895827b2873b0f7c7",
+  "webSha256": "1243a7dbdb62c798c7a222f0de7badd5c9ffedf21dd587f203e993db4cd5c745",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 144324
+}

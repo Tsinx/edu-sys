@@ -1,0 +1,31 @@
+{
+  "id": "mg-037",
+  "deck": "l2",
+  "page": 24,
+  "title": "科层组织",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A dignified early twentieth-century administrative building cutaway with regular offices and clear circulation, architecture conveying formal responsibilities. Source context: original l2 page 24, 科层组织. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-211c8118-e246-4452-908a-e3a181c7c690.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-037.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-037.webp",
+  "pages": [
+    "mg-l2-s024-01"
+  ],
+  "originalSha256": "8b8df327dfb905aed9f1bff72d81b4238878c09b37f8a378afc12d1c371823ba",
+  "webSha256": "1a6166c064330b73cf29f6c59791771476db3977f1de59e38c64e93cfe0c589f",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 266446
+}

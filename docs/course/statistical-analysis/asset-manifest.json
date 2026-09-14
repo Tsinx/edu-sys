@@ -1,0 +1,431 @@
+[
+  {
+    "id": "l1-01-retail-night",
+    "lesson": 1,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. A sophisticated contemporary Chinese city shopping street at blue hour after rain. Glass retail facade on the RIGHT, warm light and a few small shoppers. Left half is quiet navy wet pavement and architectural shadow, generous negative space for large native typography. Asymmetric architectural magazine cover.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. A sophisticated contemporary Chinese city shopping street at blue hour after rain. Glass retail facade on the RIGHT, warm light and a few small shoppers. Left half is quiet navy wet pavement and architectural shadow, generous negative space for large native typography. Asymmetric architectural magazine cover.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l1-01-retail-night.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-1457a910-d355-4f4c-988e-1f17805753ce.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "60ac594f298d9447edd39620bd86f438110c12d171c7cb8b7c3b130b96a9bd2e",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l1-02-customer-choice",
+    "lesson": 1,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Intimate side view of two adult customers considering items inside an elegant everyday homewares shop. Subjects on right two-thirds, left third dark softly blurred shop window. Candid humanity, natural expressions, realistic purchases, not luxury stereotypes.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Intimate side view of two adult customers considering items inside an elegant everyday homewares shop. Subjects on right two-thirds, left third dark softly blurred shop window. Candid humanity, natural expressions, realistic purchases, not luxury stereotypes.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l1-02-customer-choice.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-0bfc98e2-f95e-4aaa-a6ee-3fd339bb7c06.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "2be6d9eba2101d62ecbbd1b765e66c86cad50321ef9074fedeaa813ea5539466",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l1-03-checkout",
+    "lesson": 1,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Close-up of hands completing a purchase at a tactile wood retail counter. Plain payment terminal, linen bag, unbranded product boxes. Composition concentrated lower right, amber sidelight, dark open space across upper left.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Close-up of hands completing a purchase at a tactile wood retail counter. Plain payment terminal, linen bag, unbranded product boxes. Composition concentrated lower right, amber sidelight, dark open space across upper left.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l1-03-checkout.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-e118e5fe-1bc8-4e73-b116-253b727321e5.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "39e52fc26dc8ce5a4e45de1e18e4497ef01bb6ccffff4d50f4661fa93823fe58",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l1-04-member-card",
+    "lesson": 1,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Studio product photograph of a single elegant blank amber membership card slightly rotated in perspective, no printing at all. Isolated object with a genuinely transparent background, actual alpha channel, restrained contact shadow. Centered full object with generous margins.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Studio product photograph of a single elegant blank amber membership card slightly rotated in perspective, no printing at all. Isolated object with a genuinely transparent background, actual alpha channel, restrained contact shadow. Centered full object with generous margins.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l1-04-member-card.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-5b655823-a0e5-4c81-acd8-de3745110d9f.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "e4886aa0f7ee82ef19cf8fed65ec3f395d3901a789538aff1c158479bfab7418",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l1-05-receipts",
+    "lesson": 1,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Three separate curling strips of blank ivory receipt paper, no printed marks, elegant overlapping diagonal arrangement. Photorealistic paper fibers and torn edges. Isolated on genuinely transparent background with actual alpha. Full objects visible.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Three separate curling strips of blank ivory receipt paper, no printed marks, elegant overlapping diagonal arrangement. Photorealistic paper fibers and torn edges. Isolated on genuinely transparent background with actual alpha. Full objects visible.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l1-05-receipts.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-f1800857-25ef-4f2d-9194-e2a60783274e.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "ab0e6f8ebe15a7ab5405860f538688dd422883e5132ab6756b00f4b0b2ffc458",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l1-06-customer-portrait",
+    "lesson": 1,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Full-length cutout portrait of an ordinary adult Chinese woman in contemporary neutral smart casual clothing holding a reusable shopping bag. Relaxed three-quarter stance facing left. Genuinely transparent background actual alpha, entire body visible, editorial realism.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Full-length cutout portrait of an ordinary adult Chinese woman in contemporary neutral smart casual clothing holding a reusable shopping bag. Relaxed three-quarter stance facing left. Genuinely transparent background actual alpha, entire body visible, editorial realism.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l1-06-customer-portrait.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-888e0c15-0b3d-40c3-be89-6d56d64c0732.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "f373b7f8a893b52fc9c0795ad2209e9ddbae3c52dba7e78acde3132556c83ced",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l1-07-city-overhead",
+    "lesson": 1,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. High oblique aerial photograph of an invented dense Chinese urban commercial neighborhood at dusk. Intersecting streets, shop fronts, residential towers, no readable signage. Distinct layers of city activity, expansive landscape composition, restrained teal amber lights.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. High oblique aerial photograph of an invented dense Chinese urban commercial neighborhood at dusk. Intersecting streets, shop fronts, residential towers, no readable signage. Distinct layers of city activity, expansive landscape composition, restrained teal amber lights.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l1-07-city-overhead.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-14abbb3f-9c3f-4d16-8007-e267316387fe.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "6d35198b9e5db3a9d1fbc4ac067af4d976277f7c7e0c2011be7bb909dfa73cfb",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l1-08-research-desk",
+    "lesson": 1,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. A researcher's desk viewed obliquely with blank ivory sheets, pencil, closed neutral laptop, one warm desk lamp. Objects arranged along bottom and right, dark blue negative space across left and top. Human hand lightly resting near paper, cinematic still life.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. A researcher's desk viewed obliquely with blank ivory sheets, pencil, closed neutral laptop, one warm desk lamp. Objects arranged along bottom and right, dark blue negative space across left and top. Human hand lightly resting near paper, cinematic still life.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l1-08-research-desk.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-200a1246-a0a5-48f9-a9e7-e07eeb7f2a77.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "383faa9f3977fb2b15d624039256ebb98a338d58adc52d82919c03e11fe5da0c",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l1-09-observation-window",
+    "lesson": 1,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. View through a tall shop window into a busy pedestrian street. Sharp metal window frame divides near glass and distant people, selective focus and layered reflections. Architecture and optical framing suggest observing only part of a larger world. No diagrams.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. View through a tall shop window into a busy pedestrian street. Sharp metal window frame divides near glass and distant people, selective focus and layered reflections. Architecture and optical framing suggest observing only part of a larger world. No diagrams.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l1-09-observation-window.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-4d671f69-9f24-4850-855a-48d898d64077.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "4ae5a9908f35082c8a5eecd323e54bbaa356e7d98d199d8e6d149c82557b38aa",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l1-10-crowd",
+    "lesson": 1,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Elevated diagonal view of many adult pedestrians crossing a broad urban plaza, candid varied clothing, warm shadows over pale pavement. People remain small, no recognizable real identities. Documentary composition, strong open upper-left space, no markings that resemble a data chart.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Elevated diagonal view of many adult pedestrians crossing a broad urban plaza, candid varied clothing, warm shadows over pale pavement. People remain small, no recognizable real identities. Documentary composition, strong open upper-left space, no markings that resemble a data chart.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l1-10-crowd.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-08546c54-8b65-410c-a00b-4e5f462c439f.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "4b8a7200d7c0db083b7ca7dc40fe4d42b3c1ca9f62029868d7d5a0dd3521662c",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l1-11-glass-frame",
+    "lesson": 1,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. A single sculptural rectangular clear glass frame floating at a slight angle, refracting warm light at its edges. Isolated on genuinely transparent background actual alpha. Fine studio product photograph, no text or contents inside the frame.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. A single sculptural rectangular clear glass frame floating at a slight angle, refracting warm light at its edges. Isolated on genuinely transparent background actual alpha. Fine studio product photograph, no text or contents inside the frame.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l1-11-glass-frame.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-939ae22e-3110-4442-abc6-3ce98dec357d.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "99af9a70639f75370db8e662615742a91ccbf1ba1db4b697777f36620c46c68d",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l1-12-evidence-papers",
+    "lesson": 1,
+    "tool": "image_gen.imagegen",
+    "prompt": "Create an editorial still life photograph, landscape 16:10. ONLY blank ivory paper sheets, a graphite pencil and the edge of a metal ruler, on a clean warm ivory studio background. Close crop, translucent paper layers lit from the side. All sheets completely blank. No lines, no diagrams, no graphs, no letters, no numbers, no classroom, no people, no architecture, no books or other objects. Restrained elegant art photography.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Macro editorial still life of translucent tracing paper laid over a blank ivory research notebook, a metal ruler and a graphite pencil at the edge. Side lighting reveals layers of paper. Text-free sheets, calm ivory palette, very spacious asymmetric composition.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l1-12-evidence-papers.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-f318ef04-84b0-4250-967b-6a328efe4d96.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "c03ccfcbe2c214db0353f80cb2278fb0bc736a30d50a27f8856197ead55db8c2",
+    "revisionReason": "Removed unwanted classroom and diagram background",
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l2-01-prism-city",
+    "lesson": 2,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. An invented city retail street seen through a large optical prism on the right. Subtle duplicated reflections and restrained amber teal refraction reveal multiple views of one place. Dark clean negative space at left for native title. Sophisticated photographic cover, not fantasy.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. An invented city retail street seen through a large optical prism on the right. Subtle duplicated reflections and restrained amber teal refraction reveal multiple views of one place. Dark clean negative space at left for native title. Sophisticated photographic cover, not fantasy.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l2-01-prism-city.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-9e6eb988-983b-4987-8db9-ade33f212431.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "aa5a245d56865b29bfa5e460402aac0d80ee5c9810aa0c15e1b9a462808e09f3",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l2-02-lens",
+    "lesson": 2,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Large beautiful circular optical magnifying lens with a slim brushed metal rim, tilted slightly. Genuinely transparent background actual alpha, full isolated object, clear center suitable for later compositing. Subtle realistic glass reflection, no text.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Large beautiful circular optical magnifying lens with a slim brushed metal rim, tilted slightly. Genuinely transparent background actual alpha, full isolated object, clear center suitable for later compositing. Subtle realistic glass reflection, no text.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l2-02-lens.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-1a38a313-380f-4790-8299-b64b29668aa9.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "5b686ee7c2c6d24c1005faec4e3c3660bb0e858a2659576835b616f9d3f53af1",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l2-03-objects",
+    "lesson": 2,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Overhead still life of everyday unbranded retail purchases: ceramic cup, folded cloth, small paper box, simple glass bottle, notebook. Objects individually spaced along a diagonal on warm paper-colored surface, strong light shadows. Tactile editorial photography.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Overhead still life of everyday unbranded retail purchases: ceramic cup, folded cloth, small paper box, simple glass bottle, notebook. Objects individually spaced along a diagonal on warm paper-colored surface, strong light shadows. Tactile editorial photography.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l2-03-objects.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-bc2e7dd5-b151-4adb-bcae-be1d96e1189b.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "3c510f1f1d7383d3b5f0a33447a3364fd2cadff6c89e798e65465adf0c5dcb1e",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l2-04-scales",
+    "lesson": 2,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Sculptural pair of minimalist brass balance pans resting level on an ivory studio backdrop. Clean physical object, no numerical markings. Pans occupy right half, negative space left. Reflective amber material, photographic realism.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Sculptural pair of minimalist brass balance pans resting level on an ivory studio backdrop. Clean physical object, no numerical markings. Pans occupy right half, negative space left. Reflective amber material, photographic realism.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l2-04-scales.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-ee122431-cc89-4488-af01-293587f5063f.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "fd6085e830c1c3b1d57a7e614052b1d71a5cb01da84239fb62fb3960c52d2cfd",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l2-05-baskets",
+    "lesson": 2,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Two differently sized plain wicker shopping baskets viewed at three-quarter angle, one modestly filled with unbranded objects, one nearly empty. Isolated on genuinely transparent background actual alpha, entire handles visible, soft natural lighting.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Two differently sized plain wicker shopping baskets viewed at three-quarter angle, one modestly filled with unbranded objects, one nearly empty. Isolated on genuinely transparent background actual alpha, entire handles visible, soft natural lighting.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l2-05-baskets.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-308a129c-271b-4aad-85df-46cbcdbc27ff.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "92138e8948a742dbb80a4bbb44019811315ca6a82e18e4a21fdfdc7babebb7bf",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l2-06-neighborhood-a",
+    "lesson": 2,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Street-level editorial photograph of a busy metropolitan commercial avenue, contemporary shops and upper-floor offices. Warm high-density evening scene, deep teal shadows, no legible signs. Wide composition with quiet left edge.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Street-level editorial photograph of a busy metropolitan commercial avenue, contemporary shops and upper-floor offices. Warm high-density evening scene, deep teal shadows, no legible signs. Wide composition with quiet left edge.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l2-06-neighborhood-a.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-19a55c6f-0d3f-4f57-bde7-e350ffd58403.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "93497960fd3b9b24a74076c001f18e93f51904254f371cc785fe6d5f433757fe",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l2-07-neighborhood-b",
+    "lesson": 2,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Street-level editorial photograph of a quieter residential neighborhood shopping street, small ordinary shops, generous pavement and trees. Daylight fading into blue hour, warm windows, no legible signs. Same sophisticated color grade as a metropolitan retail photo.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Street-level editorial photograph of a quieter residential neighborhood shopping street, small ordinary shops, generous pavement and trees. Daylight fading into blue hour, warm windows, no legible signs. Same sophisticated color grade as a metropolitan retail photo.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l2-07-neighborhood-b.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-877ac707-64be-4529-aa01-bf8a0a29c192.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "89a78eb432ebc3384c929993786e052c7d53302a658314675508e10d52a20e46",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l2-08-intersection",
+    "lesson": 2,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Top-down aerial view of an urban pedestrian intersection with several distinct paths through the scene. Restrained navy amber palette, long soft shadows and small people, graphic photography without any infographic or overlays.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. Top-down aerial view of an urban pedestrian intersection with several distinct paths through the scene. Restrained navy amber palette, long soft shadows and small people, graphic photography without any infographic or overlays.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l2-08-intersection.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-5cab93d9-aaaa-40c2-a42b-a91597b4bd49.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "c33234bc128b61247332309f29354577a25fc2723f4424215405ecf754c38f7d",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l2-09-seasons",
+    "lesson": 2,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. An invented retail street in late autumn rain, bare branches and a few warm shop windows reflected on wet pavement. Long perspective drawing the eye horizontally across frame, quiet distant people. Film still with clear uncluttered foreground.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. An invented retail street in late autumn rain, bare branches and a few warm shop windows reflected on wet pavement. Long perspective drawing the eye horizontally across frame, quiet distant people. Film still with clear uncluttered foreground.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l2-09-seasons.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-d01a4463-49f5-402c-afae-f932ad8164e0.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "371c22c8111ae4c90ba28d8432eda806c122ebb1b3fbb8882a7b707299982b85",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l2-10-clock",
+    "lesson": 2,
+    "tool": "image_gen.imagegen",
+    "prompt": "Create a cinematic landscape 16:10 still life photograph of ONLY a large minimalist unnumbered analog clock. Ivory dial with simple marks, brass edge, dark hands, dramatic side light. Clock occupies RIGHT half, LEFT half empty ink navy shadow. Empty studio set. NO PEOPLE, no teacher, no classroom, no background furniture, no graphs, no books, no lettering or numbers anywhere.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. A beautiful unnumbered analog clock face seen in dramatic side light, plain ivory dial with minimal unlabelled tick marks, dark hands. Crop composition puts clock on right and dark atmospheric empty space on left. Tangible brass and paper textures.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l2-10-clock.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-0fd6373b-459e-4870-aa9e-2a17633dab21.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "f810a7fb7213fa05b56991cff017d57675059ef7e2dd9d794376ebbf4da8eb04",
+    "revisionReason": "Removed unwanted classroom and diagram background",
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l2-11-pencil",
+    "lesson": 2,
+    "tool": "image_gen.imagegen",
+    "prompt": "Create one isolated studio product photo of ONLY a sharpened graphite pencil and a long strip of blank translucent tracing paper crossing diagonally. Entire objects visible with generous margins. Actual transparent alpha background, fully transparent outside objects. 16:10 landscape. No classroom, no people, no scene, no background surface, no graphs or diagram, no text. Warm ivory paper, dark blue pencil, extremely realistic material.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. One sharpened graphite pencil and a delicate translucent blank tracing-paper strip, crossing diagonally. Isolated on genuinely transparent background with actual alpha. Fine textures, entire objects visible, subtle natural shadows.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l2-11-pencil.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-2d799820-989e-4f95-b75d-8b4b11302920.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "c98567afc54e7135acce4d5d71b184c5f7263fbf555864a2b16db2f8069eacfd",
+    "revisionReason": "Removed unwanted classroom and diagram background",
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  },
+  {
+    "id": "l2-12-window-observer",
+    "lesson": 2,
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. An adult researcher seen from behind standing at a large window looking across an invented commercial city district. Quiet reflective atmosphere, figure at far right, broad dusk sky and deep blue architecture to left. Cinematic final lecture scene, no screens or text.",
+    "originalPrompt": "Use case: photorealistic-natural. Create one exceptionally art-directed cinematic editorial photograph for a Chinese graduate business statistics lecture. Color grade: deep ink navy shadows, warm ivory highlights, restrained amber and teal. Fine photographic grain, believable materials, subtle film lighting, NOT a website, NOT a slide, NO text, NO labels, NO numbers, NO logos, NO watermarks. 16:10 landscape, high resolution. This is a fictional teaching scene. An adult researcher seen from behind standing at a large window looking across an invented commercial city district. Quiet reflective atmosphere, figure at far right, broad dusk sky and deep blue architecture to left. Cinematic final lecture scene, no screens or text.",
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l2-12-window-observer.png",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b21-39eb-77d3-b56e-99c4eb95263d\\exec-7f9816fe-f9f3-444e-a6bb-ea40aa04fd9a.png",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "alphaRange": null,
+    "sha256": "5a1804bee8d37b5f82b2d3ec4592d6d72704cb9156fa719822cc859a05daa71a",
+    "revisionReason": null,
+    "transform": "原始PNG字节保留；显示时通过原生CSS裁切、蒙版、透明度与阴影合成"
+  }
+]

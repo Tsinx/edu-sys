@@ -60,7 +60,7 @@ self.addEventListener("message",event=>{
   })());
 });
 async function findCached(request) {
-  for(const group of ["shell","port","economic","avatar","runtime","metadata"]) {
+  for(const group of ["shell","port","economic","management","avatar","runtime","metadata"]) {
     const cache=await caches.open(`${PREFIX}${group}`);
     const value=await cache.match(request,{ignoreVary:true});if(value)return value;
   }

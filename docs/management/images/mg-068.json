@@ -1,0 +1,31 @@
+{
+  "id": "mg-068",
+  "deck": "l3",
+  "page": 46,
+  "title": "确定型决策",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A precise production workshop with measured material inputs and finished objects, controlled assumptions shown physically. Source context: original l3 page 46, 确定型决策. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-eeaddb2e-ce53-4d73-a57c-98af09addb04.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-068.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-068.webp",
+  "pages": [
+    "mg-l3-s046-01"
+  ],
+  "originalSha256": "d328dffb96ada9c7c24a4db3a76a428a8a2a7db6537e0667416de8683904237b",
+  "webSha256": "f5ecc8c70f5d93fcfb93efcd6c679b91581d4aec5ae41d148a4b445f0a5a33a4",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 137628
+}

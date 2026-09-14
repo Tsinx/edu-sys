@@ -1,0 +1,442 @@
+[
+  {
+    "id": "mg-001",
+    "slideKey": "mg-l1-s001-01"
+  },
+  {
+    "id": "mg-002",
+    "slideKey": "mg-l1-s002-01"
+  },
+  {
+    "id": "mg-003",
+    "slideKey": "mg-l1-s003-01"
+  },
+  {
+    "id": "mg-004",
+    "slideKey": "mg-l1-s004-01"
+  },
+  {
+    "id": "mg-005",
+    "slideKey": "mg-l1-s005-01"
+  },
+  {
+    "id": "mg-006",
+    "slideKey": "mg-l1-s006-01"
+  },
+  {
+    "id": "mg-007",
+    "slideKey": "mg-l1-s007-01"
+  },
+  {
+    "id": "mg-008",
+    "slideKey": "mg-l1-s008-01"
+  },
+  {
+    "id": "mg-009",
+    "slideKey": "mg-l1-s009-01"
+  },
+  {
+    "id": "mg-010",
+    "slideKey": "mg-l1-s013-01"
+  },
+  {
+    "id": "mg-011",
+    "slideKey": "mg-l1-s016-01"
+  },
+  {
+    "id": "mg-012",
+    "slideKey": "mg-l1-s019-01"
+  },
+  {
+    "id": "mg-013",
+    "slideKey": "mg-l1-s024-01"
+  },
+  {
+    "id": "mg-014",
+    "slideKey": "mg-l1-s025-01"
+  },
+  {
+    "id": "mg-015",
+    "slideKey": "mg-l1-s026-01"
+  },
+  {
+    "id": "mg-016",
+    "slideKey": "mg-l1-s028-01"
+  },
+  {
+    "id": "mg-017",
+    "slideKey": "mg-l1-s030-01"
+  },
+  {
+    "id": "mg-018",
+    "slideKey": "mg-l1-s032-01"
+  },
+  {
+    "id": "mg-019",
+    "slideKey": "mg-l1-s036-01"
+  },
+  {
+    "id": "mg-020",
+    "slideKey": "mg-l1-s042-01"
+  },
+  {
+    "id": "mg-021",
+    "slideKey": "mg-l1-s052-01"
+  },
+  {
+    "id": "mg-022",
+    "slideKey": "mg-l1-s054-01"
+  },
+  {
+    "id": "mg-023",
+    "slideKey": "mg-l2-s001-01"
+  },
+  {
+    "id": "mg-024",
+    "slideKey": "mg-l2-s003-01"
+  },
+  {
+    "id": "mg-025",
+    "slideKey": "mg-l2-s005-01"
+  },
+  {
+    "id": "mg-026",
+    "slideKey": "mg-l2-s007-01"
+  },
+  {
+    "id": "mg-027",
+    "slideKey": "mg-l2-s008-01"
+  },
+  {
+    "id": "mg-028",
+    "slideKey": "mg-l2-s009-01"
+  },
+  {
+    "id": "mg-029",
+    "slideKey": "mg-l2-s010-01"
+  },
+  {
+    "id": "mg-030",
+    "slideKey": "mg-l2-s012-01"
+  },
+  {
+    "id": "mg-031",
+    "slideKey": "mg-l2-s013-01"
+  },
+  {
+    "id": "mg-032",
+    "slideKey": "mg-l2-s015-01"
+  },
+  {
+    "id": "mg-033",
+    "slideKey": "mg-l2-s017-01"
+  },
+  {
+    "id": "mg-034",
+    "slideKey": "mg-l2-s018-01"
+  },
+  {
+    "id": "mg-035",
+    "slideKey": "mg-l2-s019-01"
+  },
+  {
+    "id": "mg-036",
+    "slideKey": "mg-l2-s020-01"
+  },
+  {
+    "id": "mg-037",
+    "slideKey": "mg-l2-s024-01"
+  },
+  {
+    "id": "mg-038",
+    "slideKey": "mg-l2-s029-01"
+  },
+  {
+    "id": "mg-039",
+    "slideKey": "mg-l2-s030-01"
+  },
+  {
+    "id": "mg-040",
+    "slideKey": "mg-l2-s031-01"
+  },
+  {
+    "id": "mg-041",
+    "slideKey": "mg-l2-s033-01"
+  },
+  {
+    "id": "mg-042",
+    "slideKey": "mg-l2-s035-01"
+  },
+  {
+    "id": "mg-043",
+    "slideKey": "mg-l2-s036-01"
+  },
+  {
+    "id": "mg-044",
+    "slideKey": "mg-l2-s038-01"
+  },
+  {
+    "id": "mg-045",
+    "slideKey": "mg-l2-s059-01"
+  },
+  {
+    "id": "mg-046",
+    "slideKey": "mg-l2-s061-01"
+  },
+  {
+    "id": "mg-047",
+    "slideKey": "mg-l3-s001-01"
+  },
+  {
+    "id": "mg-048",
+    "slideKey": "mg-l3-s002-01"
+  },
+  {
+    "id": "mg-049",
+    "slideKey": "mg-l3-s004-01"
+  },
+  {
+    "id": "mg-050",
+    "slideKey": "mg-l3-s007-01"
+  },
+  {
+    "id": "mg-051",
+    "slideKey": "mg-l3-s010-01"
+  },
+  {
+    "id": "mg-052",
+    "slideKey": "mg-l3-s012-01"
+  },
+  {
+    "id": "mg-053",
+    "slideKey": "mg-l3-s014-01"
+  },
+  {
+    "id": "mg-054",
+    "slideKey": "mg-l3-s016-01"
+  },
+  {
+    "id": "mg-055",
+    "slideKey": "mg-l3-s017-01"
+  },
+  {
+    "id": "mg-056",
+    "slideKey": "mg-l3-s018-01"
+  },
+  {
+    "id": "mg-057",
+    "slideKey": "mg-l3-s020-01"
+  },
+  {
+    "id": "mg-058",
+    "slideKey": "mg-l3-s022-01"
+  },
+  {
+    "id": "mg-059",
+    "slideKey": "mg-l3-s025-01"
+  },
+  {
+    "id": "mg-060",
+    "slideKey": "mg-l3-s026-01"
+  },
+  {
+    "id": "mg-061",
+    "slideKey": "mg-l3-s028-01"
+  },
+  {
+    "id": "mg-062",
+    "slideKey": "mg-l3-s029-01"
+  },
+  {
+    "id": "mg-063",
+    "slideKey": "mg-l3-s035-01"
+  },
+  {
+    "id": "mg-064",
+    "slideKey": "mg-l3-s037-01"
+  },
+  {
+    "id": "mg-065",
+    "slideKey": "mg-l3-s039-01"
+  },
+  {
+    "id": "mg-066",
+    "slideKey": "mg-l3-s041-01"
+  },
+  {
+    "id": "mg-067",
+    "slideKey": "mg-l3-s043-01"
+  },
+  {
+    "id": "mg-068",
+    "slideKey": "mg-l3-s046-01"
+  },
+  {
+    "id": "mg-069",
+    "slideKey": "mg-l3-s051-01"
+  },
+  {
+    "id": "mg-070",
+    "slideKey": "mg-l3-s059-01"
+  },
+  {
+    "id": "mg-071",
+    "slideKey": "mg-l4a-s001-01"
+  },
+  {
+    "id": "mg-072",
+    "slideKey": "mg-l4a-s003-01"
+  },
+  {
+    "id": "mg-073",
+    "slideKey": "mg-l4a-s004-01"
+  },
+  {
+    "id": "mg-074",
+    "slideKey": "mg-l4a-s005-01"
+  },
+  {
+    "id": "mg-075",
+    "slideKey": "mg-l4a-s006-01"
+  },
+  {
+    "id": "mg-076",
+    "slideKey": "mg-l4a-s007-01"
+  },
+  {
+    "id": "mg-077",
+    "slideKey": "mg-l4a-s010-01"
+  },
+  {
+    "id": "mg-078",
+    "slideKey": "mg-l4a-s011-01"
+  },
+  {
+    "id": "mg-079",
+    "slideKey": "mg-l4a-s012-01"
+  },
+  {
+    "id": "mg-080",
+    "slideKey": "mg-l4a-s013-01"
+  },
+  {
+    "id": "mg-081",
+    "slideKey": "mg-l4a-s014-01"
+  },
+  {
+    "id": "mg-082",
+    "slideKey": "mg-l4a-s015-01"
+  },
+  {
+    "id": "mg-083",
+    "slideKey": "mg-l4a-s016-01"
+  },
+  {
+    "id": "mg-084",
+    "slideKey": "mg-l4a-s017-01"
+  },
+  {
+    "id": "mg-085",
+    "slideKey": "mg-l4a-s018-01"
+  },
+  {
+    "id": "mg-086",
+    "slideKey": "mg-l4a-s019-01"
+  },
+  {
+    "id": "mg-087",
+    "slideKey": "mg-l4a-s020-01"
+  },
+  {
+    "id": "mg-088",
+    "slideKey": "mg-l4a-s021-01"
+  },
+  {
+    "id": "mg-089",
+    "slideKey": "mg-l4a-s022-01"
+  },
+  {
+    "id": "mg-090",
+    "slideKey": "mg-l4a-s026-01"
+  },
+  {
+    "id": "mg-091",
+    "slideKey": "mg-l4a-s028-01"
+  },
+  {
+    "id": "mg-092",
+    "slideKey": "mg-l4a-s030-01"
+  },
+  {
+    "id": "mg-093",
+    "slideKey": "mg-l4a-s032-01"
+  },
+  {
+    "id": "mg-094",
+    "slideKey": "mg-l4a-s033-01"
+  },
+  {
+    "id": "mg-095",
+    "slideKey": "mg-l4a-s034-01"
+  },
+  {
+    "id": "mg-096",
+    "slideKey": "mg-l4a-s035-01"
+  },
+  {
+    "id": "mg-097",
+    "slideKey": "mg-l4a-s037-01"
+  },
+  {
+    "id": "mg-098",
+    "slideKey": "mg-l4a-s038-01"
+  },
+  {
+    "id": "mg-099",
+    "slideKey": "mg-l4a-s039-01"
+  },
+  {
+    "id": "mg-100",
+    "slideKey": "mg-l4a-s044-01"
+  },
+  {
+    "id": "mg-101",
+    "slideKey": "mg-l4a-s046-01"
+  },
+  {
+    "id": "mg-102",
+    "slideKey": "mg-l4a-s050-01"
+  },
+  {
+    "id": "mg-103",
+    "slideKey": "mg-l4a-s058-01"
+  },
+  {
+    "id": "mg-104",
+    "slideKey": "mg-l4a-s069-01"
+  },
+  {
+    "id": "mg-105",
+    "slideKey": "mg-l4b-s001-01"
+  },
+  {
+    "id": "mg-106",
+    "slideKey": "mg-l4b-s008-01"
+  },
+  {
+    "id": "mg-107",
+    "slideKey": "mg-l4b-s012-01"
+  },
+  {
+    "id": "mg-108",
+    "slideKey": "mg-l4b-s017-01"
+  },
+  {
+    "id": "mg-109",
+    "slideKey": "mg-l4b-s023-01"
+  },
+  {
+    "id": "mg-110",
+    "slideKey": "mg-l4b-s027-01"
+  }
+]

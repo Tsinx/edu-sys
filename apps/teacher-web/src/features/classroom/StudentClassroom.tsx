@@ -71,7 +71,7 @@ export function StudentClassroom() {
 
   useEffect(() => {
     let active = true;
-    if (snapshot?.courseId !== ECONOMIC_MATHEMATICS_COURSE_ID) {
+    if (!snapshot?.courseId || ![ECONOMIC_MATHEMATICS_COURSE_ID, "statistical-analysis", "management-principles"].includes(snapshot.courseId)) {
       setCourseDeck(null);
       return () => {
         active = false;
@@ -84,7 +84,7 @@ export function StudentClassroom() {
         }
       })
       .catch((reason: Error) => {
-        if (active) setError(`经济数学课件注册表装载失败：${reason.message}`);
+        if (active) setError(`课程注册表装载失败：${reason.message}`);
       });
     return () => {
       active = false;
@@ -225,23 +225,23 @@ export function StudentClassroom() {
     );
   }
 
-  const isEconomicMathematics =
-    snapshot.courseId === ECONOMIC_MATHEMATICS_COURSE_ID;
-  if (isEconomicMathematics && !courseDeck) {
+  const isRegisteredCourse =
+    [ECONOMIC_MATHEMATICS_COURSE_ID, "statistical-analysis", "management-principles"].includes(snapshot.courseId);
+  if (isRegisteredCourse && !courseDeck) {
     return (
       <main className="student-classroom student-classroom--centered">
         {error ? <CircleAlert size={34} /> : <LoaderCircle className="spin" size={31} />}
-        <p>{error || "正在按需装载经济数学同步课件"}</p>
+        <p>{error || "正在装载当前课程同步课件"}</p>
       </main>
     );
   }
 
   const isLive = snapshot.session.status === "live";
   const isGlobe =
-    !isEconomicMathematics && snapshot.activeActivity === "globe";
+    !isRegisteredCourse && snapshot.activeActivity === "globe";
   const isSimulation =
-    !isEconomicMathematics && snapshot.activeActivity === "simulation";
-  const slidePosition = isEconomicMathematics
+    !isRegisteredCourse && snapshot.activeActivity === "simulation";
+  const slidePosition = isRegisteredCourse
     ? courseDeck!.getLessonPosition(snapshot.slide.index)!
     : getPortManagementLessonSlidePosition(snapshot.slide.index)!;
   const isTeacherPreview = actor.roles.includes("teacher");
@@ -250,7 +250,7 @@ export function StudentClassroom() {
     <main className="student-classroom">
       <header className="student-classroom__header">
         <span className="student-classroom__brand">
-          {isEconomicMathematics ? <BookOpen size={22} /> : <ShipWheel size={22} />}
+          {isRegisteredCourse ? <BookOpen size={22} /> : <ShipWheel size={22} />}
         </span>
         <div>
           <strong>{snapshot.courseTitle}</strong>
@@ -276,7 +276,7 @@ export function StudentClassroom() {
         </span>
       </header>
 
-      <StudentParticipation key={`${sessionId}:${actor.actorId}`} sessionId={sessionId} actor={actor} />
+      {!['statistical-analysis','management-principles'].includes(snapshot.courseId) && <StudentParticipation key={`${sessionId}:${actor.actorId}`} sessionId={sessionId} actor={actor} />}
 
       <section className="student-classroom__stage" aria-label="学生课堂画面">
         {isSimulation ? (

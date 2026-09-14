@@ -23,6 +23,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(teacherWebRoot, "index.html"),
+        statisticalAnalysisPreview: resolve(teacherWebRoot, "statistical-analysis-preview.html"),
+        managementPreview: resolve(teacherWebRoot, "management-preview.html"),
         globePreview: resolve(teacherWebRoot, "globe-preview.html"),
         portLblPreview: resolve(teacherWebRoot, "port-lbl-preview.html"),
         portSimulationPreview: resolve(

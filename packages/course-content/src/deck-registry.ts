@@ -1,4 +1,6 @@
 import { PORT_MANAGEMENT_SLIDES } from "./slides.js";
+import { MANAGEMENT_COURSE_ID, MANAGEMENT_DECK_ID, MANAGEMENT_VERSION_ID, MANAGEMENT_SLIDES, MANAGEMENT_LESSONS, getManagementSlide, getManagementSlideByKey, getManagementLessonPosition, getManagementGlobalIndex, getManagementInteractionDefinition, validateManagementInteraction } from './management-principles/index.js';
+import { STATISTICAL_ANALYSIS_SLIDES, STATISTICAL_ANALYSIS_LESSONS, STATISTICAL_ANALYSIS_COURSE_ID, STATISTICAL_ANALYSIS_DECK_ID, STATISTICAL_ANALYSIS_VERSION_ID, getStatisticalAnalysisSlide, getStatisticalAnalysisSlideByKey, getStatisticalAnalysisLessonPosition, getStatisticalAnalysisGlobalIndex } from './statistical-analysis/index.js';
 import { PORT_LBL_LEGACY_KEYS } from "./port-lbl-migration.js";
 import {
   ECONOMIC_MATHEMATICS_COURSE_CODE,
@@ -37,8 +39,8 @@ export interface CourseDeckSlideSummary {
 export interface CourseDeckLessonSummary {
   number: number;
   title: string;
-  slideStart: number;
-  slideEnd: number;
+  slideStart: number | null;
+  slideEnd: number | null;
   slideTotal: number;
   status: "ready" | "planned";
 }
@@ -57,7 +59,7 @@ export interface CoursePresentationProfile {
   categoryLabel: string;
   description: string;
   heroImage: string;
-  accent: "port" | "economic-mathematics";
+  accent: "port" | "economic-mathematics" | "statistical-analysis" | "management-principles";
   assistantName: string;
   supportsStudy: boolean;
   resources: readonly {
@@ -71,11 +73,11 @@ export interface CoursePresentationProfile {
 export interface CourseDeckDescriptor {
   courseId: string;
   slug: string;
-  code: string;
+  code: string | null;
   deckId: string;
   versionId: string;
   title: string;
-  totalHours: number;
+  totalHours: number | null;
   slideTotal: number;
   lessons: readonly CourseDeckLessonSummary[];
   allowedActivities: readonly (
@@ -179,7 +181,7 @@ const portDescriptor: CourseDeckDescriptor = {
     const lesson = portLessons.find(
       (candidate) => candidate.number === slide.lesson
     );
-    if (!lesson) return null;
+    if (!lesson || lesson.slideStart === null || lesson.slideEnd === null) return null;
     return {
       globalIndex: index,
       lessonNumber: lesson.number,
@@ -193,7 +195,7 @@ const portDescriptor: CourseDeckDescriptor = {
     const lesson = portLessons.find(
       (candidate) => candidate.number === lessonNumber
     );
-    if (!lesson || localIndex < 1 || localIndex > lesson.slideTotal) return null;
+    if (!lesson || lesson.slideStart === null || localIndex < 1 || localIndex > lesson.slideTotal) return null;
     return lesson.slideStart + localIndex - 1;
   },
   getInteractionDefaults() {
@@ -283,9 +285,47 @@ const economicMathematicsDescriptor: CourseDeckDescriptor = {
   }
 };
 
+const statisticalAnalysisDescriptor: CourseDeckDescriptor = {
+  courseId: STATISTICAL_ANALYSIS_COURSE_ID, slug: 'statistical-analysis', code: 'statistical-analysis',
+  deckId: STATISTICAL_ANALYSIS_DECK_ID, versionId: STATISTICAL_ANALYSIS_VERSION_ID,
+  title: '统计分析方法', totalHours: 32, slideTotal: STATISTICAL_ANALYSIS_SLIDES.length,
+  lessons: STATISTICAL_ANALYSIS_LESSONS, allowedActivities: ['slides'],
+  presentation: {
+    shortTitle: '统计分析', categoryLabel: '商科研究生',
+    description: '从研究问题与数据证据出发，衔接科研可视化、回归、问卷测量、因果推断与时间序列。32课时16讲，前两讲各90分钟。',
+    heroImage: '/course-assets/statistical-analysis/images/l1-01-retail-night.png',
+    accent: 'statistical-analysis', assistantName: '小麦老师', supportsStudy: false,
+    resources: [
+      {role:'统计推断',title:'ASA关于p值的声明',detail:'2016 · 统计显著性与解释边界',url:'https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf'},
+      {role:'数据',title:'Anscombe四重奏',detail:'R datasets · 原始点与统计摘要',url:'https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/anscombe.html'},
+      {role:'科研图形',title:'Wilke · Fundamentals of Data Visualization',detail:'图形任务与图形分类',url:'https://clauswilke.com/dataviz/directory-of-visualizations.html'}
+    ]
+  },
+  getSlide: getStatisticalAnalysisSlide, getSlideByKey: getStatisticalAnalysisSlideByKey,
+  getLessonPosition: getStatisticalAnalysisLessonPosition, getGlobalIndex: getStatisticalAnalysisGlobalIndex,
+  getInteractionDefaults: () => null, validateInteractionPatch: () => false
+};
+
+const managementDescriptor: CourseDeckDescriptor = {
+  courseId: MANAGEMENT_COURSE_ID, slug: MANAGEMENT_COURSE_ID, code: null,
+  deckId: MANAGEMENT_DECK_ID, versionId: MANAGEMENT_VERSION_ID, title: '管理学', totalHours: null,
+  slideTotal: MANAGEMENT_SLIDES.length, lessons: MANAGEMENT_LESSONS, allowedActivities: ['slides'],
+  presentation: { shortTitle:'管理学', categoryLabel:'管理学基础',
+    description:'管理导论、管理理论演变、决策过程、环境分析与理性决策。管理学课程组 · 韦笑。',
+    heroImage:'/course-assets/management-principles/mg-001.webp', accent:'management-principles', assistantName:'小麦老师', supportsStudy:false,
+    resources:[{role:'课程署名',title:'管理学课程组 · 韦笑',detail:'据原始课件转换；课程代码及总学时待完善。'},{role:'建设范围',title:'前四讲',detail:`299个原页，${MANAGEMENT_SLIDES.length}个连续网页页面。`}]
+  },
+  getSlide:getManagementSlide, getSlideByKey:getManagementSlideByKey,
+  getLessonPosition:getManagementLessonPosition, getGlobalIndex:getManagementGlobalIndex,
+  getInteractionDefaults(key){const p=getManagementSlideByKey(key);return p?.demo?getManagementInteractionDefinition(p.demo).defaults:null;},
+  validateInteractionPatch(key,patch,current){const p=getManagementSlideByKey(key);return p?.demo?validateManagementInteraction(p.demo,patch,current):false;}
+};
+
 export const COURSE_DECKS: readonly CourseDeckDescriptor[] = [
   portDescriptor,
-  economicMathematicsDescriptor
+  economicMathematicsDescriptor,
+  statisticalAnalysisDescriptor,
+  managementDescriptor
 ];
 
 export function getCourseDeckByCourseId(

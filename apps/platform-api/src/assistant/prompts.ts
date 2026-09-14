@@ -3,7 +3,9 @@ import { getPortManagementAssistantContext, getPortManagementSlideByKey } from "
 import { getCourseDeckByCourseId } from "@edu/course-content/deck-registry";
 import { ECONOMIC_MATHEMATICS_COURSE_ID, ECONOMIC_MATHEMATICS_LESSONS, getEconomicMathematicsSlideByKey, getEconomicMathematicsInteractionDefinition } from "@edu/course-content/economic-mathematics";
 import { buildClassroomToolPrompt } from "./tool-prompts.js";
+import { STATISTICAL_ANALYSIS_COURSE_ID, STATISTICAL_ANALYSIS_LESSONS, getStatisticalAnalysisSlide, getStatisticalAnalysisSlideByKey } from '@edu/course-content/statistical-analysis';
 import { buildSlidePromptContext, contextualPageBoundary } from "./slide-prompts.js";
+import { buildManagementPageContext, MANAGEMENT_COURSE_PROMPT } from './management-context.js';
 
 export const EMPTY_PROMPT_SETTINGS: AssistantPromptSettings = { revision: 0, overrides: {} };
 export const promptStorageKey = (scope: AssistantPromptScope, key: string) => JSON.stringify([scope, key]);
@@ -38,7 +40,7 @@ function getCatalog(courseId: string) {
     slides: pages.length, lessons: deck?.lessons.length ?? 0, coveredSlides: pages.length,
     experiments: courseId === ECONOMIC_MATHEMATICS_COURSE_ID
       ? new Set(pages.map(p => getEconomicMathematicsSlideByKey(p.key)?.interactionId).filter(Boolean)).size
-      : experiments.length
+      : courseId === 'management-principles' ? 8 : experiments.length
   } };
   catalogs.set(courseId, catalog);
   return catalog;
@@ -62,7 +64,12 @@ export function buildPromptWorkspace(
   const position = deck?.getLessonPosition(index);
   if (live && slide?.slideKey !== live.slide.slideId) throw new Error("ASSISTANT_SLIDE_CONTEXT_MISMATCH");
   const math = courseId === ECONOMIC_MATHEMATICS_COURSE_ID;
-  const portContext = deck && !math ? getPortManagementAssistantContext(index) : undefined;
+  const management = courseId === 'management-principles';
+  const mgContext = management ? buildManagementPageContext(index, live?.slideInteraction?.values) : undefined;
+  const statistical = courseId === STATISTICAL_ANALYSIS_COURSE_ID;
+  const statsSlide = statistical && slide ? getStatisticalAnalysisSlideByKey(slide.slideKey) : undefined;
+  const statsLesson = statsSlide ? STATISTICAL_ANALYSIS_LESSONS.find(l => l.number === statsSlide.lesson) : undefined;
+  const portContext = deck && courseId === 'course-port-management-intro' ? getPortManagementAssistantContext(index) : undefined;
   const mathSlide = math && slide ? getEconomicMathematicsSlideByKey(slide.slideKey) : undefined;
   const portSlide = portContext ? getPortManagementSlideByKey(portContext.slideKey) : undefined;
   const mathLesson = mathSlide ? ECONOMIC_MATHEMATICS_LESSONS.find(l => l.number === mathSlide.lesson) : undefined;
@@ -73,14 +80,23 @@ export function buildPromptWorkspace(
     ? values?.revealOptimum === true
     : mathSlide?.interactionId === "unconstrained-optimum-lab" && /Hessian|负定|极大|峰顶/u.test(mathSlide.assistantCue)
       ? values?.revealClassification === true : true;
-  const withheld = mathSlide?.kind === "exercise" || (Boolean(interaction) && !(values?.revealStep === true && specialRevealed));
+  const withheld = mgContext?.withheld || mathSlide?.kind === "exercise" || (Boolean(interaction) && !(values?.revealStep === true && specialRevealed));
   const boundary = withheld
     ? "当前页答案尚未揭示。当前答案尚未公开。只可依据学生可见摘要给出变量识别、第一步关系或检查方法，不得复述作者答案、最优点、最终数值或完整推导。"
-    : contextualPageBoundary(mathSlide?.assistantCue ?? portSlide?.assistantCue ?? "");
-  const lessonDefault = portContext?.lessonPrompt ?? (mathLesson
+    : contextualPageBoundary(statsSlide?.assistantCue ?? mathSlide?.assistantCue ?? portSlide?.assistantCue ?? "");
+  const lessonDefault = mgContext?.lesson ?? statsLesson?.teachingCue ?? portContext?.lessonPrompt ?? (mathLesson
     ? `单元：${mathLesson.unitTitle}\n本讲核心问题：${mathLesson.coreQuestion}\n练习能力目标：${mathLesson.exerciseCapability}\n在当前讲范围内分步解释，衔接前置概念，不提前给出后续练习答案。`
     : "本讲尚未配置教学材料。请教师补充目标、重点与先修知识；不要虚构讲义。 ");
-  const pageContext = deck && slide ? buildSlidePromptContext(deck, slide, portSlide, mathSlide, withheld) : undefined;
+  const statsSupport = statsSlide ? [
+    `【本页定位】第${statsSlide.lesson}讲第${statsSlide.localIndex}/${statsSlide.localTotal}页，所属段落“${statsSlide.section}”。当前标题：${statsSlide.title}。学生可见摘要：${statsSlide.lead}。解释应围绕这张投影画面的对象、比较与单位展开，不把整门课目录当作当前页。`,
+    `【问题从何而来】${statsSlide.localIndex > 1 ? `本讲上一页“${getStatisticalAnalysisSlide(index-1).title}”已经呈现：${getStatisticalAnalysisSlide(index-1).lead}。` : statsSlide.lesson === 1 ? '开场检查一份有关会员消费的商业结论，先从可见场景建立研究对象。' : '上一讲已经区分样本均值、估计精度与因果解释；本讲继续检查统计摘要背后尚未呈现的数据形态。'}只引用已展示的材料建立联系，不声称看见未提供的课堂发言或学生答案。`,
+    `【本页材料与概念联系】${statsSlide.teachingCue} 依据本页可见图形解释点、线、颜色或数字分别代表什么，再说明它们如何支持当前概念。若本页只提供情境或问题，就保持该证据状态；不从摄影素材推断顾客属性或经营事实。`,
+    '【后续如何使用】本页概念用于后续核查研究证据或选择适当图形。教师掌握翻页与揭示时机；只提示观察方向，不提前公布后续页尚未展示的数值、分组比较或最终修订结论。',
+    '【综合回答方式】先直接回答教师当前问题，再联系可见证据说明原因，必要时解释一个统计术语及其单位。把统计计算、模型条件、实际意义与研究设计分别交代，控制口播长度。个人思考提示只用于短暂停顿，不要求分组、投票、提交或代码运行。',
+    `【本页专属约束】${statsSlide.assistantCue} 本页来源与口径：${statsSlide.source}。不得把独立抽样概念模型、两城顾客样本、示意账本及全品牌月报拼接为同一观测数据集。`
+  ].join('\n\n') : undefined;
+  const pageContext = mgContext ?? (statsSupport ? { defaultText: statsSupport, support: statsSupport }
+    : deck && slide ? buildSlidePromptContext(deck, slide, portSlide, mathSlide, withheld) : undefined);
   const pageDefault = pageContext?.defaultText ?? "当前没有已发布的slide。只解释已提供的课程信息，不虚构页面或实验结果。";
   const experiment = EXPERIMENTS.find(e => e.key === `experiment:${activity}`);
   const pageKey = `${courseId}:${experiment?.key ?? slide?.slideKey ?? "unconfigured"}`;
@@ -93,7 +109,7 @@ export function buildPromptWorkspace(
     if (hideText) modules[modules.length - 1]!.runtimeContext += "\n本页自定义提示在答案揭示前不注入，以免泄露参考答案。";
   };
   add("agent", "global", "1 · 总AI Agent", AGENT, studyToolPrompt ? "当前为个人课下学习，只服务本人的学习进度，不能控制教师课堂。" : "当前为教师课堂助手，响应教师指令。角色名称：小麦老师。");
-  add("course", courseId, "2 · 课程", deck ? (math ? COURSE.math : COURSE.port) : `课程：${courseTitle}。课件尚未建设，请教师补充课程对象、目标、知识范围与事实边界。`,
+  add("course", courseId, "2 · 课程", deck ? (management ? MANAGEMENT_COURSE_PROMPT : statistical ? '《统计分析方法》面向有基础统计知识但尚不能独立实证分析的商科研究生。32课时16讲。当前仅第1讲48页、第2讲52页可播放，各90分钟，LBL教师主导。主线为会员消费教学模拟，随后衔接回归、问卷、主成分与因子分析、因果推断和时间序列。只响应教师明确指令，不自动翻页、不组织分组、不要求投票提交或课上代码运行。统计图据可复现数据解释；抽样模型、顾客样本和全品牌月报口径不同。' : math ? COURSE.math : portContext ? COURSE.port : `课程：${courseTitle}。依据本课程登记材料回答。`) : `课程：${courseTitle}。课件尚未建设，请教师补充课程对象、目标、知识范围与事实边界。`,
     `当前课程：${courseTitle}\n材料标明真实资料、教学情境或概念模型。教学情境必须说“在本教学情境中”。\n${portContext ? `<voyage_context id="oocl-spain-ll3-2023">\n${portContext.voyagePrompt}\n</voyage_context>` : ""}`);
   add("lesson", `${courseId}:${position?.lessonNumber ?? "unconfigured"}`, "3 · 章／讲", lessonDefault,
     position ? `<lesson_context number="${position.lessonNumber}" title="${portContext?.lessonTitle ?? slide!.lessonTitle}">\n当前讲次：第${position.lessonNumber}讲“${portContext?.lessonTitle ?? slide!.lessonTitle}”；讲内共${position.localTotal}页。\n</lesson_context>` : "尚无已发布的讲次。");

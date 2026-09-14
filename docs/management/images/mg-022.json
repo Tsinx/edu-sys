@@ -1,0 +1,31 @@
+{
+  "id": "mg-022",
+  "deck": "l1",
+  "page": 54,
+  "title": "信息化",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A physical logistics and customer-service workspace enhanced by discreet translucent information layers with absolutely no text, numbers or fake charts. Source context: original l1 page 54, 信息化. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-c023c011-e2ee-42ab-9216-21bd3ec32093.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-022.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-022.webp",
+  "pages": [
+    "mg-l1-s054-01"
+  ],
+  "originalSha256": "fcfaf229bbf3d7de9a64d640c0e2becd1cc70bd92be95de86df51406eac0e3bf",
+  "webSha256": "b0c88e1b0e57d2c6c65df1d770c824a637735649f189efaaf2d04da1806d42aa",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 143952
+}

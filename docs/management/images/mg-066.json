@@ -1,0 +1,31 @@
+{
+  "id": "mg-066",
+  "deck": "l3",
+  "page": 41,
+  "title": "沟通与信息",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A collaborative team exchanges observations around a product prototype, attentive listening and open sightlines. Source context: original l3 page 41, 沟通与信息. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-4e2292a2-74cb-48dc-8e01-755b206d7440.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-066.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-066.webp",
+  "pages": [
+    "mg-l3-s041-01"
+  ],
+  "originalSha256": "ec900bb048635b538a84f7c9af4d3ee32581eae47e4c0a5605359758b8e1b976",
+  "webSha256": "19533b4b9d3c79b623bb98fcbbc21d74865c868bb30307e9d0eb9feaaed3363f",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 131096
+}

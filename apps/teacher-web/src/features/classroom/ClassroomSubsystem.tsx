@@ -1,3 +1,4 @@
+import { ManagementSourceLocator } from "../management-principles/ManagementTeacherTools";
 import type {
   ClassroomActivity,
   ClassroomEventInput,
@@ -87,6 +88,7 @@ const ClassroomPortSimulationStage = lazy(() =>
 const OPENING_GLOBE_CUE_ID = "l1-opening-trade-influence";
 const OPENING_GLOBE_CUE = getPortManagementGlobeCue(OPENING_GLOBE_CUE_ID);
 const ECONOMIC_MATHEMATICS_COURSE_ID = "course-economic-mathematics";
+const StatisticalAnalysisTeachingNotes = lazy(() => import("../statistical-analysis/StatisticalAnalysisCourseOverview").then(m => ({default:m.StatisticalAnalysisTeachingNotes})));
 
 const activityTabs: Array<{
   id: ClassroomActivity;
@@ -246,7 +248,7 @@ export function ClassroomSubsystem() {
 
   useEffect(() => {
     let active = true;
-    if (snapshot?.courseId !== ECONOMIC_MATHEMATICS_COURSE_ID) {
+    if (!snapshot?.courseId || ![ECONOMIC_MATHEMATICS_COURSE_ID, "statistical-analysis", "management-principles"].includes(snapshot.courseId)) {
       setCourseDeck(null);
       return () => {
         active = false;
@@ -259,7 +261,7 @@ export function ClassroomSubsystem() {
         }
       })
       .catch((reason: Error) => {
-        if (active) setError(`经济数学课件注册表装载失败：${reason.message}`);
+        if (active) setError(`课程注册表装载失败：${reason.message}`);
       });
     return () => {
       active = false;
@@ -421,7 +423,7 @@ export function ClassroomSubsystem() {
 
   useEffect(() => {
     if (!snapshot) return;
-    if (snapshot.courseId === ECONOMIC_MATHEMATICS_COURSE_ID) {
+    if ([ECONOMIC_MATHEMATICS_COURSE_ID, "statistical-analysis", "management-principles"].includes(snapshot.courseId)) {
       const position = courseDeck?.getLessonPosition(snapshot.slide.index);
       if (position) setSlidePageDraft(String(position.localIndex));
       return;
@@ -787,16 +789,16 @@ export function ClassroomSubsystem() {
   }
 
   async function copyInviteLink() {
+    const inviteUrl = new URL(`/join/${snapshot?.session.id ?? sessionId}`, window.location.origin).toString();
     try {
-      const inviteUrl = new URL(
-        `/join/${snapshot?.session.id ?? sessionId}`,
-        window.location.origin
-      ).toString();
       await navigator.clipboard.writeText(inviteUrl);
       setNotice("学生课堂链接已复制；学生打开后才会计入在线人数。");
     } catch {
-      setParticipationOpen(true);
-      setNotice("可在课堂活动面板中选中并复制学生加入链接。");
+      if (snapshot?.courseId === 'statistical-analysis') setNotice(`学生加入链接：${inviteUrl}`);
+      else {
+        setParticipationOpen(true);
+        setNotice("可在课堂活动面板中选中并复制学生加入链接。");
+      }
     }
   }
 
@@ -860,11 +862,14 @@ export function ClassroomSubsystem() {
 
   const isEconomicMathematics =
     snapshot.courseId === ECONOMIC_MATHEMATICS_COURSE_ID;
-  if (isEconomicMathematics && !courseDeck) {
+  const isStatisticalAnalysis = snapshot.courseId === "statistical-analysis";
+  const isManagement = snapshot.courseId === "management-principles";
+  const isRegisteredCourse = isEconomicMathematics || isStatisticalAnalysis || isManagement;
+  if (isRegisteredCourse && !courseDeck) {
     return (
       <main className="classroom-subsystem classroom-subsystem--centered">
         {error ? <CircleAlert size={34} /> : <LoaderCircle className="spin" size={32} />}
-        <p>{error || "正在按需装载经济数学课程注册表"}</p>
+        <p>{error || "正在装载当前课程注册表"}</p>
       </main>
     );
   }
@@ -872,22 +877,22 @@ export function ClassroomSubsystem() {
   const isLive = snapshot.session.status === "live";
   const isSlides = snapshot.activeActivity === "slides";
   const isGlobe =
-    !isEconomicMathematics && snapshot.activeActivity === "globe";
+    !isRegisteredCourse && snapshot.activeActivity === "globe";
   const isSimulation =
-    !isEconomicMathematics && snapshot.activeActivity === "simulation";
+    !isRegisteredCourse && snapshot.activeActivity === "simulation";
   const isOpeningLaunchSlide =
-    !isEconomicMathematics &&
+    !isRegisteredCourse &&
     isSlides &&
     snapshot.slide.slideId === OPENING_GLOBE_CUE?.startSlideKey;
   const lamConnected = isLamConnected(lamConnection);
   const openingReturnSlide =
-    !isEconomicMathematics && OPENING_GLOBE_CUE
+    !isRegisteredCourse && OPENING_GLOBE_CUE
       ? getPortManagementSlideByKey(OPENING_GLOBE_CUE.returnSlideKey)
       : undefined;
-  const slidePosition = isEconomicMathematics
+  const slidePosition = isRegisteredCourse
     ? courseDeck!.getLessonPosition(snapshot.slide.index)!
     : getPortManagementLessonSlidePosition(snapshot.slide.index)!;
-  const lessonOptions = isEconomicMathematics
+  const lessonOptions = isRegisteredCourse
     ? courseDeck!.lessons.map((lesson) => ({
         number: lesson.number,
         label: `第${lesson.number}讲`,
@@ -902,8 +907,8 @@ export function ClassroomSubsystem() {
         slideStart: lesson.slideStart,
         status: lesson.status
       }));
-  const isPortLbl = !isEconomicMathematics && /^l[23]-lbl-/.test(snapshot.slide.slideId);
-  const visibleActivityTabs = isEconomicMathematics || isPortLbl
+  const isPortLbl = !isRegisteredCourse && /^l[23]-lbl-/.test(snapshot.slide.slideId);
+  const visibleActivityTabs = isRegisteredCourse || isPortLbl
     ? activityTabs.filter((tab) => tab.id === "slides")
     : activityTabs;
 
@@ -927,7 +932,7 @@ export function ClassroomSubsystem() {
     }
 
     const localIndex = Number(rawValue);
-    const globalIndex = isEconomicMathematics
+    const globalIndex = isRegisteredCourse
       ? courseDeck!.getGlobalIndex(slidePosition.lessonNumber, localIndex)
       : getPortManagementGlobalSlideIndex(
           slidePosition.lessonNumber,
@@ -954,11 +959,11 @@ export function ClassroomSubsystem() {
   }
 
   return (
-    <main className="classroom-subsystem">
+    <main className={`classroom-subsystem${isStatisticalAnalysis ? ' classroom-subsystem--statistics' : ''}${isManagement ? ' classroom-subsystem--management' : ''}`}>
       <header className="classroom-commandbar">
         <div className="classroom-commandbar__course">
           <Link className="classroom-brand-mark" to="/" aria-label="返回教学中枢">
-            {isEconomicMathematics ? <Sparkles size={23} /> : <ShipWheel size={23} />}
+            {isRegisteredCourse ? <Sparkles size={23} /> : <ShipWheel size={23} />}
           </Link>
           <div>
             <strong>{snapshot.courseTitle}</strong>
@@ -1023,6 +1028,8 @@ export function ClassroomSubsystem() {
         </div>
       )}
 
+      {isManagement && !isFullscreen && <ManagementSourceLocator index={snapshot.slide.index} onJump={index => void sendEvent({type:"set_slide",index})}/>}
+      {isStatisticalAnalysis && !isFullscreen && <Suspense fallback={null}><StatisticalAnalysisTeachingNotes index={snapshot.slide.index}/></Suspense>}
       <ClassroomPlaybackSlot.Provider value={isFullscreen ? fullscreenPlaybackSlot : playbackSlot}>
       <div
         ref={fullscreenRef}
@@ -1064,8 +1071,8 @@ export function ClassroomSubsystem() {
           </nav>
 
           <div
-            className={`teaching-stage-frame ${!isEconomicMathematics && pointerActive ? "teaching-stage-frame--pointer" : ""} ${
-              !isEconomicMathematics && annotationActive ? "teaching-stage-frame--annotation" : ""
+            className={`teaching-stage-frame ${!isRegisteredCourse && pointerActive ? "teaching-stage-frame--pointer" : ""} ${
+              !isRegisteredCourse && annotationActive ? "teaching-stage-frame--annotation" : ""
             }`}
             onBlurCapture={(event) => {
               if (event.target instanceof HTMLInputElement && event.target.type === "range") {
@@ -1149,12 +1156,12 @@ export function ClassroomSubsystem() {
                 frame={snapshot.slide}
               />
             )}
-            {!isEconomicMathematics && pointerActive && (
+            {!isRegisteredCourse && pointerActive && (
               <div className="teacher-pointer-indicator" aria-hidden="true">
                 <MousePointer2 size={22} />
               </div>
             )}
-            {!isEconomicMathematics && annotationActive && (
+            {!isRegisteredCourse && annotationActive && (
               <div className="annotation-mode-indicator">
                 <Highlighter size={15} /> 批注模式
               </div>
@@ -1339,7 +1346,7 @@ export function ClassroomSubsystem() {
                   >
                     {lesson.status === "ready"
                       ? `${lesson.label} · ${lesson.title}`
-                      : `${lesson.label} · 待建设`}
+                      : `${lesson.label} · ${lesson.title ?? ""} · 待建设`}
                   </option>
                 ))}
               </select>
@@ -1347,7 +1354,7 @@ export function ClassroomSubsystem() {
             </label>
 
             <div className="stage-tool-controls">
-              {!isEconomicMathematics && (
+              {!isRegisteredCourse && (
                 <>
                   <button
                     type="button"
@@ -1524,7 +1531,7 @@ export function ClassroomSubsystem() {
               </footer>}
           </>
         </aside>
-        <TeacherParticipation key={sessionId} sessionId={sessionId} open={participationOpen} onClose={closeParticipation} />
+        {!isStatisticalAnalysis && !isManagement && <TeacherParticipation key={sessionId} sessionId={sessionId} open={participationOpen} onClose={closeParticipation} />}
         {isFullscreen && (
           <>
             <ClassroomFullscreenControls
@@ -1544,7 +1551,7 @@ export function ClassroomSubsystem() {
               onToggleAvatar={() => setFullscreenAvatarCollapsed((collapsed) => !collapsed)}
               onExit={() => void toggleFullscreen()}
               onWorkspace={() => void returnToWorkspace()}
-              onParticipation={() => setParticipationOpen(true)}
+              onParticipation={isStatisticalAnalysis || isManagement ? undefined : () => setParticipationOpen(true)}
             />
             {(error || notice) && <div className="fullscreen-classroom-notice" role="status">{error || notice}</div>}
           </>

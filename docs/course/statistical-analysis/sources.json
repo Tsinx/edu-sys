@@ -1,0 +1,22 @@
+[
+  {
+    "id": "simulation",
+    "title": "自编教学模拟",
+    "detail": "固定随机种子20260913；顾客样本、正态总体抽样和全品牌月报是不同口径。顾客样本按会员分层，组内独立抽样假设用于推断演示；不能识别会员制因果效应。"
+  },
+  {
+    "id": "anscombe",
+    "title": "Anscombe (1973) / R datasets",
+    "url": "https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/anscombe.html"
+  },
+  {
+    "id": "asa",
+    "title": "ASA (2016) p值声明",
+    "url": "https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf"
+  },
+  {
+    "id": "wilke",
+    "title": "Wilke, Fundamentals of Data Visualization",
+    "url": "https://clauswilke.com/dataviz/directory-of-visualizations.html"
+  }
+]

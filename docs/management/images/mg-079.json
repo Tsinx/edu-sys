@@ -1,0 +1,31 @@
+{
+  "id": "mg-079",
+  "deck": "l4a",
+  "page": 12,
+  "title": "社会文化环境",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A mixed-age urban community uses public spaces, local services and cultural facilities, changing needs visible in everyday life. Source context: original l4a page 12, 社会文化环境. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-95845e4f-c525-4d82-8130-68c9a16e75a6.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-079.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-079.webp",
+  "pages": [
+    "mg-l4a-s012-01"
+  ],
+  "originalSha256": "61eeea6d39d4b5673f61534c317c3a9c9b24a8ae92603ea8767e7e114f2e85d1",
+  "webSha256": "f694ab0ec8ba9b07d5396a42d24b2972988fc128bd18c6a14a138d9e546b2527",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 289506
+}

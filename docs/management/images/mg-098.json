@@ -1,0 +1,31 @@
+{
+  "id": "mg-098",
+  "deck": "l4a",
+  "page": 38,
+  "title": "大飞机产业",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: An unbranded modern narrow-body commercial jet in a spacious assembly hangar with engineering teams, artistic teaching scenario, do not depict a specific aircraft model or logo. Source context: original l4a page 38, 大飞机产业. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-6b752cae-27eb-4e74-8b90-396af1e2378c.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-098.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-098.webp",
+  "pages": [
+    "mg-l4a-s038-01"
+  ],
+  "originalSha256": "94977786503669f696008a03376e0d2d740315984e7bc4f3e31450b579535102",
+  "webSha256": "5583857beba3f91c886c60463af03f5b914d8a7dd51bd9c09a002dfa028818c4",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 217916
+}

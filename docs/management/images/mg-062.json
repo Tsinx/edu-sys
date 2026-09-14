@@ -1,0 +1,31 @@
+{
+  "id": "mg-062",
+  "deck": "l3",
+  "page": 29,
+  "title": "组织目标与个人目标",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A small executive figure faces a shared workshop on one side and a personal trophy silhouette on the other, subtle editorial metaphor without moral caricature. Source context: original l3 page 29, 组织目标与个人目标. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-c0bee655-c9af-4c64-bab9-c1ef0c5fda78.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-062.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-062.webp",
+  "pages": [
+    "mg-l3-s029-01"
+  ],
+  "originalSha256": "156d5251bb6c7882ea6ed28eb3fb836c104ed6bbab13227430252c7f99c83c10",
+  "webSha256": "5f2f19d34a187392e99d4b43b502f3730449e4aff6547c9ccdaceda4d9ca691b",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 120348
+}

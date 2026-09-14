@@ -52,7 +52,7 @@ test("every registered slide and experiment resolves five nonempty, correctly sc
       assert.match(workspace.compiled, new RegExp(`当前活动：${activity}`));
     }
   }
-  assert.equal(checked, 1613);
+  assert.equal(checked, COURSE_DECKS.reduce((sum, deck) => sum + deck.slideTotal, 0));
 });
 
 test("page context explains actual antecedents without importing later solutions or stale laboratory results", () => {
@@ -84,7 +84,7 @@ test("page context explains actual antecedents without importing later solutions
   const future = support.split("【后续如何使用】")[1]!.split("【综合回答方式】")[0]!;
   assert.doesNotMatch(future, /NEIGHBOR_TITLE_SECRET|NEIGHBOR_ANSWER_SECRET/);
   assert.doesNotMatch(support, new RegExp(targetMath.assistantCue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
-  const firstOfSecond = buildPromptWorkspace(math, mathDeck.title, undefined, mathDeck.lessons[1]!.slideStart).modules[3]!.text;
+  const firstOfSecond = buildPromptWorkspace(math, mathDeck.title, undefined, mathDeck.lessons[1]!.slideStart!).modules[3]!.text;
   assert.match(firstOfSecond, /上一讲主题/);
   assert.doesNotMatch(firstOfSecond, /第1讲第\d+页/);
 });

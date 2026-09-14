@@ -1,0 +1,31 @@
+{
+  "id": "mg-051",
+  "deck": "l3",
+  "page": 10,
+  "title": "管理与决策",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A careful navigator plans a path across a physical terrain model while colleagues provide observations, collaborative judgment. Source context: original l3 page 10, 管理与决策. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-fea81935-95dd-4b28-a016-2d89fc0640df.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-051.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-051.webp",
+  "pages": [
+    "mg-l3-s010-01"
+  ],
+  "originalSha256": "962d0cd453038cd15eaa4ffa9e2a5a3fefed1e11131cfe4fc01a7591b827d2fd",
+  "webSha256": "b64ea923f733db0be4f207ba87651e6be20c3d6818d71ec0e2a1d797c5e0d5ee",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 164044
+}

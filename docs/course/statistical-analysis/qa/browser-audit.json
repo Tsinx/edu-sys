@@ -1,0 +1,4001 @@
+{
+  "results": [
+    {
+      "index": 1,
+      "width": 1600,
+      "key": "stats-l1-01",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 133,
+      "publicText": "STATISTICAL ANALYSIS METHODS\n从研究问题\n到统计证据\n\n统计分析方法 · 商科研究生\n\n01\n一项会员决策，需要怎样的证据？\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 01 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-01-retail-night.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 2,
+      "width": 1600,
+      "key": "stats-l1-02",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 162,
+      "publicText": "01 / 问题与证据\n一份等待核查的结论\n\n会员制，让消费提高了30%？\n\n“会员月均消费650元，\n非会员500元，\n所以会员制让消费\n提高了30%。”\n\n待核查的商业表述 · 算术、统计与解释分别成立吗？\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 02 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-03-checkout.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 3,
+      "width": 1600,
+      "key": "stats-l1-03",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 165,
+      "publicText": "01 / 问题与证据\n650，与500\n\n会员与非会员的样本月均消费\n\n会员\n650\n元/人/月 · n=240\nvs.\n非会员\n500\n元/人/月 · n=240\n\n同一观察月 · 两城顾客样本 · 金额口径一致\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 03 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-02-customer-choice.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 4,
+      "width": 1600,
+      "key": "stats-l1-04",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 210,
+      "publicText": "01 / 问题与证据\n30%从哪里来\n\n(650 − 500) ÷ 500 = 30%\n\n650\n−\n500\n500\n=\n0.30\n=\n30\n%\n500\n650−500\n\t​\n\n=0.30=30%\n\n差额：150元\n\n基准：非会员均值500元\n\n30%是相对均值差。计算成立，还需要检查比较的口径与解释。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 04 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-04-member-card.png"
+      ],
+      "formulas": [
+        "\\frac{650-500}{500}=0.30=30\\%"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 5,
+      "width": 1600,
+      "key": "stats-l1-05",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 175,
+      "publicText": "01 / 问题与证据\n结论背后有一条证据链\n\n问题 → 测量 → 数据 → 估计 → 解释\n\n问题\n→\n测量\n→\n数据\n→\n估计\n→\n解释\n\n每一环，都决定最后一句话能说到哪里。\n\n从“会员制有效”回到可以观察、比较和复核的研究对象。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 05 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-08-research-desk.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 6,
+      "width": 1600,
+      "key": "stats-l1-06",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 185,
+      "publicText": "01 / 研究对象与数据\n把“有效吗”写成研究问题\n\n对谁，在何时，与谁相比，比较什么？\n\n对象　两城目标顾客\n\n时间　同一观察月\n\n比较　会员与非会员\n\n指标　顾客月消费额\n\n范围　样本描述，或有条件的总体推断\n\n把研究对象、观察窗口和比较量写进问题。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 06 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-07-city-overhead.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 7,
+      "width": 1600,
+      "key": "stats-l1-07",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 153,
+      "publicText": "01 / 研究对象与数据\n描述：现在是什么样\n\n观察月中，两组顾客各消费多少？\n\n观察月中，\n两组各消费多少？\n\n描述性问题 → 均值、中位数、分布、样本量\n\n样本均值是对已观察记录的概括。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 07 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-06-customer-portrait.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 8,
+      "width": 1600,
+      "key": "stats-l1-08",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 197,
+      "publicText": "01 / 研究对象与数据\n关联：哪些变量一起变化\n\n会员身份与月消费是否存在关系？\n\n会员身份\n↔\n月消费\n𝐸\n(\n𝑌\n∣\n𝑀\n=\n1\n)\n−\n𝐸\n(\n𝑌\n∣\n𝑀\n=\n0\n)\nE(Y∣M=1)−E(Y∣M=0)\n\n这是条件均值的比较；观察到身份与消费一起变化，尚不能确定改变身份的作用。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 08 / 48",
+      "images": [],
+      "formulas": [
+        "E(Y\\mid M=1)-E(Y\\mid M=0)"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 9,
+      "width": 1600,
+      "key": "stats-l1-09",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 172,
+      "publicText": "01 / 研究对象与数据\n预测：下一个结果是什么\n\n用过去信息，预测下月消费\n\n信息边界：预测发生的那一刻\n\n过去的消费、到店记录\n↓\n预测下月消费\n↓\n用尚未参与拟合的数据评价误差\n\n不能把未来才知道的信息放进今天的预测变量。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 09 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-09-observation-window.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 10,
+      "width": 1600,
+      "key": "stats-l1-10",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 216,
+      "publicText": "01 / 研究对象与数据\n因果：如果改变会员身份\n\n同一位顾客，在两种状态下会怎样？\n\n成为会员\n\n𝑌\n𝑖\n(\n1\n)\nY\ni\n\t​\n\n(1)\n\n一种可能结果\n\n不成为会员\n\n𝑌\n𝑖\n(\n0\n)\nY\ni\n\t​\n\n(0)\n\n另一种可能结果\n\n同一位顾客、同一时点：通常只能观察一种状态下的结果；另一种是反事实。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 10 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-06-customer-portrait.png"
+      ],
+      "formulas": [
+        "Y_i(1)",
+        "Y_i(0)"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 11,
+      "width": 1600,
+      "key": "stats-l1-11",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 179,
+      "publicText": "01 / 研究对象与数据\n概念必须落到测量\n\n消费能力、消费行为与月消费额并不相同\n\n概念 → 操作化\n\n“消费行为”\n↓\n观察月内，净交易金额的顾客级合计\n\n明确退款、时间、币种与覆盖范围。\n\n月消费额不是消费能力的全部，也不是满意度本身。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 11 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-04-member-card.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 12,
+      "width": 1600,
+      "key": "stats-l1-12",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 216,
+      "publicText": "01 / 研究对象与数据\n变量类型决定比较方式\n\n身份是类别；消费是数值；满意度有顺序\n\n变量\t类型\t可用的描述\n会员身份\t名义类别\t人数、比例\n满意度1—5级（示例）\t有序类别\t各等级比例、中位等级\n月消费额\t数值变量\t均值、中位数、分布\n到店次数\t离散数值\t计数分布、均值\n\n数码标签不自动具有等距性质；图形和统计量需尊重测量尺度。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 12 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 13,
+      "width": 1600,
+      "key": "stats-l1-13",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 189,
+      "publicText": "01 / 研究对象与数据\n一行是一笔订单\n\n订单多的人，会在订单表出现多次\n\n订单编号\t顾客编号\t月份\t金额/元\nA\tC示例01\t观察月\t120\nB\tC示例01\t观察月\t180\nC\tC示例01\t观察月\t200\n\n示意账本 · 三行订单，却只有一位顾客。订单数不等于顾客数。\n\n示意账本 · 用于说明数据口径（独立于480人样本） · 配图：AI情境\n统计分析方法 13 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-05-receipts.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 14,
+      "width": 1600,
+      "key": "stats-l1-14",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 216,
+      "publicText": "01 / 研究对象与数据\n一行是一位顾客的一个月\n\n观察单位：顾客 × 月\n\n顾客编号\t观察月消费/元\t订单笔数\nC示例01\t500\t3\n𝑌\n𝑖\n,\n𝑡\n=\n∑\n𝑗\n∈\n该顾客当月订单\n𝐴\n𝑗\nY\ni,t\n\t​\n\n=\nj∈该顾客当月订单\n∑\n\t​\n\nA\nj\n\t​\n\n\n一行对应顾客×月，再以顾客为单位进行组间比较。\n\n示意账本 · 用于说明数据口径（独立于480人样本） · 配图：AI情境\n统计分析方法 14 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-06-customer-portrait.png"
+      ],
+      "formulas": [
+        "Y_{i,t}=\\sum_{j\\in\\text{该顾客当月订单}} A_j"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 15,
+      "width": 1600,
+      "key": "stats-l1-15",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 210,
+      "publicText": "01 / 研究对象与数据\n追踪同一批人：面板数据\n\n顾客维度 × 时间维度\n\n顾客\t1月/元\t2月/元\t3月/元\nC示例01\t500\t420\t610\nC示例02\t380\t450\t400\nC示例03\t720\t690\t740\n\n同一编号在不同月份反复出现 → 观测可能相关。\n\n面板结构示意，非主样本后续追踪。标准误与模型需考虑数据结构。\n\n示意账本 · 用于说明数据口径（独立于480人样本）\n统计分析方法 15 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 16,
+      "width": 1600,
+      "key": "stats-l1-16",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 165,
+      "publicText": "01 / 研究对象与数据\n只保留每个月：时间序列\n\n一个时点对应一个汇总值\n\n0\n85万\n170万\n1\n4\n7\n10\n13\n16\n19\n22\n24\n连续24个自然月\n销售额（元）\n\n独立口径示例：品牌全量月报24个月。一行变成一个月，个人差异被汇总。\n\n教学模拟 · 品牌全量月报24个月（独立口径）\n统计分析方法 16 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 17,
+      "width": 1600,
+      "key": "stats-l1-17",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 160,
+      "publicText": "01 / 研究对象与数据\n总体、抽样框与样本\n\n想研究的人 ≠ 能接触的人 ≠ 实际进入数据的人\n\n目标总体\n抽样框：可联系名单\n实际样本\n\n范围示意 · 覆盖不足、拒访与失访都可能改变实际进入数据的人。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 17 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-10-crowd.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 18,
+      "width": 1600,
+      "key": "stats-l1-18",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 189,
+      "publicText": "01 / 研究对象与数据\n被看见的人，如何被选中\n\n便利获取与随机抽样回答不同的可信度问题\n\n只在周末到店时访问\n→ 工作日顾客可能被遗漏\n\n只从高活跃名单联系\n→ 低活跃顾客可能被遗漏\n\n先说明抽样机制，再讨论推广范围。\n\n窗口中的人，不自动代表窗口之外的人。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 18 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-09-observation-window.png",
+        "/course-assets/statistical-analysis/images/l1-11-glass-frame.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 19,
+      "width": 1600,
+      "key": "stats-l1-19",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 205,
+      "publicText": "01 / 从记录到统计量\n三张订单，汇成一行\n\n120 + 180 + 200 = 500元\n\n聚合演示 · C示例01 · 同一观察月\n\n订单 A\n120\n\n订单 B\n180\n\n订单 C\n200\n\n顾客月消费\n500元\n\n一位顾客，仅贡献一行\n\n订单表 → 按顾客与月份汇总 → 顾客月表 → 组间比较\n\n示意账本 · 用于说明数据口径（独立于480人样本） · 配图：AI情境\n统计分析方法 19 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-05-receipts.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 20,
+      "width": 1600,
+      "key": "stats-l1-20",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 163,
+      "publicText": "01 / 从记录到统计量\n零：观察到了没有消费\n\n完整观察一个月，消费额为0元\n\n0\n\n已经完整观察一个月。\n\n确认没有消费。\n\n零，是一个已知的数值。\n\n示意记录 · 仅有“没有交易行”不足以证明整个观察窗口消费为零。\n\n示意账本 · 用于说明数据口径（独立于480人样本） · 配图：AI情境\n统计分析方法 20 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-03-checkout.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 21,
+      "width": 1600,
+      "key": "stats-l1-21",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 164,
+      "publicText": "01 / 从记录到统计量\n缺失：不知道是多少\n\nNA保留未知；0表达已知为零\n\nNA\n\n信息缺失，金额未知。\n\n把NA改成0，会改变均值。\n\n排除缺失后，分母与样本构成也会改变。\n\n记录缺失原因、处理方式与有效样本量；按研究设计评估缺失机制。\n\n示意账本 · 用于说明数据口径（独立于480人样本）\n统计分析方法 21 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 22,
+      "width": 1600,
+      "key": "stats-l1-22",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 220,
+      "publicText": "01 / 从记录到统计量\n异常记录先核查，再决定\n\n重复导入与真实大额消费需要不同处理\n\n记录迹象（示意）\t先核查什么\t可能的处理\n订单A被导入两次\t唯一键、时间、来源\t确认重复后去重\n金额远高于多数记录\t原始凭证、业务背景\t保留真实大额交易\n同一人多笔交易\t是否不同订单\t按观察单位正确汇总\n\n极端值可以是真实信息。清理规则要有依据、保留记录并可复核。\n\n示意账本 · 用于说明数据口径（独立于480人样本）\n统计分析方法 22 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 23,
+      "width": 1600,
+      "key": "stats-l1-23",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 248,
+      "publicText": "01 / 从记录到统计量\n均值之外，还有中位数\n\n少数高额消费会拉动均值\n\n会员 · 右偏分布\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n非会员　n=240\n统计量\t会员\t非会员\n均值\t650.0\t500.0\n中位数\t546.3\t416.9\n\n高额消费使均值向长尾方向移动。中位数定位排序后的中间位置。\n\n单位：元/人/月。图中仍展示两组全部原始点。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 23 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 24,
+      "width": 1600,
+      "key": "stats-l1-24",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 203,
+      "publicText": "01 / 从记录到统计量\n“平均”没有告诉我们有多分散\n\n标准差描述个体之间的变异\n\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n非会员　n=240\n\n会员SD 382.6元　／　非会员SD 324.7元\n\n标准差与原变量同单位；它描述个体差异，不是均值的精度。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 24 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 25,
+      "width": 1600,
+      "key": "stats-l1-25",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 162,
+      "publicText": "01 / 从记录到统计量\n150元，与30%\n\n绝对差与相对差回答互补的问题\n\n绝对均值差\n150 元\n650 − 500\n／\n相对非会员均值\n30 %\n150 ÷ 500\n\n同时报告比较方向、单位和基准；这里是观察到的均值差。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 25 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 26,
+      "width": 1600,
+      "key": "stats-l1-26",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 225,
+      "publicText": "01 / 抽样与区间\n换一批人，均值会变\n\n抽样带来估计的不确定性\n\n独立的抽样概念模型\n\n𝑋\n∼\n𝑁\n(\n500\n,\n180\n2\n)\nX∼N(500,180\n2\n)\n\n每次独立抽取25个观测。\n总体均值500元保持不变。\n\n每次得到一个新的样本均值。\n\n此处用已知总体演示抽样；不是对主案例480位顾客重新抽样。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913 · 配图：AI情境\n统计分析方法 26 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-10-crowd.png"
+      ],
+      "formulas": [
+        "X\\sim N(500,180^2)"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 27,
+      "width": 1600,
+      "key": "stats-l1-27",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 182,
+      "publicText": "01 / 抽样与区间\n第一次抽样\n\n25个观测，形成一个均值\n\n0\n200\n400\n600\n800\n1000\n1200\n观测值（元）\n总体 μ=500\n均值 500.4\n\n第一次抽样 · n=25 · 每个点是一项观测；实线为样本均值，虚线为总体均值。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 27 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 28,
+      "width": 1600,
+      "key": "stats-l1-28",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 174,
+      "publicText": "01 / 抽样与区间\n第二次抽样\n\n抽样方法相同，结果未必相同\n\n0\n200\n400\n600\n800\n1000\n1200\n观测值（元）\n总体 μ=500\n均值 435.9\n\n第二次独立抽样 · 总体与样本量相同，具体观测和均值发生变化。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 28 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 29,
+      "width": 1600,
+      "key": "stats-l1-29",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 175,
+      "publicText": "01 / 抽样与区间\n100次抽样，100个均值\n\n一个点，代表一次样本的均值\n\n350\n400\n450\n500\n550\n600\n650\n固定总体均值 500元\n\n100个点 = 100次样本的均值。纵向排布仅用于避让，不代表第二个变量。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 29 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 30,
+      "width": 1600,
+      "key": "stats-l1-30",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 251,
+      "publicText": "01 / 抽样与区间\n样本分布，不是抽样分布\n\n个体值的变化，与估计值的变化\n\n样本分布：一个点是一项观测\n0\n200\n400\n600\n800\n1000\n1200\n观测值（元）\n总体 μ=500\n均值 500.4\n抽样分布：一个点是一个均值\n350\n400\n450\n500\n550\n600\n650\n固定总体均值 500元\n\n横轴范围不同，须按刻度比较。两者都以元计量，却对应不同的变异来源。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 30 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 31,
+      "width": 1600,
+      "key": "stats-l1-31",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 255,
+      "publicText": "01 / 抽样与区间\nSD与SE，回答不同的问题\n\nSD：人有多不同；SE：均值有多不稳定\n\n标准差 SD\n180 元\n\n单项观测的离散程度\n\n标准误 SE\n𝑆\n𝐸\n(\n𝑋\nˉ\n)\n=\n𝜎\n𝑛\n=\n180\n5\n=\n36\nSE(\nX\nˉ\n)=\nn\n\t​\n\nσ\n\t​\n\n=\n5\n180\n\t​\n\n=36\n\n重复抽样时，均值的标准差\n\n独立同分布且方差有限的均值模型；σ未知时通常以样本SD估计。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 31 / 48",
+      "images": [],
+      "formulas": [
+        "SE(\\bar X)=\\frac{\\sigma}{\\sqrt{n}}=\\frac{180}{5}=36"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 32,
+      "width": 1600,
+      "key": "stats-l1-32",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 241,
+      "publicText": "01 / 抽样与区间\n样本量扩大四倍，SE减半\n\nn=25：36元；n=100：18元\n\nn=25 · SE=36元\n350\n400\n450\n500\n550\n600\n650\n固定总体均值 500元\nn=100 · SE=18元\n350\n400\n450\n500\n550\n600\n650\n固定总体均值 500元\n\n两图横轴同为350—650元。样本量增加四倍，标准误约减半。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 32 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 33,
+      "width": 1600,
+      "key": "stats-l1-33",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 157,
+      "publicText": "01 / 抽样与区间\n样本再大，也可能看偏\n\n窄而偏的估计，仍然偏离目标\n\n目标参数\n偏差\n结果集中，但中心偏移\n样本变大\n不修复选择机制\n\n概念示意，无数值刻度；抽样偏差与随机误差需要不同的解决办法。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 33 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 34,
+      "width": 1600,
+      "key": "stats-l1-34",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 202,
+      "publicText": "01 / 抽样与区间\n点估计需要一个范围\n\n估计值 + 估计的不确定性\n\n-200\n-100\n0\n100\n200\n300\n均值差（元/人/月）\n全样本 · 会员 − 非会员\n150.0 [86.3, 213.7]\n\n回到主案例：均值差150.0元；Welch 95%置信区间 [86.3, 213.7] 元。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 34 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 35,
+      "width": 1600,
+      "key": "stats-l1-35",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 351,
+      "publicText": "01 / 抽样与区间\n置信区间如何构造\n\n估计值 ± 临界值 × 标准误\n\n𝜃\n^\n \n±\n \n𝑐\n.975\n \n𝑆\n𝐸\n(\n𝜃\n^\n)\nθ\n ± c\n.975\n\t​\n\nSE(\nθ\n)\n已知σ的正态均值\n𝑋\nˉ\n±\n1.96\n \n𝜎\n/\n𝑛\nX\nˉ\n±1.96σ/\nn\n\t​\n\n两个独立均值之差\n(\n𝑌\nˉ\n1\n−\n𝑌\nˉ\n0\n)\n±\n𝑡\n.975\n,\n𝜈\n \n𝑆\n𝐸\nΔ\n(\nY\nˉ\n1\n\t​\n\n−\nY\nˉ\n0\n\t​\n\n)±t\n.975,ν\n\t​\n\nSE\nΔ\n\t​\n\n\n主案例用Welch自由度ν≈465.7与差值SE≈32.39；不同模型不能照搬同一误差线。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 35 / 48",
+      "images": [],
+      "formulas": [
+        "\\widehat\\theta\\ \\pm\\ c_{.975}\\,SE(\\widehat\\theta)",
+        "\\bar X\\pm1.96\\,\\sigma/\\sqrt n",
+        "(\\bar Y_1-\\bar Y_0)\\pm t_{.975,\\nu}\\,SE_{\\Delta}"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 36,
+      "width": 1600,
+      "key": "stats-l1-36",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 172,
+      "publicText": "01 / 抽样与区间\n95%描述一种方法\n\n长期重复构造的区间，约95%覆盖固定参数\n\n固定的是总体参数。\n变化的是抽到的样本，\n以及由样本构造的区间。\n\n重复同一抽样与计算程序，长期约95%的区间覆盖固定参数。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913 · 配图：AI情境\n统计分析方法 36 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-11-glass-frame.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 37,
+      "width": 1600,
+      "key": "stats-l1-37",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 236,
+      "publicText": "01 / 抽样与区间\n这一次模拟，97条覆盖\n\n100条区间；总体均值始终为500\n\n350\n400\n450\n500\n550\n600\n650\n固定总体均值 500元\n97/100\n\n本次模拟实际覆盖\n\n95%是方法的名义覆盖率。\n\n100次的实现比例\n可以高于或低于95%。\n\n琥珀虚线：固定 μ=500；蓝绿：覆盖；砖红：未覆盖。正态总体，已知σ，n=25。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 37 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 38,
+      "width": 1600,
+      "key": "stats-l1-38",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 210,
+      "publicText": "01 / 抽样与区间\n眼前这个区间已经固定\n\n覆盖，或没有覆盖；通常我们不知道哪一种\n\n350\n400\n450\n500\n550\n600\n650\n固定总体均值 500元\n\n区间已经实现。\n\n参数也固定。\n\n覆盖或未覆盖，\n是一个事实。\n\n95%不表示这个区间包含95%的个体，也不表示固定参数在该区间内的概率。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 38 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 39,
+      "width": 1600,
+      "key": "stats-l1-39",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 264,
+      "publicText": "01 / 检验与解释\n从“零差异”开始检查\n\nH₀：两个目标组的总体均值相等\n\n𝐻\n0\n:\n \n𝜇\n1\n−\n𝜇\n0\n=\n0\nH\n0\n\t​\n\n: μ\n1\n\t​\n\n−μ\n0\n\t​\n\n=0\n𝐻\n1\n:\n \n𝜇\n1\n−\n𝜇\n0\n≠\n0\nH\n1\n\t​\n\n: μ\n1\n\t​\n\n−μ\n0\n\t​\n\n\n=0\n\n比较目标：两个组的总体均值\n\n采用双侧检验；先明确抽样与误差模型。\n\n零均值差假设，不要求每个人消费相等。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 39 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-12-evidence-papers.png"
+      ],
+      "formulas": [
+        "H_0:\\ \\mu_1-\\mu_0=0",
+        "H_1:\\ \\mu_1-\\mu_0\\ne0"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 40,
+      "width": 1600,
+      "key": "stats-l1-40",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 247,
+      "publicText": "01 / 检验与解释\np值：假定之下的数据有多极端\n\n在H₀和模型假设下，出现至少同样极端统计量的概率\n\n-6\n-4\n-2\n0\n2\n4\n6\n-4.631\n4.631\n假定H₀及模型成立 · t分布，自由度≈465.7\n两侧至少同样极端的尾部面积之和 = p\n检验统计量 t\n\n双侧Welch检验：p=P(|T|≥|4.631| | H₀及模型假设)≈0.00000473。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · ASA (2016)\n统计分析方法 40 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 41,
+      "width": 1600,
+      "key": "stats-l1-41",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 193,
+      "publicText": "01 / 检验与解释\n一个阈值，不能代替研究判断\n\np值不衡量效应大小，也不证明因果\n\np值很小，\n不能推出效应很大，\n也不能推出因果成立。\n\n报告效应大小、区间、设计与分析过程；结论不只取决于0.05。\n\n解释原则：ASA关于统计显著性与p值的声明（2016）。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · ASA (2016)\n统计分析方法 41 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 42,
+      "width": 1600,
+      "key": "stats-l1-42",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 264,
+      "publicText": "01 / 检验与解释\n两独立样本：Welch均值比较\n\n均值差150.0元；95% CI [86.3, 213.7]\n\n组别\tn\t均值/元\tSD/元\n会员\t240\t650\t382.6\n非会员\t240\t500\t324.7\n差值=150.0元　SE=32.39　t=4.631　df≈465.71\n95% CI [86.3, 213.7] 元；双侧 p≈4.73×10⁻⁶。\n\n独立组、适当抽样与均值推断模型下成立；未随机分配会员身份。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 42 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 43,
+      "width": 1600,
+      "key": "stats-l1-43",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 186,
+      "publicText": "01 / 检验与解释\n三组比较：组间与组内\n\nANOVA检验各组总体均值是否全部相同\n\n0\n200\n400\n600\n800\n1000\n消费金额（元）\n门店1 · n=30\n门店2 · n=30\n门店3 · n=30\n\n独立三店教学样本，各30人。F=6.919，p=0.0016；经典单因素ANOVA。\n\n教学模拟 · 独立三店样本，各30人\n统计分析方法 43 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 44,
+      "width": 1600,
+      "key": "stats-l1-44",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 268,
+      "publicText": "01 / 检验与解释\nANOVA之后，还缺哪一步\n\n至少一组不同 ≠ 每一对都不同\n\n𝐹\n=\n𝑀\n𝑆\nb\ne\nt\nw\ne\ne\nn\n𝑀\n𝑆\nw\ni\nt\nh\ni\nn\nF=\nMS\nwithin\n\t​\n\nMS\nbetween\n\t​\n\n\t​\n\n\n总体检验显著 → 有证据反对“所有总体均值相等”。\n\n哪些组不同？ → 预设比较或控制多重性的事后比较。\n\n检查独立性、误差分布与方差条件；异方差可考虑Welch ANOVA。\n\n总体ANOVA不能替代每一对的比较结果。\n\n教学模拟 · 独立三店样本，各30人\n统计分析方法 44 / 48",
+      "images": [],
+      "formulas": [
+        "F=\\frac{MS_{\\mathrm{between}}}{MS_{\\mathrm{within}}}"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 45,
+      "width": 1600,
+      "key": "stats-l1-45",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 161,
+      "publicText": "01 / 检验与解释\n显著、重要、值得投入\n\n150元是消费差额；利润、成本和持续性尚未知\n\n150元\n\n消费差额 ≠ 净利润\n\n成本、毛利、持续性与可行动性，仍待评估。\n\n统计显著性与商业重要性分别判断。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 45 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-04-member-card.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 46,
+      "width": 1600,
+      "key": "stats-l1-46",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 211,
+      "publicText": "01 / 检验与解释\n“让”字，需要研究设计支持\n\n观察到更高消费，不等于会员身份造成更高消费\n\n原句：会员制让消费提高30%。\n\n修订：样本中，会员月均消费比非会员高30%。\n\n自选择、城市、收入及既有消费习惯等，可能影响比较。\n\n观察性组间差异不能直接识别会员制度的因果效应。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · ASA (2016) · 配图：AI情境\n统计分析方法 46 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-02-customer-choice.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 47,
+      "width": 1600,
+      "key": "stats-l1-47",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 360,
+      "publicText": "01 / 结果表达\n把结果写完整\n\n差多少，有多精确，适用于什么范围？\n\n-200\n-100\n0\n100\n200\n300\n均值差（元/人/月）\n全样本 · 会员 − 非会员\n150.0 [86.3, 213.7]\n在观察月的两城教学样本中，会员与非会员各240人，月均消费分别为650元与500元。均值差150元，相对差30%。在独立抽样及Welch均值推断模型下，差值95% CI为[86.3, 213.7]元，双侧p≈4.73×10⁻⁶。\n\n会员身份未随机分配；该结果反映样本中的组间差异，不能据此断言会员制造成消费提高。\n\n报告顺序：对象与指标 → 量级与精度 → 方法与条件 → 解释边界。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · ASA (2016)\n统计分析方法 47 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 48,
+      "width": 1600,
+      "key": "stats-l1-48",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 155,
+      "publicText": "01 / 结果表达\n两个均值，还隐藏了什么\n\n分布、异常点、分组与时间\n\n如果只看两个均值，\n我们会错过什么？\n\n数据点的形状，可能改变我们的判断。\n\n下一讲：先让数据结构显现，再决定如何分析。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 48 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-08-research-desk.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 49,
+      "width": 1600,
+      "key": "stats-l2-01",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 131,
+      "publicText": "EXPLORATORY DATA ANALYSIS\n让重要结构\n显现出来\n\n探索性数据分析与科研可视化\n\n02\n同一批数据，还有哪些尚未看见的结构？\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 01 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-01-prism-city.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 50,
+      "width": 1600,
+      "key": "stats-l2-02",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 239,
+      "publicText": "02 / 图形与问题\n四份数据，几乎相同的摘要\n\nn=11；x均值9；y均值约7.50；r约0.816\n\n数据组\tn\tx均值\ty均值\tPearson r\nⅠ\t11\t9.00\t7.50\t0.816\nⅡ\t11\t9.00\t7.50\t0.816\nⅢ\t11\t9.00\t7.50\t0.816\nⅣ\t11\t9.00\t7.50\t0.817\n\n摘要按显示精度舍入；原始记录与形态尚未展示。\n\nAnscombe (1973) · R datasets · 配图：AI情境\n统计分析方法 02 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-02-lens.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 51,
+      "width": 1600,
+      "key": "stats-l2-03",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 228,
+      "publicText": "02 / 图形与问题\n画出来，答案变了\n\n相同尺度下，四种完全不同的形态\n\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅠ\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅡ\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅢ\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅣ\n\n四图统一尺度：x∈[0,20]，y∈[0,15]；灰线均为近似参考线 y=3+0.5x。\n\nAnscombe (1973) · R datasets\n统计分析方法 03 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 52,
+      "width": 1600,
+      "key": "stats-l2-04",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 242,
+      "publicText": "02 / 图形与问题\n一条直线，四种处境\n\n线性、弯曲、异常值、杠杆点\n\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅠ\n近似线性\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅡ\n弯曲关系\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅢ\n异常y值\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅣ\n高杠杆x值\n\n第一组近似线性；第二组弯曲；第三组有异常y值；第四组斜率受高杠杆点强烈影响。\n\nAnscombe (1973) · R datasets\n统计分析方法 04 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 53,
+      "width": 1600,
+      "key": "stats-l2-05",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 171,
+      "publicText": "02 / 图形与问题\n摘要是入口，原始结构要保留\n\n位置与离散，还不足以诊断关系\n\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅡ\n\n均值、方差与相关系数\n都不能完整描述形态。\n\n原始点先于模型诊断。\n\nAnscombe第二组：直线摘要掩盖弯曲关系。\n\nAnscombe (1973) · R datasets\n统计分析方法 05 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 54,
+      "width": 1600,
+      "key": "stats-l2-06",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 229,
+      "publicText": "02 / 图形与问题\n六种图形任务\n\n分布 · 比较 · 构成 · 关系 · 时间 · 不确定性\n\n01\n分布\n数值集中在哪里？\n02\n比较\n哪些组更高？\n03\n构成\n整体由什么组成？\n04\n关系\n变量如何一起变化？\n05\n时间\n变化按何种顺序发生？\n06\n不确定性\n估计有多精确？\n\n根据Wilke的图形分类组织；先确定研究任务，再选图形。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 06 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-03-objects.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 55,
+      "width": 1600,
+      "key": "stats-l2-07",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 150,
+      "publicText": "02 / 分布\n先保留每一个点\n\n一个点 = 一位顾客的月消费\n\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n\n480位顾客全部保留。纵向抖动仅为避免重叠，不代表第二个变量。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 07 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 56,
+      "width": 1600,
+      "key": "stats-l2-08",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 180,
+      "publicText": "02 / 分布\n直方图：数一数每个区间有多少人\n\n横轴：月消费；纵轴：顾客数\n\n0\n500\n1000\n1500\n2000\n2500\n3000\n月消费（元/人/月）\n0\n90\n180\n顾客数\n\n箱宽200元，区间左闭右开；人数之和为480。连续数值区间的柱彼此相邻。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 08 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 57,
+      "width": 1600,
+      "key": "stats-l2-09",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 241,
+      "publicText": "02 / 分布\n分箱改变细节，不改变数据\n\n100元箱宽，与300元箱宽\n\n箱宽100元\n0\n500\n1000\n1500\n2000\n2500\n3000\n月消费（元/人/月）\n0\n90\n180\n顾客数\n箱宽300元\n0\n500\n1000\n1500\n2000\n2500\n3000\n月消费（元/人/月）\n0\n90\n180\n顾客数\n\n同一批数据，共用横纵轴范围。细分突出局部波动，粗分隐藏细节。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 09 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 58,
+      "width": 1600,
+      "key": "stats-l2-10",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 214,
+      "publicText": "02 / 分布\n右偏：多数在左，长尾向右\n\n均值通常更容易被长尾拉动\n\n0\n500\n1000\n1500\n2000\n2500\n3000\n月消费（元/人/月）\n0\n90\n180\n顾客数\n\n均值：575.0元\n\n中位数：496.4元\n\n向右延伸的长尾，\n需要回到原始记录核查。\n\n本例为右偏分布。偏态本身不证明数据错误，也不说明形成机制。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 10 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 59,
+      "width": 1600,
+      "key": "stats-l2-11",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 227,
+      "publicText": "02 / 分布\n箱线图：五个位置与一个规则\n\n箱体Q1到Q3；中线为中位数\n\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员 · n=240 · 金额单位：元/人/月\nQ1 393.5\n中位数 546.3\nQ3 826.9\n须外观测\n\n须端：落在[Q1−1.5IQR, Q3+1.5IQR]内的最远观测。须外点不自动等于错误。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 11 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 60,
+      "width": 1600,
+      "key": "stats-l2-12",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 171,
+      "publicText": "02 / 分布\n把原始点放回来\n\n相同箱体，未必有相同内部结构\n\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n非会员　n=240\n\n箱线叠加原始点；两组各240人。箱体内部仍可能存在聚集和稀疏位置。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 12 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 61,
+      "width": 1600,
+      "key": "stats-l2-13",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 176,
+      "publicText": "02 / 分布\n小提琴图：宽度表达密度\n\n宽处更密集；形状依赖平滑带宽\n\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n非会员　n=240\n\n高斯核密度，带宽100元；各组峰值归一化显示形状，宽度不代表样本量。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 13 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 62,
+      "width": 1600,
+      "key": "stats-l2-14",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 200,
+      "publicText": "02 / 分布\n分布图怎样选\n\n小样本看点；分布看直方图；多组比较看箱线与密度\n\n小样本　保留原始点，避免光滑形状制造确定感。\n\n分布形态　直方图，检查不同箱宽。\n\n多组比较　箱线图叠点，或明确带宽的密度图。\n\n离散等级　展示等级人数或比例。\n\n选图依据：样本量、变量尺度与研究问题。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 14 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-02-lens.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 63,
+      "width": 1600,
+      "key": "stats-l2-15",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 239,
+      "publicText": "02 / 比较与构成\n点的位置，直接比较数值\n\n城市与会员身份的四个均值\n\n0\n200\n400\n600\n800\n1000\n月消费（元/人/月）\n甲城 · 非会员 · n=60\n800元\n甲城 · 会员 · n=180\n750元\n乙城 · 非会员 · n=180\n400元\n乙城 · 会员 · n=60\n350元\n\n各组样本量：甲城会员180、非会员60；乙城会员60、非会员180。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 15 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 64,
+      "width": 1600,
+      "key": "stats-l2-16",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 156,
+      "publicText": "02 / 比较与构成\n条形图从零开始\n\n长度比较需要共同的零基线\n\n0\n200\n400\n600\n650\n会员\n500\n非会员\n月均消费（元/人/月）\n\n条形长度从0开始。位置编码的点图可采用非零范围，但必须清楚标轴。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 16 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 65,
+      "width": 1600,
+      "key": "stats-l2-17",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 231,
+      "publicText": "02 / 比较与构成\n先问分母是谁\n\n会员中75%在甲城；甲城中75%是会员\n\n会员中甲城顾客占比：\n\n180\n/\n240\n=\n75\n%\n180/240=75%\n\n甲城顾客中会员占比：\n\n180\n/\n(\n180\n+\n60\n)\n=\n75\n%\n180/(180+60)=75%\n\n本例数值巧合相同；前一个240是全部会员，后一个240是甲城全部顾客。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 17 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-05-baskets.png"
+      ],
+      "formulas": [
+        "180/240=75\\%",
+        "180/(180+60)=75\\%"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 66,
+      "width": 1600,
+      "key": "stats-l2-18",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 202,
+      "publicText": "02 / 比较与构成\n构成：每组内部加总为100%\n\n会员：甲城75%；非会员：甲城25%\n\n会员，n=240\n甲城 75%\n乙城 25%\n非会员，n=240\n甲城 25%\n乙城 75%\n城市用纹理区分；每一条的分母为该会员身份组的240人。\n\n甲城与乙城互斥且覆盖本例全部样本；每组内部比例加总为100%。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 18 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 67,
+      "width": 1600,
+      "key": "stats-l2-19",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 185,
+      "publicText": "02 / 比较与构成\n同样比较，分布给出更多信息\n\n两组有大量重叠，也有不同长尾\n\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n非会员　n=240\n\n会员均值650元、非会员500元，不表示每一位会员都比每一位非会员消费更多。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 19 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 68,
+      "width": 1600,
+      "key": "stats-l2-20",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 213,
+      "publicText": "02 / 比较与构成\n均值比较加上精度\n\n误差线：各组均值的95% t置信区间\n\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n650.0\n非会员　n=240\n500.0\n\n会员95% t CI [601.4, 698.6]元；非会员 [458.7, 541.3]元。各组n=240。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 20 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 69,
+      "width": 1600,
+      "key": "stats-l2-21",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 228,
+      "publicText": "02 / 比较与构成\n一张图要能独立阅读\n\n对象、时间、单位、样本量、统计口径\n\n图1　观察月中会员与非会员的月消费比较。\n\n样本来自两城，共480位顾客，两组各240人。每点表示组均值；线段为该均值的95% t置信区间。金额单位为元/人/月。\n\n教学模拟，会员身份非随机分配。\n\n图题说明比较问题；图注交代对象、统计量、单位、精度和来源。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 21 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-04-scales.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 70,
+      "width": 1600,
+      "key": "stats-l2-22",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 190,
+      "publicText": "02 / 关系与分组\n散点图：一人，一对数值\n\n横轴月收入；纵轴月消费\n\n0\n4000\n8000\n12000\n16000\n月收入（元）\n0\n1000\n2000\n月消费（元）\nC001：收入9880.85，消费214.52\n\n同一行记录的月收入与月消费配成一个点。两轴金额均为教学模拟。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 22 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 71,
+      "width": 1600,
+      "key": "stats-l2-23",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 161,
+      "publicText": "02 / 关系与分组\n一片灰色点云\n\n观察方向、形状、离散与异常位置\n\n0\n4000\n8000\n12000\n16000\n月收入（元）\n0\n1000\n2000\n月消费（元）\n\n先观察方向、形状、离散和异常位置；尚未加入分组信息。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 23 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 72,
+      "width": 1600,
+      "key": "stats-l2-24",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 172,
+      "publicText": "02 / 关系与分组\n相关接近相同，形状可以不同\n\n非线性关系需要看原始点\n\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅡ\n\n弯曲关系\n\n一个线性相关系数，\n不能描述整条轨迹。\n\n返回Anscombe第二组；不要把主案例中未出现的曲线形态强加给数据。\n\nAnscombe (1973) · R datasets\n统计分析方法 24 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 73,
+      "width": 1600,
+      "key": "stats-l2-25",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 194,
+      "publicText": "02 / 关系与分组\n异常值与高杠杆点\n\n极端y，与极端x，影响路径不同\n\nⅢ · y方向的异常位置\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅢ\nⅣ · x方向的高杠杆位置\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅣ\n\n影响大不构成自动删除理由。先核查，再报告包含与排除该点时的敏感性。\n\nAnscombe (1973) · R datasets\n统计分析方法 25 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 74,
+      "width": 1600,
+      "key": "stats-l2-26",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 256,
+      "publicText": "02 / 关系与分组\n遮挡：看不见，不等于不存在\n\n小点、透明度、抖动或二维分箱\n\n大而不透明：密集区被遮挡\n0\n4000\n8000\n12000\n16000\n月收入（元）\n0\n1000\n2000\n月消费（元）\n小点与透明度：密度重新显现\n0\n4000\n8000\n12000\n16000\n月收入（元）\n0\n1000\n2000\n月消费（元）\n\n同一批480条记录，同一坐标。连续变量坐标保持不变；更大数据可使用二维分箱。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 26 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 75,
+      "width": 1600,
+      "key": "stats-l2-27",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 176,
+      "publicText": "02 / 关系与分组\n颜色只承担一个明确的含义\n\n琥珀：会员；蓝绿：非会员\n\n0\n4000\n8000\n12000\n16000\n月收入（元）\n0\n1000\n2000\n月消费（元）\n会员\n非会员\n\n会员始终为琥珀圆点，非会员为蓝绿三角。颜色与形状共同区分类别。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 27 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 76,
+      "width": 1600,
+      "key": "stats-l2-28",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 297,
+      "publicText": "02 / 关系与分组\n总体：会员均值更高\n\n650 − 500 = +150元\n\n全样本均值（元/人/月）\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n650.0\n非会员　n=240\n500.0\n两组内部的城市构成\n会员，n=240\n甲城 75%\n乙城 25%\n非会员，n=240\n甲城 25%\n乙城 75%\n城市用纹理区分；每一条的分母为该会员身份组的240人。\n\n总体：会员650，非会员500。两组城市权重分别为75%/25%与25%/75%。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 28 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 77,
+      "width": 1600,
+      "key": "stats-l2-29",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 263,
+      "publicText": "02 / 关系与分组\n分城市后，方向反转\n\n甲城：−50元；乙城：−50元\n\n0\n200\n400\n600\n800\n1000\n月消费（元/人/月）\n甲城　会员 n=180 ／ 非会员 n=60\n750\n800\nΔ = −50\n乙城　会员 n=60 ／ 非会员 n=180\n350\n400\nΔ = −50\n琥珀圆点：会员　蓝绿三角：非会员\n\n甲城：750−800=−50元；乙城：350−400=−50元。两城内部的方向都与总体相反。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 29 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 78,
+      "width": 1600,
+      "key": "stats-l2-30",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 270,
+      "publicText": "02 / 关系与分组\n构成不同，改变了总体比较\n\n总体均值是各城市均值的加权平均\n\n甲城组均值更高；\n会员样本更集中于甲城。\n\n650\n=\n.75\n×\n750\n+\n.25\n×\n350\n650=.75×750+.25×350\n500\n=\n.25\n×\n800\n+\n.75\n×\n400\n500=.25×800+.75×400\n\n权重不同，能够改变总体比较的方向。\n\n辛普森式反转：分层有助于看清构成，但城市分层本身不提供因果识别。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 30 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-06-neighborhood-a.png",
+        "/course-assets/statistical-analysis/images/l2-07-neighborhood-b.png"
+      ],
+      "formulas": [
+        "650=.75\\times750+.25\\times350",
+        "500=.25\\times800+.75\\times400"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 79,
+      "width": 1600,
+      "key": "stats-l2-31",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 258,
+      "publicText": "02 / 关系与分组\n相关矩阵：关系的索引\n\nPearson r概括线性关系；不能替代散点图\n\n消费\n消费\n收入\n收入\n年龄\n年龄\n到店次数\n到店次数\n1.00\n0.44\n0.05\n0.92\n0.44\n1.00\n-0.00\n0.42\n0.05\n-0.00\n1.00\n0.01\n0.92\n0.42\n0.01\n1.00\n-1\n0\n1\n\nPearson相关 · n=480 · 每个变量都来自同一位顾客；近零不排除非线性关系。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 31 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 80,
+      "width": 1600,
+      "key": "stats-l2-32",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 269,
+      "publicText": "02 / 关系与分组\n关系图的分工\n\n散点看形态；分面查分组；矩阵找线索\n\n甲城 · n=240\n0\n4000\n8000\n12000\n16000\n月收入（元）\n0\n1000\n2000\n月消费（元）\n会员\n非会员\n乙城 · n=240\n0\n4000\n8000\n12000\n16000\n月收入（元）\n0\n1000\n2000\n月消费（元）\n会员\n非会员\n\n分面保留相同横纵轴尺度；从相关矩阵返回原始散点，核查组内形态与异常位置。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 32 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-08-intersection.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 81,
+      "width": 1600,
+      "key": "stats-l2-33",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 172,
+      "publicText": "02 / 时间\n把时间顺序保留下来\n\n一个点 = 一个自然月\n\n0\n400\n800\n1\n4\n7\n10\n13\n16\n19\n22\n24\n连续24个自然月\n人均消费（元/人/月）\n\n独立模拟月报：品牌全量、连续24个月。这里的一个点不再代表一个顾客。\n\n教学模拟 · 品牌全量月报24个月（独立口径） · 配图：AI情境\n统计分析方法 33 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-09-seasons.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 82,
+      "width": 1600,
+      "key": "stats-l2-34",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 246,
+      "publicText": "02 / 时间\n总量上升，人均未必同步\n\n月销售额 = 当月顾客数 × 人均消费\n\n全品牌月销售额\n0\n85万\n170万\n1\n4\n7\n10\n13\n16\n19\n22\n24\n连续24个自然月\n销售额（元）\n当月每位顾客平均消费\n0\n400\n800\n1\n4\n7\n10\n13\n16\n19\n22\n24\n连续24个自然月\n人均消费（元/人/月）\n\n两图使用独立且明确的纵轴。总额=当月顾客数×人均消费；不用双轴制造视觉相关。\n\n教学模拟 · 品牌全量月报24个月（独立口径）\n统计分析方法 34 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 83,
+      "width": 1600,
+      "key": "stats-l2-35",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 164,
+      "publicText": "02 / 时间\n趋势与季节形态\n\n长期水平变化，叠加周期起伏\n\n0\n400\n800\n1\n4\n7\n10\n13\n16\n19\n22\n24\n连续24个自然月\n人均消费（元/人/月）\n\n模拟中包含上升项与年度周期项；观察到两轮起伏，尚不足以验证稳定季节规律。\n\n教学模拟 · 品牌全量月报24个月（独立口径）\n统计分析方法 35 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 84,
+      "width": 1600,
+      "key": "stats-l2-36",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 233,
+      "publicText": "02 / 时间\n粒度改变，你看见的波动也改变\n\n月总额加总为季度总额\n\n月总额 · 24点\n0\n85万\n170万\n1\n4\n7\n10\n13\n16\n19\n22\n24\n连续24个自然月\n销售额（元）\n季度总额 · 8点\n0\n225万\n450万\nQ1\nQ2\nQ3\nQ4\nQ1\nQ2\nQ3\nQ4\n连续8个季度\n销售额（元）\n\n季度销售额是三个月总额之和；季度人均需用匹配口径的分子与分母重新计算。\n\n教学模拟 · 品牌全量月报24个月（独立口径）\n统计分析方法 36 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 85,
+      "width": 1600,
+      "key": "stats-l2-37",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 178,
+      "publicText": "02 / 时间\n缺失时段，留下断口\n\n未知月份不补零，也不默认连线\n\n0\n400\n800\n1\n4\n7\n10\n13\n16\n19\n22\n24\n连续24个自然月\n人均消费（元/人/月）\n第8、9月未知\n\n缺失演示：隐藏第8、9月，原始模拟数据保留。断口表达未知；不补零、不默认插值。\n\n教学模拟 · 品牌全量月报24个月（独立口径）\n统计分析方法 37 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 86,
+      "width": 1600,
+      "key": "stats-l2-38",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 171,
+      "publicText": "02 / 时间\n趋势图不是预测承诺\n\n预测需要时间留出、基准与误差评价\n\n按时间先后划分训练与评价窗口。\n\n与简单基准比较预测误差。\n\n给出预测范围，检查结构是否改变。\n\n已有走势，是预测的起点。\n\n动态建模与预测评价将在第15、16讲展开。\n\n教学模拟 · 品牌全量月报24个月（独立口径） · 配图：AI情境\n统计分析方法 38 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-10-clock.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 87,
+      "width": 1600,
+      "key": "stats-l2-39",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 192,
+      "publicText": "02 / 不确定性\n点与线段，分别表达什么\n\n点：估计值；线：明确标注的不确定性\n\n-200\n-100\n0\n100\n200\n300\n均值差（元/人/月）\n全样本 · 会员 − 非会员\n150.0 [86.3, 213.7]\n\n点为均值差估计；线为该差值的95%置信区间；零线表示无均值差。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 39 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 88,
+      "width": 1600,
+      "key": "stats-l2-40",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 235,
+      "publicText": "02 / 不确定性\nSD、SE、CI不能混写\n\n个体差异、估计波动、区间方法\n\n0\n200\n400\n600\n800\n1000\n1200\n月消费（元/人/月）\n均值 ± SD：个体变异\n267.4—1032.6\n均值 ± SE：估计波动\n625.3—674.7\n均值的95% t CI\n601.4—698.6\n\n相同会员均值650元，三种线段含义不同。图注不可只写“误差线”。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 40 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 89,
+      "width": 1600,
+      "key": "stats-l2-41",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 262,
+      "publicText": "02 / 不确定性\n不要用“两条CI是否重叠”判差异\n\n应计算比较量本身的标准误\n\n分别估计两个组的均值\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n650.0\n非会员　n=240\n500.0\n\n是否重叠，不能替代对差值的推断。\n\n差值方差还取决于两个估计之间的协方差。\n\n本例两组独立：SE差=√(SE₁²+SE₀²)\n\n不能一般性地用两条95% CI是否重叠判断差异是否显著。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 41 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 90,
+      "width": 1600,
+      "key": "stats-l2-42",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 215,
+      "publicText": "02 / 不确定性\n比较差值，直接画差值区间\n\n会员 − 非会员：150元 [86.3, 213.7]\n\n-200\n-100\n0\n100\n200\n300\n均值差（元/人/月）\n全样本 · 会员 − 非会员\n150.0 [86.3, 213.7]\n\n同一主样本，比较方向固定为会员−非会员；95% CI不跨0，但仍需检查设计与实际量级。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 42 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 91,
+      "width": 1600,
+      "key": "stats-l2-43",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 220,
+      "publicText": "02 / 不确定性\n跨过零，仍要看区间有多宽\n\n不显著不能证明等效或没有差异\n\n-200\n-100\n0\n100\n200\n300\n均值差（元/人/月）\n示意A：范围较窄\n0.0 [-15.0, 15.0]\n示意B：范围较宽\n0.0 [-180.0, 180.0]\n\n区间示意（非主样本结果）：宽区间仍容许较大差异；等效判断需要预设界值和相应检验。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 43 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 92,
+      "width": 1600,
+      "key": "stats-l2-44",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 270,
+      "publicText": "02 / 不确定性\n不确定性，也需要可复核的图注\n\n估计量、区间类型、方法、样本与限制\n\n图2　会员与非会员月均消费差异。\n\n点估计为150元/人/月，误差线为独立两样本Welch 95%置信区间[86.3, 213.7]元。两组各240人。区间基于独立抽样与相应均值推断模型。\n\n资料：自编两城教学模拟；会员身份非随机分配。该比较不识别会员制度的因果效应。\n\n使用精确区间与完整方法标签；星号不能替代量级、精度及解释边界。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 44 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-11-pencil.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 93,
+      "width": 1600,
+      "key": "stats-l2-45",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 196,
+      "publicText": "02 / 连续修订\n错误示例：会员制使消费暴增\n\n错误示例 · 截断纵轴，隐藏分布，因果标题\n\n错误示例\n480\n500\n550\n600\n650\n700\n650\n会员\n500\n非会员\n月均消费（元/人/月）\n错误示例 · 基线480元\n\n待核查：因果标题、纵轴基线、数据分布、城市构成与估计精度。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 45 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 94,
+      "width": 1600,
+      "key": "stats-l2-46",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 194,
+      "publicText": "02 / 连续修订\n修订①：把问题改准确\n\n观察月，两组消费有何差异？\n\n尺度仍待修订\n480\n500\n550\n600\n650\n700\n650\n会员\n500\n非会员\n月均消费（元/人/月）\n错误示例 · 基线480元\n\n已改：标题改为观察性比较问题。未改：纵轴仍从480元开始，长度比例失真。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 46 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 95,
+      "width": 1600,
+      "key": "stats-l2-47",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 169,
+      "publicText": "02 / 连续修订\n修订②：恢复零基线\n\n650元，与500元；差额150元\n\n0\n200\n400\n600\n650\n会员\n500\n非会员\n月均消费（元/人/月）\n\n已改：从0开始，650与500的柱长比为1.3。接下来检查两个均值背后的分布。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 47 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 96,
+      "width": 1600,
+      "key": "stats-l2-48",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 173,
+      "publicText": "02 / 连续修订\n修订③：展示分布\n\n组间差异，与组内重叠同时存在\n\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n非会员　n=240\n\n已改：加入全部个体点与箱线。可同时观察组间位置、组内离散和长尾。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 48 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 97,
+      "width": 1600,
+      "key": "stats-l2-49",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 246,
+      "publicText": "02 / 连续修订\n修订④：分开两座城市\n\n总体+150；城市内均为−50\n\n0\n200\n400\n600\n800\n1000\n月消费（元/人/月）\n甲城　会员 n=180 ／ 非会员 n=60\n750\n800\nΔ = −50\n乙城　会员 n=60 ／ 非会员 n=180\n350\n400\nΔ = −50\n琥珀圆点：会员　蓝绿三角：非会员\n\n已改：按城市分层并显示n。甲城与乙城内均值差均为−50元。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 49 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 98,
+      "width": 1600,
+      "key": "stats-l2-50",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 246,
+      "publicText": "02 / 连续修订\n修订⑤：补足标注与不确定性\n\n差值区间、样本量、单位与来源\n\n-200\n-100\n0\n100\n200\n300\n均值差（元/人/月）\n甲城 · 会员 − 非会员\n-50.0 [-172.6, 72.6]\n乙城 · 会员 − 非会员\n-50.0 [-108.6, 8.6]\n\n各城市内独立两样本Welch 95% CI；甲城n=180/60，乙城n=60/180（会员/非会员）。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 50 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 99,
+      "width": 1600,
+      "key": "stats-l2-51",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 356,
+      "publicText": "02 / 连续修订\n修订⑥：结论与证据对齐\n\n总体差异与城市构成有关；因果仍待识别\n\n城市内的均值比较\n0\n200\n400\n600\n800\n1000\n月消费（元/人/月）\n甲城　会员 n=180 ／ 非会员 n=60\n750\n800\n乙城　会员 n=60 ／ 非会员 n=180\n350\n400\n琥珀圆点：会员　蓝绿三角：非会员\n总体会员均值比非会员高150元，但在两座城市内分别低50元。城市构成不同，解释了本例总体与组内方向的反转。\n\n城市内差值区间均跨0，仍存在估计不确定性。分层比较仍受观察性设计限制，不能据此认定会员制度提高或降低了消费。\n\n最终图形保留：比较对象、统一尺度、样本量、区间、来源与证据边界。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 51 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 100,
+      "width": 1600,
+      "key": "stats-l2-52",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 180,
+      "publicText": "02 / 进入回归\n多个因素，同时进入分析\n\n下一讲：线性回归与多因素关系分析\n\n城市、收入、会员身份，\n如果同时变化呢？\n\n线性回归：在模型中同时描述多因素关系。\n\n模型设定与研究设计，仍决定解释的边界。\n\n下一讲：线性回归与多因素关系分析。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 52 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-12-window-observer.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 1,
+      "width": 390,
+      "key": "stats-l1-01",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 133,
+      "publicText": "STATISTICAL ANALYSIS METHODS\n从研究问题\n到统计证据\n\n统计分析方法 · 商科研究生\n\n01\n一项会员决策，需要怎样的证据？\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 01 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-01-retail-night.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 2,
+      "width": 390,
+      "key": "stats-l1-02",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 162,
+      "publicText": "01 / 问题与证据\n一份等待核查的结论\n\n会员制，让消费提高了30%？\n\n“会员月均消费650元，\n非会员500元，\n所以会员制让消费\n提高了30%。”\n\n待核查的商业表述 · 算术、统计与解释分别成立吗？\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 02 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-03-checkout.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 3,
+      "width": 390,
+      "key": "stats-l1-03",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 165,
+      "publicText": "01 / 问题与证据\n650，与500\n\n会员与非会员的样本月均消费\n\n会员\n650\n元/人/月 · n=240\nvs.\n非会员\n500\n元/人/月 · n=240\n\n同一观察月 · 两城顾客样本 · 金额口径一致\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 03 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-02-customer-choice.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 4,
+      "width": 390,
+      "key": "stats-l1-04",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 210,
+      "publicText": "01 / 问题与证据\n30%从哪里来\n\n(650 − 500) ÷ 500 = 30%\n\n650\n−\n500\n500\n=\n0.30\n=\n30\n%\n500\n650−500\n\t​\n\n=0.30=30%\n\n差额：150元\n\n基准：非会员均值500元\n\n30%是相对均值差。计算成立，还需要检查比较的口径与解释。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 04 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-04-member-card.png"
+      ],
+      "formulas": [
+        "\\frac{650-500}{500}=0.30=30\\%"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 5,
+      "width": 390,
+      "key": "stats-l1-05",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 175,
+      "publicText": "01 / 问题与证据\n结论背后有一条证据链\n\n问题 → 测量 → 数据 → 估计 → 解释\n\n问题\n→\n测量\n→\n数据\n→\n估计\n→\n解释\n\n每一环，都决定最后一句话能说到哪里。\n\n从“会员制有效”回到可以观察、比较和复核的研究对象。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 05 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-08-research-desk.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 6,
+      "width": 390,
+      "key": "stats-l1-06",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 185,
+      "publicText": "01 / 研究对象与数据\n把“有效吗”写成研究问题\n\n对谁，在何时，与谁相比，比较什么？\n\n对象　两城目标顾客\n\n时间　同一观察月\n\n比较　会员与非会员\n\n指标　顾客月消费额\n\n范围　样本描述，或有条件的总体推断\n\n把研究对象、观察窗口和比较量写进问题。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 06 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-07-city-overhead.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 7,
+      "width": 390,
+      "key": "stats-l1-07",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 153,
+      "publicText": "01 / 研究对象与数据\n描述：现在是什么样\n\n观察月中，两组顾客各消费多少？\n\n观察月中，\n两组各消费多少？\n\n描述性问题 → 均值、中位数、分布、样本量\n\n样本均值是对已观察记录的概括。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 07 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-06-customer-portrait.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 8,
+      "width": 390,
+      "key": "stats-l1-08",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 197,
+      "publicText": "01 / 研究对象与数据\n关联：哪些变量一起变化\n\n会员身份与月消费是否存在关系？\n\n会员身份\n↔\n月消费\n𝐸\n(\n𝑌\n∣\n𝑀\n=\n1\n)\n−\n𝐸\n(\n𝑌\n∣\n𝑀\n=\n0\n)\nE(Y∣M=1)−E(Y∣M=0)\n\n这是条件均值的比较；观察到身份与消费一起变化，尚不能确定改变身份的作用。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 08 / 48",
+      "images": [],
+      "formulas": [
+        "E(Y\\mid M=1)-E(Y\\mid M=0)"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 9,
+      "width": 390,
+      "key": "stats-l1-09",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 172,
+      "publicText": "01 / 研究对象与数据\n预测：下一个结果是什么\n\n用过去信息，预测下月消费\n\n信息边界：预测发生的那一刻\n\n过去的消费、到店记录\n↓\n预测下月消费\n↓\n用尚未参与拟合的数据评价误差\n\n不能把未来才知道的信息放进今天的预测变量。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 09 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-09-observation-window.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 10,
+      "width": 390,
+      "key": "stats-l1-10",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 216,
+      "publicText": "01 / 研究对象与数据\n因果：如果改变会员身份\n\n同一位顾客，在两种状态下会怎样？\n\n成为会员\n\n𝑌\n𝑖\n(\n1\n)\nY\ni\n\t​\n\n(1)\n\n一种可能结果\n\n不成为会员\n\n𝑌\n𝑖\n(\n0\n)\nY\ni\n\t​\n\n(0)\n\n另一种可能结果\n\n同一位顾客、同一时点：通常只能观察一种状态下的结果；另一种是反事实。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 10 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-06-customer-portrait.png"
+      ],
+      "formulas": [
+        "Y_i(1)",
+        "Y_i(0)"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 11,
+      "width": 390,
+      "key": "stats-l1-11",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 179,
+      "publicText": "01 / 研究对象与数据\n概念必须落到测量\n\n消费能力、消费行为与月消费额并不相同\n\n概念 → 操作化\n\n“消费行为”\n↓\n观察月内，净交易金额的顾客级合计\n\n明确退款、时间、币种与覆盖范围。\n\n月消费额不是消费能力的全部，也不是满意度本身。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 11 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-04-member-card.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 12,
+      "width": 390,
+      "key": "stats-l1-12",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 216,
+      "publicText": "01 / 研究对象与数据\n变量类型决定比较方式\n\n身份是类别；消费是数值；满意度有顺序\n\n变量\t类型\t可用的描述\n会员身份\t名义类别\t人数、比例\n满意度1—5级（示例）\t有序类别\t各等级比例、中位等级\n月消费额\t数值变量\t均值、中位数、分布\n到店次数\t离散数值\t计数分布、均值\n\n数码标签不自动具有等距性质；图形和统计量需尊重测量尺度。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 12 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 13,
+      "width": 390,
+      "key": "stats-l1-13",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 189,
+      "publicText": "01 / 研究对象与数据\n一行是一笔订单\n\n订单多的人，会在订单表出现多次\n\n订单编号\t顾客编号\t月份\t金额/元\nA\tC示例01\t观察月\t120\nB\tC示例01\t观察月\t180\nC\tC示例01\t观察月\t200\n\n示意账本 · 三行订单，却只有一位顾客。订单数不等于顾客数。\n\n示意账本 · 用于说明数据口径（独立于480人样本） · 配图：AI情境\n统计分析方法 13 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-05-receipts.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 14,
+      "width": 390,
+      "key": "stats-l1-14",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 216,
+      "publicText": "01 / 研究对象与数据\n一行是一位顾客的一个月\n\n观察单位：顾客 × 月\n\n顾客编号\t观察月消费/元\t订单笔数\nC示例01\t500\t3\n𝑌\n𝑖\n,\n𝑡\n=\n∑\n𝑗\n∈\n该顾客当月订单\n𝐴\n𝑗\nY\ni,t\n\t​\n\n=\nj∈该顾客当月订单\n∑\n\t​\n\nA\nj\n\t​\n\n\n一行对应顾客×月，再以顾客为单位进行组间比较。\n\n示意账本 · 用于说明数据口径（独立于480人样本） · 配图：AI情境\n统计分析方法 14 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-06-customer-portrait.png"
+      ],
+      "formulas": [
+        "Y_{i,t}=\\sum_{j\\in\\text{该顾客当月订单}} A_j"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 15,
+      "width": 390,
+      "key": "stats-l1-15",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 210,
+      "publicText": "01 / 研究对象与数据\n追踪同一批人：面板数据\n\n顾客维度 × 时间维度\n\n顾客\t1月/元\t2月/元\t3月/元\nC示例01\t500\t420\t610\nC示例02\t380\t450\t400\nC示例03\t720\t690\t740\n\n同一编号在不同月份反复出现 → 观测可能相关。\n\n面板结构示意，非主样本后续追踪。标准误与模型需考虑数据结构。\n\n示意账本 · 用于说明数据口径（独立于480人样本）\n统计分析方法 15 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 16,
+      "width": 390,
+      "key": "stats-l1-16",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 165,
+      "publicText": "01 / 研究对象与数据\n只保留每个月：时间序列\n\n一个时点对应一个汇总值\n\n0\n85万\n170万\n1\n4\n7\n10\n13\n16\n19\n22\n24\n连续24个自然月\n销售额（元）\n\n独立口径示例：品牌全量月报24个月。一行变成一个月，个人差异被汇总。\n\n教学模拟 · 品牌全量月报24个月（独立口径）\n统计分析方法 16 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 17,
+      "width": 390,
+      "key": "stats-l1-17",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 160,
+      "publicText": "01 / 研究对象与数据\n总体、抽样框与样本\n\n想研究的人 ≠ 能接触的人 ≠ 实际进入数据的人\n\n目标总体\n抽样框：可联系名单\n实际样本\n\n范围示意 · 覆盖不足、拒访与失访都可能改变实际进入数据的人。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 17 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-10-crowd.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 18,
+      "width": 390,
+      "key": "stats-l1-18",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 189,
+      "publicText": "01 / 研究对象与数据\n被看见的人，如何被选中\n\n便利获取与随机抽样回答不同的可信度问题\n\n只在周末到店时访问\n→ 工作日顾客可能被遗漏\n\n只从高活跃名单联系\n→ 低活跃顾客可能被遗漏\n\n先说明抽样机制，再讨论推广范围。\n\n窗口中的人，不自动代表窗口之外的人。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 18 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-09-observation-window.png",
+        "/course-assets/statistical-analysis/images/l1-11-glass-frame.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 19,
+      "width": 390,
+      "key": "stats-l1-19",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 205,
+      "publicText": "01 / 从记录到统计量\n三张订单，汇成一行\n\n120 + 180 + 200 = 500元\n\n聚合演示 · C示例01 · 同一观察月\n\n订单 A\n120\n\n订单 B\n180\n\n订单 C\n200\n\n顾客月消费\n500元\n\n一位顾客，仅贡献一行\n\n订单表 → 按顾客与月份汇总 → 顾客月表 → 组间比较\n\n示意账本 · 用于说明数据口径（独立于480人样本） · 配图：AI情境\n统计分析方法 19 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-05-receipts.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 20,
+      "width": 390,
+      "key": "stats-l1-20",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 163,
+      "publicText": "01 / 从记录到统计量\n零：观察到了没有消费\n\n完整观察一个月，消费额为0元\n\n0\n\n已经完整观察一个月。\n\n确认没有消费。\n\n零，是一个已知的数值。\n\n示意记录 · 仅有“没有交易行”不足以证明整个观察窗口消费为零。\n\n示意账本 · 用于说明数据口径（独立于480人样本） · 配图：AI情境\n统计分析方法 20 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-03-checkout.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 21,
+      "width": 390,
+      "key": "stats-l1-21",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 164,
+      "publicText": "01 / 从记录到统计量\n缺失：不知道是多少\n\nNA保留未知；0表达已知为零\n\nNA\n\n信息缺失，金额未知。\n\n把NA改成0，会改变均值。\n\n排除缺失后，分母与样本构成也会改变。\n\n记录缺失原因、处理方式与有效样本量；按研究设计评估缺失机制。\n\n示意账本 · 用于说明数据口径（独立于480人样本）\n统计分析方法 21 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 22,
+      "width": 390,
+      "key": "stats-l1-22",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 220,
+      "publicText": "01 / 从记录到统计量\n异常记录先核查，再决定\n\n重复导入与真实大额消费需要不同处理\n\n记录迹象（示意）\t先核查什么\t可能的处理\n订单A被导入两次\t唯一键、时间、来源\t确认重复后去重\n金额远高于多数记录\t原始凭证、业务背景\t保留真实大额交易\n同一人多笔交易\t是否不同订单\t按观察单位正确汇总\n\n极端值可以是真实信息。清理规则要有依据、保留记录并可复核。\n\n示意账本 · 用于说明数据口径（独立于480人样本）\n统计分析方法 22 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 23,
+      "width": 390,
+      "key": "stats-l1-23",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 248,
+      "publicText": "01 / 从记录到统计量\n均值之外，还有中位数\n\n少数高额消费会拉动均值\n\n会员 · 右偏分布\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n非会员　n=240\n统计量\t会员\t非会员\n均值\t650.0\t500.0\n中位数\t546.3\t416.9\n\n高额消费使均值向长尾方向移动。中位数定位排序后的中间位置。\n\n单位：元/人/月。图中仍展示两组全部原始点。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 23 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 24,
+      "width": 390,
+      "key": "stats-l1-24",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 203,
+      "publicText": "01 / 从记录到统计量\n“平均”没有告诉我们有多分散\n\n标准差描述个体之间的变异\n\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n非会员　n=240\n\n会员SD 382.6元　／　非会员SD 324.7元\n\n标准差与原变量同单位；它描述个体差异，不是均值的精度。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 24 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 25,
+      "width": 390,
+      "key": "stats-l1-25",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 162,
+      "publicText": "01 / 从记录到统计量\n150元，与30%\n\n绝对差与相对差回答互补的问题\n\n绝对均值差\n150 元\n650 − 500\n／\n相对非会员均值\n30 %\n150 ÷ 500\n\n同时报告比较方向、单位和基准；这里是观察到的均值差。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 25 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 26,
+      "width": 390,
+      "key": "stats-l1-26",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 225,
+      "publicText": "01 / 抽样与区间\n换一批人，均值会变\n\n抽样带来估计的不确定性\n\n独立的抽样概念模型\n\n𝑋\n∼\n𝑁\n(\n500\n,\n180\n2\n)\nX∼N(500,180\n2\n)\n\n每次独立抽取25个观测。\n总体均值500元保持不变。\n\n每次得到一个新的样本均值。\n\n此处用已知总体演示抽样；不是对主案例480位顾客重新抽样。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913 · 配图：AI情境\n统计分析方法 26 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-10-crowd.png"
+      ],
+      "formulas": [
+        "X\\sim N(500,180^2)"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 27,
+      "width": 390,
+      "key": "stats-l1-27",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 182,
+      "publicText": "01 / 抽样与区间\n第一次抽样\n\n25个观测，形成一个均值\n\n0\n200\n400\n600\n800\n1000\n1200\n观测值（元）\n总体 μ=500\n均值 500.4\n\n第一次抽样 · n=25 · 每个点是一项观测；实线为样本均值，虚线为总体均值。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 27 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 28,
+      "width": 390,
+      "key": "stats-l1-28",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 174,
+      "publicText": "01 / 抽样与区间\n第二次抽样\n\n抽样方法相同，结果未必相同\n\n0\n200\n400\n600\n800\n1000\n1200\n观测值（元）\n总体 μ=500\n均值 435.9\n\n第二次独立抽样 · 总体与样本量相同，具体观测和均值发生变化。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 28 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 29,
+      "width": 390,
+      "key": "stats-l1-29",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 175,
+      "publicText": "01 / 抽样与区间\n100次抽样，100个均值\n\n一个点，代表一次样本的均值\n\n350\n400\n450\n500\n550\n600\n650\n固定总体均值 500元\n\n100个点 = 100次样本的均值。纵向排布仅用于避让，不代表第二个变量。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 29 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 30,
+      "width": 390,
+      "key": "stats-l1-30",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 251,
+      "publicText": "01 / 抽样与区间\n样本分布，不是抽样分布\n\n个体值的变化，与估计值的变化\n\n样本分布：一个点是一项观测\n0\n200\n400\n600\n800\n1000\n1200\n观测值（元）\n总体 μ=500\n均值 500.4\n抽样分布：一个点是一个均值\n350\n400\n450\n500\n550\n600\n650\n固定总体均值 500元\n\n横轴范围不同，须按刻度比较。两者都以元计量，却对应不同的变异来源。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 30 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 31,
+      "width": 390,
+      "key": "stats-l1-31",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 255,
+      "publicText": "01 / 抽样与区间\nSD与SE，回答不同的问题\n\nSD：人有多不同；SE：均值有多不稳定\n\n标准差 SD\n180 元\n\n单项观测的离散程度\n\n标准误 SE\n𝑆\n𝐸\n(\n𝑋\nˉ\n)\n=\n𝜎\n𝑛\n=\n180\n5\n=\n36\nSE(\nX\nˉ\n)=\nn\n\t​\n\nσ\n\t​\n\n=\n5\n180\n\t​\n\n=36\n\n重复抽样时，均值的标准差\n\n独立同分布且方差有限的均值模型；σ未知时通常以样本SD估计。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 31 / 48",
+      "images": [],
+      "formulas": [
+        "SE(\\bar X)=\\frac{\\sigma}{\\sqrt{n}}=\\frac{180}{5}=36"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 32,
+      "width": 390,
+      "key": "stats-l1-32",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 241,
+      "publicText": "01 / 抽样与区间\n样本量扩大四倍，SE减半\n\nn=25：36元；n=100：18元\n\nn=25 · SE=36元\n350\n400\n450\n500\n550\n600\n650\n固定总体均值 500元\nn=100 · SE=18元\n350\n400\n450\n500\n550\n600\n650\n固定总体均值 500元\n\n两图横轴同为350—650元。样本量增加四倍，标准误约减半。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 32 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 33,
+      "width": 390,
+      "key": "stats-l1-33",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 157,
+      "publicText": "01 / 抽样与区间\n样本再大，也可能看偏\n\n窄而偏的估计，仍然偏离目标\n\n目标参数\n偏差\n结果集中，但中心偏移\n样本变大\n不修复选择机制\n\n概念示意，无数值刻度；抽样偏差与随机误差需要不同的解决办法。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 33 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 34,
+      "width": 390,
+      "key": "stats-l1-34",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 202,
+      "publicText": "01 / 抽样与区间\n点估计需要一个范围\n\n估计值 + 估计的不确定性\n\n-200\n-100\n0\n100\n200\n300\n均值差（元/人/月）\n全样本 · 会员 − 非会员\n150.0 [86.3, 213.7]\n\n回到主案例：均值差150.0元；Welch 95%置信区间 [86.3, 213.7] 元。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 34 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 35,
+      "width": 390,
+      "key": "stats-l1-35",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 351,
+      "publicText": "01 / 抽样与区间\n置信区间如何构造\n\n估计值 ± 临界值 × 标准误\n\n𝜃\n^\n \n±\n \n𝑐\n.975\n \n𝑆\n𝐸\n(\n𝜃\n^\n)\nθ\n ± c\n.975\n\t​\n\nSE(\nθ\n)\n已知σ的正态均值\n𝑋\nˉ\n±\n1.96\n \n𝜎\n/\n𝑛\nX\nˉ\n±1.96σ/\nn\n\t​\n\n两个独立均值之差\n(\n𝑌\nˉ\n1\n−\n𝑌\nˉ\n0\n)\n±\n𝑡\n.975\n,\n𝜈\n \n𝑆\n𝐸\nΔ\n(\nY\nˉ\n1\n\t​\n\n−\nY\nˉ\n0\n\t​\n\n)±t\n.975,ν\n\t​\n\nSE\nΔ\n\t​\n\n\n主案例用Welch自由度ν≈465.7与差值SE≈32.39；不同模型不能照搬同一误差线。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 35 / 48",
+      "images": [],
+      "formulas": [
+        "\\widehat\\theta\\ \\pm\\ c_{.975}\\,SE(\\widehat\\theta)",
+        "\\bar X\\pm1.96\\,\\sigma/\\sqrt n",
+        "(\\bar Y_1-\\bar Y_0)\\pm t_{.975,\\nu}\\,SE_{\\Delta}"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 36,
+      "width": 390,
+      "key": "stats-l1-36",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 172,
+      "publicText": "01 / 抽样与区间\n95%描述一种方法\n\n长期重复构造的区间，约95%覆盖固定参数\n\n固定的是总体参数。\n变化的是抽到的样本，\n以及由样本构造的区间。\n\n重复同一抽样与计算程序，长期约95%的区间覆盖固定参数。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913 · 配图：AI情境\n统计分析方法 36 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-11-glass-frame.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 37,
+      "width": 390,
+      "key": "stats-l1-37",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 236,
+      "publicText": "01 / 抽样与区间\n这一次模拟，97条覆盖\n\n100条区间；总体均值始终为500\n\n350\n400\n450\n500\n550\n600\n650\n固定总体均值 500元\n97/100\n\n本次模拟实际覆盖\n\n95%是方法的名义覆盖率。\n\n100次的实现比例\n可以高于或低于95%。\n\n琥珀虚线：固定 μ=500；蓝绿：覆盖；砖红：未覆盖。正态总体，已知σ，n=25。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 37 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 38,
+      "width": 390,
+      "key": "stats-l1-38",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 210,
+      "publicText": "01 / 抽样与区间\n眼前这个区间已经固定\n\n覆盖，或没有覆盖；通常我们不知道哪一种\n\n350\n400\n450\n500\n550\n600\n650\n固定总体均值 500元\n\n区间已经实现。\n\n参数也固定。\n\n覆盖或未覆盖，\n是一个事实。\n\n95%不表示这个区间包含95%的个体，也不表示固定参数在该区间内的概率。\n\n教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913\n统计分析方法 38 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 39,
+      "width": 390,
+      "key": "stats-l1-39",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 264,
+      "publicText": "01 / 检验与解释\n从“零差异”开始检查\n\nH₀：两个目标组的总体均值相等\n\n𝐻\n0\n:\n \n𝜇\n1\n−\n𝜇\n0\n=\n0\nH\n0\n\t​\n\n: μ\n1\n\t​\n\n−μ\n0\n\t​\n\n=0\n𝐻\n1\n:\n \n𝜇\n1\n−\n𝜇\n0\n≠\n0\nH\n1\n\t​\n\n: μ\n1\n\t​\n\n−μ\n0\n\t​\n\n\n=0\n\n比较目标：两个组的总体均值\n\n采用双侧检验；先明确抽样与误差模型。\n\n零均值差假设，不要求每个人消费相等。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 39 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-12-evidence-papers.png"
+      ],
+      "formulas": [
+        "H_0:\\ \\mu_1-\\mu_0=0",
+        "H_1:\\ \\mu_1-\\mu_0\\ne0"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 40,
+      "width": 390,
+      "key": "stats-l1-40",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 247,
+      "publicText": "01 / 检验与解释\np值：假定之下的数据有多极端\n\n在H₀和模型假设下，出现至少同样极端统计量的概率\n\n-6\n-4\n-2\n0\n2\n4\n6\n-4.631\n4.631\n假定H₀及模型成立 · t分布，自由度≈465.7\n两侧至少同样极端的尾部面积之和 = p\n检验统计量 t\n\n双侧Welch检验：p=P(|T|≥|4.631| | H₀及模型假设)≈0.00000473。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · ASA (2016)\n统计分析方法 40 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 41,
+      "width": 390,
+      "key": "stats-l1-41",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 193,
+      "publicText": "01 / 检验与解释\n一个阈值，不能代替研究判断\n\np值不衡量效应大小，也不证明因果\n\np值很小，\n不能推出效应很大，\n也不能推出因果成立。\n\n报告效应大小、区间、设计与分析过程；结论不只取决于0.05。\n\n解释原则：ASA关于统计显著性与p值的声明（2016）。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · ASA (2016)\n统计分析方法 41 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 42,
+      "width": 390,
+      "key": "stats-l1-42",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 264,
+      "publicText": "01 / 检验与解释\n两独立样本：Welch均值比较\n\n均值差150.0元；95% CI [86.3, 213.7]\n\n组别\tn\t均值/元\tSD/元\n会员\t240\t650\t382.6\n非会员\t240\t500\t324.7\n差值=150.0元　SE=32.39　t=4.631　df≈465.71\n95% CI [86.3, 213.7] 元；双侧 p≈4.73×10⁻⁶。\n\n独立组、适当抽样与均值推断模型下成立；未随机分配会员身份。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 42 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 43,
+      "width": 390,
+      "key": "stats-l1-43",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 186,
+      "publicText": "01 / 检验与解释\n三组比较：组间与组内\n\nANOVA检验各组总体均值是否全部相同\n\n0\n200\n400\n600\n800\n1000\n消费金额（元）\n门店1 · n=30\n门店2 · n=30\n门店3 · n=30\n\n独立三店教学样本，各30人。F=6.919，p=0.0016；经典单因素ANOVA。\n\n教学模拟 · 独立三店样本，各30人\n统计分析方法 43 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 44,
+      "width": 390,
+      "key": "stats-l1-44",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 268,
+      "publicText": "01 / 检验与解释\nANOVA之后，还缺哪一步\n\n至少一组不同 ≠ 每一对都不同\n\n𝐹\n=\n𝑀\n𝑆\nb\ne\nt\nw\ne\ne\nn\n𝑀\n𝑆\nw\ni\nt\nh\ni\nn\nF=\nMS\nwithin\n\t​\n\nMS\nbetween\n\t​\n\n\t​\n\n\n总体检验显著 → 有证据反对“所有总体均值相等”。\n\n哪些组不同？ → 预设比较或控制多重性的事后比较。\n\n检查独立性、误差分布与方差条件；异方差可考虑Welch ANOVA。\n\n总体ANOVA不能替代每一对的比较结果。\n\n教学模拟 · 独立三店样本，各30人\n统计分析方法 44 / 48",
+      "images": [],
+      "formulas": [
+        "F=\\frac{MS_{\\mathrm{between}}}{MS_{\\mathrm{within}}}"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 45,
+      "width": 390,
+      "key": "stats-l1-45",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 161,
+      "publicText": "01 / 检验与解释\n显著、重要、值得投入\n\n150元是消费差额；利润、成本和持续性尚未知\n\n150元\n\n消费差额 ≠ 净利润\n\n成本、毛利、持续性与可行动性，仍待评估。\n\n统计显著性与商业重要性分别判断。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 45 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-04-member-card.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 46,
+      "width": 390,
+      "key": "stats-l1-46",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 211,
+      "publicText": "01 / 检验与解释\n“让”字，需要研究设计支持\n\n观察到更高消费，不等于会员身份造成更高消费\n\n原句：会员制让消费提高30%。\n\n修订：样本中，会员月均消费比非会员高30%。\n\n自选择、城市、收入及既有消费习惯等，可能影响比较。\n\n观察性组间差异不能直接识别会员制度的因果效应。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · ASA (2016) · 配图：AI情境\n统计分析方法 46 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-02-customer-choice.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 47,
+      "width": 390,
+      "key": "stats-l1-47",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 360,
+      "publicText": "01 / 结果表达\n把结果写完整\n\n差多少，有多精确，适用于什么范围？\n\n-200\n-100\n0\n100\n200\n300\n均值差（元/人/月）\n全样本 · 会员 − 非会员\n150.0 [86.3, 213.7]\n在观察月的两城教学样本中，会员与非会员各240人，月均消费分别为650元与500元。均值差150元，相对差30%。在独立抽样及Welch均值推断模型下，差值95% CI为[86.3, 213.7]元，双侧p≈4.73×10⁻⁶。\n\n会员身份未随机分配；该结果反映样本中的组间差异，不能据此断言会员制造成消费提高。\n\n报告顺序：对象与指标 → 量级与精度 → 方法与条件 → 解释边界。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · ASA (2016)\n统计分析方法 47 / 48",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 48,
+      "width": 390,
+      "key": "stats-l1-48",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 155,
+      "publicText": "01 / 结果表达\n两个均值，还隐藏了什么\n\n分布、异常点、分组与时间\n\n如果只看两个均值，\n我们会错过什么？\n\n数据点的形状，可能改变我们的判断。\n\n下一讲：先让数据结构显现，再决定如何分析。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 48 / 48",
+      "images": [
+        "/course-assets/statistical-analysis/images/l1-08-research-desk.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 49,
+      "width": 390,
+      "key": "stats-l2-01",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 131,
+      "publicText": "EXPLORATORY DATA ANALYSIS\n让重要结构\n显现出来\n\n探索性数据分析与科研可视化\n\n02\n同一批数据，还有哪些尚未看见的结构？\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 01 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-01-prism-city.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 50,
+      "width": 390,
+      "key": "stats-l2-02",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 239,
+      "publicText": "02 / 图形与问题\n四份数据，几乎相同的摘要\n\nn=11；x均值9；y均值约7.50；r约0.816\n\n数据组\tn\tx均值\ty均值\tPearson r\nⅠ\t11\t9.00\t7.50\t0.816\nⅡ\t11\t9.00\t7.50\t0.816\nⅢ\t11\t9.00\t7.50\t0.816\nⅣ\t11\t9.00\t7.50\t0.817\n\n摘要按显示精度舍入；原始记录与形态尚未展示。\n\nAnscombe (1973) · R datasets · 配图：AI情境\n统计分析方法 02 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-02-lens.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 51,
+      "width": 390,
+      "key": "stats-l2-03",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 228,
+      "publicText": "02 / 图形与问题\n画出来，答案变了\n\n相同尺度下，四种完全不同的形态\n\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅠ\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅡ\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅢ\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅣ\n\n四图统一尺度：x∈[0,20]，y∈[0,15]；灰线均为近似参考线 y=3+0.5x。\n\nAnscombe (1973) · R datasets\n统计分析方法 03 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 52,
+      "width": 390,
+      "key": "stats-l2-04",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 242,
+      "publicText": "02 / 图形与问题\n一条直线，四种处境\n\n线性、弯曲、异常值、杠杆点\n\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅠ\n近似线性\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅡ\n弯曲关系\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅢ\n异常y值\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅣ\n高杠杆x值\n\n第一组近似线性；第二组弯曲；第三组有异常y值；第四组斜率受高杠杆点强烈影响。\n\nAnscombe (1973) · R datasets\n统计分析方法 04 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 53,
+      "width": 390,
+      "key": "stats-l2-05",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 171,
+      "publicText": "02 / 图形与问题\n摘要是入口，原始结构要保留\n\n位置与离散，还不足以诊断关系\n\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅡ\n\n均值、方差与相关系数\n都不能完整描述形态。\n\n原始点先于模型诊断。\n\nAnscombe第二组：直线摘要掩盖弯曲关系。\n\nAnscombe (1973) · R datasets\n统计分析方法 05 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 54,
+      "width": 390,
+      "key": "stats-l2-06",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 229,
+      "publicText": "02 / 图形与问题\n六种图形任务\n\n分布 · 比较 · 构成 · 关系 · 时间 · 不确定性\n\n01\n分布\n数值集中在哪里？\n02\n比较\n哪些组更高？\n03\n构成\n整体由什么组成？\n04\n关系\n变量如何一起变化？\n05\n时间\n变化按何种顺序发生？\n06\n不确定性\n估计有多精确？\n\n根据Wilke的图形分类组织；先确定研究任务，再选图形。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 06 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-03-objects.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 55,
+      "width": 390,
+      "key": "stats-l2-07",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 150,
+      "publicText": "02 / 分布\n先保留每一个点\n\n一个点 = 一位顾客的月消费\n\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n\n480位顾客全部保留。纵向抖动仅为避免重叠，不代表第二个变量。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 07 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 56,
+      "width": 390,
+      "key": "stats-l2-08",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 180,
+      "publicText": "02 / 分布\n直方图：数一数每个区间有多少人\n\n横轴：月消费；纵轴：顾客数\n\n0\n500\n1000\n1500\n2000\n2500\n3000\n月消费（元/人/月）\n0\n90\n180\n顾客数\n\n箱宽200元，区间左闭右开；人数之和为480。连续数值区间的柱彼此相邻。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 08 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 57,
+      "width": 390,
+      "key": "stats-l2-09",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 241,
+      "publicText": "02 / 分布\n分箱改变细节，不改变数据\n\n100元箱宽，与300元箱宽\n\n箱宽100元\n0\n500\n1000\n1500\n2000\n2500\n3000\n月消费（元/人/月）\n0\n90\n180\n顾客数\n箱宽300元\n0\n500\n1000\n1500\n2000\n2500\n3000\n月消费（元/人/月）\n0\n90\n180\n顾客数\n\n同一批数据，共用横纵轴范围。细分突出局部波动，粗分隐藏细节。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 09 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 58,
+      "width": 390,
+      "key": "stats-l2-10",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 214,
+      "publicText": "02 / 分布\n右偏：多数在左，长尾向右\n\n均值通常更容易被长尾拉动\n\n0\n500\n1000\n1500\n2000\n2500\n3000\n月消费（元/人/月）\n0\n90\n180\n顾客数\n\n均值：575.0元\n\n中位数：496.4元\n\n向右延伸的长尾，\n需要回到原始记录核查。\n\n本例为右偏分布。偏态本身不证明数据错误，也不说明形成机制。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 10 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 59,
+      "width": 390,
+      "key": "stats-l2-11",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 227,
+      "publicText": "02 / 分布\n箱线图：五个位置与一个规则\n\n箱体Q1到Q3；中线为中位数\n\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员 · n=240 · 金额单位：元/人/月\nQ1 393.5\n中位数 546.3\nQ3 826.9\n须外观测\n\n须端：落在[Q1−1.5IQR, Q3+1.5IQR]内的最远观测。须外点不自动等于错误。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 11 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 60,
+      "width": 390,
+      "key": "stats-l2-12",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 171,
+      "publicText": "02 / 分布\n把原始点放回来\n\n相同箱体，未必有相同内部结构\n\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n非会员　n=240\n\n箱线叠加原始点；两组各240人。箱体内部仍可能存在聚集和稀疏位置。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 12 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 61,
+      "width": 390,
+      "key": "stats-l2-13",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 176,
+      "publicText": "02 / 分布\n小提琴图：宽度表达密度\n\n宽处更密集；形状依赖平滑带宽\n\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n非会员　n=240\n\n高斯核密度，带宽100元；各组峰值归一化显示形状，宽度不代表样本量。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 13 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 62,
+      "width": 390,
+      "key": "stats-l2-14",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 200,
+      "publicText": "02 / 分布\n分布图怎样选\n\n小样本看点；分布看直方图；多组比较看箱线与密度\n\n小样本　保留原始点，避免光滑形状制造确定感。\n\n分布形态　直方图，检查不同箱宽。\n\n多组比较　箱线图叠点，或明确带宽的密度图。\n\n离散等级　展示等级人数或比例。\n\n选图依据：样本量、变量尺度与研究问题。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 14 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-02-lens.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 63,
+      "width": 390,
+      "key": "stats-l2-15",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 239,
+      "publicText": "02 / 比较与构成\n点的位置，直接比较数值\n\n城市与会员身份的四个均值\n\n0\n200\n400\n600\n800\n1000\n月消费（元/人/月）\n甲城 · 非会员 · n=60\n800元\n甲城 · 会员 · n=180\n750元\n乙城 · 非会员 · n=180\n400元\n乙城 · 会员 · n=60\n350元\n\n各组样本量：甲城会员180、非会员60；乙城会员60、非会员180。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 15 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 64,
+      "width": 390,
+      "key": "stats-l2-16",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 156,
+      "publicText": "02 / 比较与构成\n条形图从零开始\n\n长度比较需要共同的零基线\n\n0\n200\n400\n600\n650\n会员\n500\n非会员\n月均消费（元/人/月）\n\n条形长度从0开始。位置编码的点图可采用非零范围，但必须清楚标轴。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 16 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 65,
+      "width": 390,
+      "key": "stats-l2-17",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 231,
+      "publicText": "02 / 比较与构成\n先问分母是谁\n\n会员中75%在甲城；甲城中75%是会员\n\n会员中甲城顾客占比：\n\n180\n/\n240\n=\n75\n%\n180/240=75%\n\n甲城顾客中会员占比：\n\n180\n/\n(\n180\n+\n60\n)\n=\n75\n%\n180/(180+60)=75%\n\n本例数值巧合相同；前一个240是全部会员，后一个240是甲城全部顾客。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 17 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-05-baskets.png"
+      ],
+      "formulas": [
+        "180/240=75\\%",
+        "180/(180+60)=75\\%"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 66,
+      "width": 390,
+      "key": "stats-l2-18",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 202,
+      "publicText": "02 / 比较与构成\n构成：每组内部加总为100%\n\n会员：甲城75%；非会员：甲城25%\n\n会员，n=240\n甲城 75%\n乙城 25%\n非会员，n=240\n甲城 25%\n乙城 75%\n城市用纹理区分；每一条的分母为该会员身份组的240人。\n\n甲城与乙城互斥且覆盖本例全部样本；每组内部比例加总为100%。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 18 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 67,
+      "width": 390,
+      "key": "stats-l2-19",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 185,
+      "publicText": "02 / 比较与构成\n同样比较，分布给出更多信息\n\n两组有大量重叠，也有不同长尾\n\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n非会员　n=240\n\n会员均值650元、非会员500元，不表示每一位会员都比每一位非会员消费更多。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 19 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 68,
+      "width": 390,
+      "key": "stats-l2-20",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 213,
+      "publicText": "02 / 比较与构成\n均值比较加上精度\n\n误差线：各组均值的95% t置信区间\n\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n650.0\n非会员　n=240\n500.0\n\n会员95% t CI [601.4, 698.6]元；非会员 [458.7, 541.3]元。各组n=240。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 20 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 69,
+      "width": 390,
+      "key": "stats-l2-21",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 228,
+      "publicText": "02 / 比较与构成\n一张图要能独立阅读\n\n对象、时间、单位、样本量、统计口径\n\n图1　观察月中会员与非会员的月消费比较。\n\n样本来自两城，共480位顾客，两组各240人。每点表示组均值；线段为该均值的95% t置信区间。金额单位为元/人/月。\n\n教学模拟，会员身份非随机分配。\n\n图题说明比较问题；图注交代对象、统计量、单位、精度和来源。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 21 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-04-scales.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 70,
+      "width": 390,
+      "key": "stats-l2-22",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 190,
+      "publicText": "02 / 关系与分组\n散点图：一人，一对数值\n\n横轴月收入；纵轴月消费\n\n0\n4000\n8000\n12000\n16000\n月收入（元）\n0\n1000\n2000\n月消费（元）\nC001：收入9880.85，消费214.52\n\n同一行记录的月收入与月消费配成一个点。两轴金额均为教学模拟。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 22 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 71,
+      "width": 390,
+      "key": "stats-l2-23",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 161,
+      "publicText": "02 / 关系与分组\n一片灰色点云\n\n观察方向、形状、离散与异常位置\n\n0\n4000\n8000\n12000\n16000\n月收入（元）\n0\n1000\n2000\n月消费（元）\n\n先观察方向、形状、离散和异常位置；尚未加入分组信息。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 23 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 72,
+      "width": 390,
+      "key": "stats-l2-24",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 172,
+      "publicText": "02 / 关系与分组\n相关接近相同，形状可以不同\n\n非线性关系需要看原始点\n\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅡ\n\n弯曲关系\n\n一个线性相关系数，\n不能描述整条轨迹。\n\n返回Anscombe第二组；不要把主案例中未出现的曲线形态强加给数据。\n\nAnscombe (1973) · R datasets\n统计分析方法 24 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 73,
+      "width": 390,
+      "key": "stats-l2-25",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 194,
+      "publicText": "02 / 关系与分组\n异常值与高杠杆点\n\n极端y，与极端x，影响路径不同\n\nⅢ · y方向的异常位置\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅢ\nⅣ · x方向的高杠杆位置\n0\n5\n10\n15\n20\n0\n5\n10\n15\nⅣ\n\n影响大不构成自动删除理由。先核查，再报告包含与排除该点时的敏感性。\n\nAnscombe (1973) · R datasets\n统计分析方法 25 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 74,
+      "width": 390,
+      "key": "stats-l2-26",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 256,
+      "publicText": "02 / 关系与分组\n遮挡：看不见，不等于不存在\n\n小点、透明度、抖动或二维分箱\n\n大而不透明：密集区被遮挡\n0\n4000\n8000\n12000\n16000\n月收入（元）\n0\n1000\n2000\n月消费（元）\n小点与透明度：密度重新显现\n0\n4000\n8000\n12000\n16000\n月收入（元）\n0\n1000\n2000\n月消费（元）\n\n同一批480条记录，同一坐标。连续变量坐标保持不变；更大数据可使用二维分箱。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 26 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 75,
+      "width": 390,
+      "key": "stats-l2-27",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 176,
+      "publicText": "02 / 关系与分组\n颜色只承担一个明确的含义\n\n琥珀：会员；蓝绿：非会员\n\n0\n4000\n8000\n12000\n16000\n月收入（元）\n0\n1000\n2000\n月消费（元）\n会员\n非会员\n\n会员始终为琥珀圆点，非会员为蓝绿三角。颜色与形状共同区分类别。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 27 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 76,
+      "width": 390,
+      "key": "stats-l2-28",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 297,
+      "publicText": "02 / 关系与分组\n总体：会员均值更高\n\n650 − 500 = +150元\n\n全样本均值（元/人/月）\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n650.0\n非会员　n=240\n500.0\n两组内部的城市构成\n会员，n=240\n甲城 75%\n乙城 25%\n非会员，n=240\n甲城 25%\n乙城 75%\n城市用纹理区分；每一条的分母为该会员身份组的240人。\n\n总体：会员650，非会员500。两组城市权重分别为75%/25%与25%/75%。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 28 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 77,
+      "width": 390,
+      "key": "stats-l2-29",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 263,
+      "publicText": "02 / 关系与分组\n分城市后，方向反转\n\n甲城：−50元；乙城：−50元\n\n0\n200\n400\n600\n800\n1000\n月消费（元/人/月）\n甲城　会员 n=180 ／ 非会员 n=60\n750\n800\nΔ = −50\n乙城　会员 n=60 ／ 非会员 n=180\n350\n400\nΔ = −50\n琥珀圆点：会员　蓝绿三角：非会员\n\n甲城：750−800=−50元；乙城：350−400=−50元。两城内部的方向都与总体相反。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 29 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 78,
+      "width": 390,
+      "key": "stats-l2-30",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 270,
+      "publicText": "02 / 关系与分组\n构成不同，改变了总体比较\n\n总体均值是各城市均值的加权平均\n\n甲城组均值更高；\n会员样本更集中于甲城。\n\n650\n=\n.75\n×\n750\n+\n.25\n×\n350\n650=.75×750+.25×350\n500\n=\n.25\n×\n800\n+\n.75\n×\n400\n500=.25×800+.75×400\n\n权重不同，能够改变总体比较的方向。\n\n辛普森式反转：分层有助于看清构成，但城市分层本身不提供因果识别。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 30 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-06-neighborhood-a.png",
+        "/course-assets/statistical-analysis/images/l2-07-neighborhood-b.png"
+      ],
+      "formulas": [
+        "650=.75\\times750+.25\\times350",
+        "500=.25\\times800+.75\\times400"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "index": 79,
+      "width": 390,
+      "key": "stats-l2-31",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 258,
+      "publicText": "02 / 关系与分组\n相关矩阵：关系的索引\n\nPearson r概括线性关系；不能替代散点图\n\n消费\n消费\n收入\n收入\n年龄\n年龄\n到店次数\n到店次数\n1.00\n0.44\n0.05\n0.92\n0.44\n1.00\n-0.00\n0.42\n0.05\n-0.00\n1.00\n0.01\n0.92\n0.42\n0.01\n1.00\n-1\n0\n1\n\nPearson相关 · n=480 · 每个变量都来自同一位顾客；近零不排除非线性关系。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 31 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 80,
+      "width": 390,
+      "key": "stats-l2-32",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 269,
+      "publicText": "02 / 关系与分组\n关系图的分工\n\n散点看形态；分面查分组；矩阵找线索\n\n甲城 · n=240\n0\n4000\n8000\n12000\n16000\n月收入（元）\n0\n1000\n2000\n月消费（元）\n会员\n非会员\n乙城 · n=240\n0\n4000\n8000\n12000\n16000\n月收入（元）\n0\n1000\n2000\n月消费（元）\n会员\n非会员\n\n分面保留相同横纵轴尺度；从相关矩阵返回原始散点，核查组内形态与异常位置。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 32 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-08-intersection.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 81,
+      "width": 390,
+      "key": "stats-l2-33",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 172,
+      "publicText": "02 / 时间\n把时间顺序保留下来\n\n一个点 = 一个自然月\n\n0\n400\n800\n1\n4\n7\n10\n13\n16\n19\n22\n24\n连续24个自然月\n人均消费（元/人/月）\n\n独立模拟月报：品牌全量、连续24个月。这里的一个点不再代表一个顾客。\n\n教学模拟 · 品牌全量月报24个月（独立口径） · 配图：AI情境\n统计分析方法 33 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-09-seasons.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 82,
+      "width": 390,
+      "key": "stats-l2-34",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 246,
+      "publicText": "02 / 时间\n总量上升，人均未必同步\n\n月销售额 = 当月顾客数 × 人均消费\n\n全品牌月销售额\n0\n85万\n170万\n1\n4\n7\n10\n13\n16\n19\n22\n24\n连续24个自然月\n销售额（元）\n当月每位顾客平均消费\n0\n400\n800\n1\n4\n7\n10\n13\n16\n19\n22\n24\n连续24个自然月\n人均消费（元/人/月）\n\n两图使用独立且明确的纵轴。总额=当月顾客数×人均消费；不用双轴制造视觉相关。\n\n教学模拟 · 品牌全量月报24个月（独立口径）\n统计分析方法 34 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 83,
+      "width": 390,
+      "key": "stats-l2-35",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 164,
+      "publicText": "02 / 时间\n趋势与季节形态\n\n长期水平变化，叠加周期起伏\n\n0\n400\n800\n1\n4\n7\n10\n13\n16\n19\n22\n24\n连续24个自然月\n人均消费（元/人/月）\n\n模拟中包含上升项与年度周期项；观察到两轮起伏，尚不足以验证稳定季节规律。\n\n教学模拟 · 品牌全量月报24个月（独立口径）\n统计分析方法 35 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 84,
+      "width": 390,
+      "key": "stats-l2-36",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 233,
+      "publicText": "02 / 时间\n粒度改变，你看见的波动也改变\n\n月总额加总为季度总额\n\n月总额 · 24点\n0\n85万\n170万\n1\n4\n7\n10\n13\n16\n19\n22\n24\n连续24个自然月\n销售额（元）\n季度总额 · 8点\n0\n225万\n450万\nQ1\nQ2\nQ3\nQ4\nQ1\nQ2\nQ3\nQ4\n连续8个季度\n销售额（元）\n\n季度销售额是三个月总额之和；季度人均需用匹配口径的分子与分母重新计算。\n\n教学模拟 · 品牌全量月报24个月（独立口径）\n统计分析方法 36 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 85,
+      "width": 390,
+      "key": "stats-l2-37",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 178,
+      "publicText": "02 / 时间\n缺失时段，留下断口\n\n未知月份不补零，也不默认连线\n\n0\n400\n800\n1\n4\n7\n10\n13\n16\n19\n22\n24\n连续24个自然月\n人均消费（元/人/月）\n第8、9月未知\n\n缺失演示：隐藏第8、9月，原始模拟数据保留。断口表达未知；不补零、不默认插值。\n\n教学模拟 · 品牌全量月报24个月（独立口径）\n统计分析方法 37 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 86,
+      "width": 390,
+      "key": "stats-l2-38",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 171,
+      "publicText": "02 / 时间\n趋势图不是预测承诺\n\n预测需要时间留出、基准与误差评价\n\n按时间先后划分训练与评价窗口。\n\n与简单基准比较预测误差。\n\n给出预测范围，检查结构是否改变。\n\n已有走势，是预测的起点。\n\n动态建模与预测评价将在第15、16讲展开。\n\n教学模拟 · 品牌全量月报24个月（独立口径） · 配图：AI情境\n统计分析方法 38 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-10-clock.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 87,
+      "width": 390,
+      "key": "stats-l2-39",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 192,
+      "publicText": "02 / 不确定性\n点与线段，分别表达什么\n\n点：估计值；线：明确标注的不确定性\n\n-200\n-100\n0\n100\n200\n300\n均值差（元/人/月）\n全样本 · 会员 − 非会员\n150.0 [86.3, 213.7]\n\n点为均值差估计；线为该差值的95%置信区间；零线表示无均值差。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 39 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 88,
+      "width": 390,
+      "key": "stats-l2-40",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 235,
+      "publicText": "02 / 不确定性\nSD、SE、CI不能混写\n\n个体差异、估计波动、区间方法\n\n0\n200\n400\n600\n800\n1000\n1200\n月消费（元/人/月）\n均值 ± SD：个体变异\n267.4—1032.6\n均值 ± SE：估计波动\n625.3—674.7\n均值的95% t CI\n601.4—698.6\n\n相同会员均值650元，三种线段含义不同。图注不可只写“误差线”。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 40 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 89,
+      "width": 390,
+      "key": "stats-l2-41",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 262,
+      "publicText": "02 / 不确定性\n不要用“两条CI是否重叠”判差异\n\n应计算比较量本身的标准误\n\n分别估计两个组的均值\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n650.0\n非会员　n=240\n500.0\n\n是否重叠，不能替代对差值的推断。\n\n差值方差还取决于两个估计之间的协方差。\n\n本例两组独立：SE差=√(SE₁²+SE₀²)\n\n不能一般性地用两条95% CI是否重叠判断差异是否显著。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 41 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 90,
+      "width": 390,
+      "key": "stats-l2-42",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 215,
+      "publicText": "02 / 不确定性\n比较差值，直接画差值区间\n\n会员 − 非会员：150元 [86.3, 213.7]\n\n-200\n-100\n0\n100\n200\n300\n均值差（元/人/月）\n全样本 · 会员 − 非会员\n150.0 [86.3, 213.7]\n\n同一主样本，比较方向固定为会员−非会员；95% CI不跨0，但仍需检查设计与实际量级。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 42 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 91,
+      "width": 390,
+      "key": "stats-l2-43",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 220,
+      "publicText": "02 / 不确定性\n跨过零，仍要看区间有多宽\n\n不显著不能证明等效或没有差异\n\n-200\n-100\n0\n100\n200\n300\n均值差（元/人/月）\n示意A：范围较窄\n0.0 [-15.0, 15.0]\n示意B：范围较宽\n0.0 [-180.0, 180.0]\n\n区间示意（非主样本结果）：宽区间仍容许较大差异；等效判断需要预设界值和相应检验。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 43 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 92,
+      "width": 390,
+      "key": "stats-l2-44",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 270,
+      "publicText": "02 / 不确定性\n不确定性，也需要可复核的图注\n\n估计量、区间类型、方法、样本与限制\n\n图2　会员与非会员月均消费差异。\n\n点估计为150元/人/月，误差线为独立两样本Welch 95%置信区间[86.3, 213.7]元。两组各240人。区间基于独立抽样与相应均值推断模型。\n\n资料：自编两城教学模拟；会员身份非随机分配。该比较不识别会员制度的因果效应。\n\n使用精确区间与完整方法标签；星号不能替代量级、精度及解释边界。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 44 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-11-pencil.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 93,
+      "width": 390,
+      "key": "stats-l2-45",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 196,
+      "publicText": "02 / 连续修订\n错误示例：会员制使消费暴增\n\n错误示例 · 截断纵轴，隐藏分布，因果标题\n\n错误示例\n480\n500\n550\n600\n650\n700\n650\n会员\n500\n非会员\n月均消费（元/人/月）\n错误示例 · 基线480元\n\n待核查：因果标题、纵轴基线、数据分布、城市构成与估计精度。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 45 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 94,
+      "width": 390,
+      "key": "stats-l2-46",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 194,
+      "publicText": "02 / 连续修订\n修订①：把问题改准确\n\n观察月，两组消费有何差异？\n\n尺度仍待修订\n480\n500\n550\n600\n650\n700\n650\n会员\n500\n非会员\n月均消费（元/人/月）\n错误示例 · 基线480元\n\n已改：标题改为观察性比较问题。未改：纵轴仍从480元开始，长度比例失真。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 46 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 95,
+      "width": 390,
+      "key": "stats-l2-47",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 169,
+      "publicText": "02 / 连续修订\n修订②：恢复零基线\n\n650元，与500元；差额150元\n\n0\n200\n400\n600\n650\n会员\n500\n非会员\n月均消费（元/人/月）\n\n已改：从0开始，650与500的柱长比为1.3。接下来检查两个均值背后的分布。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 47 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 96,
+      "width": 390,
+      "key": "stats-l2-48",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 173,
+      "publicText": "02 / 连续修订\n修订③：展示分布\n\n组间差异，与组内重叠同时存在\n\n0\n500\n1000\n1500\n2000\n2500\n月消费（元/人/月）\n会员　n=240\n非会员　n=240\n\n已改：加入全部个体点与箱线。可同时观察组间位置、组内离散和长尾。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 48 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 97,
+      "width": 390,
+      "key": "stats-l2-49",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 246,
+      "publicText": "02 / 连续修订\n修订④：分开两座城市\n\n总体+150；城市内均为−50\n\n0\n200\n400\n600\n800\n1000\n月消费（元/人/月）\n甲城　会员 n=180 ／ 非会员 n=60\n750\n800\nΔ = −50\n乙城　会员 n=60 ／ 非会员 n=180\n350\n400\nΔ = −50\n琥珀圆点：会员　蓝绿三角：非会员\n\n已改：按城市分层并显示n。甲城与乙城内均值差均为−50元。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 49 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 98,
+      "width": 390,
+      "key": "stats-l2-50",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 246,
+      "publicText": "02 / 连续修订\n修订⑤：补足标注与不确定性\n\n差值区间、样本量、单位与来源\n\n-200\n-100\n0\n100\n200\n300\n均值差（元/人/月）\n甲城 · 会员 − 非会员\n-50.0 [-172.6, 72.6]\n乙城 · 会员 − 非会员\n-50.0 [-108.6, 8.6]\n\n各城市内独立两样本Welch 95% CI；甲城n=180/60，乙城n=60/180（会员/非会员）。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 50 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 99,
+      "width": 390,
+      "key": "stats-l2-51",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 356,
+      "publicText": "02 / 连续修订\n修订⑥：结论与证据对齐\n\n总体差异与城市构成有关；因果仍待识别\n\n城市内的均值比较\n0\n200\n400\n600\n800\n1000\n月消费（元/人/月）\n甲城　会员 n=180 ／ 非会员 n=60\n750\n800\n乙城　会员 n=60 ／ 非会员 n=180\n350\n400\n琥珀圆点：会员　蓝绿三角：非会员\n总体会员均值比非会员高150元，但在两座城市内分别低50元。城市构成不同，解释了本例总体与组内方向的反转。\n\n城市内差值区间均跨0，仍存在估计不确定性。分层比较仍受观察性设计限制，不能据此认定会员制度提高或降低了消费。\n\n最终图形保留：比较对象、统一尺度、样本量、区间、来源与证据边界。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份\n统计分析方法 51 / 52",
+      "images": [],
+      "formulas": [],
+      "formulaErrors": 0
+    },
+    {
+      "index": 100,
+      "width": 390,
+      "key": "stats-l2-52",
+      "broken": [],
+      "leaks": false,
+      "authoringCopy": [],
+      "outside": [],
+      "ratio": 1.6,
+      "canvas": [
+        1600,
+        1000
+      ],
+      "text": 180,
+      "publicText": "02 / 进入回归\n多个因素，同时进入分析\n\n下一讲：线性回归与多因素关系分析\n\n城市、收入、会员身份，\n如果同时变化呢？\n\n线性回归：在模型中同时描述多因素关系。\n\n模型设定与研究设计，仍决定解释的边界。\n\n下一讲：线性回归与多因素关系分析。\n\n教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份 · 配图：AI情境\n统计分析方法 52 / 52",
+      "images": [
+        "/course-assets/statistical-analysis/images/l2-12-window-observer.png"
+      ],
+      "formulas": [],
+      "formulaErrors": 0
+    }
+  ],
+  "errors": []
+}

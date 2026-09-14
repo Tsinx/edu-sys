@@ -1,0 +1,31 @@
+{
+  "id": "mg-100",
+  "deck": "l4a",
+  "page": 44,
+  "title": "竞争者分析",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A planning team examines several distinct unbranded retail and production models, systematic comparative observation. Source context: original l4a page 44, 竞争者分析. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-d9773f94-097c-4b37-8078-fe3a16eab9bc.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-100.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-100.webp",
+  "pages": [
+    "mg-l4a-s044-01"
+  ],
+  "originalSha256": "b8520fa1f25471d7dbba6ab57d2e270c2546a5b851bfcca47a56ef60c62068f2",
+  "webSha256": "0a9d86dd66144c10b472cd0bec2bde2ecfd5f32d2639dbfb37d463d036fcfc44",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 160086
+}

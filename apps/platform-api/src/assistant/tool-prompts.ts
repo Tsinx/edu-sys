@@ -9,13 +9,13 @@ const responseInstructions = [
 ];
 
 export function buildClassroomToolPrompt(snapshot: { courseId: string; slide: { index: number; slideId: string; total: number } }): string {
-  if (snapshot.courseId === ECONOMIC_MATHEMATICS_COURSE_ID) {
+  if (snapshot.courseId !== 'course-port-management-intro') {
     const deck = getCourseDeckByCourseId(snapshot.courseId);
     const position = deck?.getLessonPosition(snapshot.slide.index);
     if (!deck || !position) {
-      throw new Error("ECONOMIC_MATHEMATICS_ASSISTANT_CONTEXT_MISSING");
+      throw new Error("COURSE_ASSISTANT_CONTEXT_MISSING");
     }
-    const lessonMap = deck.lessons
+    const lessonMap = deck.lessons.filter(lesson => lesson.status === 'ready')
       .map(
         (lesson) =>
           `第${lesson.number}讲“${lesson.title}”：全局第${lesson.slideStart}—${lesson.slideEnd}页`
@@ -25,7 +25,7 @@ export function buildClassroomToolPrompt(snapshot: { courseId: string; slide: { 
       "你必须只返回一个 JSON 对象，禁止 Markdown、代码围栏、前后缀或额外说明。",
       ...responseInstructions,
       'dialogue 是可直接朗读的简洁中文；actions 只能使用 slides.next、slides.previous、slides.go_to、lesson.go_to 或 activity.switch 到 slides。',
-      `slides.go_to 的范围是1到${snapshot.slide.total}；lesson.go_to 的范围是1到32。`,
+      `slides.go_to 的范围是1到${snapshot.slide.total}；lesson.go_to 仅允许已建设讲次：${deck.lessons.filter(l => l.status === 'ready').map(l => l.number).join('、')}。待建设讲次不得生成跳转动作。`,
       "不得生成 globe、simulation、whiteboard、video 或学生作答动作。",
       `可跳转课次：${lessonMap}。`,
       `用户只说“第X页”时，默认指当前第${position.lessonNumber}讲的第X页；本讲内部全局页码 = ${position.lessonStart} + X - 1。`,

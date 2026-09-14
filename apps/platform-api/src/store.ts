@@ -730,16 +730,10 @@ export class JsonStateStore {
         } satisfies StudySession;
       });
       const courses = [...(parsed.courses ?? [])];
-      if (
-        !courses.some(
-          (course) => course.id === ECONOMIC_MATHEMATICS_COURSE_ID
-        )
-      ) {
-        const builtinEconomicMathematics = createSeedState().courses.find(
-          (course) => course.id === ECONOMIC_MATHEMATICS_COURSE_ID
-        );
-        if (builtinEconomicMathematics) {
-          courses.push(builtinEconomicMathematics);
+      for (const builtin of createSeedState().courses.filter(course =>
+        course.id === ECONOMIC_MATHEMATICS_COURSE_ID || course.id === 'statistical-analysis' || course.id === 'management-principles')) {
+        if (!courses.some(course => course.id === builtin.id)) {
+          courses.push(builtin);
           runtimeStateChanged = true;
         }
       }
@@ -4006,7 +4000,7 @@ export class JsonStateStore {
         input.type.startsWith("globe_") &&
         session.courseId !== "course-port-management-intro"
       ) {
-        throw Object.assign(new Error("经济数学课堂不提供港口地球仪活动"), {
+        throw Object.assign(new Error("这门课程未开放地球仪活动"), {
           statusCode: 409,
           code: "COURSE_ACTIVITY_NOT_AVAILABLE"
         });
@@ -4342,7 +4336,7 @@ export class JsonStateStore {
           const lesson = deck.lessons.find(
             (candidate) => candidate.number === action.lesson
           );
-          if (!lesson || lesson.status !== "ready") {
+          if (!lesson || lesson.status !== "ready" || lesson.slideStart === null) {
             results.push({
               index,
               type: action.type,

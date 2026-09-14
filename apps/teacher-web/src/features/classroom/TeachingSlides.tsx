@@ -33,6 +33,8 @@ const EconomicMathematicsSlideStage = lazy(() =>
 );
 
 const ECONOMIC_MATHEMATICS_DECK_ID = "deck-economic-mathematics-2026";
+const StatisticalAnalysisSlideStage = lazy(() => import('../statistical-analysis/StatisticalAnalysisSlideStage').then(m => ({default:m.StatisticalAnalysisSlideStage})));
+const ManagementSlideStage = lazy(() => import('../management-principles/ManagementSlideStage').then(m => ({default:m.ManagementSlideStage})));
 
 function StudentContextStrip({ spec }: { spec: PortManagementSlideSpec }) {
   const { location, publicLabel, timeMarker } = spec.narrative;
@@ -832,6 +834,12 @@ export function SlideStage({
       </Suspense>
     );
   }
+  if (frame.deckId === 'deck-statistical-analysis') {
+    return <Suspense fallback={<SlideViewport label="正在装载统计分析方法"><div>正在装载本讲课件…</div></SlideViewport>}><StatisticalAnalysisSlideStage frame={frame}/></Suspense>;
+  }
+  if (frame.deckId === 'deck-management-principles') return <Suspense fallback={<SlideViewport label="正在装载管理学"><div>正在装载本讲课件…</div></SlideViewport>}><ManagementSlideStage frame={frame} interaction={interaction} readOnly={readOnly} onInteractionPatch={onInteractionPatch} onInteractionReset={onInteractionReset}/></Suspense>;
+  // Keep the explicit legacy port deck identifier without treating unknown courses as port lessons.
+  if (!['deck-course-port-management-intro-foundations','port-management'].includes(frame.deckId)) return <SlideViewport label="课件尚未建设"><div>当前课程课件尚未建设。</div></SlideViewport>;
   const spec = getPortManagementSlide(frame.index);
   const lblPage = PORT_LBL_SLIDES.find(page=>page.slideKey===spec.slideKey);
   if(lblPage)return <PortLblStage key={lblPage.slideKey} page={lblPage} readOnly={readOnly}/>;

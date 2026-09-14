@@ -1,0 +1,31 @@
+{
+  "id": "mg-044",
+  "deck": "l2",
+  "page": 42,
+  "title": "权变思考",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A flexible pavilion with movable walls adapts to sun, rain and different group activities, architectural adaptability as a thoughtful metaphor. Source context: original l2 page 42, 权变思考. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-5124c7d8-5602-480c-a59b-89ff6da5682b.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-044.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-044.webp",
+  "pages": [
+    "mg-l2-s038-01"
+  ],
+  "originalSha256": "fb3f1a35114a80a0f1a24df885a790b78d323993b66228a882bf6c9f603a9598",
+  "webSha256": "4fe1c11d3c595268b57d2cead902e5aef002eb292378e92d6a3d8c565188b023",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 277404
+}
