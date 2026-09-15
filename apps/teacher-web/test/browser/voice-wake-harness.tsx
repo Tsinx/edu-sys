@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { VoiceCommandComposer } from '../../src/features/classroom/VoiceCommandComposer';
 import { useClassroomFullscreen } from '../../src/features/classroom/useClassroomFullscreen';
@@ -12,6 +12,8 @@ function Harness() {
   const [mounted, setMounted] = useState(true);
   const [session, setSession] = useState('one');
   const [commands, setCommands] = useState<string[]>([]);
+  // This input-component harness uses a mock realtime sink, not cloud ASR.
+  const realtime = useMemo(() => ({async prepare(){},begin(){},append(){},cancel(){},async commit(){setCommands(old=>[...old,'[实时录音已提交]']);}}),[session]);
   const [collapsed, setCollapsed] = useState(false);
   const [fullscreenCollapsed, setFullscreenCollapsed] = useState(false);
   const { containerRef, isFullscreen, toggleFullscreen } = useClassroomFullscreen({
@@ -30,9 +32,9 @@ function Harness() {
       {!concealed && <div className="lam-avatar-surface" style={{ background: '#c5ded5', minHeight: 0 }}>数字人画面占位</div>}
     </>}
     {mounted && <VoiceCommandComposer key={session} concealed={concealed} compact={isFullscreen} collapsible={isFullscreen}
-      onExpand={() => (isFullscreen ? setFullscreenCollapsed : setCollapsed)(false)} disabled={disabled} continuousAsrConfigured={configured} assistantBusy={busy}
-      onCommand={async (text, source) => {
-        const response = await fetch('/api/class-sessions/test/assistant/turns', { method: 'POST', body: JSON.stringify({ text, source }) });
+      onExpand={() => (isFullscreen ? setFullscreenCollapsed : setCollapsed)(false)} disabled={disabled} realtime={configured ? realtime : undefined} assistantBusy={busy}
+      onCommand={async text => {
+        const response = await fetch('/api/class-sessions/test/assistant/turns', { method: 'POST', body: JSON.stringify({ text, source:'text' }) });
         if (!response.ok) throw new Error('测试：回答流中断');
         setCommands(old => [...old, text]);
       }} />}

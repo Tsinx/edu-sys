@@ -1,40 +1,8 @@
-import { LocalKeywordRecording, cleanRecordedCommand, type RecordingEvent } from "./local-keyword-recording";
-import type { StudyAsrInput } from "@edu/contracts";
+import { LocalKeywordRecording, type RecordingEvent } from "./local-keyword-recording";
 import type { LocalKeywordModel } from "./local-keyword-model";
 import { LocalKeywordDetector } from "./local-keyword-detector";
-
-export function encodeVoiceWav(samples: Float32Array, sampleRate: number): StudyAsrInput {
-  const bytes = new Uint8Array(44 + samples.length * 2);
-  const view = new DataView(bytes.buffer);
-  const label = (offset: number, text: string) => [...text].forEach((char, i) => view.setUint8(offset + i, char.charCodeAt(0)));
-  label(0, "RIFF"); view.setUint32(4, bytes.length - 8, true); label(8, "WAVE");
-  label(12, "fmt "); view.setUint32(16, 16, true); view.setUint16(20, 1, true);
-  view.setUint16(22, 1, true); view.setUint32(24, sampleRate, true);
-  view.setUint32(28, sampleRate * 2, true); view.setUint16(32, 2, true); view.setUint16(34, 16, true);
-  label(36, "data"); view.setUint32(40, samples.length * 2, true);
-  samples.forEach((value, index) => {
-    const clipped = Math.max(-1, Math.min(1, value));
-    view.setInt16(44 + index * 2, clipped * (clipped < 0 ? 32768 : 32767), true);
-  });
-  let binary = "";
-  for (let offset = 0; offset < bytes.length; offset += 8192) {
-    binary += String.fromCharCode(...bytes.subarray(offset, offset + 8192));
-  }
-  return { audioBase64: btoa(binary), mimeType: "audio/wav", durationMs: Math.max(100, Math.round(samples.length / sampleRate * 1000)) };
-}
-
-export async function transcribeClassroomVoice(input: StudyAsrInput, signal: AbortSignal): Promise<string> {
-  const response = await fetch("/api/teacher/asr", {
-    method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(input), signal
-  });
-  if (!response.ok) throw new Error("语音识别暂不可用，监听已关闭；请检查服务后重试。");
-  const result: unknown = await response.json();
-  if (!result || typeof result !== "object" || !("text" in result) || typeof result.text !== "string") {
-    throw new Error("语音识别返回无效，监听已关闭。");
-  }
-  return result.text;
-}
+import type { RealtimeCaptureSink } from "./realtime-voice";
+import { awaitVoiceStartup, microphoneFailureDetails, type VoiceStartupStage } from "./voice-startup";
 
 export interface VoiceCapture { stop(): void; finish(): void; cancel(): void }
 
@@ -42,14 +10,19 @@ export async function startVoiceCapture(options: {
   mode?: "manual" | "handsfree";
   keywordModel?: LocalKeywordModel;
   detector?: LocalKeywordDetector;
+  realtime: RealtimeCaptureSink;
   signal: AbortSignal;
-  onTranscript: (text: string) => void;
   onState: (state: "recording" | "ending-pending" | "cancelled" | "timeout" | "transcribing") => void;
   onError: (error: Error) => void;
+  onStartupStage?: (stage: VoiceStartupStage) => void;
 }): Promise<VoiceCapture> {
+  if (!options.realtime) throw new Error("课堂录音需要实时语音连接，请使用文字输入或检查服务配置。");
   const handsfree = options.mode !== "manual";
-  if (!navigator.mediaDevices?.getUserMedia || typeof AudioWorkletNode === "undefined") {
-    throw new Error("当前浏览器不支持本地语音唤醒，请使用 Edge / Chrome 的 HTTPS 页面或本机页面。");
+  if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
+    throw new Error("此页面无法访问麦克风。请使用受信任的 HTTPS 地址；另一台电脑访问 HTTP 局域网地址不能录音。");
+  }
+  if (typeof AudioWorkletNode === "undefined") {
+    throw new Error("当前浏览器不支持麦克风音频处理，请使用最新版 Edge / Chrome。");
   }
   let stream: MediaStream | undefined;
   let context: AudioContext | undefined;
@@ -63,7 +36,8 @@ export async function startVoiceCapture(options: {
   let lastReply = Date.now();
   let endingPending = false;
   let timer: ReturnType<typeof setInterval> | undefined;
-  const recording = new LocalKeywordRecording();
+  let submitted = false;
+  const recording = new LocalKeywordRecording(16000, options.realtime);
   function releaseMicrophone() {
     receiving = false;
     if (processor) { processor.port.onmessage = null; processor.port.close(); processor.disconnect(); }
@@ -79,49 +53,60 @@ export async function startVoiceCapture(options: {
     stopped = true;
     options.signal.removeEventListener("abort", stop);
     releaseMicrophone();
+    if (!submitted) options.realtime?.cancel();
   }
   function fail(error: Error) { if (!stopped) { stop(); options.onError(error); } }
   async function handle(event: RecordingEvent) {
     if (event.type !== "audio") {
+      if (event.type === "cancelled" || event.type === "timeout") options.realtime?.cancel();
       endingPending = false;
       // KWS owns wake/cancel phase changes synchronously; only an external timeout resets it.
       if (event.type === "timeout") detector?.resetWaiting();
       options.onState(event.type); return;
     }
-    // Disconnect audio before ASR; a caller-owned detector keeps its weights resident.
+    // Release capture before response generation; the caller retains KWS weights.
     releaseMicrophone();
+    submitted = true;
     options.onState("transcribing");
-    try {
-      const text = event.samples.length ? await transcribeClassroomVoice(encodeVoiceWav(event.samples, 16000),
-        AbortSignal.any([options.signal, AbortSignal.timeout(30_000)])) : "";
-      if (!stopped && !options.signal.aborted) options.onTranscript(handsfree ? cleanRecordedCommand(text) : text.trim());
-    } catch (error) {
-      if (!options.signal.aborted) fail(error instanceof Error ? error : new Error("本轮语音识别失败，请重试。"));
-    }
+    try { await options.realtime.commit(); }
+    catch (error) { if (!options.signal.aborted) fail(error as Error); }
   }
   options.signal.addEventListener("abort", stop, { once: true });
   try {
     if (options.signal.aborted) throw new DOMException("已停止监听", "AbortError");
     // Model loading happens before microphone permission/capture. No hidden listening during loading.
     if (handsfree) {
+      options.onStartupStage?.("model");
       detector = options.detector ?? new LocalKeywordDetector(options.keywordModel);
       await detector.ready(options.signal);
     }
     if (stopped) throw new DOMException("已停止监听", "AbortError");
-    stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+    options.onStartupStage?.("connection");
+    await awaitVoiceStartup(options.realtime.prepare(), options.signal, 25_000, "实时语音连接超时，尚未开始录音。请检查服务器连接，或使用文字输入。");
+    if (stopped) throw new DOMException("已停止监听", "AbortError");
+    options.onStartupStage?.("microphone");
+    try {
+      stream = await awaitVoiceStartup(navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } }),
+        options.signal, 20_000, "麦克风请求超过20秒仍未返回。请确认浏览器权限提示；内置浏览器或远程桌面无法打开设备时，请在你使用的电脑上用 Edge / Chrome 打开同一课堂地址。",
+        late => late.getTracks().forEach(track => track.stop()));
+    } catch (reason) { if (options.signal.aborted) throw reason; throw await microphoneFailureDetails(reason, options.signal); }
     if (stopped) { stream.getTracks().forEach(track => track.stop()); throw new DOMException("已停止监听", "AbortError"); }
     // The browser resamples microphone input to the model's 16 kHz rate.
     context = new AudioContext({ sampleRate: 16000 });
     if (context.sampleRate !== 16000) throw new Error("当前浏览器无法提供16kHz音频，请更换浏览器。");
-    await context.audioWorklet.addModule("/audio/classroom-microphone.js");
+    options.onStartupStage?.("worklet");
+    await awaitVoiceStartup(context.audioWorklet.addModule("/audio/classroom-microphone.js"), options.signal, 15_000, "麦克风音频处理器加载超时，请检查网络后刷新课堂。");
     if (stopped) throw new DOMException("已停止监听", "AbortError");
-    await context.resume();
+    options.onStartupStage?.("audio");
+    await awaitVoiceStartup(context.resume(), options.signal, 10_000, "浏览器未能启动音频。请在当前课堂页面重新点击开始；若内置浏览器仍无响应，请使用 Edge / Chrome。");
     if (stopped) throw new DOMException("已停止监听", "AbortError");
     if (detector) {
       detector.connect(frame => {
         if (stopped || !receiving) return;
         pendingFrames--; lastReply = Date.now();
-        const updates = recording.push(frame.samples, frame.keywords, Date.now());
+        let updates: RecordingEvent[];
+        try { updates = recording.push(frame.samples, frame.keywords, Date.now()); }
+        catch (error) { fail(error as Error); return; }
         for (const update of updates) void handle(update);
         // Cancellation/timeout/submission wins over a queued pending-state update.
         if (receiving && recording.isRecording && !updates.some(update => update.type !== "recording") && endingPending !== !!frame.endingPending) {
@@ -142,7 +127,8 @@ export async function startVoiceCapture(options: {
     processor.port.onmessage = (event: MessageEvent<Float32Array>) => {
       if (stopped || !receiving) return;
       if (!handsfree) {
-        for (const update of recording.push(event.data, [], Date.now())) void handle(update);
+        try { for (const update of recording.push(event.data, [], Date.now())) void handle(update); }
+        catch (error) { fail(error as Error); }
         return;
       }
       if (++pendingFrames > 24) { fail(new Error("本地关键词检测跟不上收音，监听已关闭。")); return; }
@@ -172,9 +158,6 @@ export async function startVoiceCapture(options: {
     };
   } catch (reason) {
     stop();
-    if (reason instanceof DOMException && reason.name === "NotAllowedError") {
-      throw new Error("未获得麦克风权限，请允许访问后重新开启监听。");
-    }
     throw reason;
   }
 }

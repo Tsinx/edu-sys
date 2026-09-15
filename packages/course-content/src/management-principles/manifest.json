@@ -1,0 +1,89 @@
+{
+  "version": "management-principles-2026-v2",
+  "phase": 2,
+  "sourcePageCount": 517,
+  "webPageCount": 663,
+  "imageCount": 190,
+  "lessons": [
+    {
+      "number": 1,
+      "title": "管理导论",
+      "slideStart": 1,
+      "slideEnd": 67,
+      "slideTotal": 67,
+      "status": "ready",
+      "sourcePages": 56,
+      "imageCount": 22
+    },
+    {
+      "number": 2,
+      "title": "管理理论的历史演变",
+      "slideStart": 68,
+      "slideEnd": 146,
+      "slideTotal": 79,
+      "status": "ready",
+      "sourcePages": 67,
+      "imageCount": 24
+    },
+    {
+      "number": 3,
+      "title": "决策与决策过程",
+      "slideStart": 147,
+      "slideEnd": 227,
+      "slideTotal": 81,
+      "status": "ready",
+      "sourcePages": 65,
+      "imageCount": 24
+    },
+    {
+      "number": 4,
+      "title": "环境分析与理性决策",
+      "slideStart": 228,
+      "slideEnd": 367,
+      "slideTotal": 140,
+      "status": "ready",
+      "sourcePages": 111,
+      "imageCount": 40
+    },
+    {
+      "number": 5,
+      "title": "决策的实施与调整",
+      "slideStart": 368,
+      "slideEnd": 449,
+      "slideTotal": 82,
+      "status": "ready",
+      "sourcePages": 60,
+      "imageCount": 22
+    },
+    {
+      "number": 6,
+      "title": "组织设计",
+      "slideStart": 450,
+      "slideEnd": 540,
+      "slideTotal": 91,
+      "status": "ready",
+      "sourcePages": 64,
+      "imageCount": 24
+    },
+    {
+      "number": 7,
+      "title": "人员配备",
+      "slideStart": 541,
+      "slideEnd": 606,
+      "slideTotal": 66,
+      "status": "ready",
+      "sourcePages": 55,
+      "imageCount": 20
+    },
+    {
+      "number": 8,
+      "title": "组织文化",
+      "slideStart": 607,
+      "slideEnd": 663,
+      "slideTotal": 57,
+      "status": "ready",
+      "sourcePages": 39,
+      "imageCount": 14
+    }
+  ]
+}

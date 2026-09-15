@@ -1,6 +1,5 @@
 import type {
-  LamRuntimeStatus,
-  TeacherAvatarCommandInput
+  LamRuntimeStatus
 } from "@edu/contracts";
 import {
   CircleAlert,
@@ -17,11 +16,6 @@ import {
   useState
 } from "react";
 
-type VoiceCommand = Extract<
-  TeacherAvatarCommandInput,
-  { inputMode: "voice" }
->;
-
 export type LamConnectionState =
   | "offline"
   | "warming"
@@ -34,24 +28,25 @@ export type LamConnectionState =
   | "error";
 
 export interface LamAvatarController {
-  sendVoice: (input: VoiceCommand) => Promise<boolean>;
   pushDialogueDelta: (turnId: string, delta: string) => boolean;
   finishDialogue: (turnId: string) => boolean;
   interrupt: () => boolean;
   isConnected: () => boolean;
+  beginRealtime?: (turnId: string) => void;
+  pushRealtimeAudio?: (turnId: string, base64: string, sampleRate: number) => void;
+  pushRealtimeText?: (turnId: string, delta: string) => void;
+  finishRealtime?: (turnId: string) => Promise<boolean>;
 }
 
 export interface LamAvatarSurfaceProps {
   runtime: LamRuntimeStatus | undefined;
   concealed?: boolean;
   onConnectionStateChange: (state: LamConnectionState) => void;
-  onHumanTranscript: (message: string) => void;
   onRetry: () => void;
 }
 
 interface LamHandler {
   on(eventName: string, callback: (...args: unknown[]) => void): LamHandler;
-  sendAudio(pcm: Int16Array, transport?: "base64" | "binary"): void;
   interrupt(needSendInterrupt?: boolean): void;
   exit(): void;
   removeAllListeners(): void;
@@ -71,15 +66,6 @@ function setStateFromLam(value: unknown): LamConnectionState | undefined {
   if (value === "Thinking") return "thinking";
   if (value === "Responding") return "speaking";
   return undefined;
-}
-
-function decodeBase64(value: string): ArrayBuffer {
-  const binary = window.atob(value);
-  const bytes = new Uint8Array(binary.length);
-  for (let index = 0; index < binary.length; index += 1) {
-    bytes[index] = binary.charCodeAt(index);
-  }
-  return bytes.buffer;
 }
 
 function sendAvatarText(
@@ -115,35 +101,6 @@ function sendAvatarText(
   return true;
 }
 
-function audioBufferToPcm16(audioBuffer: AudioBuffer): Int16Array {
-  const targetSampleRate = 16_000;
-  const outputLength = Math.max(
-    1,
-    Math.round(audioBuffer.duration * targetSampleRate)
-  );
-  const output = new Int16Array(outputLength);
-  const channelData = Array.from(
-    { length: audioBuffer.numberOfChannels },
-    (_, channel) => audioBuffer.getChannelData(channel)
-  );
-  const sampleRatio = audioBuffer.sampleRate / targetSampleRate;
-
-  for (let index = 0; index < outputLength; index += 1) {
-    const sourceIndex = Math.min(
-      audioBuffer.length - 1,
-      Math.floor(index * sampleRatio)
-    );
-    let sample = 0;
-    for (const channel of channelData) {
-      sample += channel[sourceIndex] ?? 0;
-    }
-    sample /= channelData.length;
-    const clamped = Math.max(-1, Math.min(1, sample));
-    output[index] = clamped < 0 ? clamped * 0x8000 : clamped * 0x7fff;
-  }
-  return output;
-}
-
 export const LamAvatarSurface = forwardRef<
   LamAvatarController,
   LamAvatarSurfaceProps
@@ -152,7 +109,6 @@ export const LamAvatarSurface = forwardRef<
     runtime,
     concealed = false,
     onConnectionStateChange,
-    onHumanTranscript,
     onRetry
   },
   forwardedRef
@@ -183,43 +139,6 @@ export const LamAvatarSurface = forwardRef<
   useImperativeHandle(
     forwardedRef,
     () => ({
-      async sendVoice(input: VoiceCommand) {
-        if (!connectedRef.current || !handlerRef.current) return false;
-        const AudioContextConstructor =
-          window.AudioContext ??
-          (
-            window as typeof window & {
-              webkitAudioContext?: typeof AudioContext;
-            }
-          ).webkitAudioContext;
-        if (!AudioContextConstructor) {
-          throw new Error("当前浏览器无法解码录音");
-        }
-        const audioContext = new AudioContextConstructor();
-        try {
-          const decoded = await audioContext.decodeAudioData(
-            decodeBase64(input.audioBase64)
-          );
-          const pcm = audioBufferToPcm16(decoded);
-          const chunkSize = 3_200;
-          for (let offset = 0; offset < pcm.length; offset += chunkSize) {
-            handlerRef.current?.sendAudio(
-              pcm.slice(offset, Math.min(pcm.length, offset + chunkSize)),
-              "base64"
-            );
-            if (offset > 0 && offset % (chunkSize * 10) === 0) {
-              await new Promise<void>((resolve) =>
-                window.setTimeout(resolve, 0)
-              );
-            }
-          }
-          handlerRef.current?.sendAudio(new Int16Array(8_000), "base64");
-          updateConnectionState("listening");
-          return true;
-        } finally {
-          await audioContext.close();
-        }
-      },
       pushDialogueDelta(turnId: string, delta: string) {
         if (
           !connectedRef.current ||
@@ -370,15 +289,7 @@ export const LamAvatarSurface = forwardRef<
             if (typeof message.payload.text !== "string") {
               return;
             }
-            if (message.role === "human") {
-              if (
-                message.payload.end_of_speech === true &&
-                message.payload.text.trim()
-              ) {
-                onHumanTranscript(message.payload.text.trim());
-              }
-              return;
-            }
+            if (message.role === "human") return;
             // AVATAR_TEXT is echoed for diagnostics, while the subtitle uses
             // the platform SSE as its authoritative low-latency source.
           });

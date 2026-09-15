@@ -36,6 +36,11 @@ try {
   const setCookie=response.headers.get("set-cookie");assert.match(setCookie,/Secure/);assert.match(setCookie,/HttpOnly/);const cookie=setCookie.split(";")[0];
   const teacher=await fetch(address+"/api/me",{headers:{cookie}}).then(r=>r.json());assert.equal(teacher.name,"独立包验收教师");
   const room=await fetch(address+"/api/courses/course-port-management-intro/class-sessions",{method:"POST",headers:{cookie}});assert.equal(room.status,201);
+  const managementResponse=await fetch(address+"/api/courses/management-principles/class-sessions",{method:"POST",headers:{cookie}});assert.equal(managementResponse.status,201);
+  const management=await managementResponse.json();
+  const build=JSON.parse(await readFile(resolve("packages/course-content/src/management-principles/manifest.json"),"utf8"));
+  const finalPage=await fetch(`${address}/api/class-sessions/${management.id}/events`,{method:"POST",headers:{cookie,"Content-Type":"application/json"},body:JSON.stringify({type:"set_slide",index:build.webPageCount})});assert.equal(finalPage.status,201);
+  const sourceResponse=await fetch(address+"/api/courses/management-principles/source-map",{headers:{cookie}});assert.equal(sourceResponse.status,200);
   const manifest=await fetch(address+"/offline-manifest.json").then(r=>r.json());assert.ok(manifest.files.length>40);
   for(const file of manifest.files) {
     const response=await fetch(address+file.url);assert.equal(response.status,200,file.url);
@@ -47,6 +52,6 @@ try {
   const backup=join(temp,"backup");await command(process.execPath,["admin.mjs","backup",backup]);
   const files=(await readdir(backup)).filter(name=>name.endsWith(".sqlite"));assert.ok(files.length>=5);
   for(const file of files){const db=new DatabaseSync(join(backup,file),{readOnly:true});assert.equal(db.prepare("PRAGMA integrity_check").get().integrity_check,"ok");db.close();}
-  const report={checkedAt:new Date().toISOString(),release,productionInstall:true,standaloneStartup:true,sourceAndGpuSubmodulesRequired:false,accountCreation:true,secureCookie:true,failClosed:true,staticRootIsolation:true,backupIntegrity:true,backupDatabases:files.length,node:process.version,scope:"Local HTTP connection to HTTPS-proxy upstream; school TLS, campus routing and real cloud AI are not exercised."};
-  await writeFile(join(release,"verification.json"),JSON.stringify(report,null,2));await writeFile(resolve("output/campus-deployment-review/release.json"),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
+  const report={checkedAt:new Date().toISOString(),release,productionInstall:true,standaloneStartup:true,sourceAndGpuSubmodulesRequired:false,accountCreation:true,secureCookie:true,failClosed:true,staticRootIsolation:true,management:{lessons:build.lessons.length,lastPage:build.webPageCount,teacherSourceMap:true},verifiedResources:manifest.files.length,backupIntegrity:true,backupDatabases:files.length,node:process.version,scope:"Local HTTP connection to HTTPS-proxy upstream; school TLS, campus routing and real cloud AI are not exercised."};
+  await writeFile(join(release,"verification.json"),JSON.stringify(report,null,2));await writeFile(resolve(process.env.EDU_RELEASE_QA_REPORT||"output/campus-deployment-review/release.json"),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
 }finally {if(server){server.kill();await new Promise(resolve=>server.once("close",resolve));}}

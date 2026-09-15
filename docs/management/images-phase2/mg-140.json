@@ -1,0 +1,32 @@
+{
+  "id": "mg-140",
+  "deck": "l6",
+  "page": 11,
+  "title": "组织的发展阶段",
+  "prompt": "Create one independent museum-quality editorial illustration for a Chinese university Principles of Management course. Landscape 16:10. Sophisticated contemporary academic art-book photography of tactile physical spaces and models, exceptional material craftsmanship, warm ivory plaster and paper, charcoal, low-saturation deep teal, restrained brushed brass, soft natural daylight, nuanced human expressions, elegant depth and generous breathing room. Main subject centered toward the right, quiet light-toned left edge suitable for native webpage text; preserve important subjects within the central frame. This is an artistic teaching scenario, not documentary evidence. No written words, letters, numbers, logos, watermarks, charts, arrows, illegible signage, neon, flags, stock-photo handshakes, distorted hands, or collage borders.\nSubject and content basis: Four architectural models of the same organization grow from a tiny studio to a larger coordinated campus while retaining recognizable identity, grounded proportions.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-cae108e3-db48-4db2-8260-9e7ed2674626.png",
+  "original": "output\\management-principles\\images-phase2\\originals\\mg-140.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-140.webp",
+  "originalSha256": "e6882a15bca00cb4b81f49eddb3c499e0388b4f62a38db80d25d1a422fa9b04d",
+  "webSha256": "52f2e633f46955fe108ded47b46f23f192f37207aaa217885f3c06d649b1ffdb",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 118726,
+  "review": {
+    "status": "passed",
+    "reviewedAt": "2026-09-15T12:18:49.169478+00:00",
+    "method": "逐张检查工具返回原件及原件联系表，核对构图、主题、人体、错误文字、比例与页面关联；采用WebP同时进行解码与校验值检查",
+    "label": "艺术示意 · Imagegen"
+  },
+  "pages": [
+    "mg-l6-s011-01"
+  ],
+  "generationPrompt": "Create one independent museum-quality editorial illustration for a Chinese university Principles of Management course. Landscape 16:10. Sophisticated contemporary academic art-book photography of tactile physical spaces and models, exceptional material craftsmanship, warm ivory plaster and paper, charcoal, low-saturation deep teal, restrained brushed brass, soft natural daylight, nuanced human expressions, elegant depth and generous breathing room. Main subject centered toward the right, quiet light-toned left edge suitable for native webpage text; preserve important subjects within the central frame. This is an artistic teaching scenario, not documentary evidence. No written words, letters, numbers, logos, watermarks, charts, arrows, illegible signage, neon, flags, stock-photo handshakes, distorted hands, or collage borders.\nSubject and content basis: Four architectural models of the same organization grow from a tiny studio to a larger coordinated campus while retaining recognizable identity, grounded proportions."
+}

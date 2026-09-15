@@ -61,10 +61,10 @@ test("idle has quiet intervals, blinks and restrained gestures; listening takes 
     if(Math.abs(p.shift)>.1)gestures++;
     if(p.eyeOpen<.2&&!wasBlink)blinks++;
     wasBlink=p.eyeOpen<.2;
-    assert.ok(Math.abs(p.shift)<=.25 && Math.abs(p.z)<=.45);
+    assert.ok(Math.abs(p.shift)<=.85 && Math.abs(p.z)<=1.1);
     assert.equal(p.expressionOpen,0,'idle never invents speech');
   }
-  assert.ok(quiet>60*120*.6,'most idle time should be quiet');
+  assert.ok(quiet>60*120*.5,'most idle time should be free of swaying');
   assert.ok(gestures>60*5,'occasional movement is visible');
   assert.ok(blinks>=18 && blinks<=30,'natural blink spacing');
   let p=neutralXiaomaiPose();

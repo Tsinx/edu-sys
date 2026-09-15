@@ -1,0 +1,32 @@
+{
+  "id": "mg-111",
+  "deck": "l5",
+  "page": 1,
+  "title": "决策走向实施",
+  "prompt": "Create one independent museum-quality editorial illustration for a Chinese university Principles of Management course. Landscape 16:10. Sophisticated contemporary academic art-book photography of tactile physical spaces and models, exceptional material craftsmanship, warm ivory plaster and paper, charcoal, low-saturation deep teal, restrained brushed brass, soft natural daylight, nuanced human expressions, elegant depth and generous breathing room. Main subject centered toward the right, quiet light-toned left edge suitable for native webpage text; preserve important subjects within the central frame. This is an artistic teaching scenario, not documentary evidence. No written words, letters, numbers, logos, watermarks, charts, arrows, illegible signage, neon, flags, stock-photo handshakes, distorted hands, or collage borders.\nSubject and content basis: A sunlit architectural atelier where a shared paper plan becomes a carefully constructed community pavilion model, one team member revises a section while others coordinate material and garden work.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-53ba2de0-826f-499e-993d-e59c66a4481c.png",
+  "original": "output\\management-principles\\images-phase2\\originals\\mg-111.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-111.webp",
+  "originalSha256": "25f86ef7401425afd82c1dd7569aed67d783b8ff45601ddb50eb6d3483bd4465",
+  "webSha256": "02c45965293658043f42b7553395bc0c6c7e82a4f6ec8dcf45a1b887a8342d09",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 217232,
+  "review": {
+    "status": "passed",
+    "reviewedAt": "2026-09-15T12:18:49.169478+00:00",
+    "method": "逐张检查工具返回原件及原件联系表，核对构图、主题、人体、错误文字、比例与页面关联；采用WebP同时进行解码与校验值检查",
+    "label": "艺术示意 · Imagegen"
+  },
+  "pages": [
+    "mg-l5-s001-01"
+  ],
+  "generationPrompt": "Create one museum-quality editorial illustration for lecture 5 of a Chinese university Principles of Management course: implementing and adjusting decisions. Landscape 16:10, exceptionally sophisticated academic art-book style matching an architectural model photographed in soft daylight. An expansive sunlit planning atelier, left side a quiet warm ivory wall and pale work surface with generous negative space for a Chinese title added later as native webpage text. Right two-thirds show an exquisitely crafted miniature community pavilion gradually taking physical form from a restrained paper plan, with small diverse adult teams coordinating measured timber parts, garden planting, and construction details; a leader listens as a colleague thoughtfully revises one section of the plan. Clear sense of planning becoming action with feedback, plausible physical architecture, refined tactile materials. Warm ivory plaster, charcoal, low-saturation deep teal accents, tiny brushed brass details, subtle paper grain, cinematic but soft natural light, elegant depth and intentional composition. Artistic teaching scenario, not documentary evidence. No written words, letters, numbers, logos, watermarks, arrows, charts, illegible signs, neon, stock-photo handshakes, or distorted anatomy. This is one independent illustration, not a collage or multi-panel sheet.\n"
+}

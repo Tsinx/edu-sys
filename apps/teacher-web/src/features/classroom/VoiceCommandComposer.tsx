@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Keyboard, LoaderCircle, Send } from "lucide-react";
 import { HandsFreeVoiceControl } from "./HandsFreeVoiceControl";
+import type { RealtimeCaptureSink } from "./realtime-voice";
 
 interface VoiceCommandComposerProps {
   concealed?: boolean;
@@ -8,13 +9,14 @@ interface VoiceCommandComposerProps {
   collapsible?: boolean;
   onExpand?: () => void;
   disabled?: boolean;
-  continuousAsrConfigured?: boolean;
   assistantBusy?: boolean;
-  onCommand: (text: string, source: "text" | "voice_asr") => Promise<void>;
+  onCommand: (text: string) => Promise<void>;
+  realtime?: RealtimeCaptureSink;
+  voiceUnavailableReason?: string;
 }
 
 export function VoiceCommandComposer({
-  concealed = false, compact = false, collapsible = false, onExpand, disabled = false, continuousAsrConfigured = false, assistantBusy = false, onCommand
+  concealed = false, compact = false, collapsible = false, onExpand, disabled = false, assistantBusy = false, onCommand, realtime, voiceUnavailableReason
 }: VoiceCommandComposerProps) {
   const [mode, setMode] = useState<"manual" | "handsfree" | "text">("manual");
   const [text, setText] = useState("");
@@ -28,7 +30,7 @@ export function VoiceCommandComposer({
   blocked.current = disabled || assistantBusy;
   useEffect(() => { active.current = true; return () => { active.current = false; }; }, []);
 
-  async function submit(command: string, source: "text" | "voice_asr") {
+  async function submit(command: string) {
     command = command.trim();
     if (!command || blocked.current || pending.current || !active.current) return;
     if (command.length > 500) throw new Error("指令不能超过500字，请缩短后重试。");
@@ -36,7 +38,7 @@ export function VoiceCommandComposer({
     setSending(true);
     setError("");
     try {
-      await onCommand(command, source);
+      await onCommand(command);
     } finally {
       pending.current = false;
       if (active.current) setSending(false);
@@ -47,7 +49,7 @@ export function VoiceCommandComposer({
     event.preventDefault();
     if (!text.trim() || blocked.current || pending.current) return;
     try {
-      await submit(text, "text");
+      await submit(text);
       if (active.current) setText("");
     } catch (reason) {
       if (active.current) setError((reason as Error).message);
@@ -62,6 +64,7 @@ export function VoiceCommandComposer({
         <Keyboard size={15} />{inputsExpanded ? "隐藏输入" : "显示输入"}
       </button>}
       <div className="teacher-command-composer__header"><strong>向助教发出指令</strong><span>选择输入方式</span></div>
+      {!concealed && !inputsCollapsed && <p className="classroom-voice-status">实时语音{!realtime ? " · 暂不可用" : ""}</p>}
       <div className="command-input-modes" aria-label="选择输入方式">
         {([["handsfree", "检测输入"], ["manual", "按键输入"], ["text", "文字输入"]] as const).map(([value, label]) => (
           <button key={value} type="button" aria-pressed={mode === value} disabled={sending}
@@ -69,9 +72,8 @@ export function VoiceCommandComposer({
         ))}
       </div>
       {mode !== "text" ? (
-        <HandsFreeVoiceControl key={mode} mode={mode} disabled={disabled}
-          configured={continuousAsrConfigured} assistantBusy={assistantBusy}
-          onCommand={command => submit(command, "voice_asr")} />
+        <HandsFreeVoiceControl key={mode} mode={mode} disabled={disabled} realtime={realtime}
+          unavailableReason={voiceUnavailableReason} assistantBusy={assistantBusy} />
       ) : (
         <form className="text-command-row" onSubmit={submitText}>
           <label><span className="sr-only">文字指令</span>

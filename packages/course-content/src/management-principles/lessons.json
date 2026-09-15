@@ -30,5 +30,37 @@
     "slideEnd": 367,
     "slideTotal": 140,
     "status": "ready"
+  },
+  {
+    "number": 5,
+    "title": "决策的实施与调整",
+    "slideStart": 368,
+    "slideEnd": 449,
+    "slideTotal": 82,
+    "status": "ready"
+  },
+  {
+    "number": 6,
+    "title": "组织设计",
+    "slideStart": 450,
+    "slideEnd": 540,
+    "slideTotal": 91,
+    "status": "ready"
+  },
+  {
+    "number": 7,
+    "title": "人员配备",
+    "slideStart": 541,
+    "slideEnd": 606,
+    "slideTotal": 66,
+    "status": "ready"
+  },
+  {
+    "number": 8,
+    "title": "组织文化",
+    "slideStart": 607,
+    "slideEnd": 663,
+    "slideTotal": 57,
+    "status": "ready"
   }
 ]

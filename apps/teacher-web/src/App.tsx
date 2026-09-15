@@ -1,3 +1,4 @@
+import {MANAGEMENT_BUILD, MANAGEMENT_LESSONS, MANAGEMENT_SLIDES} from '@edu/course-content/management-principles';
 import { getCourseDeckByCourseId, getCoursePresentation } from "@edu/course-content/deck-registry";
 import { ManagementCourseOverview } from "./features/management-principles/ManagementTeacherTools";
 import type {
@@ -689,8 +690,8 @@ function CourseDetailPage() {
   const isStatisticalAnalysis = course.id === STATISTICAL_ANALYSIS_COURSE_ID;
   const isManagement = course.id === "management-principles";
   const lessonPreparationSteps = isManagement ? [
-    {label:"讲次范围",status:"前四讲 · 原299页"},{label:"课堂 Slides",status:"367个连续网页页面"},
-    {label:"课堂演示",status:"8处教师推进 · 同步观看"},{label:"课程署名",status:"管理学课程组 · 韦笑"}
+    {label:"讲次范围",status:`前${MANAGEMENT_LESSONS.length}讲 · 原${MANAGEMENT_BUILD.sourcePageCount}页`},{label:"课堂 Slides",status:`${MANAGEMENT_SLIDES.length}个连续网页页面`},
+    {label:"课堂演示",status:`${MANAGEMENT_SLIDES.filter(slide=>slide.demo).length}处教师推进 · 同步观看`},{label:"课程署名",status:"管理学课程组 · 韦笑"}
   ] : isStatisticalAnalysis ? [
     {label:"课程大纲",status:"32课时 · 16讲"}, {label:"课堂 Slides",status:"前两讲100页 · 48+52"},
     {label:"教学方式",status:"LBL讲解 · 教师翻页揭示"}, {label:"数据与图形",status:"可复现教学数据 · 24张原创配图"}
@@ -808,7 +809,7 @@ function CourseDetailPage() {
           )}
           <ul>
             <li><CheckCircle2 size={15} /> 课程与章节已关联</li>
-            <li><CheckCircle2 size={15} /> {isManagement ? "前四讲网页课件已关联" : isStatisticalAnalysis ? "第1、2讲完整课件已关联" : course.id === ECONOMIC_MATHEMATICS_COURSE_ID ? "32讲手工课件已关联" : "实时数字人接口已预留"}</li>
+            <li><CheckCircle2 size={15} /> {isManagement ? `前${MANAGEMENT_LESSONS.length}讲网页课件已关联` : isStatisticalAnalysis ? "第1、2讲完整课件已关联" : course.id === ECONOMIC_MATHEMATICS_COURSE_ID ? "32讲手工课件已关联" : "实时数字人接口已预留"}</li>
             <li><CircleAlert size={15} /> {isManagement ? "原页定位、分步演示与学生同步" : isStatisticalAnalysis ? "教师播放、讲解备注与学生同步" : course.id === ECONOMIC_MATHEMATICS_COURSE_ID ? "支持课件同步、点名与答题" : "GPU 服务按需启动"}</li>
           </ul>
         </aside>

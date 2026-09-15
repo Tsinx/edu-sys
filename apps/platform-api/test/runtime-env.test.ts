@@ -32,7 +32,9 @@ test("package and repository starts load root voice configuration, preserving ex
     assert.deepEqual(await run(packageDir, { EDU_ENV_FILE: "custom.env", DASHSCOPE_API_KEY: "process-key" }), { key: "process-key", voice: "custom-voice" });
     assert.deepEqual(await run(packageDir, { EDU_ENV_FILE: "custom.env", dashscope_api_key: "lowercase-process-key" }), { key: "lowercase-process-key", voice: "custom-voice" });
     assert.deepEqual(await run(packageDir, { EDU_ENV_FILE: "custom.env", DASHSCOPE_API_KEY: "  " }), { key: "file-key", voice: "custom-voice" });
-    assert.deepEqual(await run(packageDir, { EDU_ENV_FILE: "custom.env", DASHSCOPE_API_KEY: "  ", dashscope_api_key: " lowercase-process-key " }), { key: "lowercase-process-key", voice: "custom-voice" });
+    // Windows child-process environments are case-insensitive: Node keeps the
+    // first case-sorted alias, so these two entries cannot coexist there.
+    assert.deepEqual(await run(packageDir, { EDU_ENV_FILE: "custom.env", DASHSCOPE_API_KEY: "  ", dashscope_api_key: " lowercase-process-key " }), { key: process.platform === "win32" ? "file-key" : "lowercase-process-key", voice: "custom-voice" });
     await writeFile(join(packageDir, "lowercase.env"), "dashscope_api_key=lowercase-file-key\n");
     assert.deepEqual(await run(packageDir, { EDU_ENV_FILE: "lowercase.env" }), { key: "lowercase-file-key" });
     await writeFile(join(packageDir, "assistant.env"), "DASHSCOPE_API_KEY=file-fallback\nEDU_ASSISTANT_API_KEY=file-assistant\n");

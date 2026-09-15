@@ -4,14 +4,15 @@ import assert from 'node:assert/strict';
 const require=createRequire('C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/entry.js');
 const {chromium}=require('playwright');
 const slides=JSON.parse(await fs.readFile('packages/course-content/src/management-principles/pages.json','utf8')).filter(p=>p.demo);
-const out='output/management-principles/qa/demos';await fs.mkdir(out,{recursive:true});const browser=await chromium.launch({headless:true});const results=[],errors=[];
+const out='output/management-principles/qa-phase2/demos';await fs.mkdir(out,{recursive:true});const browser=await chromium.launch({headless:true});const results=[],errors=[];
 for(const width of [1600,390]){
  const page=await browser.newPage({viewport:{width,height:width===1600?1100:844}});page.on('pageerror',e=>errors.push(e.message));
  for(const slide of slides){
-  await page.goto(`http://127.0.0.1:5191/management-preview.html?page=${slide.index}`);await page.locator('.mg-demo').waitFor();
-  const select=page.locator('.mg-demo select'),options=await select.count()?await select.locator('option').evaluateAll(o=>o.map(x=>x.value)):['default'];
+  await page.goto(`http://127.0.0.1:5173/management-preview.html?page=${slide.index}`);await page.locator('.mg-demo').waitFor();
+  const range=page.locator('.mg-demo input[type=range]');
+  const select=page.locator('.mg-demo select'),options=await select.count()?await select.locator('option').evaluateAll(o=>o.map(x=>x.value)):slide.demo==='span-hierarchy'?['2','3','4','5','6','7','8']:['default'];
   for(const option of options){
-   await page.getByRole('button',{name:'重置',exact:true}).click();if(option!=='default')await select.selectOption(option);
+   await page.getByRole('button',{name:'重置',exact:true}).click();if(option!=='default'){if(slide.demo==='span-hierarchy')await range.fill(option);else await select.selectOption(option);}
    let step=0;
    while(true){
     await page.evaluate(()=>document.fonts.ready);

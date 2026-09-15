@@ -1,0 +1,40 @@
+{
+	admin 127.0.0.1:2020
+	persist_config off
+	default_bind 127.0.0.1 [::1]
+	skip_install_trust
+	storage file_system "{$EDU_CADDY_STORAGE}"
+	pki {
+		ca local {
+			name "edu-sys local development"
+		}
+	}
+}
+
+# Declare HTTP explicitly so redirects also bind only to loopback.
+http://localhost {
+	redir https://localhost{uri} 308
+}
+
+https://localhost {
+	tls internal
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy same-origin
+		X-Frame-Options SAMEORIGIN
+	}
+
+	@api path /api /api/*
+	handle @api {
+		reverse_proxy 127.0.0.1:4300 {
+			flush_interval -1
+		}
+	}
+
+	# Vite serves source modules, HMR WebSockets and the optional avatar proxy.
+	handle {
+		reverse_proxy 127.0.0.1:5173 {
+			flush_interval -1
+		}
+	}
+}

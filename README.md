@@ -36,6 +36,13 @@ pnpm build:campus
 或项目根目录的 `start-classroom.bat`。视频数字人和 Live2D 在浏览器中运行，
 LAM 按需手动启动。使用与日志说明见 [Windows 一键启动](docs/classroom-launcher.md)。
 
+本机 HTTPS 热更新调试：双击 `start-classroom-https.bat`，访问 `https://localhost/`。
+启动器会安装并校验项目专用 Caddy、信任当前 Windows 用户的本地开发证书，
+代理 API 4300 和 Vite 5173。管理命令与端口说明见 [本地 Caddy 调试](deploy/local/README.md)。
+
+课堂助手的按键录音与唤醒录音统一使用实时语音，进入课堂后自动准备连接；文字输入和自学助手保留。
+实时语音配置、上下文与课堂控制说明见 [课堂实时语音](docs/classroom-realtime-voice.md)。
+
 安装前端与平台 API 依赖：
 
 ```powershell

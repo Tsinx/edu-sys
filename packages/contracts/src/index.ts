@@ -1853,3 +1853,4 @@ export type TeacherAvatarCommandResponse = z.infer<
 
 export * from "./streaming-json.js";
 export * from "./classroom-participation.js";
+export * from "./classroom-realtime.js";

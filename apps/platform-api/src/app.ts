@@ -68,6 +68,8 @@ import {
 } from "./store.js";
 import { getLamRuntimeStatus } from "./avatar-runtime.js";
 import { ClassroomAssistantOrchestrator } from "./assistant/orchestrator.js";
+import { registerRealtimeRoutes } from "./assistant/realtime-routes.js";
+import { realtimeConfig, realtimeAvailable, type RealtimeConfig, type RealtimeTransport } from "./assistant/realtime-provider.js";
 import { registerAssistantPromptRoutes } from "./assistant/prompt-routes.js";
 import {
   AssistantProviderError,
@@ -77,7 +79,6 @@ import {
 import { StudyAssistantOrchestrator } from "./study/orchestrator.js";
 import {
   DashScopeStudySpeechProvider,
-  StudyAsrNoSpeechError,
   StudySpeechProviderError,
   type StudySpeechProvider
 } from "./study/speech.js";
@@ -111,6 +112,8 @@ export interface BuildAppOptions {
   publicOrigin?: string;
   staticRoot?: string;
   aiLimits?: Partial<AiLimits>;
+  realtimeConfig?: RealtimeConfig;
+  realtimeTransportFactory?: () => RealtimeTransport;
 }
 
 function extractCompleteSpeechSegments(value: string): {
@@ -278,6 +281,10 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     options.studySpeechProvider ?? new DashScopeStudySpeechProvider();
   const activeAssistantTurns = new Map<string, AbortController>();
   const activeStudyAssistantTurns = new Map<string, AbortController>();
+  const realtime = options.realtimeConfig ?? realtimeConfig();
+  registerRealtimeRoutes(app, { store, config: realtime, campusMode, publicOrigin: options.publicOrigin,
+    requireTeacher: request => requireActor(request, "teacher"), activeTurns: activeAssistantTurns,
+    admission: aiAdmission, transportFactory: options.realtimeTransportFactory });
 
   await app.register(cors, { origin: campusMode ? (options.publicOrigin ?? false) : true, credentials: true });
   app.addHook("preClose", async()=>{
@@ -331,7 +338,8 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     simulation: "local_solo",
     synchronization: "checkpoints-v1",
     studentAiEnabled: options.studentAiEnabled ?? true,
-    speech: { asr: studySpeechProvider.asrConfigured, tts: studySpeechProvider.ttsConfigured }
+    speech: { asr: studySpeechProvider.asrConfigured, tts: studySpeechProvider.ttsConfigured,
+      realtime: { available: realtimeAvailable(realtime) } }
   }));
   app.post("/api/identity/login", async (request,reply) => {
     if (!(identityProvider instanceof CampusIdentityProvider)) return reply.code(404).send({ message: "当前使用开发身份入口。" });
@@ -436,16 +444,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   );
 
   app.post("/api/teacher/asr", async (request, reply) => {
-    const input=studyAsrInputSchema.parse(request.body);
-    if (!studySpeechProvider.asrConfigured) return reply.code(503).send({ message: "尚未配置课堂语音识别，请使用文字输入。" });
-    try {
-      const text=await studySpeechProvider.transcribe({ ...input,context:"教学课堂语音。可能出现的口令：助教你好、你好助教、谢谢助教、助教请回答、助教取消。助教名称：小麦老师；兼容别名：澜舟，也可能出现澜舟你好、谢谢澜舟、澜舟取消。仅转写实际听到的内容，不补写口令。",signal:aiSignal(request) });
-      return {text};
-    } catch (error) {
-      // Continuous capture can contain a click, breath or background noise. Keep listening.
-      if (error instanceof StudyAsrNoSpeechError) return { text: "", status: "no_speech" };
-      throw error;
-    }
+    return reply.code(410).send({ error: "CLASSROOM_REALTIME_REQUIRED", message: "课堂语音已统一使用实时连接，请刷新课堂页面；文字输入仍可使用。" });
   });
   app.post("/api/teacher/tts", async (request,reply) => {
     const {text,voiceProfile,lipSync}=z.object({text:z.string().min(1).max(3000),voiceProfile:avatarVoiceProfileSchema.optional(),lipSync:z.boolean().optional()}).parse(request.body);
@@ -1620,6 +1619,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     "/api/class-sessions/:id/avatar/commands",
     async (request, reply) => {
       const input = teacherAvatarCommandInputSchema.parse(request.body);
+      if (input.inputMode === "voice") return reply.code(410).send({ error: "CLASSROOM_REALTIME_REQUIRED", message: "课堂录音请通过实时语音连接发送。" });
       const command = await store.submitAvatarCommand(request.params.id, input);
       if (!command) {
         return reply.status(404).send({
@@ -1648,6 +1648,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
         });
       }
       const input = assistantTurnInputSchema.parse(request.body);
+      if (input.source === "voice_asr") return reply.code(410).send({ error: "CLASSROOM_REALTIME_REQUIRED", message: "课堂语音已统一使用实时连接，当前接口只接收文字输入。" });
       const turnId = `assistant-turn-${randomUUID()}`;
       const startedAt = new Date().toISOString();
       const startedAtMs = Date.now();
@@ -1686,10 +1687,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       await store.updateAvatarRuntime(request.params.id, {
         status: "thinking",
         currentTask: input.text,
-        lastMessage:
-          input.source === "voice_asr"
-            ? `ASR 识别：${input.text}`
-            : `教师输入：${input.text}`
+        lastMessage: `教师输入：${input.text}`
       });
 
       const stream = assistantOrchestrator.startTurn(

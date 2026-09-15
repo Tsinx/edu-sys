@@ -1,11 +1,14 @@
 import pages from './pages.json' with {type:'json'};
 import lessons from './lessons.json' with {type:'json'};
+import manifest from './manifest.json' with {type:'json'};
 import type { ManagementSlide } from './types.js';
 export * from './types.js';
 export * from './interactions.js';
 export const MANAGEMENT_COURSE_ID='management-principles';
 export const MANAGEMENT_DECK_ID='deck-management-principles';
-export const MANAGEMENT_VERSION_ID='management-principles-2026-v1';
+export const MANAGEMENT_VERSION_ID=manifest.version;
+export const MANAGEMENT_BUILD=manifest;
+export const MANAGEMENT_CONSTRUCTION_SUMMARY=`管理学课程组 · 韦笑。前${manifest.lessons.length}讲根据${manifest.sourcePageCount}页原始课件建设，课程代码与总学时待完善。`;
 export const MANAGEMENT_ATTRIBUTION='管理学课程组 · 韦笑';
 export const MANAGEMENT_SLIDES=pages as ManagementSlide[];
 export const MANAGEMENT_LESSONS=lessons.map(l=>({...l,status:'ready' as const}));

@@ -1,0 +1,32 @@
+{
+  "id": "mg-180",
+  "deck": "l8",
+  "page": 12,
+  "title": "从行为理解文化",
+  "prompt": "Create one independent museum-quality editorial illustration for a Chinese university Principles of Management course. Landscape 16:10. Sophisticated contemporary academic art-book photography of tactile physical spaces and models, exceptional material craftsmanship, warm ivory plaster and paper, charcoal, low-saturation deep teal, restrained brushed brass, soft natural daylight, nuanced human expressions, elegant depth and generous breathing room. Main subject centered toward the right, quiet light-toned left edge suitable for native webpage text; preserve important subjects within the central frame. This is an artistic teaching scenario, not documentary evidence. No written words, letters, numbers, logos, watermarks, charts, arrows, illegible signage, neon, flags, stock-photo handshakes, distorted hands, or collage borders.\nSubject and content basis: A thoughtful visitor observes how colleagues share tools, welcome a newcomer and discuss a mistake in an open studio, evidence visible in ordinary behavior.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-9164440d-1b98-4767-9e32-7d8fc4c13e60.png",
+  "original": "output\\management-principles\\images-phase2\\originals\\mg-180.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-180.webp",
+  "originalSha256": "f6d7dafb1aedf9706c78a04c40ab002b79d4fb530de6267db9e1543bffdbe303",
+  "webSha256": "85b5563c3277aea00a6e773279b2e6600ff5ab142f1cbc61071b2ad935730386",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 131164,
+  "review": {
+    "status": "passed",
+    "reviewedAt": "2026-09-15T12:18:49.169478+00:00",
+    "method": "逐张检查工具返回原件及原件联系表，核对构图、主题、人体、错误文字、比例与页面关联；采用WebP同时进行解码与校验值检查",
+    "label": "艺术示意 · Imagegen"
+  },
+  "pages": [
+    "mg-l8-s012-01"
+  ],
+  "generationPrompt": "Create one independent museum-quality editorial illustration for a Chinese university Principles of Management course. Landscape 16:10. Sophisticated contemporary academic art-book photography of tactile physical spaces and models, exceptional material craftsmanship, warm ivory plaster and paper, charcoal, low-saturation deep teal, restrained brushed brass, soft natural daylight, nuanced human expressions, elegant depth and generous breathing room. Main subject centered toward the right, quiet light-toned left edge suitable for native webpage text; preserve important subjects within the central frame. This is an artistic teaching scenario, not documentary evidence. No written words, letters, numbers, logos, watermarks, charts, arrows, illegible signage, neon, flags, stock-photo handshakes, distorted hands, or collage borders.\nSubject and content basis: A thoughtful visitor observes how colleagues share tools, welcome a newcomer and discuss a mistake in an open studio, evidence visible in ordinary behavior."
+}

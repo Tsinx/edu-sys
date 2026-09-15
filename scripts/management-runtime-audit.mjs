@@ -5,7 +5,8 @@ const require=createRequire('C:/Users/Administrator/.cache/codex-runtimes/codex-
 const {chromium}=require('playwright');
 const base=process.env.MANAGEMENT_QA_ORIGIN||'http://127.0.0.1:4314';
 const pages=JSON.parse(await fs.readFile('packages/course-content/src/management-principles/pages.json','utf8'));
-const out='output/management-principles/qa/runtime';await fs.mkdir(out,{recursive:true});
+const build=JSON.parse(await fs.readFile('packages/course-content/src/management-principles/manifest.json','utf8'));
+const out='output/management-principles/qa-phase2/runtime';await fs.mkdir(out,{recursive:true});
 const browser=await chromium.launch({headless:true,args:['--use-angle=swiftshader','--enable-unsafe-swiftshader']});
 const teacher=await browser.newContext({viewport:{width:1600,height:1100}}),student=await browser.newContext({viewport:{width:1600,height:1100}});
 const t=await teacher.newPage(),s=await student.newPage(),checks=[],canvases=[],errors=[],netImages=new Set();let session;
@@ -16,23 +17,27 @@ const goto=async(index)=>{const r=await teacher.request.post(`${base}/api/class-
 const decode=async(p)=>p.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.querySelectorAll('.mg-slide img')].map(i=>i.decode()));await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));});
 try{
  for(const[c,role]of[[teacher,'teacher'],[student,'student']])assert.equal((await c.request.post(`${base}/api/identity/development/session`,{data:{role}})).status(),201);
- await check('four lecture course workspace, missing formal fields and correct attribution',async()=>{
-  await t.goto(`${base}/courses/management-principles`);await t.locator('.mg-course-overview').waitFor();assert.equal(await t.locator('.mg-course-overview button').count(),4);assert.match(await t.locator('.mg-course-overview').innerText(),/韦笑|待完善/);await t.screenshot({path:`${out}/course.png`,fullPage:true});
+ await check('registered lecture course workspace, missing formal fields and correct attribution',async()=>{
+  await t.goto(`${base}/courses/management-principles`);await t.locator('.mg-course-overview').waitFor();assert.equal(await t.locator('.mg-course-overview button').count(),build.lessons.length);assert.match(await t.locator('.mg-course-overview').innerText(),/韦笑|待完善/);await t.screenshot({path:`${out}/course.png`,fullPage:true});
  });
  await check('teacher starts course and independent student joins read-only',async()=>{
   await t.locator('.mg-course-overview button').first().click();await t.waitForURL('**/classroom/**');session=t.url().split('/').at(-1);await t.locator('.mg-slide').waitFor();await s.goto(`${base}/join/${session}`);await s.locator('.mg-slide').waitFor();assert.equal(await s.locator('.mg-source-locator').count(),0);assert.equal(await s.locator('.student-participation').count(),0);assert.ok(netImages.size<10,`eager all-course images: ${netImages.size}`);
  });
  await check('paging, cross-lecture navigation and source-page locator distinguish fourth-lecture files',async()=>{
   await t.getByRole('button',{name:'下一页',exact:true}).click();await s.locator(`[data-management-page="${pages[1].slideKey}"]`).waitFor();
-  await t.getByRole('combobox',{name:'选择课次'}).selectOption('4');await s.locator('[data-management-page="mg-l4a-s001-01"]').waitFor();assert.equal(await t.locator('select[aria-label="选择课次"] option').count(),4);
+  await t.getByRole('combobox',{name:'选择课次'}).selectOption('4');await s.locator('[data-management-page="mg-l4a-s001-01"]').waitFor();assert.equal(await t.locator('select[aria-label="选择课次"] option').count(),build.lessons.length);
   await t.getByRole('button',{name:'原PPT页码定位',exact:true}).click();const panel=t.locator('.mg-source-panel');await panel.locator('select').waitFor();await panel.locator('select').selectOption('l4b');await panel.locator('input').fill('23');await panel.getByRole('button',{name:'定位',exact:true}).click();await s.locator('[data-management-page="mg-l4b-s023-01"]').waitFor();await t.getByRole('button',{name:'收起原页对照',exact:true}).click();
+  await goto(pages.find(p=>p.lessonNumber===5).index-1);await t.getByRole('button',{name:'下一页',exact:true}).click();await s.locator('[data-management-page="mg-l5-s001-01"]').waitFor();
+  await t.getByRole('combobox',{name:'选择课次'}).selectOption('8');await s.locator('[data-management-page="mg-l8-s001-01"]').waitFor();
+  await t.getByRole('button',{name:'原PPT页码定位',exact:true}).click();await panel.locator('select').selectOption('l7');await panel.locator('input').fill('32');await panel.getByRole('button',{name:'定位',exact:true}).click();await s.locator('[data-management-page="mg-l7-s032-01"]').waitFor();await t.getByRole('button',{name:'收起原页对照',exact:true}).click();
   assert.equal((await student.request.get(`${base}/api/courses/management-principles/source-map`)).status(),403);await t.screenshot({path:`${out}/teacher.png`,fullPage:true});
  });
- await check('all eight demos advance, reset, change parameters and synchronize across both browsers',async()=>{
+ await check('all sixteen demos advance, reset, change parameters and synchronize across both browsers',async()=>{
   for(const p of pages.filter(p=>p.demo)){
    await goto(p.index);const next=t.getByRole('button',{name:'下一步',exact:true});let step=0;
    while(!await next.isDisabled()){await next.click();step++;await s.waitForFunction(expected=>document.querySelector('.mg-demo-heading>span')?.textContent?.startsWith(`${expected+1} /`),step);}
    const range=t.locator('.mg-demo input[type=range]').first();if(await range.count()){await range.focus();await range.press('End');const expected=await t.locator('.mg-demo output').first().innerText();await s.waitForFunction(value=>document.querySelector('.mg-demo output')?.textContent===value,expected);}
+   if(p.lessonNumber>=5){await t.reload();await s.reload();for(const v of[t,s])await v.locator(`[data-management-page="${p.slideKey}"]`).waitFor();assert.match(await s.locator('.mg-demo-heading>span').innerText(),new RegExp(`^${step+1} /`));}
    await decode(s);await s.screenshot({path:`${out}/demo-${p.demo}.png`,fullPage:true});assert.equal(await s.locator('.mg-step-buttons').count(),0);
    await t.getByRole('button',{name:'重置',exact:true}).click();await s.waitForFunction(()=>document.querySelector('.mg-demo-heading>span')?.textContent?.startsWith('1 /'));
   }
@@ -44,7 +49,7 @@ try{
   await t.getByRole('button',{name:'下一步',exact:true}).click();await t.waitForTimeout(100);await t.getByRole('button',{name:'下一步',exact:true}).click();await s.waitForFunction(()=>document.querySelector('.mg-demo-heading>span')?.textContent?.startsWith('4 /'));
   prompt=await(await teacher.request.get(`${base}/api/class-sessions/${session}/assistant-prompts`)).json();assert.match(prompt.compiled,/净收益34/);await t.getByRole('button',{name:'重置',exact:true}).click();
  });
- await check('all 367 pages in teacher and student classrooms at desktop and narrow widths',async()=>{
+ await check('all registered pages in teacher and student classrooms at desktop and narrow widths',async()=>{
   for(const width of[390,1600]){
    const height=width===1600?1100:844;await t.setViewportSize({width,height});await s.setViewportSize({width,height});
    for(const p of pages){await goto(p.index);

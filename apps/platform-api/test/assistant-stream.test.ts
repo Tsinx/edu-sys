@@ -113,7 +113,7 @@ test("assistant SSE suppresses legacy control acknowledgements and validates act
       url: `/api/class-sessions/${sessionId}/assistant/turns`,
       payload: {
         text: "再下一页",
-        source: "voice_asr"
+        source: "text"
       }
     });
     const invalidEvents = parseSseEvents(invalidResponse.body);
@@ -217,7 +217,7 @@ test("control-only turns stay silent while questions and explicitly requested ex
     const id = created.json().id;
     for (const [index, item] of cases.entries()) {
       const response = await app.inject({ method: "POST", url: `/api/class-sessions/${id}/assistant/turns`,
-        payload: { text: item.text, source: index % 2 ? "voice_asr" : "text" } });
+        payload: { text: item.text, source: "text" } });
       const events = parseSseEvents(response.body);
       assert.equal(events.at(-1)?.type, "turn.completed", response.body);
       assert.equal(events.at(-1)?.dialogue, item.spoken);

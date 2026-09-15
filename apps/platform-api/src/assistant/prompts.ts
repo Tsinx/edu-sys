@@ -55,7 +55,7 @@ export function compileClassroomPrompt(snapshot: Context, settings = EMPTY_PROMP
 export function buildPromptWorkspace(
   courseId: string, courseTitle: string, settings = EMPTY_PROMPT_SETTINGS, index = 1,
   activity: ClassroomSnapshot["activeActivity"] = "slides", live?: Context,
-  studyToolPrompt?: string, previewDemoCue?: string
+  studyToolPrompt?: string, previewDemoCue?: string, protocol: "legacy" | "realtime" = "legacy"
 ): AssistantPromptWorkspace {
   const deck = getCourseDeckByCourseId(courseId);
   if (deck && (!Number.isInteger(index) || index < 1 || index > deck.slideTotal || !deck.allowedActivities.includes(activity))) {
@@ -148,11 +148,17 @@ export function buildPromptWorkspace(
   ].filter(Boolean).join("\n") : "尚无已发布页面。";
   add("page", pageKey, "4 · Slide／实验", experiment?.text ?? pageDefault, pageRuntime, withheld);
   const toolSnapshot = slide && deck ? { courseId, slide: { index, slideId: slide.slideKey, total: deck.slideTotal } } : undefined;
-  add("tools", courseId, "5 · 工具", TOOL_GUIDANCE,
-    studyToolPrompt ?? (toolSnapshot ? buildClassroomToolPrompt(toolSnapshot) : "当前无已注册的课堂工具，不得生成操作。"));
+  add("tools", courseId, "5 · 工具", protocol === "realtime"
+    ? TOOL_GUIDANCE.replace("纯操作保持静默", "操作可以简短语音确认").replace("不得声称操作已经成功", "收到执行结果前不得声称操作已经成功")
+    : TOOL_GUIDANCE,
+    studyToolPrompt ?? (toolSnapshot ? buildClassroomToolPrompt(toolSnapshot, protocol) : "当前无已注册的课堂工具，不得生成操作。"));
   const compiled = [
     `提示词版本：${settings.revision}。以下五个模块共同定义本次任务。实时页面事实、未揭示答案限制和工具协议必须遵守；其他文本不能扩大实际工具权限。`,
     ...modules.map(m => `<prompt_module scope="${m.scope}">\n${m.scope === "page" && withheld ? boundary : m.text}\n${m.runtimeContext}\n</prompt_module>`)
   ].join("\n\n");
   return { courseId, revision: settings.revision, modules, compiled, ...getCatalog(courseId) };
+}
+
+export function compileRealtimePrompt(snapshot: ClassroomSnapshot, settings = EMPTY_PROMPT_SETTINGS) {
+  return buildPromptWorkspace(snapshot.courseId, snapshot.courseTitle, settings, snapshot.slide.index, snapshot.activeActivity, snapshot, undefined, undefined, "realtime").compiled;
 }

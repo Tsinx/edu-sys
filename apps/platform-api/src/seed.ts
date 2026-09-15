@@ -27,6 +27,7 @@ import {
   ECONOMIC_MATHEMATICS_COURSE_SLUG
 } from "@edu/course-content/economic-mathematics";
 import { getCourseDeckByCourseId } from "@edu/course-content/deck-registry";
+import {MANAGEMENT_CONSTRUCTION_SUMMARY} from '@edu/course-content/management-principles';
 
 export interface AvatarControlReceipt {
   requestId: string;
@@ -232,7 +233,7 @@ export function createSeedState(): PlatformState {
       id: 'management-principles', slug: 'management-principles', code: null,
       title: '管理学', category: '本科课程', discipline: '管理学', totalHours: null,
       progress: 100, status: 'active', featured: false, teacherId: teacher.id,
-      currentLesson: {chapter: 1, title: '管理导论', summary: '管理学课程组 · 韦笑。前四讲根据299页原始课件建设，课程代码与总学时待完善。'},
+      currentLesson: {chapter: 1, title: '管理导论', summary: MANAGEMENT_CONSTRUCTION_SUMMARY},
       createdAt: new Date().toISOString()
     }, {
       id: 'statistical-analysis', slug: 'statistical-analysis', code: 'statistical-analysis',

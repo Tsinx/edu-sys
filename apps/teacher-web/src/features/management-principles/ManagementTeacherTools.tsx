@@ -1,9 +1,9 @@
 import {useEffect,useState} from 'react';
-import {MANAGEMENT_LESSONS,MANAGEMENT_SLIDES} from '@edu/course-content/management-principles';
+import {MANAGEMENT_BUILD, MANAGEMENT_LESSONS,MANAGEMENT_SLIDES} from '@edu/course-content/management-principles';
 import './teacher-tools.css';
 type Mapping={slideKey:string;index:number;documentId:string;originalFile:string;originalPage:number;splitIndex:number;splitTotal:number;modifications:string[];teachingCue:string;sha256:string};
 export function ManagementCourseOverview({onStart,busy}:{onStart:(lesson:number)=>void;busy:boolean}){
-  return <section className="mg-course-overview" aria-label="管理学四讲目录"><h3>管理学课程组 · 韦笑</h3><p>299个原页，{MANAGEMENT_SLIDES.length}个连续网页页面。课程代码、总学时待完善。</p><div>{MANAGEMENT_LESSONS.map(l=><button key={l.number} disabled={busy} onClick={()=>onStart(l.number)}><span>0{l.number}</span><strong>{l.title}</strong><small>{l.slideTotal}页 · 开始授课</small></button>)}</div><p>第四讲由《环境分析与理性决策》两份原文件依次衔接。课堂内可按原文件和原页码定位。</p></section>;
+  return <section className="mg-course-overview" aria-label={`管理学前${MANAGEMENT_LESSONS.length}讲目录`}><h3>管理学课程组 · 韦笑</h3><p>{MANAGEMENT_BUILD.sourcePageCount}个原页，{MANAGEMENT_SLIDES.length}个连续网页页面。课程代码、总学时待完善。</p><div>{MANAGEMENT_LESSONS.map(l=><button key={l.number} disabled={busy} onClick={()=>onStart(l.number)}><span>0{l.number}</span><strong>{l.title}</strong><small>{l.slideTotal}页 · 开始授课</small></button>)}</div><p>第四讲由《环境分析与理性决策》两份原文件依次衔接。课堂内可按原文件和原页码定位。</p></section>;
 }
 export function ManagementSourceLocator({index,onJump}:{index:number;onJump:(index:number)=>void}){
   const [open,setOpen]=useState(false),[rows,setRows]=useState<Mapping[]>([]),[error,setError]=useState(''),[doc,setDoc]=useState('l1'),[page,setPage]=useState(1);

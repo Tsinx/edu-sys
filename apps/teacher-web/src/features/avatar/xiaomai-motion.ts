@@ -42,7 +42,7 @@ export class XiaomaiMotion {
   private glanceAt=-10;
   private glanceX=0;
   private glanceY=0;
-  private nextIdleGesture=10;
+  private nextIdleGesture=5;
   private idleGestureAt=-10;
   private idleGestureSide=1;
   private nextEmphasis=4;
@@ -57,7 +57,7 @@ export class XiaomaiMotion {
     const t=this.time-this.changed, st=this.time-this.stateChanged;
     if(this.time>=this.nextBlink){this.blinkAt=this.time;this.nextBlink=this.time+3.2+this.random()*3.5;}
     if(this.time>=this.nextGlance){this.glanceAt=this.time;this.glanceX=(this.random()-.5)*.5;this.glanceY=(this.random()-.5)*.24;this.nextGlance=this.time+12+this.random()*10;}
-    // Quiet intervals between gestures: one 4.5-second shift every 14–24 seconds,
+    // Quiet intervals between gestures: one 6-second shift every 14–24 seconds,
     // with a small smile. Listening/thinking/speech take priority immediately.
     if(state==="idle" && this.time>=this.nextIdleGesture){this.idleGestureAt=this.time;this.idleGestureSide=this.random()<.5?-1:1;this.nextIdleGesture=this.time+14+this.random()*10;}
     if(state==="speaking" && level>.08 && this.time>=this.nextEmphasis){this.emphasisAt=this.time;this.nextEmphasis=this.time+5+this.random()*3;}
@@ -67,8 +67,16 @@ export class XiaomaiMotion {
     const p=neutralXiaomaiPose();
     p.eyeOpen=1-blink; p.eyeX=this.glanceX*glance;p.eyeY=this.glanceY*glance;
     p.breath=Math.sin(this.time*Math.PI*2/5.6);
-    const idleGesture=pulse(this.time-this.idleGestureAt,4.5);
-    if(state==="idle"){p.shift=.25*idleGesture*this.idleGestureSide;p.bodyTurn=.12*idleGesture*this.idleGestureSide;p.z=.45*idleGesture*this.idleGestureSide;p.smile=.16*idleGesture;}
+    const idleGesture=pulse(this.time-this.idleGestureAt,6);
+    const applyIdle=()=>{
+      // More readable at classroom size: shoulders and head share the same
+      // breathing warp, with the bottom of the bust anchored. No head yaw.
+      p.breath=3*Math.sin(this.time*Math.PI*2/5.6);
+      p.shift=.85*idleGesture*this.idleGestureSide;
+      p.bodyTurn=.2*idleGesture*this.idleGestureSide;
+      p.z=1.1*idleGesture*this.idleGestureSide;p.smile=.16*idleGesture;
+    };
+    if(state==="idle")applyIdle();
     if(state==="thinking"){p.y=1.5;p.z=-2;p.eyeX=-.3;p.eyeY=-.18;p.browL=.2;p.browAngle=.2;p.bodyTurn=-.15;}
     if(state==="listening"){p.eyeX=p.eyeY=0;p.y=1.4-2*pulse(st-4,1.4);p.z=1.5;p.browL=.25;p.browR=.25;p.eyeOpen*=.97;p.lean=.25;}
     if(state==="speaking"){p.z=Math.sin(this.time*.6)*.65;p.y=-3*pulse(this.time-this.emphasisAt,.95);p.smile=.12;p.bodyTurn=.12*Math.sin(this.time*.3);}
@@ -93,7 +101,7 @@ export class XiaomaiMotion {
         case "headUp":p.y=8;break;case "headDown":p.y=-8;break;
         case "nod":p.y=-9*pulse(t%2.7,1.3);p.smile=.5;break;
         case "tiltLeft":p.z=-4.5;break;case "tiltRight":p.z=4.5;break;
-        case "breath":p.breath=Math.sin(t*Math.PI*2/5.6);break;
+        case "breath":p.breath=3*Math.sin(t*Math.PI*2/5.6);break;
         case "hair":p.z=3*Math.sin(t*2);break;
         case "bodyLeft":p.bodyTurn=-1;break;
         case "bodyRight":p.bodyTurn=1;break;
@@ -106,7 +114,7 @@ export class XiaomaiMotion {
         case "emphasize":p.browAngle=-.45;p.browL=p.browR=-.1;p.y=-5*pulse(t,1.1);p.lean=.25;break;
         case "briefSmile":p.smile=.8*pulse(t%5,2.1);p.eyeOpen=1-.09*pulse(t%5,2.1);break;
         case "softSquint":p.eyeOpen=.82;p.smile=.3;break;
-        case "idleVariation":p.eyeOpen=1-blink;p.eyeX=this.glanceX*glance;p.eyeY=this.glanceY*glance;p.shift=.25*idleGesture*this.idleGestureSide;p.bodyTurn=.12*idleGesture*this.idleGestureSide;p.z=.45*idleGesture*this.idleGestureSide;p.smile=.16*idleGesture;p.breath=Math.sin(t*Math.PI*2/5.6);break;
+        case "idleVariation":p.eyeOpen=1-blink;p.eyeX=this.glanceX*glance;p.eyeY=this.glanceY*glance;applyIdle();break;
         case "welcome":p.smile=.7*pulse(t,4);p.browL=p.browR=.25*pulse(t,4);p.y=-4*pulse(t-.5,1.4);break;
         case "explain":p.bodyTurn=.2*Math.sin(t*.3);p.y=-2*pulse(t%6,1.3);p.smile=.15;p.eyeOpen=1-blink;break;
         case "ask":p.browAngle=.4*pulse(t,4);p.z=2*pulse(t,4);p.lean=.4*pulse(t,4);break;

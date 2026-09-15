@@ -5,6 +5,7 @@ The output is a private audit corpus, not authored student-facing courseware.
 from __future__ import annotations
 
 import hashlib
+import argparse
 import json
 import posixpath
 import re
@@ -23,6 +24,12 @@ DECKS = [
     (3, "l3", "3 决策与决策过程.pptx", 65),
     (4, "l4a", "4 环境分析与理性决策-1.pptx", 78),
     (4, "l4b", "4 环境分析与理性决策-2.pptx", 33),
+]
+PHASE2_DECKS = [
+    (5, "l5", "5 决策的实施与调整.pptx", 60),
+    (6, "l6", "6 组织设计1.pptx", 64),
+    (7, "l7", "7 人员配备.pptx", 55),
+    (8, "l8", "8 组织文化.pptx", 39),
 ]
 NS = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main", "p": "http://schemas.openxmlformats.org/presentationml/2006/main", "r": "http://schemas.openxmlformats.org/officeDocument/2006/relationships"}
 RID = "{" + NS["r"] + "}"
@@ -111,10 +118,17 @@ def extract_deck(lesson: int, deck_id: str, name: str, expected: int) -> dict:
 
 
 def main() -> None:
+    global OUT
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--phase', type=int, choices=[1, 2], default=1)
+    args = parser.parse_args()
+    selected = DECKS if args.phase == 1 else PHASE2_DECKS
+    if args.phase == 2:
+        OUT = ROOT / 'output' / 'management-principles' / 'source-phase2'
     OUT.mkdir(parents=True, exist_ok=True)
-    decks = [extract_deck(*deck) for deck in DECKS]
+    decks = [extract_deck(*deck) for deck in selected]
     corpus = {"archive": str(ARCHIVE), "archiveSha256": digest(ARCHIVE.read_bytes()), "pageTotal": sum(d["pages"] for d in decks), "decks": decks}
-    assert corpus["pageTotal"] == 299
+    assert corpus["pageTotal"] == sum(deck[3] for deck in selected)
     (OUT / "corpus.json").write_text(json.dumps(corpus, ensure_ascii=False, indent=2), encoding="utf-8")
     for deck in decks:
         text = [f"# {deck['file']}\n"]

@@ -1,7 +1,10 @@
 import type {ManagementDemo, ManagementValues, ManagementTable, ManagementDiagram} from './types.js';
+import {phaseTwoDefinitions,getPhaseTwoVisibleDemo} from './interactions-phase2.js';
+export {calculateManagementHierarchy} from './interactions-phase2.js';
 export interface ManagementControl {key:string;label:string;min?:number;max?:number;step?:number;options?:{value:string;label:string}[]}
 interface Definition {maxStep:number;defaults:Record<string,number|string|boolean>;controls:ManagementControl[]}
 const definitions:Record<ManagementDemo,Definition>={
+  ...phaseTwoDefinitions,
   efficiency:{maxStep:3,defaults:{step:0,resources:60,output:72},controls:[{key:'resources',label:'乙投入资源',min:20,max:140,step:10},{key:'output',label:'乙合格产出',min:0,max:120,step:6}]},
   system:{maxStep:3,defaults:{step:0,middle:8},controls:[{key:'middle',label:'中间环节能力（件/时）',min:2,max:20,step:1}]},
   timeline:{maxStep:5,defaults:{step:0},controls:[]},
@@ -17,6 +20,7 @@ export function validateManagementInteraction(demo:ManagementDemo,patch:Manageme
   if(!def || !Object.keys(patch).length || Object.keys(patch).some(k=>!Object.hasOwn(def.defaults,k)))return false;
   const merged={...def.defaults,...current,...patch};
   if(typeof merged.step!=='number'||!Number.isInteger(merged.step)||merged.step<0||merged.step>def.maxStep)return false;
+  if(demo==='span-hierarchy'&&!Number.isInteger(merged.span))return false;
   return def.controls.every(c=>c.options?c.options.some(o=>o.value===merged[c.key]):typeof merged[c.key]==='number'&&Number.isFinite(merged[c.key])&&(merged[c.key] as number)>=c.min!&&(merged[c.key] as number)<=c.max!);
 }
 export interface ManagementVisibleDemo {
@@ -87,5 +91,6 @@ export function getManagementVisibleDemo(demo:ManagementDemo,input:ManagementVal
         body:step===0?['原例题：单期收益，单位万元；默认好销路概率0.7，不考虑货币时间价值。']:step===1?['概率之和为1；比较方案时必须使用相同的状态与期间口径。']:step===2?[`大厂期望收益：${lg}×${fmt(prob)}＋(−20)×${fmt(1-prob)}＝${fmt(r.grossLarge)}。`,`小厂期望收益：${sg}×${fmt(prob)}＋30×${fmt(1-prob)}＝${fmt(r.grossSmall)}。`]:[`大厂净收益${fmt(r.netLarge)}万元，小厂净收益${fmt(r.netSmall)}万元。`,`按期望净收益：${r.choice}。改变概率或收益参数后，结论可能变化。`],
         metrics:step===3?[{label:'大厂净收益',value:fmt(r.netLarge)},{label:'小厂净收益',value:fmt(r.netSmall)}]:undefined};
     }
+    default:return getPhaseTwoVisibleDemo(demo,v,step,base);
   }
 }

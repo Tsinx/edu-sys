@@ -1,3 +1,4 @@
+import managementManifest from '../../packages/course-content/src/management-principles/manifest.json' with {type:'json'};
 import { createHash } from "node:crypto";
 import { readFile, readdir, stat, unlink, writeFile } from "node:fs/promises";
 import { resolve, relative } from "node:path";
@@ -51,7 +52,7 @@ export function campusBuild(releaseId:string):Plugin {
         const group=name.startsWith("vendor/local-kws/")?"shell":name.startsWith("avatar/live2d/")?"avatar":shell?"shell":name.startsWith("avatar/lanzhou/")?"avatar":name.startsWith("course-assets/economic-mathematics/")?"economic":name.startsWith("course-assets/management-principles/")?"management":name.startsWith("course-assets/statistical-analysis/")?"statistics":"port";
         entries.push({url:`/${name}`,bytes,sha256,group});
       }
-      await writeFile(resolve(outDir,"offline-manifest.json"),JSON.stringify({version:1,releaseId,groups:[{id:"shell",label:"基础程序"},{id:"port",label:"港口管理课程与仿真"},{id:"economic",label:"经济数学课程"},{id:"management",label:"管理学前四讲"},{id:"statistics",label:"统计分析方法"},{id:"avatar",label:"数字人动作素材"}],files:entries}));
+      await writeFile(resolve(outDir,"offline-manifest.json"),JSON.stringify({version:1,releaseId,groups:[{id:"shell",label:"基础程序"},{id:"port",label:"港口管理课程与仿真"},{id:"economic",label:"经济数学课程"},{id:"management",label:`管理学前${managementManifest.lessons.length}讲`},{id:"statistics",label:"统计分析方法"},{id:"avatar",label:"数字人动作素材"}],files:entries}));
       const sw=await readFile(resolve(projectRoot,"src/campus/service-worker.js"),"utf8");
       await writeFile(resolve(outDir,"service-worker.js"),sw.replaceAll("__EDU_RELEASE_ID__",releaseId));
     }

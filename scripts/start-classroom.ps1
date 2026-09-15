@@ -2,6 +2,7 @@
 param(
     [ValidateSet('api', 'web')][string]$Service,
     [switch]$NoBrowser,
+    [switch]$Https,
     [ValidateRange(10, 1800)][int]$TimeoutSeconds = 600
 )
 
@@ -12,6 +13,7 @@ $LauncherPath = $PSCommandPath
 $ShellExe = (Get-Process -Id $PID).Path
 $RuntimeRoot = Join-Path $RepoRoot '.runtime\launcher'
 $WebUrl = 'http://127.0.0.1:5173/'
+$BrowserUrl = if ($Https) { 'https://localhost/' } else { $WebUrl }
 $Utf8 = New-Object System.Text.UTF8Encoding($false)
 
 function Get-NodePath {
@@ -189,13 +191,18 @@ try {
         $response = Invoke-WebRequest -UseBasicParsing -Uri ($WebUrl + $asset) -TimeoutSec 10
         if ($response.StatusCode -ne 200 -or $response.Content -match '<!doctype html>') { throw "语音检测资源不可用：$asset" }
     }
-    $status = @{ checkedAt = (Get-Date).ToString('o'); web = $WebUrl; api = 'ready'; lamStartup = 'manual'; speechConfigured = $true; keywordAssets = 'verified' }
+    if ($Https) {
+        Write-Host '配置并检查 Caddy HTTPS 开发入口…'
+        & $ShellExe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'caddy-dev.ps1') -Action start
+        if ($LASTEXITCODE -ne 0) { throw 'Caddy HTTPS 入口启动失败；前后端服务仍保留，可查看 .runtime/caddy 日志。' }
+    }
+    $status = @{ checkedAt = (Get-Date).ToString('o'); web = $BrowserUrl; vite = $WebUrl; api = 'ready'; lamStartup = 'manual'; speechConfigured = $true; keywordAssets = 'verified' }
     [IO.File]::WriteAllText((Join-Path $RuntimeRoot 'ready.json'), ($status | ConvertTo-Json), $Utf8)
-    Write-Host "启动完成：$WebUrl" -ForegroundColor Green
+    Write-Host "启动完成：$BrowserUrl" -ForegroundColor Green
     Write-Host 'LAM 按需手动启动：.\scripts\start-openavatarchat.ps1 -Profile lam'
     Write-Host '进入课堂后选择“检测输入”，点击“开启语音唤醒”即可开始收音。'
     Write-Host '关闭启动窗口不会关闭后台服务。重复启动会复用现有服务。'
-    if (-not $NoBrowser) { Start-Process -FilePath $WebUrl -WindowStyle Hidden }
+    if (-not $NoBrowser) { Start-Process -FilePath $BrowserUrl -WindowStyle Hidden }
     exit 0
 } catch {
     Write-Host ('启动未完成：' + $_.Exception.Message) -ForegroundColor Red

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>实时语音直接响应验证</title>
+<style>
+body { font: 16px/1.6 system-ui; max-width: 1050px; margin: 30px auto; padding: 0 20px; background: #f6f8fa; color: #172b40; }
+button { padding: 10px 16px; margin: 0 10px 10px 0; cursor: pointer; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; background: white; padding: 18px; border: 1px solid #ccd6df; }
+</style>
+<h1>实时语音直接响应验证</h1>
+<p>开发验证页：使用缓存的课堂测试录音，通过本站 WebSocket 真实调用千问并播放返回音频。会新建独立测试课堂并在结束时关闭。无需麦克风权限。</p>
+<p>首音口径：提交到浏览器安排播放的首个非静音 PCM 样本；不是扬声器声学实测。普通问答应为一次模型响应，操作最多两次。十题三轮会产生 30 次真实模型调用。</p>
+<button id="probe">验证问答、翻页、翻页并讲解</button>
+<button id="benchmark">十题三轮测速</button>
+<button id="stop" disabled>停止测试</button>
+<button id="download" disabled>下载结果 JSON</button>
+<p id="status" role="status">正在加载缓存录音…</p>
+<pre id="progress"></pre>
+<details><summary>完整测量结果</summary><pre id="results"></pre></details>
+<script type="module" src="./realtime-voice-benchmark.ts"></script>
+</html>

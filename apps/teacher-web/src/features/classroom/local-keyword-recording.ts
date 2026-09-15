@@ -8,7 +8,7 @@ export class LocalKeywordRecording {
   private start: number | undefined;
   private startedAt = 0;
   private finished = false;
-  constructor(private readonly rate = 16000) {}
+  constructor(private readonly rate = 16000, private readonly streaming?: { begin(): void; append(samples: Float32Array): void }) {}
 
   get isRecording(): boolean { return this.start !== undefined && !this.finished; }
 
@@ -16,6 +16,11 @@ export class LocalKeywordRecording {
     if (this.finished || this.start !== undefined) return;
     this.start = Math.max(this.frames[0]?.start ?? this.position, Math.min(this.position, start));
     this.startedAt = now;
+    this.streaming?.begin();
+    if (this.streaming) for (const frame of this.frames) {
+      const from = Math.max(this.start, frame.start);
+      if (from < frame.start + frame.samples.length) this.streaming.append(frame.samples.subarray(from - frame.start));
+    }
     return { type: "recording" };
   }
 
@@ -54,6 +59,7 @@ export class LocalKeywordRecording {
     if (timeout) events.push(timeout);
     this.frames.push({ start: this.position, samples });
     this.position += samples.length;
+    if (this.isRecording) this.streaming?.append(samples);
     if (this.start !== undefined && this.position - this.start > this.rate * 60) {
       this.frames = []; this.start = undefined;
       events.push({ type: "timeout" });
@@ -78,14 +84,4 @@ export class LocalKeywordRecording {
     }
     return events;
   }
-}
-
-/** KWS controls submission. ASR is used only to transcribe the completed command. */
-export function cleanRecordedCommand(text: string): string {
-  return text.trim()
-    .replace(/^(?:小麦[\s，,]*老师|.*?(?:(?:助教|主教|助叫|澜舟|蓝舟|兰舟|岚舟)[\s，,]*你好|你好[\s，,。.!！?？]*(?:小[\s，,]*)?(?:助手|助教|澜舟|蓝舟|兰舟|岚舟)))[\s，,。.!！?？：:]*/su, "")
-    .replace(/[\s，,。.!！?？]*(?:谢谢[\s，,]*(?:助教|主教|澜舟|蓝舟|兰舟|岚舟)|非常[\s，,]*感谢).*$/su, "")
-    // A cancelled tentative "谢谢" inside the question is ordinary content.
-    .replace(/[\s，,。.!！?？]*谢谢[\s，,。.!！?？]*$/su, "")
-    .trim();
 }

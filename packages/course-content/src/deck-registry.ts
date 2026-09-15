@@ -1,5 +1,5 @@
 import { PORT_MANAGEMENT_SLIDES } from "./slides.js";
-import { MANAGEMENT_COURSE_ID, MANAGEMENT_DECK_ID, MANAGEMENT_VERSION_ID, MANAGEMENT_SLIDES, MANAGEMENT_LESSONS, getManagementSlide, getManagementSlideByKey, getManagementLessonPosition, getManagementGlobalIndex, getManagementInteractionDefinition, validateManagementInteraction } from './management-principles/index.js';
+import { MANAGEMENT_BUILD, MANAGEMENT_COURSE_ID, MANAGEMENT_DECK_ID, MANAGEMENT_VERSION_ID, MANAGEMENT_SLIDES, MANAGEMENT_LESSONS, getManagementSlide, getManagementSlideByKey, getManagementLessonPosition, getManagementGlobalIndex, getManagementInteractionDefinition, validateManagementInteraction } from './management-principles/index.js';
 import { STATISTICAL_ANALYSIS_SLIDES, STATISTICAL_ANALYSIS_LESSONS, STATISTICAL_ANALYSIS_COURSE_ID, STATISTICAL_ANALYSIS_DECK_ID, STATISTICAL_ANALYSIS_VERSION_ID, getStatisticalAnalysisSlide, getStatisticalAnalysisSlideByKey, getStatisticalAnalysisLessonPosition, getStatisticalAnalysisGlobalIndex } from './statistical-analysis/index.js';
 import { PORT_LBL_LEGACY_KEYS } from "./port-lbl-migration.js";
 import {
@@ -313,7 +313,7 @@ const managementDescriptor: CourseDeckDescriptor = {
   presentation: { shortTitle:'管理学', categoryLabel:'管理学基础',
     description:'管理导论、管理理论演变、决策过程、环境分析与理性决策。管理学课程组 · 韦笑。',
     heroImage:'/course-assets/management-principles/mg-001.webp', accent:'management-principles', assistantName:'小麦老师', supportsStudy:false,
-    resources:[{role:'课程署名',title:'管理学课程组 · 韦笑',detail:'据原始课件转换；课程代码及总学时待完善。'},{role:'建设范围',title:'前四讲',detail:`299个原页，${MANAGEMENT_SLIDES.length}个连续网页页面。`}]
+    resources:[{role:'课程署名',title:'管理学课程组 · 韦笑',detail:'据原始课件转换；课程代码及总学时待完善。'},{role:'建设范围',title:`前${MANAGEMENT_LESSONS.length}讲`,detail:`${MANAGEMENT_BUILD.sourcePageCount}个原页，${MANAGEMENT_SLIDES.length}个连续网页页面。`}]
   },
   getSlide:getManagementSlide, getSlideByKey:getManagementSlideByKey,
   getLessonPosition:getManagementLessonPosition, getGlobalIndex:getManagementGlobalIndex,

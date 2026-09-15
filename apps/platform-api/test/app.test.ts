@@ -361,8 +361,8 @@ test("seeded teacher portal supports course creation, classroom start and avatar
         durationMs: 400
       }
     });
-    assert.equal(voiceCommandResponse.statusCode, 202);
-    assert.equal(voiceCommandResponse.json().inputMode, "voice");
+    assert.equal(voiceCommandResponse.statusCode, 410);
+    assert.equal(voiceCommandResponse.json().error, "CLASSROOM_REALTIME_REQUIRED");
 
     const assistantResponse = await app.inject({
       method: "POST",

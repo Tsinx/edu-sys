@@ -121,9 +121,9 @@ test("teacher editing persists, scopes overrides, detects conflicts and injects 
     const session = (await app.inject({ method: "POST", url: `/api/courses/${port}/class-sessions` })).json();
     const previewUrl = `/api/class-sessions/${session.id}/assistant-prompts`;
     const turnUrl = `/api/class-sessions/${session.id}/assistant/turns`;
-    for (const source of ["text", "voice_asr"]) {
+    for (const text of ["请解释当前页", "请继续解释"]) {
       const preview = (await app.inject(previewUrl)).json<AssistantPromptWorkspace>();
-      const response = await app.inject({ method: "POST", url: turnUrl, payload: { text: "请解释当前页", source } });
+      const response = await app.inject({ method: "POST", url: turnUrl, payload: { text, source: "text" } });
       assert.match(response.body, /turn.completed/);
       assert.equal(provider.requests.at(-1)!.messages[0]!.content, preview.compiled);
       for (const module of workspace.modules) assert.ok(preview.compiled.includes(`CUSTOM_${module.scope}`));

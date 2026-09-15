@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { LocalKeywordRecording, cleanRecordedCommand } from "../src/features/classroom/local-keyword-recording";
-import { encodeVoiceWav } from "../src/features/classroom/continuous-voice";
+import { LocalKeywordRecording } from "../src/features/classroom/local-keyword-recording";
 
 test("ordinary speech, finish and cancel cannot record without a local wake hit", () => {
   const gate = new LocalKeywordRecording(10);
@@ -56,31 +55,6 @@ test("same-frame wake and end support delayed timestamps", () => {
   assert.equal(events[1]?.type, "audio");
   if (events[1]?.type === "audio") assert.equal(events[1].samples.length, 18);
 });
-test("ASR cleanup preserves math punctuation and does not require keyword recognition", () => {
-  assert.equal(cleanRecordedCommand("助教，你好！解释 x=-1.5，谢谢助教。"), "解释 x=-1.5");
-  assert.equal(cleanRecordedCommand("解释 x=-1.5"), "解释 x=-1.5");
-  assert.equal(cleanRecordedCommand("蓝舟你好，请进入第二讲。"), "请进入第二讲。");
-  assert.equal(cleanRecordedCommand("助教你好。"), "");
-  assert.equal(cleanRecordedCommand("你好助手，请解释港口的作用，非常感谢。"), "请解释港口的作用");
-  assert.equal(cleanRecordedCommand("你好，小助手，请解释 x=-1.5，非常感谢。"), "请解释 x=-1.5");
-  assert.equal(cleanRecordedCommand("你好！小助手，非常感谢。"), "");
-  assert.equal(cleanRecordedCommand("助教你好，请解释 x=-1.5，非常感谢。"), "请解释 x=-1.5");
-  assert.equal(cleanRecordedCommand("助教你好，非常，感谢！"), "");
-  assert.equal(cleanRecordedCommand("助教你好，请解释港口的作用，谢谢。"), "请解释港口的作用");
-  assert.equal(cleanRecordedCommand("小麦老师，请翻到下一页，谢谢。"), "请翻到下一页");
-  assert.equal(cleanRecordedCommand("小麦老师，谢谢，我再补充一点，请小麦老师解释港口，非常感谢。"), "谢谢，我再补充一点，请小麦老师解释港口");
-  assert.equal(cleanRecordedCommand("请小麦老师解释港口，谢谢。"), "请小麦老师解释港口");
-});
-test("WAV is mono 16kHz PCM with correct clipping", () => {
-  const encoded = encodeVoiceWav(new Float32Array([-2, 0, 2]), 16000);
-  const bytes = Buffer.from(encoded.audioBase64, "base64");
-  assert.equal(bytes.toString("ascii", 0, 4), "RIFF");
-  assert.equal(bytes.readUInt32LE(24), 16000);
-  assert.equal(bytes.readUInt16LE(22), 1);
-  assert.equal(bytes.readInt16LE(44), -32768);
-  assert.equal(bytes.readInt16LE(48), 32767);
-});
-
 test("manual and keyword starts share cancellation and exactly-once completion", () => {
   for (const manual of [true, false]) {
     const gate = new LocalKeywordRecording(10);

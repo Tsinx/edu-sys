@@ -69,6 +69,7 @@ import { useAvatarRenderer } from "../avatar/avatar-preference";
 import { AvatarSelector } from "../avatar/AvatarSelector";
 import { ActivityStage, SlideStage } from "./TeachingSlides";
 import { VoiceCommandComposer } from "./VoiceCommandComposer";
+import { useRealtimeClassroom } from "./useRealtimeClassroom";
 import { ClassroomFullscreenControls } from "./ClassroomFullscreenControls";
 import { ClassroomPlaybackSlot } from "./ClassroomPlaybackSlot";
 import { TeacherParticipation } from "./ClassroomParticipation";
@@ -141,6 +142,8 @@ function isLamConnected(state: LamConnectionState) {
 
 export function ClassroomSubsystem() {
   const avatarRenderer = useAvatarRenderer();
+  const realtimeSupported = avatarRenderer !== "lam" || runtimeConfig.profile === "campus";
+  const realtimeAvailable = runtimeConfig.speech.realtime?.available === true && realtimeSupported;
   const audioBackend = avatarRenderer === "lam" && runtimeConfig.profile !== "campus" ? "lam" : "browser";
   const { sessionId = "" } = useParams();
   const sessionIdRef = useRef(sessionId);
@@ -178,9 +181,6 @@ export function ClassroomSubsystem() {
   const assistantAbortRef = useRef<AbortController | undefined>(
     undefined
   );
-  const lastAsrResultRef = useRef<
-    { text: string; at: number } | undefined
-  >(undefined);
   const lastReportedLamConnectedRef = useRef<string | undefined>(
     undefined
   );
@@ -238,6 +238,13 @@ export function ClassroomSubsystem() {
     );
     return mergedSnapshot;
   }, []);
+
+  const realtimeContextKey = JSON.stringify([snapshot?.courseId, snapshot?.slide.slideId, snapshot?.activeActivity,
+    snapshot?.slideInteraction?.revision, snapshot?.teacherDemo?.runId, snapshot?.teacherDemo?.revision]);
+  const realtimeVoice = useRealtimeClassroom(sessionId, realtimeAvailable && snapshot?.session.status === "live", realtimeContextKey, {
+    avatar: lamAvatarRef, phase: setAssistantPhase, transcript: setLamTranscript,
+    notice: setNotice, error: setError, snapshot: mergeSnapshot
+  });
 
   useEffect(() => {
     snapshotRef.current = undefined;
@@ -442,6 +449,7 @@ export function ClassroomSubsystem() {
 
   async function sendEvent(input: ClassroomEventInput): Promise<boolean> {
     if (!snapshotRef.current || busy) return false;
+    if (realtimeAvailable) interruptAssistant();
     setBusy(true);
     setError("");
     try {
@@ -470,6 +478,7 @@ export function ClassroomSubsystem() {
   const lessonFourReportRef = useRef({last:0,key:""});
   async function lessonFourAction(cueId?:PortDemoCueId) {
     const current=snapshotRef.current;if(!current)return;
+    if (realtimeAvailable) interruptAssistant();
     try {
       const result=await api.executeAvatarControl(current.session.id,{protocol:"edu.classroom.control",version:"1.0",requestId:crypto.randomUUID(),actions:cueId?[{type:"simulation.open_demo",cueId}]:[{type:"simulation.return_to_slides"}]});
       mergeSnapshot(result.snapshot);
@@ -672,7 +681,7 @@ export function ClassroomSubsystem() {
   const runAssistantTurn = useCallback(
     async (
       text: string,
-      source: "text" | "voice_asr",
+      source: "text",
       commandId?: string
     ) => {
       assistantAbortRef.current?.abort();
@@ -771,7 +780,8 @@ export function ClassroomSubsystem() {
     [mergeSnapshot, sessionId]
   );
 
-  async function sendTeacherCommand(text: string, source: "text" | "voice_asr") {
+  async function sendTeacherCommand(text: string) {
+    realtimeVoice.cancel();
     const current = snapshotRef.current;
     if (!current || current.session.status !== "live") return;
     const response = await api.sendAvatarCommand(
@@ -789,34 +799,12 @@ export function ClassroomSubsystem() {
     }
 
     if (snapshotRef.current?.session.id !== current.session.id || snapshotRef.current.session.status !== "live") return;
-    setNotice(source === "voice_asr" ? `ASR 已识别：“${text}”` : "教师文字已进入平台课堂助手。");
-    await runAssistantTurn(text, source, response.id);
+    setNotice("教师文字已进入平台课堂助手。");
+    await runAssistantTurn(text, "text", response.id);
   }
 
-  const handleHumanTranscript = useCallback(
-    (text: string) => {
-      const normalized = text.trim();
-      if (!normalized) return;
-      const now = Date.now();
-      if (
-        lastAsrResultRef.current?.text === normalized &&
-        now - lastAsrResultRef.current.at < 2_000
-      ) {
-        return;
-      }
-      lastAsrResultRef.current = { text: normalized, at: now };
-      setNotice(`ASR 已识别：“${normalized}”`);
-      void runAssistantTurn(
-        normalized,
-        "voice_asr"
-      ).catch((reason: Error) => {
-        setError(reason.message);
-      });
-    },
-    [runAssistantTurn]
-  );
-
   function interruptAssistant() {
+    realtimeVoice.cancel();
     assistantAbortRef.current?.abort();
     assistantAbortRef.current = undefined;
     lamAvatarRef.current?.interrupt();
@@ -1472,6 +1460,7 @@ export function ClassroomSubsystem() {
                   <AvatarSelector compact allowLam={runtimeConfig.profile !== "campus"} onBeforeChange={interruptAssistant}/>
                 </span>
                 <Link target="_blank" rel="noopener noreferrer" to={`/courses/${snapshot.courseId}/assistant-prompts?index=${snapshot.slide.index}&activity=${snapshot.teacherDemo?.active?`demo:${snapshot.teacherDemo.cueId}`:snapshot.activeActivity}&session=${sessionId}`}>提示词设置</Link>
+
               </div>
               <button
                 type="button"
@@ -1488,7 +1477,6 @@ export function ClassroomSubsystem() {
             runtime={lamRuntime}
             concealed={avatarConcealed}
             onConnectionStateChange={setLamConnection}
-            onHumanTranscript={handleHumanTranscript}
             onRetry={() => void refreshLamRuntime()}
           />
 
@@ -1541,7 +1529,8 @@ export function ClassroomSubsystem() {
                 collapsible={isFullscreen}
                 onExpand={() => setAvatarConcealed(false)}
                 disabled={!isLive}
-                continuousAsrConfigured={runtimeConfig.speech.asr}
+                realtime={realtimeVoice.sink}
+                voiceUnavailableReason={!realtimeSupported ? "当前3D形象暂不支持实时语音，请切换 Live2D 或视频形象，或使用文字输入。" : "实时语音服务尚未配置，请使用文字输入。"}
                 assistantBusy={assistantPhase !== "idle" || lamConnection === "speaking" || lamConnection === "thinking" || (isGlobe && snapshot.globePlayback.status === "playing")}
                 onCommand={sendTeacherCommand}
               />

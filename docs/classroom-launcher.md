@@ -49,3 +49,16 @@ API 默认按代码位置读取根目录 `.env`，从根目录或 `apps/platform
 ```powershell
 .\scripts\start-classroom.ps1 -NoBrowser
 ```
+
+## HTTPS 开发入口
+
+双击项目根目录 `start-classroom-https.bat`，或运行：
+
+```powershell
+.\scripts\start-classroom.ps1 -Https -NoBrowser
+```
+
+完成相同的前后端和语音资源检查后，启动器额外启动 Caddy，入口为
+`https://localhost/`。Vite 热更新、API 和流式回复走同一 HTTPS 入口。
+首次启动自动下载并校验 Caddy，将项目开发 CA 导入当前 Windows 用户的根证书存储。
+配置、重载、停止和证书说明见 [本地 Caddy 调试](../deploy/local/README.md)。

@@ -741,8 +741,13 @@ export class JsonStateStore {
       const courses = [...(parsed.courses ?? [])];
       for (const builtin of createSeedState().courses.filter(course =>
         course.id === ECONOMIC_MATHEMATICS_COURSE_ID || course.id === 'statistical-analysis' || course.id === 'management-principles')) {
-        if (!courses.some(course => course.id === builtin.id)) {
+        const existing = courses.find(course => course.id === builtin.id);
+        if (!existing) {
           courses.push(builtin);
+          runtimeStateChanged = true;
+        } else if (builtin.id === 'management-principles' && existing.currentLesson.summary === '管理学课程组 · 韦笑。前四讲根据299页原始课件建设，课程代码与总学时待完善。') {
+          // Only replace the known system-authored construction summary; preserve teacher edits.
+          existing.currentLesson = {...existing.currentLesson, summary:builtin.currentLesson.summary};
           runtimeStateChanged = true;
         }
       }
@@ -4238,7 +4243,8 @@ export class JsonStateStore {
 
   async executeAvatarControl(
     sessionId: string,
-    input: AvatarControlRequest
+    input: AvatarControlRequest,
+    guard?: (snapshot: ClassroomSnapshot) => void
   ): Promise<AvatarControlResponse | undefined> {
     const response = await this.mutate((state) => {
       const session = state.classSessions.find(
@@ -4275,6 +4281,13 @@ export class JsonStateStore {
         };
       }
 
+      // Realtime requests re-check their context inside the mutation queue.
+      // A manual page change queued first must prevent stale voice actions.
+      if (guard) {
+        const snapshot = this.buildClassroomSnapshot(state, session, runtime);
+        if (!snapshot) throw new Error("课堂状态不可用。");
+        guard(snapshot);
+      }
       const results: AvatarControlActionResult[] = [];
       let changed = false;
       const completeActiveGlobe = () => {
