@@ -178,8 +178,12 @@ try {
     }
     Write-Host '[3/3] 检查前端代理、语音配置和模型入口…'
     $config = Read-JsonUrl ($WebUrl + 'api/runtime/config')
-    if ($null -eq $config -or -not $config.speech.asr -or -not $config.speech.tts) {
-        throw '前端连接的 API 尚未配置 ASR / TTS；请检查运行配置和密钥。'
+    if ($null -eq $config) { throw '前端代理未能读取 API 运行配置；请检查代理连接及 API 日志。' }
+    if (-not $config.speech.asr) {
+        throw '运行中的 API 尚未加载语音密钥。请确认该进程继承了 DASHSCOPE_API_KEY，并重启 API；这不表示已保存的密钥被删除。'
+    }
+    if (-not $config.speech.tts) {
+        throw 'ASR 密钥已加载，但 TTS 音色未配置。请检查项目根目录 .env 中的 EDU_SELFSTUDY_TTS_VOICE_ID，并重启 API 以加载配置。'
     }
     foreach ($asset in @('audio/classroom-keywords.js', 'audio/classroom-microphone.js', 'vendor/local-kws/tokens.txt')) {
         $response = Invoke-WebRequest -UseBasicParsing -Uri ($WebUrl + $asset) -TimeoutSec 10

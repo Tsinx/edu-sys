@@ -1,18 +1,11 @@
-import { loadEnvFile } from "node:process";
+import { loadRuntimeEnvironment } from "./runtime-env.js";
 import { fileURLToPath } from "node:url";
 import { buildApp } from "./app.js";
 import { resolve } from "node:path";
 import { mkdir, writeFile, unlink } from "node:fs/promises";
 import { dirname, join } from "node:path";
 
-const rootEnvFile = process.env.EDU_ENV_FILE ?? resolve(".env");
-try {
-  loadEnvFile(rootEnvFile);
-} catch (error) {
-  if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
-    throw error;
-  }
-}
+loadRuntimeEnvironment();
 
 const defaultDataFile = fileURLToPath(
   new URL("../../../.runtime/platform-api/state.json", import.meta.url)
