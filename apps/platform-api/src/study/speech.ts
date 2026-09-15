@@ -1,6 +1,7 @@
 import type { AvatarVoiceProfile, SpeechVisemeCue } from "@edu/contracts";
 import { randomUUID } from "node:crypto";
 import WebSocket, { type RawData } from "ws";
+import { dashScopeApiKey } from "../runtime-env.js";
 
 export interface StudyAsrRequest {
   audioBase64: string;
@@ -129,7 +130,7 @@ export class DashScopeStudySpeechProvider implements StudySpeechProvider {
   private readonly fetchImplementation: typeof fetch;
 
   constructor(options: DashScopeStudySpeechProviderOptions = {}) {
-    this.apiKey = options.apiKey ?? process.env.DASHSCOPE_API_KEY;
+    this.apiKey = options.apiKey !== undefined ? options.apiKey.trim() || undefined : dashScopeApiKey();
     this.apiUrl =
       options.apiUrl ??
       process.env.EDU_SELFSTUDY_SPEECH_API_URL ??

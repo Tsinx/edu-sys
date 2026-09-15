@@ -1,3 +1,5 @@
+import { assistantApiKey } from "../runtime-env.js";
+
 export interface AssistantChatMessage {
   role: "system" | "user" | "assistant";
   content: string;
@@ -102,10 +104,8 @@ export class OpenAiCompatibleAssistantProvider
   private readonly fetchImplementation: typeof fetch;
 
   constructor(options: OpenAiCompatibleProviderOptions = {}) {
-    this.apiKey =
-      options.apiKey ??
-      process.env.EDU_ASSISTANT_API_KEY ??
-      process.env.DASHSCOPE_API_KEY;
+    // An explicit empty option disables the provider in isolated tests.
+    this.apiKey = options.apiKey !== undefined ? options.apiKey.trim() || undefined : assistantApiKey();
     this.apiUrl =
       options.apiUrl ??
       process.env.EDU_ASSISTANT_API_URL ??
@@ -123,7 +123,7 @@ export class OpenAiCompatibleAssistantProvider
   ): AsyncGenerator<string> {
     if (!this.apiKey) {
       throw new AssistantProviderError(
-        "课堂助手模型尚未配置。请设置 EDU_ASSISTANT_API_KEY 或 DASHSCOPE_API_KEY。"
+        "课堂助手模型尚未配置。请在服务器配置中设置有效的 EDU_ASSISTANT_API_KEY、DASHSCOPE_API_KEY 或 dashscope_api_key，并重启教学服务。"
       );
     }
 

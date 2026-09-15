@@ -19,7 +19,7 @@ test("package and repository starts load root voice configuration, preserving ex
     await writeFile(join(root, ".env"), "DASHSCOPE_API_KEY=fixture-key\nEDU_SELFSTUDY_TTS_VOICE_ID=root-voice\n");
     await writeFile(join(packageDir, ".env"), "EDU_SELFSTUDY_TTS_VOICE_ID=wrong-package-voice\n");
     await writeFile(join(packageDir, "custom.env"), "DASHSCOPE_API_KEY=file-key\nEDU_SELFSTUDY_TTS_VOICE_ID=custom-voice\n");
-    const script = `const {loadRuntimeEnvironment}=await import(${JSON.stringify(pathToFileURL(modulePath).href)});loadRuntimeEnvironment();console.log(JSON.stringify({key:process.env.DASHSCOPE_API_KEY,voice:process.env.EDU_SELFSTUDY_TTS_VOICE_ID}));`;
+    const script = `const {loadRuntimeEnvironment,assistantApiKey}=await import(${JSON.stringify(pathToFileURL(modulePath).href)});loadRuntimeEnvironment();console.log(JSON.stringify({key:assistantApiKey(),voice:process.env.EDU_SELFSTUDY_TTS_VOICE_ID}));`;
     const run = async (cwd: string, overrides: Record<string, string> = {}) => {
       // Only synthetic credentials enter the child fixture; never print host secrets.
       const env = { PATH: process.env.PATH, SystemRoot: process.env.SystemRoot, TEMP: process.env.TEMP, ...overrides };
@@ -31,8 +31,13 @@ test("package and repository starts load root voice configuration, preserving ex
     }
     assert.deepEqual(await run(packageDir, { EDU_ENV_FILE: "custom.env", DASHSCOPE_API_KEY: "process-key" }), { key: "process-key", voice: "custom-voice" });
     assert.deepEqual(await run(packageDir, { EDU_ENV_FILE: "custom.env", dashscope_api_key: "lowercase-process-key" }), { key: "lowercase-process-key", voice: "custom-voice" });
+    assert.deepEqual(await run(packageDir, { EDU_ENV_FILE: "custom.env", DASHSCOPE_API_KEY: "  " }), { key: "file-key", voice: "custom-voice" });
+    assert.deepEqual(await run(packageDir, { EDU_ENV_FILE: "custom.env", DASHSCOPE_API_KEY: "  ", dashscope_api_key: " lowercase-process-key " }), { key: "lowercase-process-key", voice: "custom-voice" });
     await writeFile(join(packageDir, "lowercase.env"), "dashscope_api_key=lowercase-file-key\n");
     assert.deepEqual(await run(packageDir, { EDU_ENV_FILE: "lowercase.env" }), { key: "lowercase-file-key" });
+    await writeFile(join(packageDir, "assistant.env"), "DASHSCOPE_API_KEY=file-fallback\nEDU_ASSISTANT_API_KEY=file-assistant\n");
+    assert.deepEqual(await run(packageDir, { EDU_ENV_FILE: "assistant.env", EDU_ASSISTANT_API_KEY: " " }), { key: "file-assistant" });
+    assert.deepEqual(await run(packageDir, { EDU_ENV_FILE: "assistant.env", EDU_ASSISTANT_API_KEY: " process-assistant " }), { key: "process-assistant" });
   } finally {
     await rm(root, { recursive: true, force: true });
   }
