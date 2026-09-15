@@ -30,6 +30,9 @@ test("package and repository starts load root voice configuration, preserving ex
       assert.deepEqual(await run(cwd), { key: "fixture-key", voice: "root-voice" });
     }
     assert.deepEqual(await run(packageDir, { EDU_ENV_FILE: "custom.env", DASHSCOPE_API_KEY: "process-key" }), { key: "process-key", voice: "custom-voice" });
+    assert.deepEqual(await run(packageDir, { EDU_ENV_FILE: "custom.env", dashscope_api_key: "lowercase-process-key" }), { key: "lowercase-process-key", voice: "custom-voice" });
+    await writeFile(join(packageDir, "lowercase.env"), "dashscope_api_key=lowercase-file-key\n");
+    assert.deepEqual(await run(packageDir, { EDU_ENV_FILE: "lowercase.env" }), { key: "lowercase-file-key" });
   } finally {
     await rm(root, { recursive: true, force: true });
   }

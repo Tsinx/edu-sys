@@ -11,7 +11,10 @@ export function studentRouteAllowed(method: string, path: string) {
 }
 
 export function registerCampusAccess(app: FastifyInstance, resolve: (request: FastifyRequest) => Promise<ClassroomActor | null>, options: {
-  enforce: boolean; publicOrigin?: string; campusMode: boolean;
+  enforce: boolean; publicOrigin?: string; campusMode: boolean; studentAiEnabled?: boolean;
+  allowedCourseIds?: (actor: ClassroomActor) => string[] | null;
+  classCourseId?: (id: string) => string | undefined;
+  studyCourseId?: (id: string, actor: ClassroomActor) => string | undefined;
 }) {
   const streams=new Set<ServerResponse>();
   app.addHook("preClose",async()=>{for(const response of streams)response.end();});
@@ -27,12 +30,32 @@ export function registerCampusAccess(app: FastifyInstance, resolve: (request: Fa
     if (["/api/health", "/api/runtime/config", "/api/identity/login", "/api/identity/session", "/api/identity/development/session"].includes(path)) return;
     const actor = await resolve(request);
     if (!actor) throw campusError(401,"IDENTITY_SESSION_REQUIRED","请先登录教学平台。");
+    if (!actor.roles.includes("teacher") && options.studentAiEnabled === false && /\/(assistant\/turns|asr|tts)\/?$/.test(path)) {
+      throw campusError(403,"STUDENT_AI_DISABLED","学生 AI 暂未开放，课件阅读与仿真实验可正常使用。");
+    }
     if (options.campusMode && /^\/api\/class-sessions\/[^/]+\/simulation\/teams(?:\/|$)/.test(path)) {
       throw campusError(410,"LOCAL_SIMULATION_REQUIRED","校园部署使用端侧个人仿真，请从模拟实验入口进入。");
     }
     if (!actor.roles.includes("teacher") && !studentRouteAllowed(request.method,path)) {
       throw campusError(403,"ACTOR_ROLE_FORBIDDEN","该操作仅对教师开放。");
     }
+  });
+  app.addHook("preHandler", async request => {
+    if (!options.enforce || !request.url.startsWith("/api/")) return;
+    const actor = await resolve(request);
+    if (!actor || actor.roles.includes("teacher")) return;
+    const allowed = options.allowedCourseIds?.(actor);
+    if (!allowed) return;
+    const path = request.routeOptions.url ?? request.url.split("?")[0]!;
+    const params = request.params as Record<string, string>;
+    let courseId: string | undefined;
+    if (path.startsWith("/api/courses/")) courseId = params.courseId ?? params.id;
+    if (path.startsWith("/api/class-sessions/")) courseId = options.classCourseId?.(params.sessionId ?? params.id ?? "");
+    if (path.startsWith("/api/study-sessions/")) courseId = options.studyCourseId?.(params.sessionId ?? params.id ?? "", actor);
+    if (path === "/api/study-sessions" && request.method === "POST") {
+      courseId = (request.body as {courseId?: string} | null)?.courseId;
+    }
+    if (courseId && !allowed.includes(courseId)) throw campusError(403,"COURSE_ACCESS_FORBIDDEN","该账号尚未加入此课程。");
   });
   app.addHook("preHandler",async(request,reply)=>{
     if(!options.enforce || !request.url.split("?")[0]!.endsWith("/stream"))return;

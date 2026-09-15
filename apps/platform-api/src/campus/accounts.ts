@@ -11,7 +11,8 @@ export class CampusIdentityProvider implements ClassroomIdentityProvider {
   readonly source = "campus_local" as const;
   readonly db;
   private readonly dummySalt = randomBytes(16).toString("hex");
-  constructor(path: string, private readonly sessionTtlMs = 8 * 60 * 60 * 1000) {
+  constructor(path: string, private readonly sessionTtlMs = 8 * 60 * 60 * 1000, private readonly minimumPasswordLength = 12) {
+    if (!Number.isInteger(minimumPasswordLength) || minimumPasswordLength < 6 || minimumPasswordLength > 256) throw new Error("密码最短长度须为6–256。");
     this.db = openDatabase(path);
     this.db.exec(`
       CREATE TABLE IF NOT EXISTS campus_accounts (
@@ -24,13 +25,16 @@ export class CampusIdentityProvider implements ClassroomIdentityProvider {
       );
       CREATE INDEX IF NOT EXISTS campus_sessions_expiry ON campus_sessions(expires_at);
       CREATE TABLE IF NOT EXISTS campus_login_limits (bucket TEXT PRIMARY KEY, started_at INTEGER NOT NULL, attempts INTEGER NOT NULL);
+      CREATE TABLE IF NOT EXISTS campus_course_access (
+        account_id TEXT PRIMARY KEY REFERENCES campus_accounts(id), course_ids TEXT NOT NULL
+      );
     `);
     this.db.prepare("DELETE FROM campus_sessions WHERE expires_at <= ?").run(Date.now());
   }
 
   async createAccount(username: string, displayName: string, role: "teacher" | "student", password: string) {
-    if (!/^[a-zA-Z0-9_.@-]{2,80}$/.test(username) || displayName.trim().length < 1 || displayName.length > 40 || password.length < 12 || password.length > 256) {
-      throw campusError(400, "ACCOUNT_INVALID", "账号需为2–80位字母数字或_.@-，姓名1–40字，密码至少12位。");
+    if (!/^[a-zA-Z0-9_.@-]{2,80}$/.test(username) || displayName.trim().length < 1 || displayName.length > 40 || password.length < this.minimumPasswordLength || password.length > 256) {
+      throw campusError(400, "ACCOUNT_INVALID", `账号需为2–80位字母数字或_.@-，姓名1–40字，密码至少${this.minimumPasswordLength}位。`);
     }
     const salt = randomBytes(16).toString("hex");
     const hash = (await derive(password, salt, 64)) as Buffer;
@@ -41,7 +45,7 @@ export class CampusIdentityProvider implements ClassroomIdentityProvider {
   }
 
   async resetPassword(username: string, password: string) {
-    if (password.length < 12 || password.length > 256) throw campusError(400, "PASSWORD_INVALID", "密码应为12–256位。");
+    if (password.length < this.minimumPasswordLength || password.length > 256) throw campusError(400, "PASSWORD_INVALID", `密码应为${this.minimumPasswordLength}–256位。`);
     const salt = randomBytes(16).toString("hex");
     const hash = (await derive(password, salt, 64)) as Buffer;
     transaction(this.db, () => {
@@ -50,6 +54,18 @@ export class CampusIdentityProvider implements ClassroomIdentityProvider {
       if (!result.changes) throw campusError(404, "ACCOUNT_NOT_FOUND", "账号不存在。");
       this.db.prepare("DELETE FROM campus_sessions WHERE account_id=(SELECT id FROM campus_accounts WHERE username=?)").run(normalize(username));
     });
+  }
+
+  setCourseAccess(accountId: string, courseIds: string[]) {
+    if (!courseIds.every(id => typeof id === "string" && id.length > 0)) throw new Error("课程编号不能为空。");
+    this.db.prepare("INSERT INTO campus_course_access VALUES (?,?) ON CONFLICT(account_id) DO UPDATE SET course_ids=excluded.course_ids")
+      .run(accountId, JSON.stringify([...new Set(courseIds)]));
+  }
+
+  allowedCourseIds(accountId: string): string[] | null {
+    const row = this.db.prepare("SELECT course_ids FROM campus_course_access WHERE account_id=?").get(accountId);
+    // Accounts without an explicit enrollment retain their existing access.
+    return row ? JSON.parse(String(row.course_ids)) as string[] : null;
   }
 
   listAccounts() {

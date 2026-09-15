@@ -105,6 +105,8 @@ export interface BuildAppOptions {
   allowLegacyDevelopmentIdentity?: boolean;
   secureIdentityCookie?: boolean;
   campusMode?: boolean;
+  studentAiEnabled?: boolean;
+  accountMinimumPasswordLength?: number;
   stateDatabaseFile?: string;
   publicOrigin?: string;
   staticRoot?: string;
@@ -142,7 +144,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     options.allowLegacyDevelopmentIdentity ?? (!campusMode && allowDevelopmentIdentity);
   const identityProvider =
     options.identityProvider ??
-    (campusMode ? new CampusIdentityProvider(`${options.dataFile}.accounts.sqlite`) : new DevelopmentIdentityProvider({
+    (campusMode ? new CampusIdentityProvider(`${options.dataFile}.accounts.sqlite`, undefined, options.accountMinimumPasswordLength) : new DevelopmentIdentityProvider({
       allowRoleSelection: allowDevelopmentIdentity
     }));
   if (
@@ -164,7 +166,14 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       authorization: request.headers.authorization ?? null
     });
   };
-  registerCampusAccess(app, resolveActor, { enforce: !allowLegacyDevelopmentIdentity, publicOrigin: options.publicOrigin, campusMode });
+  const allowedCourseIds = (actor: ClassroomActor) => actor.roles.includes("teacher") ? null
+    : identityProvider instanceof CampusIdentityProvider ? identityProvider.allowedCourseIds(actor.actorId) : null;
+  registerCampusAccess(app, resolveActor, {
+    enforce: !allowLegacyDevelopmentIdentity, publicOrigin: options.publicOrigin, campusMode,
+    studentAiEnabled: options.studentAiEnabled, allowedCourseIds,
+    classCourseId: id => store.getSession(id)?.courseId,
+    studyCourseId: (id, actor) => store.getStudySession(id, actor)?.courseId
+  });
   const edgeRecords = new EdgeRecordRepository(`${options.dataFile}.edge.sqlite`);
   registerEdgeRecords(app, edgeRecords, resolveActor);
   const aiAdmission = campusMode ? new AiAdmission(`${options.dataFile}.ai.sqlite`, {
@@ -321,6 +330,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     avatar: campusMode ? "browser" : "lam",
     simulation: "local_solo",
     synchronization: "checkpoints-v1",
+    studentAiEnabled: options.studentAiEnabled ?? true,
     speech: { asr: studySpeechProvider.asrConfigured, tts: studySpeechProvider.ttsConfigured }
   }));
   app.post("/api/identity/login", async (request,reply) => {
@@ -393,7 +403,11 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     const dashboard=store.getDashboard(); const actor=await resolveActor(request);
     return actor && campusMode ? {...dashboard,teacher:{...dashboard.teacher,id:actor.actorId,name:actor.displayName}} : dashboard;
   });
-  app.get("/api/courses", async () => store.listCourses());
+  app.get("/api/courses", async request => {
+    const actor = await resolveActor(request);
+    const allowed = actor ? allowedCourseIds(actor) : null;
+    return store.listCourses().filter(course => !allowed || allowed.includes(course.id));
+  });
   app.get<{Params:{courseId:string}}>("/api/courses/:courseId/source-map", async (request,reply) => {
     // Original notes and authoring records require a real teacher identity, including in development.
     if (!await resolveActor(request)) return reply.code(401).send({message:'请以教师身份登录'});
@@ -402,7 +416,11 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     if(request.params.courseId!=='management-principles'||!store.getCourse(request.params.courseId))return reply.code(404).send({message:'该课程没有来源对照'});
     return {courseId:request.params.courseId,mappings:MANAGEMENT_SOURCE_MAP};
   });
-  app.get("/api/class-sessions", async () => store.listSessions());
+  app.get("/api/class-sessions", async request => {
+    const actor = await resolveActor(request);
+    const allowed = actor ? allowedCourseIds(actor) : null;
+    return store.listSessions().filter(session => !allowed || allowed.includes(session.courseId));
+  });
 
   app.get("/api/avatar/runtime/status", async () =>
     campusMode ? { service:"openavatarchat", renderer:"lam", avatar:"barbara", status:"offline",version:null,uiUrl:null,assetUrl:null,websocketUrl:null,checkedAt:new Date().toISOString(),message:"数字人由当前浏览器播放；校园服务器不启动 GPU 服务。" } : getLamRuntimeStatus(

@@ -2,6 +2,13 @@
 .env
 .env.*
 !.env.example
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+students_id.xls
+students_id.xlsx
+initial-teacher.json
+admin-login.json
 
 # Local runtimes and generated evidence
 .runtime/

@@ -34,6 +34,7 @@ import {
 } from "react";
 import { Link, useParams } from "react-router-dom";
 import { api } from "../../api";
+import { runtimeConfig } from "../../campus/runtime";
 import { SlideStage } from "../classroom/TeachingSlides";
 import "../classroom/classroom.css";
 import { LanzhouAvatarPlayer } from "./LanzhouAvatarPlayer";
@@ -65,6 +66,7 @@ export function StudentStudyPage() {
   const speechMeter = useRef(new SpeechMeter());
   const { courseId = "" } = useParams();
   const [session, setSession] = useState<StudySession>();
+  const [aiEnabled, setAiEnabled] = useState(runtimeConfig.studentAiEnabled !== false);
   const [cuePack, setCuePack] = useState<AvatarCuePack>();
   const [avatarState, setAvatarState] = useState<AvatarCueState>("idle");
   const [subtitle, setSubtitle] = useState("");
@@ -150,19 +152,18 @@ export function StudentStudyPage() {
     let active = true;
     void (async () => {
       try {
-        try {
-          await api.getIdentitySession();
-        } catch {
-          await api.createDevelopmentIdentitySession("student");
-        }
+        const identity = await api.getIdentitySession().catch(() => api.createDevelopmentIdentitySession("student"));
+        const enabled = identity.actor.roles.includes("teacher") || runtimeConfig.studentAiEnabled !== false;
         const nextSession = await api.createStudySession({ courseId });
         const nextCuePack = nextSession.presentation.manifestUrl
           ? await api.getAvatarCuePack(nextSession.presentation.manifestUrl)
           : undefined;
         if (!active) return;
+        setAiEnabled(enabled);
+        if (!enabled) setConversations([]);
         setSession(nextSession);
         setCuePack(nextCuePack);
-        setSubtitle("准备好后，从当前页开始提问吧。");
+        setSubtitle(enabled ? "准备好后，从当前页开始提问吧。" : "可通过目录和翻页按钮阅读课件。");
       } catch (reason) {
         if (active) setError((reason as Error).message);
       } finally {
@@ -223,7 +224,7 @@ export function StudentStudyPage() {
   }
 
   async function runAssistantTurn(text: string, source: "text" | "voice_asr") {
-    if (!session) return;
+    if (!session || !aiEnabled) return;
     interruptCurrentTurn();
     primeAudio();
     const runSequence = runSequenceRef.current;
@@ -311,7 +312,7 @@ export function StudentStudyPage() {
   }
 
   async function handleVoice(input: StudyAsrInput) {
-    if (!session) return;
+    if (!session || !aiEnabled) return;
     setAvatarState("thinking");
     setSubtitle("正在识别你的问题……");
     setError("");
@@ -441,8 +442,9 @@ export function StudentStudyPage() {
             </div>
           </section>
           {error && <p className="study-inline-error"><CircleAlert size={15} /> {error}</p>}
+          {!aiEnabled && <p role="status">学生 AI 暂未开放，课件阅读与仿真实验可正常使用。</p>}
           <StudyComposer
-            disabled={navigationBusy}
+            disabled={navigationBusy || !aiEnabled}
             onSendText={(text) => runAssistantTurn(text, "text")}
             onSendVoice={handleVoice}
             onUserGesture={primeAudio}

@@ -47,6 +47,8 @@ const app = await buildApp({
   allowLegacyDevelopmentIdentity: !campusMode,
   secureIdentityCookie: campusMode,
   campusMode,
+  studentAiEnabled: process.env.EDU_STUDENT_AI_ENABLED !== "false",
+  accountMinimumPasswordLength: positiveSetting("EDU_ACCOUNT_MIN_PASSWORD_LENGTH",12,256),
   publicOrigin,
   staticRoot: process.env.EDU_STATIC_ROOT ? resolve(process.env.EDU_STATIC_ROOT) : undefined,
   aiLimits: {

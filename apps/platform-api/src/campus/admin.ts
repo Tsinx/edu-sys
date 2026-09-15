@@ -24,7 +24,7 @@ if(action==="backup") {
   }
   console.log("备份完成，SQLite 完整性检查通过。");
 } else if(["create","reset-password","list"].includes(action)) {
-  const identity=new CampusIdentityProvider(`${dataFile}.accounts.sqlite`);
+  const identity=new CampusIdentityProvider(`${dataFile}.accounts.sqlite`, undefined, Number(process.env.EDU_ACCOUNT_MIN_PASSWORD_LENGTH ?? 12));
   try {
     if(action==="list")console.log(JSON.stringify(identity.listAccounts(),null,2));
     else {

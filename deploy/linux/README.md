@@ -105,3 +105,11 @@ python3 deploy/linux/verify-live.py
 两套个人训练的唤醒模型位于原开发机被 Git 忽略的 `output/`，仓库没有提供权重或下载地址；本机使用已校验的通用模型，未安装的个人模型不会出现在选择器中。取得原始模型后可用 `setup-personal-kws.mjs --source` 安装并重新构建，构建时会校验并自动启用。AI/语音服务商密钥仍从当前服务器 `.env` 读取；Rhubarb 是可选口型增强，不影响基础浏览器口型与字幕。
 
 客户端升级后应关闭旧教学页再重新进入，并重新下载离线包，以使用新课件和资源版本。
+
+## 本机账号与 AI 配置
+
+生产配置保存在 `.runtime/campus/.env`，支持 `dashscope_api_key` 和 `DASHSCOPE_API_KEY`。systemd 服务不会自动继承后来在终端中设置的变量；密钥应写入该受保护文件或服务环境，再重启 `edu-campus`。
+
+`EDU_STUDENT_AI_ENABLED=false` 会在服务端拒绝学生的问答、语音识别和语音合成请求，同时停用学生问答输入，保留课件阅读与本地实验。教师权限不受该开关影响。`EDU_ACCOUNT_MIN_PASSWORD_LENGTH` 默认12，本机可按账号初始化要求显式设为6。
+
+账号和选课范围存储于 `.runtime/campus/data/state.json.accounts.sqlite`，密码使用独立随机盐和 scrypt 哈希。选课限制同时应用于课程列表、课堂列表和直接访问；没有选课限制记录的旧账号保留原权限。私有导入名单位于 `.runtime/campus/rosters/`。上述数据、密钥及备份均被 Git 忽略，更新代码时必须保留。
