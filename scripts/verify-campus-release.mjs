@@ -3,7 +3,7 @@ import { spawn } from "node:child_process";
 import { mkdtemp,mkdir,readFile,writeFile,readdir } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { resolve,join } from "node:path";
-import { randomUUID } from "node:crypto";
+import { randomUUID, createHash } from "node:crypto";
 import { createServer } from "node:net";
 import { DatabaseSync } from "node:sqlite";
 const release=resolve(process.argv[2] ?? "");assert.ok(process.argv[2],"Pass the standalone release directory");
@@ -37,6 +37,11 @@ try {
   const teacher=await fetch(address+"/api/me",{headers:{cookie}}).then(r=>r.json());assert.equal(teacher.name,"独立包验收教师");
   const room=await fetch(address+"/api/courses/course-port-management-intro/class-sessions",{method:"POST",headers:{cookie}});assert.equal(room.status,201);
   const manifest=await fetch(address+"/offline-manifest.json").then(r=>r.json());assert.ok(manifest.files.length>40);
+  for(const file of manifest.files) {
+    const response=await fetch(address+file.url);assert.equal(response.status,200,file.url);
+    const bytes=Buffer.from(await response.arrayBuffer());assert.equal(bytes.length,file.bytes,file.url);
+    assert.equal(createHash("sha256").update(bytes).digest("hex"),file.sha256,file.url);
+  }
   assert.equal((await fetch(address+"/api/identity/development/session",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({role:"teacher"})})).status,403);
   server.kill();await new Promise(resolve=>server.once("close",resolve));server=undefined;
   const backup=join(temp,"backup");await command(process.execPath,["admin.mjs","backup",backup]);

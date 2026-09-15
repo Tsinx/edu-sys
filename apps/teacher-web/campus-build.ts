@@ -39,7 +39,7 @@ export function campusBuild(releaseId:string):Plugin {
       // previews, source scripts and author notes stay outside the web root.
       for(const path of await filesUnder(outDir)) {
         const name=relative(outDir,path).replaceAll("\\","/");
-        if(name.startsWith("avatar/handdrawn/") || /\.(md|mjs|map|ts|py|ps1)$/i.test(name))await unlink(path);
+        if(name.split("/").some(part=>part.startsWith(".")) || name.startsWith("avatar/handdrawn/") || /\.(md|mjs|map|ts|py|ps1)$/i.test(name))await unlink(path);
       }
       const entries=[];
       for(const path of await filesUnder(outDir)) {
