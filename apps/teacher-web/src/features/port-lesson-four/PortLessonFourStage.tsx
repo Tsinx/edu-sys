@@ -26,7 +26,12 @@ function Playback({page,readOnly,progress:controlled,onProgress}:{page:PortLesso
   useEffect(()=>{const q=matchMedia('(prefers-reduced-motion: reduce)');const changed=()=>{setReduced(q.matches);if(q.matches&&!readOnly){cancel();setPlaying(false);write(1);}};changed();q.addEventListener('change',changed);return()=>q.removeEventListener('change',changed);},[readOnly,cancel,write]);
   useEffect(()=>{if(readOnly||!page.animationSeconds||restored.current)return;timer.current=setTimeout(()=>{timer.current=null;setPlaying(true);},1000);return cancel;},[readOnly,page.animationSeconds,cacheKey,cancel]);
   useEffect(()=>{if(!playing||readOnly||!page.animationSeconds)return;let frame=0,last=0;const tick=(now:number)=>{if(last)write(Math.min(1,value.current+(now-last)/(page.animationSeconds!*1000)));last=now;if(value.current<1)frame=requestAnimationFrame(tick);else setPlaying(false);};frame=requestAnimationFrame(tick);return()=>cancelAnimationFrame(frame);},[playing,readOnly,page.animationSeconds,write]);
-  useEffect(()=>()=>{if(!readOnly){remembered.set(cacheKey,value.current);try{sessionStorage.setItem(cacheKey,String(value.current));}catch{}}},[cacheKey,readOnly]);
+  useEffect(()=>{
+    const save=()=>{if(!readOnly){remembered.set(cacheKey,value.current);try{sessionStorage.setItem(cacheKey,String(value.current));}catch{}}};
+    // A full-page experiment navigation does not run React's unmount cleanup.
+    window.addEventListener('pagehide',save);
+    return()=>{window.removeEventListener('pagehide',save);save();};
+  },[cacheKey,readOnly]);
   useEffect(()=>{if(!readOnly)report.current?.(value.current);},[page.slideKey,readOnly]);
   const jump=(p:number)=>{cancel();setPlaying(false);write(p);};
   const start=()=>{cancel();if(value.current>=1)write(0);setPlaying(v=>!v);};

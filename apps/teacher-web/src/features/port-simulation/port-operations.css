@@ -50,3 +50,5 @@
 .port-ops[data-course=arrival] .port-yard-strip{display:none}
 .port-ops[data-course=arrival]>.port-kpis,.port-ops[data-course=departure]>.port-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
 .port-ops[data-course=arrival]>.port-kpis>div:nth-child(n+2):nth-child(-n+4),.port-ops[data-course=departure]>.port-kpis>div:nth-child(n+2):nth-child(-n+4){display:none}
+
+.port-course-return{display:flex;align-items:center;gap:20px;padding:12px 24px;background:#173e50;color:#d6e6e4;font:14px/1.5 "Microsoft YaHei",sans-serif}.port-course-return a{display:inline-flex;align-items:center;min-height:44px;padding:8px 14px;border:1px solid #88a4a7;border-radius:5px;color:#fff1d7;text-decoration:none}.port-course-return a:focus-visible{outline:3px solid #f0c47f;outline-offset:3px}@media(max-width:600px){.port-course-return{padding:8px 12px;gap:12px;flex-wrap:wrap}}

@@ -1,5 +1,5 @@
 import { PortLessonFourControls } from "../port-lesson-four/PortLessonFourStage";
-import { PortLessonFourDemoHost } from "../port-lesson-four/PortLessonFourDemoHost";
+import { lessonFourExperimentUrl } from "../port-lesson-four/experiment-navigation";
 import type { PortDemoCueId } from "@edu/course-content";
 import { ManagementSourceLocator } from "../management-principles/ManagementTeacherTools";
 import type {
@@ -476,6 +476,22 @@ export function ClassroomSubsystem() {
       const failed=result.results.find(r=>r.status==='noop');if(failed&&cueId)setError(failed.message);
     }catch(reason){setError((reason as Error).message);}
   }
+  const externalDemoRef = useRef<string | null>(null);
+  useEffect(() => {
+    const demo = snapshot?.teacherDemo;
+    if (!demo?.active || externalDemoRef.current === demo.runId) return;
+    externalDemoRef.current = demo.runId;
+    // Both page clicks and assistant actions arrive here after server validation.
+    // Close classroom demo state before leaving so Back restores ordinary slides.
+    void api.executeAvatarControl(sessionId, {
+      protocol: "edu.classroom.control", version: "1.0", requestId: crypto.randomUUID(),
+      actions: [{type: "simulation.return_to_slides"}]
+    }).then(result => {
+      mergeSnapshot(result.snapshot);
+      window.location.assign(lessonFourExperimentUrl(demo.cueId, `/classroom/${encodeURIComponent(sessionId)}`, sessionId));
+    }).catch(reason => { externalDemoRef.current = null; setError((reason as Error).message); });
+  }, [snapshot?.teacherDemo?.active, snapshot?.teacherDemo?.runId, sessionId]);
+
   function reportLessonFourProgress(slideKey:string,progress:number){
     const current=snapshotRef.current;if(!current||current.teacherDemo?.active)return;
     const last=lessonFourReportRef.current;const now=Date.now();
@@ -895,8 +911,7 @@ export function ClassroomSubsystem() {
   }
 
   const isLive = snapshot.session.status === "live";
-  const isTeacherDemo = Boolean(snapshot.teacherDemo?.active);
-  const isSlides = snapshot.activeActivity === "slides" && !isTeacherDemo;
+  const isSlides = snapshot.activeActivity === "slides";
   const isGlobe =
     !isRegisteredCourse && snapshot.activeActivity === "globe";
   const isSimulation =
@@ -1062,7 +1077,7 @@ export function ClassroomSubsystem() {
             : "",
           isFullscreen ? "classroom-workspace--fullscreen" : "",
           isGlobe ? "classroom-workspace--globe" : "",
-          isSimulation ? "classroom-workspace--simulation" : isTeacherDemo ? "classroom-workspace--teacher-demo" : ""
+          isSimulation ? "classroom-workspace--simulation" : ""
         ]
           .filter(Boolean)
           .join(" ")}
@@ -1116,9 +1131,7 @@ export function ClassroomSubsystem() {
               }
             }}
           >
-            {isTeacherDemo && snapshot.teacherDemo ? (
-              <PortLessonFourDemoHost key={snapshot.teacherDemo.runId} cueId={snapshot.teacherDemo.cueId} runId={snapshot.teacherDemo.runId} initialRevision={snapshot.teacherDemo.revision} scope={sessionId} onReturn={()=>void lessonFourAction()} onSummary={async(runId,revision,summary)=>{const next=await api.sendClassroomEvent(sessionId,{type:"set_teacher_demo_summary",runId,revision,summary});mergeSnapshot(next);}}/>
-            ) : isSimulation ? (
+            {isSimulation ? (
               <Suspense
                 fallback={
                   <div className="classroom-globe-loading">

@@ -1,2 +1,2 @@
-// Compatibility entry point for the current 44-page deck.
-await import("./port-lesson-four-v10-classroom-audit.mjs");
+// Current lecture entries open the standalone simulator.
+await import("./port-lesson-four-navigation-audit.mjs");

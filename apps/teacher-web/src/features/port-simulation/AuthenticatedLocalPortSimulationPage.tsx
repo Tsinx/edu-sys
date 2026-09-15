@@ -3,10 +3,15 @@ import { CircleAlert, LoaderCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { api } from "../../api";
 import { LocalPortSimulationStage } from "./LocalPortSimulationStage";
+import { getPortLessonFourDemo, type PortDemoCueId } from "@edu/course-content";
+import { lessonFourReturnPath } from "../port-lesson-four/experiment-navigation";
 
 export function AuthenticatedLocalPortSimulationPage() {
   const [actor, setActor] = useState<ClassroomActor>();
   const [error, setError] = useState("");
+  const query = new URLSearchParams(window.location.search);
+  const lectureDemo = getPortLessonFourDemo(query.get("lesson4") as PortDemoCueId);
+  const returnTo = lessonFourReturnPath(query.get("returnTo"));
 
   useEffect(() => {
     let active = true;
@@ -51,12 +56,19 @@ export function AuthenticatedLocalPortSimulationPage() {
   }
 
   return (
+    <>
+    {returnTo && <nav className="port-course-return" aria-label="课件与实验导航">
+      <a href={returnTo}>← 返回课件</a>
+      <span>第4讲 · 完整实验系统</span>
+    </nav>}
     <LocalPortSimulationStage
       actorId={actor.actorId}
       actorDisplayName={actor.displayName}
-      storageScope={`standalone:${actor.actorId}`}
+      storageScope={lectureDemo ? `teacher-lesson-four:${actor.actorId}:${query.get("scope") ?? "standalone"}` : `standalone:${actor.actorId}`}
+      initialLearningStage={lectureDemo?.unit}
       initialChallengeId="joint-watch"
       sourceLabel={`${actor.identitySource === "development" ? "开发身份" : "校园账号"}已确认`}
     />
+    </>
   );
 }

@@ -69,7 +69,7 @@ export function buildClassroomToolPrompt(snapshot: { courseId: string; slide: { 
     '- {"type":"globe.play_cue","cueId":"课程注册表中的固定cue ID"}',
     '- {"type":"simulation.open_demo","cueId":"l4-arrival|l4-cargo|l4-yard|l4-departure"}',
     '- {"type":"simulation.return_to_slides"}',
-    `第4讲教师演示：${PORT_LESSON_FOUR_LABS.map(l=>`${l.cueId}（${l.name}，入口第${l.demoPage}页）`).join("；")}。明确说进入某段演示时调用open_demo，不使用activity.switch代替。返回课件用return_to_slides。只切入并暂停，不启动业务或发布学生任务；知识问答不附带动作。`,
+    `第4讲教师演示：${PORT_LESSON_FOUR_LABS.map(l=>`${l.cueId}（${l.name}，入口第${l.demoPage}页）`).join("；")}。明确说进入某段演示时调用open_demo，不使用activity.switch代替。返回课件用return_to_slides。入口跳转到完整实验系统，课件内不渲染模拟。只打开分段并暂停，不启动业务或发布学生任务；知识问答不附带动作。`,
     '- {"type":"globe.pause"}',
     '- {"type":"globe.resume"}',
     '- {"type":"globe.restart"}',
