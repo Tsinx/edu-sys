@@ -34,7 +34,7 @@ export function campusBuild(releaseId:string):Plugin {
     transform(code,id){
       if(id.replaceAll("\\","/").includes("/packages/course-content/src/") && /\.ts$/.test(id))return {code:stripAuthoringMetadata(code,id),map:null};
     },
-    async closeBundle(){
+    async writeBundle(){
       // Only built runtime files and vetted media are publishable. Production
       // previews, source scripts and author notes stay outside the web root.
       for(const path of await filesUnder(outDir)) {

@@ -1,10 +1,11 @@
 import { build } from "esbuild";
 import { cp, mkdir, readFile, writeFile } from "node:fs/promises";
-import { resolve, join } from "node:path";
+import { resolve, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 const root=resolve(fileURLToPath(new URL("..",import.meta.url)));
 const destination=resolve(process.argv[2] ?? join(root,"output",`campus-server-${new Date().toISOString().replace(/[^0-9]/g,"")}`));
+await mkdir(dirname(destination),{recursive:true});
 await mkdir(destination,{recursive:false});
 const dependencies=JSON.parse(await readFile(join(root,"apps/platform-api/package.json"),"utf8")).dependencies;
 const external=Object.keys(dependencies).filter(name=>!name.startsWith("@edu/"));

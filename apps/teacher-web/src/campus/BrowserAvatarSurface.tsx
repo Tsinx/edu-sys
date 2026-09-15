@@ -6,7 +6,9 @@ import { decodePcm16Base64 } from "../features/study/study-utils";
 import { runtimeConfig } from "./runtime";
 import { api } from "../api";
 import "../features/study/study.css";
-const LegacySurface=lazy(()=>import("../features/classroom/LamAvatarSurface").then(module=>({default:module.LamAvatarSurface})));
+// Production uses the browser avatar; only development loads the GPU adapter.
+// Keep the import behind a compile-time flag so campus builds need no submodules.
+const LegacySurface=import.meta.env.PROD?null:lazy(()=>import("../features/classroom/LamAvatarSurface").then(module=>({default:module.LamAvatarSurface})));
 
 const BrowserSurface=forwardRef<LamAvatarController,LamAvatarSurfaceProps>(function BrowserSurface(props,ref){
   const [cuePack,setCuePack]=useState<AvatarCuePack>();const [state,setState]=useState<AvatarCueState>("idle");const [subtitle,setSubtitle]=useState("");const [notice,setNotice]=useState("");
@@ -56,6 +58,6 @@ const BrowserSurface=forwardRef<LamAvatarController,LamAvatarSurfaceProps>(funct
 });
 
 export const LamAvatarSurface=forwardRef<LamAvatarController,LamAvatarSurfaceProps>(function AdaptiveSurface(props,ref){
-  return runtimeConfig.avatar==="browser"?<BrowserSurface {...props} ref={ref}/>:<Suspense fallback={<p>正在加载本机数字人…</p>}><LegacySurface {...props} ref={ref}/></Suspense>;
+  return runtimeConfig.avatar==="browser"||!LegacySurface?<BrowserSurface {...props} ref={ref}/>:<Suspense fallback={<p>正在加载本机数字人…</p>}><LegacySurface {...props} ref={ref}/></Suspense>;
 });
 export type { LamAvatarController, LamConnectionState } from "../features/classroom/LamAvatarSurface";
