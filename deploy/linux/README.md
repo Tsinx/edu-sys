@@ -24,13 +24,14 @@
 | 私有学生名单 | `.runtime/campus/rosters/`（目录 `0700`，名单文件 `0600`） |
 | 账号验证报告 | `.runtime/campus/account-verification.json` |
 | 学生页面验证报告 | `.runtime/campus/accounts-browser-qa.json` |
+| 真实 AI 调用验证报告 | `.runtime/campus/api-key-live-verification.json` |
 | Caddy 配置 | `.runtime/deploy/Caddyfile.user` |
 | Caddy 证书和私钥存储 | `.runtime/caddy/`（目录 `0700`） |
 | systemd 用户服务 | `~/.config/systemd/user/edu-campus.service`、`edu-campus-caddy.service` |
 | 线上验证报告 | `.runtime/deploy/verification.json` |
 | 独立包验证报告 | `output/campus-current/verification.json` |
 
-云端 AI / 语音需要在 `.runtime/campus/.env` 填写服务商密钥及所用声音配置，再重启后端。2026-09-15 核查时，当前进程、systemd 用户环境及本机配置均未读到有效 DashScope 密钥，因此尚未启用并验证真实云端调用。
+云端 AI / 语音需要在 `.runtime/campus/.env` 填写服务商密钥及所用声音配置，再重启后端。2026-09-15 已从更新后的 `.bashrc` 读取有效 DashScope 密钥，通过 `configure-ai.py` 写入服务配置并重启。管理员的课下数字人与课堂助手均已通过真实云端文字回复验证；语音合成的声音配置与音频输出不在本轮验收范围内。
 
 ```bash
 systemctl --user status edu-campus edu-campus-caddy
@@ -158,6 +159,10 @@ EDU_ACCOUNT_MIN_PASSWORD_LENGTH=6
 
 ## 2026-09-15 密钥读取修复
 
-针对“课堂助手模型尚未配置”报错，重新检查了大小写环境变量、登录终端、systemd 用户环境与生产文件。生产文件中的 `DASHSCOPE_API_KEY` 仍为空，尚未找到可用于真实调用的密钥；这与空值遮蔽缺陷分别记录，不能将读取逻辑修复视为服务商已连通。
+针对“课堂助手模型尚未配置”报错，初次核查确认生产文件中的 `DASHSCOPE_API_KEY` 为空，登录终端和 systemd 用户环境中也没有有效值。随后用户补齐 `.bashrc` 中的变量，配置工具成功导入大写 `DASHSCOPE_API_KEY` 并重启教学服务。空值遮蔽缺陷同时得到修复，配置文件维持 `0600` 权限，学生 AI 开关保持关闭。
 
 平台 API 测试 67 项通过、1 项可选 Rhubarb 测试跳过；密钥回退回归测试和配置工具的 2 项 Python 测试通过，类型检查与生产构建通过。测试使用合成凭据和模型响应替身，验证大写、小写、空白回退、配置文件优先级、ASR 鉴权头及显式停用行为；不发送真实师生信息，也不替代真实云端调用验收。
+
+修复代码提交为 `101a127`，已部署发布包 `output/campus-server-20260915053341208`。经 Caddy HTTPS 入口以管理员身份分别调用课下学习和现有课堂的助手接口，真实 `qwen-plus` 请求均返回 `turn.completed` 和非空文字回复。测试仅询问港口的一般作用，不包含学生名单或账号信息。测试学生的问答和 ASR 接口仍返回 `403 STUDENT_AI_DISABLED`。
+
+本次升级备份位于 `.runtime/backups/upgrade-20260915-133442/`，密钥导入前的配置备份位于 `.runtime/backups/ai-config-20260915T053617972713Z/`。真实调用报告保存在 `.runtime/campus/api-key-live-verification.json`，与凭据、数据库及其他私有资料一起留在 Git 忽略目录中。
