@@ -1,0 +1,31 @@
+{
+  "id": "mg-071",
+  "deck": "l4a",
+  "page": 1,
+  "title": "环境与理性",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A beautiful open workshop sits within concentric layers of city, community and landscape, a large contextual panoramic architectural model. Source context: original l4a page 1, 环境与理性. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-c1451413-e9e8-4825-98b8-bc720974d560.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-071.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-071.webp",
+  "pages": [
+    "mg-l4a-s001-01"
+  ],
+  "originalSha256": "a9224a22d6153abd8048320bfa3203b3251fca2e1d727a920cabf2ade03b0297",
+  "webSha256": "0ab0c3eae9ec7ace22ee3f2bfeae917edd1dd03715bfb2cf734318ebf90ce4ec",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 238998
+}

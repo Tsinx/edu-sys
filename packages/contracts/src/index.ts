@@ -1,4 +1,5 @@
 import { z } from "zod";
+export * from "./assistant-prompts.js";
 
 export const classroomActorRoleSchema = z.enum(["teacher", "student"]);
 export type ClassroomActorRole = z.infer<typeof classroomActorRoleSchema>;
@@ -97,11 +98,11 @@ export type Lesson = z.infer<typeof lessonSchema>;
 export const courseSchema = z.object({
   id: z.string(),
   slug: z.string(),
-  code: z.string(),
+  code: z.string().nullable(),
   title: z.string(),
   category: z.string(),
   discipline: z.string(),
-  totalHours: z.number().int().positive(),
+  totalHours: z.number().int().positive().nullable(),
   progress: z.number().min(0).max(100),
   status: courseStatusSchema,
   featured: z.boolean(),
@@ -840,10 +841,12 @@ export type PortSimulationTeamSummary = z.infer<
 >;
 
 export const portSimulationClassroomSummarySchema = z.object({
+  learningStage: z.enum(["arrival", "cargo", "yard", "planning", "departure", "full"]).default("full"),
   scenarioId: z.string(),
   scenarioVersion: z.string(),
   challengeId: portSimulationChallengeIdSchema.default("compound-disruption"),
   challengeVersion: z.string().default("1.0.0"),
+  trainingMode: z.enum(["practice", "battle"]).default("practice"),
   deliveryMode: portSimulationDeliveryModeSchema.default(
     "network_teams_legacy"
   ),
@@ -858,6 +861,17 @@ export type PortSimulationClassroomSummary = z.infer<
   typeof portSimulationClassroomSummarySchema
 >;
 
+export const teacherDemoSchema = z.object({
+  cueId: z.enum(["l4-arrival", "l4-cargo", "l4-yard", "l4-departure"]),
+  runId: z.string().min(1).max(128),
+  originSlideKey: z.string().min(1).max(128),
+  active: z.boolean(),
+  revision: z.number().int().nonnegative(),
+  visibleSummary: z.string().max(6000).nullable(),
+  updatedAt: z.string().nullable()
+});
+export type TeacherDemo = z.infer<typeof teacherDemoSchema>;
+export const lessonFourPresentationSchema = z.object({slideKey:z.string().min(1).max(128),progress:z.number().finite().min(0).max(1)});
 export const classroomSnapshotSchema = z.object({
   session: classSessionSchema,
   courseId: z.string(),
@@ -869,12 +883,16 @@ export const classroomSnapshotSchema = z.object({
   runtimeVersion: z.number().int().positive(),
   slideInteraction: slideInteractionStateSchema.nullable(),
   globePlayback: globePlaybackSchema,
+  teacherDemo: teacherDemoSchema.nullable().optional(),
+  lessonFourPresentation: lessonFourPresentationSchema.nullable().optional(),
   simulation: portSimulationClassroomSummarySchema.nullable(),
   avatar: classroomAvatarRuntimeSchema
 });
 export type ClassroomSnapshot = z.infer<typeof classroomSnapshotSchema>;
 
 export const portSimulationSetupInputSchema = z.object({
+  learningStage: z.enum(["arrival", "cargo", "yard", "planning", "departure", "full"]).optional(),
+  trainingMode: z.enum(["practice", "battle"]).optional(),
   expectedStudentCount: z.number().int().min(4).max(72).optional(),
   teamCount: z.number().int().min(1).max(15).optional(),
   teamNames: z.array(z.string().trim().min(1).max(24)).max(15).optional(),
@@ -1454,6 +1472,8 @@ export const lamRuntimeStatusSchema = z.object({
 export type LamRuntimeStatus = z.infer<typeof lamRuntimeStatusSchema>;
 
 export const classroomEventInputSchema = z.discriminatedUnion("type", [
+  z.object({type:z.literal("set_lesson_four_progress"),...lessonFourPresentationSchema.shape}).strict(),
+  z.object({type:z.literal("set_teacher_demo_summary"),runId:z.string().min(1).max(128),revision:z.number().int().positive(),summary:z.string().max(6000)}).strict(),
   z.object({ type: z.literal("next_slide") }),
   z.object({ type: z.literal("previous_slide") }),
   z.object({
@@ -1513,6 +1533,8 @@ export const avatarControlActionTypeSchema = z.enum([
   "slides.go_to",
   "lesson.go_to",
   "activity.switch",
+  "simulation.open_demo",
+  "simulation.return_to_slides",
   "globe.play_cue",
   "globe.pause",
   "globe.resume",
@@ -1523,6 +1545,8 @@ export type AvatarControlActionType = z.infer<
 >;
 
 export const avatarControlActionSchema = z.discriminatedUnion("type", [
+  z.object({type:z.literal("simulation.open_demo"),cueId:z.string().min(1).max(128)}).strict(),
+  z.object({type:z.literal("simulation.return_to_slides")}).strict(),
   z.object({ type: z.literal("slides.next") }).strict(),
   z.object({ type: z.literal("slides.previous") }).strict(),
   z
@@ -1563,16 +1587,36 @@ export const assistantResponseEnvelopeSchema = z
   .object({
     schema: assistantResponseSchemaNameSchema,
     version: assistantResponseVersionSchema,
-    dialogue: z.string().min(1).max(4_000),
+    replyKind: z.enum(["answer", "control"]).optional(),
+    dialogue: z.string().max(4_000),
     actions: z.array(avatarControlActionSchema).max(8)
   })
-  .strict();
+  .strict()
+  .refine(value => value.dialogue.trim().length > 0 || value.actions.length > 0, {
+    message: "助手响应必须包含回答或课堂动作"
+  })
+  .refine(value => (value.replyKind !== "control" || value.actions.length > 0) &&
+    (value.replyKind !== "answer" || value.dialogue.trim().length > 0), {
+    message: "操作响应必须包含动作，教学回答必须包含正文"
+  });
 export type AssistantResponseEnvelope = z.infer<
   typeof assistantResponseEnvelopeSchema
 >;
 
+export const avatarVoiceProfileSchema = z.enum(["default", "natori", "hiyori"]);
+export type AvatarVoiceProfile = z.infer<typeof avatarVoiceProfileSchema>;
+
+export const speechVisemeCueSchema = z.object({
+  start: z.number().finite().nonnegative(),
+  end: z.number().finite().nonnegative(),
+  value: z.enum(["A", "B", "C", "D", "E", "F", "G", "H", "X"])
+});
+export type SpeechVisemeCue = z.infer<typeof speechVisemeCueSchema>;
+
 export const assistantTurnInputSchema = z
   .object({
+    voiceProfile: avatarVoiceProfileSchema.optional(),
+    lipSync: z.boolean().optional(),
     text: z.string().trim().min(1, "助手输入不能为空").max(2_000),
     source: z.enum(["text", "voice_asr"]),
     commandId: z.string().trim().min(1).max(128).optional()
@@ -1640,6 +1684,7 @@ export const studyAssistantTurnEventSchema = z.discriminatedUnion("type", [
     turnId: z.string(),
     sequence: z.number().int().nonnegative(),
     audioBase64: z.string().min(1),
+    mouthCues: z.array(speechVisemeCueSchema).max(1000).optional(),
     sampleRate: z.literal(24_000),
     channels: z.literal(1),
     format: z.literal("pcm_s16le")

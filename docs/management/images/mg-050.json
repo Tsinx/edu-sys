@@ -1,0 +1,31 @@
+{
+  "id": "mg-050",
+  "deck": "l3",
+  "page": 7,
+  "title": "决策类型",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A contemporary organization shows executive planning, team scheduling and frontline problem-solving in three connected spaces. Source context: original l3 page 7, 决策类型. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-d7486135-1618-4ae1-8c69-dabaf8d34e6c.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-050.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-050.webp",
+  "pages": [
+    "mg-l3-s007-01"
+  ],
+  "originalSha256": "530c4051628c5fe3f80fe911f1fc07690709f39f8f64d87efa9802d2b3495e1b",
+  "webSha256": "62e19d27267d20a985820296d407f417a06cc2b6d39a4be79cdfa52e338d0093",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 133076
+}

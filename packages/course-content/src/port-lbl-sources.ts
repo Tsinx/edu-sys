@@ -1,0 +1,27 @@
+import type {PortCourseSource} from "./index.js";
+export const PORT_LBL_SOURCES:Record<string,PortCourseSource>={
+  "lbl-terminal-framework":{label:"港口经济与管理 · 集装箱码头设计与设备",url:"https://porteconomicsmanagement.org/pemp/contents/part6/container-terminal-design-equipment/"},
+  "lbl-terminal-types":{label:"港口经济与管理 · 港口码头类型",url:"https://porteconomicsmanagement.org/pemp/contents/part4/terminals-and-terminal-operators/types-port-terminals/"},
+  "chongqing-port":{label:"重庆市交通运输委 · 果园港与长江多式联运枢纽（2024）",url:"https://jtj.cq.gov.cn/sy_240/bmdt/202401/t20240117_12828937.html"},
+  "lbl-container-types":{label:"Maersk · 干货集装箱规格与类型",url:"https://www.maersk.com/support/faqs/2024/07/01/types-and-sizes-of-containers"},
+  "lbl-shipping-process":{label:"Maersk · 集装箱运输订舱与单证指南（2025）",url:"https://www.maersk.com/~/media_sc9/maersk/solutions/transportation-services/maersk-go/guide-to-shipping-with-maersk-go.pdf"},
+  "lbl-empty-return":{label:"Maersk · Terms for Carriage，第15.4条指定地点还箱",url:"https://terms.maersk.com/carriage"},
+  "lbl-ctu-code":{label:"IMO、ILO、UNECE · CTU Code",url:"https://www.imo.org/en/ourwork/safety/pages/ctu-code.aspx"},
+  "lbl-ll3-rotation":{label:"OOCL · LL3 港序历史公告（2023-08-08）",url:"https://www.oocl.com/eng/pressandmedia/pressreleases/2023/Pages/08Aug2023.aspx?lang=eng"},
+  "lbl-lng-trade":{label:"EIA · 2024 年 LNG 贸易结构（2025年发布）",url:"https://www.eia.gov/todayinenergy/detail.php?id=64844"},
+  "lbl-australia-energy":{label:"EIA · 澳大利亚 LNG 与煤炭贸易",url:"https://www.eia.gov/international/analysis/country/AUS"},
+  "lbl-port-community":{label:"World Bank · Port Community Systems",url:"https://documents.worldbank.org/en/publication/documents-reports/documentdetail/099092624152038561"},
+  "lbl-imo-vgm":{label:"IMO · 集装箱核实总质量 VGM",url:"https://www.imo.org/en/ourwork/safety/pages/verification-of-the-gross-mass.aspx"},
+  "lbl-three-gorges":{label:"三峡集团 · 三峡双线五级船闸简介",url:"https://www.ctg.com.cn/sxjt/zt98/sxcznhylspyddg/2024081109192477860/index.html"},
+  "lbl-global-lanes":{label:"港口经济与管理 · 全球航运联系层次",url:"https://porteconomicsmanagement.org/pemp/contents/part1/maritime-shipping-and-international-trade/global-hierarchy-shipping-lanes/"},
+  "lbl-rotterdam-terminals":{label:"鹿特丹港务局 · 专业码头与腹地连接",url:"https://www.portofrotterdam.com/en/logistics/storage-and-transhipment/terminals"},
+  "lbl-bulk-terminals":{label:"鹿特丹港务局 · 干散货设施与腹地连接",url:"https://www.portofrotterdam.com/en/logistics/cargo/dry-bulk"},
+  "lbl-lng-terminal":{label:"Gate terminal · LNG卸载、储存、再气化与管网连接",url:"https://www.gateterminal.com/en/gate-terminal/functions/functions-terminal/"},
+  "lbl-roro":{label:"Wallenius Wilhelmsen · 滚装运输与船岸接口",url:"https://www.walleniuswilhelmsen.com/what-we-do/ocean-transportation"},
+  "lbl-eia-chokepoints":{label:"EIA · World Oil Transit Chokepoints",url:"https://www.eia.gov/international/analysis/special-topics/World_Oil_Transit_Chokepoints"},
+  "lbl-unctad-2025":{label:"UNCTAD · Review of Maritime Transport 2025，贸易结构",url:"https://unctad.org/system/files/official-document/rmt2025ch1_en.pdf"},
+  "lbl-unctad-disruption":{label:"UNCTAD · Navigating troubled waters（2024-02-22）",url:"https://unctad.org/system/files/official-document/osginf2024d2_en.pdf"},
+  "lbl-panama-drought":{label:"巴拿马运河管理局 · A-54-2023历史通行调整",url:"https://pancanal.com/en/panama-canal-to-increase-daily-transits-to-24-starting-in-january/"},
+  "lbl-imo-hormuz":{label:"IMO · Middle East专题，2026-09-09检索快照",url:"https://www.imo.org/en/mediacentre/hottopics/pages/middle-east-strait-of-hormuz.aspx"},
+  "lbl-liner-shipping":{label:"港口经济与管理 · 港口与集装箱航运组织",url:"https://porteconomicsmanagement.org/pemp/contents/part6/ports-and-container-shipping/"}
+};

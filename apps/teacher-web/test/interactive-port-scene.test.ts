@@ -12,6 +12,7 @@ import {
   portSceneEntityFitsDefinition
 } from "../src/features/port-simulation/InteractivePortScene.js";
 import { PortSimulationPreviewPage } from "../src/features/port-simulation/PortSimulationPreviewPage.js";
+import { LegacyTerminalStudio } from "../src/features/port-simulation/TerminalStudio.js";
 import { LocalPortSimulationRunner } from "../src/features/port-simulation/LocalPortSimulationStage.js";
 import { PortSimulationWorkspace } from "../src/features/port-simulation/PortSimulationWorkspace.js";
 import {
@@ -208,15 +209,15 @@ test("component renders an accessible, course-safe standalone scene", () => {
   );
 });
 
-test("preview opens on the V1.0 local-solo runner", () => {
+test("preview opens the comprehensive 48-hour kernel while keeping legacy teaching metadata private", () => {
   const markup = renderToStaticMarkup(
     createElement(PortSimulationPreviewPage)
   );
 
-  assert.match(markup, /PORT SIMULATION · V1\.0 LOCAL SOLO/u);
-  assert.match(markup, /登录一次，在本机接管港口全流程/u);
-  assert.match(markup, /正在读取本机存档/u);
-  assert.doesNotMatch(markup, /课堂主舞台|教学中枢控制/u);
+  assert.match(markup, /船舶入港/u);
+  assert.match(markup, /正在载入本机场次与业务内核/u);
+  assert.doesNotMatch(markup, /terminal-question|现场判断|选择正确|完成六个现场判断/u);
+  assert.doesNotMatch(markup, /课堂主舞台|教学中枢控制|teachingCue|assistantCue|storyBeat|voyageStage|让学生|告诉学生/u);
 });
 
 test("local-solo runner exposes all four roles without network seats", () => {
@@ -237,6 +238,10 @@ test("local-solo runner exposes all four roles without network seats", () => {
   assert.match(markup, /本机确定性引擎 · 无实时网络依赖/u);
   assert.match(markup, /个人诊断成绩/u);
   assert.doesNotMatch(markup, /认领岗位|课堂实时榜|正在建立权威连接/u);
+});
+test("legacy laboratory retains its four task modes and original teaching assumptions",()=>{
+  const markup=renderToStaticMarkup(createElement(LegacyTerminalStudio,{storageScope:"legacy-regression"}));
+  for(const label of ["3D 港口仿真实验室","熟悉流程","设备与人员调度","设备选型","港区规划","设备参数、预算和能耗均为实验假设"])assert.ok(markup.includes(label));
 });
 
 test("manual workspace renders shared state and only the selected role commands", () => {

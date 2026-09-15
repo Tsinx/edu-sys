@@ -1,0 +1,202 @@
+[
+  {
+    "name": "occlusion_underpainting",
+    "box": [
+      378,
+      118,
+      653,
+      760
+    ],
+    "png": "occlusion_underpainting.png"
+  },
+  {
+    "name": "cardigan_body",
+    "box": [
+      186,
+      449,
+      845,
+      760
+    ],
+    "png": "cardigan_body.png"
+  },
+  {
+    "name": "shirt_base",
+    "box": [
+      365,
+      458,
+      679,
+      760
+    ],
+    "png": "shirt_base.png"
+  },
+  {
+    "name": "cardigan_trim_left",
+    "box": [
+      353,
+      489,
+      492,
+      760
+    ],
+    "png": "cardigan_trim_left.png"
+  },
+  {
+    "name": "cardigan_trim_right",
+    "box": [
+      552,
+      485,
+      673,
+      760
+    ],
+    "png": "cardigan_trim_right.png"
+  },
+  {
+    "name": "neck_layer",
+    "box": [
+      443,
+      448,
+      594,
+      665
+    ],
+    "png": "neck_layer.png"
+  },
+  {
+    "name": "hair_back_layer",
+    "box": [
+      362,
+      20,
+      610,
+      458
+    ],
+    "png": "hair_back_layer.png"
+  },
+  {
+    "name": "hair_left_side",
+    "box": [
+      290,
+      113,
+      455,
+      451
+    ],
+    "png": "hair_left_side.png"
+  },
+  {
+    "name": "hair_right_side",
+    "box": [
+      526,
+      31,
+      694,
+      451
+    ],
+    "png": "hair_right_side.png"
+  },
+  {
+    "name": "face_layer",
+    "box": [
+      393,
+      128,
+      625,
+      445
+    ],
+    "png": "face_layer.png"
+  },
+  {
+    "name": "ear_left",
+    "box": [
+      375,
+      286,
+      421,
+      364
+    ],
+    "png": "ear_left.png"
+  },
+  {
+    "name": "ear_right",
+    "box": [
+      609,
+      243,
+      659,
+      340
+    ],
+    "png": "ear_right.png"
+  },
+  {
+    "name": "hair_front_main",
+    "box": [
+      290,
+      20,
+      551,
+      332
+    ],
+    "png": "hair_front_main.png"
+  },
+  {
+    "name": "collar_left",
+    "box": [
+      363,
+      439,
+      484,
+      613
+    ],
+    "png": "collar_left.png"
+  },
+  {
+    "name": "collar_right",
+    "box": [
+      551,
+      439,
+      678,
+      616
+    ],
+    "png": "collar_right.png"
+  },
+  {
+    "name": "brow_left",
+    "box": [
+      407,
+      223,
+      487,
+      257
+    ],
+    "png": "brow_left.png"
+  },
+  {
+    "name": "brow_right",
+    "box": [
+      518,
+      211,
+      608,
+      248
+    ],
+    "png": "brow_right.png"
+  },
+  {
+    "name": "nose_layer",
+    "box": [
+      482,
+      288,
+      533,
+      360
+    ],
+    "png": "nose_layer.png"
+  },
+  {
+    "name": "Mouth_Closed",
+    "box": [
+      466,
+      353,
+      562,
+      407
+    ],
+    "png": "Mouth_Closed.png"
+  },
+  {
+    "name": "shirt_button",
+    "box": [
+      504,
+      680,
+      536,
+      717
+    ],
+    "png": "shirt_button.png"
+  }
+]

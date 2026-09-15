@@ -1,0 +1,41 @@
+{
+  "sourcePages": 299,
+  "webPages": 367,
+  "lessons": [
+    {
+      "number": 1,
+      "title": "管理导论",
+      "slideStart": 1,
+      "slideEnd": 67,
+      "slideTotal": 67,
+      "status": "ready"
+    },
+    {
+      "number": 2,
+      "title": "管理理论的历史演变",
+      "slideStart": 68,
+      "slideEnd": 146,
+      "slideTotal": 79,
+      "status": "ready"
+    },
+    {
+      "number": 3,
+      "title": "决策与决策过程",
+      "slideStart": 147,
+      "slideEnd": 227,
+      "slideTotal": 81,
+      "status": "ready"
+    },
+    {
+      "number": 4,
+      "title": "环境分析与理性决策",
+      "slideStart": 228,
+      "slideEnd": 367,
+      "slideTotal": 140,
+      "status": "ready"
+    }
+  ],
+  "imageCount": 110,
+  "unusedImages": [],
+  "generatedAt": "2026-09-13T17:16:55.316Z"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "mg-089",
+  "deck": "l4a",
+  "page": 22,
+  "title": "三电技术",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A high-end exploded physical model of an electric vehicle battery pack, motor and power electronics arranged coherently on ivory surfaces, no labels. Source context: original l4a page 22, 三电技术. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-58c2add9-4ee0-4a4b-baa1-bc3bcfd67e39.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-089.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-089.webp",
+  "pages": [
+    "mg-l4a-s022-01"
+  ],
+  "originalSha256": "a6d717e2bc11005b17c7bf49bd1a9d6783deafae01734c48200f20232142d5ed",
+  "webSha256": "8fe89719b50d91fbbe903fe86e1d71030946569dd3ea723b5fb2bb6528119d03",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 167172
+}

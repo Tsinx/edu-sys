@@ -1,3 +1,4 @@
+import type { SpeechVisemeCue } from "@edu/contracts";
 import {
   getPortManagementGlobalSlideIndex,
   getPortManagementLessonSlidePosition,
@@ -24,6 +25,8 @@ import {
   VolumeX
 } from "lucide-react";
 import {
+  lazy,
+  Suspense,
   useCallback,
   useEffect,
   useRef,
@@ -34,6 +37,10 @@ import { api } from "../../api";
 import { SlideStage } from "../classroom/TeachingSlides";
 import "../classroom/classroom.css";
 import { LanzhouAvatarPlayer } from "./LanzhouAvatarPlayer";
+import { useAvatarRenderer, getAvatarVoice } from "../avatar/avatar-preference";
+import { AvatarSelector } from "../avatar/AvatarSelector";
+import { SpeechMeter } from "../avatar/SpeechMeter";
+const Live2DPlayer = lazy(() => import("../avatar/Live2DAvatarPlayer").then(module => ({ default: module.Live2DAvatarPlayer })));
 import { StudyComposer } from "./StudyComposer";
 import {
   buildStudySlideFrame,
@@ -54,6 +61,8 @@ function createLocalId(prefix: string) {
 }
 
 export function StudentStudyPage() {
+  const avatarRenderer = useAvatarRenderer();
+  const speechMeter = useRef(new SpeechMeter());
   const { courseId = "" } = useParams();
   const [session, setSession] = useState<StudySession>();
   const [cuePack, setCuePack] = useState<AvatarCuePack>();
@@ -63,7 +72,7 @@ export function StudentStudyPage() {
     {
       id: "welcome",
       role: "assistant",
-      text: "你好，我是澜舟。你可以针对当前页提问，也可以让我带你跳到某一讲或某一页。"
+      text: "你好，我是小麦老师。你可以针对当前页提问，也可以让我带你跳到某一讲或某一页。"
     }
   ]);
   const [loading, setLoading] = useState(true);
@@ -89,6 +98,7 @@ export function StudentStudyPage() {
   }, []);
 
   const stopAudio = useCallback(() => {
+    speechMeter.current.reset();
     for (const source of audioSourcesRef.current) {
       try { source.stop(); } catch { /* The source may already have ended. */ }
     }
@@ -103,7 +113,7 @@ export function StudentStudyPage() {
     return audioContextRef.current;
   }, []);
 
-  const enqueueSpeech = useCallback((audioBase64: string, sampleRate: number) => {
+  const enqueueSpeech = useCallback((audioBase64: string, sampleRate: number, mouthCues?: SpeechVisemeCue[]) => {
     const context = primeAudio();
     const samples = decodePcm16Base64(audioBase64);
     if (samples.length === 0) return;
@@ -111,7 +121,7 @@ export function StudentStudyPage() {
     buffer.getChannelData(0).set(samples);
     const source = context.createBufferSource();
     source.buffer = buffer;
-    source.connect(context.destination);
+    speechMeter.current.connect(source);
     const startAt = Math.max(context.currentTime + 0.025, nextAudioStartRef.current);
     nextAudioStartRef.current = startAt + buffer.duration;
     audioSourcesRef.current.add(source);
@@ -119,6 +129,7 @@ export function StudentStudyPage() {
       audioSourcesRef.current.delete(source);
       if (audioSourcesRef.current.size === 0 && streamCompletedRef.current) returnToIdle();
     };
+    speechMeter.current.schedule(source, startAt, mouthCues);
     source.start(startAt);
   }, [primeAudio, returnToIdle]);
 
@@ -234,7 +245,7 @@ export function StudentStudyPage() {
     try {
       await api.streamStudyAssistantTurn(
         session.id,
-        { text, source, commandId: createLocalId("study-turn") },
+        { text, source, commandId: createLocalId("study-turn"), voiceProfile: getAvatarVoice(), lipSync: avatarRenderer === "live2d" },
         (event) => {
           if (runSequence !== runSequenceRef.current) return;
           if (event.type === "dialogue.delta") {
@@ -247,7 +258,7 @@ export function StudentStudyPage() {
           } else if (event.type === "speech.chunk") {
             setAvatarState("speaking");
             setSpeechNotice("24 kHz语音播放中");
-            enqueueSpeech(event.audioBase64, event.sampleRate);
+            enqueueSpeech(event.audioBase64, event.sampleRate, event.mouthCues);
           } else if (event.type === "navigation.command") {
             setSession(event.result.session);
           } else if (event.type === "turn.completed") {
@@ -403,12 +414,16 @@ export function StudentStudyPage() {
         </section>
 
         <aside className="study-assistant">
-          <LanzhouAvatarPlayer
+          <div className="study-avatar-panel">
+          <AvatarSelector onBeforeChange={() => { interruptCurrentTurn(); setAvatarState("idle"); }}/>
+          {avatarRenderer === "live2d" ? <Suspense fallback={<p>正在加载数字人…</p>}><Live2DPlayer state={avatarState} subtitle={subtitle} readMouth={speechMeter.current.read} readViseme={speechMeter.current.readViseme}
+            fallback={<LanzhouAvatarPlayer cuePack={cuePack} state={avatarState} subtitle={subtitle}/>}/></Suspense> : <LanzhouAvatarPlayer
             cuePack={cuePack}
             state={avatarState}
             subtitle={subtitle}
             onOneShotEnded={() => setAvatarState("idle")}
-          />
+          />}
+          </div>
           <div className="study-speech-status">
             {speechNotice.includes("播放") ? <Volume2 size={14} /> : <VolumeX size={14} />}
             {speechNotice}
@@ -418,7 +433,7 @@ export function StudentStudyPage() {
             <div className="study-conversation__scroll">
               {conversations.slice(-12).map((item) => (
                 <article className={`study-message study-message--${item.role}`} key={item.id}>
-                  <span>{item.role === "assistant" ? "澜舟" : "我"}</span>
+                  <span>{item.role === "assistant" ? "小麦老师" : "我"}</span>
                   <p>{item.text || (item.pending ? "正在回答……" : "")}</p>
                 </article>
               ))}

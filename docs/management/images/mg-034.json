@@ -1,0 +1,31 @@
+{
+  "id": "mg-034",
+  "deck": "l2",
+  "page": 18,
+  "title": "差别计件工资",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: Period factory workbench with completed components and a pay envelope, the physical tension between output measurement and human labor, no printed marks. Source context: original l2 page 18, 差别计件工资. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-164fc475-9626-4f1a-932d-9323bcb0b8d4.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-034.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-034.webp",
+  "pages": [
+    "mg-l2-s018-01"
+  ],
+  "originalSha256": "c9588ccaa4a8cd2eedf524270b53f82f9b15ed0b0d53d43b0b6cfafa1e3587b2",
+  "webSha256": "96860de0baf3359180f4412ad84bacd5400c26b83ecfdfabedf99ba1d49645cb",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 162292
+}

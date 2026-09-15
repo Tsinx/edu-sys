@@ -1,0 +1,31 @@
+{
+  "id": "mg-035",
+  "deck": "l2",
+  "page": 19,
+  "title": "计划与执行",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: Cutaway of an early factory planning office overlooking an organized workshop, drawings blank, supervisor and craft workers communicate. Source context: original l2 page 19, 计划与执行. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-81d8134c-36db-4fe4-be33-6170f48750cd.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-035.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-035.webp",
+  "pages": [
+    "mg-l2-s019-01"
+  ],
+  "originalSha256": "99863322a089eb55dc7bfe866b05e6582e722ae493fbd215ec3d1c6e8c3084e9",
+  "webSha256": "20c897f96c153aff52ea0b6a510f992315e96474c8b3e76f8bc7631834879627",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 239890
+}

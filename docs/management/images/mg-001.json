@@ -1,0 +1,31 @@
+{
+  "id": "mg-001",
+  "deck": "l1",
+  "page": 1,
+  "title": "组织的共同目标",
+  "prompt": "Create one museum-quality editorial illustration for a Chinese university Principles of Management course, lecture 1 introduction. Landscape 16:10. A finely crafted architectural model of an open, human-centered organization: diverse small teams collaborate on interconnected terraces around one central courtyard, paths connect workshop, planning table and community garden, demonstrating people coordinating limited resources toward shared goals. Contemporary art-book photography of a tactile physical model, warm ivory plaster, muted deep teal, charcoal, restrained brushed brass, soft daylight, subtle paper grain, exceptional craftsmanship, sophisticated depth, no visual clutter. Main scene occupies right two thirds; left third has quiet warm ivory negative space for native Chinese title added separately. The image is an artistic teaching scenario, not documentary evidence. No letters, words, logos, graphs, numbers, watermarks, fantasy neon, stock-photo handshakes, or garbled signage.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-48d644f5-c8ab-4b74-aad1-ac60068e8b4e.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-001.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-001.webp",
+  "pages": [
+    "mg-l1-s001-01"
+  ],
+  "originalSha256": "229621d1f444fed5c570b1eb85bfa305c3fae676a480471c519cbbd18bf3b687",
+  "webSha256": "cdd52b06acd6f70daf1ca6664770a7bed4967487039b644c04fcdac7780a80ec",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 264818
+}

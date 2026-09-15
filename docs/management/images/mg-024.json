@@ -1,0 +1,31 @@
+{
+  "id": "mg-024",
+  "deck": "l2",
+  "page": 3,
+  "title": "思想与实践",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A scholar studies unlettered archival notebooks beside models of workshops from different eras, patient historical inquiry. Source context: original l2 page 3, 思想与实践. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-7cecb656-4495-4fa5-99bd-0fec9a0e8d9c.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-024.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-024.webp",
+  "pages": [
+    "mg-l2-s003-01"
+  ],
+  "originalSha256": "4b0729dcb305d1b12eed7e902acb6175691bfab6243dde777e5faebbb2664cb5",
+  "webSha256": "089cb48e111c33473da9891d0a4d13d7dc74129079a743f9126888118dcba164",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 148666
+}

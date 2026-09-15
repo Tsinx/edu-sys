@@ -1,3 +1,5 @@
+import { getCourseDeckByCourseId, getCoursePresentation } from "@edu/course-content/deck-registry";
+import { ManagementCourseOverview } from "./features/management-principles/ManagementTeacherTools";
 import type {
   AvatarPresentation,
   ClassSession,
@@ -64,6 +66,7 @@ import { HarborAssistant, PortScene } from "./art";
 import { ClassroomSubsystem } from "./features/classroom/ClassroomSubsystem";
 import { StudentClassroom } from "./features/classroom/StudentClassroom";
 import { CourseExercisePage } from "./features/classroom/ExerciseLibrary";
+import { AssistantPromptEditor } from "./features/classroom/AssistantPromptEditor";
 
 const AuthenticatedLocalPortSimulationPage = lazy(() =>
   import("./features/port-simulation/AuthenticatedLocalPortSimulationPage").then(
@@ -76,53 +79,22 @@ const StudentStudyPage = lazy(() =>
     default: module.StudentStudyPage
   }))
 );
+const XiaomaiAnimationPreview = lazy(() => import("./features/avatar/XiaomaiAnimationPreview").then(module => ({default:module.XiaomaiAnimationPreview})));
 
 const ECONOMIC_MATHEMATICS_COURSE_ID = "course-economic-mathematics";
+const STATISTICAL_ANALYSIS_COURSE_ID = "statistical-analysis";
+const StatisticalAnalysisCourseOverview = lazy(() => import("./features/statistical-analysis/StatisticalAnalysisCourseOverview").then(m => ({default:m.StatisticalAnalysisCourseOverview})));
 
 function CourseArtwork({ courseId }: { courseId: string }) {
-  if (courseId === "course-port-management-intro") {
-    return (
-      <div className="portal-course-art">
-        <img
-          alt="上海港清晨与集装箱船的教学情境插画"
-          src="/course-assets/port-management/story-l1-shanghai-dawn.png"
-          decoding="async"
-        />
-      </div>
-    );
-  }
-  if (courseId === ECONOMIC_MATHEMATICS_COURSE_ID) {
-    return (
-      <div className="economic-mathematics-art" aria-label="经济数学重庆消费教学情境">
-        <img
-          alt="重庆消费品牌函数与利润教学情境插画"
-          src="/course-assets/economic-mathematics/unit-01-functions-hero.webp"
-        />
-        <span className="economic-mathematics-art__curve" aria-hidden="true" />
-      </div>
-    );
-  }
-  return <PortScene />;
+  const profile=getCoursePresentation(courseId);
+  return profile ? <div className="portal-course-art"><img src={profile.heroImage} alt={`${profile.shortTitle} · 教学情境艺术图`} decoding="async"/></div> : <div className="portal-course-art"><BookOpen size={70}/></div>;
 }
 
 function StudyRoute() {
   const { courseId = "" } = useParams();
-  if (courseId === ECONOMIC_MATHEMATICS_COURSE_ID) {
-    return (
-      <main className="study-unavailable">
-        <BookOpen size={32} />
-        <p>ECONOMIC MATHEMATICS</p>
-        <h1>经济数学课下学习暂未开放</h1>
-        <span>本轮只开放教师课堂与学生同步只读画面，不回落到港口课程内容。</span>
-        <Link className="button button--primary" to={`/courses/${courseId}`}>返回课程工作区</Link>
-      </main>
-    );
-  }
-  return (
-    <Suspense fallback={<LoadingState label="正在打开课下学习空间" />}>
-      <StudentStudyPage />
-    </Suspense>
-  );
+  const profile=getCoursePresentation(courseId);
+  if (!profile?.supportsStudy) return <main className="study-unavailable"><BookOpen size={32}/><h1>{profile?.shortTitle ?? "本课程"}课下学习暂未开放</h1><span>请通过教师课堂与学生同步画面学习。</span><Link to={`/courses/${courseId}`}>返回课程工作区</Link></main>;
+  return <Suspense fallback={<LoadingState label="正在打开课下学习空间"/>}><StudentStudyPage/></Suspense>;
 }
 
 interface PortalContextValue {
@@ -156,6 +128,7 @@ export function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/signed-out" element={<SignedOutPage />} />
+        <Route path="/avatar/xiaomai/preview" element={<Suspense fallback={<p>正在打开动画预览…</p>}><XiaomaiAnimationPreview/></Suspense>} />
         <Route path="/classroom/:sessionId" element={<ClassroomSubsystem />} />
         <Route path="/join/:sessionId" element={<StudentClassroom />} />
         <Route
@@ -167,6 +140,7 @@ export function App() {
           <Route path="courses" element={<CoursesPage />} />
           <Route path="courses/:courseId" element={<CourseDetailPage />} />
           <Route path="courses/:courseId/exercises" element={<CourseExercisePage />} />
+          <Route path="courses/:courseId/assistant-prompts" element={<AssistantPromptEditor />} />
           <Route path="classrooms" element={<ClassroomsPage />} />
           <Route
             path="simulations"
@@ -441,7 +415,7 @@ function DashboardPage() {
               <p>{course.category} · {course.code}</p>
               <h2>{course.title}</h2>
               <p className="hero-lesson">
-                第{course.currentLesson.chapter}{course.id === ECONOMIC_MATHEMATICS_COURSE_ID ? "讲" : "章"} <span /> {course.currentLesson.title}
+                第{course.currentLesson.chapter}{[ECONOMIC_MATHEMATICS_COURSE_ID, STATISTICAL_ANALYSIS_COURSE_ID].includes(course.id) ? "讲" : "章"} <span /> {course.currentLesson.title}
               </p>
             </div>
             <div className="hero-progress">
@@ -475,7 +449,7 @@ function DashboardPage() {
         <article className="assistant-card">
           <div className="assistant-card__copy">
             <span className="assistant-label">
-              <Sparkles size={15} /> 港航教学助手
+              <Sparkles size={15} /> 小麦老师
             </span>
             <h3>给教学多一份支持</h3>
             <p>选择课堂讲解或课下学习，查看适合的助手模式。</p>
@@ -664,7 +638,7 @@ function CoursesPage() {
                 <span style={{ width: `${course.progress}%` }} />
               </div>
               <footer>
-                <small>{course.totalHours} 学时</small>
+                <small>{course.totalHours === null ? "总学时待完善" : `${course.totalHours} 学时`}</small>
                 <strong>进入课程 <ChevronRight size={15} /></strong>
               </footer>
             </div>
@@ -687,7 +661,7 @@ function CourseDetailPage() {
     void api.getCourse(courseId).then(setCourse).catch((reason: Error) => setError(reason.message));
   }, [courseId]);
 
-  async function startClass() {
+  async function startClass(lesson = 1) {
     if (!course) return;
     setStarting(true);
     try {
@@ -700,6 +674,8 @@ function CourseDetailPage() {
         await api.createDevelopmentIdentitySession("teacher", "李行之");
       }
       const session = await api.startClass(course.id);
+      const startIndex = getCourseDeckByCourseId(course.id)?.getGlobalIndex(lesson);
+      if (startIndex && startIndex !== 1) await api.sendClassroomEvent(session.id, {type:"set_slide",index:startIndex});
       navigate(`/classroom/${session.id}`);
     } catch (reason) {
       setError((reason as Error).message);
@@ -710,7 +686,15 @@ function CourseDetailPage() {
   if (error && !course) return <ErrorState message={error} onRetry={() => navigate("/courses")} />;
   if (!course) return <LoadingState label="正在打开课程工作区" />;
   const isEconomicMathematics = course.id === ECONOMIC_MATHEMATICS_COURSE_ID;
-  const lessonPreparationSteps = isEconomicMathematics
+  const isStatisticalAnalysis = course.id === STATISTICAL_ANALYSIS_COURSE_ID;
+  const isManagement = course.id === "management-principles";
+  const lessonPreparationSteps = isManagement ? [
+    {label:"讲次范围",status:"前四讲 · 原299页"},{label:"课堂 Slides",status:"367个连续网页页面"},
+    {label:"课堂演示",status:"8处教师推进 · 同步观看"},{label:"课程署名",status:"管理学课程组 · 韦笑"}
+  ] : isStatisticalAnalysis ? [
+    {label:"课程大纲",status:"32课时 · 16讲"}, {label:"课堂 Slides",status:"前两讲100页 · 48+52"},
+    {label:"教学方式",status:"LBL讲解 · 教师翻页揭示"}, {label:"数据与图形",status:"可复现教学数据 · 24张原创配图"}
+  ] : isEconomicMathematics
     ? [
         { label: "课程大纲", status: "8单元 · 32讲已对齐" },
         { label: "课堂 Slides", status: "1460页已注册" },
@@ -736,7 +720,7 @@ function CourseDetailPage() {
           <div>
             <span className="hero-tag">{course.category}</span>
             <h2>{course.title}</h2>
-            <p>{course.code} · {course.totalHours} 学时 · {course.discipline}</p>
+            <p>{course.code ?? "课程代码待完善"} · {course.totalHours === null ? "总学时待完善" : `${course.totalHours} 学时`} · {course.discipline}</p>
           </div>
         </div>
       </div>
@@ -746,7 +730,7 @@ function CourseDetailPage() {
       <div className="detail-layout">
         <article className="panel lesson-editor">
           <PanelHeader
-            title={`${isEconomicMathematics ? "第 " + course.currentLesson.chapter + " 讲" : "第 " + course.currentLesson.chapter + " 章"} · ${course.currentLesson.title}`}
+            title={`${(isEconomicMathematics || isStatisticalAnalysis || isManagement) ? "第 " + course.currentLesson.chapter + " 讲" : "第 " + course.currentLesson.chapter + " 章"} · ${course.currentLesson.title}`}
             detail="当前备课节点"
             action={
               <button className="text-action" onClick={() => setEditorOpen((open) => !open)}>
@@ -761,7 +745,7 @@ function CourseDetailPage() {
                 本节教学目标
                 <textarea
                   defaultValue={
-                    course.id === ECONOMIC_MATHEMATICS_COURSE_ID
+                    isManagement ? "理解管理与组织，沿理论演变、决策过程和环境分析形成有证据的管理判断。" : isStatisticalAnalysis ? "把商业判断转化为清楚的研究问题；核查数据口径；用效应大小、区间和图形表达证据及其边界。" : course.id === ECONOMIC_MATHEMATICS_COURSE_ID
                       ? "从可观察的营销数据建立变量关系；独立完成推导与计算；用单位、定义域与模型边界复核结论。"
                       : "理解港口的基本构成；能够区分港口主要功能；建立港口管理对象的整体框架。"
                   }
@@ -773,12 +757,12 @@ function CourseDetailPage() {
               >
                 <Check size={16} /> 保存本次编辑
               </button>
-                <small>{isEconomicMathematics ? "正式课件由版本化课程注册表维护；此处编辑只保留当前界面草稿。" : "本轮入口原型先保存界面状态；正式内容版本服务将在下一纵切接入。"}</small>
+                <small>{(isEconomicMathematics || isStatisticalAnalysis || isManagement) ? "正式课件由版本化课程注册表维护；此处编辑只保留当前界面草稿。" : "本轮入口原型先保存界面状态；正式内容版本服务将在下一纵切接入。"}</small>
             </div>
           )}
           <div className="lesson-steps">
             {lessonPreparationSteps.map((step, index) => {
-              const completed = isEconomicMathematics || index < 2;
+              const completed = isEconomicMathematics || isStatisticalAnalysis || isManagement || index < 2;
               return (
               <div key={step.label} className={completed ? "lesson-step lesson-step--done" : "lesson-step"}>
                 <span>{completed ? <Check size={15} /> : index + 1}</span>
@@ -790,6 +774,8 @@ function CourseDetailPage() {
               );
             })}
           </div>
+          {isManagement && <ManagementCourseOverview onStart={lesson => void startClass(lesson)} busy={starting}/>}
+          {isStatisticalAnalysis && <Suspense fallback={<p>正在装载讲次目录…</p>}><StatisticalAnalysisCourseOverview onStart={lesson => void startClass(lesson)} busy={starting}/></Suspense>}
           {course.id === ECONOMIC_MATHEMATICS_COURSE_ID && (
             <section className="economic-mathematics-resources" aria-label="经济数学教材资源">
               <span>指定教材</span>
@@ -802,7 +788,8 @@ function CourseDetailPage() {
         </article>
 
         <aside className="panel launch-card">
-          <Link className="button button--secondary button--wide" to={`/courses/${course.id}/exercises`}><ClipboardCheck size={17} />管理习题与活动</Link>
+          {!isStatisticalAnalysis && !isManagement && <Link className="button button--secondary button--wide" to={`/courses/${course.id}/exercises`}><ClipboardCheck size={17} />管理习题与活动</Link>}
+          <Link className="button button--secondary button--wide" to={`/courses/${course.id}/assistant-prompts`}><Sparkles size={17} />小麦老师 · 提示词设置</Link>
           <span className="launch-card__icon"><MonitorPlay size={23} /></span>
           <h3>准备进入课堂</h3>
           <p>打开课件与课堂控制台，开始这一堂课。</p>
@@ -814,15 +801,15 @@ function CourseDetailPage() {
             {starting ? <LoaderCircle className="spin" size={17} /> : <Play size={17} />}
             {starting ? "正在创建课堂" : "开始上课"}
           </button>
-          {course.id !== ECONOMIC_MATHEMATICS_COURSE_ID && (
+          {getCoursePresentation(course.id)?.supportsStudy && (
             <Link className="button button--secondary button--wide" to={`/study/${course.id}`}>
               <GraduationCap size={17} /> 预览课下学习
             </Link>
           )}
           <ul>
             <li><CheckCircle2 size={15} /> 课程与章节已关联</li>
-            <li><CheckCircle2 size={15} /> {course.id === ECONOMIC_MATHEMATICS_COURSE_ID ? "32讲手工课件已关联" : "实时数字人接口已预留"}</li>
-            <li><CircleAlert size={15} /> {course.id === ECONOMIC_MATHEMATICS_COURSE_ID ? "支持课件同步、点名与答题" : "GPU 服务按需启动"}</li>
+            <li><CheckCircle2 size={15} /> {isManagement ? "前四讲网页课件已关联" : isStatisticalAnalysis ? "第1、2讲完整课件已关联" : course.id === ECONOMIC_MATHEMATICS_COURSE_ID ? "32讲手工课件已关联" : "实时数字人接口已预留"}</li>
+            <li><CircleAlert size={15} /> {isManagement ? "原页定位、分步演示与学生同步" : isStatisticalAnalysis ? "教师播放、讲解备注与学生同步" : course.id === ECONOMIC_MATHEMATICS_COURSE_ID ? "支持课件同步、点名与答题" : "GPU 服务按需启动"}</li>
           </ul>
         </aside>
       </div>
@@ -1032,6 +1019,8 @@ function AssistantModal({ course, onClose }: { course: Course; onClose: () => vo
   const [result, setResult] = useState<AvatarPresentation>();
   const [error, setError] = useState("");
   const isEconomicMathematics = course.id === ECONOMIC_MATHEMATICS_COURSE_ID;
+  const isStatisticalAnalysis = course.id === STATISTICAL_ANALYSIS_COURSE_ID;
+  const isManagement = course.id === "management-principles";
 
   async function prepare(scene: "classroom" | "selfstudy") {
     setLoading(scene);
@@ -1069,12 +1058,12 @@ function AssistantModal({ course, onClose }: { course: Course; onClose: () => vo
             <p>接入 OpenAvatarChat，按课堂时段申请 GPU 资源。</p>
             <span>{loading === "classroom" ? "正在创建…" : "创建课堂计划"}</span>
           </button>
-          {isEconomicMathematics ? (
+          {(isEconomicMathematics || isStatisticalAnalysis || isManagement) ? (
             <div className="mode-card mode-card--light mode-card--unavailable">
               <GraduationCap size={24} />
               <strong>课下学习暂未开放</strong>
-              <p>本轮不建设经济数学自主学习模式，也不会回落到“澜舟”或港口课件。</p>
-              <span>课堂内由经数助教按揭示状态提供提示</span>
+              <p>本课程当前开放教师课堂与学生同步画面。</p>
+              <span>课堂内由小麦老师按揭示状态提供提示</span>
             </div>
           ) : (
             <button

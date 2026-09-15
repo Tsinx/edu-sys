@@ -1,0 +1,31 @@
+{
+  "id": "mg-006",
+  "deck": "l1",
+  "page": 6,
+  "title": "人的行为",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A community garden team of adults hands tools between work areas and communicates face to face, natural expressions, people at the center. Source context: original l1 page 6, 人的行为. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-35af5e71-9155-43e1-9d49-e18f399eee03.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-006.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-006.webp",
+  "pages": [
+    "mg-l1-s006-01"
+  ],
+  "originalSha256": "dbbb7e2c4537de5c7a620bde29768de068da491150458517effb2d3c98c0758d",
+  "webSha256": "830111c3c455f9cc47adafbd21210079a90afd7877acfde8c4b1fcfa471465de",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 264490
+}

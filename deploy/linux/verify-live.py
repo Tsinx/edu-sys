@@ -32,7 +32,9 @@ assert status == 200
 health = json.loads(body)
 assert health['identityProvider'] == 'campus_local'
 assert health['developmentIdentityEnabled'] is False
-assert request('/')[0] == 200
+status, headers, _ = request('/')
+assert status == 200
+assert headers['X-Frame-Options'] == 'SAMEORIGIN'
 assert request('/api/me')[0] == 401
 assert json.loads(request('/api/runtime/config')[2])['profile'] == 'campus'
 for path in ['/.env', '/server.mjs', '/data/state.json', '/assets/missing.js']:

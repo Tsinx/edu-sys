@@ -26,7 +26,7 @@ export async function synchronize(actorId:string) {
     const id=await deviceId();
     const records=await getRecords(actorId);
     for(const record of records) {
-      if(!record.dirty || record.conflict)continue;
+      if(record.key.startsWith("edu-port-operations:") || !record.dirty || record.conflict)continue;
       const pending=record.pending ?? {requestId:crypto.randomUUID(),value:record.value,expectedRevision:record.revision,releaseId};
       await changeRecord(actorId,record.key,current=>({...current!,pending}));
       const response=await fetch("/api/edge/records",{method:"POST",credentials:"same-origin",signal:AbortSignal.timeout(15000),headers:{"Content-Type":"application/json"},
@@ -79,7 +79,9 @@ export class IndexedSimulationStorage implements Storage {
   setItem(key:string,value:string){
     if(this.values.get(key)===value)return;
     this.values.set(key,value);
-    const write=()=>changeRecord(this.actorId,key,previous=>({key,value,deviceId:this.id,revision:previous?.revision??0,dirty:true,conflict:previous?.conflict,pending:previous?.pending,updatedAt:new Date().toISOString()}));
+    // Comprehensive port training is explicitly local-only in this release.
+    const localOnly=key.startsWith("edu-port-operations:");
+    const write=()=>changeRecord(this.actorId,key,previous=>({key,value,deviceId:this.id,revision:previous?.revision??0,dirty:!localOnly,conflict:localOnly?false:previous?.conflict,pending:localOnly?undefined:previous?.pending,updatedAt:new Date().toISOString()}));
     this.pending=this.pending.then(write,write);
     void this.pending.catch(()=>notice("本机存档写入失败，请立即导出当前实验"));
   }

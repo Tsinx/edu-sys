@@ -1,4 +1,6 @@
 import { randomUUID } from "node:crypto";
+import { withSpeechVisemes } from "./study/visemes.js";
+import { MANAGEMENT_SOURCE_MAP } from '@edu/course-content/management-principles/source-map';
 import fastifyStatic from "@fastify/static";
 import { z } from "zod";
 import { CampusIdentityProvider } from "./campus/accounts.js";
@@ -13,6 +15,7 @@ import {
   avatarControlRequestSchema,
   avatarPresentationInputSchema,
   createStudySessionInputSchema,
+  avatarVoiceProfileSchema,
   classroomEventInputSchema,
   developmentIdentitySessionInputSchema,
   classroomPresenceHeartbeatInputSchema,
@@ -65,6 +68,7 @@ import {
 } from "./store.js";
 import { getLamRuntimeStatus } from "./avatar-runtime.js";
 import { ClassroomAssistantOrchestrator } from "./assistant/orchestrator.js";
+import { registerAssistantPromptRoutes } from "./assistant/prompt-routes.js";
 import {
   AssistantProviderError,
   OpenAiCompatibleAssistantProvider,
@@ -73,6 +77,7 @@ import {
 import { StudyAssistantOrchestrator } from "./study/orchestrator.js";
 import {
   DashScopeStudySpeechProvider,
+  StudyAsrNoSpeechError,
   StudySpeechProviderError,
   type StudySpeechProvider
 } from "./study/speech.js";
@@ -255,10 +260,10 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   const assistantProvider =
     options.assistantProvider ?? new OpenAiCompatibleAssistantProvider();
   const assistantOrchestrator = new ClassroomAssistantOrchestrator(
-    assistantProvider
+    assistantProvider, () => store.getAssistantPromptSettings()
   );
   const studyAssistantOrchestrator = new StudyAssistantOrchestrator(
-    assistantProvider
+    assistantProvider, () => store.getAssistantPromptSettings()
   );
   const studySpeechProvider =
     options.studySpeechProvider ?? new DashScopeStudySpeechProvider();
@@ -300,6 +305,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   });
 
   registerParticipationRoutes(app, participation, id => store.getSession(id)?.courseId, resolveActor, id => Boolean(store.getCourse(id)));
+  registerAssistantPromptRoutes(app, store, request => requireActor(request, "teacher"));
 
   app.get("/api/health", async () => ({
     status: "ok",
@@ -388,6 +394,14 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     return actor && campusMode ? {...dashboard,teacher:{...dashboard.teacher,id:actor.actorId,name:actor.displayName}} : dashboard;
   });
   app.get("/api/courses", async () => store.listCourses());
+  app.get<{Params:{courseId:string}}>("/api/courses/:courseId/source-map", async (request,reply) => {
+    // Original notes and authoring records require a real teacher identity, including in development.
+    if (!await resolveActor(request)) return reply.code(401).send({message:'请以教师身份登录'});
+    await requireActor(request,'teacher');
+    reply.header('Cache-Control','private, no-store');
+    if(request.params.courseId!=='management-principles'||!store.getCourse(request.params.courseId))return reply.code(404).send({message:'该课程没有来源对照'});
+    return {courseId:request.params.courseId,mappings:MANAGEMENT_SOURCE_MAP};
+  });
   app.get("/api/class-sessions", async () => store.listSessions());
 
   app.get("/api/avatar/runtime/status", async () =>
@@ -403,19 +417,26 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     )
   );
 
-  app.post("/api/teacher/asr", async request => {
+  app.post("/api/teacher/asr", async (request, reply) => {
     const input=studyAsrInputSchema.parse(request.body);
-    const text=await studySpeechProvider.transcribe({ ...input,context:"教学课堂语音指令。",signal:aiSignal(request) });
-    return {text};
+    if (!studySpeechProvider.asrConfigured) return reply.code(503).send({ message: "尚未配置课堂语音识别，请使用文字输入。" });
+    try {
+      const text=await studySpeechProvider.transcribe({ ...input,context:"教学课堂语音。可能出现的口令：助教你好、你好助教、谢谢助教、助教请回答、助教取消。助教名称：小麦老师；兼容别名：澜舟，也可能出现澜舟你好、谢谢澜舟、澜舟取消。仅转写实际听到的内容，不补写口令。",signal:aiSignal(request) });
+      return {text};
+    } catch (error) {
+      // Continuous capture can contain a click, breath or background noise. Keep listening.
+      if (error instanceof StudyAsrNoSpeechError) return { text: "", status: "no_speech" };
+      throw error;
+    }
   });
   app.post("/api/teacher/tts", async (request,reply) => {
-    const {text}=z.object({text:z.string().min(1).max(3000)}).parse(request.body);
+    const {text,voiceProfile,lipSync}=z.object({text:z.string().min(1).max(3000),voiceProfile:avatarVoiceProfileSchema.optional(),lipSync:z.boolean().optional()}).parse(request.body);
     if(!studySpeechProvider.ttsConfigured) return reply.code(503).send({message:"尚未配置课堂语音，文字回答可正常使用。"});
     reply.hijack();
     reply.raw.writeHead(200,{"Content-Type":"text/event-stream","Cache-Control":"no-store","X-Accel-Buffering":"no"});
     const controller=new AbortController(); reply.raw.once("close",()=>controller.abort());
     try {
-      for await(const chunk of studySpeechProvider.synthesize(text,aiSignal(request,controller.signal))) {
+      for await(const chunk of withSpeechVisemes(studySpeechProvider.synthesize(text,aiSignal(request,controller.signal),voiceProfile),lipSync,controller.signal)) {
         if(reply.raw.destroyed || reply.raw.writableEnded) break;
         if(reply.raw.writableLength>512*1024) {controller.abort(); break;}
         reply.raw.write(`data: ${JSON.stringify(chunk)}\n\n`);
@@ -592,16 +613,18 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       const synthesizeSegment = async (text: string) => {
         if (!speechEnabled || !text.trim()) return;
         try {
-          for await (const chunk of studySpeechProvider.synthesize(
+          for await (const chunk of withSpeechVisemes(studySpeechProvider.synthesize(
             text,
-            aiSignal(request, controller.signal)
-          )) {
+            aiSignal(request, controller.signal),
+            input.voiceProfile
+          ), input.lipSync, controller.signal)) {
             speechStatus = "streamed";
             writeEvent({
               type: "speech.chunk",
               turnId,
               sequence: speechSequence,
               audioBase64: chunk.audioBase64,
+              mouthCues: chunk.mouthCues,
               sampleRate: chunk.sampleRate,
               channels: chunk.channels,
               format: chunk.format
@@ -1692,7 +1715,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
             protocol: "edu.classroom.control",
             version: "1.0",
             requestId: turnId,
-            reason: envelope.dialogue.slice(0, 200),
+            reason: (envelope.dialogue || input.text).slice(0, 200),
             actions: envelope.actions
           });
           if (!control) {
@@ -1709,7 +1732,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
           status: "ready",
           gpuStatus: campusMode ? "idle" : "ready",
           currentTask: null,
-          lastMessage: envelope.dialogue
+          lastMessage: envelope.dialogue || control?.results.map(item => item.message).join("；") || "课堂操作已完成。"
         });
         writeEvent({
           type: "turn.completed",
@@ -1833,6 +1856,8 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
             `${cue.id}:${cue.title}@${cue.startSlideKey}->${cue.returnSlideKey}`
         ).join("；");
         allowedActions.push(
+          {type:"simulation.open_demo",description:"从第4讲切入指定教师演示，保持暂停",parameters:{cueId:"l4-arrival | l4-cargo | l4-yard | l4-departure"}},
+          {type:"simulation.return_to_slides",description:"返回教师演示的来源页",parameters:{}},
           {
             type: "globe.play_cue",
             description: "从注册的起始问题页播放电影化地球仪证据追踪",
@@ -1926,12 +1951,12 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       return reply.status(404).send({ error: "COURSE_NOT_FOUND", message: "未找到这门课程" });
     }
     if (
-      input.courseId === "course-economic-mathematics" &&
+      ["course-economic-mathematics", "statistical-analysis", "management-principles"].includes(input.courseId) &&
       input.scene === "selfstudy"
     ) {
       return reply.status(409).send({
         error: "COURSE_STUDY_NOT_AVAILABLE",
-        message: "经济数学课下学习暂未开放"
+        message: "这门课程课下学习暂未开放"
       });
     }
     const isClassroom = input.scene === "classroom";
@@ -1942,7 +1967,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       status: isClassroom && !campusMode ? "planned" : "ready",
       message: campusMode ? "数字人动作和口型在当前浏览器运行，语音与语言模型请求由校园服务器代理。" : isClassroom
         ? "已创建实时数字人课堂计划；进入课堂后可接入 OpenAvatarChat GPU 服务。"
-        : "澜舟课下助手已就绪；B版角色、十一段预录动作、字幕与文本问答不占用实时渲染 GPU。",
+        : "小麦老师课下助手已就绪；B版角色、十一段预录动作、字幕与文本问答不占用实时渲染 GPU。",
       characterId: isClassroom && !campusMode ? null : "lanzhou",
       characterVersion: isClassroom && !campusMode ? null : LANZHOU_CHARACTER_VERSION,
       manifestUrl: isClassroom && !campusMode ? null : LANZHOU_MANIFEST_URL

@@ -1,0 +1,31 @@
+{
+  "id": "mg-027",
+  "deck": "l2",
+  "page": 8,
+  "title": "工业革命之前",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A historically plausible preindustrial European guild workshop with a small number of artisans, daylight, hand tools, no modern machinery. Source context: original l2 page 8, 工业革命之前. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-e7d1a0bb-6e42-4b45-8351-e5f9c1d787c8.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-027.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-027.webp",
+  "pages": [
+    "mg-l2-s008-01"
+  ],
+  "originalSha256": "1611a699a56a286e339554195df96b0ac3c505b9dd970f8e6778a6ad7a5e23e1",
+  "webSha256": "f4137ba0b5a4746934de7da1b1f398376935dc3a117bc1a87818919ef282d8bf",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 177024
+}

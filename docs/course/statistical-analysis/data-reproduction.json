@@ -1,0 +1,12 @@
+{
+  "python": "3.13.1 (tags/v3.13.1:0671451, Dec  3 2024, 19:06:28) [MSC v.1942 64 bit (AMD64)]",
+  "numpy": "2.4.6",
+  "scipy": "1.18.0",
+  "pillow": "12.2.0",
+  "fontTools": "4.63.0",
+  "reproduced": true,
+  "hashes": {
+    "packages\\course-content\\src\\statistical-analysis\\data.json": "dba5030333fd7f8d3fcf9e4bf68ad251532bbec874fd59fee92ee76e058ea685",
+    "docs\\course\\statistical-analysis\\customers.csv": "8ec8af49d55c143f27104b140df83053601a81ee1ec7232ed31b239de46cfcb5"
+  }
+}

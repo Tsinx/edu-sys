@@ -79,7 +79,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     assert.equal(initialSnapshot.slide.logicalHeight, 1000);
     assert.equal(initialSnapshot.slide.aspectRatio, "16:10");
     assert.equal(initialSnapshot.slide.index, 1);
-    assert.equal(initialSnapshot.slide.total, 119);
+    assert.equal(initialSnapshot.slide.total, 197);
     assert.equal(
       initialSnapshot.slide.title,
       "港口管理概论"
@@ -87,7 +87,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     assert.equal(initialSnapshot.slide.slideId, "l1-course-cover");
     assert.equal(
       initialSnapshot.slide.versionId,
-      "release-port-management-voyage-v7"
+      "release-port-management-authored-v10"
     );
     assert.equal(initialSnapshot.globePlayback.status, "idle");
     assert.equal(initialSnapshot.participantsOnline, 0);
@@ -159,7 +159,10 @@ test("seeded teacher portal supports course creation, classroom start and avatar
       capabilitiesResponse.json().protocol,
       "edu.classroom.control"
     );
-    assert.equal(capabilitiesResponse.json().allowedActions.length, 9);
+    assert.equal(capabilitiesResponse.json().allowedActions.length, 11);
+    for (const type of ["simulation.open_demo", "simulation.return_to_slides"]) {
+      assert.ok(capabilitiesResponse.json().allowedActions.some((action: { type: string }) => action.type === type));
+    }
     const lessonCapability = capabilitiesResponse
       .json()
       .allowedActions.find(
@@ -171,7 +174,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     );
     assert.doesNotMatch(
       lessonCapability.parameters.readyLessons,
-      /4:/
+      /5:/
     );
 
     const switchActivityResponse = await app.inject({
@@ -261,7 +264,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     assert.equal(lessonGoToResponse.json().snapshot.slide.index, 48);
     assert.equal(
       lessonGoToResponse.json().snapshot.slide.slideId,
-      "l2-cover"
+      "l2-lbl-cover"
     );
     assert.equal(
       lessonGoToResponse.json().snapshot.slide.lessonNumber,
@@ -302,8 +305,8 @@ test("seeded teacher portal supports course creation, classroom start and avatar
       payload: {
         protocol: "edu.classroom.control",
         version: "1.0",
-        requestId: "lam-control-lesson-4",
-        actions: [{ type: "lesson.go_to", lesson: 4 }]
+        requestId: "lam-control-lesson-5",
+        actions: [{ type: "lesson.go_to", lesson: 5 }]
       }
     });
     assert.equal(plannedLessonResponse.statusCode, 200);
@@ -311,8 +314,18 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     assert.equal(plannedLessonResponse.json().snapshot.slide.index, 48);
     assert.match(
       plannedLessonResponse.json().results[0].message,
-      /第4讲内容待建设/
+      /第5讲内容待建设/
     );
+
+    const fourthLessonResponse = await app.inject({
+      method:'POST',url:`/api/class-sessions/${liveSession.id}/avatar/control`,
+      payload:{protocol:'edu.classroom.control',version:'1.0',requestId:'lam-control-ready-lesson-4',actions:[{type:'lesson.go_to',lesson:4}]}
+    });
+    assert.equal(fourthLessonResponse.statusCode,200);
+    assert.equal(fourthLessonResponse.json().snapshot.slide.index,154);
+    assert.equal(fourthLessonResponse.json().snapshot.slide.lessonNumber,4);
+    assert.equal(fourthLessonResponse.json().snapshot.activeActivity,'slides');
+    await app.inject({method:'POST',url:`/api/class-sessions/${liveSession.id}/events`,payload:{type:'set_slide',index:48}});
 
     const rejectedControlResponse = await app.inject({
       method: "POST",

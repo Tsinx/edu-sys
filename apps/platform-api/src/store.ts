@@ -59,6 +59,8 @@ import {
 } from "@edu/contracts";
 import {
   getPortManagementGlobalSlideIndex,
+  getPortLessonFourDemo,
+  PORT_LESSON_FOUR_LEGACY_POSITIONS,
   getPortManagementLesson,
   getPortManagementLessonSlidePosition,
   getPortManagementGlobeCue,
@@ -131,7 +133,7 @@ function studyAvatarPresentation(sessionId: string): AvatarPresentation {
     requiresGpu: false,
     status: "ready",
     message:
-      "澜舟课下助手已就绪；B版角色、十一段预录动作、准确字幕与专属音色均不占用实时渲染GPU。",
+      "小麦老师课下助手已就绪；B版角色、十一段预录动作、准确字幕与专属音色均不占用实时渲染GPU。",
     characterId: "lanzhou",
     characterVersion: LANZHOU_CHARACTER_VERSION,
     manifestUrl: LANZHOU_MANIFEST_URL
@@ -285,9 +287,19 @@ export class JsonStateStore {
             : undefined;
 
         if (runtimeCourseId === "course-port-management-intro") {
+          if (!slideSpec && ["release-port-management-lab-v9","release-port-management-authored-v9"].includes(sanitizedRuntime.deckVersion ?? "") && rawSlideIndex >= 1 && rawSlideIndex <= 181) {
+            slideSpec = runtimeDeck.getSlide(rawSlideIndex <= 153 ? rawSlideIndex : 153 + PORT_LESSON_FOUR_LEGACY_POSITIONS[rawSlideIndex - 154]!);
+          }
+          // Lecture four is append-only; v8 numeric bookmarks still address the same first 153 pages.
+          if (!slideSpec && sanitizedRuntime.deckVersion === "release-port-management-lbl-v8" && rawSlideIndex >= 1 && rawSlideIndex <= 153) {
+            slideSpec = runtimeDeck.getSlide(rawSlideIndex);
+          }
           if (sanitizedRuntime.deckVersion !== PORT_MANAGEMENT_DECK_VERSION) {
             if (!slideSpec) {
               const previousLesson =
+                sanitizedRuntime.deckVersion === "release-port-management-voyage-v7"
+                  ? rawSlideIndex <= 47 ? 1 : rawSlideIndex <= 83 ? 2 : 3
+                  :
                 sanitizedRuntime.deckVersion ===
                 "release-port-management-voyage-v6"
                   ? rawSlideIndex <= 46
@@ -727,16 +739,10 @@ export class JsonStateStore {
         } satisfies StudySession;
       });
       const courses = [...(parsed.courses ?? [])];
-      if (
-        !courses.some(
-          (course) => course.id === ECONOMIC_MATHEMATICS_COURSE_ID
-        )
-      ) {
-        const builtinEconomicMathematics = createSeedState().courses.find(
-          (course) => course.id === ECONOMIC_MATHEMATICS_COURSE_ID
-        );
-        if (builtinEconomicMathematics) {
-          courses.push(builtinEconomicMathematics);
+      for (const builtin of createSeedState().courses.filter(course =>
+        course.id === ECONOMIC_MATHEMATICS_COURSE_ID || course.id === 'statistical-analysis' || course.id === 'management-principles')) {
+        if (!courses.some(course => course.id === builtin.id)) {
+          courses.push(builtin);
           runtimeStateChanged = true;
         }
       }
@@ -874,6 +880,24 @@ export class JsonStateStore {
       throw new Error("Seed teacher is missing");
     }
     return teacher;
+  }
+
+  getAssistantPromptSettings(): import("@edu/contracts").AssistantPromptSettings {
+    return structuredClone(this.current.assistantPrompts ?? { revision: 0, overrides: {} });
+  }
+
+  async updateAssistantPrompt(input: import("@edu/contracts").AssistantPromptUpdate, actorId: string) {
+    return this.mutate(state => {
+      const settings = state.assistantPrompts ?? { revision: 0, overrides: {} };
+      if (settings.revision !== input.expectedRevision) {
+        throw Object.assign(new Error("提示词已被其他教师修改，请重新载入后再保存。"), { statusCode: 409 });
+      }
+      const key = JSON.stringify([input.scope, input.key]);
+      if (input.text === null) delete settings.overrides[key];
+      else settings.overrides[key] = input.text;
+      state.assistantPrompts = { ...settings, revision: settings.revision + 1, updatedAt: new Date().toISOString(), updatedBy: actorId };
+      return structuredClone(state.assistantPrompts);
+    });
   }
 
   listCourses(): Course[] {
@@ -1463,6 +1487,8 @@ export class JsonStateStore {
       challengeId: simulation.challengeId,
       challengeVersion: simulation.challengeVersion,
       deliveryMode: simulation.deliveryMode,
+      trainingMode: simulation.trainingMode ?? "practice",
+      learningStage: simulation.learningStage ?? "full",
       assignmentSource: simulation.assignmentSource,
       assignmentAdjusted: simulation.assignmentAdjusted,
       expectedStudentCount: simulation.expectedStudentCount,
@@ -1534,6 +1560,8 @@ export class JsonStateStore {
       runtimeVersion: runtime.runtimeVersion,
       slideInteraction,
       globePlayback: { ...runtime.globePlayback },
+      teacherDemo: runtime.teacherDemo ? structuredClone(runtime.teacherDemo) : null,
+      lessonFourPresentation: runtime.lessonFourPresentation ? {...runtime.lessonFourPresentation} : null,
       simulation:
         course.id === "course-port-management-intro"
           ? this.buildPortSimulationSummary(runtime.simulation)
@@ -2036,6 +2064,8 @@ export class JsonStateStore {
             )
           );
       runtime.simulation = {
+        learningStage: input.learningStage ?? runtime.simulation?.learningStage ?? "full",
+        trainingMode: (input.learningStage ?? runtime.simulation?.learningStage ?? "full") !== "full" ? "practice" : input.trainingMode ?? runtime.simulation?.trainingMode ?? "practice",
         scenarioId: challenge.scenarioId,
         scenarioVersion: challenge.scenarioVersion,
         challengeId: challenge.id,
@@ -3981,7 +4011,7 @@ export class JsonStateStore {
         input.type.startsWith("globe_") &&
         session.courseId !== "course-port-management-intro"
       ) {
-        throw Object.assign(new Error("经济数学课堂不提供港口地球仪活动"), {
+        throw Object.assign(new Error("这门课程未开放地球仪活动"), {
           statusCode: 409,
           code: "COURSE_ACTIVITY_NOT_AVAILABLE"
         });
@@ -3993,7 +4023,15 @@ export class JsonStateStore {
         }
       };
 
-      if (input.type === "next_slide") {
+      if (["next_slide", "previous_slide", "set_slide", "set_activity"].includes(input.type) && runtime.teacherDemo) runtime.teacherDemo.active = false;
+      if (input.type === "set_teacher_demo_summary") {
+        const demo=runtime.teacherDemo;
+        if (!demo?.active || demo.runId !== input.runId || input.revision <= demo.revision) return this.buildClassroomSnapshot(state,session,runtime);
+        demo.visibleSummary=input.summary;demo.revision=input.revision;demo.updatedAt=new Date().toISOString();
+      } else if (input.type === "set_lesson_four_progress") {
+        if(session.courseId!=="course-port-management-intro" || deck.getSlide(runtime.slideIndex).lessonNumber!==4 || runtime.slideKey!==input.slideKey || runtime.teacherDemo?.active) return this.buildClassroomSnapshot(state,session,runtime);
+        runtime.lessonFourPresentation={slideKey:input.slideKey,progress:input.progress};
+      } else if (input.type === "next_slide") {
         completeActiveGlobe();
         runtime.slideIndex = Math.min(
           deck.slideTotal,
@@ -4247,6 +4285,27 @@ export class JsonStateStore {
       };
 
       input.actions.forEach((action, index) => {
+        if(action.type === "simulation.open_demo") {
+          const cue=getPortLessonFourDemo(action.cueId);
+          if(session.courseId!=="course-port-management-intro" || deck.getSlide(runtime.slideIndex).lessonNumber!==4 || !cue) {
+            results.push({index,type:action.type,status:"noop",message:"请在第4讲使用已注册的入港、装卸、堆场或离港演示入口。"});return;
+          }
+          const duplicate=runtime.teacherDemo?.active && runtime.teacherDemo.cueId===cue.cueId;
+          if(!duplicate) {
+            completeActiveGlobe();
+            runtime.teacherDemo={cueId:cue.cueId,runId:randomUUID(),originSlideKey:runtime.teacherDemo?.active?runtime.teacherDemo.originSlideKey:deck.getSlide(runtime.slideIndex).slideKey,active:true,revision:0,visibleSummary:null,updatedAt:null};
+            runtime.activeActivity="slides";changed=true;
+          }
+          results.push({index,type:action.type,status:duplicate?"noop":"applied",message:duplicate?"当前演示已打开。":`已切入${cue.name}，等待教师播放。`});return;
+        }
+        if(action.type === "simulation.return_to_slides") {
+          const demo=runtime.teacherDemo;
+          if(!demo?.active){results.push({index,type:action.type,status:"noop",message:"当前没有打开的教师演示。"});return;}
+          const origin=deck.getSlideByKey(demo.originSlideKey);if(origin)runtime.slideIndex=origin.index;
+          demo.active=false;runtime.activeActivity="slides";changed=true;
+          results.push({index,type:action.type,status:"applied",message:"已返回演示来源页。"});return;
+        }
+        if(runtime.teacherDemo?.active && ["slides.next","slides.previous","slides.go_to","lesson.select","activity.switch"].includes(action.type)){runtime.teacherDemo.active=false;changed=true;}
         if (action.type === "slides.next") {
           completeActiveGlobe();
           const nextSlide = Math.min(
@@ -4317,7 +4376,7 @@ export class JsonStateStore {
           const lesson = deck.lessons.find(
             (candidate) => candidate.number === action.lesson
           );
-          if (!lesson || lesson.status !== "ready") {
+          if (!lesson || lesson.status !== "ready" || lesson.slideStart === null) {
             results.push({
               index,
               type: action.type,

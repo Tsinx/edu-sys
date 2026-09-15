@@ -1,0 +1,31 @@
+{
+  "id": "mg-095",
+  "deck": "l4a",
+  "page": 34,
+  "title": "分销渠道",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: An unbranded consumer product moves through wholesale shelves, local shops and a home delivery point in one cohesive miniature scene. Source context: original l4a page 34, 分销渠道. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-eaab67f9-0f7b-44c2-b449-24f5d4bb7e2f.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-095.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-095.webp",
+  "pages": [
+    "mg-l4a-s034-01"
+  ],
+  "originalSha256": "3f8c1b705af128dc0e5b8fbd53a518984e155b3c4f2070aefd65184af0b00c79",
+  "webSha256": "781cdebed082690b5df7762fe8c0accb185e0f66c7fc4652dd7c78fb1e68d468",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 185216
+}

@@ -1,0 +1,31 @@
+{
+  "id": "mg-047",
+  "deck": "l3",
+  "page": 1,
+  "title": "决策与过程",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A museum-quality physical landscape of branching paths around three architectural options, one person studies the terrain from a quiet overlook. Source context: original l3 page 1, 决策与过程. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-1b9781d7-c5e2-440a-8298-c30f3ef84016.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-047.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-047.webp",
+  "pages": [
+    "mg-l3-s001-01"
+  ],
+  "originalSha256": "6c1dbf864eca89b1beb9bf85d9b9acc7270d0a4402c21423380c19620f7a0083",
+  "webSha256": "eac7299fb47a0caf2c49e9aa417c11a86f870e4e192797f3aa8216eb3753a147",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 282958
+}

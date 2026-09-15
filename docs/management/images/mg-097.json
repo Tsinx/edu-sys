@@ -1,0 +1,31 @@
+{
+  "id": "mg-097",
+  "deck": "l4a",
+  "page": 37,
+  "title": "学习曲线",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A series of increasingly refined identical handmade objects on a craftsperson workbench, cumulative experience and skill. Source context: original l4a page 37, 学习曲线. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-51bf4583-5e1f-4322-bb50-183b5de50d0d.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-097.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-097.webp",
+  "pages": [
+    "mg-l4a-s037-01"
+  ],
+  "originalSha256": "8a2c75ac3760137a75e45043736ed97df1d384e391ac370586974bd2eacfedbb",
+  "webSha256": "b58b734d35d87679af9bbb62fc395da39acbfa47f33ef8cafabde32020ae139f",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 126460
+}

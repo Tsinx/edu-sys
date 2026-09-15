@@ -1,0 +1,31 @@
+{
+  "id": "mg-090",
+  "deck": "l4a",
+  "page": 26,
+  "title": "进入壁垒",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A new small workshop approaches an established industrial complex through several practical access points, capital and capability metaphor in architecture. Source context: original l4a page 26, 进入壁垒. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-d59a43e7-20dd-498f-b2ca-7b520e2a4feb.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-090.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-090.webp",
+  "pages": [
+    "mg-l4a-s026-01"
+  ],
+  "originalSha256": "157dafcf4995794394fb4a041705c34d3fe6a4c2f5bd0a40b198a3d7eb17ad54",
+  "webSha256": "221c1b9cd8449d77d3d7902c8aab5769e58a5bac387edd054794df2d6a1e22fa",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 262182
+}

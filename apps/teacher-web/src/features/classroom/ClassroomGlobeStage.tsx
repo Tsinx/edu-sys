@@ -25,6 +25,7 @@ import {
   loadGlobalShippingLanes
 } from "../globe/global-maritime-preset";
 import openingTradeRouteData from "../globe/data/opening-trade-route.json";
+import { voyageProgress } from "../globe/voyage-motion";
 import { SlideViewport } from "./SlideViewport";
 import "../globe/interactive-earth-globe.css";
 
@@ -189,53 +190,6 @@ const CAMERA_TRANSITION_MS: Record<
   "global-network": 4_600,
   question: 4_000
 };
-
-function interpolateLongitude(
-  fromLongitude: number,
-  toLongitude: number,
-  amount: number
-) {
-  let delta = toLongitude - fromLongitude;
-  if (delta > 180) delta -= 360;
-  if (delta < -180) delta += 360;
-  const longitude = fromLongitude + delta * amount;
-  return ((longitude + 540) % 360) - 180;
-}
-
-function sampleOpeningRoute(progress: number) {
-  const points = OPENING_ROUTE_DATA.route.points;
-  const safeProgress = Math.max(0, Math.min(1, progress));
-  const scaledIndex = safeProgress * Math.max(0, points.length - 1);
-  const fromIndex = Math.min(points.length - 1, Math.floor(scaledIndex));
-  const toIndex = Math.min(points.length - 1, fromIndex + 1);
-  const amount = scaledIndex - fromIndex;
-  const [fromLongitude = 0, fromLatitude = 0] = points[fromIndex] ?? [];
-  const [toLongitude = fromLongitude, toLatitude = fromLatitude] =
-    points[toIndex] ?? [];
-  return {
-    latitude: fromLatitude + (toLatitude - fromLatitude) * amount,
-    longitude: interpolateLongitude(fromLongitude, toLongitude, amount)
-  };
-}
-
-function easeVoyageProgress(progress: number) {
-  const safeProgress = Math.max(0, Math.min(1, progress));
-  return safeProgress < 0.5
-    ? 2 * safeProgress * safeProgress
-    : 1 - Math.pow(-2 * safeProgress + 2, 2) / 2;
-}
-
-function vesselForRouteProgress(progress: number): GlobeMovingVessel {
-  const easedProgress = easeVoyageProgress(progress);
-  return {
-    id: "canton-silk-vessel",
-    label: "广州驶往伦敦的教学复原帆船",
-    color: "#ffb04d",
-    coordinate: sampleOpeningRoute(easedProgress),
-    headingTo: sampleOpeningRoute(Math.min(1, easedProgress + 0.0035)),
-    progress: easedProgress
-  };
-}
 
 interface MissionBriefingFact {
   label: string;
@@ -581,14 +535,23 @@ export function ClassroomGlobeStage({
           : EMPTY_IDS,
     [step?.visual]
   );
-  const routeTravelProgress =
-    step?.visual === "historical-route"
-      ? Math.max(0, Math.min(1, (progress - 0.04) / 0.92))
-      : null;
-  const movingVessel =
-    routeTravelProgress === null
-      ? undefined
-      : vesselForRouteProgress(routeTravelProgress);
+  const playback = snapshot.globePlayback;
+  const movingVessel: GlobeMovingVessel | undefined = step?.visual === "historical-route"
+    ? {
+        id: "canton-silk-vessel",
+        label: "广州驶往伦敦的教学复原帆船",
+        color: "#ffb04d",
+        coordinate: HISTORICAL_ROUTE.points[0]!,
+        motion: {
+          routeId: HISTORICAL_ROUTE.id,
+          durationMs: step.durationMs,
+          elapsedMs: playback.stepElapsedMs,
+          startedAt: playback.status === "playing" && playback.stepStartedAt
+            ? new Date(playback.stepStartedAt).getTime() : null
+        }
+      }
+    : undefined;
+  const vesselProgress = movingVessel?.motion ? voyageProgress(movingVessel.motion, now) : 0;
   const showGlobalNetwork =
     step?.visual === "global-network" || step?.visual === "question";
   const visibleShippingLanes = showGlobalNetwork
@@ -703,7 +666,7 @@ export function ClassroomGlobeStage({
             <span>VESSEL TRACKING</span>
             <strong>广州 → 伦敦</strong>
             <i aria-hidden="true">
-              <b style={{ width: `${(movingVessel.progress ?? 0) * 100}%` }} />
+              <b style={{ width: `${vesselProgress * 100}%` }} />
             </i>
           </div>
         )}

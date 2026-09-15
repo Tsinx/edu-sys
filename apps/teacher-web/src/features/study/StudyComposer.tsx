@@ -189,7 +189,7 @@ export function StudyComposer({
             <Mic size={20} /><small>语音</small>
           </button>
           <label>
-            <span className="sr-only">向澜舟提问</span>
+            <span className="sr-only">向小麦老师提问</span>
             <textarea
               value={text}
               rows={2}

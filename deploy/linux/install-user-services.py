@@ -27,9 +27,9 @@ config.write_text('''{
     skip_install_trust
 }
 http://:2080 {
-    redir ORIGIN{uri} permanent
+    redir @PUBLIC_ORIGIN@{uri} permanent
 }
-ORIGIN {
+@PUBLIC_ORIGIN@ {
     tls internal
     encode zstd gzip
     header {
@@ -41,7 +41,7 @@ ORIGIN {
         flush_interval -1
     }
 }
-'''.replace('ORIGIN', origin))
+'''.replace('@PUBLIC_ORIGIN@', origin))
 subprocess.run(['caddy', 'fmt', '--overwrite', str(config)], check=True)
 env = dict(os.environ, XDG_DATA_HOME=str(caddy_dir / 'data'), XDG_CONFIG_HOME=str(caddy_dir / 'config'))
 subprocess.run(['caddy', 'validate', '--config', str(config)], env=env, check=True)

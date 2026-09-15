@@ -1,0 +1,14 @@
+{
+  "id": "xiaomai-20260909-epoch10",
+  "format": "FP32 ONNX",
+  "epoch": 10,
+  "checkpointSha256": "64929d22d9063ed658823641fc2a38b2832efef510cda0afa65938ad049abd59",
+  "sourceDirectory": "output/kws-xiaomai-extended20-20260909/epochs/epoch-10/model",
+  "trainingReport": "output/kws-xiaomai-extended20-20260909/README.md",
+  "files": {
+    "encoder.onnx": "55909ef53c1b847ecc6923cb2d8a7e502656b4c0b78446ec91f5b6add20b6039",
+    "decoder.onnx": "fe681cf77150d50160a9cab7bf59fa374820905228961f9fd8c52183c04b25d0",
+    "joiner.onnx": "ded9fe2a45cb5925aa5e1f533399fa6cbff55651a1cf18e3ab2cc418179674ef",
+    "tokens.txt": "72316508d9119696145abc6f1f8cdc46287535c34e5ce7e595f845cb1499cf2e"
+  }
+}

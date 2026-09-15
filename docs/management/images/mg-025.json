@@ -1,0 +1,31 @@
+{
+  "id": "mg-025",
+  "deck": "l2",
+  "page": 5,
+  "title": "历史与文化",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: An elegant layered landscape of ancient civic works and modern productive spaces, architectural continuity across time, not a literal archaeological reconstruction. Source context: original l2 page 5, 历史与文化. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-c7b4c2c4-d678-403e-b1e0-8fca16ca5ba0.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-025.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-025.webp",
+  "pages": [
+    "mg-l2-s005-01"
+  ],
+  "originalSha256": "21bcac74be2000468b425ad75a8bfb45e0aaf8909d882b17e7fff2a91a2c4d1b",
+  "webSha256": "29b6a44c38f809d236cbb77369c649ead920a7dcc5e4d7c5934fb5c011fc1937",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 301564
+}

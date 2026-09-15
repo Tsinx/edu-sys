@@ -1,0 +1,55 @@
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+const require = createRequire(process.env.EDU_PLAYWRIGHT_ENTRY || 'C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/entry.js');
+const { chromium } = require('playwright');
+const origin = process.env.EDU_WEB_ORIGIN || 'http://127.0.0.1:5173';
+const output = resolve(process.env.EDU_QA_OUTPUT || 'output/live2d-qa/lip-sync-v2');
+await mkdir(output, { recursive:true });
+const browser = await chromium.launch({headless:true,args:['--enable-webgl','--use-angle=swiftshader','--enable-unsafe-swiftshader','--autoplay-policy=no-user-gesture-required']});
+const page = await browser.newPage({viewport:{width:1200,height:1000}});
+const errors=[], checks=[];
+page.on('pageerror',error=>errors.push(error.message));
+await page.addInitScript(()=>{localStorage.setItem('edu-avatar-renderer-v1','live2d');localStorage.setItem('edu-live2d-character-v1','xiaomai');localStorage.setItem('edu-avatar-framing-v1','portrait');});
+await page.route(`${origin}/viseme-qa`, route=>route.fulfill({contentType:'text/html',body:`<html><head><script type="module">import RefreshRuntime from '/@react-refresh';RefreshRuntime.injectIntoGlobalHook(window);window.$RefreshReg$=()=>{};window.$RefreshSig$=()=>type=>type;window.__vite_plugin_react_preamble_installed__=true;</script><script type="module" src="/@vite/client"></script></head><body><div id="root"></div><script type="module" src="/@fs/${resolve('apps/teacher-web/test/browser/live2d-harness.tsx').replaceAll('\\','/')}"></script></body></html>`}));
+const pcm=Buffer.alloc(24000*2*10);
+for(let i=0;i<24000*10;i++)pcm.writeInt16LE(i<24000*9?Math.round(Math.sin(i*2*Math.PI*180/24000)*6500):0,i*2);
+const values=['A','B','C','D','E','F','G','H','X'];
+let request;
+await page.route('**/api/teacher/tts', route=>{request=route.request().postDataJSON();return route.fulfill({contentType:'text/event-stream',body:`data: ${JSON.stringify({audioBase64:pcm.toString('base64'),sampleRate:24000,mouthCues:values.map((value,index)=>({value,start:index,end:index+1}))})}\n\n`});});
+try {
+  await page.goto(`${origin}/viseme-qa`);
+  await page.locator('.live2d-avatar[data-status="ready"]').waitFor({timeout:45000});
+  const avatar=page.locator('.live2d-avatar');
+  await avatar.screenshot({path:resolve(output,'idle.png')});
+  await page.getByRole('button',{name:'讲解',exact:true}).click();
+  await page.waitForFunction(()=>document.querySelector('.live2d-avatar__canvas>svg')?.style.display==='block');
+  const started=Date.now(); const paths=[];
+  for(let i=0;i<values.length;i++) {
+    const wait=started+i*1000+320-Date.now();if(wait>0)await page.waitForTimeout(wait);
+    paths.push(await page.locator('.live2d-avatar__canvas>svg path').nth(2).getAttribute('d'));
+    await avatar.screenshot({path:resolve(output,`pose-${values[i]}.png`)});
+  }
+  assert.ok(new Set(paths.slice(0,8)).size>=7,'distinct geometry for phonetic mouth classes');
+  assert.equal(request.lipSync,true);
+  checks.push('audio-clock cues produce distinct A-H mouth geometry at constant audio amplitude');
+  await page.getByRole('button',{name:'打断',exact:true}).click();
+  await page.waitForFunction(()=>document.querySelector('.live2d-avatar__canvas>svg')?.style.display==='none');
+  assert.equal(await page.locator('output').textContent(),'ready');
+  checks.push('interrupt hides articulation immediately and restores native neutral mouth');
+  await page.setViewportSize({width:390,height:844});
+  await page.getByRole('button',{name:'讲解',exact:true}).click();await page.waitForTimeout(3300);
+  await avatar.screenshot({path:resolve(output,'narrow-speaking.png')});
+  await page.getByRole('button',{name:'胸像',exact:true}).click();await page.waitForTimeout(150);
+  await avatar.screenshot({path:resolve(output,'bust-speaking.png')});
+  const align=await page.locator('.live2d-avatar__canvas').evaluate(host=>{const svg=host.querySelector('svg'),canvas=host.querySelector('canvas');return {transform:svg.style.transform,canvasWidth:canvas.clientWidth,overflow:document.documentElement.scrollWidth>innerWidth};});
+  assert.equal(align.overflow,false);checks.push({name:'narrow and framing keep mouth aligned',...align});
+  await page.getByLabel('数字人形象').selectOption('video');
+  await page.locator('.live2d-avatar').waitFor({state:'detached'});
+  assert.equal(await page.locator('.live2d-avatar__canvas>svg').count(),0);
+  checks.push('switching to video releases the custom mouth');
+  assert.deepEqual(errors,[]);
+  await writeFile(resolve(output,'browser-report.json'),JSON.stringify({checks,errors,paths},null,2));
+  console.log(JSON.stringify({checks,errors}));
+} finally {await browser.close();}

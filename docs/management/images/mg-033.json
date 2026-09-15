@@ -1,0 +1,31 @@
+{
+  "id": "mg-033",
+  "deck": "l2",
+  "page": 17,
+  "title": "装锹实验",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: Early twentieth-century steelworks yard with workers examining different shovels and material piles, period clothing, humane neutral historical reconstruction. Source context: original l2 page 17, 装锹实验. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-f03dd6f3-33da-49bf-afe2-3ae933d29ae8.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-033.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-033.webp",
+  "pages": [
+    "mg-l2-s017-01"
+  ],
+  "originalSha256": "d5efeaff35e61e205af7af4793cd2155636f2545925b212d881516781f248cf7",
+  "webSha256": "aa167658f0664d147c13302ab9f32e22ec874a652a457af3a2faa4179e36cec5",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 256766
+}

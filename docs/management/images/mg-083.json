@@ -1,0 +1,31 @@
+{
+  "id": "mg-083",
+  "deck": "l4a",
+  "page": 16,
+  "title": "新能源汽车",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A finely crafted unbranded electric passenger car at a contemporary Chinese charging courtyard, soft daylight, accurate vehicle proportions. Source context: original l4a page 16, 新能源汽车. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-9e65d0e2-806d-496b-a788-304d849fab4e.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-083.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-083.webp",
+  "pages": [
+    "mg-l4a-s016-01"
+  ],
+  "originalSha256": "df82ce0c4361977ca2883d0aeb7dee6e0ed9f1ecdccb3dd0f6112169fc5d47c8",
+  "webSha256": "1b44fc9e45eb174f37490d56e0fb80f211ed268f1a399dc82a8c7b08c7f281e9",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 206966
+}

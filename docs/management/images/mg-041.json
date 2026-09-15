@@ -1,0 +1,31 @@
+{
+  "id": "mg-041",
+  "deck": "l2",
+  "page": 33,
+  "title": "X与Y视角",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: Two adjacent workspaces show closely supervised repetitive work and self-directed collaborative problem-solving, nuanced people rather than good-versus-evil stereotypes. Source context: original l2 page 33, X与Y视角. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-25c02f94-27cb-4058-a8d5-b7ab5ed810dc.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-041.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-041.webp",
+  "pages": [
+    "mg-l2-s033-01"
+  ],
+  "originalSha256": "2697adbd1699edf472047a72b5b7190bdcb4c9482706bda1cfdc99d79e8b1358",
+  "webSha256": "d65c35bf623970b79c39bcaae050415ae7207b361436596f93e2036d34af3c0d",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 197074
+}

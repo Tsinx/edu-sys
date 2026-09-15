@@ -1,0 +1,31 @@
+{
+  "id": "mg-055",
+  "deck": "l3",
+  "page": 17,
+  "title": "识别问题",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A service team traces a delayed order across a physical worktable process, focused on evidence and the real cause. Source context: original l3 page 17, 识别问题. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-63ee9cbf-d9ea-4054-8d58-943ee36dbd0b.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-055.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-055.webp",
+  "pages": [
+    "mg-l3-s017-01"
+  ],
+  "originalSha256": "53a034627856f02850d6be7a0bc3a935ab9fbbd62abad7cd8080495a1cd5b232",
+  "webSha256": "97370e35c06cd7a0fd7b77831c4b69c9c433a83d5cae7d52f9f2bafb575bc4c2",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 154914
+}

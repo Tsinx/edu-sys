@@ -1,0 +1,377 @@
+{
+  "generator": "built-in image_gen",
+  "created": "2026-09-15",
+  "assets": [
+    {
+      "name": "terminal-dawn",
+      "prompt": "Use case: scientific-educational. Asset type: cinematic full-bleed university port logistics slide background, landscape 16:10. Create a highly detailed photorealistic aerial scene of one contemporary container terminal at blue dawn: water in lower left, a single medium container vessel with deep navy hull, thin rust-red waterline, ivory bridge at stern, muted teal, ochre and blue containers, beside long concrete quay with pale ivory ship-to-shore cranes. Landside to upper right: orderly container yard, truck lanes, distant gate. Realistic sensible geometry, restrained deep sea blue and warm golden light, documentary architecture photography, generous clean dark water in left third for typography to be added later. No words, numbers, logos, labels, border, graphic overlay, collage or watermark. This is an illustrative teaching terminal, not a named real port. Make the vessel and yard recognizable for a coherent image series.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/terminal-dawn-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-5f7aba39-448e-4e15-80ba-c4bdab9c28e4.png",
+      "group": "入港",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/terminal-dawn-v1.png",
+      "sha256": "e8c49688a0300e92531d3882a1be3e6f5922d63e68531e32e7a4b8952ff9867a",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "usedPages": [
+        1,
+        5
+      ],
+      "alphaRange": null
+    },
+    {
+      "name": "anchorage",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. A wide view across still blue dawn sea toward the single container ship waiting at anchorage on the right half. Distant container cranes on horizon, restrained haze, generous open dark sea and sky on left.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/anchorage-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-d978aff1-4ef3-40cd-ae12-37fae9d7d02b.png",
+      "group": "入港",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/anchorage-v1.png",
+      "sha256": "4261a3523ec71742387f38a167f021e6175d4c8847bc84b7ee3006ac016de1ed",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "usedPages": [
+        6,
+        11
+      ],
+      "alphaRange": null
+    },
+    {
+      "name": "channel",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. High oblique view of the ship approaching a harbor channel. Subtle channel buoys and distant breakwater establish a clear corridor. Whole vessel on right, open blue water left, no wake implying excessive speed.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/channel-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-6ac97948-b69c-4dd9-87bd-586ca47f9887.png",
+      "group": "入港",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/channel-v1.png",
+      "sha256": "7aa05c0be22bb52b32d5aabe268bbcc2bc0242f60dc56a59745286f461b721cd",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "usedPages": [
+        9
+      ],
+      "alphaRange": null
+    },
+    {
+      "name": "tug",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. An authentic small harbor tug assisting beside the starboard bow of the large navy container ship at very slow speed, viewed from near water level. Focus on relative scale, right-biased composition, calm clear water. No people posing.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/tug-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-ad41cc46-9639-4948-8a1c-317e36878dc8.png",
+      "group": "入港",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/tug-v1.png",
+      "sha256": "5eeb42fcd4bd79fe33ba410b4729769d4b9046c4346f2b0279ef94e45c39ec3a",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "usedPages": [
+        10
+      ],
+      "alphaRange": null
+    },
+    {
+      "name": "berth",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. Long side view along an empty concrete berth toward the navy container vessel at the adjacent berth. Ivory quay cranes, clear berth edge and water, early morning. Large clean empty foreground quay as negative space.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/berth-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-e91efb53-e6b0-47ef-b0f9-10f2c648fc54.png",
+      "group": "入港",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/berth-v1.png",
+      "sha256": "4d78ff7de996f7d58face50454fad75cb321c1d35669b265b18ee126474a0bb4",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "usedPages": [
+        2,
+        8
+      ],
+      "alphaRange": null
+    },
+    {
+      "name": "mooring",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. Close documentary detail of thick mooring ropes secured around a single bollard on the concrete quay, rope leads safely into the distance toward the navy ship. Low angle, beautiful rope texture, right half subject with dark calm background on left.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/mooring-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-e21bc3b0-cc63-4834-9176-8a75971be2dc.png",
+      "group": "入港",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/mooring-v1.png",
+      "sha256": "e49012d86645bc0e533f4a3537565d0b6da53ad478d5379cc66f44a1765fc7e2",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "usedPages": [
+        12,
+        13
+      ],
+      "alphaRange": null
+    },
+    {
+      "name": "ship-deck",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. High oblique photographic view over the cargo deck of the navy container ship beside the terminal. Orderly teal blue and ochre container rows, ivory bridge at stern; show relationship between ship deck and nearby quay without impossible cutaways. No text.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/ship-deck-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-c4f71980-dabf-48c2-8b97-42a30f04402e.png",
+      "group": "装卸",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/ship-deck-v1.png",
+      "sha256": "cf8e916f9648f128fb9dcdc2ee0bab081de0a56d07f1ad0fcd94e85c8556b809",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "usedPages": [
+        15,
+        33
+      ],
+      "alphaRange": null
+    },
+    {
+      "name": "quay-crane",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. Dramatic low-angle documentary photograph of an ivory ship-to-shore gantry crane lifting ONE teal container with a rectangular spreader securely attached at its four corners, above the navy ship deck. Accurate suspended load, clear steel lines, blue morning sky, right half composition.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/quay-crane-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-73a70659-023e-4ed5-9af6-4a0decac8521.png",
+      "group": "装卸",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/quay-crane-v1.png",
+      "sha256": "ff7b6ecb4981c9d876b5c6583bfbffee5c2a80963674a610c3c2af3142dc1021",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "usedPages": [
+        19,
+        38
+      ],
+      "alphaRange": null
+    },
+    {
+      "name": "import-handoff",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. Photorealistic quay handover scene: one teal container held level by a crane spreader directly above a terminal tractor chassis, beside the navy ship. Safe empty working area, no people under load, realistic scale and equipment geometry. Left third subdued space.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/import-handoff-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-5fd4f45f-f244-4e4a-9d5c-42e8bff23884.png",
+      "group": "装卸",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/import-handoff-v1.png",
+      "sha256": "e125f64d4a7acc92cf4b12e77c4ab6101802062225e41bd25ec4dfc253710ebf",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "usedPages": [
+        16,
+        20
+      ],
+      "alphaRange": null
+    },
+    {
+      "name": "export-loading",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. Photorealistic high-angle view of a single ochre container being lifted from the quay toward an orderly container ship deck, suspended level from an ivory crane. Teal and blue containers on ship, warm afternoon side light, sea left.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/export-loading-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-9fdf146f-c949-43f9-bd76-5e41e6d6c0a0.png",
+      "group": "装卸",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/export-loading-v1.png",
+      "sha256": "3a89b6970bfd2ed55d2680fb83ffe67505c3d34ae97ae2633a8dc8552a8f3466",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "usedPages": [
+        17
+      ],
+      "alphaRange": null
+    },
+    {
+      "name": "yard-aerial",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. Nearly overhead photorealistic view of orderly parallel container yard blocks with one wide truck circulation lane. Teal blue ochre containers, rubber-tired gantry cranes, sensible clear lanes. No text. Strong quiet editorial geometry.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/yard-aerial-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-8a463447-b2c9-4590-996b-2a53d45d04e7.png",
+      "group": "堆场交付",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/yard-aerial-v1.png",
+      "sha256": "5ba02b2117a44b148a356522e70b07f968cd1fc323380eaf99bea8cedd7155d0",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "usedPages": [
+        28
+      ],
+      "alphaRange": null
+    },
+    {
+      "name": "yard-waiting",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. Ground-level photograph down a broad container-terminal internal road: two stationary terminal tractors carrying teal containers awaiting work beside container stacks and one idle rubber tired gantry crane. No traffic jam exaggeration, cool restrained palette, vanishing point right.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/yard-waiting-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-e8059857-9c6b-4b63-bc2d-0352a915ff2d.png",
+      "group": "堆场交付",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/yard-waiting-v1.png",
+      "sha256": "576f728d97efa4c7c3f78adaf7eaf5d0795102e531a65c71348b0070f7d1052a",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "usedPages": [
+        26,
+        27,
+        37
+      ],
+      "alphaRange": null
+    },
+    {
+      "name": "inspection",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. Photorealistic documentary wide view of a generic container inspection area INSIDE a teaching terminal: one sealed teal container standing on marked hardstand near a simple covered inspection bay, parked terminal tractor, orderly safe empty lanes. No uniforms, insignia, signs or implied real legal procedure.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/inspection-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-d10355fc-a7fe-4839-8339-1b4723b6dfc1.png",
+      "group": "堆场交付",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/inspection-v1.png",
+      "sha256": "3563418ddb39eca1f6addfe620b497d85224944e59183106b8559c82bb0b2254",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "usedPages": [
+        29,
+        30
+      ],
+      "alphaRange": null
+    },
+    {
+      "name": "gate-exit",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. Documentary image from inside a container terminal looking toward the land gate: one teal container truck exiting through a single open gate lane, canopy and sensor poles, other lanes clear, morning light, generous left foreground space. No signs or words.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/gate-exit-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-2470c530-eada-4547-adf2-9bc656236112.png",
+      "group": "堆场交付",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/gate-exit-v1.png",
+      "sha256": "9b7f908d3f3cc245f418e32c760bdf367ad229b78017b5843979cf84d5ee27f6",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "usedPages": [
+        25,
+        31,
+        32
+      ],
+      "alphaRange": null
+    },
+    {
+      "name": "departure",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. Cinematic high-angle wide photograph of the navy container ship sailing slowly outward past a breakwater, terminal cranes receding in far background. Ship on right, broad calm sea left, a subtle realistic wake. Golden afternoon light.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/departure-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-9831be26-6bd9-48e4-954e-56b968925662.png",
+      "group": "离港",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/departure-v1.png",
+      "sha256": "ab6002c4f11dd5d58085f31a9ecc8153d65b3811d6c5c867da083bc73741b8af",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "usedPages": [
+        35
+      ],
+      "alphaRange": null
+    },
+    {
+      "name": "terminal-dusk",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. Sweeping aerial view of the coherent navy ship and orderly teal blue ochre container terminal at dusk, warm crane lights reflected on dark sea, quiet restrained blue and amber palette, large dark left area for final question. No exaggerated neon.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/terminal-dusk-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-9be51e27-5567-4fde-b828-404d4ddfaca4.png",
+      "group": "离港",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/terminal-dusk-v1.png",
+      "sha256": "42a43beef6cda608e6a33185df6cbebe41fcac3cd48b58f05842bdb4d7680c07",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "usedPages": [
+        44
+      ],
+      "alphaRange": null
+    },
+    {
+      "name": "ship-cutout",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. Create a single highly detailed realistic 3D cutout of the coherent medium container vessel, whole object in frame, three-quarter elevated side view, bow toward lower right. Navy hull, rust red waterline, ivory stern bridge, teal blue ochre containers. Genuine transparent alpha background, no sea, no ground, no backdrop, no shadow plane, no white rectangle, no text. Landscape isolated object.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/ship-cutout-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-e431bd7f-04e2-4675-97b2-b4f6cc9346ec.png",
+      "group": "透明素材",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/ship-cutout-v1.png",
+      "sha256": "2074e68195f4751e0c69d2481fb7bc63cc9456b097d06ebdd275db14aa85e9a0",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGBA",
+      "usedPages": [
+        4
+      ],
+      "alphaRange": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "container-cutout",
+      "prompt": "Use case: scientific-educational. Create one polished photorealistic documentary image for a university port logistics lecture. Landscape 16:10 unless transparent cutout specified. Cohesive fictional contemporary container terminal: medium vessel with deep navy hull, thin rust red waterline, ivory bridge at stern; muted teal, blue and ochre containers; ivory cranes; blue water and concrete quay. Restrained deep sea blue, soft warm golden light, realistic materials and sensible geometry. The image is an illustrative teaching scene. No writing, letters, numbers, logos, UI, diagrams, labels, border, watermark or collage. Leave calm space for editable typography. Create a single highly detailed realistic 3D cutout of one standard corrugated teal intermodal container, whole object in frame, three-quarter view showing long side and double doors on right. Accurate corner castings, hinges and locking bars. Genuine transparent alpha background, no ground, no backdrop, no shadow plane, no text or serial numbers.",
+      "path": "D:/codes/edu-sys/apps/teacher-web/public/course-assets/port-management/l4/container-cutout-v1.png",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0a28d-94d6-7c23-a658-26f6d1e75a1c\\exec-7b021c81-8dc2-4c21-82d2-a26c7407132d.png",
+      "group": "透明素材",
+      "repositoryPath": "apps/teacher-web/public/course-assets/port-management/l4/container-cutout-v1.png",
+      "sha256": "9ccbcbd749a3569400a4614212825bd5fa520ef0a7752e37bfcd672891d4f507",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "mode": "RGBA",
+      "usedPages": [
+        23,
+        40
+      ],
+      "alphaRange": [
+        0,
+        255
+      ]
+    }
+  ],
+  "artDirectionReference": "apps/teacher-web/public/course-assets/port-management/l4/terminal-dawn-v1.png",
+  "renderingBoundary": "中文、数字、流程和状态由代码绘制；摄影示意不能证明真实运行结果。",
+  "verifiedEvidence": [
+    {
+      "unit": "arrival",
+      "path": "apps/teacher-web/public/course-assets/port-management/l4/evidence-arrival-v10.png",
+      "sourceSnapshot": "output/port-lesson-four-v10-qa/classroom.json",
+      "replayReference": "output/port-lesson-four-qa/arrival-demonstration.json"
+    },
+    {
+      "unit": "cargo",
+      "path": "apps/teacher-web/public/course-assets/port-management/l4/evidence-cargo-v10.png",
+      "sourceSnapshot": "output/port-lesson-four-v10-qa/classroom.json",
+      "replayReference": "output/port-lesson-four-qa/cargo-demonstration.json"
+    },
+    {
+      "unit": "yard",
+      "path": "apps/teacher-web/public/course-assets/port-management/l4/evidence-yard-v10.png",
+      "sourceSnapshot": "output/port-lesson-four-v10-qa/classroom.json",
+      "replayReference": "output/port-lesson-four-qa/yard-demonstration.json"
+    },
+    {
+      "unit": "departure",
+      "path": "apps/teacher-web/public/course-assets/port-management/l4/evidence-departure-v10.png",
+      "sourceSnapshot": "output/port-lesson-four-v10-qa/classroom.json",
+      "replayReference": "output/port-lesson-four-qa/departure-demonstration.json"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "mg-106",
+  "deck": "l4b",
+  "page": 8,
+  "title": "渐进决策",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A small public space improves through several visible modest construction stages while remaining in use, incremental adjustment. Source context: original l4b page 8, 渐进决策. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-cebdde85-6d58-414a-93df-082c7cff929d.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-106.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-106.webp",
+  "pages": [
+    "mg-l4b-s008-01"
+  ],
+  "originalSha256": "fe27ec38fe6999dc267e071a4751d577a11026b9d84d6bf8cf54c55f887a4906",
+  "webSha256": "42fe161b66465f5a5d045a51d5945d822bfd024574454f9a383f64a4c309490e",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 319650
+}

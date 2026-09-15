@@ -168,12 +168,12 @@ export function LanzhouAvatarPlayer({
   const posterOnly = !hasApprovedClips || reducedMotion || lowBandwidth || videoFailed;
 
   return (
-    <section className={`lanzhou-avatar lanzhou-avatar--${state}`} aria-label="澜舟港航助教">
+    <section className={`lanzhou-avatar lanzhou-avatar--${state}`} aria-label="小麦老师港航助教">
       <div className="lanzhou-avatar__visual">
         <img
           className={posterOnly ? "lanzhou-avatar__poster lanzhou-avatar__poster--visible" : "lanzhou-avatar__poster"}
           src={poster}
-          alt="虚构港航助教澜舟的半写实角色预览"
+          alt="虚构港航助教小麦老师的半写实角色预览"
         />
         {[0, 1].map((layer) => (
           <video
@@ -187,7 +187,7 @@ export function LanzhouAvatarPlayer({
           />
         ))}
         <div className="lanzhou-avatar__identity">
-          <strong>澜舟</strong>
+          <strong>小麦老师</strong>
           <span>港航学习助教 · 虚构AI形象</span>
         </div>
         <span className="lanzhou-avatar__state">
@@ -196,7 +196,7 @@ export function LanzhouAvatarPlayer({
       </div>
 
       <div className="lanzhou-avatar__subtitle" aria-live="polite">
-        <span>澜舟</span>
+        <span>小麦老师</span>
         <p>{subtitle || "你可以针对当前页提问，也可以让我帮你翻页。"}</p>
       </div>
 

@@ -1,0 +1,31 @@
+{
+  "id": "mg-015",
+  "deck": "l1",
+  "page": 26,
+  "title": "领导",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: An experienced team leader listens and offers direction to a mixed-age workshop team, eye-level human scene, no heroic power pose. Source context: original l1 page 26, 领导. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-8c50439c-7119-4636-a47b-d5a6ea1dd8bd.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-015.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-015.webp",
+  "pages": [
+    "mg-l1-s026-01"
+  ],
+  "originalSha256": "5e2824acedc34d0ec0e10c4bde42526e536ac36f7af76b544d229487cd7e3649",
+  "webSha256": "ff1a959d9d14f61cbd74ee7064f7b8aec1e3e219357b904cf676834d97c7aa2b",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 168548
+}

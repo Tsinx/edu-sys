@@ -27,6 +27,10 @@ export function StudentLocalPortSimulation({
       actorDisplayName={participantDisplayName}
       storageScope={`${classroomSnapshot.courseId}:${participantId}`}
       initialChallengeId={simulation.challengeId}
+      initialTrainingMode={simulation.trainingMode ?? "practice"}
+      initialLearningStage={simulation.learningStage ?? "full"}
+      learningStageLocked
+      trainingModeLocked
       challengeLocked
       sourceLabel={
         simulation.deliveryMode === "local_solo"

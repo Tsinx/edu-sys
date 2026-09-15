@@ -1,4 +1,5 @@
 import type { ClassroomActivity } from "@edu/contracts";
+import type { Ref } from "react";
 import {
   ChevronLeft, ChevronRight, FlaskConical, Globe2, Home,
   Minimize2, Presentation, Sparkles, UsersRound
@@ -20,7 +21,8 @@ interface FullscreenControlsProps {
   onToggleAvatar: () => void;
   onExit: () => void;
   onWorkspace: () => void;
-  onParticipation: () => void;
+  onParticipation?: () => void;
+  playbackControlsRef?: Ref<HTMLDivElement>;
 }
 
 const shortcuts = [
@@ -51,6 +53,7 @@ export function ClassroomFullscreenControls(props: FullscreenControlsProps) {
           </button>
         </div>
       )}
+      {activity === "slides" && <div className="classroom-playback-slot" ref={props.playbackControlsRef} />}
       <div className="fullscreen-destination-controls">
         <button type="button" aria-label="返回工作台" title="返回工作台（保留课堂）" onClick={props.onWorkspace}>
           <Home size={18} /><span>工作台</span>
@@ -62,7 +65,7 @@ export function ClassroomFullscreenControls(props: FullscreenControlsProps) {
             <item.icon size={18} /><span>{item.label}</span>
           </button>
         ))}
-        <button type="button" aria-label="打开课堂活动" title="点名与选择题" onClick={props.onParticipation}><UsersRound size={18} /><span>课堂活动</span></button>
+        {props.onParticipation && <button type="button" aria-label="打开课堂活动" title="点名与选择题" onClick={props.onParticipation}><UsersRound size={18} /><span>课堂活动</span></button>}
         <button type="button" aria-label={props.avatarCollapsed ? "展开数字人浮窗" : "收起数字人浮窗"}
           title={props.avatarCollapsed ? "展开数字人浮窗" : "收起数字人浮窗"}
           aria-pressed={!props.avatarCollapsed} onClick={props.onToggleAvatar}>

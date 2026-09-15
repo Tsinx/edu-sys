@@ -1,0 +1,524 @@
+{
+  "checkedAt": "2026-09-14",
+  "checks": [
+    {
+      "name": "招聘加权评分",
+      "source": "l3/23",
+      "parameters": [
+        [
+          "权重",
+          1,
+          2,
+          2,
+          1,
+          3,
+          "—"
+        ],
+        [
+          "A",
+          3,
+          2,
+          1,
+          2,
+          2,
+          17
+        ],
+        [
+          "B",
+          3,
+          1,
+          2,
+          3,
+          2,
+          18
+        ],
+        [
+          "C",
+          2,
+          3,
+          1,
+          2,
+          3,
+          21
+        ]
+      ],
+      "result": {
+        "A": 17,
+        "B": 18,
+        "C": 21
+      },
+      "status": "passed",
+      "note": "原参数保留并复算"
+    },
+    {
+      "name": "量本利与利润率口径",
+      "source": "l3/43-47",
+      "parameters": {
+        "fixed": 5000000,
+        "price": 2000,
+        "variable": 1000
+      },
+      "result": {
+        "breakEven": 5000,
+        "profitAt6000": 1000000,
+        "salesMargin20pctExact": 8333.333333333334,
+        "salesMarginIntegerMinimum": 8334,
+        "costMargin20pct": 7500
+      },
+      "status": "passed",
+      "note": "原参数保留并复算"
+    },
+    {
+      "name": "十年建厂与三年后扩建",
+      "source": "l3/51-53",
+      "parameters": {
+        "probability": 0.7,
+        "initialYears": 3,
+        "remainingYears": 7,
+        "initialSmallInvestment": 140,
+        "expansionInvestment": 200
+      },
+      "result": {
+        "large": 340,
+        "small": 230,
+        "expandGoodBranch": 465,
+        "buildSmallThenExpand": 359.5
+      },
+      "status": "passed",
+      "note": "扩建方案原471.5改为359.5；第一期应为3年，不能使用剩余7年。"
+    },
+    {
+      "name": "产品方案与后悔值",
+      "source": "l3/56-58",
+      "parameters": [
+        [
+          40,
+          20,
+          -10
+        ],
+        [
+          90,
+          40,
+          -50
+        ],
+        [
+          30,
+          20,
+          -4
+        ]
+      ],
+      "result": {
+        "optimistic": "乙",
+        "maximin": "丙",
+        "regrets": [
+          [
+            50,
+            20,
+            6
+          ],
+          [
+            0,
+            0,
+            46
+          ],
+          [
+            60,
+            20,
+            0
+          ]
+        ],
+        "minimaxRegret": "乙"
+      },
+      "status": "passed",
+      "note": "原参数保留并复算"
+    },
+    {
+      "name": "生产计划五种产量",
+      "source": "l3/59-65",
+      "parameters": {
+        "quantities": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000
+        ],
+        "soldMargin": 0.02,
+        "unsoldLoss": 0.01
+      },
+      "result": {
+        "payoffMatrix": [
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            -10.0,
+            20.0,
+            20.0,
+            20.0,
+            20.0
+          ],
+          [
+            -20.0,
+            10.0,
+            40.0,
+            40.0,
+            40.0
+          ],
+          [
+            -30.0,
+            0.0,
+            30.0,
+            60.0,
+            60.0
+          ],
+          [
+            -40.0,
+            -10.0,
+            20.0,
+            50.0,
+            80.0
+          ]
+        ],
+        "equalProbabilityValues": [
+          0.0,
+          14.0,
+          22.0,
+          24.0,
+          20.0
+        ],
+        "equalProbabilityChoice": 3000,
+        "optimisticChoice": 4000,
+        "maximinChoice": 0,
+        "minimaxRegretChoice": 3000
+      },
+      "status": "passed",
+      "note": "原参数保留并复算"
+    },
+    {
+      "name": "红黑牌六轮",
+      "source": "l3/30-38",
+      "parameters": {
+        "roundMultipliers": [
+          1,
+          1,
+          2,
+          1,
+          1,
+          2
+        ],
+        "redRed": 30,
+        "blackBlack": -20,
+        "blackVsRed": [
+          50,
+          -50
+        ]
+      },
+      "result": {
+        "bothRedEach": 240,
+        "bothBlackEach": -160,
+        "oneSideAlwaysBlack": 400,
+        "otherSideAlwaysRed": -400
+      },
+      "status": "passed",
+      "note": "原参数保留并复算"
+    },
+    {
+      "name": "单期决策树",
+      "source": "l4b/23-26",
+      "parameters": {
+        "probability": 0.7,
+        "investment": [
+          30,
+          20
+        ],
+        "good": [
+          100,
+          40
+        ],
+        "bad": [
+          -20,
+          30
+        ]
+      },
+      "result": {
+        "gross": [
+          64,
+          37
+        ],
+        "net": [
+          34,
+          17
+        ],
+        "thresholdProbability": 0.5454545454545454
+      },
+      "status": "passed",
+      "note": "原参数保留并复算"
+    },
+    {
+      "name": "历史财务表勾稽",
+      "source": "l4a/72",
+      "parameters": {
+        "主营业务收入": [
+          10472.0,
+          16117.0,
+          24224.0,
+          19159.0
+        ],
+        "主营业务成本": [
+          10811.0,
+          14567.0,
+          17919.0,
+          16502.0
+        ],
+        "税金及附加": [
+          47.0,
+          74.0,
+          206.0,
+          124.0
+        ],
+        "主营业务利润": [
+          -386.0,
+          1476.0,
+          6099.0,
+          2533.0
+        ],
+        "其他业务利润": [
+          -19.0,
+          -40.0,
+          -104.0,
+          96.0
+        ],
+        "营业费用": [
+          289.0,
+          332.0,
+          229.0,
+          189.0
+        ],
+        "管理费用": [
+          1314.0,
+          2912.0,
+          3699.0,
+          3038.0
+        ],
+        "财务费用": [
+          2120.0,
+          1619.0,
+          1264.0,
+          1483.0
+        ],
+        "营业利润": [
+          -4129.0,
+          -3427.0,
+          801.0,
+          -2080.0
+        ],
+        "投资收益": [
+          -97.0,
+          -192.0,
+          -210.0,
+          -87.0
+        ],
+        "营业外收入": [
+          163.0,
+          68.0,
+          62.0,
+          1011.0
+        ],
+        "营业外支出": [
+          4.0,
+          3.0,
+          12.0,
+          103.0
+        ],
+        "利润总额": [
+          -3960.0,
+          -3493.0,
+          598.0,
+          -1071.0
+        ]
+      },
+      "result": {
+        "years": [
+          1998,
+          1999,
+          2000,
+          2001
+        ],
+        "mainProfitRecomputed": [
+          -386.0,
+          1476.0,
+          6099.0,
+          2533.0
+        ],
+        "operatingRecomputed": [
+          -4128.0,
+          -3427.0,
+          803.0,
+          -2081.0
+        ],
+        "operatingPublished": [
+          -4129.0,
+          -3427.0,
+          801.0,
+          -2080.0
+        ],
+        "operatingDifferencePublishedMinusComputed": [
+          -1.0,
+          0.0,
+          -2.0,
+          1.0
+        ],
+        "totalRecomputed": [
+          -4067.0,
+          -3554.0,
+          641.0,
+          -1259.0
+        ],
+        "totalPublished": [
+          -3960.0,
+          -3493.0,
+          598.0,
+          -1071.0
+        ],
+        "totalDifferencePublishedMinusComputed": [
+          107.0,
+          61.0,
+          -43.0,
+          188.0
+        ]
+      },
+      "status": "source-discrepancy-preserved",
+      "note": "金额单位缺失；保留原数并在课件标注差异，未擅自增补未列项目或改为当期报表。"
+    },
+    {
+      "name": "费用变动额与变动率",
+      "source": "l4a/73",
+      "parameters": [
+        [
+          "营业费用总额",
+          "289",
+          "332",
+          "229",
+          "189",
+          "−100",
+          "−34.60%"
+        ],
+        [
+          "运输费",
+          "135",
+          "229",
+          "58",
+          "52",
+          "−83",
+          "−61.48%"
+        ],
+        [
+          "广告费",
+          "33",
+          "2",
+          "6",
+          "0.1",
+          "−32.9",
+          "−99.70%"
+        ],
+        [
+          "工资",
+          "48",
+          "13",
+          "16",
+          "10",
+          "−38",
+          "−79.17%"
+        ],
+        [
+          "差旅费",
+          "6",
+          "7",
+          "7",
+          "8",
+          "＋2",
+          "＋33.33%"
+        ],
+        [
+          "材料费",
+          "30",
+          "9",
+          "14",
+          "25",
+          "−5",
+          "−16.67%"
+        ],
+        [
+          "工艺分厂",
+          "17",
+          "42",
+          "74",
+          "61",
+          "＋44",
+          "＋258.82%"
+        ]
+      ],
+      "result": [
+        {
+          "item": "营业费用总额",
+          "difference": -100.0,
+          "changePercent": -34.6
+        },
+        {
+          "item": "运输费",
+          "difference": -83.0,
+          "changePercent": -61.48
+        },
+        {
+          "item": "广告费",
+          "difference": -32.9,
+          "changePercent": -99.7
+        },
+        {
+          "item": "工资",
+          "difference": -38.0,
+          "changePercent": -79.17
+        },
+        {
+          "item": "差旅费",
+          "difference": 2.0,
+          "changePercent": 33.33
+        },
+        {
+          "item": "材料费",
+          "difference": -5.0,
+          "changePercent": -16.67
+        },
+        {
+          "item": "工艺分厂",
+          "difference": 44.0,
+          "changePercent": 258.82
+        }
+      ],
+      "status": "passed",
+      "note": "原参数保留并复算"
+    },
+    {
+      "name": "其他业务分项与总额",
+      "source": "l4a/74",
+      "parameters": [
+        -29,
+        -23,
+        -2,
+        97
+      ],
+      "result": {
+        "listedParts": 43,
+        "publishedTotal": 96,
+        "unexplainedDifference": 53
+      },
+      "status": "source-discrepancy-preserved",
+      "note": "原表只列部分项目；2000年其他业务利润在两表分别为−104/−105。保留并标明，缺失项不按0处理。"
+    }
+  ]
+}

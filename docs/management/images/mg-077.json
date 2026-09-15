@@ -1,0 +1,31 @@
+{
+  "id": "mg-077",
+  "deck": "l4a",
+  "page": 10,
+  "title": "政策与法律",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: An elegant civic reading room with blank bound legal volumes and a model of a public square, no seals or political portraits. Source context: original l4a page 10, 政策与法律. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-39a3dacc-9e54-4120-b885-345f6a65930a.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-077.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-077.webp",
+  "pages": [
+    "mg-l4a-s010-01"
+  ],
+  "originalSha256": "5d3ffc922bb37b929988fbc8bd97db4f711d378d282f40043010057f0b971394",
+  "webSha256": "4e5528c4ab129a76241798f8888225cdf749a695c6e6c8b9a64f1721e512044d",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 184300
+}

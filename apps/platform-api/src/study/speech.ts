@@ -1,3 +1,4 @@
+import type { AvatarVoiceProfile, SpeechVisemeCue } from "@edu/contracts";
 import { randomUUID } from "node:crypto";
 import WebSocket, { type RawData } from "ws";
 
@@ -9,6 +10,7 @@ export interface StudyAsrRequest {
 }
 
 export interface StudyTtsChunk {
+  mouthCues?: SpeechVisemeCue[];
   audioBase64: string;
   sampleRate: 24_000;
   channels: 1;
@@ -22,7 +24,8 @@ export interface StudySpeechProvider {
   transcribe(request: StudyAsrRequest): Promise<string>;
   synthesize(
     text: string,
-    signal?: AbortSignal
+    signal?: AbortSignal,
+    voiceProfile?: AvatarVoiceProfile
   ): AsyncIterable<StudyTtsChunk>;
 }
 
@@ -30,6 +33,14 @@ export class StudySpeechProviderError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "StudySpeechProviderError";
+  }
+}
+
+/** A valid ASR response with no speech is not a transport/provider outage. */
+export class StudyAsrNoSpeechError extends StudySpeechProviderError {
+  constructor() {
+    super("没有识别到可用语音，请继续说话。");
+    this.name = "StudyAsrNoSpeechError";
   }
 }
 
@@ -203,18 +214,22 @@ export class DashScopeStudySpeechProvider implements StudySpeechProvider {
       );
     }
     const payload = (await response.json()) as DashScopeAsrResponse;
-    const text = payload.choices?.[0]?.message?.content?.trim();
-    if (!text) {
-      throw new StudySpeechProviderError("课下ASR没有返回可用文字");
-    }
+    const content = payload.choices?.[0]?.message?.content;
+    if (typeof content !== "string") throw new StudySpeechProviderError("课下ASR返回格式无效");
+    const text = content.trim();
+    if (!text) throw new StudyAsrNoSpeechError();
     return text;
   }
 
   async *synthesize(
     text: string,
-    signal?: AbortSignal
+    signal?: AbortSignal,
+    voiceProfile: AvatarVoiceProfile = "default"
   ): AsyncGenerator<StudyTtsChunk> {
-    if (!this.apiKey || !this.ttsVoiceId) {
+    const preset = voiceProfile === "natori" ? "Ethan" : voiceProfile === "hiyori" ? "Serena" : undefined;
+    const voice = preset ?? this.ttsVoiceId;
+    const model = preset ? "qwen3-tts-flash-realtime-2025-11-27" : this.ttsModel;
+    if (!this.apiKey || !voice) {
       throw new StudySpeechProviderError(
         "澜舟专属音色尚未配置；当前保留字幕并跳过语音。"
       );
@@ -222,7 +237,7 @@ export class DashScopeStudySpeechProvider implements StudySpeechProvider {
     if (signal?.aborted) throw abortError();
 
     const url = new URL(this.ttsWebSocketUrl);
-    url.searchParams.set("model", this.ttsModel);
+    url.searchParams.set("model", model);
     const socket = new WebSocket(url, {
       headers: { Authorization: `Bearer ${this.apiKey}` }
     });
@@ -265,7 +280,7 @@ export class DashScopeStudySpeechProvider implements StudySpeechProvider {
             event_id: `event-${randomUUID()}`,
             type: "session.update",
             session: {
-              voice: this.ttsVoiceId,
+              voice,
               mode: "commit",
               language_type: "Chinese",
               response_format: "pcm",

@@ -1,0 +1,31 @@
+{
+  "id": "mg-093",
+  "deck": "l4a",
+  "page": 32,
+  "title": "资金需求",
+  "prompt": "Generate exactly one independent landscape 16:10 illustration for a Chinese university Principles of Management course. Subject: A large industrial facility under construction with heavy equipment and long lead-time components, material scale conveys capital requirements. Source context: original l4a page 32, 资金需求. Art direction: sophisticated modern academic art book; tactile architectural/model photography blended with subtle painterly editorial realism; warm ivory, deep charcoal, muted teal and very restrained brushed brass, natural soft light, excellent spatial composition, realistic human anatomy and believable tools. Place the main subject toward the right two thirds and leave calm ivory breathing room; no collage grid, no page mockup. This is an artistic teaching scenario, not documentary evidence; do not impersonate a real historical person. No words, letters, numbers, logos, watermarks, fake documents, graphs, arrows, slogans, neon, stock-photo handshakes or decorative interface panels. Keep this subject distinct from all other course illustrations.",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-e289ae62-9441-428c-99d1-a1b072b829d5.png",
+  "review": {
+    "status": "passed",
+    "date": "2026-09-14",
+    "method": "逐张查看生成结果与全部10张原件联系表，检查主题、主体完整性、错误文字、比例及页面关联",
+    "label": "艺术示意 · Imagegen"
+  },
+  "original": "output\\management-principles\\images\\originals\\mg-093.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-093.webp",
+  "pages": [
+    "mg-l4a-s032-01"
+  ],
+  "originalSha256": "1acbc7a33e927353845a51643267878bd94d0c5c181fda378049ac9cf0fc1058",
+  "webSha256": "b090117d0bbd780abf3c709d328285d42e637155bbeb6e1676806de71ce9110d",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 310034
+}

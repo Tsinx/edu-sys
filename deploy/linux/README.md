@@ -52,6 +52,7 @@ python3 deploy/linux/account.py
 npm install --prefix .runtime/toolchain --no-audit --no-fund node@24 pnpm@11.9.0
 export PATH="$PWD/.runtime/toolchain/node_modules/.bin:$PATH"
 pnpm install --frozen-lockfile
+pnpm kws:setup
 pnpm build:campus
 python3 deploy/linux/prepare-local.py 10.1.55.27
 python3 deploy/linux/install-user-services.py 10.1.55.27
@@ -78,3 +79,29 @@ systemctl --user start edu-campus
 ```
 
 更新代码时保留 `.runtime`。服务器需保持开机、不休眠且网络在线。
+
+## 合并云端更新并升级现有服务器
+
+服务器维护分支为 `server/campus-linux`，云端内容分支为 `origin/codex/campus-edge-deployment`。先 fetch、merge 并解决冲突，保留生产模式、GPU 子模块隔离和 Linux 服务配置。不要对已有服务器重新运行首次初始化脚本来切换版本。
+
+```bash
+export PATH="$PWD/.runtime/toolchain/node_modules/.bin:$PATH"
+git fetch origin
+git merge origin/codex/campus-edge-deployment
+pnpm install --frozen-lockfile
+pnpm kws:setup
+pnpm test
+pnpm build:campus
+# 将下方目录替换为本次构建输出；验证完成前不切换 current。
+node scripts/verify-campus-release.mjs output/campus-server-本次时间戳
+python3 deploy/linux/update-release.py output/campus-server-本次时间戳
+python3 deploy/linux/verify-live.py
+```
+
+升级脚本停服后备份整套数据库，原子切换 `campus-current`，检查新版本健康状态及资源版本号；启动失败则恢复旧发布包和数据库。备份位于 `.runtime/backups/upgrade-*`。后端配置、账号和 Caddy 证书保持原位置。发布包 `release.json` 记录构建来源提交。
+
+2026-09-15 已合入管理学（367页）、统计分析（前两讲100页）、港口课程（197页）、综合/3D实训、Live2D 小麦和课堂助手更新。计算、动画和通用中文唤醒在浏览器运行。管理学、统计分析可分别下载离线资源。
+
+两套个人训练的唤醒模型位于原开发机被 Git 忽略的 `output/`，仓库没有提供权重或下载地址；本机使用已校验的通用模型，未安装的个人模型不会出现在选择器中。取得原始模型后可用 `setup-personal-kws.mjs --source` 安装并重新构建，构建时会校验并自动启用。AI/语音服务商密钥仍从当前服务器 `.env` 读取；Rhubarb 是可选口型增强，不影响基础浏览器口型与字幕。
+
+客户端升级后应关闭旧教学页再重新进入，并重新下载离线包，以使用新课件和资源版本。
