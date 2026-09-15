@@ -1,3 +1,4 @@
+import { live2dModels, type Live2DCharacter } from "./live2d-models";
 import { useSyncExternalStore } from "react";
 
 export type AvatarRenderer = "live2d" | "video" | "lam";
@@ -7,9 +8,11 @@ let memory: AvatarRenderer | undefined;
 export function getAvatarRenderer(): AvatarRenderer {
   try {
     const saved = localStorage.getItem(key);
-    if (saved === "live2d" || saved === "video" || saved === "lam") return saved;
+    // Retired LAM preferences resolve to Xiaomai without loading its GPU runtime.
+    if (saved === "lam") return "live2d";
+    if (saved === "live2d" || saved === "video") return saved;
   } catch { /* Private browsing can disable storage. */ }
-  return memory ?? "live2d";
+  return memory === "video" ? "video" : "live2d";
 }
 export function setAvatarRenderer(value: AvatarRenderer) {
   memory = value;
@@ -41,4 +44,21 @@ export function setAvatarFraming(value: AvatarFraming) {
 }
 export function useAvatarFraming() {
   return useSyncExternalStore(subscribe, getAvatarFraming, () => "bust" as const);
+}
+
+export function getLive2DCharacter(): Live2DCharacter {
+  // Xiaomai is the only released Live2D character. Old Haru/Natori/Hiyori
+  // choices must also migrate, including their voice, on classroom/study entry.
+  return "xiaomai";
+}
+export function setLive2DCharacter(_value: Live2DCharacter) {
+  try { localStorage.setItem("edu-live2d-character-v1", "xiaomai"); } catch { /* Storage is optional. */ }
+  window.dispatchEvent(new Event(eventName));
+}
+export function useLive2DCharacter() {
+  return useSyncExternalStore(subscribe, getLive2DCharacter, () => "xiaomai" as const);
+}
+export function getAvatarVoice(): "default" | "natori" | "hiyori" {
+  const character = getLive2DCharacter();
+  return getAvatarRenderer() === "live2d" ? live2dModels[character].voice : "default";
 }

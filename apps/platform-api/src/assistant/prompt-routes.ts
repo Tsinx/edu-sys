@@ -5,6 +5,7 @@ import type { JsonStateStore } from "../store.js";
 import { buildPromptWorkspace, compileClassroomPrompt } from "./prompts.js";
 
 const selectionSchema = z.object({
+  demoCue: z.enum(["l4-arrival","l4-cargo","l4-yard","l4-departure"]).optional(),
   index: z.coerce.number().int().positive().default(1),
   activity: z.enum(["slides", "globe", "simulation", "whiteboard", "video", "interaction"]).default("slides")
 });
@@ -15,7 +16,7 @@ export function registerAssistantPromptRoutes(app: FastifyInstance, store: JsonS
     const course = store.getCourse(request.params.id);
     if (!course) return reply.code(404).send({ message: "课程不存在" });
     const selection = selectionSchema.parse(request.query);
-    return buildPromptWorkspace(course.id, course.title, store.getAssistantPromptSettings(), selection.index, selection.activity);
+    return buildPromptWorkspace(course.id, course.title, store.getAssistantPromptSettings(), selection.index, selection.activity, undefined, undefined, selection.demoCue);
   });
   app.patch<{ Params: { id: string } }>("/api/courses/:id/assistant-prompts", async (request, reply) => {
     const actor = await requireTeacher(request);
@@ -23,12 +24,12 @@ export function registerAssistantPromptRoutes(app: FastifyInstance, store: JsonS
     if (!course) return reply.code(404).send({ message: "课程不存在" });
     const selection = selectionSchema.parse(request.query);
     const input = assistantPromptUpdateSchema.parse(request.body);
-    const workspace = buildPromptWorkspace(course.id, course.title, store.getAssistantPromptSettings(), selection.index, selection.activity);
+    const workspace = buildPromptWorkspace(course.id, course.title, store.getAssistantPromptSettings(), selection.index, selection.activity, undefined, undefined, selection.demoCue);
     if (!workspace.modules.some(m => m.scope === input.scope && m.key === input.key)) {
       return reply.code(400).send({ message: "提示词目标与当前课程、讲次或页面不匹配" });
     }
     const settings = await store.updateAssistantPrompt(input, actor.actorId);
-    return buildPromptWorkspace(course.id, course.title, settings, selection.index, selection.activity);
+    return buildPromptWorkspace(course.id, course.title, settings, selection.index, selection.activity, undefined, undefined, selection.demoCue);
   });
   app.get<{ Params: { id: string } }>("/api/class-sessions/:id/assistant-prompts", async (request, reply) => {
     await requireTeacher(request);

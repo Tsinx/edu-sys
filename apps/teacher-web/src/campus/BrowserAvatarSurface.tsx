@@ -6,7 +6,7 @@ import { decodePcm16Base64 } from "../features/study/study-utils";
 import { runtimeConfig } from "./runtime";
 import { api } from "../api";
 import { SpeechMeter } from "../features/avatar/SpeechMeter";
-import { useAvatarRenderer } from "../features/avatar/avatar-preference";
+import { useAvatarRenderer, getAvatarVoice } from "../features/avatar/avatar-preference";
 import "../features/study/study.css";
 const LegacySurface=lazy(()=>import("../features/classroom/LamAvatarSurface").then(module=>({default:module.LamAvatarSurface})));
 const Live2DPlayer=lazy(()=>import("../features/avatar/Live2DAvatarPlayer").then(module=>({default:module.Live2DAvatarPlayer})));
@@ -27,21 +27,22 @@ const BrowserSurface=forwardRef<LamAvatarController,LamAvatarSurfaceProps>(funct
   const speak=async(text:string)=>{
     stop();setNotice("");setSubtitle(text);setState("thinking");callbacks.current.onConnectionStateChange("thinking");
     if(!runtimeConfig.speech.tts){setNotice("当前使用字幕讲解；管理员配置语音后可朗读。");setState("idle");callbacks.current.onConnectionStateChange("ready");return;}
-    const controller=new AbortController();active.current=controller;
+    const controller=new AbortController();active.current=controller;let completed=false;
     try{
-      const response=await fetch("/api/teacher/tts",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text.slice(0,3000)}),signal:controller.signal});
+      const response=await fetch("/api/teacher/tts",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text.slice(0,3000), voiceProfile:getAvatarVoice(),lipSync:renderer==="live2d"}),signal:controller.signal});
       if(!response.ok || !response.body)throw new Error("语音暂不可用，请阅读字幕。");
       controller.signal.throwIfAborted();
       const reader=response.body.getReader();const decoder=new TextDecoder();let buffer="";const ctx=audio();let next=ctx.currentTime;const playback:Promise<void>[]=[];
       try{while(true){const chunk=await reader.read();controller.signal.throwIfAborted();buffer+=decoder.decode(chunk.value,{stream:!chunk.done});if(chunk.done)buffer+="\n";const lines=buffer.split("\n");buffer=lines.pop()!;
         for(const line of lines){if(!line.startsWith("data:"))continue;const event=JSON.parse(line.slice(5));if(event.error)throw new Error(event.error);if(!event.audioBase64)continue;
           const samples=decodePcm16Base64(event.audioBase64);if(!samples.length)continue;const block=ctx.createBuffer(1,samples.length,event.sampleRate);block.getChannelData(0).set(samples);
-          const source=ctx.createBufferSource();source.buffer=block;meter.current.connect(source);next=Math.max(next,ctx.currentTime+.03);sources.current.add(source);playback.push(new Promise<void>(resolve=>{source.onended=()=>{sources.current.delete(source);resolve();};}));source.start(next);next+=block.duration;setState("speaking");callbacks.current.onConnectionStateChange("speaking");
+          const source=ctx.createBufferSource();source.buffer=block;meter.current.connect(source);next=Math.max(next,ctx.currentTime+.03);sources.current.add(source);playback.push(new Promise<void>(resolve=>{source.onended=()=>{sources.current.delete(source);resolve();};}));meter.current.schedule(source,next,event.mouthCues);source.start(next);next+=block.duration;setState("speaking");callbacks.current.onConnectionStateChange("speaking");
         }if(chunk.done)break;}
       }finally{reader.releaseLock();}
       await Promise.all(playback);
+      completed=playback.length>0;
     }catch(reason){if(!controller.signal.aborted){setNotice((reason as Error).message);for(const source of sources.current){try{source.stop();}catch{}}sources.current.clear();meter.current.reset();}}
-    finally{if(active.current===controller){active.current=undefined;setState("idle");callbacks.current.onConnectionStateChange("ready");}}
+    finally{if(active.current===controller){active.current=undefined;setState(completed&&renderer==="live2d"?"affirming":"idle");callbacks.current.onConnectionStateChange("ready");}}
   };
   useImperativeHandle(ref,()=>({
     isConnected:()=>true,
@@ -59,7 +60,7 @@ const BrowserSurface=forwardRef<LamAvatarController,LamAvatarSurfaceProps>(funct
     }
   }));
   const fallback=<LanzhouAvatarPlayer cuePack={cuePack} state={state} subtitle={subtitle}/>;
-  return <div className="campus-avatar" hidden={props.concealed}>{renderer==="live2d"?<Suspense fallback={fallback}><Live2DPlayer state={state} subtitle={subtitle} concealed={props.concealed} readMouth={meter.current.read} fallback={fallback}/></Suspense>:fallback}{notice&&<p className="campus-avatar-notice" role="status">{notice}</p>}</div>;
+  return <div className="campus-avatar" hidden={props.concealed}>{renderer==="live2d"?<Suspense fallback={fallback}><Live2DPlayer state={state} subtitle={subtitle} concealed={props.concealed} readMouth={meter.current.read} readViseme={meter.current.readViseme} fallback={fallback}/></Suspense>:fallback}{notice&&<p className="campus-avatar-notice" role="status">{notice}</p>}</div>;
 });
 
 export const LamAvatarSurface=forwardRef<LamAvatarController,LamAvatarSurfaceProps>(function AdaptiveSurface(props,ref){

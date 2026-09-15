@@ -1,7 +1,9 @@
 /** Original teaching scenario. Durations, dimensions and costs are not production port data. */
 import { createNormalTrainingSetup, type TerminalTrainingMode } from "./terminal-training.js";
 import { terminalBudget, validateTerminalSetup, type TerminalSetup } from "./terminal-lab.js";
-export const PORT_OPERATIONS_SCHEMA = "port-operations/3.0";
+import type { PortNavigation } from "./port-navigation.js";
+export const PORT_OPERATIONS_SCHEMA = "port-operations/3.1";
+export type PortOperationsSchema = typeof PORT_OPERATIONS_SCHEMA | "port-operations/3.0";
 export const PORT_ARRIVAL_GENERATOR = "port-arrivals/1.0";
 export const PORT_SHIFT_SECONDS = 8 * 3600;
 export const PORT_HORIZON = 48 * 3600;
@@ -66,6 +68,7 @@ export interface PortMove {
     to: string;
     start: number;
     end: number;
+    navigation?: PortNavigation;
 }
 export interface PortCall {
     id: string;
@@ -139,7 +142,7 @@ export interface PortJob {
 export interface PortEvent {
     id: string;
     at: number;
-    kind: "announce" | "eta" | "arrive" | "exports" | "doc" | "batch-doc" | "move" | "moored" | "unmoored" | "inspection" | "shift" | "wind" | "fault" | "repair";
+    kind: "announce" | "eta" | "arrive" | "exports" | "doc" | "batch-doc" | "move" | "source-clear" | "moored" | "unmoored" | "inspection" | "shift" | "wind" | "fault" | "repair";
     object: string;
     value?: string | number;
 }
@@ -226,7 +229,7 @@ export interface PortHandover {
     fingerprint: string;
 }
 export interface PortSession {
-    schema: typeof PORT_OPERATIONS_SCHEMA;
+    schema: PortOperationsSchema;
     generator: typeof PORT_ARRIVAL_GENERATOR;
     config: PortConfig;
     mode: PortMode;

@@ -26,7 +26,7 @@ export function AssistantPromptEditor() {
   const [livePreview, setLivePreview] = useState("");
   const [reload, setReload] = useState(0);
   const saving = useRef(false);
-  const url = `/api/courses/${encodeURIComponent(courseId)}/assistant-prompts?index=${index}&activity=${encodeURIComponent(activity)}`;
+  const url = `/api/courses/${encodeURIComponent(courseId)}/assistant-prompts?index=${index}&activity=${encodeURIComponent(activity.startsWith("demo:")?"slides":activity)}${activity.startsWith("demo:")?`&demoCue=${encodeURIComponent(activity.slice(5))}`:""}`;
   const module = workspace?.modules.find(m => m.scope === scope);
   const dirty = Boolean(module && draft !== module.text);
   const selectedPage = workspace?.pages.find(p => p.index === index);
@@ -73,7 +73,7 @@ export function AssistantPromptEditor() {
       <div className="prompt-selection">
         <label>章／讲<select aria-label="选择讲次" disabled={busy || dirty || !workspace.pages.length} value={selectedPage?.lesson ?? ""} onChange={e => setIndex(workspace.pages.find(p => p.lesson === Number(e.target.value))!.index)}>{[...new Set(workspace.pages.map(p => p.lesson))].map(lesson => <option key={lesson} value={lesson}>第{lesson}讲</option>)}</select></label>
         <label>Slide<select aria-label="选择Slide" disabled={busy || dirty || !workspace.pages.length} value={index} onChange={e => setIndex(Number(e.target.value))}>{workspace.pages.filter(p => p.lesson === selectedPage?.lesson).map((p, n) => <option key={p.key} value={p.index}>第{n + 1}页 · {p.title}</option>)}</select></label>
-        <label>页面／实验<select aria-label="选择页面或实验" disabled={busy || dirty} value={activity} onChange={e => setActivity(e.target.value)}><option value="slides">当前Slide（含页内实验）</option>{workspace.experiments.map(e => <option key={e.key} value={e.key}>{e.title}</option>)}</select></label>
+        <label>页面／实验<select aria-label="选择页面或实验" disabled={busy || dirty} value={activity} onChange={e => { setActivity(e.target.value); if(e.target.value.startsWith("demo:") && selectedPage?.lesson!==4) setIndex(workspace.pages.find(p=>p.lesson===4)!.index); }}><option value="slides">当前Slide（含页内实验）</option>{workspace.experiments.map(e => <option key={e.key} value={e.key}>{e.title}</option>)}</select></label>
       </div>
       <nav aria-label="提示词模块" className="prompt-tabs">{workspace.modules.map(m => <button key={m.scope} aria-pressed={scope === m.scope} disabled={busy || (dirty && scope !== m.scope)} onClick={() => { setScope(m.scope); setNotice(""); }}>{m.title}{m.overridden && <small>已修改</small>}</button>)}</nav>
       {module && <section className="prompt-edit-panel">

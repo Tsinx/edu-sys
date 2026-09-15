@@ -1,4 +1,6 @@
 import { PORT_LBL_SOURCES } from "./port-lbl-sources.js";
+import { PORT_LESSON_FOUR_TITLE, PORT_LESSON_FOUR_TIMING } from './port-lesson-four.js';
+export { PORT_LESSON_FOUR_SLIDES, PORT_LESSON_FOUR_TITLE, PORT_LESSON_FOUR_TIMING, PORT_LESSON_FOUR_LABS, PORT_LESSON_FOUR_LEGACY_POSITIONS, getPortLessonFourDemo, type PortDemoCueId, type PortLessonFourPage } from './port-lesson-four.js';
 import { PORT_LBL_LEGACY_KEYS } from "./port-lbl-migration.js";
 export { PORT_LBL_LEGACY_KEYS } from "./port-lbl-migration.js";
 export { PORT_LBL_SLIDES, PORT_LBL_LESSON_TWO, PORT_LBL_LESSON_THREE, PORT_LBL_TITLES, type PortLblPage } from "./port-lbl.js";
@@ -246,7 +248,7 @@ export interface PortManagementGlobeCue {
 }
 
 export const PORT_MANAGEMENT_DECK_VERSION =
-  "release-port-management-lbl-v8";
+  "release-port-management-authored-v10";
 
 export const PORT_MANAGEMENT_GLOBE_CUES: readonly PortManagementGlobeCue[] = [
   {
@@ -383,6 +385,9 @@ export function getPortManagementGlobeCue(
 }
 
 export const PORT_MANAGEMENT_SOURCES: Record<string, PortCourseSource> = {
+  'port-l4-model': {label:'本课程单船教学模型与运行复核（2026-09-15）',url:'/port-lesson-four-preview.html'},
+  'port-l4-terminal': {label:'Port Economics, Management and Policy · Container Terminal Design and Equipment',url:'https://porteconomicsmanagement.org/pemp/contents/part6/container-terminal-design-equipment/'},
+  'port-l4-pcs': {label:'Port Economics, Management and Policy · Port Community System',url:'https://porteconomicsmanagement.org/pemp/contents/part3/digital-transformation/port-community-system/'},
   ...PORT_LBL_SOURCES,
   "oocl-spain-release": {
     label: "OOCL · OOCL Spain发布及LL3港序（2023）",
@@ -775,7 +780,16 @@ export const PORT_MANAGEMENT_LESSONS: readonly PortManagementLessonSpec[] = [
         "先从货物、地理、通道和组织中的当前层次回答，再联系港口接口。数字均按资料日期或教学设定解释；不发布活动，不自动转入仿真。"
     }
   },
-  plannedLesson(4),
+  {
+    number:4,label:'第4讲',title:PORT_LESSON_FOUR_TITLE,status:'ready',slideStart:154,slideEnd:197,
+    timing:PORT_LESSON_FOUR_TIMING,
+    assistantBrief:{
+      objective:'在教师演示与个人实机交替的90分钟课堂中，连接入港、装卸、堆场交付与离港，以状态和记录判断船、货、资源分别完成的条件。',
+      coreClaims:['S01单船教学情境含116箱进口、78箱出口，均为实体箱口径。','提交、回执、指令、物理到位和交接完成是不同状态。','本船装卸完成不要求进口箱已全部提离；离泊与出港应核对资源实际释放。','岗位、设备和下游接续条件共同决定可用作业能力。'],
+      guardrails:['四个分段具有独立起始现场，不累计为一段连续周转时间。','标准演示、操作教学与自主练习相互独立；不得把演示当成学生已经完成。','第21页116/78/88是默认装卸标准演示的冻结快照，学生实操以实际记录为准。','不得将教学回执与核查流程解释为现实口岸完整法定流程或生产SOP。','本讲不要求最优配置，不把分段记录当100分实战成绩，不自动发布或运行实验。'],
+      responsePolicy:'先指出对象与现场状态，再解释前置条件及下一项可核查证据。回答学生任务时先提供诊断线索；需要教师展示答案时解释完成条件，未收到现场记录时不得推断实际完成。'
+    }
+  },
   plannedLesson(5),
   plannedLesson(6),
   plannedLesson(7),
@@ -911,6 +925,12 @@ function appendContextLine(
 }
 
 function formatVoyagePrompt(slide: PortManagementSlideSpec): string {
+  if(slide.lesson===4)return [
+    '第4讲单船实验：S01含116箱进口与78箱出口；这是本课程教学情境，按实体箱计数。',
+    '入港、装卸、堆场交付、离港四段各自从准备好的现场开始，不将分段时间或记录拼接为同一航次。',
+    '解释对象为船舶状态、逐箱交接与资源释放；尚未提供现场记录时不得猜测学生运行结果。',
+    '标准演示和操作教学不等于学生自主练习；第14页的88箱提离是冻结演示快照而非统一验收值。'
+  ].join('\n');
   if(slide.slideKey.includes("-lbl-"))return [
     "双讲LBL主线：教学货物为普通工业零件，使用40英尺干货箱C-01。",
     "教学旅程：重庆工厂—果园港—长江—上海水水换装—亚欧海运—鹿特丹—公路到杜伊斯堡附近客户—指定地点还空箱。",

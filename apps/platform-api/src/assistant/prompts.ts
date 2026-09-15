@@ -1,5 +1,5 @@
 import type { AssistantPromptModule, AssistantPromptScope, AssistantPromptSettings, AssistantPromptWorkspace, ClassroomSnapshot } from "@edu/contracts";
-import { getPortManagementAssistantContext, getPortManagementSlideByKey } from "@edu/course-content";
+import { getPortManagementAssistantContext, getPortManagementSlideByKey, PORT_LESSON_FOUR_SLIDES, PORT_LESSON_FOUR_LABS, getPortLessonFourDemo } from "@edu/course-content";
 import { getCourseDeckByCourseId } from "@edu/course-content/deck-registry";
 import { ECONOMIC_MATHEMATICS_COURSE_ID, ECONOMIC_MATHEMATICS_LESSONS, getEconomicMathematicsSlideByKey, getEconomicMathematicsInteractionDefinition } from "@edu/course-content/economic-mathematics";
 import { buildClassroomToolPrompt } from "./tool-prompts.js";
@@ -32,10 +32,11 @@ function getCatalog(courseId: string) {
     const p = deck.getSlide(i + 1);
     return { key: p.slideKey, index: p.index, lesson: p.lessonNumber, title: p.title };
   }) : [];
-  const experiments = deck?.allowedActivities.filter(a => a !== "slides").map(a => {
+  const experiments: {key:string;title:string}[] = deck?.allowedActivities.filter(a => a !== "slides").map(a => {
     const e = EXPERIMENTS.find(e => e.key === `experiment:${a}`)!;
     return { key: a, title: e.title };
   }) ?? [];
+  if (courseId === 'course-port-management-intro') experiments.push(...PORT_LESSON_FOUR_LABS.map(l=>({key:`demo:${l.cueId}`,title:`教师演示 · ${l.name}`})));
   const catalog = { pages, experiments, coverage: {
     slides: pages.length, lessons: deck?.lessons.length ?? 0, coveredSlides: pages.length,
     experiments: courseId === ECONOMIC_MATHEMATICS_COURSE_ID
@@ -46,7 +47,7 @@ function getCatalog(courseId: string) {
   return catalog;
 }
 
-type Context = Pick<ClassroomSnapshot, "courseId" | "courseTitle" | "slide" | "activeActivity" | "slideInteraction" | "simulation" | "globePlayback">;
+type Context = Pick<ClassroomSnapshot, "courseId" | "courseTitle" | "slide" | "activeActivity" | "slideInteraction" | "simulation" | "globePlayback" | "teacherDemo" | "lessonFourPresentation">;
 export function compileClassroomPrompt(snapshot: Context, settings = EMPTY_PROMPT_SETTINGS) {
   return buildPromptWorkspace(snapshot.courseId, snapshot.courseTitle, settings, snapshot.slide.index, snapshot.activeActivity, snapshot);
 }
@@ -54,7 +55,7 @@ export function compileClassroomPrompt(snapshot: Context, settings = EMPTY_PROMP
 export function buildPromptWorkspace(
   courseId: string, courseTitle: string, settings = EMPTY_PROMPT_SETTINGS, index = 1,
   activity: ClassroomSnapshot["activeActivity"] = "slides", live?: Context,
-  studyToolPrompt?: string
+  studyToolPrompt?: string, previewDemoCue?: string
 ): AssistantPromptWorkspace {
   const deck = getCourseDeckByCourseId(courseId);
   if (deck && (!Number.isInteger(index) || index < 1 || index > deck.slideTotal || !deck.allowedActivities.includes(activity))) {
@@ -72,6 +73,10 @@ export function buildPromptWorkspace(
   const portContext = deck && courseId === 'course-port-management-intro' ? getPortManagementAssistantContext(index) : undefined;
   const mathSlide = math && slide ? getEconomicMathematicsSlideByKey(slide.slideKey) : undefined;
   const portSlide = portContext ? getPortManagementSlideByKey(portContext.slideKey) : undefined;
+  const l4 = portSlide?.lesson===4 ? PORT_LESSON_FOUR_SLIDES.find(p=>p.slideKey===portSlide.slideKey) : undefined;
+  const liveDemo = live?.teacherDemo?.active ? live.teacherDemo : undefined;
+  const demoCue = getPortLessonFourDemo(liveDemo?.cueId ?? previewDemoCue ?? "");
+  if(previewDemoCue && (!demoCue || !l4)) throw Object.assign(new Error("教师演示预览必须对应第4讲已注册入口"),{statusCode:400});
   const mathLesson = mathSlide ? ECONOMIC_MATHEMATICS_LESSONS.find(l => l.number === mathSlide.lesson) : undefined;
   const interaction = mathSlide ? getEconomicMathematicsInteractionDefinition(mathSlide) : undefined;
   const values = live?.slideInteraction?.values ?? interaction?.defaults;
@@ -80,7 +85,7 @@ export function buildPromptWorkspace(
     ? values?.revealOptimum === true
     : mathSlide?.interactionId === "unconstrained-optimum-lab" && /Hessian|负定|极大|峰顶/u.test(mathSlide.assistantCue)
       ? values?.revealClassification === true : true;
-  const withheld = mgContext?.withheld || mathSlide?.kind === "exercise" || (Boolean(interaction) && !(values?.revealStep === true && specialRevealed));
+  const withheld = (!demoCue && l4?.answerHidden) || mgContext?.withheld || mathSlide?.kind === "exercise" || (Boolean(interaction) && !(values?.revealStep === true && specialRevealed));
   const boundary = withheld
     ? "当前页答案尚未揭示。当前答案尚未公开。只可依据学生可见摘要给出变量识别、第一步关系或检查方法，不得复述作者答案、最优点、最终数值或完整推导。"
     : contextualPageBoundary(statsSlide?.assistantCue ?? mathSlide?.assistantCue ?? portSlide?.assistantCue ?? "");
@@ -95,10 +100,21 @@ export function buildPromptWorkspace(
     '【综合回答方式】先直接回答教师当前问题，再联系可见证据说明原因，必要时解释一个统计术语及其单位。把统计计算、模型条件、实际意义与研究设计分别交代，控制口播长度。个人思考提示只用于短暂停顿，不要求分组、投票、提交或代码运行。',
     `【本页专属约束】${statsSlide.assistantCue} 本页来源与口径：${statsSlide.source}。不得把独立抽样概念模型、两城顾客样本、示意账本及全品牌月报拼接为同一观测数据集。`
   ].join('\n\n') : undefined;
-  const pageContext = mgContext ?? (statsSupport ? { defaultText: statsSupport, support: statsSupport }
+  const shownProgress = live?.lessonFourPresentation?.slideKey===l4?.slideKey ? live?.lessonFourPresentation?.progress ?? 1 : l4?.animationSeconds && live ? 0 : 1;
+  const l4Support = l4 ? [
+    `【本页定位】第4讲第${l4.localPage}/44页，${l4.title}。${l4.lead}`,
+    `【本页观察】${l4.points.slice(0,l4.animationSeconds?Math.max(1,Math.min(l4.points.length,Math.floor(shownProgress*l4.points.length)+1)):l4.points.length).join('；')}`,
+    `【动画进度】${Math.round(shownProgress*100)}%；只能把已揭示部分当作当前画面，不宣称静态讲义动画就是实际模拟。`,
+    !withheld ? `【本页材料与概念联系】${l4.teachingCue}` : '【本页材料与概念联系】本页是个人判断或实机任务。用对象、状态、依据组织观察，只提示第一项核验方法，不公布最终判断、资源方案或完整命令。学生没有提供材料时，请其说明当前看到的状态，不能替其补造记录。',
+    `【问题从何而来】${l4.localPage>1?PORT_LESSON_FOUR_SLIDES[l4.localPage-2]!.title:'从全球货流进入码头内部作业'}。不声称全班已经完成前面的任务。`,
+    `【后续如何使用】${withheld?'本页尚在独立思考，解析由教师翻页公开；不引用未来页面答案。':l4.localPage<44?`下一段围绕“${PORT_LESSON_FOUR_SLIDES[l4.localPage]!.title}”继续观察。只建立概念联系，不预告未显示的答案或结果。`:'提出可检验假设，比较实验留待下一讲。'}教师决定实际翻页顺序，不把目录相邻当作课堂已完成。`,
+    '【综合回答方式】先直接回答当前问题，再指出一项可见依据与必要条件。简短口播不机械朗读讲稿；需要展开时解释一个前置条件和一个后续影响。控制动作只在教师明确要求时给出，切入或返回不能替代播放、业务执行或学生完成。',
+    `【本页专属约束】${l4.assistantCue}`
+  ].filter(Boolean).join('\n') : undefined;
+  const pageContext = l4Support ? {defaultText:l4Support+(withheld?`\n【教师参考稿】${l4!.teachingCue}`:""),support:l4Support} : mgContext ?? (statsSupport ? { defaultText: statsSupport, support: statsSupport }
     : deck && slide ? buildSlidePromptContext(deck, slide, portSlide, mathSlide, withheld) : undefined);
   const pageDefault = pageContext?.defaultText ?? "当前没有已发布的slide。只解释已提供的课程信息，不虚构页面或实验结果。";
-  const experiment = EXPERIMENTS.find(e => e.key === `experiment:${activity}`);
+  const experiment = demoCue ? {key:`experiment:teacher-demo:${demoCue.cueId}`,title:demoCue.name,text:`${demoCue.assistant}\n${demoCue.stop}。四段独立起始；只有实际现场摘要可用于确认结果。`} : EXPERIMENTS.find(e => e.key === `experiment:${activity}`);
   const pageKey = `${courseId}:${experiment?.key ?? slide?.slideKey ?? "unconfigured"}`;
   const hasPageOverride = settings.overrides[promptStorageKey("page", pageKey)] !== undefined;
   const modules: AssistantPromptModule[] = [];
@@ -110,7 +126,7 @@ export function buildPromptWorkspace(
   };
   add("agent", "global", "1 · 总AI Agent", AGENT, studyToolPrompt ? "当前为个人课下学习，只服务本人的学习进度，不能控制教师课堂。" : "当前为教师课堂助手，响应教师指令。角色名称：小麦老师。");
   add("course", courseId, "2 · 课程", deck ? (management ? MANAGEMENT_COURSE_PROMPT : statistical ? '《统计分析方法》面向有基础统计知识但尚不能独立实证分析的商科研究生。32课时16讲。当前仅第1讲48页、第2讲52页可播放，各90分钟，LBL教师主导。主线为会员消费教学模拟，随后衔接回归、问卷、主成分与因子分析、因果推断和时间序列。只响应教师明确指令，不自动翻页、不组织分组、不要求投票提交或课上代码运行。统计图据可复现数据解释；抽样模型、顾客样本和全品牌月报口径不同。' : math ? COURSE.math : portContext ? COURSE.port : `课程：${courseTitle}。依据本课程登记材料回答。`) : `课程：${courseTitle}。课件尚未建设，请教师补充课程对象、目标、知识范围与事实边界。`,
-    `当前课程：${courseTitle}\n材料标明真实资料、教学情境或概念模型。教学情境必须说“在本教学情境中”。\n${portContext ? `<voyage_context id="oocl-spain-ll3-2023">\n${portContext.voyagePrompt}\n</voyage_context>` : ""}`);
+    `当前课程：${courseTitle}\n材料标明真实资料、教学情境或概念模型。教学情境必须说“在本教学情境中”。\n${portContext ? `<voyage_context id="${l4 ? "s01-terminal-teaching" : "oocl-spain-ll3-2023"}">\n${portContext.voyagePrompt}\n</voyage_context>` : ""}`);
   add("lesson", `${courseId}:${position?.lessonNumber ?? "unconfigured"}`, "3 · 章／讲", lessonDefault,
     position ? `<lesson_context number="${position.lessonNumber}" title="${portContext?.lessonTitle ?? slide!.lessonTitle}">\n当前讲次：第${position.lessonNumber}讲“${portContext?.lessonTitle ?? slide!.lessonTitle}”；讲内共${position.localTotal}页。\n</lesson_context>` : "尚无已发布的讲次。");
   const pageRuntime = slide && position ? [
@@ -121,10 +137,11 @@ export function buildPromptWorkspace(
     // Retain factual connections when a teacher replaces the editable text,
     // and retain safe context when authored answers must be withheld.
     withheld || hasPageOverride || experiment ? pageContext?.support : "",
-    portContext ? contextualPageBoundary(portContext.slidePrompt) : "",
+    portContext && !l4 ? contextualPageBoundary(portContext.slidePrompt) : "",
     ...(!withheld && mathSlide ? [mathSlide.formula, ...(mathSlide.data ?? []), ...(mathSlide.body ?? [])] : []),
     `<assistant_boundary>${boundary || "仅依据当前页与已提供来源解释，不编造事实。"}</assistant_boundary>`,
     interaction ? `实验：${interaction.label}（${interaction.id}）\n当前实验参数：${JSON.stringify(values)}\n参数必须按当前值解释；没有运行结果时只能做条件分析。` : "",
+    demoCue ? `教师演示：${demoCue.name}；${liveDemo ? `runId=${liveDemo.runId}；revision=${liveDemo.revision}；更新时间=${liveDemo.updatedAt ?? '尚无'}；现场摘要=${liveDemo.visibleSummary ?? '尚未收到当前运行，不得猜测状态或沿用冻结快照'}` : '仅为备课预览，没有现场运行结果'}。返回保留来源页，播放由教师控制。` : "",
     activity === "simulation" ? `仿真实时摘要：${live?.simulation ? JSON.stringify(live.simulation) : "尚未提供，不得推断运行结果。"}` : "",
     activity === "globe" ? `播放状态：${live ? JSON.stringify(live.globePlayback) : "仅为备课预览，没有现场播放状态。"}` : "",
     "</slide_context>"

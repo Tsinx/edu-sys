@@ -861,6 +861,17 @@ export type PortSimulationClassroomSummary = z.infer<
   typeof portSimulationClassroomSummarySchema
 >;
 
+export const teacherDemoSchema = z.object({
+  cueId: z.enum(["l4-arrival", "l4-cargo", "l4-yard", "l4-departure"]),
+  runId: z.string().min(1).max(128),
+  originSlideKey: z.string().min(1).max(128),
+  active: z.boolean(),
+  revision: z.number().int().nonnegative(),
+  visibleSummary: z.string().max(6000).nullable(),
+  updatedAt: z.string().nullable()
+});
+export type TeacherDemo = z.infer<typeof teacherDemoSchema>;
+export const lessonFourPresentationSchema = z.object({slideKey:z.string().min(1).max(128),progress:z.number().finite().min(0).max(1)});
 export const classroomSnapshotSchema = z.object({
   session: classSessionSchema,
   courseId: z.string(),
@@ -872,6 +883,8 @@ export const classroomSnapshotSchema = z.object({
   runtimeVersion: z.number().int().positive(),
   slideInteraction: slideInteractionStateSchema.nullable(),
   globePlayback: globePlaybackSchema,
+  teacherDemo: teacherDemoSchema.nullable().optional(),
+  lessonFourPresentation: lessonFourPresentationSchema.nullable().optional(),
   simulation: portSimulationClassroomSummarySchema.nullable(),
   avatar: classroomAvatarRuntimeSchema
 });
@@ -1459,6 +1472,8 @@ export const lamRuntimeStatusSchema = z.object({
 export type LamRuntimeStatus = z.infer<typeof lamRuntimeStatusSchema>;
 
 export const classroomEventInputSchema = z.discriminatedUnion("type", [
+  z.object({type:z.literal("set_lesson_four_progress"),...lessonFourPresentationSchema.shape}).strict(),
+  z.object({type:z.literal("set_teacher_demo_summary"),runId:z.string().min(1).max(128),revision:z.number().int().positive(),summary:z.string().max(6000)}).strict(),
   z.object({ type: z.literal("next_slide") }),
   z.object({ type: z.literal("previous_slide") }),
   z.object({
@@ -1518,6 +1533,8 @@ export const avatarControlActionTypeSchema = z.enum([
   "slides.go_to",
   "lesson.go_to",
   "activity.switch",
+  "simulation.open_demo",
+  "simulation.return_to_slides",
   "globe.play_cue",
   "globe.pause",
   "globe.resume",
@@ -1528,6 +1545,8 @@ export type AvatarControlActionType = z.infer<
 >;
 
 export const avatarControlActionSchema = z.discriminatedUnion("type", [
+  z.object({type:z.literal("simulation.open_demo"),cueId:z.string().min(1).max(128)}).strict(),
+  z.object({type:z.literal("simulation.return_to_slides")}).strict(),
   z.object({ type: z.literal("slides.next") }).strict(),
   z.object({ type: z.literal("slides.previous") }).strict(),
   z
@@ -1584,8 +1603,20 @@ export type AssistantResponseEnvelope = z.infer<
   typeof assistantResponseEnvelopeSchema
 >;
 
+export const avatarVoiceProfileSchema = z.enum(["default", "natori", "hiyori"]);
+export type AvatarVoiceProfile = z.infer<typeof avatarVoiceProfileSchema>;
+
+export const speechVisemeCueSchema = z.object({
+  start: z.number().finite().nonnegative(),
+  end: z.number().finite().nonnegative(),
+  value: z.enum(["A", "B", "C", "D", "E", "F", "G", "H", "X"])
+});
+export type SpeechVisemeCue = z.infer<typeof speechVisemeCueSchema>;
+
 export const assistantTurnInputSchema = z
   .object({
+    voiceProfile: avatarVoiceProfileSchema.optional(),
+    lipSync: z.boolean().optional(),
     text: z.string().trim().min(1, "助手输入不能为空").max(2_000),
     source: z.enum(["text", "voice_asr"]),
     commandId: z.string().trim().min(1).max(128).optional()
@@ -1653,6 +1684,7 @@ export const studyAssistantTurnEventSchema = z.discriminatedUnion("type", [
     turnId: z.string(),
     sequence: z.number().int().nonnegative(),
     audioBase64: z.string().min(1),
+    mouthCues: z.array(speechVisemeCueSchema).max(1000).optional(),
     sampleRate: z.literal(24_000),
     channels: z.literal(1),
     format: z.literal("pcm_s16le")

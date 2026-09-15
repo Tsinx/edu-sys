@@ -5,6 +5,7 @@ import type {
   ClassroomAvatarRuntime,
   SlideInteractionValues,
   GlobePlayback,
+  TeacherDemo,
   PortSimulationCollaborationItem,
   PortSimulationCollaborationResult,
   PortSimulationChallengeId,
@@ -43,6 +44,8 @@ export interface ClassroomRuntimeState {
   runtimeVersion: number;
   avatar: ClassroomAvatarRuntime;
   globePlayback: GlobePlayback;
+  teacherDemo?: TeacherDemo | null;
+  lessonFourPresentation?: {slideKey:string;progress:number} | null;
   simulation: PortSimulationClassroomRuntimeState | null;
   avatarControlHistory: AvatarControlReceipt[];
   slideInteractions: Record<

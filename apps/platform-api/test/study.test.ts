@@ -1,3 +1,4 @@
+import type { AvatarVoiceProfile } from "@edu/contracts";
 import assert from "node:assert/strict";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -34,14 +35,16 @@ class StudySpeechTestProvider implements StudySpeechProvider {
   readonly ttsConfigured = true;
   readonly transcriptions: StudyAsrRequest[] = [];
   readonly synthesized: string[] = [];
+  readonly profiles: Array<AvatarVoiceProfile | undefined> = [];
 
   async transcribe(request: StudyAsrRequest) {
     this.transcriptions.push(request);
     return "请带我到第二讲第十二页";
   }
 
-  async *synthesize(text: string): AsyncGenerator<StudyTtsChunk> {
+  async *synthesize(text: string, _signal?: AbortSignal, profile?: AvatarVoiceProfile): AsyncGenerator<StudyTtsChunk> {
     this.synthesized.push(text);
+    this.profiles.push(profile);
     yield {
       audioBase64: "AAE=",
       sampleRate: 24_000,
@@ -82,7 +85,7 @@ test("self-study session persists progress and exposes a zero-GPU Lanzhou presen
     assert.equal(first.mode, "student");
     assert.equal(first.globalIndex, 1);
     assert.equal(first.slideKey, "l1-course-cover");
-    assert.equal(first.slideTotal, 153);
+    assert.equal(first.slideTotal, 197);
     assert.equal(first.presentation.mode, "selfstudy_prerecorded");
     assert.equal(first.presentation.requiresGpu, false);
     assert.equal(first.presentation.characterId, "lanzhou");
@@ -194,7 +197,7 @@ test("self-study ASR context, early TTS and validated navigation stream independ
     const response = await app.inject({
       method: "POST",
       url: `/api/study-sessions/${sessionId}/assistant/turns`,
-      payload: { text: asr.json().text, source: "voice_asr" }
+      payload: { text: asr.json().text, source: "voice_asr", voiceProfile: "hiyori" }
     });
     assert.equal(response.statusCode, 200);
     const events = parseSseEvents(response.body);
@@ -212,6 +215,12 @@ test("self-study ASR context, early TTS and validated navigation stream independ
     assert.equal(navigation.session.globalIndex, 59);
     assert.ok(navigation.session.slideKey.startsWith("l2-"));
     assert.ok(speech.synthesized.length >= 1);
+    assert.ok(speech.profiles.every(profile => profile === "hiyori"));
+    const teacherTts = await app.inject({ method: "POST", url: "/api/teacher/tts", payload: { text: "我是小麦老师。", voiceProfile: "natori" } });
+    assert.equal(teacherTts.statusCode, 200);
+    assert.equal(speech.profiles.at(-1), "natori");
+    const invalid = await app.inject({ method: "POST", url: "/api/teacher/tts", payload: { text: "你好", voiceProfile: "arbitrary-voice" } });
+    assert.equal(invalid.statusCode, 400);
     assert.match(assistant.requests[0]?.messages[0]?.content ?? "", /当前页面：第1\/47页/);
     assert.match(assistant.requests[0]?.messages[0]?.content ?? "", /edu\.study\.assistant\.response/);
     assert.doesNotMatch(assistant.requests[0]?.messages[0]?.content ?? "", /teachingCue|assistantCue/);

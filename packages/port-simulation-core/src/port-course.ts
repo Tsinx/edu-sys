@@ -1,8 +1,9 @@
+import { PORT_NAVIGATION_VERSION } from "./port-navigation.js";
 import { applyPortCommand, createPortSession, portCargoDone, portEntryReady, portTransportDistance } from "./port-operations-engine.js";
 import { cleanPortPlan, defaultPortPlan, type PortCommand, type PortPlan, type PortResult, type PortSession } from "./port-operations-model.js";
 import { portStudentView } from "./port-operations-view.js";
 
-export const PORT_COURSE_SCHEMA = "port-course/1.0";
+export const PORT_COURSE_SCHEMA = "port-course/1.1";
 export type PortCourseUnit = "arrival" | "cargo" | "yard" | "planning" | "departure";
 export type PortCourseSelection = PortCourseUnit | "full";
 export const PORT_COURSE_UNITS = [
@@ -25,7 +26,7 @@ export function recommendPortCourse(chapter: string): PortCourseSelection {
 }
 export type PortCourseCommand = PortCommand | { kind: "course-plan"; plan: PortPlan };
 export interface PortCourseRun {
-  schema: typeof PORT_COURSE_SCHEMA;
+  schema: typeof PORT_COURSE_SCHEMA | "port-course/1.0";
   unit: PortCourseUnit;
   simulation: PortSession;
   commands: PortCourseCommand[];
@@ -42,9 +43,9 @@ const act = (s: PortSession, c: PortCommand) => applyPortCommand(s, c, false);
 const ordinaryTopics = ["documents", "arrival", "work", "yard", "exception", "departure"];
 
 /** A separate, versioned single-call lesson fixture. The 48-hour generator and old replays are unchanged. */
-export function createPortCourse(unit: PortCourseUnit): PortCourseRun {
+export function createPortCourse(unit: PortCourseUnit, schema: PortCourseRun["schema"] = PORT_COURSE_SCHEMA): PortCourseRun {
   if (!isPortCourseUnit(unit)) throw new Error("未知课程分段。");
-  const s = createPortSession("practice");
+  const s = createPortSession("practice", undefined, undefined, schema === "port-course/1.0" ? "port-operations/3.0" : "port-operations/3.1");
   s.schedules = s.schedules.slice(0, 1);
   s.calls = { S01: s.calls.S01! };
   s.batches = Object.fromEntries(Object.entries(s.batches).filter(([, b]) => b.callId === "S01"));
@@ -62,7 +63,7 @@ export function createPortCourse(unit: PortCourseUnit): PortCourseRun {
       act(s, { kind: "document", callId: "S01", document, value: s.calls.S01!.docs[document].reference });
     act(s, { kind: "advance", seconds: s.schedules[0]!.ata });
     act(s, { kind: "move", callId: "S01", target: "berth", slot: 0 });
-    act(s, { kind: "advance", seconds: 2100 });
+    act(s, { kind: "advance", seconds: s.calls.S01!.move!.end - s.second + 900 });
     if (unit === "yard") {
       act(s, { kind: "work", callId: "S01", running: true });
       act(s, { kind: "advance", seconds: 1800 });
@@ -80,7 +81,7 @@ export function createPortCourse(unit: PortCourseUnit): PortCourseRun {
   s.status = "ready";
   s.pauseReason = "";
   s.commands = [];
-  const run: PortCourseRun = { schema: PORT_COURSE_SCHEMA, unit, simulation: s, commands: [], baselineAttempts: s.attempts.length, startSecond: s.second, configured: false, complete: false, reached: [] };
+  const run: PortCourseRun = { schema, unit, simulation: s, commands: [], baselineAttempts: s.attempts.length, startSecond: s.second, configured: false, complete: false, reached: [] };
   run.reached = portCourseGoals(run).filter(g => g.done).map(g => g.id);
   return run;
 }
@@ -194,11 +195,12 @@ export function portCourseView(r: PortCourseRun) {
   return { view, lesson: { unit: r.unit, complete: r.complete, goals, elapsed: r.simulation.second - r.startSecond, prepared: portCourseDefinition(r.unit).prepared } };
 }
 export type PortCourseView = ReturnType<typeof portCourseView>["lesson"];
-export function serializePortCourse(r: PortCourseRun, demo = false) { return JSON.stringify({ schema: PORT_COURSE_SCHEMA, unit: r.unit, demo, commands: r.commands }); }
+export function serializePortCourse(r: PortCourseRun, demo = false) { return JSON.stringify({ schema: r.schema, ...(r.schema === "port-course/1.1" ? { navigationVersion: PORT_NAVIGATION_VERSION } : {}), unit: r.unit, demo, commands: r.commands }); }
 export function restorePortCourse(raw: string) {
   const data = JSON.parse(raw);
-  if (data.schema !== PORT_COURSE_SCHEMA || !isPortCourseUnit(data.unit) || !Array.isArray(data.commands) || data.commands.length > 50000) throw new Error("课程分段记录无效。");
-  const r = createPortCourse(data.unit);
+  if (![PORT_COURSE_SCHEMA, "port-course/1.0"].includes(data.schema) || !isPortCourseUnit(data.unit) || !Array.isArray(data.commands) || data.commands.length > 50000) throw new Error("课程分段记录无效。");
+  if(data.schema === "port-course/1.1" && data.navigationVersion !== PORT_NAVIGATION_VERSION) throw new Error("航行规则版本无效。");
+  const r = createPortCourse(data.unit, data.schema);
   for (const command of data.commands) applyPortCourseCommand(r, command, data.demo === true);
   if (!r.complete && r.simulation.status === "running") applyPortCourseCommand(r, { kind: "pause" });
   return r;

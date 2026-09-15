@@ -1,3 +1,6 @@
+import { PortLessonFourControls } from "../port-lesson-four/PortLessonFourStage";
+import { PortLessonFourDemoHost } from "../port-lesson-four/PortLessonFourDemoHost";
+import type { PortDemoCueId } from "@edu/course-content";
 import { ManagementSourceLocator } from "../management-principles/ManagementTeacherTools";
 import type {
   ClassroomActivity,
@@ -464,6 +467,23 @@ export function ClassroomSubsystem() {
     }
   }
 
+  const lessonFourReportRef = useRef({last:0,key:""});
+  async function lessonFourAction(cueId?:PortDemoCueId) {
+    const current=snapshotRef.current;if(!current)return;
+    try {
+      const result=await api.executeAvatarControl(current.session.id,{protocol:"edu.classroom.control",version:"1.0",requestId:crypto.randomUUID(),actions:cueId?[{type:"simulation.open_demo",cueId}]:[{type:"simulation.return_to_slides"}]});
+      mergeSnapshot(result.snapshot);
+      const failed=result.results.find(r=>r.status==='noop');if(failed&&cueId)setError(failed.message);
+    }catch(reason){setError((reason as Error).message);}
+  }
+  function reportLessonFourProgress(slideKey:string,progress:number){
+    const current=snapshotRef.current;if(!current||current.teacherDemo?.active)return;
+    const last=lessonFourReportRef.current;const now=Date.now();
+    if(last.key===slideKey&&now-last.last<1000&&progress!==1&&progress!==0)return;
+    last.key=slideKey;last.last=now;
+    void api.sendClassroomEvent(current.session.id,{type:"set_lesson_four_progress",slideKey,progress}).then(mergeSnapshot).catch(()=>{});
+  }
+
   async function flushSlideInteractionQueue() {
     const queue = interactionSyncRef.current;
     if (queue.timer !== undefined) window.clearTimeout(queue.timer);
@@ -875,7 +895,8 @@ export function ClassroomSubsystem() {
   }
 
   const isLive = snapshot.session.status === "live";
-  const isSlides = snapshot.activeActivity === "slides";
+  const isTeacherDemo = Boolean(snapshot.teacherDemo?.active);
+  const isSlides = snapshot.activeActivity === "slides" && !isTeacherDemo;
   const isGlobe =
     !isRegisteredCourse && snapshot.activeActivity === "globe";
   const isSimulation =
@@ -1030,7 +1051,7 @@ export function ClassroomSubsystem() {
 
       {isManagement && !isFullscreen && <ManagementSourceLocator index={snapshot.slide.index} onJump={index => void sendEvent({type:"set_slide",index})}/>}
       {isStatisticalAnalysis && !isFullscreen && <Suspense fallback={null}><StatisticalAnalysisTeachingNotes index={snapshot.slide.index}/></Suspense>}
-      <ClassroomPlaybackSlot.Provider value={isFullscreen ? fullscreenPlaybackSlot : playbackSlot}>
+      <ClassroomPlaybackSlot.Provider value={isFullscreen ? fullscreenPlaybackSlot : playbackSlot}><PortLessonFourControls.Provider value={{scope:sessionId,openDemo:cueId=>void lessonFourAction(cueId),onProgress:reportLessonFourProgress}}>
       <div
         ref={fullscreenRef}
         tabIndex={-1}
@@ -1041,7 +1062,7 @@ export function ClassroomSubsystem() {
             : "",
           isFullscreen ? "classroom-workspace--fullscreen" : "",
           isGlobe ? "classroom-workspace--globe" : "",
-          isSimulation ? "classroom-workspace--simulation" : ""
+          isSimulation ? "classroom-workspace--simulation" : isTeacherDemo ? "classroom-workspace--teacher-demo" : ""
         ]
           .filter(Boolean)
           .join(" ")}
@@ -1095,7 +1116,9 @@ export function ClassroomSubsystem() {
               }
             }}
           >
-            {isSimulation ? (
+            {isTeacherDemo && snapshot.teacherDemo ? (
+              <PortLessonFourDemoHost key={snapshot.teacherDemo.runId} cueId={snapshot.teacherDemo.cueId} runId={snapshot.teacherDemo.runId} initialRevision={snapshot.teacherDemo.revision} scope={sessionId} onReturn={()=>void lessonFourAction()} onSummary={async(runId,revision,summary)=>{const next=await api.sendClassroomEvent(sessionId,{type:"set_teacher_demo_summary",runId,revision,summary});mergeSnapshot(next);}}/>
+            ) : isSimulation ? (
               <Suspense
                 fallback={
                   <div className="classroom-globe-loading">
@@ -1314,6 +1337,7 @@ export function ClassroomSubsystem() {
             </div>
 
             {isSlides && <div className="classroom-playback-slot" ref={setPlaybackSlot} />}
+            {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 4 && <a className="port-l4-classroom-link" href={`/port-lesson-four-preview.html?page=${snapshot.slide.index-153}`} target="_blank" rel="noreferrer">第4讲授课台 ↗</a>}
             <label className="lesson-select-control">
               <span className="sr-only">选择课次</span>
               <select
@@ -1434,7 +1458,7 @@ export function ClassroomSubsystem() {
                   <i className={lamConnected ? "" : "avatar-state-dot--error"} />
                   <AvatarSelector compact allowLam={runtimeConfig.profile !== "campus"} onBeforeChange={interruptAssistant}/>
                 </span>
-                <Link target="_blank" rel="noopener noreferrer" to={`/courses/${snapshot.courseId}/assistant-prompts?index=${snapshot.slide.index}&activity=${snapshot.activeActivity}&session=${sessionId}`}>提示词设置</Link>
+                <Link target="_blank" rel="noopener noreferrer" to={`/courses/${snapshot.courseId}/assistant-prompts?index=${snapshot.slide.index}&activity=${snapshot.teacherDemo?.active?`demo:${snapshot.teacherDemo.cueId}`:snapshot.activeActivity}&session=${sessionId}`}>提示词设置</Link>
               </div>
               <button
                 type="button"
@@ -1558,7 +1582,7 @@ export function ClassroomSubsystem() {
         )}
       </div>
 
-      </ClassroomPlaybackSlot.Provider>
+      </PortLessonFourControls.Provider></ClassroomPlaybackSlot.Provider>
       {settingsOpen && (
         <div className="classroom-dialog-backdrop">
           <section className="classroom-dialog" role="dialog" aria-modal="true" aria-labelledby="classroom-settings-title">

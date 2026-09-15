@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { withSpeechVisemes } from "./study/visemes.js";
 import { MANAGEMENT_SOURCE_MAP } from '@edu/course-content/management-principles/source-map';
 import fastifyStatic from "@fastify/static";
 import { z } from "zod";
@@ -14,6 +15,7 @@ import {
   avatarControlRequestSchema,
   avatarPresentationInputSchema,
   createStudySessionInputSchema,
+  avatarVoiceProfileSchema,
   classroomEventInputSchema,
   developmentIdentitySessionInputSchema,
   classroomPresenceHeartbeatInputSchema,
@@ -428,13 +430,13 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     }
   });
   app.post("/api/teacher/tts", async (request,reply) => {
-    const {text}=z.object({text:z.string().min(1).max(3000)}).parse(request.body);
+    const {text,voiceProfile,lipSync}=z.object({text:z.string().min(1).max(3000),voiceProfile:avatarVoiceProfileSchema.optional(),lipSync:z.boolean().optional()}).parse(request.body);
     if(!studySpeechProvider.ttsConfigured) return reply.code(503).send({message:"尚未配置课堂语音，文字回答可正常使用。"});
     reply.hijack();
     reply.raw.writeHead(200,{"Content-Type":"text/event-stream","Cache-Control":"no-store","X-Accel-Buffering":"no"});
     const controller=new AbortController(); reply.raw.once("close",()=>controller.abort());
     try {
-      for await(const chunk of studySpeechProvider.synthesize(text,aiSignal(request,controller.signal))) {
+      for await(const chunk of withSpeechVisemes(studySpeechProvider.synthesize(text,aiSignal(request,controller.signal),voiceProfile),lipSync,controller.signal)) {
         if(reply.raw.destroyed || reply.raw.writableEnded) break;
         if(reply.raw.writableLength>512*1024) {controller.abort(); break;}
         reply.raw.write(`data: ${JSON.stringify(chunk)}\n\n`);
@@ -611,16 +613,18 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       const synthesizeSegment = async (text: string) => {
         if (!speechEnabled || !text.trim()) return;
         try {
-          for await (const chunk of studySpeechProvider.synthesize(
+          for await (const chunk of withSpeechVisemes(studySpeechProvider.synthesize(
             text,
-            aiSignal(request, controller.signal)
-          )) {
+            aiSignal(request, controller.signal),
+            input.voiceProfile
+          ), input.lipSync, controller.signal)) {
             speechStatus = "streamed";
             writeEvent({
               type: "speech.chunk",
               turnId,
               sequence: speechSequence,
               audioBase64: chunk.audioBase64,
+              mouthCues: chunk.mouthCues,
               sampleRate: chunk.sampleRate,
               channels: chunk.channels,
               format: chunk.format
@@ -1852,6 +1856,8 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
             `${cue.id}:${cue.title}@${cue.startSlideKey}->${cue.returnSlideKey}`
         ).join("；");
         allowedActions.push(
+          {type:"simulation.open_demo",description:"从第4讲切入指定教师演示，保持暂停",parameters:{cueId:"l4-arrival | l4-cargo | l4-yard | l4-departure"}},
+          {type:"simulation.return_to_slides",description:"返回教师演示的来源页",parameters:{}},
           {
             type: "globe.play_cue",
             description: "从注册的起始问题页播放电影化地球仪证据追踪",

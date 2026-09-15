@@ -59,6 +59,8 @@ import {
 } from "@edu/contracts";
 import {
   getPortManagementGlobalSlideIndex,
+  getPortLessonFourDemo,
+  PORT_LESSON_FOUR_LEGACY_POSITIONS,
   getPortManagementLesson,
   getPortManagementLessonSlidePosition,
   getPortManagementGlobeCue,
@@ -285,6 +287,13 @@ export class JsonStateStore {
             : undefined;
 
         if (runtimeCourseId === "course-port-management-intro") {
+          if (!slideSpec && ["release-port-management-lab-v9","release-port-management-authored-v9"].includes(sanitizedRuntime.deckVersion ?? "") && rawSlideIndex >= 1 && rawSlideIndex <= 181) {
+            slideSpec = runtimeDeck.getSlide(rawSlideIndex <= 153 ? rawSlideIndex : 153 + PORT_LESSON_FOUR_LEGACY_POSITIONS[rawSlideIndex - 154]!);
+          }
+          // Lecture four is append-only; v8 numeric bookmarks still address the same first 153 pages.
+          if (!slideSpec && sanitizedRuntime.deckVersion === "release-port-management-lbl-v8" && rawSlideIndex >= 1 && rawSlideIndex <= 153) {
+            slideSpec = runtimeDeck.getSlide(rawSlideIndex);
+          }
           if (sanitizedRuntime.deckVersion !== PORT_MANAGEMENT_DECK_VERSION) {
             if (!slideSpec) {
               const previousLesson =
@@ -1551,6 +1560,8 @@ export class JsonStateStore {
       runtimeVersion: runtime.runtimeVersion,
       slideInteraction,
       globePlayback: { ...runtime.globePlayback },
+      teacherDemo: runtime.teacherDemo ? structuredClone(runtime.teacherDemo) : null,
+      lessonFourPresentation: runtime.lessonFourPresentation ? {...runtime.lessonFourPresentation} : null,
       simulation:
         course.id === "course-port-management-intro"
           ? this.buildPortSimulationSummary(runtime.simulation)
@@ -4012,7 +4023,15 @@ export class JsonStateStore {
         }
       };
 
-      if (input.type === "next_slide") {
+      if (["next_slide", "previous_slide", "set_slide", "set_activity"].includes(input.type) && runtime.teacherDemo) runtime.teacherDemo.active = false;
+      if (input.type === "set_teacher_demo_summary") {
+        const demo=runtime.teacherDemo;
+        if (!demo?.active || demo.runId !== input.runId || input.revision <= demo.revision) return this.buildClassroomSnapshot(state,session,runtime);
+        demo.visibleSummary=input.summary;demo.revision=input.revision;demo.updatedAt=new Date().toISOString();
+      } else if (input.type === "set_lesson_four_progress") {
+        if(session.courseId!=="course-port-management-intro" || deck.getSlide(runtime.slideIndex).lessonNumber!==4 || runtime.slideKey!==input.slideKey || runtime.teacherDemo?.active) return this.buildClassroomSnapshot(state,session,runtime);
+        runtime.lessonFourPresentation={slideKey:input.slideKey,progress:input.progress};
+      } else if (input.type === "next_slide") {
         completeActiveGlobe();
         runtime.slideIndex = Math.min(
           deck.slideTotal,
@@ -4266,6 +4285,27 @@ export class JsonStateStore {
       };
 
       input.actions.forEach((action, index) => {
+        if(action.type === "simulation.open_demo") {
+          const cue=getPortLessonFourDemo(action.cueId);
+          if(session.courseId!=="course-port-management-intro" || deck.getSlide(runtime.slideIndex).lessonNumber!==4 || !cue) {
+            results.push({index,type:action.type,status:"noop",message:"请在第4讲使用已注册的入港、装卸、堆场或离港演示入口。"});return;
+          }
+          const duplicate=runtime.teacherDemo?.active && runtime.teacherDemo.cueId===cue.cueId;
+          if(!duplicate) {
+            completeActiveGlobe();
+            runtime.teacherDemo={cueId:cue.cueId,runId:randomUUID(),originSlideKey:runtime.teacherDemo?.active?runtime.teacherDemo.originSlideKey:deck.getSlide(runtime.slideIndex).slideKey,active:true,revision:0,visibleSummary:null,updatedAt:null};
+            runtime.activeActivity="slides";changed=true;
+          }
+          results.push({index,type:action.type,status:duplicate?"noop":"applied",message:duplicate?"当前演示已打开。":`已切入${cue.name}，等待教师播放。`});return;
+        }
+        if(action.type === "simulation.return_to_slides") {
+          const demo=runtime.teacherDemo;
+          if(!demo?.active){results.push({index,type:action.type,status:"noop",message:"当前没有打开的教师演示。"});return;}
+          const origin=deck.getSlideByKey(demo.originSlideKey);if(origin)runtime.slideIndex=origin.index;
+          demo.active=false;runtime.activeActivity="slides";changed=true;
+          results.push({index,type:action.type,status:"applied",message:"已返回演示来源页。"});return;
+        }
+        if(runtime.teacherDemo?.active && ["slides.next","slides.previous","slides.go_to","lesson.select","activity.switch"].includes(action.type)){runtime.teacherDemo.active=false;changed=true;}
         if (action.type === "slides.next") {
           completeActiveGlobe();
           const nextSlide = Math.min(

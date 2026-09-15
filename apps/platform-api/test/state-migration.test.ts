@@ -43,9 +43,11 @@ test("old numeric slide state returns to the matching new lesson cover", async (
     { ...baseSession, id: "v6-key-survives" },
     { ...baseSession, id: "v6-missing-key" },
     { ...baseSession, id: "stable-key-wins" },
-    { ...baseSession, id: "v7-missing-key" }
+    { ...baseSession, id: "v7-missing-key" },
+    { ...baseSession, id: "v8-numeric" }
   ];
   state.classroomRuntimes = {
+    'v8-numeric': {...legacyRuntime(80),deckVersion:'release-port-management-lbl-v8'},
     "legacy-lesson-1": legacyRuntime(20),
     "legacy-lesson-2": legacyRuntime(50),
     "legacy-lesson-3": legacyRuntime(80),
@@ -115,6 +117,8 @@ test("old numeric slide state returns to the matching new lesson cover", async (
   try {
     const store = new JsonStateStore(dataFile);
     await store.initialize();
+    assert.equal(store.getClassroomSnapshot('v8-numeric')?.slide.index,80);
+    assert.equal(store.getClassroomSnapshot('v8-numeric')?.slide.versionId,PORT_MANAGEMENT_DECK_VERSION);
 
     assert.deepEqual(
       [

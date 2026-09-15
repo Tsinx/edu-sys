@@ -312,9 +312,9 @@ test("authored compositions retain the teaching evidence needed on screen", () =
   assert.doesNotMatch(exchangeRange, /重庆基地|欧洲基地/u);
 });
 
-test("all 153 pages have an explicit authored composition", () => {
-  assert.equal(AUTHORED_TEACHING_SLIDE_KEYS.length, 153);
-  assert.equal(new Set(AUTHORED_TEACHING_SLIDE_KEYS).size, 153);
+test("all 197 pages have an explicit authored composition", () => {
+  assert.equal(AUTHORED_TEACHING_SLIDE_KEYS.length, 197);
+  assert.equal(new Set(AUTHORED_TEACHING_SLIDE_KEYS).size, 197);
   assert.deepEqual(
     new Set(AUTHORED_TEACHING_SLIDE_KEYS),
     new Set(PORT_MANAGEMENT_SLIDES.map((slide) => slide.slideKey))

@@ -1,3 +1,4 @@
+import type { AvatarVoiceProfile, SpeechVisemeCue } from "@edu/contracts";
 import { randomUUID } from "node:crypto";
 import WebSocket, { type RawData } from "ws";
 
@@ -9,6 +10,7 @@ export interface StudyAsrRequest {
 }
 
 export interface StudyTtsChunk {
+  mouthCues?: SpeechVisemeCue[];
   audioBase64: string;
   sampleRate: 24_000;
   channels: 1;
@@ -22,7 +24,8 @@ export interface StudySpeechProvider {
   transcribe(request: StudyAsrRequest): Promise<string>;
   synthesize(
     text: string,
-    signal?: AbortSignal
+    signal?: AbortSignal,
+    voiceProfile?: AvatarVoiceProfile
   ): AsyncIterable<StudyTtsChunk>;
 }
 
@@ -220,9 +223,13 @@ export class DashScopeStudySpeechProvider implements StudySpeechProvider {
 
   async *synthesize(
     text: string,
-    signal?: AbortSignal
+    signal?: AbortSignal,
+    voiceProfile: AvatarVoiceProfile = "default"
   ): AsyncGenerator<StudyTtsChunk> {
-    if (!this.apiKey || !this.ttsVoiceId) {
+    const preset = voiceProfile === "natori" ? "Ethan" : voiceProfile === "hiyori" ? "Serena" : undefined;
+    const voice = preset ?? this.ttsVoiceId;
+    const model = preset ? "qwen3-tts-flash-realtime-2025-11-27" : this.ttsModel;
+    if (!this.apiKey || !voice) {
       throw new StudySpeechProviderError(
         "澜舟专属音色尚未配置；当前保留字幕并跳过语音。"
       );
@@ -230,7 +237,7 @@ export class DashScopeStudySpeechProvider implements StudySpeechProvider {
     if (signal?.aborted) throw abortError();
 
     const url = new URL(this.ttsWebSocketUrl);
-    url.searchParams.set("model", this.ttsModel);
+    url.searchParams.set("model", model);
     const socket = new WebSocket(url, {
       headers: { Authorization: `Bearer ${this.apiKey}` }
     });
@@ -273,7 +280,7 @@ export class DashScopeStudySpeechProvider implements StudySpeechProvider {
             event_id: `event-${randomUUID()}`,
             type: "session.update",
             session: {
-              voice: this.ttsVoiceId,
+              voice,
               mode: "commit",
               language_type: "Chinese",
               response_format: "pcm",

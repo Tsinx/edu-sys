@@ -79,6 +79,7 @@ const StudentStudyPage = lazy(() =>
     default: module.StudentStudyPage
   }))
 );
+const XiaomaiAnimationPreview = lazy(() => import("./features/avatar/XiaomaiAnimationPreview").then(module => ({default:module.XiaomaiAnimationPreview})));
 
 const ECONOMIC_MATHEMATICS_COURSE_ID = "course-economic-mathematics";
 const STATISTICAL_ANALYSIS_COURSE_ID = "statistical-analysis";
@@ -127,6 +128,7 @@ export function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/signed-out" element={<SignedOutPage />} />
+        <Route path="/avatar/xiaomai/preview" element={<Suspense fallback={<p>正在打开动画预览…</p>}><XiaomaiAnimationPreview/></Suspense>} />
         <Route path="/classroom/:sessionId" element={<ClassroomSubsystem />} />
         <Route path="/join/:sessionId" element={<StudentClassroom />} />
         <Route

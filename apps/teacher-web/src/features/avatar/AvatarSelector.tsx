@@ -1,16 +1,20 @@
-import { setAvatarRenderer, useAvatarRenderer, type AvatarRenderer } from "./avatar-preference";
+import { setAvatarRenderer, useAvatarRenderer, setLive2DCharacter } from "./avatar-preference";
 import "./live2d.css";
 
-export function AvatarSelector({ allowLam = false, compact = false, onBeforeChange }: { allowLam?: boolean; compact?: boolean; onBeforeChange?: () => void }) {
+export function AvatarSelector({ compact = false, onBeforeChange }: { allowLam?: boolean; compact?: boolean; onBeforeChange?: () => void }) {
   const selected = useAvatarRenderer();
+  const selection = selected === "video" ? "video" : "xiaomai";
   return <label className={`avatar-renderer-select${compact ? " avatar-renderer-select--compact" : ""}`}>{!compact && "数字人"}
-    <select aria-label="数字人形象" value={!allowLam && selected === "lam" ? "video" : selected} onChange={event => {
+    <select aria-label="数字人形象" value={selection} onChange={event => {
       onBeforeChange?.();
-      setAvatarRenderer(event.target.value as AvatarRenderer);
+      const value = event.target.value;
+      if (value === "xiaomai") {
+        setLive2DCharacter("xiaomai");
+        setAvatarRenderer("live2d");
+      } else if (value === "video") setAvatarRenderer("video");
     }}>
-      <option value="live2d">Live2D · Haru</option>
+      <option value="xiaomai">小麦老师 · Live2D</option>
       <option value="video">澜舟 · 视频</option>
-      {allowLam && <option value="lam">LAM · Barbara</option>}
     </select>
   </label>;
 }

@@ -1,4 +1,5 @@
 import { PORT_LBL_SLIDES } from "./port-lbl.js";
+import { PORT_LESSON_FOUR_SLIDES } from "./port-lesson-four.js";
 import type {
   PortManagementSlideSpec,
   PortNarrativeBeat,
@@ -2728,7 +2729,8 @@ const LEGACY_PORT_MANAGEMENT_SLIDES: readonly PortManagementSlideSpec[] = [
 
 export const PORT_MANAGEMENT_SLIDES: readonly PortManagementSlideSpec[] = [
   ...PORT_MANAGEMENT_LESSON_ONE_V7_SLIDES,
-  ...PORT_LBL_SLIDES
+  ...PORT_LBL_SLIDES,
+  ...PORT_LESSON_FOUR_SLIDES
 ].map((slide, offset) => ({
   ...slide,
   index: offset + 1,

@@ -24,3 +24,16 @@ https://github.com/pixijs/pixijs
 
 Only the bundled Cubism 4 model/Core combination is validated by this project.
 Newer Cubism model features may require a renderer and Core upgrade.
+
+Natori and Hiyori model assets: Copyright Live2D Inc. All rights reserved.
+Copied unchanged from Live2D/CubismWebSamples tag 4-r.7:
+https://github.com/Live2D/CubismWebSamples/tree/4-r.7/Samples/Resources
+Model terms: https://www.live2d.com/en/learn/sample/model-terms/
+
+Xiaomai A (green-cardigan teacher) is a project-specific avatar, not Live2D
+sample character artwork. It was prepared from the project's imagegen concept
+and layered-a-v2 artwork, then rigged in Cubism Editor 5.3.04 FREE and exported
+for SDK 4.2 / Cubism 4.2. The runtime uses the same proprietary Cubism Core above.
+Source project: artifacts/avatar/xiaomai/cubism-trial-v1/Xiaomai_A_Trial.cmo3
+Source PSD: artifacts/avatar/xiaomai/cubism-trial-v1/import/Xiaomai_A_Trial.psd
+This first rig supports eye-open and mouth-open crossfades only.

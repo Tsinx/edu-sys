@@ -11,10 +11,14 @@ for (const file of manifest.files) {
   assert.equal(data.length, file.bytes, file.path);
   assert.equal(createHash('sha256').update(data).digest('hex'), file.sha256, file.path);
 }
-const model = JSON.parse(await readFile(resolve(root, 'haru/Haru.model3.json'), 'utf8'));
+for (const [folder, character] of [['haru', 'Haru'], ['natori', 'Natori'], ['hiyori', 'Hiyori'], ['xiaomai', 'Xiaomai_A_Trial']]) {
+const model = JSON.parse(await readFile(resolve(root, folder, `${character}.model3.json`), 'utf8'));
 const refs = model.FileReferences;
 const names = [refs.Moc, ...refs.Textures, refs.Physics, refs.Pose, refs.DisplayInfo, refs.UserData,
-  ...refs.Expressions.map(e => e.File), ...Object.values(refs.Motions).flatMap(group => group.flatMap(m => [m.File, m.Sound].filter(Boolean)))];
-for (const name of names) assert.ok((await readFile(resolve(root, 'haru', name))).length, name);
-assert.ok(model.Groups.find(group => group.Name === 'LipSync').Ids.includes('ParamMouthOpenY'));
+  ...(refs.Expressions ?? []).map(e => e.File), ...Object.values(refs.Motions ?? {}).flatMap(group => group.flatMap(m => [m.File, m.Sound].filter(Boolean)))].filter(Boolean);
+for (const name of names) assert.ok((await readFile(resolve(root, folder, name))).length, name);
+assert.ok(model.Groups?.find(group => group.Name === 'LipSync')?.Ids.includes('ParamMouthOpenY'));
+assert.equal((await readFile(resolve(root, folder, refs.Moc))).subarray(0, 4).toString(), 'MOC3');
 console.log(`Live2D: ${manifest.files.length} checksums and ${names.length} model references verified.`);
+
+}

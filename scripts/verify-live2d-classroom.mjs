@@ -5,19 +5,26 @@ import { resolve } from 'node:path';
 const require=createRequire(process.env.EDU_PLAYWRIGHT_ENTRY||'C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/entry.js');
 const {chromium}=require('playwright');
 const origin=process.env.EDU_WEB_ORIGIN||'http://127.0.0.1:5173';
-const output=resolve('output/live2d-qa');await mkdir(output,{recursive:true});
+const character=process.env.EDU_LIVE2D_CHARACTER || 'xiaomai';
+assert.ok(['live2d','natori','hiyori','xiaomai'].includes(character));
+const output=resolve(process.env.EDU_QA_OUTPUT || 'output/live2d-qa/'+character);await mkdir(output,{recursive:true});
 const browser=await chromium.launch({headless:true,args:['--enable-webgl','--use-angle=swiftshader','--enable-unsafe-swiftshader','--autoplay-policy=no-user-gesture-required']});
 const page=await browser.newPage({viewport:{width:1600,height:1000}});const errors=[],checks=[];
 page.on('pageerror',e=>errors.push(e.message));
+const retiredRequests=[];
+page.on('request',request=>{if(/\/avatar\/live2d\/(haru|natori|hiyori)\/|gaussian-splat-renderer|LegacyAvatarSurface/.test(request.url()))retiredRequests.push(request.url());});
 await page.addInitScript(()=>{
+  // Simulate an existing user who last selected LAM and the Natori voice.
+  localStorage.setItem('edu-avatar-renderer-v1','lam');
+  localStorage.setItem('edu-live2d-character-v1','natori');
   const original=window.fetch;
   window.fetch=async(...args)=>{
     const response=await original(...args);
     if(String(args[0]).endsWith('/api/teacher/tts')&&response.ok){
-      window.__tts={chunks:0,bytes:0,done:false};
+      window.__tts={chunks:0,bytes:0,cues:0,shapes:[],done:false};
       void(async()=>{const reader=response.clone().body.getReader();const decoder=new TextDecoder();let buffer='';
         while(true){const {value,done}=await reader.read();buffer+=decoder.decode(value,{stream:!done});const lines=buffer.split('\n');buffer=lines.pop();
-          for(const line of lines){if(line.startsWith('data:')){const event=JSON.parse(line.slice(5));if(event.audioBase64){window.__tts.chunks++;window.__tts.bytes+=atob(event.audioBase64).length;}if(event.error)window.__tts.error=event.error;}}
+          for(const line of lines){if(line.startsWith('data:')){const event=JSON.parse(line.slice(5));if(event.audioBase64){window.__tts.chunks++;window.__tts.bytes+=atob(event.audioBase64).length;window.__tts.cues+=event.mouthCues?.length||0;window.__tts.shapes=[...new Set([...window.__tts.shapes,...(event.mouthCues||[]).map(c=>c.value)])];}if(event.error)window.__tts.error=event.error;}}
           if(done){window.__tts.done=true;break;}}
       })();
     }
@@ -32,7 +39,11 @@ try{
   const sessions=await (await page.request.get(`${origin}/api/class-sessions`)).json();
   const session=sessions.filter(s=>s.status==='live').at(-1);assert.ok(session,'A live classroom is required');
   await page.goto(`${origin}/classroom/${session.id}`);
-  const expand=page.getByRole('button',{name:'展开小麦老师',exact:true});if(await expand.isVisible())await expand.click();
+  const expand=page.getByRole('button',{name:'展开小麦老师',exact:true});
+  await page.getByLabel('数字人形象').or(expand).first().waitFor({timeout:45000});
+  if(await expand.isVisible())await expand.click();
+  assert.deepEqual(await page.getByLabel('数字人形象').locator('option').evaluateAll(options=>options.map(o=>o.value)),['xiaomai','video']);
+  assert.equal(await page.getByLabel('数字人形象').inputValue(),'xiaomai');
   await page.locator('.live2d-avatar[data-status="ready"]').waitFor({timeout:45000});
   async function snapshot(name){
     await page.waitForTimeout(300);await page.screenshot({path:resolve(output,`${name}.png`)});
@@ -49,10 +60,10 @@ try{
     await page.getByRole('button',{name:'发送文字指令',exact:true}).click();
     const response=await tts;assert.equal(response.status(),200);
     await page.waitForFunction(()=>window.__tts?.done&&window.__maxMouth>0.1,{},{timeout:45000});
-    const speech=await page.evaluate(()=>({...window.__tts,maxMouth:window.__maxMouth}));assert.ok(speech.chunks>0);assert.ok(!speech.error);
+    const speech=await page.evaluate(()=>({...window.__tts,maxMouth:window.__maxMouth}));assert.ok(speech.chunks>0);assert.ok(!speech.error);if(character==='xiaomai'&&process.env.EDU_REQUIRE_VISEMES==='1'){assert.ok(speech.cues>0);assert.ok(speech.shapes.length>=3);assert.equal(await page.locator('[data-xiaomai-mouth]').count(),1);assert.equal(await page.locator('[data-xiaomai-eyes]').count(),1);}
     checks.push({name:'live classroom question and TTS',status:response.status(),...speech});
     await page.screenshot({path:resolve(output,'classroom-live-speech.png')});
-    const stop=page.getByRole('button',{name:'中断讲解',exact:true});if(await stop.isVisible())await stop.click();
+    const stop=page.getByRole('button',{name:'中断讲解',exact:true});if(await stop.isVisible()&&await stop.isEnabled())await stop.click({timeout:1500}).catch(()=>undefined);
   }
   const fullscreen=page.getByRole('button',{name:'全屏',exact:true});
   await fullscreen.click();
@@ -64,6 +75,8 @@ try{
   await page.goto(`${origin}/study/course-port-management-intro`);
   await page.locator('.live2d-avatar[data-status="ready"]').waitFor({timeout:45000});await snapshot('student-narrow');
   await page.setViewportSize({width:1600,height:1000});await snapshot('student-desktop');
-  await writeFile(resolve(output,process.env.EDU_LIVE_SPEECH_QA==='1'?'classroom-live-report.json':'classroom-report.json'),JSON.stringify({checks,errors},null,2));console.log(JSON.stringify({checks,errors}));assert.deepEqual(errors,[]);
+  assert.deepEqual(await page.getByLabel('数字人形象').locator('option').evaluateAll(options=>options.map(o=>o.value)),['xiaomai','video']);
+  assert.deepEqual(retiredRequests,[],'retired saved preferences must not load old avatars');
+  await writeFile(resolve(output,process.env.EDU_LIVE_SPEECH_QA==='1'?'classroom-live-report.json':'classroom-report.json'),JSON.stringify({character,sessionId:session.id,checks,errors},null,2));console.log(JSON.stringify({character,sessionId:session.id,checks,errors}));assert.deepEqual(errors,[]);
 }catch(error){await page.screenshot({path:resolve(output,'classroom-failure.png')});console.error((await page.locator('body').innerText()).slice(-6500));throw error;}
 finally{await browser.close();}

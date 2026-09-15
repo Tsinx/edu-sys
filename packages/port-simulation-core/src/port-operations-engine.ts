@@ -1,17 +1,18 @@
 import { TERMINAL_EQUIPMENT, terminalBudget, validateTerminalSetup } from "./terminal-lab.js";
+import { createPortNavigation } from "./port-navigation.js";
 import { PORT_HORIZON, PORT_SHIFT_SECONDS, PORT_OPERATIONS_SCHEMA, PORT_ARRIVAL_GENERATOR, PORT_DOC_NAMES, cleanPortConfig, cleanPortPlan, defaultPortConfig, defaultPortPlan, generatePortSchedule, portRng, portLocationName, type PortBatch, type PortBox, type PortCall, type PortCommand, type PortConfig, type PortDocument, type PortEvent, type PortJob, type PortMode, type PortOrder, type PortPlan, type PortResult, type PortSession } from "./port-operations-model.js";
 const copy = <T>(v: T): T => structuredClone(v);
 const doc = (reference: string, value = reference): PortDocument => ({ reference, value, status: "draft", reason: "航前基础资料已接收，等待核对与提交。" });
-const priority: Record<PortEvent["kind"], number> = { announce: 0, eta: 1, arrive: 2, exports: 3, doc: 4, "batch-doc": 5, move: 6, moored: 7, unmoored: 8, inspection: 9, shift: 10, wind: 11, fault: 12, repair: 13 };
+const priority: Record<PortEvent["kind"], number> = { announce: 0, eta: 1, arrive: 2, exports: 3, doc: 4, "batch-doc": 5, "source-clear": 5.5, move: 6, moored: 7, unmoored: 8, inspection: 9, shift: 10, wind: 11, fault: 12, repair: 13 };
 function event(s: PortSession, e: PortEvent) { s.events.push(e); s.events.sort((a, b) => a.at - b.at || priority[a.kind] - priority[b.kind] || a.id.localeCompare(b.id)); }
 function notice(s: PortSession, kind: string, object: string, text: string, suffix = "") { const id = `${kind}:${object}:${suffix || s.second}`; if (!s.notices.some(n => n.id === id))
     s.notices.push({ id, at: s.second, kind, object, text }); }
-export function createPortSession(mode: PortMode = "practice", config = defaultPortConfig(), plan = defaultPortPlan()): PortSession {
+export function createPortSession(mode: PortMode = "practice", config = defaultPortConfig(), plan = defaultPortPlan(), schema: PortSession["schema"] = PORT_OPERATIONS_SCHEMA): PortSession {
     if (!["practice", "battle"].includes(mode))
         throw new Error("未知训练模式。");
     const clean = cleanPortConfig(config);
     const initialPlan = cleanPortPlan(plan);
-    const s: PortSession = { schema: PORT_OPERATIONS_SCHEMA, generator: PORT_ARRIVAL_GENERATOR, config: clean, mode, status: "ready", second: 0, plan: copy(initialPlan), initialPlan, schedules: generatePortSchedule(clean), calls: {}, batches: {}, boxes: {}, berths: [null, null], anchors: [null, null, null, null], channel: null, jobs: [], events: [], notices: [], attempts: [], commands: [], taught: [], pauseReason: "", cost: 0, energy: 0, effort: { personSeconds: 0, energySeconds: 0, capitalSeconds: 0 }, distance: 0, rehandles: 0, wind: 1, failedCrane: null, repairPending: false, jobSequence: 0, handover: [] };
+    const s: PortSession = { schema, generator: PORT_ARRIVAL_GENERATOR, config: clean, mode, status: "ready", second: 0, plan: copy(initialPlan), initialPlan, schedules: generatePortSchedule(clean), calls: {}, batches: {}, boxes: {}, berths: [null, null], anchors: [null, null, null, null], channel: null, jobs: [], events: [], notices: [], attempts: [], commands: [], taught: [], pauseReason: "", cost: 0, energy: 0, effort: { personSeconds: 0, energySeconds: 0, capitalSeconds: 0 }, distance: 0, rehandles: 0, wind: 1, failedCrane: null, repairPending: false, jobSequence: 0, handover: [] };
     const paperwork = portRng(config.seed ^ 0x27d4eb2f);
     let boxSequence = 0;
     for (const v of s.schedules) {
@@ -49,7 +50,7 @@ export function createPortSession(mode: PortMode = "practice", config = defaultP
     return s;
 }
 export function configurePortSession(s: PortSession, config: PortConfig, plan: PortPlan, mode: PortMode = s.mode) { if (s.status !== "ready")
-    throw new Error("开始场次后不能修改船期参数、建设和模式。"); return createPortSession(mode, config, plan); }
+    throw new Error("开始场次后不能修改船期参数、建设和模式。"); return createPortSession(mode, config, plan, s.schema); }
 export function visiblePortCalls(s: PortSession) { return s.schedules.filter(v => s.calls[v.id]!.announced).map(v => { const c = s.calls[v.id]!; return { id: v.id, name: v.name, large: v.large, firstEta: v.eta, currentEta: c.eta, actualArrival: c.arrivedAt, referenceService: v.referenceService, unload: v.unload, load: v.load, crew: v.crew, voyage: v.voyage, call: c }; }); }
 export function portEntryReady(c: PortCall) { return ["entry", "health", "border"].every(k => c.docs[k as "entry"].status === "approved"); }
 export function portCargoDone(s: PortSession, callId: string) { return Object.values(s.batches).filter(b => b.callId === callId).every(b => b.boxIds.every(id => b.flow === "import" ? s.boxes[id]!.unloadedAt !== null : s.boxes[id]!.loadedAt !== null)); }
@@ -292,6 +293,13 @@ function handle(s: PortSession, e: PortEvent) {
         b.customs = b.document.status === "approved";
         notice(s, "batch-result", b.id, `${b.name}：${b.document.reason}`, e.id);
     }
+    else if (e.kind === "source-clear" && c && c.move) {
+        const [kind, slot] = c.move.from.split(":");
+        if (kind === "anchor" && s.anchors[Number(slot)] === c.id) { s.anchors[Number(slot)] = null; c.anchor = null; }
+        // Keep the call's berth as cargo provenance after releasing the physical resource.
+        if (kind === "berth" && s.berths[Number(slot)] === c.id) s.berths[Number(slot)] = null;
+        notice(s, "position-released", c.id, `${c.id} 船体已驶离原${kind === "berth" ? "泊位" : "锚位"}，原位置释放；航道仍在使用。`);
+    }
     else if (e.kind === "move" && c && c.move) {
         const move = c.move;
         s.channel = null;
@@ -317,12 +325,14 @@ function handle(s: PortSession, e: PortEvent) {
         notice(s, "berth-ready", c.id, `${c.id} 系泊完成，船岸作业面已建立。`);
     }
     else if (e.kind === "unmoored" && c) {
-        if (c.berth !== null)
+        if (s.schema === "port-operations/3.0" && c.berth !== null)
             s.berths[c.berth] = null;
         c.stage = "channel";
-        c.move = { from: `berth:${c.berth}`, to: "sea", start: s.second, end: s.second + 1200 };
-        event(s, { id: `exit:${c.id}`, at: s.second + 1200, kind: "move", object: c.id });
-        notice(s, "berth-released", c.id, `${c.id} 已离开泊位，泊位释放；出港航道仍在使用。`);
+        const navigation = s.schema === "port-operations/3.0" ? undefined : createPortNavigation(`berth:${c.berth}`, "sea", s.schedules.find(v => v.id === c.id)!.large, c.id);
+        c.move = { from: `berth:${c.berth}`, to: "sea", start: s.second, end: s.second + (navigation?.duration ?? 1200), ...(navigation ? { navigation } : {}) };
+        event(s, { id: `exit:${c.id}`, at: c.move.end, kind: "move", object: c.id });
+        if (navigation) event(s, { id: `clear:${c.id}:${s.second}`, at: s.second + navigation.releaseAfter, kind: "source-clear", object: c.id });
+        notice(s, "berth-released", c.id, navigation ? `${c.id} 解缆完成，开始驶离；船体清空泊位后释放。` : `${c.id} 已离开泊位，泊位释放；出港航道仍在使用。`);
     }
     else if (e.kind === "inspection") {
         const box = s.boxes[e.object]!;
@@ -534,9 +544,12 @@ function execute(s: PortSession, o: PortOrder): PortResult {
         if (positions[o.slot])
             return result("waiting", "destination-busy", "目的位置已占用或预留，可选择其他位置或继续等待。");
         const from = c!.stage === "anchored" ? `anchor:${c!.anchor}` : "outer";
+        let navigation;
+        try { navigation = s.schema === "port-operations/3.0" ? undefined : createPortNavigation(from, `${o.target}:${o.slot}`, s.schedules.find(v => v.id === c!.id)!.large, c!.id); }
+        catch { return result("waiting", "navigation-route", "尚无安全航行路径，保留原位置；可选择其他目标或继续等待。"); }
         positions[o.slot] = c!.id;
         s.channel = c!.id;
-        if (c!.anchor !== null) {
+        if (c!.anchor !== null && !navigation) {
             s.anchors[c!.anchor] = null;
             c!.anchor = null;
         }
@@ -545,10 +558,11 @@ function execute(s: PortSession, o: PortOrder): PortResult {
         else
             c!.anchor = o.slot;
         c!.stage = "channel";
-        c!.move = { from, to: `${o.target}:${o.slot}`, start: s.second, end: s.second + 1200 };
+        c!.move = { from, to: `${o.target}:${o.slot}`, start: s.second, end: s.second + (navigation?.duration ?? 1200), ...(navigation ? { navigation } : {}) };
         if (c!.milestones.admit === undefined)
             c!.milestones.admit = s.second;
-        event(s, { id: `move:${c!.id}:${s.second}`, at: s.second + 1200, kind: "move", object: c!.id });
+        event(s, { id: `move:${c!.id}:${s.second}`, at: c!.move.end, kind: "move", object: c!.id });
+        if (navigation && from.startsWith("anchor:")) event(s, { id: `clear:${c!.id}:${s.second}`, at: s.second + navigation.releaseAfter, kind: "source-clear", object: c!.id });
         return result("applied", "move-start", "目的位置已预留，船舶开始执行通行任务。");
     }
     if (o.kind === "work") {

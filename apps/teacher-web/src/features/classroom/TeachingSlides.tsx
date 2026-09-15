@@ -25,6 +25,8 @@ import { renderAuthoredTeachingSlide } from "./AuthoredTeachingSlides";
 import { SlideViewport } from "./SlideViewport";
 import { PortLblStage } from "../port-lbl/PortLblStage";
 import { PORT_LBL_SLIDES } from "@edu/course-content";
+import { PORT_LESSON_FOUR_SLIDES } from '@edu/course-content';
+import { PortLessonFourStage } from '../port-lesson-four/PortLessonFourStage';
 
 const EconomicMathematicsSlideStage = lazy(() =>
   import("../economic-mathematics/EconomicMathematicsSlideStage").then(
@@ -841,6 +843,8 @@ export function SlideStage({
   // Keep the explicit legacy port deck identifier without treating unknown courses as port lessons.
   if (!['deck-course-port-management-intro-foundations','port-management'].includes(frame.deckId)) return <SlideViewport label="课件尚未建设"><div>当前课程课件尚未建设。</div></SlideViewport>;
   const spec = getPortManagementSlide(frame.index);
+  const lessonFourPage = PORT_LESSON_FOUR_SLIDES.find(page=>page.slideKey===spec.slideKey);
+  if(lessonFourPage)return <PortLessonFourStage page={lessonFourPage} readOnly={readOnly}/>;
   const lblPage = PORT_LBL_SLIDES.find(page=>page.slideKey===spec.slideKey);
   if(lblPage)return <PortLblStage key={lblPage.slideKey} page={lblPage} readOnly={readOnly}/>;
   const position =

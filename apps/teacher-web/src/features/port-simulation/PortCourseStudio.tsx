@@ -16,6 +16,7 @@ export function PortCourseStudio(props: PortCourseStudioProps) {
   const [selection, setSelection] = useState<PortCourseSelection>(() => props.initialLearningStage ?? queryStage ??
     (props.trainingModeLocked && props.initialTrainingMode === "battle" ? "full" : PORT_COURSE_UNITS.some(u => u.id === saved?.selected) ? saved.selected! : props.initialMode === "planning" || props.initialMode === "equipment" ? "planning" : "arrival"));
   const [demonstration, setDemonstration] = useState(!props.learningStageLocked && query.get("demo") === "1");
+  const [offerTutorial, setOfferTutorial] = useState(true);
   const [completed, setCompleted] = useState<string[]>(Array.isArray(saved?.completed) ? saved.completed : []);
   const [saveError, setSaveError] = useState("");
   useEffect(() => {
@@ -28,6 +29,7 @@ export function PortCourseStudio(props: PortCourseStudioProps) {
   return <PortOperationsStudio {...props} key={`${actual}:${demonstration}`} courseSelection={selection}
     courseUnit={actual === "full" ? undefined : actual} demonstration={demonstration}
     courseProgress={completed} courseSaveError={saveError}
-    onSelectCourse={(id, demo = false) => { setSelection(id); setDemonstration(demo); }}
+    offerTutorial={offerTutorial}
+    onSelectCourse={(id, demo = false) => { setOfferTutorial(!demonstration && !demo); setSelection(id); setDemonstration(demo); }}
     onCourseComplete={(id: PortCourseUnit) => { if (!demonstration) setCompleted(old => old.includes(id) ? old : [...old, id]); }}/>;
 }

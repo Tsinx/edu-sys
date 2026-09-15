@@ -17,7 +17,7 @@ await page.route(`${origin}/live2d-qa`, route=>route.fulfill({contentType:'text/
 await page.route('**/avatar/live2d/core/live2dcubismcore.min.js', async route=>{
   const response=await route.fetch();
   const script=await response.text();
-  await route.fulfill({response,body:script+`;(()=>{const original=Live2DCubismCore.Model.prototype.update;Live2DCubismCore.Model.prototype.update=function(){const read=id=>this.parameters.values[this.parameters.ids.indexOf(id)];window.__mouth=read('ParamMouthOpenY');window.__eye=read('ParamEyeLOpen');window.__poses??=[];window.__poses.push({time:performance.now(),x:read('ParamAngleX'),y:read('ParamAngleY'),z:read('ParamAngleZ'),eye:window.__eye});return original.apply(this,arguments);};})();`});
+  await route.fulfill({response,body:script+`;(()=>{const original=Live2DCubismCore.Model.prototype.update;Live2DCubismCore.Model.prototype.update=function(){const read=id=>this.parameters.values[this.parameters.ids.indexOf(id)];window.__mouth=read('ParamMouthOpenY');window.__eye=read('ParamEyeLOpen');window.__poses??=[];window.__poses.push({time:performance.now(),x:read('ParamAngleX'),y:read('ParamAngleY'),z:read('ParamAngleZ'),eye:window.__eye});const result=original.apply(this,arguments);if(this.drawables.ids.includes('Mouth_Open')){const opacity=id=>this.drawables.opacities[this.drawables.ids.indexOf(id)];window.__xiaomai={mouth:opacity('Mouth_Open'),left:opacity('EyeL_Open'),right:opacity('EyeR_Open'),drawables:this.drawables.ids.length};}return result;};})();`});
 });
 const pcm = Buffer.alloc(24000*2*6);
 for(let i=0;i<24000*6;i++)pcm.writeInt16LE(i<24000 || i>=48000&&i<120000?Math.round(Math.sin(i*2*Math.PI*180/24000)*6500):0,i*2);
@@ -63,6 +63,49 @@ try {
   await page.setViewportSize({width:390,height:844});await page.waitForTimeout(250);await page.screenshot({path:resolve(output,'narrow.png')});
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);checks.push('fullscreen and 390px layout');
   await page.reload();await ready();assert.equal(await page.getByLabel('数字人形象').inputValue(),'live2d');checks.push('selection persists after reload');
+  for (const character of ['xiaomai', 'natori', 'hiyori']) {
+    await page.getByLabel('数字人形象').selectOption(character);await ready();
+    await page.reload();await ready();assert.equal(await page.getByLabel('数字人形象').inputValue(),character);
+    if (character === 'xiaomai') {
+      await page.waitForFunction(()=>window.__xiaomai?.drawables===27);
+      assert.equal(await page.locator('[data-xiaomai-eyes] canvas').count(),2);
+      const openEyes=await page.locator('[data-xiaomai-eyes] canvas').first().evaluate(c=>c.toDataURL());
+      await page.waitForFunction(()=>window.__xiaomai.left<.15 && window.__xiaomai.right<.15);
+      assert.notEqual(await page.locator('[data-xiaomai-eyes] canvas').first().evaluate(c=>c.toDataURL()),openEyes);
+      await page.waitForFunction(()=>window.__xiaomai.left>.95 && window.__xiaomai.right>.95);
+      assert.equal(await page.evaluate(()=>window.__xiaomai.mouth),0);
+      await page.locator('.live2d-avatar__credits summary').click();
+      assert.ok((await page.locator('.live2d-avatar__credits').innerText()).includes('本项目定制形象'));
+      assert.ok(!(await page.locator('.live2d-avatar__credits').innerText()).includes('拥有版权的示例素材'));
+      await page.locator('.live2d-avatar__credits summary').click();
+      checks.push('xiaomai: native 27-drawable model, original-pixel continuous eyelids blink, idle mouth closed, project-specific credit');
+    }
+    for (const width of [1200,390]) {
+      await page.setViewportSize({width,height:900});
+      for (const framing of ['胸像','头像']) {
+        await page.getByRole('button',{name:framing,exact:true}).click();await page.waitForTimeout(200);
+        await page.locator('.live2d-avatar').screenshot({path:resolve(output,`${character}-${width}-${framing==='胸像'?'bust':'portrait'}.png`)});
+        assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+      }
+    }
+    const request=page.waitForRequest(r=>r.url().endsWith('/api/teacher/tts'));
+    await page.getByRole('button',{name:'讲解',exact:true}).click();
+    assert.equal((await request).postDataJSON().voiceProfile,character === 'xiaomai' ? 'default' : character);
+    await page.waitForFunction(()=>window.__mouth>0.1);
+    if (character === 'xiaomai') {
+      await page.waitForFunction(()=>window.__xiaomai.mouth>.1);
+      await page.waitForFunction(()=>window.__xiaomai.mouth<.03);
+      await page.waitForFunction(()=>window.__xiaomai.mouth>.1);
+      await page.getByRole('button',{name:'打断',exact:true}).click();
+      await page.waitForFunction(()=>window.__xiaomai.mouth===0);
+      await page.getByRole('button',{name:'讲解',exact:true}).click();
+      await page.waitForFunction(()=>window.__xiaomai.mouth>.1);
+      assert.equal(await page.locator('.live2d-avatar__canvas>svg').count(),1);checks.push('xiaomai: TTS PCM drives articulation with vector mouth, silence and interruption close it');
+    }
+    await page.getByLabel('数字人形象').selectOption('live2d');await ready();await page.waitForTimeout(120);
+    assert.equal((await sample()).mouth,0);assert.equal(await page.locator('output').textContent(),'ready');
+    checks.push(`${character}: actual WebGL, persistent choice, both framings at desktop/narrow, matched voice request and interrupt`);
+  }
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.getByRole('button',{name:'讲解',exact:true}).click();await page.waitForFunction(()=>window.__mouth>0.1);
   assert.equal((await sample()).eye,1);await page.getByRole('button',{name:'打断',exact:true}).click();checks.push('reduced decorative motion retains live lip-sync');

@@ -1,4 +1,4 @@
-import { getPortManagementLessonSlidePosition, getPortManagementReadyLessons, getPortManagementSlideByKey, PORT_MANAGEMENT_GLOBE_CUES } from "@edu/course-content";
+import { getPortManagementLessonSlidePosition, getPortManagementReadyLessons, getPortManagementSlideByKey, PORT_MANAGEMENT_GLOBE_CUES, PORT_LESSON_FOUR_LABS } from "@edu/course-content";
 import { ECONOMIC_MATHEMATICS_COURSE_ID } from "@edu/course-content/economic-mathematics";
 import { getCourseDeckByCourseId } from "@edu/course-content/deck-registry";
 const responseInstructions = [
@@ -67,6 +67,9 @@ export function buildClassroomToolPrompt(snapshot: { courseId: string; slide: { 
     '- {"type":"lesson.go_to","lesson":1到16的整数}',
     '- {"type":"activity.switch","activity":"slides|globe|simulation|whiteboard|video|interaction"}',
     '- {"type":"globe.play_cue","cueId":"课程注册表中的固定cue ID"}',
+    '- {"type":"simulation.open_demo","cueId":"l4-arrival|l4-cargo|l4-yard|l4-departure"}',
+    '- {"type":"simulation.return_to_slides"}',
+    `第4讲教师演示：${PORT_LESSON_FOUR_LABS.map(l=>`${l.cueId}（${l.name}，入口第${l.demoPage}页）`).join("；")}。明确说进入某段演示时调用open_demo，不使用activity.switch代替。返回课件用return_to_slides。只切入并暂停，不启动业务或发布学生任务；知识问答不附带动作。`,
     '- {"type":"globe.pause"}',
     '- {"type":"globe.resume"}',
     '- {"type":"globe.restart"}',
@@ -78,7 +81,7 @@ export function buildClassroomToolPrompt(snapshot: { courseId: string; slide: { 
     `用户只说“第X页”时，默认指当前第${slidePosition.lessonNumber}讲的第X页；本讲内部全局页码 = ${slidePosition.lessonStart} + X - 1。`,
     "用户明确说“第N讲第X页”时，先按已建设课次映射换算；待建设讲次或越界页码不得生成跳转动作。",
     "不需要控制课堂时actions返回空数组。操作不需要语音确认；需要教学回答时直接回答，不声称动作已经执行。",
-    `可跳转的已建设课次：${readyLessonMap}。第4到16讲尚未建设，不得为其虚构标题、页码或教学内容。`,
+    `可跳转的已建设课次：${readyLessonMap}。其余未在已建设目录中的讲次不得虚构标题、页码或教学内容。`,
     'schema 固定为 "edu.classroom.assistant.response"，version 固定为 "1.0"。',
     '回答示例：{"replyKind":"answer","dialogue":"港口通常由水域、陆域和连接设施构成。","actions":[],"schema":"edu.classroom.assistant.response","version":"1.0"}',
     '操作示例：{"replyKind":"control","dialogue":"","actions":[{"type":"slides.next"}],"schema":"edu.classroom.assistant.response","version":"1.0"}',

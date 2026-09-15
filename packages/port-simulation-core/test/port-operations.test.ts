@@ -70,8 +70,9 @@ test("practice pauses at the first new topic and exact arrival boundary, while b
     assert.equal(s.status, "running");
     assert.equal(s.taught.filter(t => t === "arrival").length, 1);
     assert.equal(act(s, { kind: "move", callId: "S01", target: "berth", slot: 0 }).outcome, "applied");
+    const securedAt = s.calls.S01!.move!.end + 900;
     advance(s, 20000);
-    assert.equal(s.second, 6420);
+    assert.equal(s.second, securedAt);
     assert.equal(s.status, "paused");
     assert.equal(s.taught.at(-1), "work");
     assert.equal(digest(restorePortSession(serializePortSession(s))), digest(s));
@@ -102,14 +103,14 @@ test("incorrect orders are deduplicated per object and rule; invalid forms and w
     assert.equal(act(s, { kind: "move", callId: xs[0]!.id, target: "berth", slot: 0 }).outcome, "applied");
     assert.equal(s.berths[0], xs[0]!.id);
     assert.equal(act(s, { kind: "move", callId: xs[1]!.id, target: "berth", slot: 1 }).rule, "channel-busy");
-    advance(s, 2100);
+    advance(s, s.calls[s.channel!]!.move!.end - s.second + 900);
     assert.equal(act(s, { kind: "move", callId: xs[1]!.id, target: "berth", slot: 1 }).outcome, "applied");
-    advance(s, 2100);
+    advance(s, s.calls[s.channel!]!.move!.end - s.second + 900);
     assert.equal(act(s, { kind: "move", callId: "S03", target: "berth", slot: 0 }).rule, "compatibility");
     for (let i = 0; i < 4; i++) {
         assert.equal(act(s, { kind: "move", callId: xs[i + 2]!.id, target: "anchor", slot: i }).outcome, "applied");
         assert.equal(s.anchors[i], xs[i + 2]!.id);
-        advance(s, 1200);
+        advance(s, s.calls[s.channel!]!.move!.end - s.second);
         assert.equal(s.channel, null);
     }
     assert.equal(act(s, { kind: "move", callId: xs[6]!.id, target: "anchor", slot: 0 }).rule, "destination-busy");
@@ -137,7 +138,7 @@ test("resource pauses retain partial work and reallocating cranes never teleport
     docs(s);
     advance(s, 4260);
     act(s, { kind: "move", callId: "S01", target: "berth", slot: 0 });
-    advance(s, 2100);
+    advance(s, s.calls[s.channel!]!.move!.end - s.second + 900);
     act(s, { kind: "work", callId: "S01", running: true });
     advance(s, 60);
     const job = s.jobs.find(j => j.kind === "quay")!, id = job.boxId;
@@ -164,7 +165,7 @@ test("reassigning stocked batches creates real relocation and cannot exceed yard
         act(s, { kind: "assign-yard", batchId: id, yardId: id.endsWith("1") ? "Y1" : "Y2" });
     advance(s, 4260);
     act(s, { kind: "move", callId: "S01", target: "berth", slot: 0 });
-    advance(s, 2100);
+    advance(s, s.calls[s.channel!]!.move!.end - s.second + 900);
     act(s, { kind: "work", callId: "S01", running: true });
     advance(s, 6000);
     const stocked = s.batches["S01-I1"]!.boxIds.map(id => s.boxes[id]!).find(b => b.location === "yard:Y1")!;
@@ -221,7 +222,8 @@ test("48-hour reference run conserves every box, carries live jobs and replays t
     assert.ok(issues.every(b => b.issue === "resolved"));
     assert.ok(issues.every(b => b.history.some(h => h.to === "yard:Y6")));
     const score = portScore(s, { unitCost: s.cost / 1884 });
-    assert.equal(score.process, 20);
+    assert.equal(score.process, 20 * score.nodeCount / score.nodesTotal);
+    assert.ok(score.process > 15, "uncompleted departure nodes remain visible under the new transit durations");
     assert.equal(score.handover, 10);
     assert.ok(score.cargo < 50 && score.cargo > 35, "reference policy need not be optimal; genuine tardiness stays visible");
     const raw = serializePortSession(s);

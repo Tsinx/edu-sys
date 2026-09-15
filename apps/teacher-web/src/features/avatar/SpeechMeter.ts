@@ -1,3 +1,5 @@
+import type { SpeechVisemeCue } from "@edu/contracts";
+
 /** Measures only the assistant's scheduled TTS output, never the microphone. */
 export class SpeechMeter {
   private context?: AudioContext;
@@ -6,11 +8,13 @@ export class SpeechMeter {
   private sources = new Set<AudioBufferSourceNode>();
   private level = 0;
   private lastTime = 0;
+  private cues = new Map<AudioBufferSourceNode, { startAt: number; cues: SpeechVisemeCue[] }>();
 
   connect(source: AudioBufferSourceNode) {
     const context = source.context as AudioContext;
     if (this.context !== context) {
       this.analyser?.disconnect();
+      this.cues.clear(); this.sources.clear(); this.lastTime = 0;
       this.context = context;
       this.analyser = context.createAnalyser();
       this.analyser.fftSize = this.samples.length;
@@ -18,8 +22,24 @@ export class SpeechMeter {
     }
     source.connect(this.analyser!);
     this.sources.add(source);
-    source.addEventListener("ended", () => this.sources.delete(source), { once: true });
+    source.addEventListener("ended", () => { this.sources.delete(source); this.cues.delete(source); }, { once: true });
   }
+
+  schedule(source: AudioBufferSourceNode, startAt: number, cues?: SpeechVisemeCue[]) {
+    if (cues?.length) this.cues.set(source, { startAt, cues });
+  }
+
+  readonly readViseme = (): SpeechVisemeCue["value"] | undefined => {
+    if (this.context?.state !== "running") return undefined;
+    const now = this.context.currentTime;
+    for (const [source, entry] of this.cues) {
+      const time = now - entry.startAt;
+      if (time < 0 || time >= (source.buffer?.duration ?? 0)) continue;
+      // Small anticipation compensates for lip muscle interpolation, using the audio clock.
+      return entry.cues.find(cue => time + 0.025 >= cue.start && time + 0.025 < cue.end)?.value ?? "X";
+    }
+    return undefined;
+  };
 
   readonly read = () => {
     if (!this.analyser || this.context?.state !== "running" || !this.sources.size) {
@@ -38,5 +58,5 @@ export class SpeechMeter {
     return this.level;
   };
 
-  reset() { this.sources.clear(); this.level = 0; }
+  reset() { this.sources.clear(); this.cues.clear(); this.level = 0; this.lastTime = 0; }
 }
