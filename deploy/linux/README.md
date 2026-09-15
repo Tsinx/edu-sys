@@ -6,7 +6,9 @@
 
 ## 访问和账号
 
-教师账号为 `xingzhi`，随机密码保存在 `.runtime/campus/initial-teacher.json`（权限 `0600`）。不在网页、命令参数或 Git 中保存密码。
+2026-09-15 已更新为 1 个管理员账号、70 个名单内学生账号和 1 个测试学生账号。管理员沿用系统 `teacher` 管理权限，保留原账号内部 ID 和已有教学记录；初始登录凭据保存在 `.runtime/campus/initial-teacher.json`（权限 `0600`），具体账号与密码不写入文档或 Git。
+
+71 个学生账号均绑定港口管理概论（`course-port-management-intro`），课程列表与课堂列表只返回该账号可访问的课程，直接访问未选课程也会被服务端拒绝。学生可阅读课件和使用本地港口仿真，暂不能调用 AI。学生名单及初始化规则保存在受保护的本机目录，数据库只保存带随机盐的密码哈希。
 
 局域网入口使用 Caddy 私有 CA。访问设备需要导入 `.runtime/deploy/edu-campus-root.crt`，并将其信任为根证书；本机浏览器同样需要完成信任配置。此证书是可分发的公钥证书，不要分发 `.runtime/caddy` 中的私钥，也不要用忽略证书报错替代证书信任。
 
@@ -19,13 +21,16 @@
 | 正在运行的发布包 | `output/campus-current`（指向带时间戳目录） |
 | 服务端配置 | `.runtime/campus/.env`（`0600`） |
 | SQLite 数据 | `.runtime/campus/data/`（目录 `0700`） |
+| 私有学生名单 | `.runtime/campus/rosters/`（目录 `0700`，名单文件 `0600`） |
+| 账号验证报告 | `.runtime/campus/account-verification.json` |
+| 学生页面验证报告 | `.runtime/campus/accounts-browser-qa.json` |
 | Caddy 配置 | `.runtime/deploy/Caddyfile.user` |
 | Caddy 证书和私钥存储 | `.runtime/caddy/`（目录 `0700`） |
 | systemd 用户服务 | `~/.config/systemd/user/edu-campus.service`、`edu-campus-caddy.service` |
 | 线上验证报告 | `.runtime/deploy/verification.json` |
 | 独立包验证报告 | `output/campus-current/verification.json` |
 
-云端 AI / 语音需要在 `.runtime/campus/.env` 填写服务商密钥及声音 ID，再重启后端。密钥当前未配置。
+云端 AI / 语音需要在 `.runtime/campus/.env` 填写服务商密钥及所用声音配置，再重启后端。2026-09-15 核查时，当前进程、systemd 用户环境及本机配置均未读到有效 DashScope 密钥，因此尚未启用并验证真实云端调用。
 
 ```bash
 systemctl --user status edu-campus edu-campus-caddy
@@ -112,4 +117,27 @@ python3 deploy/linux/verify-live.py
 
 `EDU_STUDENT_AI_ENABLED=false` 会在服务端拒绝学生的问答、语音识别和语音合成请求，同时停用学生问答输入，保留课件阅读与本地实验。教师权限不受该开关影响。`EDU_ACCOUNT_MIN_PASSWORD_LENGTH` 默认12，本机可按账号初始化要求显式设为6。
 
+本机当前设置如下，密钥需另行填写到同一受保护配置文件中：
+
+```dotenv
+EDU_STUDENT_AI_ENABLED=false
+EDU_ACCOUNT_MIN_PASSWORD_LENGTH=6
+```
+
+后续填写有效密钥并重启服务后，学生 AI 仍保持停用。只有明确修改 `EDU_STUDENT_AI_ENABLED` 并重启后端才会改变该策略。
+
 账号和选课范围存储于 `.runtime/campus/data/state.json.accounts.sqlite`，密码使用独立随机盐和 scrypt 哈希。选课限制同时应用于课程列表、课堂列表和直接访问；没有选课限制记录的旧账号保留原权限。私有导入名单位于 `.runtime/campus/rosters/`。上述数据、密钥及备份均被 Git 忽略，更新代码时必须保留。
+
+`account.py` 负责创建账号和重置密码，不会自动为新学生绑定课程。批量更新名单和选课前必须停服并备份整套数据库；本次私有导入脚本会重置名单内账号密码并撤销旧会话，不应作为日常启动步骤重复执行。
+
+## 2026-09-15 部署验收
+
+运行代码来自提交 `2c80f7b`，发布包为 `output/campus-server-20260915051531749`；后续仅更新文档的提交不需要重建该运行包。
+
+- 自动测试 231 项通过，1 项可选 Rhubarb 测试跳过；类型检查、生产构建与 `git diff --check` 通过。
+- 70 个正式学生的初始密码哈希及选课范围逐一校验；管理员内部 ID 保持不变，数据库完整性检查通过。
+- 经实际 Caddy HTTPS 入口验证管理员、正式学生抽样及测试学生登录；学生课程可见性、AI 接口拒绝、来源校验、重启后会话保持及退出撤销通过。
+- 浏览器在 1600px 与 390px 宽度验证测试学生登录、单课程入口、翻页、文字和语音输入停用；未发现横向溢出、损坏图片或页面脚本错误。管理员的 AI 输入权限保持可用。
+- HTTPS 证书校验和 545 项静态资源字节数、哈希检查通过；后端与 Caddy 用户服务均处于启用和运行状态。
+
+升级前备份位于 `.runtime/backups/upgrade-20260915-131601/`，账号导入前备份位于 `.runtime/backups/accounts-20260915-131629/`。这些备份包含私有数据，只保留在本机受保护目录。上述结果来自服务器本机访问局域网 HTTPS 地址，不代表已完成其他学生设备、校园无线网络或真实云端 AI 验收。

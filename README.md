@@ -13,6 +13,8 @@ pnpm build:campus
 
 运行包生成在 `output/campus-server-*`，包含编译后的服务端、网页、运行依赖锁文件、账号工具和配置示例。部署机器只需安装运行依赖，无需复制源码或子模块。详见 [当前架构](docs/architecture.md) 与 [服务器部署及验收说明](docs/campus-deployment.md)。下方 `pnpm dev` 和 OpenAvatarChat 章节属于开发/增强模式，不是校园服务器部署步骤。
 
+当前 Linux 服务器通过 Caddy 和 systemd 用户服务运行，维护步骤见 [Linux 部署手册](deploy/linux/README.md)。2026-09-15 已完成学生名单导入、港口管理概论选课限制和学生 AI 停用；管理员保留教师管理权限。账号、名单、密码和密钥保存在被 Git 忽略的本机目录中，克隆仓库不会带入这些数据。DashScope 环境变量兼容已接入，当前服务器尚未读取到有效密钥，云端调用尚未验收。
+
 ## 当前已接入
 
 - `apps/teacher-web`：可交互的教师系统入口，包含课程、课堂、模拟实验、教学评价、资源中心与个人设置路由。
