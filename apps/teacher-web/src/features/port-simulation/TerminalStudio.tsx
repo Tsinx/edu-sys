@@ -20,7 +20,7 @@ const cameras: [TerminalCamera, string][] = [["overview", "全景"], ["quay", "�
 const modeIcons = { flow: Compass, dispatch: Users, equipment: Cpu, planning: Map };
 const number = (n: number, digits = 0) => n.toLocaleString("zh-CN", { maximumFractionDigits: digits, minimumFractionDigits: digits });
 const elapsed = (n: number) => { const seconds = Math.round(n * 60); return `${String(Math.floor(seconds / 3600)).padStart(2, "0")}:${String(Math.floor(seconds / 60) % 60).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`; };
-interface Props { storage?: LabStorage | null; storageScope: string; initialScenario?: TerminalScenario; initialMode?: TerminalMode; scenarioLocked?: boolean; sourceLabel?: string; initialTrainingMode?: TerminalTrainingMode; trainingModeLocked?: boolean; initialLearningStage?: PortCourseSelection; learningStageLocked?: boolean }
+interface Props { navigationUnit?: PortCourseSelection; onModuleChange?: (unit: PortCourseSelection) => void; storage?: LabStorage | null; storageScope: string; initialScenario?: TerminalScenario; initialMode?: TerminalMode; scenarioLocked?: boolean; sourceLabel?: string; initialTrainingMode?: TerminalTrainingMode; trainingModeLocked?: boolean; initialLearningStage?: PortCourseSelection; learningStageLocked?: boolean }
 function readBenchmarks(storage: LabStorage | null | undefined, key: string): TerminalState[] {
   try { const data = JSON.parse(storage?.getItem(`${key}:comparisons`) ?? "[]"); return Array.isArray(data) ? data.slice(-3).map((raw: string) => restoreTerminal(raw)) : []; } catch { return []; }
 }

@@ -58,7 +58,7 @@ function PortLblPlaybackStage({page,readOnly,projection}:{page:PortLblPage;readO
     window.addEventListener("keydown",key);return()=>window.removeEventListener("keydown",key);
   },[readOnly,cancelAutoPlay]);
   const jump=(next:number)=>{cancelAutoPlay();setPlaying(false);setProgress(next);};
-  const controls=!readOnly&&!projection?<div className={`lbl-controls${controlsTarget?" lbl-controls--integrated":""}`} role="group" aria-label="教师动画控制">
+  const controls=!readOnly&&!projection?<div className={`lbl-controls${controlsTarget?" lbl-controls--integrated":""}`} role="group" aria-label="动画播放控制">
     <button type="button" aria-label={playing?"暂停":"播放"} title={playing?"暂停（空格）":"播放（空格）"} onClick={()=>{cancelAutoPlay();if(progress>=1)setProgress(0);setPlaying(!playing);}}>{playing?<Pause size={17}/>:<Play size={17}/>}<span>{playing?"暂停":"播放"}</span></button>
     <button type="button" aria-label="重播" title="重播（R）" onClick={()=>{cancelAutoPlay();setProgress(0);setPlaying(true);}}><RotateCcw size={17}/><span>重播</span></button>
     <button type="button" aria-label="下一幕" title="下一幕（.）" onClick={()=>jump(Math.min(1,Math.floor(progress*4+1.001)/4))} disabled={progress>=1}><SkipForward size={17}/><span>下一幕</span></button>

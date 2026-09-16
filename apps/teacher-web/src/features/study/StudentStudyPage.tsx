@@ -36,6 +36,7 @@ import { Link, useParams } from "react-router-dom";
 import { api } from "../../api";
 import { runtimeConfig } from "../../campus/runtime";
 import { SlideStage } from "../classroom/TeachingSlides";
+import { ClassroomPlaybackSlot } from "../classroom/ClassroomPlaybackSlot";
 import "../classroom/classroom.css";
 import { LanzhouAvatarPlayer } from "./LanzhouAvatarPlayer";
 import { useAvatarRenderer, getAvatarVoice } from "../avatar/avatar-preference";
@@ -49,6 +50,8 @@ import {
   studySlidePosition
 } from "./study-utils";
 import "./study.css";
+import { PortLessonFourControls } from "../port-lesson-four/PortLessonFourStage";
+import { lessonFourExperimentUrl } from "../port-lesson-four/experiment-navigation";
 
 interface ConversationItem {
   id: string;
@@ -62,6 +65,8 @@ function createLocalId(prefix: string) {
 }
 
 export function StudentStudyPage() {
+  const [assistantOpen, setAssistantOpen] = useState(()=>window.innerWidth>=1000);
+  const [playbackSlot, setPlaybackSlot] = useState<HTMLDivElement | null>(null);
   const avatarRenderer = useAvatarRenderer();
   const speechMeter = useRef(new SpeechMeter());
   const { courseId = "" } = useParams();
@@ -350,6 +355,7 @@ export function StudentStudyPage() {
           <div><strong>{session.courseTitle}</strong><span>课下自主学习</span></div>
         </div>
         <div className="study-header__meta">
+          <button className="study-assistant-toggle" aria-expanded={assistantOpen} onClick={()=>setAssistantOpen(!assistantOpen)}>{assistantOpen?"收起答疑":"打开答疑"}</button>
           <span><LockKeyhole size={14} /> 学习进度独立保存</span>
           <span>{session.mode === "teacher_preview" ? "教师预览" : session.actorDisplayName}</span>
           <Link to={session.mode === "teacher_preview" ? `/courses/${session.courseId}` : "/"}>
@@ -358,7 +364,7 @@ export function StudentStudyPage() {
         </div>
       </header>
 
-      <div className="study-layout">
+      <div className={`study-layout ${assistantOpen?"":"study-layout--reading"}`}>
         <section className="study-deck" aria-label="课程Slides">
           <div className="study-deck__toolbar">
             <label>
@@ -381,12 +387,13 @@ export function StudentStudyPage() {
               </select>
             </label>
             <span>{frame.section}</span>
-            <small>{session.deckVersion}</small>
           </div>
 
-          <div className="study-deck__stage"><SlideStage frame={frame} /></div>
+          <div className="study-deck__stage"><ClassroomPlaybackSlot.Provider value={playbackSlot}><PortLessonFourControls.Provider value={{scope:`study:${session.actorId}:${courseId}`,openDemo:cueId=>window.location.assign(lessonFourExperimentUrl(cueId,`/study/${courseId}`,session.id))}}><SlideStage frame={frame} readOnly={false}/></PortLessonFourControls.Provider></ClassroomPlaybackSlot.Provider></div>
+          <div className="study-playback-slot" ref={setPlaybackSlot}/>
 
           <nav className="study-deck__navigation" aria-label="Slides翻页">
+            {position.lessonNumber===4&&<a className="study-simulation-link" href={`/simulations?${new URLSearchParams({course:"arrival",returnTo:`/study/${courseId}`})}`}>仿真系统</a>}
             <button disabled={navigationBusy || session.globalIndex <= 1} onClick={() => void goToGlobalIndex(session.globalIndex - 1)}>
               <ChevronLeft size={18} /> 上一页
             </button>

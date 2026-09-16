@@ -52,3 +52,73 @@
 .port-ops[data-course=arrival]>.port-kpis>div:nth-child(n+2):nth-child(-n+4),.port-ops[data-course=departure]>.port-kpis>div:nth-child(n+2):nth-child(-n+4){display:none}
 
 .port-course-return{display:flex;align-items:center;gap:20px;padding:12px 24px;background:#173e50;color:#d6e6e4;font:14px/1.5 "Microsoft YaHei",sans-serif}.port-course-return a{display:inline-flex;align-items:center;min-height:44px;padding:8px 14px;border:1px solid #88a4a7;border-radius:5px;color:#fff1d7;text-decoration:none}.port-course-return a:focus-visible{outline:3px solid #f0c47f;outline-offset:3px}@media(max-width:600px){.port-course-return{padding:8px 12px;gap:12px;flex-wrap:wrap}}
+
+/* Size the laboratory by its available classroom space, including split-screen tablets. */
+.port-ops { container: port-lab / inline-size; }
+.port-controls { flex-wrap: wrap; }
+.port-clock { flex-shrink: 0; }
+.port-clock strong, .port-clock > span:last-child { white-space: nowrap; }
+.port-scene-tools > div { flex-wrap: wrap; justify-content: flex-end; }
+.port-render-quality { position: absolute; left: 12px; top: 66px; padding: 6px 8px; border-radius: 8px; background: #f9fcfaed; }
+.port-render-quality select { width: 76px; }
+.port-scene-wrap { scroll-margin-top: 74px; }
+.port-workbench { min-width: 0; scroll-margin-top: 74px; }
+.port-tutorial-offer { max-height: calc(100dvh - 24px); overflow: auto; }
+.port-scene-caption { flex-wrap: wrap; gap: 4px; }
+.port-stage-dock button:hover:not(:disabled) { background: #285961; color: #fff; }
+.port-stage-dock button[aria-pressed=true]:hover:not(:disabled) { background: #ecf5e9; color: #194d56; }
+
+@container port-lab (max-width: 1100px) {
+  .port-ops:not([data-stage-fullscreen=true]) .port-layout { grid-template-columns: minmax(0,1fr); }
+  .port-ops:not([data-stage-fullscreen=true]) .port-workbench { position: static; grid-row: 2; }
+  .port-ops:not([data-stage-fullscreen=true]) .port-panel { max-height: none; min-height: 0; }
+  .port-ops:not([data-stage-fullscreen=true]) .port-mobile-nav { display: flex; position: sticky; top: 0; z-index: 15; gap: 8px; padding: 8px 0; margin-bottom: 9px; background: #edf3f2f5; border-bottom: 1px solid var(--port-line); }
+  .port-mobile-nav button { flex: 1; }
+  .port-header { flex-wrap: wrap; }
+  .port-brand { flex: 1 1 220px; }
+  .port-controls { flex: 1 1 420px; }
+  .port-course-nav { flex-direction: column; gap: 12px; align-items: stretch; }
+  .port-course-label { display: flex; align-items: center; }
+  .port-course-label small { margin-left: auto; }
+  .port-course-steps { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .port-scene-tools > span { display: none; }
+  .port-scene-tools { justify-content: flex-end; }
+  .port-ops:not([data-stage-fullscreen=true]) .port-ops-scene { height: clamp(340px,55dvh,560px); }
+}
+
+/* Touch targets apply to large tablets as well as narrow browser windows. */
+@media (any-pointer: coarse) {
+  .port-ops.port-ops button, .port-ops.port-ops input, .port-ops.port-ops select, .port-ops.port-ops summary { min-height: 44px; }
+  .port-ops button { min-width: 44px; touch-action: manipulation; }
+  .port-ops input, .port-ops select { font-size: 16px; }
+  .port-ops summary { display: flex; align-items: center; }
+  .port-ops-scene canvas { touch-action: none; -webkit-touch-callout: none; user-select: none; }
+  .port-ops [draggable=true] { -webkit-user-drag: none; }
+  .port-ops .port-tabs button, .port-ops .port-panel-footer button { font-size: 13px; }
+  .port-panel-footer { flex-wrap: wrap; }
+  .port-panel { font-size: 15px; }
+  .port-ops .port-facts, .port-ops .port-advice, .port-ops .port-doc > p { font-size: 13px; }
+  .port-render-quality { top: 76px; }
+  .port-tutorial-coach { padding: 12px; }
+  .port-tutorial-coach-head { flex-wrap: wrap; }
+  .port-tutorial-coach-footer { gap: 12px; flex-wrap: wrap; }
+  .port-tutorial-coach button { min-height: 44px; }
+  .port-stage-dock { bottom: max(12px,env(safe-area-inset-bottom)); }
+  .port-ops[data-stage-fullscreen=true] { padding-left: max(8px,env(safe-area-inset-left)); padding-right: max(8px,env(safe-area-inset-right)); }
+  .port-ops[data-stage-fullscreen=true] .port-workbench,
+  .port-ops[data-stage-fullscreen=true] .port-field-overlays { bottom: calc(78px + env(safe-area-inset-bottom)); }
+}
+@media (any-pointer: coarse) and (min-width: 901px) {
+  .port-ops[data-stage-fullscreen=true] .port-workbench { width: 390px; }
+  .port-ops[data-stage-fullscreen=true][data-stage-panel=operations] .port-scene-tools { right: 420px; }
+}
+@media (max-width: 600px) {
+  .port-render-quality { top: 116px; }
+  .port-ops .port-yard-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .port-scene-tools { left: 8px; right: 8px; }
+  .port-controls { flex-basis: 100%; justify-content: flex-start; }
+  .port-ops[data-stage-fullscreen=true] .port-header .port-controls { flex-basis: 100%; }
+  .port-ops[data-stage-fullscreen=true] .port-workbench { height: 62%; }
+  .port-stage-dock { width: max-content; overflow-x: auto; }
+  .port-stage-dock button { flex-shrink: 0; }
+}

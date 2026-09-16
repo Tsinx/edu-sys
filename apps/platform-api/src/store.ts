@@ -1566,6 +1566,7 @@ export class JsonStateStore {
       slideInteraction,
       globePlayback: { ...runtime.globePlayback },
       teacherDemo: runtime.teacherDemo ? structuredClone(runtime.teacherDemo) : null,
+      simulationNavigation: runtime.simulationNavigation ? { ...runtime.simulationNavigation } : null,
       lessonFourPresentation: runtime.lessonFourPresentation ? {...runtime.lessonFourPresentation} : null,
       simulation:
         course.id === "course-port-management-intro"
@@ -4029,7 +4030,20 @@ export class JsonStateStore {
       };
 
       if (["next_slide", "previous_slide", "set_slide", "set_activity"].includes(input.type) && runtime.teacherDemo) runtime.teacherDemo.active = false;
-      if (input.type === "set_teacher_demo_summary") {
+      if (["next_slide", "previous_slide", "set_slide", "set_activity", "globe_play_cue"].includes(input.type)) runtime.simulationNavigation = null;
+      if (input.type === "set_simulation_navigation") {
+        if (session.courseId !== "course-port-management-intro" || (input.navigation && !deck.getSlideByKey(input.navigation.originSlideKey))) {
+          throw Object.assign(new Error("当前课程或返回课件位置无效"), { statusCode: 409, code: "INVALID_SIMULATION_NAVIGATION" });
+        }
+        if (JSON.stringify(runtime.simulationNavigation ?? null) === JSON.stringify(input.navigation)) return this.buildClassroomSnapshot(state, session, runtime);
+        if (!input.navigation && runtime.simulationNavigation) {
+          const origin = deck.getSlideByKey(runtime.simulationNavigation.originSlideKey);
+          if (origin) runtime.slideIndex = origin.index;
+        }
+        runtime.simulationNavigation = input.navigation;
+        runtime.activeActivity = "slides";
+        completeActiveGlobe();
+      } else if (input.type === "set_teacher_demo_summary") {
         const demo=runtime.teacherDemo;
         if (!demo?.active || demo.runId !== input.runId || input.revision <= demo.revision) return this.buildClassroomSnapshot(state,session,runtime);
         demo.visibleSummary=input.summary;demo.revision=input.revision;demo.updatedAt=new Date().toISOString();
@@ -4298,6 +4312,7 @@ export class JsonStateStore {
       };
 
       input.actions.forEach((action, index) => {
+        if (runtime.simulationNavigation && ["slides.next", "slides.previous", "slides.go_to", "lesson.select", "activity.switch", "simulation.return_to_slides"].includes(action.type)) { runtime.simulationNavigation = null; changed = true; }
         if(action.type === "simulation.open_demo") {
           const cue=getPortLessonFourDemo(action.cueId);
           if(session.courseId!=="course-port-management-intro" || deck.getSlide(runtime.slideIndex).lessonNumber!==4 || !cue) {

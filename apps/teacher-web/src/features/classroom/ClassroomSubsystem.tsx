@@ -1,6 +1,6 @@
 import { PortLessonFourControls } from "../port-lesson-four/PortLessonFourStage";
 import { lessonFourExperimentUrl } from "../port-lesson-four/experiment-navigation";
-import type { PortDemoCueId } from "@edu/course-content";
+import { getPortLessonFourDemo, type PortDemoCueId } from "@edu/course-content";
 import { ManagementSourceLocator } from "../management-principles/ManagementTeacherTools";
 import type {
   ClassroomActivity,
@@ -490,16 +490,31 @@ export function ClassroomSubsystem() {
     const demo = snapshot?.teacherDemo;
     if (!demo?.active || externalDemoRef.current === demo.runId) return;
     externalDemoRef.current = demo.runId;
-    // Both page clicks and assistant actions arrive here after server validation.
-    // Close classroom demo state before leaving so Back restores ordinary slides.
+    // Preserve a lightweight teaching location across the standalone experiment.
     void api.executeAvatarControl(sessionId, {
       protocol: "edu.classroom.control", version: "1.0", requestId: crypto.randomUUID(),
       actions: [{type: "simulation.return_to_slides"}]
-    }).then(result => {
-      mergeSnapshot(result.snapshot);
+    }).then(async result => {
+      await api.sendClassroomEvent(sessionId, {type:"set_simulation_navigation", navigation:{unit:getPortLessonFourDemo(demo.cueId)!.unit, originSlideKey:demo.originSlideKey}});
       window.location.assign(lessonFourExperimentUrl(demo.cueId, `/classroom/${encodeURIComponent(sessionId)}`, sessionId));
     }).catch(reason => { externalDemoRef.current = null; setError((reason as Error).message); });
   }, [snapshot?.teacherDemo?.active, snapshot?.teacherDemo?.runId, sessionId]);
+
+  useEffect(() => {
+    // Returning via the browser's Back button also restores the classroom position.
+    if (!snapshot?.simulationNavigation || externalDemoRef.current) return;
+    void api.sendClassroomEvent(sessionId, {type:"set_simulation_navigation",navigation:null}).then(mergeSnapshot).catch(reason=>setError(reason.message));
+  }, [snapshot?.simulationNavigation, sessionId]);
+
+  async function openFullLessonFourSimulation() {
+    const current = snapshotRef.current; if (!current) return;
+    externalDemoRef.current = "standalone";
+    try {
+      await api.sendClassroomEvent(sessionId, {type:"set_simulation_navigation",navigation:{unit:"arrival",originSlideKey:current.slide.slideId}});
+      const query = new URLSearchParams({course:"arrival",session:sessionId,scope:sessionId,returnTo:`/classroom/${encodeURIComponent(sessionId)}`});
+      window.location.assign(`/simulations?${query}`);
+    } catch (reason) { externalDemoRef.current=null; setError((reason as Error).message); }
+  }
 
   function reportLessonFourProgress(slideKey:string,progress:number){
     const current=snapshotRef.current;if(!current||current.teacherDemo?.active)return;
@@ -1339,6 +1354,7 @@ export function ClassroomSubsystem() {
 
             {isSlides && <div className="classroom-playback-slot" ref={setPlaybackSlot} />}
             {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 4 && <a className="port-l4-classroom-link" href={`/port-lesson-four-preview.html?page=${snapshot.slide.index-153}`} target="_blank" rel="noreferrer">第4讲授课台 ↗</a>}
+            {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 4 && <button className="stage-tool-button" disabled={busy} onClick={()=>void openFullLessonFourSimulation()}><FlaskConical size={17}/>仿真系统</button>}
             <label className="lesson-select-control">
               <span className="sr-only">选择课次</span>
               <select

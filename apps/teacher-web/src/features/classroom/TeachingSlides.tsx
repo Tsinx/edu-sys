@@ -808,12 +808,14 @@ export function SlideStage({
   frame,
   interaction = null,
   readOnly = true,
+  presentationProgress,
   onInteractionPatch,
   onInteractionReset
 }: {
   frame: SlideFrame;
   interaction?: SlideInteractionState | null;
   readOnly?: boolean;
+  presentationProgress?: number;
   onInteractionPatch?: (patch: SlideInteractionValues) => void;
   onInteractionReset?: () => void;
 }) {
@@ -844,7 +846,7 @@ export function SlideStage({
   if (!['deck-course-port-management-intro-foundations','port-management'].includes(frame.deckId)) return <SlideViewport label="课件尚未建设"><div>当前课程课件尚未建设。</div></SlideViewport>;
   const spec = getPortManagementSlide(frame.index);
   const lessonFourPage = PORT_LESSON_FOUR_SLIDES.find(page=>page.slideKey===spec.slideKey);
-  if(lessonFourPage)return <PortLessonFourStage page={lessonFourPage} readOnly={readOnly}/>;
+  if(lessonFourPage)return <PortLessonFourStage page={lessonFourPage} readOnly={readOnly} progress={presentationProgress}/>;
   const lblPage = PORT_LBL_SLIDES.find(page=>page.slideKey===spec.slideKey);
   if(lblPage)return <PortLblStage key={lblPage.slideKey} page={lblPage} readOnly={readOnly}/>;
   const position =

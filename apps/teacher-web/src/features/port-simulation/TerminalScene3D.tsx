@@ -2,6 +2,7 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "re
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
+import { createSceneGesture } from "./scene-gesture";
 import { TERMINAL_SCENARIOS, terminalLiveRates, terminalMetrics, terminalVesselProgress, type TerminalState } from "@edu/port-simulation-core";
 import { createTerminalWorld, sampleTerminalPath, TERMINAL_CAMERAS, type TerminalCamera, type TerminalWorld } from "./terminal-3d-world";
 
@@ -60,6 +61,7 @@ export const TerminalScene3D = forwardRef<TerminalSceneHandle, Props>(function T
     const controls = new OrbitControls(camera, renderer.domElement); controls.target.set(0, 0, 13);
     controls.target.set(...initialView.target as [number, number, number]); controls.enableDamping = true; controls.dampingFactor = 0.1; controls.minDistance = 28; controls.maxDistance = 900;
     controls.maxPolarAngle = Math.PI / 2.15; controls.minPolarAngle = 0; controls.screenSpacePanning = true; controls.update();
+    controls.touches.ONE = THREE.TOUCH.ROTATE; controls.touches.TWO = THREE.TOUCH.DOLLY_PAN;
     const world = createTerminalWorld(latest.current.state.setup); scene.add(world.root);
     const r = { camera, controls, world, renderer, goal: undefined as { position: THREE.Vector3; target: THREE.Vector3 } | undefined }; runtime.current = r;
     renderer.domElement.setAttribute("aria-label", "三维港区，可拖动旋转、滚轮缩放、点击设施；也可使用视角按钮和设施列表操作");
@@ -73,10 +75,12 @@ export const TerminalScene3D = forwardRef<TerminalSceneHandle, Props>(function T
       camera.updateProjectionMatrix();
     } };
     const observer = new ResizeObserver(resize); observer.observe(host); resize();
-    const pointer = new THREE.Vector2(); const raycaster = new THREE.Raycaster(); let down = { x: 0, y: 0 };
-    const pointerDown = (event: PointerEvent) => { down = { x: event.clientX, y: event.clientY }; r.goal = undefined; };
+    const pointer = new THREE.Vector2(); const raycaster = new THREE.Raycaster(); const gesture = createSceneGesture();
+    const pointerDown = (event: PointerEvent) => { gesture.down(event); r.goal = undefined; };
+    const pointerMove = (event: PointerEvent) => gesture.move(event);
+    const pointerCancel = (event: PointerEvent) => gesture.cancel(event);
     const pointerUp = (event: PointerEvent) => {
-      if (Math.hypot(event.clientX - down.x, event.clientY - down.y) > 6) return;
+      if (!gesture.up(event)) return;
       const rect = renderer.domElement.getBoundingClientRect(); pointer.set((event.clientX - rect.left) / rect.width * 2 - 1, -(event.clientY - rect.top) / rect.height * 2 + 1);
       raycaster.setFromCamera(pointer, camera);
       for (const hit of raycaster.intersectObject(world.root, true)) {
@@ -92,6 +96,8 @@ export const TerminalScene3D = forwardRef<TerminalSceneHandle, Props>(function T
     };
     const lost = (event: Event) => { event.preventDefault(); renderer.setAnimationLoop(null); setStatus("failed"); };
     renderer.domElement.addEventListener("pointerdown", pointerDown); renderer.domElement.addEventListener("pointerup", pointerUp);
+    renderer.domElement.addEventListener("pointermove", pointerMove); renderer.domElement.addEventListener("pointercancel", pointerCancel);
+    renderer.domElement.addEventListener("lostpointercapture", pointerCancel);
     renderer.domElement.addEventListener("keydown", keyDown); renderer.domElement.addEventListener("webglcontextlost", lost);
     let minuteAnchor = performance.now(); let lastMinute = latest.current.state.minute; let lastPlaying = latest.current.playing;
     let visible = true; let previousFrame = 0; let lastShadow = -Infinity;
@@ -148,6 +154,8 @@ export const TerminalScene3D = forwardRef<TerminalSceneHandle, Props>(function T
     return () => {
       renderer.setAnimationLoop(null); observer.disconnect(); intersection.disconnect(); controls.dispose();
       renderer.domElement.removeEventListener("pointerdown", pointerDown); renderer.domElement.removeEventListener("pointerup", pointerUp);
+      renderer.domElement.removeEventListener("pointermove", pointerMove); renderer.domElement.removeEventListener("pointercancel", pointerCancel);
+      renderer.domElement.removeEventListener("lostpointercapture", pointerCancel);
       renderer.domElement.removeEventListener("keydown", keyDown); renderer.domElement.removeEventListener("webglcontextlost", lost);
       world.dispose(); envMap.dispose(); sun.shadow.map?.dispose(); renderer.dispose(); renderer.forceContextLoss();
       renderer.domElement.remove(); if (runtime.current === r) runtime.current = null;

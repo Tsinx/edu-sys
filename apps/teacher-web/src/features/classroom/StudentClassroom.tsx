@@ -1,338 +1,142 @@
-import type { ClassroomActor, ClassroomSnapshot } from "@edu/contracts";
-import { getPortManagementLessonSlidePosition } from "@edu/course-content";
+import type { ClassroomActor, ClassroomSnapshot, SlideInteractionState, SlideInteractionValues } from "@edu/contracts";
+import { getPortLessonFourDemo } from "@edu/course-content";
 import type { CourseDeckDescriptor } from "@edu/course-content/deck-registry";
-import {
-  BookOpen,
-  CircleAlert,
-  LoaderCircle,
-  Radio,
-  ShipWheel,
-  UsersRound
-} from "lucide-react";
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import { api, ApiError } from "../../api";
-import { SlideStage } from "./TeachingSlides";
-import "./classroom.css";
+import { BookOpen, ChevronLeft, ChevronRight, CircleAlert, FlaskConical, Focus, List, LoaderCircle, Maximize2, Radio, X } from "lucide-react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { Link, useParams } from "react-router-dom";
 import { StudentParticipation } from "./ClassroomParticipation";
+import { ActivityStage, SlideStage } from "./TeachingSlides";
+import { ClassroomPlaybackSlot } from "./ClassroomPlaybackSlot";
+import { useStudentClassroom } from "./useStudentClassroom";
+import { restoreStudentNavigation, simulationUnitLabels, studentFrame, teacherLocation, type StudentLocation, type StudentNavigation } from "./student-navigation";
+import { PortLessonFourControls } from "../port-lesson-four/PortLessonFourStage";
+import type { PortCourseSelection } from "@edu/port-simulation-core";
+import "./classroom.css";
+import "./student-classroom.css";
 
-const ClassroomGlobeStage = lazy(() =>
-  import("./ClassroomGlobeStage").then((module) => ({
-    default: module.ClassroomGlobeStage
-  }))
-);
-
-const StudentPortSimulation = lazy(() =>
-  import("../port-simulation/StudentLocalPortSimulation").then((module) => ({
-    default: module.StudentLocalPortSimulation
-  }))
-);
-
-const ECONOMIC_MATHEMATICS_COURSE_ID = "course-economic-mathematics";
-let pendingIdentity: ReturnType<typeof api.getIdentitySession> | undefined;
-function studentIdentity() {
-  // Share bootstrap across StrictMode mounts; never replace identity on a network error.
-  pendingIdentity ??= api.getIdentitySession().catch(reason => {
-    if (reason instanceof ApiError && reason.status === 401) return api.createDevelopmentIdentitySession("student");
-    throw reason;
-  }).finally(() => { pendingIdentity = undefined; });
-  return pendingIdentity;
-}
+const Globe = lazy(() => import("./ClassroomGlobeStage").then(m => ({default:m.ClassroomGlobeStage})));
+const Simulation = lazy(() => import("../port-simulation/LocalPortSimulationStage").then(m => ({default:m.LocalPortSimulationStage})));
 
 export function StudentClassroom() {
   const { sessionId = "" } = useParams();
-  const sessionIdRef = useRef(sessionId);
-  sessionIdRef.current = sessionId;
-  const [actor, setActor] = useState<ClassroomActor>();
-  const [snapshot, setSnapshot] = useState<ClassroomSnapshot>();
-  const [courseDeck, setCourseDeck] = useState<CourseDeckDescriptor | null>(null);
-  const [presenceConnected, setPresenceConnected] = useState(false);
-  const [snapshotStreamConnected, setSnapshotStreamConnected] =
-    useState(false);
-  const [error, setError] = useState("");
-  const mergeSnapshot = useCallback((nextSnapshot: ClassroomSnapshot) => {
-    if (nextSnapshot.session.id !== sessionIdRef.current) return;
-    setSnapshot((current) =>
-      !current ||
-      current.session.id !== nextSnapshot.session.id ||
-      nextSnapshot.runtimeVersion >= current.runtimeVersion
-        ? nextSnapshot
-        : current
-    );
+  const classroom = useStudentClassroom(sessionId);
+  const [deck, setDeck] = useState<CourseDeckDescriptor>();
+  const [deckError, setDeckError] = useState("");
+  useEffect(() => {
+    let active = true; setDeck(undefined); setDeckError("");
+    if (classroom.snapshot?.courseId) void import("@edu/course-content/deck-registry").then(module => {
+      const next = module.getCourseDeckByCourseId(classroom.snapshot!.courseId);
+      if (!next) throw new Error("当前课程尚未发布课件");
+      if (active) setDeck(next);
+    }).catch(reason => { if (active) setDeckError(reason.message); });
+    return () => { active = false; };
+  }, [classroom.snapshot?.courseId]);
+  const failure = deckError || classroom.error;
+  if (!classroom.snapshot || !classroom.actor || !deck) return <main className="student-classroom student-classroom--centered">
+    {failure ? <CircleAlert size={32}/> : <LoaderCircle className="spin" size={32}/>}
+    <h1>{failure ? "暂时无法打开课堂" : "正在加入课堂"}</h1><p>{failure || "正在准备课程与教师位置…"}</p><Link to="/">返回学习首页</Link>
+  </main>;
+  return <StudentWorkspace key={`${sessionId}:${classroom.actor.actorId}`} sessionId={sessionId} deck={deck} actor={classroom.actor}
+    snapshot={classroom.snapshot} connected={classroom.connected} error={classroom.error}/>;
+}
+
+function StudentWorkspace({sessionId, deck, actor, snapshot, connected, error}: {
+  sessionId: string; deck: CourseDeckDescriptor; actor: ClassroomActor; snapshot: ClassroomSnapshot; connected: boolean; error: string;
+}) {
+  const storageKey = `edu-student-navigation:${actor.actorId}:${sessionId}`;
+  const [navigation, setNavigation] = useState<StudentNavigation>(() => {
+    try { const restored = restoreStudentNavigation(sessionStorage.getItem(storageKey), deck); if (restored) return restored; } catch { /* Browsing also works without storage. */ }
+    return {following:true, location:teacherLocation(snapshot)};
+  });
+  const [directory, setDirectory] = useState(false);
+  const [pageDraft, setPageDraft] = useState("");
+  const [notice, setNotice] = useState("");
+  const [playbackSlot, setPlaybackSlot] = useState<HTMLDivElement | null>(null);
+  const [fullscreen, setFullscreen] = useState<Element | null>(null);
+  useEffect(() => {
+    const update = () => setFullscreen(document.fullscreenElement);
+    document.addEventListener("fullscreenchange", update);
+    return () => document.removeEventListener("fullscreenchange", update);
   }, []);
-  const localSimulationActive =
-    snapshot?.activeActivity === "simulation" && Boolean(snapshot.simulation);
-
+  const [interactions, setInteractions] = useState<Record<string, SlideInteractionValues>>({});
+  const frozen = useRef(snapshot);
+  const live = snapshot.session.status === "live";
+  const teacher = teacherLocation(snapshot);
+  const current = navigation.following && live ? teacher : navigation.location;
+  const frame = studentFrame(deck, current.index);
+  const position = deck.getLessonPosition(frame.index)!;
+  const teacherPosition = deck.getLessonPosition(teacher.index)!;
+  const following = navigation.following && live;
+  const simulation = current.activity === "simulation";
+  const pageList = Array.from({length:position.localTotal}, (_, i) => deck.getSlide(position.lessonStart + i));
   useEffect(() => {
-    setSnapshot(undefined);
-    setCourseDeck(null);
-    setSnapshotStreamConnected(false);
-  }, [sessionId]);
-
-  useEffect(() => {
-    let active = true;
-    if (!snapshot?.courseId || ![ECONOMIC_MATHEMATICS_COURSE_ID, "statistical-analysis", "management-principles"].includes(snapshot.courseId)) {
-      setCourseDeck(null);
-      return () => {
-        active = false;
-      };
-    }
-    void import("@edu/course-content/deck-registry")
-      .then((module) => {
-        if (active) {
-          setCourseDeck(module.getCourseDeckByCourseId(snapshot.courseId) ?? null);
-        }
-      })
-      .catch((reason: Error) => {
-        if (active) setError(`课程注册表装载失败：${reason.message}`);
-      });
-    return () => {
-      active = false;
-    };
-  }, [snapshot?.courseId]);
-
-  useEffect(() => {
-    let active = true;
-    const establishIdentity = async () => {
-      try {
-        const session = await studentIdentity();
-        if (
-          !session.actor.roles.includes("student") &&
-          !session.actor.roles.includes("teacher")
-        ) {
-          throw new Error("当前身份没有课堂访问权限");
-        }
-        if (active) setActor(session.actor);
-      } catch (reason) {
-        if (active) setError((reason as Error).message);
-      }
-    };
-    void establishIdentity();
-    return () => {
-      active = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!actor) return undefined;
-    if (localSimulationActive) return undefined;
-    let active = true;
-    const refreshSnapshot = async () => {
-      try {
-        const nextSnapshot = await api.getClassroomSnapshot(sessionId);
-        if (active) {
-          mergeSnapshot(nextSnapshot);
-          setError("");
-        }
-      } catch (reason) {
-        if (active) setError((reason as Error).message);
-      }
-    };
-    void refreshSnapshot();
-    const timer = snapshotStreamConnected ? undefined : window.setInterval(() => void refreshSnapshot(), 5_000);
-    return () => {
-      active = false;
-      window.clearInterval(timer);
-    };
-  }, [actor, localSimulationActive, mergeSnapshot, sessionId, snapshotStreamConnected]);
-
-  useEffect(() => {
-    if (!actor || localSimulationActive) {
-      setSnapshotStreamConnected(false);
-      return undefined;
-    }
-    return api.subscribeClassroomSnapshot(
-        sessionId,
-        mergeSnapshot,
-        setSnapshotStreamConnected
-      );
-  }, [actor, localSimulationActive, mergeSnapshot, sessionId]);
-
-  useEffect(() => {
-    if (
-      !actor ||
-      !actor.roles.includes("student") ||
-      localSimulationActive
-    ) {
-      setPresenceConnected(false);
-      return undefined;
-    }
-    let active = true;
-    let registered = false;
-    let heartbeatTimer: number | undefined;
-
-    const heartbeat = async () => {
-      try {
-        await api.heartbeatClassroomPresence(sessionId);
-        registered = true;
-        if (active) setPresenceConnected(true);
-      } catch {
-        if (active) setPresenceConnected(false);
-      }
-    };
-    const leave = () => {
-      if (!registered) return;
-      registered = false;
-      setPresenceConnected(false);
-      const payload = new Blob(
-        [JSON.stringify({})],
-        { type: "application/json" }
-      );
-      const queued = navigator.sendBeacon(
-        `/api/class-sessions/${sessionId}/presence/leave`,
-        payload
-      );
-      if (!queued) {
-        void api.leaveClassroomPresence(sessionId).catch(
-          () => undefined
-        );
-      }
-    };
-
-    const startTimer = window.setTimeout(() => {
-      void heartbeat();
-      heartbeatTimer = window.setInterval(() => void heartbeat(), 15_000);
-    }, 0);
-    window.addEventListener("pagehide", leave);
-
-    return () => {
-      active = false;
-      window.clearTimeout(startTimer);
-      if (heartbeatTimer !== undefined) {
-        window.clearInterval(heartbeatTimer);
-      }
-      window.removeEventListener("pagehide", leave);
-      leave();
-    };
-  }, [actor, localSimulationActive, sessionId]);
-
-  if (error && !snapshot) {
-    return (
-      <main className="student-classroom student-classroom--centered">
-        <CircleAlert size={34} />
-        <h1>无法加入课堂</h1>
-        <p>{error}</p>
-      </main>
-    );
+    const saved = {following, location:current};
+    try { sessionStorage.setItem(storageKey, JSON.stringify(saved)); } catch { /* Optional session persistence. */ }
+    if (navigation.following) setNavigation(old => JSON.stringify(old.location) === JSON.stringify(current) && old.following === following ? old : saved);
+  }, [following, current.index, current.activity, current.unit, current.challenge?.id, current.challenge?.trainingMode, storageKey]);
+  useEffect(() => { setPageDraft(String(position.localIndex)); }, [position.localIndex]);
+  function browse(location: StudentLocation = current) { frozen.current = snapshot; setNavigation({following:false, location}); }
+  function go(index: number) { browse({activity:"slides", index:Math.max(1, Math.min(deck.slideTotal, index))}); }
+  function follow() { frozen.current = snapshot; setNavigation({following:true, location:teacher}); }
+  function openSimulation(unit: PortCourseSelection = "arrival") { browse({activity:"simulation", index:frame.index, unit}); }
+  function jump() {
+    const value = Number(pageDraft);
+    if (Number.isInteger(value) && value >= 1 && value <= position.localTotal) { if (value !== position.localIndex) go(position.lessonStart + value - 1); }
+    else setPageDraft(String(position.localIndex));
   }
-
-  if (!snapshot || !actor) {
-    return (
-      <main className="student-classroom student-classroom--centered">
-        <LoaderCircle className="spin" size={31} />
-        <p>正在加入课堂</p>
-      </main>
-    );
-  }
-
-  const isRegisteredCourse =
-    [ECONOMIC_MATHEMATICS_COURSE_ID, "statistical-analysis", "management-principles"].includes(snapshot.courseId);
-  if (isRegisteredCourse && !courseDeck) {
-    return (
-      <main className="student-classroom student-classroom--centered">
-        {error ? <CircleAlert size={34} /> : <LoaderCircle className="spin" size={31} />}
-        <p>{error || "正在装载当前课程同步课件"}</p>
-      </main>
-    );
-  }
-
-  const isLive = snapshot.session.status === "live";
-  const isGlobe =
-    !isRegisteredCourse && snapshot.activeActivity === "globe";
-  const isSimulation =
-    !isRegisteredCourse && snapshot.activeActivity === "simulation";
-  const slidePosition = isRegisteredCourse
-    ? courseDeck!.getLessonPosition(snapshot.slide.index)!
-    : getPortManagementLessonSlidePosition(snapshot.slide.index)!;
-  const isTeacherPreview = actor.roles.includes("teacher");
-
-  return (
-    <main className="student-classroom">
-      <header className="student-classroom__header">
-        <span className="student-classroom__brand">
-          {isRegisteredCourse ? <BookOpen size={22} /> : <ShipWheel size={22} />}
-        </span>
-        <div>
-          <strong>{snapshot.courseTitle}</strong>
-          <span>{snapshot.chapterTitle}</span>
+  const teacherLabel = teacher.activity === "simulation" ? `仿真系统 · ${simulationUnitLabels[teacher.unit ?? "full"]}`
+    : teacher.activity === "globe" ? "地球仪 · 航线观察" : `第${teacherPosition.lessonNumber}讲 · 第${teacherPosition.localIndex}页 · ${snapshot.slide.title}`;
+  const defaults = deck.getInteractionDefaults(frame.slideId);
+  const localInteraction: SlideInteractionState | null = defaults ? {deckId:frame.deckId, slideId:frame.slideId, revision:1, values:interactions[frame.slideId] ?? {...defaults}} : null;
+  const interaction = following ? snapshot.slideInteraction : localInteraction;
+  function editInteraction(patch: SlideInteractionValues) { browse(); setInteractions(old => ({...old, [frame.slideId]:{...(interaction?.values ?? defaults), ...patch}})); }
+  const detachOnControl = (target: EventTarget) => { if (following && target instanceof Element && target.closest("button,input,select,canvas,[role=button]")) browse(); };
+  return <main className={`student-learning ${directory ? "student-learning--directory" : ""}`} data-following={following}>
+    {fullscreen && createPortal(<div className="student-fullscreen-position"><span>{teacherLabel}</span><button disabled={!live || Boolean(error)} onClick={follow}><Focus size={16}/>{following?"正在跟随教师":"一键跟上教师"}</button></div>, fullscreen)}
+    <header className="student-learning__heading">
+      <Link to="/" className="student-learning__brand" aria-label="返回学习首页"><BookOpen size={23}/></Link>
+      <div><p className="student-eyebrow">我的课堂</p><h1>{snapshot.courseTitle}</h1></div>
+      <span className={`student-connection ${connected && live ? "is-live" : ""}`}><Radio size={14}/>{!live ? "课堂已结束" : connected ? "课堂已连接" : error ? "正在重新连接" : "轮询同步"}</span>
+    </header>
+    <section className="student-teacher-position" aria-label="教师当前位置">
+      <div><span>{live ? "教师正在讲" : "本次课堂最后位置"}</span><strong>{teacherLabel}</strong></div>
+      <button className="student-follow-button" onClick={follow} disabled={!live || Boolean(error)}><Focus size={18}/>{following ? "正在跟随教师" : "一键跟上教师"}</button>
+    </section>
+    {(!connected || error) && <p className="student-notice" role="status">{error || "连接恢复中，当前内容仍可浏览。教师位置将通过轮询更新。"}</p>}
+    <div className="student-learning__layout">
+      {directory && <><button className="student-directory-scrim" aria-label="关闭课程目录" onClick={()=>setDirectory(false)}/><aside className="student-directory" aria-label="课程目录">
+        <div className="student-directory__heading"><strong>课程目录</strong><button onClick={()=>setDirectory(false)} aria-label="关闭目录"><X size={18}/></button></div>
+        <label>选择课次<select aria-label="目录课次" value={position.lessonNumber} onChange={e=>{const index=deck.getGlobalIndex(Number(e.target.value));if(index)go(index);}}>{deck.lessons.map(lesson=><option key={lesson.number} value={lesson.number} disabled={lesson.status!=="ready"}>第{lesson.number}讲 · {lesson.title}</option>)}</select></label>
+        <nav>{pageList.map((slide,i)=><button key={slide.slideKey} aria-current={frame.index===slide.index?"page":undefined} onClick={()=>{go(slide.index);if(window.innerWidth<800)setDirectory(false);}}><span>{String(i+1).padStart(2,"0")}</span><div>{slide.title}{teacher.index===slide.index&&<small>教师所在页</small>}</div></button>)}</nav>
+      </aside></>}
+      <section className="student-reader" aria-label="学生课堂画面">
+        <div className="student-reader__heading"><button onClick={()=>setDirectory(!directory)} aria-expanded={directory}><List size={18}/>目录</button><span className="student-mode">{following ? "跟随教师" : "自由浏览"}</span><span className="student-reader__title">{simulation ? simulationUnitLabels[current.unit ?? "arrival"] : frame.title}</span>{following && <button onClick={()=>browse()}>自主浏览</button>}</div>
+        <div className={`student-reader__stage ${simulation ? "student-reader__stage--simulation" : ""}`} onPointerDownCapture={e=>detachOnControl(e.target)} onKeyDownCapture={e=>{if(e.key==="Enter"||e.key===" ")detachOnControl(e.target);}}>
+          <ClassroomPlaybackSlot.Provider value={playbackSlot}><Suspense fallback={<div className="student-loading"><LoaderCircle className="spin"/>正在装载内容…</div>}>
+            {simulation ? !current.unit ? <div className="student-loading">等待教师发布课堂实验；也可以通过目录自由浏览课件。</div> : <Simulation actorId={actor.actorId} actorDisplayName={actor.displayName} storageScope={`${snapshot.courseId}:${actor.actorId}`} initialChallengeId={current.challenge?.id ?? "joint-watch"}
+              initialTrainingMode={current.challenge?.trainingMode} trainingModeLocked={Boolean(current.challenge)} challengeLocked={Boolean(current.challenge)} learningStageLocked={Boolean(current.challenge)}
+              initialLearningStage={current.unit} navigationUnit={current.unit} onModuleChange={unit=>browse({...current,unit})} sourceLabel={current.challenge?"课堂实验 · 个人进度独立保存":"个人实验 · 进度独立保存"}/>
+              : current.activity === "globe" ? <Globe snapshot={following?snapshot:frozen.current} role="student" lamConnected={false}/>
+              : current.activity === "slides" ? <PortLessonFourControls.Provider value={{scope:`student:${actor.actorId}:${sessionId}`,openDemo:cueId=>openSimulation(getPortLessonFourDemo(cueId)!.unit)}}>
+                <SlideStage frame={frame} interaction={interaction} readOnly={following} onInteractionPatch={editInteraction} onInteractionReset={()=>{browse();setInteractions(old=>({...old,[frame.slideId]:{...defaults}}));}}
+                  presentationProgress={following && snapshot.lessonFourPresentation?.slideKey===frame.slideId?snapshot.lessonFourPresentation.progress:undefined}/>
+              </PortLessonFourControls.Provider> : <ActivityStage activity={current.activity} frame={frame}/>}
+          </Suspense></ClassroomPlaybackSlot.Provider>
         </div>
-        <span
-          className={
-            isSimulation || isTeacherPreview || (isLive && presenceConnected)
-              ? "student-presence-status"
-              : "student-presence-status student-presence-status--offline"
-          }
-        >
-          <Radio size={15} />
-          {isSimulation
-            ? "本地运行"
-            : isTeacherPreview
-            ? "教师预览"
-            : isLive
-            ? presenceConnected
-              ? "已加入课堂"
-              : "正在连接"
-            : "课堂已结束"}
-        </span>
-      </header>
-
-      {!['statistical-analysis','management-principles'].includes(snapshot.courseId) && <StudentParticipation key={`${sessionId}:${actor.actorId}`} sessionId={sessionId} actor={actor} />}
-
-      <section className="student-classroom__stage" aria-label="学生课堂画面">
-        {isSimulation ? (
-          <Suspense
-            fallback={
-              <div className="classroom-globe-loading">
-                <LoaderCircle className="spin" size={31} />
-                <span>正在装载港口纯手动仿真</span>
-              </div>
-            }
-          >
-            <StudentPortSimulation
-              participantId={actor.actorId}
-              participantDisplayName={actor.displayName}
-              classroomSnapshot={snapshot}
-            />
-          </Suspense>
-        ) : isGlobe ? (
-          <Suspense
-            fallback={
-              <div className="classroom-globe-loading">
-                <LoaderCircle className="spin" size={31} />
-                <span>正在按需装载电影化地球仪</span>
-              </div>
-            }
-          >
-            <ClassroomGlobeStage
-              snapshot={snapshot}
-              role="student"
-              lamConnected={snapshot.avatar.gpuStatus === "ready"}
-            />
-          </Suspense>
-        ) : (
-          <SlideStage
-            frame={snapshot.slide}
-            interaction={snapshot.slideInteraction}
-            readOnly
-          />
-        )}
+        <div className="student-playback-slot" ref={setPlaybackSlot}/>
+        <nav className="student-reader__navigation" aria-label="课件导航">
+          <button aria-label="上一页" disabled={frame.index<=1} onClick={()=>go(frame.index-1)}><ChevronLeft size={18}/><span>上一页</span></button>
+          <label><span className="sr-only">选择课次</span><select aria-label="选择课次" value={position.lessonNumber} onChange={e=>{const index=deck.getGlobalIndex(Number(e.target.value));if(index)go(index);}}>{deck.lessons.map(lesson=><option key={lesson.number} value={lesson.number} disabled={lesson.status!=="ready"}>第{lesson.number}讲</option>)}</select></label>
+          <label className="student-page-input"><input aria-label="当前讲页码" inputMode="numeric" value={pageDraft} onChange={e=>setPageDraft(e.target.value)} onBlur={jump} onKeyDown={e=>{if(e.key==="Enter")jump();if(e.key==="Escape")setPageDraft(String(position.localIndex));}}/><span>/ {position.localTotal}</span></label>
+          <button aria-label="下一页" disabled={frame.index>=deck.slideTotal} onClick={()=>go(frame.index+1)}><span>下一页</span><ChevronRight size={18}/></button>
+          {snapshot.courseId==="course-port-management-intro"&&position.lessonNumber===4&&<button className="student-simulation-entry" onClick={()=>openSimulation()}><FlaskConical size={18}/>仿真系统</button>}
+          {simulation&&<button onClick={()=>go(frame.index)}>返回课件</button>}
+          <button aria-label="全屏学习" onClick={()=>{const el=document.querySelector('.student-reader');const result=document.fullscreenElement?document.exitFullscreen():el?.requestFullscreen?.();if(!result)setNotice("当前浏览器暂不支持全屏，请横屏阅读。");void result?.catch(()=>setNotice("当前浏览器暂不支持全屏，请横屏阅读。"));}}><Maximize2 size={18}/></button>
+        </nav>
+        <p className="student-reader__hint">{following?"手动翻页或操作实验即可自由浏览":"你正在自由浏览，可以随时跟上教师"}{notice&&` · ${notice}`}</p>
       </section>
-
-      <footer className="student-classroom__footer">
-        <span>
-          <UsersRound size={16} />
-          当前页 {String(slidePosition.localIndex).padStart(2, "0")} /{" "}
-          {slidePosition.localTotal}
-        </span>
-        <span>
-          {isSimulation ? "个人四岗位操作端" : "学生端只读画面"} ·{" "}
-          {isSimulation
-            ? "仿真进度保存在本机"
-            : snapshotStreamConnected
-            ? "课堂状态实时同步"
-            : "连接中，5秒轮询降级"}
-        </span>
-      </footer>
-    </main>
-  );
+    </div>
+    {!['statistical-analysis','management-principles'].includes(snapshot.courseId)&&<details className="student-participation"><summary>课堂互动</summary><StudentParticipation sessionId={sessionId} actor={actor}/></details>}
+  </main>;
 }

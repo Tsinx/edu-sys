@@ -5,7 +5,7 @@ export function lessonFourReturnPath(value: string | null): string | null {
   if (!value?.startsWith('/') || value.startsWith('//')) return null;
   const url = new URL(value, 'https://classroom.invalid');
   if (url.origin !== 'https://classroom.invalid') return null;
-  return url.pathname === '/port-lesson-four-preview.html' || /^\/classroom\/[^/]+$/.test(url.pathname)
+  return url.pathname === '/port-lesson-four-preview.html' || /^\/(classroom|join|study)\/[^/]+$/.test(url.pathname)
     ? url.pathname + url.search : null;
 }
 
@@ -13,6 +13,8 @@ export function lessonFourExperimentUrl(cueId: PortDemoCueId, returnTo: string, 
   const cue = getPortLessonFourDemo(cueId);
   if (!cue) throw new Error('未知实验分段');
   const query = new URLSearchParams({course: cue.unit, demo: '1', lesson4: cueId, scope});
+  const session = /^\/classroom\/([^/?]+)/.exec(returnTo)?.[1];
+  if (session) query.set('session', decodeURIComponent(session));
   const destination = lessonFourReturnPath(returnTo);
   if (destination) query.set('returnTo', destination);
   return '/simulations?' + query.toString();

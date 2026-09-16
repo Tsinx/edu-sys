@@ -34,3 +34,11 @@
 @container terminal (max-width:950px){.terminal-inspector{position:static;display:block;max-height:none}.terminal-training-rules{flex-wrap:wrap}.terminal-training-rules>details{flex-basis:100%;max-width:none}.terminal-training-panel{padding:17px}.terminal-event-queue{max-height:none}.terminal-event-queue button{flex:0 1 auto}.terminal-event-card{max-width:none}.terminal-event-footer{flex-direction:row;flex-wrap:wrap}.terminal-review-milestones{grid-template-columns:repeat(2,minmax(0,1fr))}.terminal-inspector .terminal-panel-body{padding:16px}.terminal-training-rules>div{flex-basis:60%}}
 @container terminal (max-width:600px){.terminal-training-rules{gap:10px;padding:12px}.terminal-training-rules>div{flex-basis:100%}.terminal-training-rules>label{display:flex;align-items:center;flex-wrap:wrap}.terminal-training-rules>details{font-size:10px}.terminal-training-rules strong{font-size:13px}.terminal-training-rules p{font-size:10px}.terminal-review-milestones{grid-template-columns:1fr}.terminal-score-summary{gap:10px;padding:10px}.terminal-score-summary>strong{font-size:28px}.terminal-score-summary p{font-size:10px}.terminal-event-card h3{font-size:14px}.terminal-event-queue button{flex:1 1 40%}.terminal-training-timeline>li{gap:8px}.terminal-training-review>.terminal-subtitle{flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){.terminal-event-card{animation:none}}
+
+@media (any-pointer: coarse) {
+  .terminal-studio.terminal-studio button, .terminal-studio.terminal-studio input, .terminal-studio.terminal-studio select, .terminal-studio.terminal-studio summary { min-height: 44px; }
+  .terminal-studio button { min-width: 44px; touch-action: manipulation; }
+  .terminal-studio input, .terminal-studio select { font-size: 16px; }
+  .terminal-scene canvas { touch-action: none; -webkit-touch-callout: none; }
+  .terminal-inspector { position: static; max-height: none; }
+}

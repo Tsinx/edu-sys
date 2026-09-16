@@ -37,6 +37,7 @@ export interface AvatarControlReceipt {
 }
 
 export interface ClassroomRuntimeState {
+  simulationNavigation?: { unit: "arrival" | "cargo" | "yard" | "planning" | "departure" | "full"; originSlideKey: string } | null;
   activeActivity: ClassroomActivity;
   slideIndex: number;
   slideKey: string;

@@ -7,6 +7,7 @@ import type { LabStorage } from "./useTerminalTraining";
 import { PORT_DRAG_MIME, type PortDrag, type PortSceneHandle } from "./PortOperationsScene";
 import { PortNavigationReadout } from "./PortNavigationReadout";
 import { PortTutorialOverlay, PortTutorialOffer } from "./PortTutorialOverlay";
+import { useTouchInput } from "./useTouchInput";
 const Scene = lazy(() => import("./PortOperationsScene").then(m => ({ default: m.PortOperationsScene })));
 const stageNames: Record<string, string> = { approach: "航行中", outer: "港外候泊", channel: "航道通行", anchored: "港内候泊", mooring: "系泊中", berthed: "已靠妥", unmooring: "离泊中", departed: "已离港" };
 const statusNames: Record<string, string> = { ready: "规划中", running: "运行中", paused: "已暂停", completed: "已结束", interrupted: "已中断" };
@@ -34,6 +35,9 @@ function DocForm({ id, title, document, disabled, submit }: {
     return <form data-tutorial-target={id.startsWith("doc-S01-") && ["entry", "health", "border", "departure"].includes(id.slice(8)) ? `document:${id.slice(8)}` : `batch-document:${id.slice(4)}`} className="port-doc" onSubmit={e => { e.preventDefault(); submit(value); }}><div className="port-row"><strong>{title}</strong><span className={`port-tag ${document.status === "approved" ? "good" : ""}`}>{docNames[document.status]}</span></div><p>{document.reason}</p><p className="port-document-reference">原始核对资料：<strong>{document.reference}</strong></p><label htmlFor={id}>申报核对值<input id={id} value={value} maxLength={100} disabled={disabled || ["submitted", "approved"].includes(document.status)} onChange={e => setValue(e.target.value)}/></label><div className="port-row"><small>{document.returnedAt !== undefined ? `反馈 ${portTime(document.returnedAt)}` : document.submittedAt !== undefined ? `受理 ${portTime(document.submittedAt)}` : "预填材料，请与航前资料核对"}</small><button disabled={disabled || ["submitted", "approved"].includes(document.status)} type="submit">{document.status === "correction" ? "补正并重报" : "核对并提交"}</button></div></form>;
 }
 export interface PortOperationsProps {
+    navigationUnit?: PortCourseSelection;
+    onNavigateModule?: (unit: PortCourseSelection) => void;
+    onNavigationError?: (message: string) => void;
     storage?: LabStorage | null;
     storageScope: string;
     sourceLabel?: string;
@@ -58,7 +62,10 @@ export interface PortOperationsProps {
     onCourseComplete?: (id: PortCourseUnit) => void;
     offerTutorial?: boolean;
 }
-export function PortOperationsStudio({ storage, storageScope, sourceLabel = "独立实验", initialTrainingMode = "practice", trainingModeLocked = false, initialMode = "flow", initialScenario = "regular", onLegacy, courseUnit: practiceUnit, courseSelection = "full", demonstration = false, embeddedStage = false, demonstrationStorage, onDemonstrationFrame, onDemonstrationSnapshot, onDemonstrationError, learningStageLocked = false, courseProgress = [], courseSaveError, onSelectCourse, onCourseComplete, offerTutorial = true }: PortOperationsProps) {
+export function PortOperationsStudio({ navigationUnit, onNavigateModule, onNavigationError, storage, storageScope, sourceLabel = "独立实验", initialTrainingMode = "practice", trainingModeLocked = false, initialMode = "flow", initialScenario = "regular", onLegacy, courseUnit: practiceUnit, courseSelection = "full", demonstration = false, embeddedStage = false, demonstrationStorage, onDemonstrationFrame, onDemonstrationSnapshot, onDemonstrationError, learningStageLocked = false, courseProgress = [], courseSaveError, onSelectCourse, onCourseComplete, offerTutorial = true }: PortOperationsProps) {
+    const touchInput = useTouchInput();
+    const [qualityChoice, setQualityChoice] = useState<"balanced" | "high" | null>(null);
+    const quality = qualityChoice ?? (touchInput ? "balanced" : "high");
     const [tutorialUnit, setTutorialUnit] = useState<PortCourseUnit | null>(null), [offer, setOffer] = useState(offerTutorial && !demonstration);
     const [manualOffer, setManualOffer] = useState(false);
     const tutorial = tutorialUnit !== null, courseUnit = tutorialUnit ?? practiceUnit;
@@ -67,6 +74,19 @@ export function PortOperationsStudio({ storage, storageScope, sourceLabel = "独
     const practice = usePortOperations(demonstration ? demonstrationStorage ?? null : storage, practiceUnit ? `${storageScope}:course:1:${practiceUnit}` : storageScope, practiceUnit ? "practice" : initialTrainingMode, practiceUnit ? true : trainingModeLocked, initialConfig, practiceUnit ? { unit: practiceUnit, demo: demonstration } : undefined);
     const teaching = usePortOperations(null, `${storageScope}:tutorial`, "practice", true, initialConfig, { unit: tutorialUnit ?? "arrival", demo: false, tutorial: true }, tutorial);
     const r = tutorial ? teaching : practice, v = r.view;
+    // External classroom navigation waits for the current worker acknowledgement and durable save.
+    const navigateRef = useRef({onNavigateModule,onNavigationError}); navigateRef.current={onNavigateModule,onNavigationError};
+    useEffect(() => {
+      if (!navigationUnit || navigationUnit === courseSelection || !practice.view || practice.busy) return;
+      let active = true;
+      void (async () => {
+        if (demonstration) practice.setDemoPlaying(false);
+        else if (practice.view?.status === "running" && practice.view.mode === "practice") await practice.send({kind:"pause"});
+        await storage?.flush?.();
+        if (active) navigateRef.current.onNavigateModule?.(navigationUnit);
+      })().catch(reason=>{if(active)navigateRef.current.onNavigationError?.(`实验进度尚未保存，暂未切换模块：${String(reason)}`);});
+      return () => { active = false; };
+    }, [navigationUnit, courseSelection, practice.view?.status, practice.busy, demonstration, storage]);
     const teachingCallbacks=useRef({onDemonstrationSnapshot,onDemonstrationError,onDemonstrationFrame});teachingCallbacks.current={onDemonstrationSnapshot,onDemonstrationError,onDemonstrationFrame};
     useEffect(()=>{
       if(!demonstration||!v)return;
@@ -155,24 +175,27 @@ export function PortOperationsStudio({ storage, storageScope, sourceLabel = "独
         if (step.focus.startsWith("C-")) void r.inspect(step.focus);
         scene.current?.focus(step.focus);
     }, [r.demonstration?.title, r.demonstration?.focus]);
-    const select = (id: string, context = false) => { setSelected(id); if (context) setStagePanel("operations"); if (id.startsWith("S") && !id.includes("-")) {
+    const select = (id: string, context = false) => { setSelected(id); if (context) {
+        setStagePanel("operations");
+        if (!stageLayout) requestAnimationFrame(() => root.current?.querySelector(".port-workbench")?.scrollIntoView({ block: "start", behavior: "instant" }));
+    } if (id.startsWith("S") && !id.includes("-")) {
         if (availableTabs.includes("ships")) setTab("ships");
         if (tutorial && availableTabs.includes("ships")) void r.observe("ship-open");
     }
     else if (v?.batches.some(b => b.id === id)) {
         setBatchId(id);
-        setTab("cargo");
+        if (availableTabs.includes("cargo")) setTab("cargo");
     }
     else if (id.startsWith("C-")) {
         void r.inspect(id);
         const box = v?.boxes.find(b => b.id === id);
         if (box)
             setBatchId(box.batchId);
-        setTab("cargo");
+        if (availableTabs.includes("cargo")) setTab("cargo");
     }
     else if (/^Y[1-6]$/.test(id) && availableTabs.includes("plan"))
         setTab("plan");
-    else if (context)
+    else if (context && availableTabs.includes("resources"))
         setTab("resources"); };
     const focus = (id: string) => { select(id); scene.current?.focus(id); };
     const drop = (source: PortDrag, target: string) => {
@@ -236,7 +259,7 @@ export function PortOperationsStudio({ storage, storageScope, sourceLabel = "独
   {r.lesson && definition && <section className="port-course-guide" aria-label="本段课程目标"><div className="port-row"><div><span className="port-eyebrow">{definition.course} · {definition.duration}</span><h2>{r.lesson.complete ? "本段已完成" : "本段目标"} · {r.lesson.goals.filter(g => g.done).length}/{r.lesson.goals.length}</h2></div>{r.lesson.complete && onSelectCourse && !learningStageLocked && <button className="primary" onClick={() => { const next = PORT_COURSE_UNITS[PORT_COURSE_UNITS.findIndex(u => u.id === courseUnit) + 1]; if (next) void chooseCourse(next.id, demonstration && next.id !== "full"); }}>进入下一段 <ChevronRight size={15}/></button>}</div><p>{definition.briefing}</p><small>起始现场：{r.lesson.prepared}</small><div className="port-course-goals">{r.lesson.goals.map(goal => <button key={goal.id} data-done={goal.done} onClick={() => { setTab(goal.tab); setSelected(goal.focus); if (goal.focus.includes("-I") || goal.focus.includes("-E")) setBatchId(goal.focus); if (goal.focus.startsWith("C-")) void r.inspect(goal.focus); scene.current?.focus(goal.focus); setStagePanel("operations"); }}><span>{goal.done ? <Check size={14}/> : <Focus size={14}/>}</span>{goal.label}</button>)}</div>{showRules && <p>只记录本段实际完成目标和处置过程，错误解释不扣分。原有 100 分综合评价保留在 48 小时挑战中。课程标准演示为内置教学示范，采用相同业务规则。</p>}</section>}
   {(r.error || r.notice || v.status === "paused") && <div className={`port-feedback ${r.error ? "error" : ""}`} role="status"><span>{r.error || (v.status === "paused" ? v.pauseReason : r.notice)}</span>{!demonstration && v.status === "paused" && <button onClick={() => send({ kind: "resume" })}>继续运行，等待条件释放 <ChevronRight size={14}/></button>}</div>}
   <div className="port-kpis"><div><small>本班已公布</small><strong>{v.vessels.filter(s => s.call.stage !== "departed").length}<em> 艘待执行</em></strong></div><div><small>进口提离 / 出口装船</small><strong>{fmt(v.boxes.filter(b => b.deliveredAt !== null).length)} <em>/</em> {fmt(v.boxes.filter(b => b.loadedAt !== null).length)}</strong></div><div><small>在场 / 入场预留</small><strong>{v.yards.reduce((n, y) => n + y.occupied, 0)} <em>/ {v.yards.reduce((n, y) => n + y.reserved, 0)} 箱</em></strong></div><div><small>累计运营成本</small><strong>{fmt(v.cost, 1)} <em>教学点</em></strong></div><div><small>{r.lesson ? "本段目标" : v.status === "completed" ? "本地成绩" : "阶段成绩"}</small><strong>{r.lesson ? r.lesson.goals.filter(g => g.done).length : fmt(v.score.total, 2)} <em>/ {r.lesson ? `${r.lesson.goals.length} 已验证` : `100${!v.score.referenceReady ? " · 成本对照计算中" : ""}`}</em></strong></div></div>
-  <div className="port-mobile-nav"><button onClick={() => root.current?.querySelector(".port-scene-wrap")?.scrollIntoView({ behavior: "smooth" })}>现场视图</button><button onClick={() => root.current?.querySelector(".port-workbench")?.scrollIntoView({ behavior: "smooth" })}>业务工作台 <ChevronRight size={14}/></button>{v.mode === "practice" && v.status === "paused" && <button onClick={() => send({ kind: "resume" })}>继续运行</button>}</div><div className="port-layout"><main className="port-field"><div className="port-scene-wrap"><Suspense fallback={<div className="port-scene-state">载入 3D 画面…</div>}><Scene ref={scene} view={v} selected={selected} speed={r.speed} followSelected={demonstration || tutorial && !!currentShip?.call.move} floatingPanel={stageLayout && stagePanel === "operations"} highlightIds={tutorial && r.tutorial?.current ? [r.tutorial.current.focus, ...r.tutorial.current.targets.filter(t => t.startsWith("destination:")).map(t => t.slice(12)), ...r.tutorial.current.targets.filter(t => t.startsWith("yard-target:")).map(t => t.slice(12))] : undefined} onSelect={id => select(id)} onContext={id => select(id, true)} onDrop={drop}/></Suspense><div className="port-scene-tools"><span><span className="port-dot import"/>进口箱 <span className="port-dot export"/>出口箱 <span className="port-dot issue"/>异常箱</span><div><button onClick={() => scene.current?.camera("overview")}>全景</button><button onClick={() => scene.current?.camera("sea")}>水域</button><button onClick={() => scene.current?.camera("yard")}>堆场</button><button aria-label="定位选中对象" onClick={() => scene.current?.focus(selected)}><Focus size={16}/></button></div></div><div className="port-scene-caption">拖拽分配 · 右键办理 · 滚轮缩放<span>{v.channel ? `${v.channel} 使用航道` : "航道畅通"}</span></div></div>
+  <div className="port-mobile-nav"><button onClick={() => root.current?.querySelector(".port-scene-wrap")?.scrollIntoView({ behavior: "smooth" })}>现场视图</button><button onClick={() => root.current?.querySelector(".port-workbench")?.scrollIntoView({ behavior: "smooth" })}>业务工作台 <ChevronRight size={14}/></button>{v.mode === "practice" && v.status === "paused" && <button onClick={() => send({ kind: "resume" })}>继续运行</button>}</div><div className="port-layout"><main className="port-field"><div className="port-scene-wrap"><Suspense fallback={<div className="port-scene-state">载入 3D 画面…</div>}><Scene ref={scene} quality={quality} view={v} selected={selected} speed={r.speed} followSelected={demonstration || tutorial && !!currentShip?.call.move} floatingPanel={stageLayout && stagePanel === "operations"} highlightIds={tutorial && r.tutorial?.current ? [r.tutorial.current.focus, ...r.tutorial.current.targets.filter(t => t.startsWith("destination:")).map(t => t.slice(12)), ...r.tutorial.current.targets.filter(t => t.startsWith("yard-target:")).map(t => t.slice(12))] : undefined} onSelect={id => select(id)} onContext={id => select(id, true)} onDrop={drop}/></Suspense><div className="port-scene-tools"><span><span className="port-dot import"/>进口箱 <span className="port-dot export"/>出口箱 <span className="port-dot issue"/>异常箱</span><div><button onClick={() => scene.current?.camera("overview")}>全景</button><button onClick={() => scene.current?.camera("sea")}>水域</button><button onClick={() => scene.current?.camera("yard")}>堆场</button><button aria-label="放大港区" onClick={() => scene.current?.zoom(1)}>＋</button><button aria-label="缩小港区" onClick={() => scene.current?.zoom(-1)}>−</button><button aria-label="定位选中对象" onClick={() => scene.current?.focus(selected)}><Focus size={16}/></button><button onClick={() => select(selected, true)}>办理选中对象</button></div></div><label className="port-render-quality">画面<select aria-label="画面质量" value={quality} onChange={e => setQualityChoice(e.target.value as "balanced" | "high")}><option value="balanced">流畅</option><option value="high">清晰</option></select></label><div className="port-scene-caption"><span>{touchInput ? "单指旋转 · 双指缩放 / 平移 · 点选后办理" : "拖拽分配 · 右键办理 · 滚轮缩放"}</span><span>{v.channel ? `${v.channel} 使用航道` : "航道畅通"}</span></div></div>
    <div className="port-field-overlays"><div className="port-destinations"><div className="port-berths">{v.berths.map((id, i) => <div key={i} className={`port-destination ${id ? "occupied" : ""}`} {...dropProps(`berth:${i}`, drop)} data-tutorial-target={`destination:berth:${i}`} data-destination={`berth:${i}`}><div className="port-row"><strong><Anchor size={15}/> 泊位 {i ? "B" : "A"}</strong><span>{id ? "已占用 / 预留" : "可申请"}</span></div><button onClick={() => id ? focus(id) : scene.current?.focus(`berth:${i}`)}>{id ?? "拖入船舶或岸桥"}</button><small>{i ? "普通 / 大型船" : "普通船"} · {v.plan.equipment.dispatch.berthCranes[i]} 台岸桥</small><div className="port-reservation">{v.vessels.filter(s => s.call.plannedBerth === i && ["approach", "outer", "anchored"].includes(s.call.stage)).map(s => <span key={s.id}>{s.id} 预约 {portTime(s.call.plannedAt!)}</span>)}</div></div>)}</div><div className="port-anchors">{v.anchors.map((id, i) => <button key={i} {...dropProps(`anchor:${i}`, drop)} data-tutorial-target={`destination:anchor:${i}`} data-destination={`anchor:${i}`} onClick={() => scene.current?.focus(id ?? `anchor:${i}`)}><Anchor size={13}/><span>候泊 {i + 1}</span><strong>{id ?? "空闲"}</strong></button>)}</div></div>
    <div className="port-yard-strip">{v.yards.map(y => <button key={y.id} data-tutorial-target={`yard-target:${y.id}`} data-yard-target={y.id} {...dropProps(y.id, drop)} onClick={() => focus(y.id)}><strong>{y.name}</strong><small>{useNames[y.use]} · {y.occupied + y.reserved}/100</small></button>)}</div><BerthTimeline view={v} drop={drop}/><section className="port-forecast"><div className="port-section-title"><h2><Clock3 size={17}/>滚动到港预报</h2><span>未来 6 小时 · 已公布任务保留</span></div><div className="port-table-scroll"><table><thead><tr><th>船舶</th><th>首报 ETA</th><th>当前 ETA</th><th>卸 / 装箱</th><th>参考服务</th><th>现场状态</th><th>操作</th></tr></thead><tbody>{v.vessels.filter(s => s.call.stage !== "departed").map(s => <tr key={s.id} data-tutorial-target={`forecast:${s.id}`} data-ship={s.id} {...dragProps({ kind: "ship", id: s.id })} className={selected === s.id ? "selected" : ""} onContextMenu={e => { e.preventDefault(); select(s.id, true); }}><td><button onClick={() => focus(s.id)}><Ship size={14}/>{s.id}<small>{s.large ? "大型" : "普通"}</small></button></td><td>{portTime(s.firstEta)}</td><td>{portTime(s.currentEta)}{s.currentEta !== s.firstEta && <span className="port-revision">已修订</span>}</td><td>{s.unload} / {s.load}</td><td>{hours(s.referenceService)}</td><td><span className="port-tag">{stageNames[s.call.stage]}</span></td><td><button data-tutorial-target="ship-open" onClick={() => select(s.id, true)}>操作</button></td></tr>)}</tbody></table></div></section>
    <section className="port-messages"><div className="port-section-title"><h2>现场消息</h2><span>点击对象定位 · 不自动改变调度</span></div><div className="port-message-list">{v.notices.slice(-10).reverse().map(n => <button key={n.id} onClick={() => focus(n.object)}><time>{portTime(n.at)}</time><span>{n.text}</span><ChevronRight size={13}/></button>)}</div></section>

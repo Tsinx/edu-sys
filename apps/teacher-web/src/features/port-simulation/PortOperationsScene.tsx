@@ -4,7 +4,9 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { portNavigationPose, portLocationPose, portAnchorPoint, PORT_ENTRANCE, navigationPoint, type PortView } from "@edu/port-simulation-core";
 import { createTerminalWorld } from "./terminal-3d-world";
+import { createSceneGesture } from "./scene-gesture";
 export interface PortSceneHandle {
+    zoom: (direction: number) => void;
     focus: (id: string) => void;
     fit: (ids: string[]) => void;
     camera: (name: "overview" | "yard" | "sea") => void;
@@ -43,6 +45,7 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
     speed: number;
     followSelected?: boolean;
     floatingPanel?: boolean;
+    quality?: "balanced" | "high";
     highlightIds?: string[];
     onSelect: (id: string) => void;
     onContext: (id: string) => void;
@@ -71,7 +74,13 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
     };
     const focus = (id: string) => { const r = runtime.current, p = focusedPoint(id); if (!r || !p)
         return; following.current = true; r.controls.target.copy(p); r.camera.position.copy(p).add(new THREE.Vector3(85, 94, -108).multiplyScalar(Math.max(1, 1.1 / r.camera.aspect))); r.controls.update(); };
-    useImperativeHandle(ref, () => ({ focus, fit(ids) {
+    useImperativeHandle(ref, () => ({ focus, zoom(direction) {
+        const r = runtime.current; if (!r) return;
+        following.current = false;
+        const offset = r.camera.position.clone().sub(r.controls.target).multiplyScalar(direction > 0 ? .8 : 1.25);
+        offset.clampLength(r.controls.minDistance, r.controls.maxDistance);
+        r.camera.position.copy(r.controls.target).add(offset); r.controls.update();
+    }, fit(ids) {
         const r=runtime.current;if(!r)return;
         const points=ids.map(id=>r.positions.get(id)).filter((p):p is THREE.Vector3=>!!p);
         if(!points.length)return;
@@ -90,16 +99,17 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
             return; following.current = false; if(name === "sea" && latest.current.view.schema !== "port-operations/3.0") {r.controls.target.set(0,0,-750);r.camera.position.copy(r.controls.target).add(new THREE.Vector3(480,1600,-800).multiplyScalar(Math.max(1,1.1/r.camera.aspect)));r.controls.update();return;} const p = name === "yard" ? [135, 160, -10] : name === "sea" ? [160, 230, -330] : [198, 240, -290]; r.camera.position.set(p[0]!, p[1]!, p[2]!); r.controls.target.set(0, 0, name === "yard" ? 30 : name === "sea" ? -165 : -87); } }), []);
     useEffect(() => {
         const h = host.current!;
+        const balanced = props.quality === "balanced";
         let renderer: THREE.WebGLRenderer;
         try {
-            renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
+            renderer = new THREE.WebGLRenderer({ antialias: !balanced, powerPreference: balanced ? "low-power" : "high-performance" });
         }
         catch {
             setStatus("failed");
             return;
         }
         setStatus("loading");
-        renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+        renderer.setPixelRatio(Math.min(devicePixelRatio, balanced ? 1 : 1.5));
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
         renderer.toneMappingExposure = .9;
@@ -107,7 +117,7 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
         renderer.shadowMap.type = THREE.PCFShadowMap;
         renderer.shadowMap.autoUpdate = false;
         renderer.domElement.tabIndex = 0;
-        renderer.domElement.setAttribute("aria-label", "三维港区；点击定位对象，右键打开业务操作，拖拽安排目的位置");
+        renderer.domElement.setAttribute("aria-label", "三维港区；单指旋转，双指缩放或平移，点选对象后使用办理按钮；鼠标可拖拽安排目的位置");
         h.appendChild(renderer.domElement);
         const scene = new THREE.Scene();
         scene.background = new THREE.Color("#c6dfe2");
@@ -122,6 +132,8 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
         controls.minDistance = 40;
         controls.maxDistance = 12000;
         controls.mouseButtons.RIGHT = THREE.MOUSE.PAN;
+        controls.touches.ONE = THREE.TOUCH.ROTATE;
+        controls.touches.TWO = THREE.TOUCH.DOLLY_PAN;
         const pmrem = new THREE.PMREMGenerator(renderer);
         const environment = new RoomEnvironment();
         const env = pmrem.fromScene(environment, .04);
@@ -132,7 +144,7 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
         const sun = new THREE.DirectionalLight(0xffedcb, 2.1);
         sun.position.set(-180, 280, -130);
         sun.castShadow = true;
-        sun.shadow.mapSize.set(1536, 1536);
+        sun.shadow.mapSize.setScalar(balanced ? 1024 : 1536);
         sun.shadow.camera.left = -280;
         sun.shadow.camera.right = 280;
         sun.shadow.camera.top = 280;
@@ -210,14 +222,16 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
             if (id && id !== "land" && !String(id).startsWith("lot:"))
                 return /^y[1-6]$/.test(id) ? String(id).toUpperCase() : String(id);
         } return ""; };
+        const gesture = createSceneGesture();
         let down = { x: 0, y: 0, id: "" }, dragging = false;
-        const pointerDown = (e: PointerEvent) => { down = { x: e.clientX, y: e.clientY, id: pick(e.clientX, e.clientY) }; const box=latest.current.view.boxes.find(b=>b.id===down.id);const shipId=box?.location.startsWith("ship:")?box.location.slice(5):down.id; const ship = latest.current.view.vessels.find(v => v.id === shipId); dragging = e.button === 0 && !!ship && ["outer", "anchored"].includes(ship.call.stage); if (dragging) {
+        const pointerDown = (e: PointerEvent) => { const single = gesture.down(e); down = { x: e.clientX, y: e.clientY, id: pick(e.clientX, e.clientY) }; const box=latest.current.view.boxes.find(b=>b.id===down.id);const shipId=box?.location.startsWith("ship:")?box.location.slice(5):down.id; const ship = latest.current.view.vessels.find(v => v.id === shipId); dragging = single && e.pointerType === "mouse" && e.button === 0 && !!ship && ["outer", "anchored"].includes(ship.call.stage); if (dragging) {
             renderer.domElement.setPointerCapture(e.pointerId);
             down.id=shipId;
             controls.enabled = false;
             renderer.domElement.style.cursor = "grabbing";
         } };
         const pointerUp = (e: PointerEvent) => {
+            const tap = gesture.up(e);
             let id = pick(e.clientX, e.clientY);
             const moved = Math.hypot(e.clientX - down.x, e.clientY - down.y) >= 7;
             if (dragging && moved) {
@@ -231,12 +245,18 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
                 }
                 latest.current.onDrop({ kind: "ship", id: down.id }, id);
             }
-            else if (e.button === 0 && !moved && id)
+            else if (tap && id)
                 latest.current.onSelect(id);
             if(renderer.domElement.hasPointerCapture(e.pointerId))renderer.domElement.releasePointerCapture(e.pointerId);
             dragging = false;
             controls.enabled = true;
             renderer.domElement.style.cursor = "";
+        };
+        const pointerMove = (e: PointerEvent) => gesture.move(e);
+        const pointerCancel = (e: PointerEvent) => {
+            gesture.cancel(e); dragging = false; controls.enabled = true;
+            renderer.domElement.style.cursor = "";
+            if (renderer.domElement.hasPointerCapture(e.pointerId)) renderer.domElement.releasePointerCapture(e.pointerId);
         };
         const context = (e: MouseEvent) => { e.preventDefault(); const id = pick(e.clientX, e.clientY); if (id)
             latest.current.onContext(id); };
@@ -255,6 +275,9 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
         const lost = (e: Event) => { e.preventDefault(); setStatus("failed"); renderer.setAnimationLoop(null); };
         renderer.domElement.addEventListener("pointerdown", pointerDown);
         renderer.domElement.addEventListener("pointerup", pointerUp);
+        renderer.domElement.addEventListener("pointermove", pointerMove);
+        renderer.domElement.addEventListener("pointercancel", pointerCancel);
+        renderer.domElement.addEventListener("lostpointercapture", pointerCancel);
         renderer.domElement.addEventListener("contextmenu", context);
         renderer.domElement.addEventListener("dragover", dragOver);
         renderer.domElement.addEventListener("drop", drop);
@@ -411,7 +434,7 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
             renderer.render(scene, camera);
         });
         setStatus("ready");
-        return () => { renderer.setAnimationLoop(null); observer.disconnect(); visibilityObserver.disconnect(); controls.dispose(); renderer.domElement.removeEventListener("pointerdown", pointerDown); renderer.domElement.removeEventListener("pointerup", pointerUp); renderer.domElement.removeEventListener("contextmenu", context); renderer.domElement.removeEventListener("dragover", dragOver); renderer.domElement.removeEventListener("drop", drop); renderer.domElement.removeEventListener("keydown", key); renderer.domElement.removeEventListener("webglcontextlost", lost); world.dispose(); env.dispose(); sun.shadow.map?.dispose(); renderer.dispose(); renderer.forceContextLoss(); renderer.domElement.remove(); runtime.current = null; };
-    }, [construction, retry]);
+        return () => { renderer.setAnimationLoop(null); observer.disconnect(); visibilityObserver.disconnect(); controls.dispose(); renderer.domElement.removeEventListener("pointerdown", pointerDown); renderer.domElement.removeEventListener("pointerup", pointerUp); renderer.domElement.removeEventListener("pointermove", pointerMove); renderer.domElement.removeEventListener("pointercancel", pointerCancel); renderer.domElement.removeEventListener("lostpointercapture", pointerCancel); renderer.domElement.removeEventListener("contextmenu", context); renderer.domElement.removeEventListener("dragover", dragOver); renderer.domElement.removeEventListener("drop", drop); renderer.domElement.removeEventListener("keydown", key); renderer.domElement.removeEventListener("webglcontextlost", lost); world.dispose(); env.dispose(); sun.shadow.map?.dispose(); renderer.dispose(); renderer.forceContextLoss(); renderer.domElement.remove(); runtime.current = null; };
+    }, [construction, retry, props.quality]);
     return <div ref={host} className="port-ops-scene" data-renderer={status}>{status !== "ready" && <div className="port-scene-state">{status === "loading" ? "正在构建三维港区…" : <><p>三维画面暂不可用，业务操作与记录仍可使用。</p><button onClick={() => setRetry(n => n + 1)}>恢复 3D</button></>}</div>}</div>;
 });
