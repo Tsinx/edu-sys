@@ -71,6 +71,10 @@ export class CampusIdentityProvider implements ClassroomIdentityProvider {
   listAccounts() {
     return this.db.prepare("SELECT username,display_name AS displayName,role,enabled FROM campus_accounts ORDER BY role,username").all();
   }
+  experimentRoster(courseId: string) {
+    const rows = this.db.prepare("SELECT id AS actorId,username AS identifier,display_name AS displayName FROM campus_accounts WHERE role='student' AND enabled=1 ORDER BY username").all() as Array<{actorId:string;identifier:string;displayName:string}>;
+    return rows.filter(row => { const allowed=this.allowedCourseIds(row.actorId); return !allowed || allowed.includes(courseId); });
+  }
 
   private consumeLoginAttempt(username: string, ip: string) {
     const now = Date.now();

@@ -50,6 +50,8 @@ import { getRecords } from "../../campus/storage";
 import { TerminalStudio } from "./TerminalStudio";
 
 export interface LocalPortSimulationStageProps {
+  courseId?: string;
+  classSessionId?: string;
   navigationUnit?: import("@edu/port-simulation-core").PortCourseSelection;
   onModuleChange?: (unit: import("@edu/port-simulation-core").PortCourseSelection) => void;
   initialLearningStage?: import("@edu/port-simulation-core").PortCourseSelection;
@@ -180,6 +182,7 @@ export function LocalPortSimulationStage(props:LocalPortSimulationStageProps) {
   if(!storage)return <section className="port-local-auth-state" role="status">正在读取本机存档…</section>;
   const preset = getTerminalCoursePreset(props.initialChallengeId);
   return <TerminalStudio key={`${props.storageScope}:${props.initialChallengeId}:${props.initialTrainingMode}:${props.navigationUnit ? "controlled" : props.initialLearningStage}`} storage={storage}
+    submission={{ actorId: props.actorId, courseId: props.courseId ?? "course-port-management-intro", classSessionId: props.classSessionId }}
     storageScope={props.storageScope} initialScenario={preset.scenario} initialMode={preset.mode} scenarioLocked={props.challengeLocked}
     initialTrainingMode={props.initialTrainingMode} trainingModeLocked={props.trainingModeLocked}
     initialLearningStage={props.initialLearningStage} learningStageLocked={props.learningStageLocked}

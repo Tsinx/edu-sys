@@ -40,7 +40,7 @@ export function portTutorialSteps(t: PortTutorialRun): PortTutorialStep[] {
     const transit = ["channel", "mooring"].includes(c.stage);
     const free = s.berths.map((id, i) => !id && (!s.schedules[0]!.large || i === 1) ? `destination:berth:${i}` : "").filter(Boolean);
     const anchors = c.stage === "outer" ? s.anchors.map((id,i)=>!id ? `destination:anchor:${i}` : "").filter(Boolean) : [];
-    const allowed = portEntryReady(c) && !s.channel && (free.length > 0 || anchors.length > 0);
+    const allowed = ["outer", "anchored"].includes(c.stage) && portEntryReady(c) && !s.channel && (free.length > 0 || anchors.length > 0);
     add("berth", c.stage === "anchored" ? "从候泊锚位移往泊位" : "把船舶安排到可用泊位", transit ? "船舶正在通行或系泊，继续运行查看实际靠妥。" : allowed ? "按住舞台上的 S01 船舶，拖到发光的兼容空泊位或候泊锚位后松开；也可在工作台选择目标并申请进港。" : "检查手续、航道和泊位。可以调整目的位置，或继续运行等待释放；候泊后仍需安排移泊。", "拖到候泊锚位会先等泊；实际抵达并靠妥才完成入港教学。", c.stage === "berthed", transit ? ["clock", "navigation-status", "ship-status"] : ["ship-drag", ...free, ...anchors, "ship-move"], "ships", transit ? "observe" : "drag", "S01", transit ? "waiting" : allowed ? "action" : "blocked");
   }
   if (unit === "cargo" || unit === "yard") {
@@ -53,7 +53,7 @@ export function portTutorialSteps(t: PortTutorialRun): PortTutorialStep[] {
     }
     if (unit === "cargo") {
       add("resources", "查看岸桥和运输班组", "点“调度”查看岗位与设备能力。可拖动岸桥到泊位，或修改数字后应用调度。", "已有合理配置无需重复修改；作业能力由真实资源决定。", seen("resources-open"), ["tab:resources"], "cargo");
-      add("work", "启动船岸装卸", "点“组织装卸”，让岸桥按实际资源接续作业。", "手续已办妥、船舶已靠妥，才能组织装卸。", c.working || portCargoDone(s, "S01"), ["ship-work"], "ships");
+      add("work", "接续可以开展的船岸装卸", "船已靠妥且入港手续已办妥，可以先启动进口卸船；货批核验与其他准备继续并行。点“组织装卸”。", "进口卸船、进口提离和出口装船分别检查条件；不必等待全部货批回执才启动进口卸船。", c.working || portCargoDone(s, "S01"), ["ship-work"], "ships");
     }
     const issue = Object.values(s.boxes).find(b => b.issue !== "none");
     if (unit === "yard" && issue) {
@@ -81,7 +81,17 @@ export function portTutorialSteps(t: PortTutorialRun): PortTutorialStep[] {
   });
 }
 export function portTutorialView(t: PortTutorialRun) {
-  const steps = portTutorialSteps(t), current = steps.find(s => !s.done) ?? null;
+  const steps = portTutorialSteps(t), pending = steps.filter(s => !s.done);
+  let current = pending[0] ?? null;
+  // Orientation and start remain prerequisites. Business guidance follows available
+  // actions, not an artificial queue of independent agency responses.
+  if (current && !["dossier", "start", "plan", "plan-resources", "cargo-check", "dispatch"].includes(current.id)) {
+    const actionable = pending.filter(s => s.phase === "action" && /^(doc:|yard:|batch-doc:|resources$|work$|issue-open$|inspect$)/.test(s.id));
+    const urgent = actionable.find(s => s.id === "issue-open" || s.id === "inspect");
+    if (urgent) current = urgent;
+    else if (["waiting", "running", "blocked"].includes(current.phase)) current = actionable[0] ?? current;
+    if (current && /^(doc:|batch-doc:)/.test(current.id) && current.phase === "action") current = { ...current, instruction: current.instruction + " 各项可连续提交；等待回执期间继续办理其他可操作事项。" };
+  }
   return { version: t.version, unit: t.course.unit, steps, current, complete: !current, completed: steps.filter(s => s.done).length, total: steps.length };
 }
 export type PortTutorialView = ReturnType<typeof portTutorialView>;

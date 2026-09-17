@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { defaultPortConfig, defaultPortPlan, portStorageKey, type PortCourseUnit, type PortCourseView, type PortCourseStep, type PortBox, type PortCommand, type PortConfig, type PortMode, type PortPlan, type PortResult, type PortView } from "@edu/port-simulation-core";
 import type { LabStorage } from "./useTerminalTraining";
 import type { PortTutorialView } from "@edu/port-simulation-core";
+import type { PortSubmissionPackage } from "@edu/port-simulation-core";
 export interface PortHistoryEntry {
     id: string;
     created: string;
@@ -19,6 +20,8 @@ interface History {
     entries: PortHistoryEntry[];
 }
 type Message = {
+    sealed?: boolean;
+    package?: PortSubmissionPackage;
     id: number;
     type: string;
     view?: PortView;
@@ -41,6 +44,9 @@ function entryRules(e: { raw: string; rules?: PortView["schema"] }): PortView["s
     try { const schema=JSON.parse(e.raw).schema; return ["port-operations/3.0","port-course/1.0"].includes(schema)?"port-operations/3.0":"port-operations/3.1"; } catch { return "port-operations/3.1"; }
 }
 export function usePortOperations(storage: LabStorage | null | undefined, scope: string, initialMode: PortMode, locked: boolean, initialConfig = defaultPortConfig(), course?: { unit: PortCourseUnit; demo: boolean; tutorial?: boolean }, enabled = true) {
+    const [sealed, setSealed] = useState(false), [sealing, setSealing] = useState(false);
+    const sealedRef = useRef(false), sealingRef = useRef(false);
+    const sealRequest = useRef<number | null>(null);
     const [tutorial, setTutorial] = useState<PortTutorialView | null>(null);
     const [lesson, setLesson] = useState<PortCourseView | null>(null), [demonstration, setDemonstration] = useState<PortCourseStep | null>(null), [demoPlaying, setDemoPlayingState] = useState(false);
     const demoPlayingRef = useRef(false), demoActionWall = useRef(0);
@@ -85,6 +91,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
         return merged;
     }, [storage, scope]);
     const tick = useCallback(() => {
+        if (sealedRef.current || sealingRef.current) return;
         const v = latest.current;
         if (course?.demo) {
             if (!v || !demoPlayingRef.current || clockPending.current || v.status === "completed") return;
@@ -107,6 +114,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
         void post({ type: "command", command: { kind: "advance", seconds } }).finally(() => { clockPending.current = false; });
     }, [post, course?.demo]);
     const launch = useCallback(async (mode: PortMode, config: PortConfig, plan: PortPlan, raw?: string, id?: string, schema: PortView["schema"] = "port-operations/3.1") => {
+        sealedRef.current = false; sealingRef.current = false; setSealed(false); setSealing(false);
         setBusy(true);
         setError("");
         setBox(null);
@@ -143,6 +151,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
                 return;
             }
             if (m.type === "state" && m.view && (m.saved || course?.tutorial)) {
+                sealedRef.current = m.sealed ?? false; setSealed(m.sealed ?? false);
                 const v = m.view;
                 const previous = latest.current;
                 if (previous?.status !== v.status || v.status !== "running")
@@ -187,8 +196,10 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
                 setBox(m.box);
             if (m.type === "error")
                 setError(m.message ?? "业务内核返回错误");
-            pending.current.get(m.id)?.(m);
-            pending.current.delete(m.id);
+            if (!(m.id === sealRequest.current && m.type === "state")) {
+                pending.current.get(m.id)?.(m);
+                pending.current.delete(m.id);
+            }
         };
         w.onerror = e => { setError(`仿真工作线程失败：${e.message}`); setBusy(false); clockPending.current = false; };
         try {
@@ -216,6 +227,17 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
         return () => { clearInterval(timer); document.removeEventListener("visibilitychange", visibility); persist(); w.terminate(); benchmark.current?.terminate(); worker.current = null; latest.current = null; clockPending.current = false; benchmarkConfig.current = ""; for (const [id, resolve] of pending.current) resolve({ id, type: "closed" }); pending.current.clear(); };
     }, [scope, storage, initialMode, course?.unit, course?.demo, course?.tutorial, enabled]); // Identity and learning activities use isolated runtimes.
     const send = useCallback((command: PortCommand) => { tick(); return post({ type: "command", command }); }, [post, tick]);
+    const seal = async (): Promise<PortSubmissionPackage> => {
+        if (sealingRef.current) throw new Error("正在封存，请稍候。");
+        tick(); sealingRef.current = true; setSealing(true);
+        try {
+            sealRequest.current = sequence.current + 1;
+            const message = await post({ type: "seal" });
+            await storage?.flush?.();
+            if (!message.package) throw new Error(message.message ?? "实验封存失败。");
+            return message.package;
+        } finally { sealRequest.current = null; sealingRef.current = false; setSealing(false); }
+    };
     const configure = async (mode: PortMode, config: PortConfig, plan: PortPlan) => {
         if (locked && mode !== initialMode) {
             setError("场次类型由教师指定。");
@@ -274,9 +296,12 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
     const load = async (raw: string) => {
         try {
             if (course?.tutorial) throw new Error("操作教学不接受自主练习存档。");
+            const envelope = JSON.parse(raw);
+            if (envelope.package?.schema === "port-experiment-submission/1") raw = envelope.package.record;
+            else if (envelope.schema === "port-experiment-submission/1") raw = envelope.record;
             const data = JSON.parse(raw);
             if (course) {
-                if (!["port-course/1.0", "port-course/1.1"].includes(data.schema) || data.unit !== course.unit || data.demo === true) throw new Error("请导入当前分段的自主练习记录；演示记录与综合场次不能作为本段练习。");
+                if (!["port-course/1.0", "port-course/1.1", "port-course/1.2"].includes(data.schema) || data.unit !== course.unit || data.demo === true) throw new Error("请导入当前分段的自主练习记录；演示记录与综合场次不能作为本段练习。");
                 if (["running", "paused"].includes(latest.current?.status ?? "")) await send({ kind: "pause" });
                 await launch("practice", initialConfig, defaultPortPlan(), raw);
                 return;
@@ -304,7 +329,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
         setError("当前场次仍在进行，结束后可选择最终结果。");
         return;
     } if (active.current !== id)
-        await openHistory(e); book.current.final = id; persist(); setHistory({ ...book.current }); setNotice("已打开所选最终结果，可导出当前报告；尚未提交教师。"); };
+        await openHistory(e); book.current.final = id; persist(); setHistory({ ...book.current }); setNotice("已打开当前结果，可导出报告或提交教师。"); };
     const openHistory = async (e: PortHistoryEntry) => { if (latest.current?.status === "running" || latest.current?.status === "paused")
         await send({ kind: "interrupt" }); await launch(e.mode, defaultPortConfig(), defaultPortPlan(), e.raw, e.id); };
     const exportReport = async () => { const m = await post({ type: "export" }); if (m.raw) {
@@ -316,7 +341,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
         setTimeout(() => URL.revokeObjectURL(url), 1000);
     } };
     const setDemoPlaying = (playing: boolean) => { demoPlayingRef.current = playing; setDemoPlayingState(playing); lastWall.current = Date.now(); demoActionWall.current = 0; if (!playing && latest.current?.status === "running") void post({ type: "command", command: { kind: "pause" } }); };
-    return { view, lesson, tutorial, observe: (target: string) => course?.tutorial ? post({ type: "tutorial-observe", target }) : Promise.resolve(null), demonstration, demoPlaying, setDemoPlaying, demoStep: () => { if (demoPlayingRef.current) setDemoPlaying(false); return post({ type: "demo-step" }); }, history, error, notice, speed, box, busy, send, configure, retry, load, selectFinal, openHistory, exportReport, inspect: (boxId: string) => post({ type: "inspect", boxId }), setSpeed: (n: number) => { if (latest.current?.mode === "practice") {
+    return { view, sealed, sealing, seal, runId: history.active, lesson, tutorial, observe: (target: string) => course?.tutorial ? post({ type: "tutorial-observe", target }) : Promise.resolve(null), demonstration, demoPlaying, setDemoPlaying, demoStep: () => { if (demoPlayingRef.current) setDemoPlaying(false); return post({ type: "demo-step" }); }, history, error, notice, speed, box, busy, send, configure, retry, load, selectFinal, openHistory, exportReport, inspect: (boxId: string) => post({ type: "inspect", boxId }), setSpeed: (n: number) => { if (latest.current?.mode === "practice") {
             tick();
             speedRef.current = n;
             setSpeedState(n);

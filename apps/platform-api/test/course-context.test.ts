@@ -67,7 +67,8 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
       [1, 1, 47],
       [2, 48, 99],
       [3, 100, 153],
-      [4, 154, 197]
+      [4, 154, 197],
+      [5, 198, 245]
     ]
   );
   for (const lesson of readyLessons) {
@@ -81,7 +82,7 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
   const plannedLessons = PORT_MANAGEMENT_LESSONS.filter(
     (lesson) => lesson.status === "planned"
   );
-  assert.equal(plannedLessons.length, 12);
+  assert.equal(plannedLessons.length, 11);
   for (const lesson of plannedLessons) {
     assert.equal(lesson.title, null);
     assert.equal(lesson.slideStart, null);
@@ -89,16 +90,16 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
     assert.equal(lesson.assistantBrief, null);
   }
 
-  assert.equal(PORT_MANAGEMENT_SLIDES.length, 197);
+  assert.equal(PORT_MANAGEMENT_SLIDES.length, 245);
   assert.deepEqual(
     PORT_MANAGEMENT_SLIDES.map((slide) => slide.index),
-    Array.from({ length: 197 }, (_, index) => index + 1)
+    Array.from({ length: 245 }, (_, index) => index + 1)
   );
   assert.equal(
     new Set(PORT_MANAGEMENT_SLIDES.map((slide) => slide.slideKey)).size,
-    197
+    245
   );
-  assert.equal(PORT_MANAGEMENT_DECK_VERSION, "release-port-management-authored-v10");
+  assert.equal(PORT_MANAGEMENT_DECK_VERSION, "release-port-management-capacity-v11");
 });
 
 test("lesson-local page numbers map cleanly onto the internal global index", () => {
@@ -126,12 +127,12 @@ test("lesson-local page numbers map cleanly onto the internal global index", () 
   assert.equal(getPortManagementGlobalSlideIndex(3, 54), 153);
   assert.equal(getPortManagementGlobalSlideIndex(4, 1), 154);
   assert.equal(getPortManagementGlobalSlideIndex(4, 44), 197);
-  assert.equal(getPortManagementGlobalSlideIndex(5, 1), null);
+  assert.equal(getPortManagementGlobalSlideIndex(5, 1), 198);
   assert.equal(getPortManagementGlobalSlideIndex(2, 0), null);
   assert.equal(getPortManagementGlobalSlideIndex(2, 53), null);
   assert.equal(getPortManagementGlobalSlideIndex(2, 1.5), null);
   assert.equal(getPortManagementLessonSlidePosition(0), null);
-  assert.equal(getPortManagementLessonSlidePosition(198), null);
+  assert.equal(getPortManagementLessonSlidePosition(246), null);
 });
 
 test("every slide carries complete narrative and source metadata", () => {
@@ -151,7 +152,7 @@ test("every slide carries complete narrative and source metadata", () => {
     assert.ok(evidenceStates.has(slide.narrative.evidence));
     assert.ok(storyBeats.has(slide.narrative.storyBeat));
     assert.ok(slide.narrative.progress >= 1);
-    assert.ok(slide.narrative.progress <= 197);
+    assert.ok(slide.narrative.progress <= 245);
     for (const sourceId of slide.sourceIds ?? []) {
       assert.ok(
         PORT_MANAGEMENT_SOURCES[sourceId],
@@ -302,7 +303,7 @@ test("assistant context stays bounded, page-specific and free of authoring notes
       assert.match(context.voyagePrompt, /第一讲历史主线/);
       assert.match(context.voyagePrompt, /现代巨轮从本讲第40页/);
       assert.doesNotMatch(context.voyagePrompt, /教学货物/);
-    } else if(slide.lesson===4) {
+    } else if(slide.lesson===4||slide.lesson===5) {
       assert.match(context.voyagePrompt,/S01/);
       assert.doesNotMatch(context.voyagePrompt,/OOCL Spain|24,188|LL3/);
     } else {

@@ -52,7 +52,7 @@ export interface PortSchedule {
     voyage: string;
 }
 export type PortDocKind = "entry" | "health" | "border" | "departure";
-export const PORT_DOC_NAMES: Record<PortDocKind, string> = { entry: "进口岸申请", health: "入境检疫", border: "边检申报", departure: "出口岸准备" };
+export const PORT_DOC_NAMES: Record<PortDocKind, string> = { entry: "进口岸申请", health: "入境检疫", border: "边检申报", departure: "离港资料预核对" };
 export type DocStatus = "draft" | "submitted" | "correction" | "approved";
 export interface PortDocument {
     status: DocStatus;
@@ -217,6 +217,7 @@ export interface PortResult {
     deduction: number;
 }
 export interface PortAttempt extends PortResult {
+    after?: string;
     at: number;
     object: string;
     order: PortOrder;
@@ -229,6 +230,10 @@ export interface PortHandover {
     fingerprint: string;
 }
 export interface PortSession {
+    scoringVersion?: 1 | 2;
+    /** Unmerged top-level input, including rejected actions. Absent in old saves. */
+    inputLog?: PortCommand[];
+    traceCoverage?: "complete" | "legacy";
     schema: PortOperationsSchema;
     generator: typeof PORT_ARRIVAL_GENERATOR;
     config: PortConfig;

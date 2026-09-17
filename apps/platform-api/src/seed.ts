@@ -37,7 +37,7 @@ export interface AvatarControlReceipt {
 }
 
 export interface ClassroomRuntimeState {
-  simulationNavigation?: { unit: "arrival" | "cargo" | "yard" | "planning" | "departure" | "full"; originSlideKey: string } | null;
+  simulationNavigation?: { unit: "arrival" | "cargo" | "yard" | "planning" | "departure" | "full"; originSlideKey: string; experiment?: "l5-capacity"; plan?: "A"|"B"|"C"|"D"|"E"; runId?:string } | null;
   activeActivity: ClassroomActivity;
   slideIndex: number;
   slideKey: string;
@@ -47,6 +47,8 @@ export interface ClassroomRuntimeState {
   avatar: ClassroomAvatarRuntime;
   globePlayback: GlobePlayback;
   teacherDemo?: TeacherDemo | null;
+  lessonFivePresentation?: {slideKey:string;progress:number;revealed:boolean} | null;
+  lessonFiveExperiment?: {runId:string;plan:"A"|"B"|"C"|"D"|"E";summary:string} | null;
   lessonFourPresentation?: {slideKey:string;progress:number} | null;
   simulation: PortSimulationClassroomRuntimeState | null;
   avatarControlHistory: AvatarControlReceipt[];

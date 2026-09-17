@@ -1,4 +1,5 @@
 import type { ClassroomActor, ClassroomSnapshot, SlideInteractionState, SlideInteractionValues } from "@edu/contracts";
+import { lessonFiveExperimentUrl } from "../port-lesson-five/navigation";
 import { getPortLessonFourDemo } from "@edu/course-content";
 import type { CourseDeckDescriptor } from "@edu/course-content/deck-registry";
 import { BookOpen, ChevronLeft, ChevronRight, CircleAlert, FlaskConical, Focus, List, LoaderCircle, Maximize2, Radio, X } from "lucide-react";
@@ -114,16 +115,17 @@ function StudentWorkspace({sessionId, deck, actor, snapshot, connected, error}: 
         <div className="student-reader__heading"><button onClick={()=>setDirectory(!directory)} aria-expanded={directory}><List size={18}/>目录</button><span className="student-mode">{following ? "跟随教师" : "自由浏览"}</span><span className="student-reader__title">{simulation ? simulationUnitLabels[current.unit ?? "arrival"] : frame.title}</span>{following && <button onClick={()=>browse()}>自主浏览</button>}</div>
         <div className={`student-reader__stage ${simulation ? "student-reader__stage--simulation" : ""}`} onPointerDownCapture={e=>detachOnControl(e.target)} onKeyDownCapture={e=>{if(e.key==="Enter"||e.key===" ")detachOnControl(e.target);}}>
           <ClassroomPlaybackSlot.Provider value={playbackSlot}><Suspense fallback={<div className="student-loading"><LoaderCircle className="spin"/>正在装载内容…</div>}>
-            {simulation ? !current.unit ? <div className="student-loading">等待教师发布课堂实验；也可以通过目录自由浏览课件。</div> : <Simulation actorId={actor.actorId} actorDisplayName={actor.displayName} storageScope={`${snapshot.courseId}:${actor.actorId}`} initialChallengeId={current.challenge?.id ?? "joint-watch"}
+            {simulation ? !current.unit ? <div className="student-loading">等待教师发布课堂实验；也可以通过目录自由浏览课件。</div> : <Simulation courseId={snapshot.courseId} classSessionId={sessionId} actorId={actor.actorId} actorDisplayName={actor.displayName} storageScope={`${snapshot.courseId}:${actor.actorId}`} initialChallengeId={current.challenge?.id ?? "joint-watch"}
               initialTrainingMode={current.challenge?.trainingMode} trainingModeLocked={Boolean(current.challenge)} challengeLocked={Boolean(current.challenge)} learningStageLocked={Boolean(current.challenge)}
               initialLearningStage={current.unit} navigationUnit={current.unit} onModuleChange={unit=>browse({...current,unit})} sourceLabel={current.challenge?"课堂实验 · 个人进度独立保存":"个人实验 · 进度独立保存"}/>
               : current.activity === "globe" ? <Globe snapshot={following?snapshot:frozen.current} role="student" lamConnected={false}/>
               : current.activity === "slides" ? <PortLessonFourControls.Provider value={{scope:`student:${actor.actorId}:${sessionId}`,openDemo:cueId=>openSimulation(getPortLessonFourDemo(cueId)!.unit)}}>
-                <SlideStage frame={frame} interaction={interaction} readOnly={following} onInteractionPatch={editInteraction} onInteractionReset={()=>{browse();setInteractions(old=>({...old,[frame.slideId]:{...defaults}}));}}
+                <SlideStage frame={frame} interaction={interaction} readOnly={position.lessonNumber===5&&snapshot.courseId==="course-port-management-intro"?true:following} lessonFivePresentation={following?(snapshot.lessonFivePresentation?.slideKey===frame.slideId?snapshot.lessonFivePresentation:{progress:0,revealed:false}):undefined} onInteractionPatch={editInteraction} onInteractionReset={()=>{browse();setInteractions(old=>({...old,[frame.slideId]:{...defaults}}));}}
                   presentationProgress={following && snapshot.lessonFourPresentation?.slideKey===frame.slideId?snapshot.lessonFourPresentation.progress:undefined}/>
               </PortLessonFourControls.Provider> : <ActivityStage activity={current.activity} frame={frame}/>}
           </Suspense></ClassroomPlaybackSlot.Provider>
         </div>
+        {snapshot.courseId==="course-port-management-intro"&&position.lessonNumber===5&&<div className="l5-live-note">{following&&snapshot.simulationNavigation?.experiment==="l5-capacity"?`教师正在演示方案${snapshot.simulationNavigation.plan}；个人实验独立保存。`:"第5讲个人任务：从同一起点只增加运输岗位。"}<a className="l5-personal-link" href={lessonFiveExperimentUrl('C',`/join/${sessionId}`,sessionId,true)}>进入个人C实验</a></div>}
         <div className="student-playback-slot" ref={setPlaybackSlot}/>
         <nav className="student-reader__navigation" aria-label="课件导航">
           <button aria-label="上一页" disabled={frame.index<=1} onClick={()=>go(frame.index-1)}><ChevronLeft size={18}/><span>上一页</span></button>

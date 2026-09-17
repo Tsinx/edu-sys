@@ -872,7 +872,11 @@ export const teacherDemoSchema = z.object({
 });
 export type TeacherDemo = z.infer<typeof teacherDemoSchema>;
 export const lessonFourPresentationSchema = z.object({slideKey:z.string().min(1).max(128),progress:z.number().finite().min(0).max(1)});
+export const lessonFivePresentationSchema = z.object({slideKey:z.string().min(1).max(128),progress:z.number().finite().min(0).max(1),revealed:z.boolean()});
 export const simulationNavigationSchema = z.object({
+  experiment: z.literal("l5-capacity").optional(),
+  plan: z.enum(["A","B","C","D","E"]).optional(),
+  runId: z.string().uuid().optional(),
   unit: z.enum(["arrival", "cargo", "yard", "planning", "departure", "full"]),
   originSlideKey: z.string().min(1).max(128)
 });
@@ -890,6 +894,8 @@ export const classroomSnapshotSchema = z.object({
   globePlayback: globePlaybackSchema,
   teacherDemo: teacherDemoSchema.nullable().optional(),
   lessonFourPresentation: lessonFourPresentationSchema.nullable().optional(),
+  lessonFivePresentation: lessonFivePresentationSchema.nullable().optional(),
+  lessonFiveExperiment: z.object({runId:z.string().uuid(),plan:z.enum(["A","B","C","D","E"]),summary:z.string().max(6000)}).nullable().optional(),
   simulation: portSimulationClassroomSummarySchema.nullable(),
   avatar: classroomAvatarRuntimeSchema
 });
@@ -1478,6 +1484,8 @@ export type LamRuntimeStatus = z.infer<typeof lamRuntimeStatusSchema>;
 
 export const classroomEventInputSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("set_simulation_navigation"), navigation: simulationNavigationSchema.nullable() }).strict(),
+  z.object({type:z.literal("set_lesson_five_presentation"),...lessonFivePresentationSchema.shape}).strict(),
+  z.object({type:z.literal("set_lesson_five_summary"),runId:z.string().uuid(),plan:z.enum(["A","B","C","D","E"]),summary:z.string().max(6000)}).strict(),
   z.object({type:z.literal("set_lesson_four_progress"),...lessonFourPresentationSchema.shape}).strict(),
   z.object({type:z.literal("set_teacher_demo_summary"),runId:z.string().min(1).max(128),revision:z.number().int().positive(),summary:z.string().max(6000)}).strict(),
   z.object({ type: z.literal("next_slide") }),

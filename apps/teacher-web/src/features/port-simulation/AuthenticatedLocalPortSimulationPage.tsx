@@ -1,3 +1,4 @@
+import { AuthenticatedCapacityPage } from "../port-lesson-five/AuthenticatedCapacityPage";
 import type { ClassroomActor } from "@edu/contracts";
 import { CircleAlert, LoaderCircle } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -16,13 +17,14 @@ export function AuthenticatedLocalPortSimulationPage() {
   const [origin, setOrigin] = useState<string>();
   const queue = useRef(Promise.resolve());
   const query = new URLSearchParams(window.location.search);
+  const isCapacity = query.get("experiment") === "l5-capacity";
   const lectureDemo = getPortLessonFourDemo(query.get("lesson4") as PortDemoCueId);
   const returnTo = lessonFourReturnPath(query.get("returnTo"));
   const sessionId = query.get("session");
   const initialUnit = query.get("course") as PortCourseSelection;
 
   useEffect(() => {
-    if (!sessionId || !actor?.roles.includes("teacher")) return;
+    if (isCapacity || !sessionId || !actor?.roles.includes("teacher")) return;
     let active = true;
     void api.getClassroomSnapshot(sessionId).then(snapshot => {
       if (active) setOrigin(snapshot.simulationNavigation?.originSlideKey ?? snapshot.slide.slideId);
@@ -31,7 +33,7 @@ export function AuthenticatedLocalPortSimulationPage() {
   }, [sessionId, actor]);
 
   function publish(unit: PortCourseSelection) {
-    if (!sessionId || !origin || !actor?.roles.includes("teacher")) return;
+    if (isCapacity || !sessionId || !origin || !actor?.roles.includes("teacher")) return;
     queue.current = queue.current.then(async () => {
       await api.sendClassroomEvent(sessionId, {type:"set_simulation_navigation",navigation:{unit,originSlideKey:origin}});
       setSyncError("");
@@ -98,6 +100,7 @@ export function AuthenticatedLocalPortSimulationPage() {
     );
   }
 
+  if (isCapacity) return <AuthenticatedCapacityPage actor={actor}/>;
   if (sessionId && !actor.roles.includes("teacher")) return <Navigate to={`/join/${encodeURIComponent(sessionId)}`} replace/>;
   return (
     <>
@@ -107,6 +110,7 @@ export function AuthenticatedLocalPortSimulationPage() {
     </nav>}
     {syncError && <p role="status">{syncError}</p>}
     <LocalPortSimulationStage
+      classSessionId={sessionId ?? undefined}
       actorId={actor.actorId}
       actorDisplayName={actor.displayName}
       storageScope={lectureDemo ? `teacher-lesson-four:${actor.actorId}:${query.get("scope") ?? "standalone"}` : `standalone:${actor.actorId}`}

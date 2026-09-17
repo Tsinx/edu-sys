@@ -112,7 +112,11 @@ export function portScore(s: PortSession, reference?: {
     const nodesTotal = dueCalls.length * 4;
     const completion = dueBoxes ? onTime / dueBoxes : 0;
     const cargo = 50 * completion;
-    const process = nodesTotal ? 20 * nodeCount / nodesTotal : 0;
+    const onTimeDepartures = dueCalls.filter(c => c.milestones.depart !== undefined && c.milestones.depart <= portDeadline(s, c.id, "ship")).length;
+    const scoringVersion = s.scoringVersion ?? 1;
+    const processCompletion = nodesTotal ? (scoringVersion === 2 ? 15 : 20) * nodeCount / nodesTotal : 0;
+    const processTimeliness = scoringVersion === 2 && dueCalls.length ? 5 * onTimeDepartures / dueCalls.length : 0;
+    const process = processCompletion + processTimeliness;
     const unitCost = completed ? s.cost / completed : 0;
     const efficiency = dueBoxes && completed && reference && Number.isFinite(reference.unitCost) ? 20 * (completedDue / dueBoxes) * Math.min(1, reference.unitCost / Math.max(.000001, unitCost)) : 0;
     const handoverItems = portHandoverItems(s);
@@ -120,7 +124,7 @@ export function portScore(s: PortSession, reference?: {
     const handover = s.status === "completed" ? 10 * verified / handoverItems.length : 0;
     const deductions = s.attempts.reduce((n, a) => n + a.deduction, 0);
     const total = Math.round(Math.max(0, cargo + process + efficiency + handover - deductions) * 100) / 100;
-    return { total, cargo, process, efficiency, handover, deductions, dueBoxes, onTime, overdue, completed, nodeCount, nodesTotal, unitCost, referenceUnitCost: reference?.unitCost ?? null, referenceReady: !!reference, verifiedHandover: verified, requiredHandover: handoverItems.length, eligible: s.status === "completed" && s.mode === "battle" };
+    return { total, cargo, process, processCompletion, processTimeliness, onTimeDepartures, dueShips: dueCalls.length, scoringVersion, efficiency, handover, deductions, dueBoxes, onTime, overdue, completed, nodeCount, nodesTotal, unitCost, referenceUnitCost: reference?.unitCost ?? null, referenceReady: !!reference, verifiedHandover: verified, requiredHandover: handoverItems.length, eligible: s.status === "completed" && s.mode === "battle" };
 }
 export function portReport(s: PortSession, includeReference = true) {
     const reference = includeReference ? portReferenceCost(s.config, s.schema) : undefined;
@@ -133,7 +137,7 @@ export function serializePortSession(s: PortSession, options: {
     suspend?: boolean;
 } = {}) {
     const status = options.suspend && ["running", "paused"].includes(s.status) ? s.mode === "battle" ? "interrupted" : "paused" : s.status;
-    return JSON.stringify({ schema: s.schema, ...(s.schema === "port-operations/3.1" ? { navigationVersion: PORT_NAVIGATION_VERSION } : {}), generator: PORT_ARRIVAL_GENERATOR, config: cleanPortConfig(s.config), mode: s.mode, initialPlan: cleanPortPlan(s.initialPlan), schedule: s.schedules, commands: s.commands, status, ...(options.review ? { review: portReport(s) } : {}) });
+    return JSON.stringify({ schema: s.schema, scoringVersion: s.scoringVersion ?? 1, ...(s.schema === "port-operations/3.1" ? { navigationVersion: PORT_NAVIGATION_VERSION } : {}), generator: PORT_ARRIVAL_GENERATOR, config: cleanPortConfig(s.config), mode: s.mode, initialPlan: cleanPortPlan(s.initialPlan), schedule: s.schedules, commands: s.commands, inputLog: s.inputLog ?? [], traceCoverage: s.traceCoverage ?? "complete", status, ...(options.review ? { review: portReport(s) } : {}) });
 }
 export function restorePortSession(raw: string, suspend = false): PortSession {
     if (raw.length > 20000000)
@@ -143,13 +147,17 @@ export function restorePortSession(raw: string, suspend = false): PortSession {
         throw new Error("港口综合实训复盘版本或指令记录无效。");
     if (data.schema === "port-operations/3.1" && data.navigationVersion !== PORT_NAVIGATION_VERSION) throw new Error("航行规则版本无效。");
     const s = createPortSession(data.mode, cleanPortConfig(data.config), cleanPortPlan(data.initialPlan), data.schema);
+    if (data.scoringVersion !== undefined && ![1, 2].includes(data.scoringVersion)) throw new Error("评分版本无效。");
+    if (data.scoringVersion === undefined) delete s.scoringVersion; else s.scoringVersion = data.scoringVersion;
     if (JSON.stringify(data.schedule) !== JSON.stringify(s.schedules))
         throw new Error("船期与生成参数不一致，无法确认复盘。");
     let elapsed = 0;
-    for (const command of data.commands as PortCommand[]) {
+    const inputs = data.inputLog ?? data.commands;
+    if (!Array.isArray(inputs) || inputs.length > 50000) throw new Error("操作记录过多。");
+    for (const command of inputs as PortCommand[]) {
         if (command.kind === "advance") {
             elapsed += command.seconds;
-            if (!Number.isInteger(command.seconds) || command.seconds < 0 || elapsed > PORT_HORIZON)
+            if (!Number.isInteger(command.seconds) || command.seconds < 0 || command.seconds > PORT_HORIZON || (!data.inputLog && elapsed > PORT_HORIZON))
                 throw new Error("复盘推进时间无效。");
         }
         applyPortCommand(s, command);
@@ -160,6 +168,7 @@ export function restorePortSession(raw: string, suspend = false): PortSession {
         else if (s.status === "running")
             applyPortCommand(s, { kind: "pause" });
     }
+    s.traceCoverage = data.inputLog && data.traceCoverage !== "legacy" ? "complete" : "legacy";
     return s;
 }
 export function portStorageKey(scope: string, mode: PortSession["mode"], schema: PortSession["schema"] = PORT_OPERATIONS_SCHEMA) { return `edu-port-operations:${scope}:${mode}:${schema}:${PORT_ARRIVAL_GENERATOR}`; }

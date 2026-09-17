@@ -1,3 +1,4 @@
+import "./features/port-simulation/port-results.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { CampusRoot } from "./campus/CampusRoot";
@@ -8,6 +9,7 @@ import "./portal.css";
 import "./features/globe/interactive-earth-globe.css";
 import "./features/port-lbl/port-lbl.css";
 import "./features/port-lesson-four/port-lesson-four.css";
+import "./features/port-lesson-five/port-lesson-five.css";
 import "./features/port-simulation/terminal-studio.css";
 import "./features/port-simulation/port-operations.css";
 

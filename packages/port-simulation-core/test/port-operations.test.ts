@@ -222,8 +222,8 @@ test("48-hour reference run conserves every box, carries live jobs and replays t
     assert.ok(issues.every(b => b.issue === "resolved"));
     assert.ok(issues.every(b => b.history.some(h => h.to === "yard:Y6")));
     const score = portScore(s, { unitCost: s.cost / 1884 });
-    assert.equal(score.process, 20 * score.nodeCount / score.nodesTotal);
-    assert.ok(score.process > 15, "uncompleted departure nodes remain visible under the new transit durations");
+    assert.equal(score.process, 15 * score.nodeCount / score.nodesTotal + 5 * score.onTimeDepartures / score.dueShips);
+    assert.ok(score.processCompletion > 10, "uncompleted departure nodes remain visible under the new transit durations");
     assert.equal(score.handover, 10);
     assert.ok(score.cargo < 50 && score.cargo > 35, "reference policy need not be optimal; genuine tardiness stays visible");
     const raw = serializePortSession(s);

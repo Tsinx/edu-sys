@@ -1,0 +1,43 @@
+import assert from "node:assert/strict";
+import { createRequire } from "node:module";
+import { readFile, writeFile } from "node:fs/promises";
+import { join, resolve } from "node:path";
+import { tmpdir } from "node:os";
+import { fileURLToPath } from "node:url";
+import { randomUUID } from "node:crypto";
+import { buildApp } from "../apps/platform-api/src/app.js";
+import { CampusIdentityProvider } from "../apps/platform-api/src/campus/accounts.js";
+process.chdir(fileURLToPath(new URL("..", import.meta.url)));
+const output=resolve("output/port-submission-qa"), prior=JSON.parse(await readFile(join(output,"browser-report.json"),"utf8"));
+const dir=resolve(prior.fixtureDirectory);assert.ok(dir.startsWith(join(tmpdir(),"edu-port-browser-")));
+const identity=new CampusIdentityProvider(join(dir,"accounts.sqlite")),password=randomUUID();for(const role of ["teacher","student"])await identity.resetPassword(`${role}-qa`,password);
+const base="http://127.0.0.1:5187",app=await buildApp({dataFile:join(dir,"state.json"),identityProvider:identity,campusMode:true,secureIdentityCookie:false,publicOrigin:base,staticRoot:resolve("apps/teacher-web/dist")});await app.listen({host:"127.0.0.1",port:5187});
+const {chromium}=createRequire(process.env.EDU_PLAYWRIGHT_PATH??"C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/entry.js")("playwright");
+const browser=await chromium.launch({headless:true,args:["--enable-webgl","--use-angle=swiftshader","--enable-unsafe-swiftshader"]}),checks:string[]=[],errors:string[]=[];
+const student=await browser.newContext({viewport:{width:1600,height:1000}}),teacher=await browser.newContext({viewport:{width:1600,height:1000}}),p=await student.newPage(),t=await teacher.newPage();
+for(const page of [p,t]){page.setDefaultTimeout(60000);page.on("pageerror",(e:Error)=>errors.push(e.message));}
+const login=async(page:any,role:string)=>{await page.goto(base);await page.getByLabel("账号",{exact:true}).fill(`${role}-qa`);await page.getByLabel("密码",{exact:true}).fill(password);await page.getByRole("button",{name:"登录",exact:true}).click();await page.getByRole("button",{name:/离线与同步/}).waitFor();};
+const records=async(page:any)=>page.evaluate(()=>new Promise<string>((resolveRecords,reject)=>{const r=indexedDB.open("edu-campus-v1",1);r.onsuccess=()=>{const db=r.result,q=db.transaction("records").objectStore("records").getAll();q.onsuccess=()=>{resolveRecords(JSON.stringify(q.result));db.close();};q.onerror=()=>reject(q.error);};r.onerror=()=>reject(r.error);}));
+const pass=(s:string)=>{checks.push(s);console.log(`PASS ${s}`);};
+try{
+  await login(p,"student");await login(t,"teacher");await p.goto(base+"/simulations?course=arrival");await p.getByRole("button",{name:"跳过，直接练习"}).click();await p.locator('.port-ops[data-course="arrival"]').waitFor();
+  const before=await records(p);
+  await t.goto(base+"/courses/course-port-management-intro");await t.getByRole("link",{name:"实验成绩 · 浏览与复现"}).click();
+  await t.getByLabel("学生",{exact:true}).fill("实验验收学生");
+  const downloading=t.waitForEvent("download");await t.getByRole("button",{name:"导出当前成绩表"}).click();const csv=await downloading;await csv.saveAs(join(output,"grades.csv"));assert.match(await readFile(join(output,"grades.csv"),"utf8"),/实验验收学生/);pass("teacher entry, student filter and CSV download");
+  await t.getByRole("button",{name:"查看实验验收学生的48 小时综合挑战成绩",exact:true}).click();await t.getByRole("button",{name:"复现播放",exact:true}).click();const player=t.getByRole("region",{name:"实验复现播放器"});
+  const started=Date.now();await player.getByRole("button",{name:"最终状态",exact:true}).click();await player.getByRole("status").filter({hasText:"最终状态与服务器成绩一致"}).waitFor();const replayMs=Date.now()-started;assert.ok(replayMs<60000,"teacher replay must reuse the server cost reference");
+  assert.equal(await player.getByRole("button",{name:/开始本段|开始值班|提交教师/}).count(),0);assert.equal(await records(p),before);pass(`read-only full replay preserves student saves (${replayMs} ms)`);
+  const download=t.waitForEvent("download");await t.getByRole("button",{name:"下载复现包与证据"}).click();const file=await download;await file.saveAs(join(output,"downloaded-replay.json"));const artifact=JSON.parse(await readFile(join(output,"downloaded-replay.json"),"utf8"));assert.equal(artifact.package.unit,"full");assert.ok(artifact.nodes.length>0);
+  const fallback=await browser.newContext({viewport:{width:390,height:844}});await fallback.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(kind:string,...args:unknown[]){if(kind.includes("webgl"))return null;return (original as any).call(this,kind,...args);} as any;});
+  const f=await fallback.newPage();f.setDefaultTimeout(60000);f.on("pageerror",(e:Error)=>errors.push(e.message));await login(f,"teacher");await f.goto(base+"/courses/course-port-management-intro/experiment-results");await f.getByRole("button",{name:"查看实验验收学生的船舶入港成绩",exact:true}).click();await f.getByRole("button",{name:"复现播放",exact:true}).click();await f.getByText("三维画面暂不可用，业务操作与记录仍可使用。",{exact:true}).waitFor();
+  const fp=f.getByRole("region",{name:"实验复现播放器"});await fp.getByRole("button",{name:"最终状态",exact:true}).click();await fp.getByRole("status").filter({hasText:"最终状态与服务器成绩一致"}).waitFor();
+  await fp.locator("details.port-node-list>summary").click();await fp.getByLabel("筛选对象或操作").fill("S01");assert.ok(await fp.locator(".port-node-list article").count()>0);
+  assert.ok(await f.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await f.bringToFront();await f.evaluate(()=>window.scrollTo(0,0));await f.screenshot({path:join(output,"webgl-fallback-narrow.png"),fullPage:true,animations:"disabled"});pass("WebGL unavailable: score, node evidence, final parity and narrow layout remain usable");
+  await t.setViewportSize({width:390,height:844}); await t.bringToFront(); await t.getByRole("button",{name:"查看实验验收学生的船舶入港成绩",exact:true}).click();await t.getByRole("button",{name:"复现播放",exact:true}).click();
+  await t.waitForFunction(()=>document.querySelector(".sidebar")!.getBoundingClientRect().right<=0);
+  await t.evaluate(()=>window.scrollTo(0,0));await t.screenshot({path:join(output,"teacher-replay-narrow.png"),fullPage:true,animations:"disabled"});
+  assert.ok(await t.getByRole("button",{name:"打开导航",exact:true}).isVisible());pass("narrow teacher layout settles with navigation collapsed and no obscured results");
+  await p.goto(base+"/simulations?course=full");await p.getByRole("button",{name:"跳过，直接练习"}).click();await p.locator('.port-ops input[type="file"]').setInputFiles(join(output,"downloaded-replay.json"));await p.locator('.port-ops[data-course="full"][data-status="completed"]').waitFor();pass("downloaded evidence package imports back into the simulator");
+  assert.deepEqual(errors,[]);await writeFile(join(output,"browser-followup.json"),JSON.stringify({checkedAt:new Date().toISOString(),checks,errors,replayMs},null,2));
+}finally{await browser.close();await app.close();}

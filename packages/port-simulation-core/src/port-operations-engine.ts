@@ -12,7 +12,7 @@ export function createPortSession(mode: PortMode = "practice", config = defaultP
         throw new Error("未知训练模式。");
     const clean = cleanPortConfig(config);
     const initialPlan = cleanPortPlan(plan);
-    const s: PortSession = { schema, generator: PORT_ARRIVAL_GENERATOR, config: clean, mode, status: "ready", second: 0, plan: copy(initialPlan), initialPlan, schedules: generatePortSchedule(clean), calls: {}, batches: {}, boxes: {}, berths: [null, null], anchors: [null, null, null, null], channel: null, jobs: [], events: [], notices: [], attempts: [], commands: [], taught: [], pauseReason: "", cost: 0, energy: 0, effort: { personSeconds: 0, energySeconds: 0, capitalSeconds: 0 }, distance: 0, rehandles: 0, wind: 1, failedCrane: null, repairPending: false, jobSequence: 0, handover: [] };
+    const s: PortSession = { inputLog: [], traceCoverage: "complete", schema, generator: PORT_ARRIVAL_GENERATOR, config: clean, mode, status: "ready", second: 0, plan: copy(initialPlan), initialPlan, schedules: generatePortSchedule(clean), calls: {}, batches: {}, boxes: {}, berths: [null, null], anchors: [null, null, null, null], channel: null, jobs: [], events: [], notices: [], attempts: [], commands: [], taught: [], pauseReason: "", cost: 0, energy: 0, effort: { personSeconds: 0, energySeconds: 0, capitalSeconds: 0 }, distance: 0, rehandles: 0, wind: 1, failedCrane: null, repairPending: false, jobSequence: 0, handover: [] };
     const paperwork = portRng(config.seed ^ 0x27d4eb2f);
     let boxSequence = 0;
     for (const v of s.schedules) {
@@ -46,6 +46,7 @@ export function createPortSession(mode: PortMode = "practice", config = defaultP
     }
     if (config.disruption === "outage")
         event(s, { id: "fault:0", at: 18 * 3600, kind: "fault", object: "equipment", value: 0 });
+    s.scoringVersion = 2;
     settle(s);
     return s;
 }
@@ -431,7 +432,8 @@ function log(s: PortSession, command: PortCommand) { const last = s.commands.at(
     last.seconds += command.seconds;
 else
     s.commands.push(copy(command)); }
-export function advancePortSession(s: PortSession, seconds: number, record = true) {
+export function advancePortSession(s: PortSession, seconds: number, record = true, capture = true) {
+    if (record && capture) (s.inputLog ??= []).push({ kind: "advance", seconds });
     if (!Number.isInteger(seconds) || seconds < 0 || seconds > PORT_HORIZON)
         throw new Error("推进量须为 0–172,800 整数秒。");
     if (s.status !== "running" || !seconds)
@@ -670,10 +672,14 @@ function execute(s: PortSession, o: PortOrder): PortResult {
     return result("invalid", "unknown", "指令未识别。");
 }
 export function applyPortCommand(s: PortSession, raw: PortCommand, record = true): PortResult {
+    if (record) (s.inputLog ??= []).push(copy(raw));
+    return applyPortCommandInternal(s, raw, record);
+}
+function applyPortCommandInternal(s: PortSession, raw: PortCommand, record = true): PortResult {
     if (!raw || typeof raw !== "object")
         return result("invalid", "command", "指令无效。");
     if (raw.kind === "advance") {
-        advancePortSession(s, raw.seconds, record);
+        advancePortSession(s, raw.seconds, record, false);
         return result("applied", "clock", "时钟已推进。");
     }
     if (["start", "pause", "resume", "interrupt"].includes(raw.kind)) {
@@ -734,6 +740,7 @@ export function applyPortCommand(s: PortSession, raw: PortCommand, record = true
         log(s, o);
     if (!["completed", "interrupted"].includes(s.status))
         settle(s);
+    s.attempts[s.attempts.length - 1]!.after = JSON.stringify({ second: s.second, stage: s.calls[object]?.stage, berths: s.berths, anchors: s.anchors, channel: s.channel, location: s.boxes[object]?.location, documents: s.calls[object]?.docs, dispatch: s.plan.equipment.dispatch, resources: resources(s), activeTasks: s.jobs.length });
     return r;
 }
 export function portBatchSummary(s: PortSession, b: PortBatch) { const boxes = b.boxIds.map(id => s.boxes[id]!); return { total: boxes.length, unloaded: boxes.filter(b => b.unloadedAt !== null).length, loaded: boxes.filter(b => b.loadedAt !== null).length, delivered: boxes.filter(b => b.deliveredAt !== null).length, issues: boxes.filter(b => ["open", "reported"].includes(b.issue)).length, locations: [...new Set(boxes.map(b => portLocationName(b.location)))] }; }

@@ -62,6 +62,8 @@ test("feedback stops at the actual event and manual resume does not stop repeate
   observePortTutorial(t, "ship-open"); applyPortTutorialCommand(t, { kind: "start" });
   applyPortTutorialCommand(t, { kind: "document", callId: "S01", document: "entry", value: t.course.simulation.calls.S01!.docs.entry.reference });
   const due = t.course.simulation.events.find(e => e.kind === "doc")!.at;
+  assert.equal(portTutorialView(t).current?.id, "doc:health", "pending receipt must not block the next independent submission");
+  for (const document of ["health", "border"] as const) applyPortTutorialCommand(t, { kind: "document", callId: "S01", document, value: t.course.simulation.calls.S01!.docs[document].reference });
   assert.equal(portTutorialView(t).current?.phase, "waiting");
   assert.ok(portTutorialView(t).current?.targets.includes("clock:resume"));
   applyPortTutorialCommand(t, { kind: "resume" });
@@ -73,7 +75,7 @@ test("feedback stops at the actual event and manual resume does not stop repeate
   applyPortTutorialCommand(t, { kind: "advance", seconds: 100000 });
   assert.equal(t.course.simulation.second, due);
   assert.equal(t.course.simulation.status, "paused");
-  assert.equal(portTutorialView(t).current?.id, "doc:health");
+  assert.equal(portTutorialView(t).current?.id, "arrival");
   applyPortTutorialCommand(t, { kind: "resume" }); applyPortTutorialCommand(t, { kind: "advance", seconds: 1 });
   assert.equal(t.course.simulation.second, due + 1);
   assert.equal(t.course.simulation.status, "running");

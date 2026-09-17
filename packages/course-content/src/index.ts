@@ -1,3 +1,5 @@
+import { PORT_LESSON_FIVE_TITLE, PORT_LESSON_FIVE_TIMING } from './port-lesson-five.js';
+export * from './port-lesson-five.js';
 import { PORT_LBL_SOURCES } from "./port-lbl-sources.js";
 import { PORT_LESSON_FOUR_TITLE, PORT_LESSON_FOUR_TIMING } from './port-lesson-four.js';
 export { PORT_LESSON_FOUR_SLIDES, PORT_LESSON_FOUR_TITLE, PORT_LESSON_FOUR_TIMING, PORT_LESSON_FOUR_LABS, PORT_LESSON_FOUR_LEGACY_POSITIONS, getPortLessonFourDemo, type PortDemoCueId, type PortLessonFourPage } from './port-lesson-four.js';
@@ -248,7 +250,7 @@ export interface PortManagementGlobeCue {
 }
 
 export const PORT_MANAGEMENT_DECK_VERSION =
-  "release-port-management-authored-v10";
+  "release-port-management-capacity-v11";
 
 export const PORT_MANAGEMENT_GLOBE_CUES: readonly PortManagementGlobeCue[] = [
   {
@@ -385,6 +387,8 @@ export function getPortManagementGlobeCue(
 }
 
 export const PORT_MANAGEMENT_SOURCES: Record<string, PortCourseSource> = {
+  'port-l5-concept': {label:'第5讲串联能力与六车排队概念模型',url:'/port-lesson-five-preview.html'},
+  'port-l5-evidence': {label:'第5讲确定性实验记录 port-capacity/1.0',url:'/port-lesson-five-preview.html'},
   'port-l4-model': {label:'本课程单船教学模型与运行复核（2026-09-15）',url:'/port-lesson-four-preview.html'},
   'port-l4-terminal': {label:'Port Economics, Management and Policy · Container Terminal Design and Equipment',url:'https://porteconomicsmanagement.org/pemp/contents/part6/container-terminal-design-equipment/'},
   'port-l4-pcs': {label:'Port Economics, Management and Policy · Port Community System',url:'https://porteconomicsmanagement.org/pemp/contents/part3/digital-transformation/port-community-system/'},
@@ -790,7 +794,7 @@ export const PORT_MANAGEMENT_LESSONS: readonly PortManagementLessonSpec[] = [
       responsePolicy:'先指出对象与现场状态，再解释前置条件及下一项可核查证据。回答学生任务时先提供诊断线索；需要教师展示答案时解释完成条件，未收到现场记录时不得推断实际完成。'
     }
   },
-  plannedLesson(5),
+  {number:5,label:'第5讲',title:PORT_LESSON_FIVE_TITLE,status:'ready',slideStart:198,slideEnd:245,timing:PORT_LESSON_FIVE_TIMING,assistantBrief:{objective:'从同一起点的资源对照解释能力、等待与瓶颈，并完成个人C实验。',coreClaims:['能力与实际产出必须区分对象、单位和时窗。','局部提速不保证整船更早完成；使用同起点单变量比较。','到达节奏改变等待；边际改善可能随约束迁移而趋缓。'],guardrails:['S01与全部参数均为教学情境，非真实港口生产数据。','未揭示页不输出未来结果或代写个人解释。','模型记录不等于学生已经执行；不自动运行实验。'],responsePolicy:'先核对当前页或当前运行记录，再解释指标及条件；未知原因保留待核查。'}},
   plannedLesson(6),
   plannedLesson(7),
   plannedLesson(8),
@@ -925,6 +929,7 @@ function appendContextLine(
 }
 
 function formatVoyagePrompt(slide: PortManagementSlideSpec): string {
+  if(slide.lesson===5)return '第5讲资源对照：S01教学模型，116箱进口和78箱出口。同一起点，单变量改变；能力演算与实际仿真分别解释。教师演示和个人记录隔离，未有当前记录时不能推断完成。';
   if(slide.lesson===4)return [
     '第4讲单船实验：S01含116箱进口与78箱出口；这是本课程教学情境，按实体箱计数。',
     '入港、装卸、堆场交付、离港四段各自从准备好的现场开始，不将分段时间或记录拼接为同一航次。',

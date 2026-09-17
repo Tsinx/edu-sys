@@ -1,3 +1,6 @@
+import { PortLessonFiveControls, type LessonFivePresentation } from "../port-lesson-five/PortLessonFiveStage";
+import { lessonFiveExperimentUrl } from "../port-lesson-five/navigation";
+import type { LessonFivePlan } from "@edu/course-content";
 import { PortLessonFourControls } from "../port-lesson-four/PortLessonFourStage";
 import { lessonFourExperimentUrl } from "../port-lesson-four/experiment-navigation";
 import { getPortLessonFourDemo, type PortDemoCueId } from "@edu/course-content";
@@ -58,7 +61,7 @@ import {
   useState
 } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { api } from "../../api";
+import { api, ApiError } from "../../api";
 import {
   LamAvatarSurface,
   type LamAvatarController,
@@ -475,6 +478,32 @@ export function ClassroomSubsystem() {
     }
   }
 
+  const lessonFiveReportRef=useRef({last:0,key:"",revealed:false});
+  const lessonFiveQueue=useRef(Promise.resolve());
+  const lessonFiveTrailing=useRef<ReturnType<typeof setTimeout>|undefined>(undefined);
+  useEffect(()=>()=>clearTimeout(lessonFiveTrailing.current),[]);
+  function reportLessonFive(slideKey:string,value:LessonFivePresentation){
+    const current=snapshotRef.current;if(!current||current.slide.slideId!==slideKey)return;
+    const last=lessonFiveReportRef.current,now=Date.now();
+    clearTimeout(lessonFiveTrailing.current);
+    if(last.key===slideKey&&last.revealed===value.revealed&&now-last.last<500&&value.progress!==0&&value.progress!==1){
+      lessonFiveTrailing.current=setTimeout(()=>reportLessonFive(slideKey,value),500-(now-last.last));return;
+    }
+    lessonFiveReportRef.current={last:now,key:slideKey,revealed:value.revealed};
+    lessonFiveQueue.current=lessonFiveQueue.current.then(async()=>{
+      if(snapshotRef.current?.slide.slideId!==slideKey)return;
+      mergeSnapshot(await api.sendClassroomEvent(sessionId,{type:"set_lesson_five_presentation",slideKey,...value}));
+    }).catch(reason=>{if(!(reason instanceof ApiError&&reason.status===409))setError(`第5讲同步未完成：${reason.message}`);});
+  }
+  async function openLessonFive(plan:LessonFivePlan,personal=false){
+    const current=snapshotRef.current;if(!current)return;
+    const url=lessonFiveExperimentUrl(plan,`/classroom/${encodeURIComponent(sessionId)}`,sessionId,personal);
+    externalDemoRef.current="lesson-five";
+    try{await lessonFiveQueue.current;
+      if(!personal) await api.sendClassroomEvent(sessionId,{type:"set_simulation_navigation",navigation:{unit:"cargo",originSlideKey:current.slide.slideId,experiment:"l5-capacity",plan,runId:new URL(url,location.origin).searchParams.get("runId")!}});
+      window.location.assign(url);
+    }catch(reason){externalDemoRef.current=null;setError((reason as Error).message);}
+  }
   const lessonFourReportRef = useRef({last:0,key:""});
   async function lessonFourAction(cueId?:PortDemoCueId) {
     const current=snapshotRef.current;if(!current)return;
@@ -1069,7 +1098,7 @@ export function ClassroomSubsystem() {
 
       {isManagement && !isFullscreen && <ManagementSourceLocator index={snapshot.slide.index} onJump={index => void sendEvent({type:"set_slide",index})}/>}
       {isStatisticalAnalysis && !isFullscreen && <Suspense fallback={null}><StatisticalAnalysisTeachingNotes index={snapshot.slide.index}/></Suspense>}
-      <ClassroomPlaybackSlot.Provider value={isFullscreen ? fullscreenPlaybackSlot : playbackSlot}><PortLessonFourControls.Provider value={{scope:sessionId,openDemo:cueId=>void lessonFourAction(cueId),onProgress:reportLessonFourProgress}}>
+      <ClassroomPlaybackSlot.Provider value={isFullscreen ? fullscreenPlaybackSlot : playbackSlot}><PortLessonFiveControls.Provider value={{scope:sessionId,openExperiment:(plan,personal)=>void openLessonFive(plan,personal),onChange:reportLessonFive}}><PortLessonFourControls.Provider value={{scope:sessionId,openDemo:cueId=>void lessonFourAction(cueId),onProgress:reportLessonFourProgress}}>
       <div
         ref={fullscreenRef}
         tabIndex={-1}
@@ -1353,6 +1382,7 @@ export function ClassroomSubsystem() {
             </div>
 
             {isSlides && <div className="classroom-playback-slot" ref={setPlaybackSlot} />}
+            {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 5 && <a className="port-l4-classroom-link" href={`/port-lesson-five-preview.html?page=${snapshot.slide.index-197}`} target="_blank" rel="noreferrer">第5讲授课台 ↗</a>}
             {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 4 && <a className="port-l4-classroom-link" href={`/port-lesson-four-preview.html?page=${snapshot.slide.index-153}`} target="_blank" rel="noreferrer">第4讲授课台 ↗</a>}
             {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 4 && <button className="stage-tool-button" disabled={busy} onClick={()=>void openFullLessonFourSimulation()}><FlaskConical size={17}/>仿真系统</button>}
             <label className="lesson-select-control">
@@ -1600,7 +1630,7 @@ export function ClassroomSubsystem() {
         )}
       </div>
 
-      </PortLessonFourControls.Provider></ClassroomPlaybackSlot.Provider>
+      </PortLessonFourControls.Provider></PortLessonFiveControls.Provider></ClassroomPlaybackSlot.Provider>
       {settingsOpen && (
         <div className="classroom-dialog-backdrop">
           <section className="classroom-dialog" role="dialog" aria-modal="true" aria-labelledby="classroom-settings-title">

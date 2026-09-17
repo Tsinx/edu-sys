@@ -3,7 +3,7 @@ import { applyPortCommand, createPortSession, portCargoDone, portEntryReady, por
 import { cleanPortPlan, defaultPortPlan, type PortCommand, type PortPlan, type PortResult, type PortSession } from "./port-operations-model.js";
 import { portStudentView } from "./port-operations-view.js";
 
-export const PORT_COURSE_SCHEMA = "port-course/1.1";
+export const PORT_COURSE_SCHEMA = "port-course/1.2";
 export type PortCourseUnit = "arrival" | "cargo" | "yard" | "planning" | "departure";
 export type PortCourseSelection = PortCourseUnit | "full";
 export const PORT_COURSE_UNITS = [
@@ -26,11 +26,17 @@ export function recommendPortCourse(chapter: string): PortCourseSelection {
 }
 export type PortCourseCommand = PortCommand | { kind: "course-plan"; plan: PortPlan };
 export interface PortCourseRun {
-  schema: typeof PORT_COURSE_SCHEMA | "port-course/1.0";
+  fixture?: { schema: string; generator: string; config: PortSession["config"]; initialPlan: PortPlan; schedule: PortSession["schedules"]; startSecond: number };
+  inputLog?: PortCourseCommand[];
+  traceCoverage?: "complete" | "legacy";
+  schema: typeof PORT_COURSE_SCHEMA | "port-course/1.0" | "port-course/1.1";
   unit: PortCourseUnit;
   simulation: PortSession;
   commands: PortCourseCommand[];
   baselineAttempts: number;
+  baselineCost?: number;
+  baselineDistance?: number;
+  baselineRehandles?: number;
   startSecond: number;
   configured: boolean;
   complete: boolean;
@@ -46,6 +52,7 @@ const ordinaryTopics = ["documents", "arrival", "work", "yard", "exception", "de
 export function createPortCourse(unit: PortCourseUnit, schema: PortCourseRun["schema"] = PORT_COURSE_SCHEMA): PortCourseRun {
   if (!isPortCourseUnit(unit)) throw new Error("未知课程分段。");
   const s = createPortSession("practice", undefined, undefined, schema === "port-course/1.0" ? "port-operations/3.0" : "port-operations/3.1");
+  if (schema !== "port-course/1.2") delete s.scoringVersion;
   s.schedules = s.schedules.slice(0, 1);
   s.calls = { S01: s.calls.S01! };
   s.batches = Object.fromEntries(Object.entries(s.batches).filter(([, b]) => b.callId === "S01"));
@@ -81,7 +88,9 @@ export function createPortCourse(unit: PortCourseUnit, schema: PortCourseRun["sc
   s.status = "ready";
   s.pauseReason = "";
   s.commands = [];
-  const run: PortCourseRun = { schema, unit, simulation: s, commands: [], baselineAttempts: s.attempts.length, startSecond: s.second, configured: false, complete: false, reached: [] };
+  const run: PortCourseRun = { schema, unit, simulation: s, commands: [], inputLog: [], traceCoverage: "complete", baselineAttempts: s.attempts.length, startSecond: s.second, configured: false, complete: false, reached: [] };
+  run.fixture = { schema, generator: s.generator, config: copy(s.config), initialPlan: copy(s.initialPlan), schedule: copy(s.schedules), startSecond: s.second };
+  run.baselineCost = s.cost; run.baselineDistance = s.distance; run.baselineRehandles = s.rehandles;
   run.reached = portCourseGoals(run).filter(g => g.done).map(g => g.id);
   return run;
 }
@@ -95,7 +104,9 @@ export function portCourseGoals(r: PortCourseRun) {
     case "cargo": return [goal("yards", "为四个货批分配堆场", batches.every(b => !!b.targetYard), "cargo", "S01-I1"), goal("cargo-docs", "四个货批资料核验通过", batches.every(b => b.document.status === "approved"), "cargo", "S01-E1"), goal("unloaded", "完成 116 箱进口卸船", imports.every(b => b.unloadedAt !== null), "resources"), goal("loaded", "完成 78 箱出口装船", exports.every(b => b.loadedAt !== null), "ships")];
     case "yard": return [goal("import-plan", "两个进口批次具备堆场和提离条件", batches.filter(b => b.flow === "import").every(b => !!b.targetYard && b.customs), "cargo", "S01-I1"), goal("exception", "异常箱经过核查解除限制", imports.some(b => b.issue === "resolved"), "cargo", imports.find(b => b.issue !== "none")?.id ?? "S01-I1"), goal("delivery", "完成 116 箱进口提离并保留交接记录", imports.every(b => b.deliveredAt !== null), "resources")];
     case "planning": return [goal("plan", "应用满足预算与核查空间的自选方案", r.configured, "plan", "Y1"), goal("import-trial", "试运行完成至少 12 箱进口提离", imports.filter(b => b.deliveredAt !== null).length >= 12, "resources"), goal("export-trial", "试运行完成至少 12 箱出口装船", exports.filter(b => b.loadedAt !== null).length >= 12, "resources")];
-    case "departure": return [goal("exit-doc", "出口岸准备取得回执", ship.docs.departure.status === "approved", "ships"), goal("depart", "完成离港并留下离港记录", ship.stage === "departed", "ships"), goal("released", "泊位与航道实际释放", ship.stage === "departed" && s.berths.every(v => !v) && !s.channel, "ships")];
+    case "departure": return r.schema === "port-course/1.2"
+      ? [goal("exit-doc", "离港资料预核对通过（不替代最终离港条件）", ship.docs.departure.status === "approved", "ships"), goal("berth-released", "船体驶离泊位，泊位实际释放", ["channel", "departed"].includes(ship.stage) && s.berths.every(v => v !== ship.id), "ships"), goal("depart", "实际出港并释放航道", ship.stage === "departed" && s.channel !== ship.id, "ships")]
+      : [goal("exit-doc", "出口岸准备取得回执", ship.docs.departure.status === "approved", "ships"), goal("depart", "完成离港并留下离港记录", ship.stage === "departed", "ships"), goal("released", "泊位与航道实际释放", ship.stage === "departed" && s.berths.every(v => !v) && !s.channel, "ships")];
   }
 }
 function settleCourse(r: PortCourseRun, pauseAtMilestone: boolean) {
@@ -107,7 +118,12 @@ function settleCourse(r: PortCourseRun, pauseAtMilestone: boolean) {
     r.simulation.pauseReason = r.complete ? "本段目标已完成，可复核记录、重练或进入下一段。" : `已验证：${newly.map(g => g.label).join("；")}。可查看结果后继续。`;
   }
 }
-export function applyPortCourseCommand(r: PortCourseRun, command: PortCourseCommand, demo = false): PortResult {
+export type PortTrialObserver = (session: PortSession) => void;
+export function applyPortCourseCommand(r: PortCourseRun, command: PortCourseCommand, demo = false, observeTrial?: PortTrialObserver): PortResult {
+  (r.inputLog ??= []).push(copy(command));
+  return applyPortCourseCommandInternal(r, command, demo, observeTrial);
+}
+function applyPortCourseCommandInternal(r: PortCourseRun, command: PortCourseCommand, demo = false, observeTrial?: PortTrialObserver): PortResult {
   if (r.complete) return response("stale", "本段已完成，重练会建立独立记录。");
   if (command.kind === "start" && r.unit === "planning" && !r.configured) {
     r.commands.push(copy(command));
@@ -123,7 +139,7 @@ export function applyPortCourseCommand(r: PortCourseRun, command: PortCourseComm
     if (!Number.isInteger(command.seconds) || command.seconds < 0 || command.seconds > 172800) throw new Error("无效推进量。");
     let left = command.seconds;
     while (left > 0 && r.simulation.status === "running" && !r.complete) {
-      if (r.unit === "planning") serviceCourseTrial(r);
+      if (r.unit === "planning") serviceCourseTrial(r, observeTrial);
       const delta = Math.min(30, left);
       act(r.simulation, { kind: "advance", seconds: delta });
       left -= delta;
@@ -177,11 +193,13 @@ export function nextPortCourseStep(r: PortCourseRun): PortCourseStep | null {
   }
   return step("观察作业与交接", "让设备完成实际工作。箱位、装卸量和交接账本随作业推进，等待本身不算流程错误。", { kind: "advance", seconds: 600 }, r.unit === "departure" ? "ships" : "cargo");
 }
-function serviceCourseTrial(r: PortCourseRun) {
+function serviceCourseTrial(r: PortCourseRun, observeTrial?: PortTrialObserver) {
   for (let i = 0; i < 24; i++) {
     const step = nextPortCourseStep(r);
     if (!step || ["advance", "course-plan", "start", "resume"].includes(step.command.kind)) break;
+    const before = r.simulation.attempts.length;
     const result = act(r.simulation, step.command as PortCommand);
+    if (r.simulation.attempts.length > before) observeTrial?.(r.simulation);
     if (result.outcome !== "applied") break;
   }
 }
@@ -192,16 +210,31 @@ export function portCourseView(r: PortCourseRun) {
   if (r.unit === "arrival" || r.unit === "departure") view.notices = view.notices.filter(n => n.object === "S01");
   if (r.unit === "yard") { view.batches = view.batches.filter(b => b.flow === "import"); view.boxes = view.boxes.filter(b => view.batches.some(batch => batch.id === b.batchId)); }
   const goals = portCourseGoals(r);
-  return { view, lesson: { unit: r.unit, complete: r.complete, goals, elapsed: r.simulation.second - r.startSecond, prepared: portCourseDefinition(r.unit).prepared } };
+  return { view, lesson: { unit: r.unit, complete: r.complete, goals, performance: portCoursePerformance(r), elapsed: r.simulation.second - r.startSecond, prepared: portCourseDefinition(r.unit).prepared } };
+}
+/** Completion and management quality remain separate, inspectable evidence. */
+export function portCoursePerformance(r: PortCourseRun) {
+  const s = r.simulation, attempts = s.attempts.slice(r.baselineAttempts);
+  const documents = r.unit === "arrival" ? [s.calls.S01!.docs.entry, s.calls.S01!.docs.health, s.calls.S01!.docs.border]
+    : r.unit === "departure" ? [s.calls.S01!.docs.departure] : Object.values(s.batches).filter(b => r.unit !== "yard" || b.flow === "import").map(b => b.document);
+  const submitted = documents.flatMap(d => d.submittedAt === undefined ? [] : [d.submittedAt]);
+  const submissions = attempts.filter(a => a.outcome === "applied" && (a.order.kind === "document" || a.order.kind === "batch-document"));
+  return { elapsed: s.second - r.startSecond, cost: s.cost - (r.baselineCost ?? 0), distance: s.distance - (r.baselineDistance ?? 0), rehandles: s.rehandles - (r.baselineRehandles ?? 0),
+    incorrect: attempts.filter(a => a.outcome === "incorrect").length,
+    corrections: submissions.length - new Set(submissions.map(a => a.order.kind === "document" ? `${a.object}:${a.order.document}` : a.object)).size,
+    submissionSpan: submitted.length > 1 ? Math.max(...submitted) - Math.min(...submitted) : 0 };
 }
 export type PortCourseView = ReturnType<typeof portCourseView>["lesson"];
-export function serializePortCourse(r: PortCourseRun, demo = false) { return JSON.stringify({ schema: r.schema, ...(r.schema === "port-course/1.1" ? { navigationVersion: PORT_NAVIGATION_VERSION } : {}), unit: r.unit, demo, commands: r.commands }); }
+export function serializePortCourse(r: PortCourseRun, demo = false) { return JSON.stringify({ schema: r.schema, ...(r.schema !== "port-course/1.0" ? { navigationVersion: PORT_NAVIGATION_VERSION } : {}), unit: r.unit, demo, fixture: r.fixture, commands: r.commands, inputLog: r.inputLog ?? [], traceCoverage: r.traceCoverage ?? "complete" }); }
 export function restorePortCourse(raw: string) {
   const data = JSON.parse(raw);
-  if (![PORT_COURSE_SCHEMA, "port-course/1.0"].includes(data.schema) || !isPortCourseUnit(data.unit) || !Array.isArray(data.commands) || data.commands.length > 50000) throw new Error("课程分段记录无效。");
-  if(data.schema === "port-course/1.1" && data.navigationVersion !== PORT_NAVIGATION_VERSION) throw new Error("航行规则版本无效。");
+  if (![PORT_COURSE_SCHEMA, "port-course/1.0", "port-course/1.1"].includes(data.schema) || !isPortCourseUnit(data.unit) || !Array.isArray(data.commands) || data.commands.length > 50000) throw new Error("课程分段记录无效。");
+  if(data.schema !== "port-course/1.0" && data.navigationVersion !== PORT_NAVIGATION_VERSION) throw new Error("航行规则版本无效。");
   const r = createPortCourse(data.unit, data.schema);
-  for (const command of data.commands) applyPortCourseCommand(r, command, data.demo === true);
+  const inputs = data.inputLog ?? data.commands;
+  if (!Array.isArray(inputs) || inputs.length > 50000) throw new Error("操作记录过多。");
+  for (const command of inputs) applyPortCourseCommand(r, command, data.demo === true);
+  r.traceCoverage = data.inputLog && data.traceCoverage !== "legacy" ? "complete" : "legacy";
   if (!r.complete && r.simulation.status === "running") applyPortCourseCommand(r, { kind: "pause" });
   return r;
 }

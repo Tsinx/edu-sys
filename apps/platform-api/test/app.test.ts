@@ -79,7 +79,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     assert.equal(initialSnapshot.slide.logicalHeight, 1000);
     assert.equal(initialSnapshot.slide.aspectRatio, "16:10");
     assert.equal(initialSnapshot.slide.index, 1);
-    assert.equal(initialSnapshot.slide.total, 197);
+    assert.equal(initialSnapshot.slide.total, 245);
     assert.equal(
       initialSnapshot.slide.title,
       "港口管理概论"
@@ -87,7 +87,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     assert.equal(initialSnapshot.slide.slideId, "l1-course-cover");
     assert.equal(
       initialSnapshot.slide.versionId,
-      "release-port-management-authored-v10"
+      "release-port-management-capacity-v11"
     );
     assert.equal(initialSnapshot.globePlayback.status, "idle");
     assert.equal(initialSnapshot.participantsOnline, 0);
@@ -174,7 +174,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     );
     assert.doesNotMatch(
       lessonCapability.parameters.readyLessons,
-      /5:/
+      /6:/
     );
 
     const switchActivityResponse = await app.inject({
@@ -305,8 +305,8 @@ test("seeded teacher portal supports course creation, classroom start and avatar
       payload: {
         protocol: "edu.classroom.control",
         version: "1.0",
-        requestId: "lam-control-lesson-5",
-        actions: [{ type: "lesson.go_to", lesson: 5 }]
+        requestId: "lam-control-lesson-6",
+        actions: [{ type: "lesson.go_to", lesson: 6 }]
       }
     });
     assert.equal(plannedLessonResponse.statusCode, 200);
@@ -314,7 +314,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     assert.equal(plannedLessonResponse.json().snapshot.slide.index, 48);
     assert.match(
       plannedLessonResponse.json().results[0].message,
-      /第5讲内容待建设/
+      /第6讲内容待建设/
     );
 
     const fourthLessonResponse = await app.inject({

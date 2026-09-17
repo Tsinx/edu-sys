@@ -1,3 +1,4 @@
+import { PortResultsPage, PortResultsLink } from "./features/port-simulation/PortResultsPage";
 import {MANAGEMENT_BUILD, MANAGEMENT_LESSONS, MANAGEMENT_SLIDES} from '@edu/course-content/management-principles';
 import { getCourseDeckByCourseId, getCoursePresentation } from "@edu/course-content/deck-registry";
 import { ManagementCourseOverview } from "./features/management-principles/ManagementTeacherTools";
@@ -140,6 +141,7 @@ export function App() {
           <Route index element={<DashboardPage />} />
           <Route path="courses" element={<CoursesPage />} />
           <Route path="courses/:courseId" element={<CourseDetailPage />} />
+          <Route path="courses/:courseId/experiment-results" element={<PortResultsPage />} />
           <Route path="courses/:courseId/exercises" element={<CourseExercisePage />} />
           <Route path="courses/:courseId/assistant-prompts" element={<AssistantPromptEditor />} />
           <Route path="classrooms" element={<ClassroomsPage />} />
@@ -727,6 +729,7 @@ function CourseDetailPage() {
       </div>
 
       {error && <InlineAlert message={error} />}
+      <PortResultsLink courseId={courseId}/>
 
       <div className="detail-layout">
         <article className="panel lesson-editor">

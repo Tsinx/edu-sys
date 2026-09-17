@@ -26,6 +26,8 @@ import { SlideViewport } from "./SlideViewport";
 import { PortLblStage } from "../port-lbl/PortLblStage";
 import { PORT_LBL_SLIDES } from "@edu/course-content";
 import { PORT_LESSON_FOUR_SLIDES } from '@edu/course-content';
+import { PORT_LESSON_FIVE_SLIDES } from '@edu/course-content';
+import { PortLessonFiveStage, type LessonFivePresentation } from '../port-lesson-five/PortLessonFiveStage';
 import { PortLessonFourStage } from '../port-lesson-four/PortLessonFourStage';
 
 const EconomicMathematicsSlideStage = lazy(() =>
@@ -809,6 +811,7 @@ export function SlideStage({
   interaction = null,
   readOnly = true,
   presentationProgress,
+  lessonFivePresentation,
   onInteractionPatch,
   onInteractionReset
 }: {
@@ -816,6 +819,7 @@ export function SlideStage({
   interaction?: SlideInteractionState | null;
   readOnly?: boolean;
   presentationProgress?: number;
+  lessonFivePresentation?: LessonFivePresentation;
   onInteractionPatch?: (patch: SlideInteractionValues) => void;
   onInteractionReset?: () => void;
 }) {
@@ -846,6 +850,8 @@ export function SlideStage({
   if (!['deck-course-port-management-intro-foundations','port-management'].includes(frame.deckId)) return <SlideViewport label="课件尚未建设"><div>当前课程课件尚未建设。</div></SlideViewport>;
   const spec = getPortManagementSlide(frame.index);
   const lessonFourPage = PORT_LESSON_FOUR_SLIDES.find(page=>page.slideKey===spec.slideKey);
+  const lessonFivePage=PORT_LESSON_FIVE_SLIDES.find(p=>p.slideKey===spec.slideKey);
+  if(lessonFivePage)return <PortLessonFiveStage page={lessonFivePage} readOnly={readOnly} state={lessonFivePresentation}/>;
   if(lessonFourPage)return <PortLessonFourStage page={lessonFourPage} readOnly={readOnly} progress={presentationProgress}/>;
   const lblPage = PORT_LBL_SLIDES.find(page=>page.slideKey===spec.slideKey);
   if(lblPage)return <PortLblStage key={lblPage.slideKey} page={lblPage} readOnly={readOnly}/>;

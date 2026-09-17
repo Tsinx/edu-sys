@@ -13,6 +13,7 @@ export const simulationUnitLabels: Record<PortCourseSelection, string> = {
   arrival: "入港作业", cargo: "装卸作业", yard: "堆场作业", planning: "港区规划", departure: "离港作业", full: "完整流程"
 };
 export function teacherLocation(snapshot: ClassroomSnapshot): StudentLocation {
+  if (snapshot.simulationNavigation?.experiment === "l5-capacity") return {activity:"slides",index:snapshot.slide.index};
   if (snapshot.simulationNavigation) return { activity: "simulation", index: snapshot.slide.index, unit: snapshot.simulationNavigation.unit };
   return { activity: snapshot.activeActivity, index: snapshot.slide.index,
     ...(snapshot.activeActivity === "simulation" && snapshot.simulation ? {

@@ -1567,6 +1567,8 @@ export class JsonStateStore {
       globePlayback: { ...runtime.globePlayback },
       teacherDemo: runtime.teacherDemo ? structuredClone(runtime.teacherDemo) : null,
       simulationNavigation: runtime.simulationNavigation ? { ...runtime.simulationNavigation } : null,
+      lessonFivePresentation: runtime.lessonFivePresentation ? {...runtime.lessonFivePresentation} : null,
+      lessonFiveExperiment: runtime.simulationNavigation?.experiment === "l5-capacity" && runtime.lessonFiveExperiment ? {...runtime.lessonFiveExperiment} : null,
       lessonFourPresentation: runtime.lessonFourPresentation ? {...runtime.lessonFourPresentation} : null,
       simulation:
         course.id === "course-port-management-intro"
@@ -4040,9 +4042,19 @@ export class JsonStateStore {
           const origin = deck.getSlideByKey(runtime.simulationNavigation.originSlideKey);
           if (origin) runtime.slideIndex = origin.index;
         }
+        if(input.navigation?.experiment === "l5-capacity" && (deck.getSlideByKey(input.navigation.originSlideKey)?.lessonNumber !== 5 || !input.navigation.plan || !input.navigation.runId)) throw Object.assign(new Error("第5讲实验定位无效"),{statusCode:409});
+        runtime.lessonFiveExperiment=null;
         runtime.simulationNavigation = input.navigation;
         runtime.activeActivity = "slides";
         completeActiveGlobe();
+      } else if(input.type === "set_lesson_five_presentation") {
+        if(session.courseId!=="course-port-management-intro" || deck.getSlide(runtime.slideIndex).lessonNumber!==5 || runtime.slideKey!==input.slideKey) throw Object.assign(new Error("第5讲页码已变化"),{statusCode:409});
+        if(input.revealed && input.slideKey!=="l5-transfer-question") throw Object.assign(new Error("本页没有动态解析"),{statusCode:409});
+        runtime.lessonFivePresentation={slideKey:input.slideKey,progress:input.progress,revealed:input.revealed};
+      } else if(input.type === "set_lesson_five_summary") {
+        const nav=runtime.simulationNavigation;
+        if(session.courseId!=="course-port-management-intro" || nav?.experiment!=="l5-capacity" || nav.runId!==input.runId || nav.plan!==input.plan) return this.buildClassroomSnapshot(state,session,runtime);
+        runtime.lessonFiveExperiment={runId:input.runId,plan:input.plan,summary:input.summary};
       } else if (input.type === "set_teacher_demo_summary") {
         const demo=runtime.teacherDemo;
         if (!demo?.active || demo.runId !== input.runId || input.revision <= demo.revision) return this.buildClassroomSnapshot(state,session,runtime);

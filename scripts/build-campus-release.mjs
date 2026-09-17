@@ -9,7 +9,7 @@ await mkdir(dirname(destination),{recursive:true});
 await mkdir(destination,{recursive:false});
 const dependencies=JSON.parse(await readFile(join(root,"apps/platform-api/package.json"),"utf8")).dependencies;
 const external=Object.keys(dependencies).filter(name=>!name.startsWith("@edu/"));
-await build({entryPoints:{server:join(root,"apps/platform-api/src/server.ts"),admin:join(root,"apps/platform-api/src/campus/admin.ts")},
+await build({entryPoints:{server:join(root,"apps/platform-api/src/server.ts"),admin:join(root,"apps/platform-api/src/campus/admin.ts"),"port-submission-worker":join(root,"apps/platform-api/src/port-submission-worker.ts")},
   outdir:destination,outExtension:{".js":".mjs"},bundle:true,platform:"node",format:"esm",target:"node24",external,logLevel:"warning"});
 await cp(join(root,"apps/teacher-web/dist"),join(destination,"web"),{recursive:true});
 await cp(join(root,"deploy/campus"),destination,{recursive:true});

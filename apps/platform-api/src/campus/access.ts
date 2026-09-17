@@ -4,6 +4,8 @@ import type { ServerResponse } from "node:http";
 import { campusError } from "./database.js";
 
 export function studentRouteAllowed(method: string, path: string) {
+  if (method === "POST" && path === "/api/port-operations/submissions") return true;
+  if (["GET", "HEAD"].includes(method) && /^\/api\/port-operations\/(submissions\/[^/]+(?:\/replay)?|courses\/[^/]+\/results)$/.test(path)) return true; // ownership and course checked by service
   if (/^\/api\/(identity\/|edge\/records$|study-sessions(?:\/|$))/.test(path)) return true;
   if (/^\/api\/class-sessions\/[^/]+\/participation(?:\/|$)/.test(path)) return true; // fine-grained service checks
   if (method === "GET" || method === "HEAD") return /^\/api\/(courses(?:\/[^/]+)?|class-sessions(?:\/[^/]+(?:\/snapshot(?:\/stream)?|\/presence(?:\/stream)?)?)?)$/.test(path);

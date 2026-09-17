@@ -23,6 +23,7 @@ export function StudentLocalPortSimulation({
   }
   return (
     <LocalPortSimulationStage
+      courseId={classroomSnapshot.courseId}
       actorId={participantId}
       actorDisplayName={participantDisplayName}
       storageScope={`${classroomSnapshot.courseId}:${participantId}`}

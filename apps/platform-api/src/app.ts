@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { PortSubmissionRepository, registerPortSubmissions } from "./port-submissions.js";
 import { withSpeechVisemes } from "./study/visemes.js";
 import { MANAGEMENT_SOURCE_MAP } from '@edu/course-content/management-principles/source-map';
 import fastifyStatic from "@fastify/static";
@@ -179,6 +180,10 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   });
   const edgeRecords = new EdgeRecordRepository(`${options.dataFile}.edge.sqlite`);
   registerEdgeRecords(app, edgeRecords, resolveActor);
+  const portSubmissions = new PortSubmissionRepository(`${options.dataFile}.port-results.sqlite`);
+  registerPortSubmissions(app, portSubmissions, { resolve: resolveActor, allowed: allowedCourseIds,
+    classCourse: id => store.getSession(id)?.courseId,
+    roster: course => identityProvider instanceof CampusIdentityProvider ? identityProvider.experimentRoster(course) : [] });
   const aiAdmission = campusMode ? new AiAdmission(`${options.dataFile}.ai.sqlite`, {
     concurrency: 6, queue: 30, dailyRequests: 100, timeoutMs: 120_000, ...options.aiLimits
   }) : undefined;
@@ -266,6 +271,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     store.close();
     participation.close();
     edgeRecords.close();
+    await portSubmissions.close();
     aiAdmission?.close();
     if (identityProvider instanceof CampusIdentityProvider) identityProvider.close();
   });

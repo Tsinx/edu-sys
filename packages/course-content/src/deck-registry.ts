@@ -144,7 +144,7 @@ const portDescriptor: CourseDeckDescriptor = {
   slug: "gangkou-guanli-gailun",
   code: "PM-INTRO-001",
   deckId: "deck-course-port-management-intro-foundations",
-  versionId: "release-port-management-authored-v10",
+  versionId: "release-port-management-capacity-v11",
   title: "港口管理概论",
   totalHours: 32,
   slideTotal: PORT_MANAGEMENT_SLIDES.length,

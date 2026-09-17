@@ -29,6 +29,7 @@ export default defineConfig({
         managementPreview: resolve(teacherWebRoot, "management-preview.html"),
         globePreview: resolve(teacherWebRoot, "globe-preview.html"),
         portLblPreview: resolve(teacherWebRoot, "port-lbl-preview.html"),
+        portLessonFivePreview: resolve(teacherWebRoot, "port-lesson-five-preview.html"),
         portLessonFourPreview: resolve(teacherWebRoot, "port-lesson-four-preview.html"),
         portSimulationPreview: resolve(
           teacherWebRoot,
