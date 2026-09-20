@@ -1,7 +1,7 @@
 from pathlib import Path
 from fontTools import subset
 root=Path(__file__).resolve().parents[1]
-paths=list((root/'packages/course-content/src/statistical-analysis').glob('*.ts'))+list((root/'apps/teacher-web/src/features/statistical-analysis').glob('*.tsx'))
+paths=[p for folder in ['packages/course-content/src/statistical-analysis','apps/teacher-web/src/features/statistical-analysis'] for p in (root/folder).rglob('*') if p.suffix in ['.ts','.tsx','.json']]
 text=''.join(p.read_text(encoding='utf-8') for p in paths)+''.join(chr(i) for i in range(32,255))+'ⅠⅡⅢⅣ₀₁₂₃₄₅₆₇₈₉−±×÷→≠≈σμ∈√甲乙'
 out=root/'apps/teacher-web/public/course-assets/statistical-analysis/fonts'
 out.mkdir(parents=True,exist_ok=True)

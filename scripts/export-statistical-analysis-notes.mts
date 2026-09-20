@@ -1,7 +1,7 @@
 import {mkdir, writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {STATISTICAL_ANALYSIS_SLIDES as pages, STATISTICAL_ANALYSIS_LESSONS as lessons} from '../packages/course-content/src/statistical-analysis/index.js';
+import {STATISTICAL_ANALYSIS_SLIDES as pages, STATISTICAL_ANALYSIS_LESSONS as lessons, regressionLessons} from '../packages/course-content/src/statistical-analysis/index.js';
 
 // Page-specific design intentions, aligned with the authored JSX compositions.
 const one = [
@@ -111,7 +111,7 @@ const two = [
 if (one.length !== 48 || two.length !== 52) throw new Error('Design notes must cover exactly 100 pages');
 const directory=fileURLToPath(new URL('../docs/course/statistical-analysis/',import.meta.url)); await mkdir(directory,{recursive:true});
 const timing = new Map<number,number>();
-const catalog=pages.map(p=>{const start=timing.get(p.lesson)??0;timing.set(p.lesson,start+p.minutes);return {...p,minuteStart:start,minuteEnd:start+p.minutes,visualDesign:(p.lesson===1?one:two)[p.localIndex-1]!,reveal:'教师手动翻页；当前画面无定时推进或学生提交要求'};});
+const catalog=pages.map(p=>{const start=timing.get(p.lesson)??0;timing.set(p.lesson,start+p.minutes);return {...p,minuteStart:start,minuteEnd:start+p.minutes,visualDesign:p.lesson<3?(p.lesson===1?one:two)[p.localIndex-1]!:regressionLessons[p.lesson-3]![p.localIndex-1]!.note+'；'+regressionLessons[p.lesson-3]![p.localIndex-1]!.caption,reveal:'教师手动翻页；当前画面无定时推进或学生提交要求'};});
 await writeFile(resolve(directory,'page-design-and-notes.json'),JSON.stringify(catalog,null,2)+'\n');
 const stamp=(n:number)=>{const seconds=Math.round(n*60);return `${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`;};
 const text=['# 《统计分析方法》逐页设计与讲解说明','',

@@ -1,0 +1,8 @@
+numpy==2.5.3
+scipy==1.18.1
+pandas==3.0.6
+statsmodels==0.15.0
+scikit-learn==1.9.1
+fonttools==4.65.0
+brotli==1.2.0
+pillow==12.3.0

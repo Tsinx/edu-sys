@@ -6,6 +6,7 @@ import { Anscombe, BadChart, Difference, Groups, Histogram, RawStrip, Sampling, 
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
 import './statistical-analysis.css';
+import {RegressionPageView,regressionPageSpec} from './RegressionPages';
 
 const ROOT='/course-assets/statistical-analysis/images/';
 function Art({id,style,mode='window'}:{id:string;style?:CSSProperties;mode?:string}) {return <img className={`sa-art sa-art--${mode}`} src={`${ROOT}${id}.png`} alt="教学情境原创配图" draggable={false} style={style}/>;}
@@ -17,6 +18,7 @@ function Table({headers,rows}:{headers:string[];rows:(string|number)[][]}) {retu
 function Means() {return <div className="sa-means"><div><span>会员</span><strong>650</strong><small>元/人/月 · n=240</small></div><i>vs.</i><div><span>非会员</span><strong>500</strong><small>元/人/月 · n=240</small></div></div>;}
 function Receipt() {return <><Art id="l1-05-receipts" mode="cutout" style={{left:-120,top:90,width:770,height:500,opacity:.7}}/><div className="sa-receipt-records"><span>聚合演示 · C示例01 · 同一观察月</span><p>订单 A <b>120</b></p><p>订单 B <b>180</b></p><p>订单 C <b>200</b></p></div><div className="sa-sum"><span>顾客月消费</span><strong>500<small>元</small></strong><p>一位顾客，仅贡献一行</p></div><svg className="sa-arrow" viewBox="0 0 420 150" aria-hidden="true"><path d="M10 75H370m-30-25 30 25-30 25" fill="none" stroke={amber} strokeWidth="3"/></svg></>;}
 function MainContent({s}:{s:SlideSpec}):ReactNode {
+ if(s.lesson>=3)return <RegressionPageView lesson={s.lesson} page={s.localIndex}/>;
  const p=s.localIndex;
  if(s.lesson===1) switch(p) {
   case 1:return <><Art id="l1-01-retail-night" mode="bleed"/><div className="sa-cover-shade"/><div className="sa-cover-copy"><span>STATISTICAL ANALYSIS METHODS</span><h1>从研究问题<br/>到统计证据</h1><p>统计分析方法 · 商科研究生</p><div>01 <i/> 一项会员决策，需要怎样的证据？</div></div></>;
@@ -54,7 +56,7 @@ function LessonOnePage({page}:{page:number}):ReactNode {
   case 21:return <><Big style={{fontSize:165,color:amber}}>NA</Big><Words style={{left:430,top:125,width:870}}><p>信息缺失，金额未知。</p><p>把NA改成0，会改变均值。</p><p>排除缺失后，分母与样本构成也会改变。</p></Words><Note>记录缺失原因、处理方式与有效样本量；按研究设计评估缺失机制。</Note></>;
   case 22:return <><Table headers={['记录迹象（示意）','先核查什么','可能的处理']} rows={[["订单A被导入两次","唯一键、时间、来源","确认重复后去重"],["金额远高于多数记录","原始凭证、业务背景","保留真实大额交易"],["同一人多笔交易","是否不同订单","按观察单位正确汇总"]]}/><Note>极端值可以是真实信息。清理规则要有依据、保留记录并可复核。</Note></>;
   case 23:return <><div className="sa-two"><div><h2>会员 · 右偏分布</h2><Groups/></div><div style={{paddingTop:35}}><Table headers={['统计量','会员','非会员']} rows={[["均值",fmt(m.mean),fmt(n.mean)],["中位数",fmt(m.median),fmt(n.median)]]}/><p className="sa-report" style={{fontSize:26,marginTop:35}}>高额消费使均值向长尾方向移动。中位数定位排序后的中间位置。</p></div></div><Note>单位：元/人/月。图中仍展示两组全部原始点。</Note></>;
-  case 24:return <><Groups/><Words style={{top:455,width:1400,fontSize:28}}><p>会员SD {fmt(m.sd)}元　／　非会员SD {fmt(n.sd)}元</p></Words><Note>标准差与原变量同单位；它描述个体差异，不是均值的精度。</Note></>;
+  case 24:return <><div className="sa-sd-evidence"><Groups/></div><Words style={{top:475,width:1400,fontSize:26}}><p>会员SD {fmt(m.sd)}元　／　非会员SD {fmt(n.sd)}元</p></Words><Note>标准差与原变量同单位；它描述个体差异，不是均值的精度。</Note></>;
   case 25:return <><div className="sa-means"><div><span>绝对均值差</span><strong>150<small> 元</small></strong><small>650 − 500</small></div><i>／</i><div><span>相对非会员均值</span><strong>30<small> %</small></strong><small>150 ÷ 500</small></div></div><Note>同时报告比较方向、单位和基准；这里是观察到的均值差。</Note></>;
   case 26:return <><Art id="l1-10-crowd" mode="window"/><Words style={{top:45,width:820}}><p className="sa-kicker">独立的抽样概念模型</p><MathText s={'X\\sim N(500,180^2)'}/><p>每次独立抽取25个观测。<br/>总体均值500元保持不变。</p><p>每次得到一个新的样本均值。</p></Words><Note>此处用已知总体演示抽样；不是对主案例480位顾客重新抽样。</Note></>;
   case 27:return <><RawStrip values={D.sampling.firstSample} reference max={1200}/><Note>第一次抽样 · n=25 · 每个点是一项观测；实线为样本均值，虚线为总体均值。</Note></>;
@@ -144,7 +146,7 @@ function SortedMeans(){return <Plot label="按均值排序的四组点图"><Axis
 function CityMeans({compact=false}:{compact?:boolean}) {return <Plot label="相同横轴下两座城市的会员与非会员均值"><Axis max={1000} step={200}/>{['甲','乙'].map((city,i)=>{const a=D.cells[i*2]!,b=D.cells[i*2+1]!,cy=140+i*190;return <g key={city}><text x="90" y={cy-68} fontSize="29">{city}城　会员 n={a.n} ／ 非会员 n={b.n}</text><path d={`M${90+a.mean/1000*990} ${cy}H${90+b.mean/1000*990}`} stroke={mutedColor} strokeWidth="3"/><circle cx={90+a.mean/1000*990} cy={cy} r="10" fill={amber}/><path d={`M${90+b.mean/1000*990} ${cy-10}l10 20h-20Z`} fill={teal}/><text x={75+a.mean/1000*990} y={cy+43} textAnchor="end" fill={amber}>{fmt(a.mean,0)}</text><text x={105+b.mean/1000*990} y={cy+43} fill={teal}>{fmt(b.mean,0)}</text>{!compact?<text x="1020" y={cy+8} fill={ink}>Δ = −50</text>:null}</g>;})}<text x="1050" y="38" textAnchor="end" fontSize="21">琥珀圆点：会员　蓝绿三角：非会员</text></Plot>;}
 export function StatisticalAnalysisSlide({index}:{index:number}) {
  const s=getStatisticalAnalysisSlide(index),cover=s.localIndex===1;
- const hasArt=(s.lesson===1?[1,2,3,4,5,6,7,9,10,11,13,14,17,18,19,20,26,36,39,45,46,48]:[1,2,6,14,17,21,30,32,33,38,44,52]).includes(s.localIndex);
+ const hasArt=s.lesson>=3?Boolean(regressionPageSpec(s.lesson,s.localIndex)?.image):(s.lesson===1?[1,2,3,4,5,6,7,9,10,11,13,14,17,18,19,20,26,36,39,45,46,48]:[1,2,6,14,17,21,30,32,33,38,44,52]).includes(s.localIndex);
  return <article className={`sa-slide ${cover?'sa-slide--cover':''} sa-slide--${s.slideKey}`} data-slide-key={s.slideKey}>
   {!cover&&<header className="sa-header"><span>{String(s.lesson).padStart(2,'0')} / {s.section}</span><h1>{s.title}</h1><p>{s.lead}</p></header>}
   <div className={cover?'sa-cover':'sa-body'}><MainContent s={s}/></div>

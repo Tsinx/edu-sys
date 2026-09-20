@@ -296,7 +296,7 @@ const statisticalAnalysisDescriptor: CourseDeckDescriptor = {
   lessons: STATISTICAL_ANALYSIS_LESSONS, allowedActivities: ['slides'],
   presentation: {
     shortTitle: '统计分析', categoryLabel: '商科研究生',
-    description: '从研究问题与数据证据出发，衔接科研可视化、回归、问卷测量、因果推断与时间序列。32课时16讲，前两讲各90分钟。',
+    description: '从研究问题与数据证据出发，衔接科研可视化、回归、问卷测量、因果推断与时间序列。32课时16讲，前五讲已建设，共250页，各90分钟。',
     heroImage: '/course-assets/statistical-analysis/images/l1-01-retail-night.png',
     accent: 'statistical-analysis', assistantName: '小麦老师', supportsStudy: false,
     resources: [

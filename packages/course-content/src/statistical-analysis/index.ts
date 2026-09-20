@@ -1,4 +1,8 @@
 import data from './data.json' with { type: 'json' };
+import regressionData from './regression-data.json' with { type: 'json' };
+import {regressionLessons,regressionBlocks} from './regression-lessons.js';
+export {regressionLessons, type RegressionPage} from './regression-lessons.js';
+export const REGRESSION_DATA=regressionData;
 
 export const STATISTICAL_ANALYSIS_COURSE_ID = 'statistical-analysis';
 export const STATISTICAL_ANALYSIS_DECK_ID = 'deck-statistical-analysis';
@@ -12,20 +16,20 @@ export const STATISTICAL_ANALYSIS_OBJECTIVES = [
 ] as const;
 const titles = [
   '从研究问题到统计证据','探索性数据分析与科研可视化','线性回归与多因素关系分析',
-  '回归诊断、模型设定与稳健性','回归扩展：调节效应与二元选择','问卷设计与变量测量',
+  '回归诊断、模型设定与稳健性','回归拓展：调节效应与二元选择','问卷设计与变量测量',
   '主成分分析与多指标降维','探索性因子分析与量表结构探索','验证性因子分析与结构方程模型入门',
   '因果推断基础与匹配、加权方法','面板数据与固定效应模型','双重差分与事件研究',
   '工具变量与两阶段最小二乘','断点回归与阈值政策评估','时间序列结构与动态建模基础','时间序列预测与模型评价'
 ];
 export const STATISTICAL_ANALYSIS_LESSONS = titles.map((title, i) => ({
-  number: i + 1, title, status: i < 2 ? 'ready' as const : 'planned' as const,
-  slideStart: i === 0 ? 1 : i === 1 ? 49 : null,
-  slideEnd: i === 0 ? 48 : i === 1 ? 100 : null,
-  slideTotal: i === 0 ? 48 : i === 1 ? 52 : 0,
+  number: i + 1, title, status: i < 5 ? 'ready' as const : 'planned' as const,
+  slideStart: [1,49,101,149,199][i]??null,
+  slideEnd: [48,100,148,198,250][i]??null,
+  slideTotal: [48,52,48,50,52][i]??0,
   totalHours: 2,
   teachingCue: i === 0
     ? '90分钟，LBL讲解。以会员消费结论为主线，依次核查问题、记录、抽样和解释。每次揭示由教师翻页触发。'
-    : i === 1 ? '90分钟，LBL讲解。先揭示Anscombe四重奏，再用同一零售案例贯穿六类图形任务。修图段落逐页比较；不组织分组、提交或代码运行。' : '待建设，不进入课堂播放。'
+    : i === 1 ? '90分钟，LBL讲解。先揭示Anscombe四重奏，再用同一零售案例贯穿六类图形任务。修图段落逐页比较；不组织分组、提交或代码运行。' : i<5 ? '90分钟，LBL讲解。逐页观察证据、解释模型并核查边界；教师控制翻页与揭示。' : '待建设，不进入课堂播放。'
 }));
 
 // Each row is individually authored: title, visible takeaway, teaching focus,
@@ -142,7 +146,7 @@ export interface StatisticalAnalysisSlide {
 }
 const blocks1 = [[5,10,'问题与证据'],[18,20,'研究对象与数据'],[25,15,'从记录到统计量'],[38,25,'抽样与区间'],[46,15,'检验与解释'],[48,5,'结果表达']] as const;
 const blocks2 = [[6,10,'图形与问题'],[14,15,'分布'],[21,12,'比较与构成'],[32,20,'关系与分组'],[38,10,'时间'],[44,10,'不确定性'],[51,10,'连续修订'],[52,3,'进入回归']] as const;
-export const STATISTICAL_ANALYSIS_SLIDES: StatisticalAnalysisSlide[] = [lessonOne,lessonTwo].flatMap((rows, li) => rows.map((row, i) => {
+const originalSlides: StatisticalAnalysisSlide[] = [lessonOne,lessonTwo].flatMap((rows, li) => rows.map((row, i) => {
   const blocks = li === 0 ? blocks1 : blocks2;
   const bi = blocks.findIndex(b => i + 1 <= b[0]);
   const block = blocks[bi]!;
@@ -151,24 +155,39 @@ export const STATISTICAL_ANALYSIS_SLIDES: StatisticalAnalysisSlide[] = [lessonOn
   const sampling = li === 0 && i+1 >=26 && i+1 <=33 || li === 0 && i+1 >=35 && i+1 <=38;
   const monthly = li === 1 && i+1 >=33 && i+1 <=38 || li === 0 && i+1 === 16;
   const ledger = li === 0 && [13,14,15,19,20,21,22].includes(i+1);
-  const source = anscombe ? 'Anscombe (1973) · R datasets' : ledger ? '示意账本 · 用于说明数据口径（独立于480人样本）' : sampling ? '教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913' : monthly ? '教学模拟 · 品牌全量月报24个月（独立口径）' : li === 0 && [43,44].includes(i+1) ? '教学模拟 · 独立三店样本，各30人' : '教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份';
+  const source = li===1&&i===42?'区间示意 · 非主样本结果 · 用于比较不确定性':anscombe ? 'Anscombe (1973) · R datasets' : ledger ? '示意账本 · 用于说明数据口径（独立于480人样本）' : sampling ? '教学模拟 · 正态总体 μ=500、σ=180 · seed 20260913' : monthly ? '教学模拟 · 品牌全量月报24个月（独立口径）' : li === 0 && [43,44].includes(i+1) ? '教学模拟 · 独立三店样本，各30人' : '教学模拟 · 两城480位顾客 · 观察月 · 非随机会员身份';
   return {
     index: (li === 0 ? 0 : 48)+i+1, slideKey:`stats-l${li+1}-${String(i+1).padStart(2,'0')}`,
     lesson:li+1,lessonNumber:li+1,localIndex:i+1,localTotal:rows.length,lessonTitle:titles[li]!,
     title:row[0],lead:row[1],summary:row[1],section:block[2],minutes:block[1]/(block[0]-previousEnd),
     teachingCue:`讲解重点：${row[2]}\n停顿位置：${row[3]}\n前后衔接：${row[4]}\n证据口径：${source}。`,
     assistantCue:`本页公开结论：${row[1]}。解释边界：${row[2]}。${source}。LBL由教师控制翻页和证据揭示；仅回应教师当前问题，不自动进入后页，不组织分组、投票、提交或运行代码。不把教学模拟说成真实企业研究；不把关联说成因果；CI采用重复抽样解释，p值不是假设为真概率。`,
-    source
+    source:li===1&&i===42?'区间示意 · 非主样本结果 · 用于比较不确定性':source
   };
 }));
+const regressionSlides:StatisticalAnalysisSlide[]=regressionLessons.flatMap((rows,li)=>rows.map((p,i)=>{
+ const lesson=li+3,blocks=regressionBlocks[li]!,bi=blocks.findIndex(b=>i+1<=b[0]),block=blocks[bi]!,previous=bi===0?0:blocks[bi-1]![0];
+ const source=p.source??(li===0?'教学模拟 · 两城480位顾客 · 非随机会员身份':li===1?'教学模拟 · 独立诊断案例 · seed 20260920':'教学模拟 · 独立调节样本 n=240 · seed 20260920');
+ const evidence=[p.visual,p.second].filter((v):v is string=>Boolean(v)).map(id=>{
+  const chart=(regressionData.plots as Record<string,{xlabel:string;ylabel:string;series:{label:string;values:number[][]}[]}>)[id];
+  if(chart)return `${id}：横轴${chart.xlabel}，纵轴${chart.ylabel}；${chart.series.map(s=>`${s.label}，${s.values.length}个绘图坐标${s.values.length<=8?'：'+JSON.stringify(s.values):''}`).join('；')}`;
+  const table=(regressionData.tables as Record<string,{headers:string[];rows:(string|number)[][]}>)[id==='collinear-table'?'collinear':id];
+  if(table)return `${id}：${table.headers.join(' / ')}；${table.rows.map(r=>r.join(' / ')).join('；')}`;
+  return '';
+ }).join('\n');
+ return {index:[100,148,198][li]!+i+1,slideKey:`stats-l${lesson}-${String(i+1).padStart(2,'0')}`,lesson,lessonNumber:lesson,localIndex:i+1,localTotal:rows.length,lessonTitle:titles[lesson-1]!,title:p.title,lead:p.lead,summary:p.lead,section:block[2],minutes:block[1]/(block[0]-previous),source,
+ teachingCue:`讲解重点：${p.note}\n停顿位置：${p.question}\n证据口径：${source}。\n投影说明：${p.caption}`,
+ assistantCue:`当前页：${p.title}。公开要点：${p.lead}；${p.text.join('；')}。图注：${p.caption}。本页证据：${evidence}。解释边界：${p.note}。来源：${source}。LBL教师控制翻页；只回应当前页，不自动进入后页或待建设讲次，不组织分组、投票或代码操作。模拟不得称为真实企业数据；观察性关联不自动识别因果。银行案例禁用duration进行事前预测，不将测试集用于调参；未显示的数值不得编造。`};
+}));
+export const STATISTICAL_ANALYSIS_SLIDES=[...originalSlides,...regressionSlides];
 export function getStatisticalAnalysisSlide(index: number) {
-  return STATISTICAL_ANALYSIS_SLIDES[Math.max(1,Math.min(100,Math.trunc(index)||1))-1]!;
+  return STATISTICAL_ANALYSIS_SLIDES[Math.max(1,Math.min(STATISTICAL_ANALYSIS_SLIDES.length,Math.trunc(index)||1))-1]!;
 }
 export function getStatisticalAnalysisSlideByKey(key: string) { return STATISTICAL_ANALYSIS_SLIDES.find(p=>p.slideKey===key); }
 export function getStatisticalAnalysisLessonPosition(index: number) {
-  if (!Number.isInteger(index) || index < 1 || index > 100) return null;
-  const s=getStatisticalAnalysisSlide(index),start=s.lesson===1?1:49;
-  return {globalIndex:index,lessonNumber:s.lesson,lessonStart:start,lessonEnd:s.lesson===1?48:100,localIndex:s.localIndex,localTotal:s.localTotal};
+  if (!Number.isInteger(index) || index < 1 || index > STATISTICAL_ANALYSIS_SLIDES.length) return null;
+  const s=getStatisticalAnalysisSlide(index),l=STATISTICAL_ANALYSIS_LESSONS[s.lesson-1]!;
+  return {globalIndex:index,lessonNumber:s.lesson,lessonStart:l.slideStart!,lessonEnd:l.slideEnd!,localIndex:s.localIndex,localTotal:s.localTotal};
 }
 export function getStatisticalAnalysisGlobalIndex(lesson: number, local=1) {
   const l=STATISTICAL_ANALYSIS_LESSONS.find(l=>l.number===lesson);

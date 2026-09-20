@@ -1,0 +1,403 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-09-20",
+  "basePrompt": "Use case: photorealistic-natural. Asset: high quality Chinese graduate statistics lecture editorial photograph. Deep ink navy shadows, warm ivory highlights, restrained amber and teal, fine film grain, believable natural materials, art-directed cinematic lighting. 16:10 landscape. No text, letters, numbers, logos, watermark, chart or slide design. Fictional teaching scene. ",
+  "assets": [
+    {
+      "id": "l3-01-glass-shop",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-6aa77dd9-a4d5-453e-83b8-3a2e06900591.png",
+      "prompt": "Quiet elegant city retail shop seen through overlapping glass panes at dusk, the same shop reflected in multiple layers. Subject right, left dark negative space for title.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l3-01-glass-shop.png",
+      "sha256": "cc4ce4798269054a2ad59f136b9423bca89e2902548c26243f390004a981710c",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l3-02-two-streets",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-8c55ed54-11a4-45bb-b96f-4ed4f2a4859b.png",
+      "prompt": "Two distinct adjacent shopping streets, one affluent broad avenue and one modest neighborhood lane, observed from an elevated pedestrian bridge.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l3-02-two-streets.png",
+      "sha256": "96ed4fde325c0b8ae2ea532c8ecca3c2a734b399e3f0fffedcb11bc3b4022d7e",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l3-03-desk",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-425d5e81-19a5-4321-a3e9-8bf89579873a.png",
+      "prompt": "A business researcher examining blank paper sheets and a brass ruler on an oak desk, side view with warm window light.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l3-03-desk.png",
+      "sha256": "3e5c737630e38f229f2bf414093a916286881e62fcaa41fd14e1025d0be44928",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l3-05-layers",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-fd883d37-4f36-4be6-a05b-daa1383a59eb.png",
+      "prompt": "Three transparent glass panels on a precise architectural model of a shop, layers of observation visible through each other.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l3-05-layers.png",
+      "sha256": "1c07ae03c6db4ba5e6c5fcf4af4dff23734d51bf0af6bfd651f7e5c4888d00fa",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l3-04-thread",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-875fbfa1-91c8-4432-89ab-e75eb85dc5f3.png",
+      "prompt": "A taut teal thread stretched among scattered amber glass beads on ivory paper, macro still life, photographic metaphor of a fitted line, no actual chart.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l3-04-thread.png",
+      "sha256": "66aaaba3fffe592e438df76fc2c077382c39c1cf8ac01b82c1f20366823a4e6b",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l3-06-reference",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-80887834-2000-45a9-8ce6-58136e581511.png",
+      "prompt": "Two identical ceramic cups, one teal and one amber, carefully aligned on an ivory shelf, reference comparison still life.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l3-06-reference.png",
+      "sha256": "da4f10360102d6cd044fb83f55b387b7a995bb569cb96054fc5f80f8421c56f7",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l3-07-scale",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-f76aec22-cba3-4825-a6b8-8bd7121d0954.png",
+      "prompt": "A refined brass balance with different small weights on an analytical desk, closeup, soft daylight.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l3-07-scale.png",
+      "sha256": "1bbbf2822296faacdb89e27d0eda157cf9736247e673a9c5ec94c6ea47e4f120",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l3-08-window",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-b5ae2fdc-db69-4fea-9d27-c4e514db2db7.png",
+      "prompt": "A single observer looking through a tall window toward a busy shopping district, cinematic candid scene.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l3-08-window.png",
+      "sha256": "9eda8f064cc5f8214f72ca6bed1b4e22c5134dd30c52762a0545fb2db6354429",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l3-10-calendar",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-2b4bffb6-2540-4b7c-b57d-8afe6c4c4f17.png",
+      "prompt": "A desk clock beside unopened envelopes and a closed notebook, upcoming business decision, no readable markings.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l3-10-calendar.png",
+      "sha256": "eafac7c35e0052783cfab247505f0b60e5698ce34192a865067f4cf97c5510b8",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l3-09-interval",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-3a87efe4-ee06-49e8-8041-1b728dd797b4.png",
+      "prompt": "Two concentric translucent glass arches casting a narrow and a wide shadow on ivory stone, uncertainty metaphor.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l3-09-interval.png",
+      "sha256": "5e8bae410fdad66563d931071e75e1a70b492e1875988c8890e77559a2ea5106",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l3-11-leak",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-638e9ccb-c292-4adb-b6c5-e067567e83f5.png",
+      "prompt": "A translucent pipe with a small visible drop escaping at a joint on an elegant dark laboratory desk, data leakage metaphor.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l3-11-leak.png",
+      "sha256": "c6a59a823a310e6f6c12d4270c8c68c93cf5686322e080d73ada129bc8464dc6",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l4-02-twins",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-471d12de-301d-4636-93a8-bde6b0094c4f.png",
+      "prompt": "Two identical polished metal housings with one opened to reveal different inner mechanisms, photographic diagnostic metaphor.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l4-02-twins.png",
+      "sha256": "4d4e6d6d41c59bdf54be472fd264110b5afe38cb5448c74d6fc240dea3bcff8f",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l3-12-report",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-6bed2b2b-0b7e-44ba-868d-5898b9025a20.png",
+      "prompt": "Open unprinted cream report sheets with a fountain pen beside a dusk window overlooking a city, refined editorial still life.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l3-12-report.png",
+      "sha256": "be2a2cca32976096cafdd896b5278876b276586c4897dd7db85cbacd05c85510",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l4-03-curve",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-b49223c3-e766-4611-a169-93b30e314b6e.png",
+      "prompt": "A flexible wooden strip curving gracefully above a straight brass ruler on an ivory architecture desk.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l4-03-curve.png",
+      "sha256": "738d8f8d42b3901a7b40602052b316539301490ea74be0cb7f8f565491d5cc8f",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l4-01-inspection",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-204fda94-4c4a-4a5f-b960-acb342a1ca59.png",
+      "prompt": "An optical technician carefully inspecting a large glass lens against a glowing workshop window, subject right, dark negative space left for title.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l4-01-inspection.png",
+      "sha256": "3e7b8c9e3b2fc6af8b877b12726518661fd249adbecba4958942386495257123",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l4-04-fan",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-6a2e5e1b-b74b-4df3-9e7d-9c4d61931d8a.png",
+      "prompt": "A delicately opened ivory paper fan with teal ribs on dark stone, expanding spread metaphor.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l4-04-fan.png",
+      "sha256": "dd3f84accd21e031cea8c6d5e087332bf0e7c040865ee0424e4f8dcd2eff232f",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l4-05-clockwork",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-a927e244-47f6-4ec7-bdb1-a67d497eb73f.png",
+      "prompt": "Closeup of interconnected brass clockwork gears inside an unmarked clock, dependence and repeated observation metaphor.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l4-05-clockwork.png",
+      "sha256": "967c2aff29dc6ba6e449e9bc77bcbd2d29a7cc8a8c347207dbb6b323a83d8088",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l4-07-pebble",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-1ad091f8-1337-4478-b114-fb5138121b3c.png",
+      "prompt": "One unusually large amber pebble among small smooth teal stones on a cream surface, extreme observation metaphor.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l4-07-pebble.png",
+      "sha256": "5f3c24bc3a371b34e703fb607dffab73d4d68af1f02a47208d0fcc02f3fb02ea",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l4-06-mirror",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-f61d2994-5166-49b4-b1aa-c94892a6246e.png",
+      "prompt": "A perfect circular mirror and slightly warped reflecting metal sheet side by side on ivory paper.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l4-06-mirror.png",
+      "sha256": "0230944040970ef8e214ed1cb8ad3484e3916b7654c9597073314d7c26c9d616",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l4-08-lever",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-2d482637-10a9-4cb4-a011-2d6d457f8d1e.png",
+      "prompt": "A long dark wooden lever balanced on a brass fulcrum with a small weight at the far end, leverage metaphor.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l4-08-lever.png",
+      "sha256": "2ff456d3b6e1a152a3a1cd17c908852b3e16d10f510ed5056ac1a18121ae82ad",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l4-09-twin-rulers",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-f054098b-2ea4-402b-97a4-ec4d8f0272e2.png",
+      "prompt": "Two nearly aligned translucent rulers casting overlapping shadows on warm paper, no readable numbers, redundant information metaphor.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l4-09-twin-rulers.png",
+      "sha256": "f30c9e4d9a4823f1596f80021625e27549f0bd7cebf7c480ab18a8b2a4fc4e91",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l4-10-frame",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-492ee5ba-3a16-4e2b-91a4-43f96357c54e.png",
+      "prompt": "Sturdy brass frame protecting a delicate glass object, robust uncertainty metaphor, closeup materials.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l4-10-frame.png",
+      "sha256": "1a775fd1c3decc8c7ad5e3fb9bf844f72c4bc7c25f4720913d441b08b30e3bda",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l4-11-routes",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-496e40de-400a-4ef0-a54a-c18d361e591b.png",
+      "prompt": "Several narrow paths through a quiet landscaped courtyard converging toward the same building, sensitivity analysis metaphor.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l4-11-routes.png",
+      "sha256": "1ced861f754324d152b2176281b4ee1825448b6c6b8743b74ab0630626ef40df",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l4-12-workbench",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-c988828c-724f-48d3-ab8d-9fc9f99ad904.png",
+      "prompt": "Meticulous inspection workbench with magnifying lens, blank notebook and carefully arranged tools at sunset.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l4-12-workbench.png",
+      "sha256": "922087912d82ab8bf6329bcb0fc229ae45b255254539719f88a794aed6e5e7d9",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l5-02-weather",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-927f1f0b-9f1c-4d33-a78a-6f83cb140706.png",
+      "prompt": "A retail terrace half shaded by an awning and half in warm sunlight, different context for the same setting.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l5-02-weather.png",
+      "sha256": "36c95eb29f4f624fcc8f51ee174c41e8285bc4308b3c12a480d1d27d33f1ff5f",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l5-01-crossroads",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-19c79e5f-86d4-4663-ad77-05a99be406eb.png",
+      "prompt": "Two illuminated pedestrian paths diverging through an elegant city plaza on a rainy evening, subject right, dark negative space left for title.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l5-01-crossroads.png",
+      "sha256": "0fff0bc05cccf0b4d0d0fe7ed22debf2aad51b96505b630d19b8e0f5f3bb75e9",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l5-03-switch",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-9954fdd5-34f2-4f3b-acd1-ed80162319dd.png",
+      "prompt": "Two brass dimmer switches controlling warm and teal lights on the same ivory wall, conditional response metaphor.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l5-03-switch.png",
+      "sha256": "71c12f1c786dc416b0cb11fd71eb264e1a17ada82d1e959e3f54dc5413c0c67b",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l5-04-origin",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-e08aa2ad-37bb-4d54-a0cc-f2134c3d6de8.png",
+      "prompt": "A precise brass compass resting at the center of a blank ivory sheet beside a wooden pencil, centered reference metaphor.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l5-04-origin.png",
+      "sha256": "d23b93bb4ba58dd1a43a1dfb9a1727bda6bdeccc2279bf0624b6699010518e7e",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l5-05-slopes",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-a1d45ee7-eea7-4ec5-98d0-bf3e55c96796.png",
+      "prompt": "Two graceful architectural ramps rising at different inclines in an ivory museum courtyard, cinematic wide angle.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l5-05-slopes.png",
+      "sha256": "80c02a2ba81f5777ee40385ec23d16717d9ce17a0826f458be1f04525d33d410",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l5-06-boundary",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-1f4e9813-8cf6-4d31-8022-c32602ba8866.png",
+      "prompt": "A clear glass greenhouse edge separating carefully cultivated plants from a misty unknown landscape, support boundary metaphor.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l5-06-boundary.png",
+      "sha256": "b6998060215ec5561efb22846892693c40d678b8dc05fb44f49eb93617d97d9c",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l5-07-choice",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-c14881ea-876c-481f-be08-7513b9491a76.png",
+      "prompt": "Two plain envelopes, one open and one closed, on a dark teal desk beside an unmarked brass token, binary outcome metaphor.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l5-07-choice.png",
+      "sha256": "68bab1073c53475353efdeb7ed2614350dffe2d73a9dac502b9b5144fe02d31a",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l5-08-s-curve",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-f99128ec-738a-42ff-abb2-7ddf8f8a4528.png",
+      "prompt": "A graceful S-shaped ivory staircase in a modern atrium, amber handrail and teal shadows, photographic not a graph.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l5-08-s-curve.png",
+      "sha256": "fdb1c3a0073cba1acd8bd16bde88ebcbcdeac6144e9d66a15a0072532cb6676d",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l5-10-call-center",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-1ce180f8-53ac-42d9-906b-ad9af0f245f2.png",
+      "prompt": "Fictional professional bank customer service workspace with a headset and blurred human operator, no brands or legible screens.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l5-10-call-center.png",
+      "sha256": "ef5f98604d9be112c413e348171824d8349122290d888caf58fef5d834cbb800",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l5-09-odds",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-57d0d0f9-7a58-46a0-a7c8-ed0ca4085648.png",
+      "prompt": "Amber and teal translucent glass tokens in two shallow ceramic bowls on ivory paper, probability comparison still life.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l5-09-odds.png",
+      "sha256": "6344fb49bc7be616a7af3c6e9cabf38b872bdf7c4e08d85f2cf3f90a2498800c",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l5-11-gate",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-fc567539-9d7c-48d2-bedd-a73d11a60d04.png",
+      "prompt": "An adjustable brass gate on a miniature architectural walkway, threshold decision metaphor, editorial macro photograph.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l5-11-gate.png",
+      "sha256": "3d12ba1ce8e52f5ffe59181638403f35822654cea7d05e30424e0af8d8fa9c8d",
+      "size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "id": "l5-12-calibration",
+      "source": "/home/xingzhi/.codex/generated_images/01a0b238-76fa-7171-88cb-054d02934f4e/exec-0b71d172-c924-42b9-8f0b-dcd87a08bce9.png",
+      "prompt": "A precision optical instrument being calibrated beside a clear glass prism on a warm workshop desk, quiet confident closing scene.",
+      "file": "apps/teacher-web/public/course-assets/statistical-analysis/images/l5-12-calibration.png",
+      "sha256": "b97524aec360c51748b1a530a92baad70daa5d3680635e3add973a68c1be6b77",
+      "size": [
+        1586,
+        992
+      ]
+    }
+  ]
+}

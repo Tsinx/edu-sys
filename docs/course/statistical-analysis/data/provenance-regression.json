@@ -1,0 +1,63 @@
+{
+  "seed": 20260920,
+  "originalDataSHA256": "04f4419c426b6424a2f89086a5fb05c391344e561767697424028d889a3f0d62",
+  "bank": {
+    "source": "https://archive.ics.uci.edu/dataset/222/bank+marketing",
+    "doi": "10.24432/C5K306",
+    "license": "CC BY 4.0",
+    "file": "bank-additional-full.csv",
+    "rows": 41188,
+    "archiveSHA256": "e0bf5f5de5b846e2f18e9d90606637267d46dfa260e0f17bb12e605db5efbeb4",
+    "csvSHA256": "74adfc578bf77a7ff4bb1ba4a9f8709d9e3c6907342959c2c8416847e0afb4d8",
+    "features": [
+      "age",
+      "previous",
+      "job",
+      "marital",
+      "education",
+      "default",
+      "housing",
+      "loan",
+      "poutcome"
+    ],
+    "excluded": [
+      "contact",
+      "month",
+      "day_of_week",
+      "duration",
+      "campaign",
+      "pdays",
+      "emp.var.rate",
+      "cons.price.idx",
+      "cons.conf.idx",
+      "euribor3m",
+      "nr.employed"
+    ],
+    "split": [
+      28831,
+      6178,
+      6179
+    ],
+    "metrics": {
+      "auc": 0.628493941076113,
+      "ap": 0.5285355865938183,
+      "brier": 0.314302178601061,
+      "threshold": 0.99,
+      "accuracy": 0.615471759184334,
+      "precision": null,
+      "recall": 0.0,
+      "prevalence": 0.38452824081566594
+    },
+    "confusion": [
+      [
+        3803,
+        0
+      ],
+      [
+        2376,
+        0
+      ]
+    ],
+    "policy": "Chronological 70/15/15; preprocessing fit on train only; fixed L2 C=1; threshold min validation FP+FN with highest tie; frozen test; no duration; no client ID; duplicates retained."
+  }
+}

@@ -1,12 +1,12 @@
 # 统计分析方法 · 原生课件
 
-课程内部标识 `statistical-analysis`。32课时、16讲，面向学过基础统计但尚不能独立实证分析的商科研究生。第1讲48页、第2讲52页，各90分钟；第3—16讲保留正式标题与“待建设”，没有空白播放入口。
+课程内部标识 `statistical-analysis`。32课时、16讲，面向学过基础统计但尚不能独立实证分析的商科研究生。第1—5讲分别48、52、48、50、52页，共250页，各90分钟；第6—16讲保留正式标题与“待建设”，没有空白播放入口。
 
 ## 打开与授课
 
-本机平台运行时，打开 [课程工作区](http://127.0.0.1:5173/courses/statistical-analysis)，在讲次目录中选择第1讲或第2讲。教师可使用上一页、下一页、讲内页码与讲次选择器；学生从该课堂的加入链接同步观看。刷新保留进度。已结束的课堂不能继续控制。
+本机平台运行时，打开 [课程工作区](http://127.0.0.1:5173/courses/statistical-analysis)，在讲次目录中选择第1—5讲。教师可使用上一页、下一页、讲内页码与讲次选择器；学生从该课堂的加入链接同步观看。刷新保留进度。已结束的课堂不能继续控制。
 
-[独立课件预览](http://127.0.0.1:5173/statistical-analysis-preview.html?page=1) 用于备课；`page` 是1—100的全局页码，第2讲从49开始。该预览不发布课堂状态。每张投影为1600×1000，在窄屏按比例缩放。方向键与页面按钮可翻页。
+[独立课件预览](http://127.0.0.1:5173/statistical-analysis-preview.html?page=1) 用于备课；`page` 是1—250的全局页码；各讲从1、49、101、149、199开始。该预览不发布课堂状态。每张投影为1600×1000，在窄屏按比例缩放。方向键与页面按钮可翻页。
 
 LBL由教师讲解、翻页和揭示证据；个人思考只作短暂停顿。教师备注在课堂侧的折叠区域，与学生画布分离。每页提供讲解重点、停顿位置、前后衔接和证据口径；五层助手提示保持当前课程、讲次与页面范围。
 
@@ -14,13 +14,13 @@ LBL由教师讲解、翻页和揭示证据；个人思考只作短暂停顿。�
 
 | 内容 | 项目路径 |
 |---|---|
-| 16讲目录、100页文案与备注 | `packages/course-content/src/statistical-analysis/index.ts` |
+| 16讲目录、250页文案与备注 | `packages/course-content/src/statistical-analysis/index.ts` |
 | 可复现原始数据和预计算结果 | `packages/course-content/src/statistical-analysis/data.json` |
-| 100页逐页原生构图 | `apps/teacher-web/src/features/statistical-analysis/StatisticalAnalysisSlideStage.tsx` |
+| 250页逐页原生构图 | `apps/teacher-web/src/features/statistical-analysis/StatisticalAnalysisSlideStage.tsx` |
 | 原生SVG图形与公式渲染 | 同目录 `charts.tsx`，及Stage中的KaTeX |
 | 摄影、蒙版、色彩、字体与画布 | 同目录 `statistical-analysis.css` |
 | 课程注册 | `packages/course-content/src/deck-registry.ts` |
-| 24张正式配图与本地字体 | `apps/teacher-web/public/course-assets/statistical-analysis/` |
+| 60张正式配图与本地字体 | `apps/teacher-web/public/course-assets/statistical-analysis/` |
 | 逐页设计和教师讲解说明 | [page-design-and-notes.md](page-design-and-notes.md)、[JSON](page-design-and-notes.json) |
 | 配图生成提示与使用清单 | [image-prompts.json](image-prompts.json)、[asset-manifest.json](asset-manifest.json) |
 | 实测记录 | [acceptance.md](acceptance.md) |
@@ -74,7 +74,7 @@ git diff --check
 
 图片来源核对脚本读取本次生成路径；迁移机器时可依据清单SHA-256直接核对仓库内正式PNG。重新生成图片属于创作变更，不要求不同调用得到相同像素。
 
-浏览器验收使用Playwright。脚本当前从本机Codex依赖运行时加载浏览器库，端口5178指向专用Vite验收服务；课堂验收通过其代理连接API4300。
+浏览器验收使用Playwright，可通过PLAYWRIGHT_MODULE指定模块路径，STATS_QA_ORIGIN指定服务地址。默认静态预览5173；课堂验收5174须代理到隔离测试API，使用专用测试账号，不对生产课堂运行写入验收。
 
 ```powershell
 pnpm --filter @edu/teacher-web exec vite --host 127.0.0.1 --port 5178
@@ -83,3 +83,9 @@ node scripts/statistical-analysis-runtime-audit.mjs
 ```
 
 全页截图、浏览器报告和构建/测试日志存于`output/statistical-analysis-qa/`，该目录按仓库约定不纳入Git。交付目录内的验收记录与报告副本用于后续审阅。已有数据文件迁移只在缺少该课程时补入，保留现有课程和课堂进度。
+
+## 第3—5讲新增材料
+
+参见[数据与复现说明](data/README.md)、[新增配图提示](image-prompts-regression.json)、[生成与校验清单](image-generation-regression.json)。36张新图使用内置ImageGen生成，原始PNG保存在课程assets目录。新内容在`regression-lessons.ts`中逐页编写，`RegressionPages.tsx`渲染原生表、SVG和KaTeX。新增44组计算图形、25张证据表，按教学问题逐页展开。
+
+原有480行与前100页的稳定键保持不变。第1讲24页修正标准差标签重叠；第2讲43页明确为独立区间示意。教师备注和助手边界只进入相应教师/助手上下文，不进入学生画布DOM。
