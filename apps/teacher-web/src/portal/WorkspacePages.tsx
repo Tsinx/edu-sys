@@ -1,3 +1,12 @@
+import { ActivityWorkspace } from "../features/activities/ActivityWorkspace";
+import {
+  BookOpen,
+  ClipboardList,
+  ArrowRight,
+  Radio,
+  CalendarDays,
+  CheckCircle2,
+} from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import {
   Link,
@@ -250,6 +259,59 @@ export function WorkspaceHome({ student = false }: { student?: boolean }) {
         </Link>
       </header>
       <ErrorText text={error} />
+      {!student && (
+        <div className="workspace-priorities">
+          <Link to={primary[0] ? `/classroom/${primary[0].id}` : "/courses"}>
+            <span className="workspace-priority-icon">
+              <Radio size={22} />
+            </span>
+            <div>
+              <small>课堂现场</small>
+              <strong>
+                {primary.length
+                  ? `继续 ${primary[0]?.courseTitle}`
+                  : "从课程开启课堂"}
+              </strong>
+              <p>
+                {primary.length
+                  ? `${live.length} 堂课堂进行中`
+                  : "上课前查看课件与本讲活动"}
+              </p>
+            </div>
+            <ArrowRight size={18} />
+          </Link>
+          <Link
+            to={
+              courses[0] ? `/courses/${courses[0].id}/activities` : "/courses"
+            }
+          >
+            <span className="workspace-priority-icon">
+              <ClipboardList size={22} />
+            </span>
+            <div>
+              <small>课前准备</small>
+              <strong>编排本讲活动</strong>
+              <p>选择习题，预览学生答题画面</p>
+            </div>
+            <ArrowRight size={18} />
+          </Link>
+          <Link to="/tasks">
+            <span className="workspace-priority-icon">
+              <CheckCircle2 size={22} />
+            </span>
+            <div>
+              <small>实验反馈</small>
+              <strong>
+                {data.newSubmissions
+                  ? `${data.newSubmissions} 份新提交`
+                  : "查看实验成果"}
+              </strong>
+              <p>核验结果与学生成绩</p>
+            </div>
+            <ArrowRight size={18} />
+          </Link>
+        </div>
+      )}
       <section>
         <h2>{student ? "正在上课" : "继续课堂"}</h2>
         {primary.map((s) => (
@@ -340,6 +402,17 @@ function CourseCards({
               ) : (
                 <Link to={`/courses/${c.id}`}>打开课程工作区 →</Link>
               )}
+              <div className="workspace-course-tools">
+                {student ? (
+                  <Link to={`/courses/${c.id}/activity-history`}>
+                    课堂活动记录 →
+                  </Link>
+                ) : (
+                  <Link to={`/courses/${c.id}/activities`}>
+                    备课与教学活动 →
+                  </Link>
+                )}
+              </div>
             </div>
           </article>
         );
@@ -382,6 +455,9 @@ export function CourseCatalog() {
   );
 }
 export function CourseWorkspace() {
+  const [activityCounts, setActivityCounts] = useState<
+    Array<{ lesson: number; count: number }>
+  >([]);
   const { courseId = "" } = useParams(),
     [query, setQuery] = useSearchParams(),
     navigate = useNavigate();
@@ -395,6 +471,13 @@ export function CourseWorkspace() {
     undefined,
   );
   const tab = query.get("tab") ?? "slides";
+  useEffect(() => {
+    void request<Array<{ lesson: number; count: number }>>(
+      `/api/courses/${courseId}/activity-plans`,
+    )
+      .then(setActivityCounts)
+      .catch(() => setActivityCounts([]));
+  }, [courseId, tab]);
   const deck = getCourseDeckByCourseId(courseId),
     profile = getCoursePresentation(courseId);
   useEffect(() => {
@@ -439,7 +522,8 @@ export function CourseWorkspace() {
   return (
     <main className="workspace">
       <Link to="/courses">← 课程</Link>
-      <header className="workspace-heading">
+      <header className="workspace-heading workspace-course-heading">
+        {profile && <img src={profile.heroImage} alt="" />}
         <div>
           <h1>{course?.title ?? "课程工作区"}</h1>
           <p>{profile?.description}</p>
@@ -458,6 +542,7 @@ export function CourseWorkspace() {
       <nav className="workspace-tabs" aria-label="课程工作区">
         {[
           ["slides", "课件"],
+          ["activities", "教学活动"],
           ["classrooms", "课堂记录"],
           ...(courseId === PORT ? [["experiments", "实验与成绩"]] : []),
           ["settings", "课程设置"],
@@ -478,15 +563,20 @@ export function CourseWorkspace() {
               <p>
                 查看课件不会开启课堂。开始上课会优先恢复您最近的进行中课堂。
               </p>
-              <div className="workspace-grid">
+              <div className="workspace-lesson-list">
                 {deck.lessons.map((l) => (
-                  <article className="workspace-card" key={l.number}>
+                  <article className="workspace-lesson-row" key={l.number}>
                     <div>
                       <span>
                         {l.displayLabel ?? `第 ${l.number} 讲`} · {l.slideTotal}{" "}
                         页
                       </span>
                       <h2>{l.title}</h2>
+                      <small>
+                        {activityCounts.find((c) => c.lesson === l.number)
+                          ?.count ?? 0}{" "}
+                        项已编排活动
+                      </small>
                       {l.status === "ready" ? (
                         <Link to={`/preview/${courseId}?lesson=${l.number}`}>
                           查看课件 →
@@ -494,6 +584,19 @@ export function CourseWorkspace() {
                       ) : (
                         <span>尚未发布</span>
                       )}
+                      <Link
+                        to={`/courses/${courseId}/activities?lesson=${l.number}`}
+                      >
+                        教学活动 →
+                      </Link>
+                      <button
+                        onClick={() => {
+                          setLesson(l.number);
+                          setQuery({ tab: "settings" });
+                        }}
+                      >
+                        备课笔记
+                      </button>
                     </div>
                   </article>
                 ))}
@@ -525,6 +628,9 @@ export function CourseWorkspace() {
             </button>
           </details>
         </>
+      )}
+      {tab === "activities" && (
+        <ActivityWorkspace courseId={courseId} embedded />
       )}
       {tab === "classrooms" && (
         <>
@@ -610,7 +716,9 @@ export function CourseWorkspace() {
           <details className="workspace-section">
             <summary>教学工具与高级设置</summary>
             <p>
-              <Link to={`/courses/${courseId}/exercises`}>习题库</Link>
+              <Link to={`/courses/${courseId}/activities?view=library`}>
+                课程题库
+              </Link>
             </p>
             <p>
               <Link to={`/courses/${courseId}/assistant-prompts`}>

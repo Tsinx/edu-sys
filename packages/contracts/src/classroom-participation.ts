@@ -29,7 +29,7 @@ export const classroomParticipationActionSchema = z.object({ action: z.enum(["cl
 
 export const classroomExerciseInputSchema = z.object({
   title: z.string().trim().min(1).max(100),
-  lesson: z.number().int().min(1).max(100),
+  lesson: z.number().int().min(0).max(100),
   pack: z.string().trim().min(1).max(60),
   category: z.string().trim().min(1).max(40),
   order: z.number().int().min(0).max(999),

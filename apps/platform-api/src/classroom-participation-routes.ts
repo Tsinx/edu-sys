@@ -52,8 +52,8 @@ export function registerParticipationRoutes(app: FastifyInstance, service: Class
     const exercise = service.library.get(courseId, request.params.exerciseId);
     if (exercise.archived) throw participationError(409, "已归档的题目需先恢复，再发布");
     if (exercise.version !== input.expectedVersion) throw participationError(409, "题目已更新，请刷新题库并确认内容后发布");
-    const id = service.start(request.params.id, { ...exercise.content, requestId: input.requestId });
-    service.library.recordPublication(courseId, exercise.id, exercise.version, id);
+    service.atomic(()=>{const id = service.start(request.params.id, { ...exercise.content, requestId: input.requestId });
+    service.library.recordPublication(courseId, exercise.id, exercise.version, id);});
     return service.view(request.params.id, actor);
   });
   app.post<{ Params: Params }>(`${base}/groups`, async request => {

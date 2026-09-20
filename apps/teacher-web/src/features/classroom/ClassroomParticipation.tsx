@@ -1,3 +1,4 @@
+import {ClassroomActivityPlan} from "../activities/ActivityWorkspace";
 import type { ClassroomActor, ClassroomParticipationCreate, ClassroomParticipationView } from "@edu/contracts";
 import { useEffect, useRef, useState } from "react";
 import { Check, Radio, UsersRound, X } from "lucide-react";
@@ -29,14 +30,18 @@ export function StudentParticipation({ sessionId, actor }: { sessionId: string; 
   const active = view?.active;
   useEffect(() => { setSelected(active?.ownAnswer?.optionIds ?? []); }, [active?.id, active?.ownAnswer?.submittedAt]);
   const preview = actor.roles.includes("teacher");
-  return <section className="participation student-participation" aria-label="课堂活动">
+  const joining=useRef(false),root=useRef<HTMLElement>(null);
+  useEffect(()=>{if(!preview&&actor.identitySource!=="development"&&view?.isLive&&!view.joined&&!joining.current){joining.current=true;void mutate('/join',{displayName:actor.displayName}).finally(()=>{joining.current=false;});}},[view?.isLive,view?.joined,preview,actor.actorId]);
+  useEffect(()=>{if(active?.id){const details=root.current?.closest('details');if(details)details.open=true;}},[active?.id]);
+
+  return <section ref={root} className="participation student-participation" aria-label="课堂活动">
     <header className="participation-heading"><div><span className="participation-eyebrow">CLASSROOM LIVE</span><h2><UsersRound size={20} />课堂活动</h2></div>
       <span className="participation-connection"><Radio size={14} />{connected ? "实时同步" : "正在重连"}</span></header>
     {error && <p role="alert" className="participation-error">{error}</p>}
     {!view ? <p>正在连接课堂活动…</p> : preview ? <p>教师预览 · 学生可在这里加入、答题和回应点名。</p> : <>
       {!view.isLive && <p role="status">课堂已结束，活动记录已保留。</p>}
       {!view.joined ? view.isLive && <form className="participation-join" onSubmit={event => { event.preventDefault(); void mutate("/join", { displayName: name }); }}>
-        <label>课堂姓名<input autoComplete="name" value={name} maxLength={40} required readOnly={actor.identitySource !== "development"} placeholder="填写老师能认出的姓名" onChange={event => setName(event.target.value)} /></label>
+        <label>课堂账号<input autoComplete="name" value={name} maxLength={40} required readOnly={actor.identitySource !== "development"} placeholder="填写老师能认出的姓名" onChange={event => setName(event.target.value)} /></label>
         <button className="participation-primary" disabled={busy || !name.trim()}>加入活动</button>
         <small>在当前浏览器加入后，刷新页面会保留提交记录。</small>
       </form> : <>
@@ -67,7 +72,7 @@ export function StudentParticipation({ sessionId, actor }: { sessionId: string; 
   </section>;
 }
 
-export function TeacherParticipation({ sessionId, open, onClose }: { sessionId: string; open: boolean; onClose: () => void }) {
+export function TeacherParticipation({ sessionId, courseId, lesson, open, onClose }: { sessionId: string; courseId:string; lesson:number; open: boolean; onClose: () => void }) {
   const { view, busy, error, connected, mutate } = useParticipation(sessionId);
   const dialog = useRef<HTMLDivElement>(null);
   const [question, setQuestion] = useState("");
@@ -76,7 +81,7 @@ export function TeacherParticipation({ sessionId, open, onClose }: { sessionId: 
   const [correct, setCorrect] = useState<string[]>([]);
   const [explanation, setExplanation] = useState("");
   const [avoidRepeats, setAvoidRepeats] = useState(true);
-  const [tab, setTab] = useState<"live" | "library" | "groups">("live");
+  const [tab, setTab] = useState<"plan" | "live" | "library" | "groups">("plan");
   const requestKey = useRef({ body: "", id: "" });
   const start = async (input: Omit<Extract<ClassroomParticipationCreate, { kind: "question" }>, "requestId"> | Omit<Extract<ClassroomParticipationCreate, { kind: "roll_call" }>, "requestId">) => {
     const body = JSON.stringify(input);
@@ -111,9 +116,10 @@ export function TeacherParticipation({ sessionId, open, onClose }: { sessionId: 
     <header className="participation-heading"><div><span className="participation-eyebrow">CLASSROOM LIVE · {connected ? "实时同步" : "重连中"}</span><h2 id="participation-title">课堂活动</h2></div><button type="button" aria-label="关闭课堂活动" onClick={onClose}><X size={20} /></button></header>
     {error && <p className="participation-error" role="alert">{error}</p>}
     {!view ? <p>正在连接活动…</p> : !view.isTeacher ? <p>请使用教师身份打开活动面板。</p> : <>
-      <div className="participation-summary"><strong>{view.roster?.filter(m => m.online).length ?? 0}<small>在线</small></strong><strong>{view.roster?.length ?? 0}<small>已加入活动</small></strong><span>{view.isLive ? "学生打开课堂链接并填写姓名即可参与。" : "课堂已结束，以下为活动记录。"}</span></div>
+      <div className="participation-summary"><strong>{view.roster?.filter(m => m.online).length ?? 0}<small>在线</small></strong><strong>{view.roster?.length ?? 0}<small>已加入活动</small></strong><span>{view.isLive ? "学生使用登录账号进入课堂即可参与。" : "课堂已结束，以下为活动记录。"}</span></div>
       <label className="participation-invite">学生加入链接<input readOnly value={new URL(`/join/${sessionId}`, window.location.origin).toString()} onFocus={event => event.target.select()} /></label>
-      <nav className="exercise-tabs" aria-label="活动管理"><button aria-pressed={tab === "live"} onClick={() => setTab("live")}>当前活动</button><button aria-pressed={tab === "library"} onClick={() => setTab("library")}>习题库与发布</button><button aria-pressed={tab === "groups"} onClick={() => setTab("groups")}>学生分组</button></nav>
+      <nav className="exercise-tabs" aria-label="活动管理"><button aria-pressed={tab === "plan"} onClick={()=>setTab("plan")}>本讲活动单</button><button aria-pressed={tab === "live"} onClick={() => setTab("live")}>当前活动</button><button aria-pressed={tab === "library"} onClick={() => setTab("library")}>习题库与发布</button><button aria-pressed={tab === "groups"} onClick={() => setTab("groups")}>学生分组</button></nav>
+      {tab==="plan"&&<ClassroomActivityPlan sessionId={sessionId} courseId={courseId} lesson={lesson} revision={view.revision} live={view.isLive} onPublished={()=>setTab("live")}/>}
       <div hidden={tab !== "library"}><ExerciseLibrary base={`/api/class-sessions/${sessionId}/participation/library`} open={open && tab === "library"} locked={locked} publish={async (id, version, requestId) => {
         const ok = await mutate(`/library/${encodeURIComponent(id)}/publish`, { requestId, expectedVersion: version });
         if (ok) setTab("live"); return ok;

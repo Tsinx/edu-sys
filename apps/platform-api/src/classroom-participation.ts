@@ -1,4 +1,4 @@
-import { randomInt, randomUUID } from "node:crypto";
+import { createHash, randomInt, randomUUID } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import type { ClassroomActor, ClassroomParticipationCreate, ClassroomParticipationView } from "@edu/contracts";
 import { ClassroomExerciseLibrary } from "./classroom-exercise-library.js";
@@ -14,7 +14,8 @@ export function participationError(statusCode: number, message: string) {
 /** Small transactional writes; student answers never rewrite the course JSON. */
 export class ClassroomParticipation {
   readonly library: ClassroomExerciseLibrary;
-  private readonly db: DatabaseSync;
+  readonly db: DatabaseSync;
+  private transactionDepth=0;
   private readonly lastSeen = new Map<string, Map<string, number>>();
   private readonly listeners = new Map<string, Set<() => void>>();
   private readonly pending = new Map<string, ReturnType<typeof setTimeout>>();
@@ -29,6 +30,10 @@ export class ClassroomParticipation {
       CREATE INDEX IF NOT EXISTS participation_activities_session ON participation_activities(session_id,created_at);
       CREATE TABLE IF NOT EXISTS participation_answers(activity_id TEXT NOT NULL, actor_id TEXT NOT NULL, option_ids TEXT NOT NULL, submitted_at TEXT NOT NULL, PRIMARY KEY(activity_id,actor_id));
       CREATE TABLE IF NOT EXISTS participation_groups(session_id TEXT NOT NULL, actor_id TEXT NOT NULL, group_name TEXT NOT NULL, PRIMARY KEY(session_id,actor_id));`);
+    const columns=this.db.prepare('PRAGMA table_info(participation_activities)').all();
+    for(const name of ['revealed_at','fingerprint'])if(!columns.some(c=>c.name===name))this.db.exec(`ALTER TABLE participation_activities ADD COLUMN ${name} TEXT`);
+    this.db.exec(`UPDATE participation_activities SET revealed_at=created_at WHERE status='revealed' AND revealed_at IS NULL;
+      CREATE TABLE IF NOT EXISTS participation_activity_members(activity_id TEXT NOT NULL,actor_id TEXT NOT NULL,display_name TEXT NOT NULL,group_name TEXT NOT NULL,PRIMARY KEY(activity_id,actor_id));`);
     this.library = new ClassroomExerciseLibrary(this.db);
     this.expiryTimer = setInterval(() => {
       for (const [sessionId, members] of this.lastSeen) {
@@ -46,10 +51,14 @@ export class ClassroomParticipation {
     for (const timer of this.pending.values()) clearTimeout(timer);
     this.pending.clear(); this.listeners.clear(); this.db.close();
   }
+  atomic<T>(operation:()=>T):T {return this.transaction(operation);}
   private transaction<T>(operation: () => T): T {
+    if(this.transactionDepth)return operation();
     this.db.exec("BEGIN IMMEDIATE");
+    this.transactionDepth++;
     try { const value = operation(); this.db.exec("COMMIT"); return value; }
     catch (error) { this.db.exec("ROLLBACK"); throw error; }
+    finally{this.transactionDepth--;}
   }
   private room(sessionId: string) {
     return this.db.prepare("SELECT revision, active_id FROM participation_rooms WHERE session_id=?").get(sessionId) as { revision: number; active_id: string | null } | undefined;
@@ -86,6 +95,7 @@ export class ClassroomParticipation {
   }
   join(sessionId: string, actor: ClassroomActor, displayName: string) {
     this.requireLive(sessionId);
+    if(this.member(sessionId,actor.actorId)){this.touch(sessionId,actor.actorId);return;}
     const name = actor.identitySource === "development" ? displayName : actor.displayName;
     this.transaction(() => {
       this.ensureRoom(sessionId);
@@ -123,8 +133,10 @@ export class ClassroomParticipation {
     this.requireLive(sessionId);
     return this.transaction(() => {
       this.ensureRoom(sessionId);
-      const prior = this.db.prepare("SELECT id FROM participation_activities WHERE session_id=? AND request_id=?").get(sessionId, input.requestId) as { id: string } | undefined;
-      if (prior) return prior.id;
+      const prior = this.db.prepare("SELECT id,fingerprint FROM participation_activities WHERE session_id=? AND request_id=?").get(sessionId, input.requestId) as { id: string; fingerprint:string|null } | undefined;
+      const {requestId:_request,...content}=input;
+      const fingerprint=createHash('sha256').update(JSON.stringify(content)).digest('hex');
+      if (prior) {if(prior.fingerprint && prior.fingerprint!==fingerprint)throw participationError(409,'发布编号已用于其他内容');return prior.id;}
       const current = this.room(sessionId)?.active_id;
       if (current && this.activity(sessionId, current).status === "open") throw participationError(409, "请先结束当前活动，再发起下一项");
       let definition: Definition;
@@ -139,7 +151,8 @@ export class ClassroomParticipation {
         definition = { question: "请回应老师的点名", mode: "single", options: [], correctOptionIds: [], explanation: "", calledId: chosen.actor_id, calledName: chosen.display_name };
       }
       const id = randomUUID();
-      this.db.prepare("INSERT INTO participation_activities VALUES(?,?,?,?,'open',?,?)").run(id, sessionId, input.requestId, input.kind, JSON.stringify(definition), new Date().toISOString());
+      this.db.prepare("INSERT INTO participation_activities(id,session_id,request_id,kind,status,definition,created_at,fingerprint) VALUES(?,?,?,?,'open',?,?,?)").run(id, sessionId, input.requestId, input.kind, JSON.stringify(definition), new Date().toISOString(),fingerprint);
+      this.db.prepare("INSERT INTO participation_activity_members SELECT ?,m.actor_id,m.display_name,COALESCE(g.group_name,'') FROM participation_members m LEFT JOIN participation_groups g ON g.session_id=m.session_id AND g.actor_id=m.actor_id WHERE m.session_id=?").run(id,sessionId);
       this.db.prepare("UPDATE participation_rooms SET active_id=? WHERE session_id=?").run(id, sessionId);
       this.changed(sessionId); return id;
     });
@@ -163,6 +176,7 @@ export class ClassroomParticipation {
         optionIds.some(id => !definition.options.some(o => o.id === id)) || (definition.mode === "single" && optionIds.length !== 1)) {
         throw participationError(400, "请选择符合题型的有效选项");
       }
+      this.db.prepare("INSERT OR IGNORE INTO participation_activity_members SELECT ?,m.actor_id,m.display_name,COALESCE(g.group_name,'') FROM participation_members m LEFT JOIN participation_groups g ON g.session_id=m.session_id AND g.actor_id=m.actor_id WHERE m.session_id=? AND m.actor_id=?").run(activityId,sessionId,actor.actorId);
       this.db.prepare("INSERT INTO participation_answers VALUES(?,?,?,?)").run(activityId, actor.actorId, serialized, new Date().toISOString());
       this.changed(sessionId);
     });
@@ -179,6 +193,7 @@ export class ClassroomParticipation {
       } else if (row.status !== "revealed") {
         this.db.prepare("UPDATE participation_activities SET status=? WHERE id=?").run(action === "reveal" ? "revealed" : "closed", activityId);
       }
+      if(action==='reveal')this.db.prepare('UPDATE participation_activities SET revealed_at=COALESCE(revealed_at,?) WHERE id=?').run(new Date().toISOString(),activityId);
       this.changed(sessionId);
     });
   }

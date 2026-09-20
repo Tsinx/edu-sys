@@ -1,3 +1,4 @@
+import {ActivityHistory} from "../features/activities/ActivityWorkspace";
 import {
   WorkspaceHome,
   TaskWorkspace,
@@ -70,6 +71,7 @@ function StudentRoutes({ identity }: { identity: ClassroomIdentitySession }) {
             path="/join/:sessionId"
             element={<StudentClassroom key={location.pathname} />}
           />
+          <Route path="/courses/:courseId/activity-history" element={<ActivityHistory student/>}/>
           <Route path="/tasks" element={<TaskWorkspace />} />
           <Route path="/submissions" element={<SubmissionHistory />} />
           <Route path="/settings" element={<PreferencesPage />} />

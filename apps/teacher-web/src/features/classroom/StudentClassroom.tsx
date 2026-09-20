@@ -97,7 +97,7 @@ function StudentWorkspace({sessionId, deck, actor, snapshot, connected, error}: 
   const detachOnControl = (target: EventTarget) => { if (following && target instanceof Element && !target.closest("[data-l6-audio-control]") && target.closest("button,input,select,canvas,[role=button]")) browse(); };
   return <main className={`student-learning ${directory ? "student-learning--directory" : ""}`} data-following={following}>
     {fullscreen && createPortal(<div className="student-fullscreen-position"><span>{teacherLabel}</span><button disabled={!live || Boolean(error)} onClick={follow}><Focus size={16}/>{following?"正在跟随教师":"一键跟上教师"}</button></div>, fullscreen)}
-    <header className="student-learning__heading">
+    <header className="student-learning__heading"><a className="student-activity-link" href="#student-activities" onClick={()=>{const panel=document.getElementById("student-activities");if(panel instanceof HTMLDetailsElement)panel.open=true;}}>课堂活动</a>
       <Link to="/" className="student-learning__brand" aria-label="返回学习首页"><BookOpen size={23}/></Link>
       <div><p className="student-eyebrow">我的课堂</p><h1>{snapshot.courseTitle}</h1></div>
       <span className={`student-connection ${connected && live ? "is-live" : ""}`}><Radio size={14}/>{!live ? "课堂已结束" : connected ? "课堂已连接" : error ? "正在重新连接" : "轮询同步"}</span>
@@ -142,6 +142,6 @@ function StudentWorkspace({sessionId, deck, actor, snapshot, connected, error}: 
         <p className="student-reader__hint">{syncOnly?"教师控制翻页与演示，当前画面同步显示":following?"手动翻页或操作实验即可自由浏览":"你正在自由浏览，可以随时跟上教师"}{notice&&` · ${notice}`}</p>
       </section>
     </div>
-    {!['statistical-analysis','management-principles'].includes(snapshot.courseId)&&<details className="student-participation"><summary>课堂互动</summary><StudentParticipation sessionId={sessionId} actor={actor}/></details>}
+    <details id="student-activities" className="student-participation"><summary>课堂互动</summary><StudentParticipation sessionId={sessionId} actor={actor}/></details>
   </main>;
 }

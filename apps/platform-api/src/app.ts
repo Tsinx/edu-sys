@@ -1,3 +1,4 @@
+import { registerActivityPlans } from "./activity-plan-routes.js";
 import { registerPortal } from "./portal-routes.js";
 import { randomUUID } from "node:crypto";
 import { PortSubmissionRepository, registerPortSubmissions } from "./port-submissions.js";
@@ -334,6 +335,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     });
   });
 
+  registerActivityPlans(app,store,participation,resolveActor);
   registerParticipationRoutes(app, participation, id => store.getSession(id)?.courseId, resolveActor, id => Boolean(store.getCourse(id)));
   registerAssistantPromptRoutes(app, store, request => requireActor(request, "teacher"));
 

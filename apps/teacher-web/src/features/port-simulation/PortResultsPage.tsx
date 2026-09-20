@@ -17,7 +17,7 @@ export function PortResultsLink({ courseId }: { courseId: string }) {
 export function PortResultsPage() {
   const { courseId = "course-port-management-intro" } = useParams();
   const [data, setData] = useState<ResultsResponse>(), [error, setError] = useState(""), [teacher, setTeacher] = useState(false);
-  const [search, setSearch] = useState(""), [unit, setUnit] = useState("all"), [status, setStatus] = useState("all"), [selected, setSelected] = useState<SubmissionSummary>();
+  const [search, setSearch] = useState(""), [unit, setUnit] = useState(()=>window.innerWidth<=600?"arrival":"all"), [status, setStatus] = useState("all"), [selected, setSelected] = useState<SubmissionSummary>();
   const [page,setPage]=useState(1);
   const generation=useRef(0);
   const query=new URLSearchParams({page:String(page),search,unit,status});

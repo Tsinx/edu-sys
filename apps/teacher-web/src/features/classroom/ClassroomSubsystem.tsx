@@ -1153,7 +1153,7 @@ export function ClassroomSubsystem() {
                 </button>
               );
             })}
-            {isEconomicMathematics && <button type="button" className="classroom-activity-tab" onClick={() => setParticipationOpen(true)}><UsersRound size={18} />课堂活动</button>}
+            {isRegisteredCourse && <button type="button" className="classroom-activity-tab" onClick={() => setParticipationOpen(true)}><UsersRound size={18} />课堂活动</button>}
             <span className="runtime-version">课堂状态 v{snapshot.runtimeVersion}</span>
           </nav>
 
@@ -1623,7 +1623,7 @@ export function ClassroomSubsystem() {
               </footer>}
           </>
         </aside>
-        {!isStatisticalAnalysis && !isManagement && <TeacherParticipation key={sessionId} sessionId={sessionId} open={participationOpen} onClose={closeParticipation} />}
+        <TeacherParticipation key={sessionId} sessionId={sessionId} courseId={snapshot.courseId} lesson={snapshot.slide.lessonNumber} open={participationOpen} onClose={closeParticipation} />
         {isFullscreen && (
           <>
             <ClassroomFullscreenControls
@@ -1643,7 +1643,7 @@ export function ClassroomSubsystem() {
               onToggleAvatar={() => setFullscreenAvatarCollapsed((collapsed) => !collapsed)}
               onExit={() => void toggleFullscreen()}
               onWorkspace={() => void returnToWorkspace()}
-              onParticipation={isStatisticalAnalysis || isManagement ? undefined : () => setParticipationOpen(true)}
+              onParticipation={() => setParticipationOpen(true)}
             />
             {(error || notice) && <div className="fullscreen-classroom-notice" role="status">{error || notice}</div>}
           </>

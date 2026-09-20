@@ -1,3 +1,4 @@
+import { ActivityWorkspace, LegacyExercises } from "./features/activities/ActivityWorkspace";
 import {
   WorkspaceShell,
   WorkspaceHome,
@@ -103,6 +104,7 @@ export function App() {
         >
           <Route index element={<WorkspaceHome />} />
           <Route path="courses" element={<CourseCatalog />} />
+          <Route path="courses/:courseId/activities" element={<ActivityWorkspace/>}/>
           <Route path="courses/:courseId" element={<CourseWorkspace />} />
           <Route
             path="courses/:courseId/experiment-results"
@@ -110,7 +112,7 @@ export function App() {
           />
           <Route
             path="courses/:courseId/exercises"
-            element={<CourseExercisePage />}
+            element={<LegacyExercises />}
           />
           <Route
             path="courses/:courseId/assistant-prompts"

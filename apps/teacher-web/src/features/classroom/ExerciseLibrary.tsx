@@ -1,3 +1,4 @@
+import { QuestionPreview } from "../activities/QuestionPreview";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import type { ClassroomExercise, ClassroomExerciseInput } from "@edu/contracts";
@@ -5,17 +6,17 @@ import { api, ApiError } from "../../api";
 import { activityRequestId } from "./participation-id";
 import "./participation.css";
 
-type Props = { base: string; open: boolean; locked?: boolean; publish?: (id: string, version: number, requestId: string) => Promise<boolean> };
+type Props = { initialLesson?:number; initialSlide?:number; base: string; open: boolean; locked?: boolean; publish?: (id: string, version: number, requestId: string) => Promise<boolean> };
 const newDraft = (): ClassroomExercise => ({ id: activityRequestId(), version: 0, publishedCount: 0,
   title: "", lesson: 1, pack: "课堂练习", category: "概念理解", order: 130, minute: 0, slide: 1, durationSeconds: 60,
   optional: false, collaboration: "individual", teachingCue: "", assistantCue: "", archived: false,
   content: { kind: "question", requestId: activityRequestId(), question: "", mode: "single", options: [{ id: "A", text: "" }, { id: "B", text: "" }], correctOptionIds: [], explanation: "" }
 });
 
-export function ExerciseLibrary({ base, open, locked = false, publish }: Props) {
+export function ExerciseLibrary({ base, open, locked = false, publish, initialLesson, initialSlide }: Props) {
   const [items, setItems] = useState<ClassroomExercise[]>([]);
   const [draft, setDraft] = useState<ClassroomExercise | null>(null);
-  const [query, setQuery] = useState(""); const [lesson, setLesson] = useState("");
+  const [query, setQuery] = useState(""); const [lesson, setLesson] = useState(initialLesson===undefined?"":String(initialLesson));
   const [pack, setPack] = useState(""); const [category, setCategory] = useState("");
   const [archived, setArchived] = useState(false); const [busy, setBusy] = useState(false);
   const [error, setError] = useState(""); const [notice, setNotice] = useState("");
@@ -56,11 +57,11 @@ export function ExerciseLibrary({ base, open, locked = false, publish }: Props) 
   const content = (patch: Partial<ClassroomExerciseInput["content"]>) => setDraft(current => current ? { ...current, content: { ...current.content, ...patch } } : current);
   const visible = items.filter(item => item.archived === archived && (!lesson || item.lesson === Number(lesson)) && (!pack || item.pack === pack) && (!category || item.category === category) && `${item.title} ${item.content.question}`.includes(query.trim()));
   return <section className="exercise-library" aria-label="课程习题库">
-    <div className="exercise-library-heading"><div><h3>备课与发布</h3><p className="participation-hint">按讲次、题组和分类整理；分钟与页码供现场参考，可随试课修改。</p></div><button type="button" disabled={busy || Boolean(draft)} onClick={() => { setDraft(newDraft()); setNotice(""); }}>新建习题</button></div>
+    <div className="exercise-library-heading"><div><h3>备课与发布</h3><p className="participation-hint">按讲次、题组和分类整理；分钟与页码供现场参考，可随试课修改。</p></div><button type="button" disabled={busy || Boolean(draft)} onClick={() => { setDraft({...newDraft(),lesson:initialLesson??1,slide:initialSlide??1}); setNotice(""); }}>新建习题</button></div>
     {error && <p className="participation-error" role="alert">{error}</p>}{notice && <p role="status" className="participation-success">{notice}</p>}
     <div className="exercise-filters">
       <label>搜索题目<input value={query} onChange={e => setQuery(e.target.value)} placeholder="标题或题干" /></label>
-      <label>讲次<select aria-label="筛选讲次" value={lesson} onChange={e => setLesson(e.target.value)}><option value="">全部讲次</option>{[...new Set(items.map(i => i.lesson))].sort((a, b) => a - b).map(n => <option key={n} value={n}>第{n}讲</option>)}</select></label>
+      <label>讲次<select aria-label="筛选讲次" value={lesson} onChange={e => setLesson(e.target.value)}><option value="">全部讲次</option>{[...new Set([...items.map(i => i.lesson), ...(initialLesson === undefined ? [] : [initialLesson])])].sort((a, b) => a - b).map(n => <option key={n} value={n}>第{n}讲</option>)}</select></label>
       <label>题组<select aria-label="筛选题组" value={pack} onChange={e => setPack(e.target.value)}><option value="">全部题组</option>{[...new Set(items.map(i => i.pack))].map(p => <option key={p}>{p}</option>)}</select></label>
       <label>分类<select aria-label="筛选分类" value={category} onChange={e => setCategory(e.target.value)}><option value="">全部分类</option>{[...new Set(items.map(i => i.category))].map(c => <option key={c}>{c}</option>)}</select></label>
       <label className="participation-check"><input type="checkbox" checked={archived} onChange={e => setArchived(e.target.checked)} />查看归档</label>
@@ -70,12 +71,12 @@ export function ExerciseLibrary({ base, open, locked = false, publish }: Props) 
       <h3>{draft.version ? "编辑习题" : "新建习题"}</h3>
       <label>管理标题<input required maxLength={100} value={draft.title} onChange={e => change({ title: e.target.value })} /></label>
       <div className="exercise-editor-grid">
-        <label>所属讲次<input type="number" required min={1} max={100} value={draft.lesson} onChange={e => change({ lesson: Number(e.target.value) })} /></label>
+        <label>所属讲次<input type="number" required min={0} max={100} value={draft.lesson} onChange={e => change({ lesson: Number(e.target.value) })} /></label>
         <label>题组名称<input required maxLength={60} value={draft.pack} onChange={e => change({ pack: e.target.value })} /></label>
         <label>分类名称<input required maxLength={40} value={draft.category} onChange={e => change({ category: e.target.value })} /></label>
         <label>排序号<input type="number" required min={0} max={999} value={draft.order} onChange={e => change({ order: Number(e.target.value) })} /></label>
         <label>建议发布分钟<input type="number" required min={0} max={240} step={0.5} value={draft.minute} onChange={e => change({ minute: Number(e.target.value) })} /></label>
-        <label>对应课件页<input type="number" required min={1} max={2000} value={draft.slide} onChange={e => change({ slide: Number(e.target.value) })} /></label>
+        <label>对应全课程页码<input type="number" required min={1} max={2000} value={draft.slide} onChange={e => change({ slide: Number(e.target.value) })} /></label>
         <label>建议作答秒数<input type="number" required min={10} max={1800} value={draft.durationSeconds} onChange={e => change({ durationSeconds: Number(e.target.value) })} /></label>
         <label>组织方式<select aria-label="组织方式" value={draft.collaboration} onChange={e => change({ collaboration: e.target.value as "individual" | "discussion" })}><option value="individual">独立作答</option><option value="discussion">讨论后各自作答</option></select></label>
       </div>
@@ -86,6 +87,7 @@ export function ExerciseLibrary({ base, open, locked = false, publish }: Props) 
       {draft.content.options.map(option => <div className="participation-compose-option" key={option.id}><label className="participation-check"><input type="checkbox" aria-label={`正确答案 ${option.id}`} checked={draft.content.correctOptionIds.includes(option.id)} onChange={e => content({ correctOptionIds: e.target.checked ? draft.content.mode === "single" ? [option.id] : [...draft.content.correctOptionIds, option.id] : draft.content.correctOptionIds.filter(id => id !== option.id) })} />{option.id}</label><input aria-label={`习题选项 ${option.id}`} required maxLength={200} value={option.text} onChange={e => content({ options: draft.content.options.map(o => o.id === option.id ? { ...o, text: e.target.value } : o) })} /></div>)}
       <div className="participation-actions"><button type="button" disabled={draft.content.options.length >= 6} onClick={() => content({ options: [...draft.content.options, { id: String.fromCharCode(65 + draft.content.options.length), text: "" }] })}>添加选项</button><button type="button" disabled={draft.content.options.length <= 2} onClick={() => content({ options: draft.content.options.slice(0, -1), correctOptionIds: draft.content.correctOptionIds.filter(id => id !== draft.content.options.at(-1)?.id) })}>减少选项</button></div>
       <label>公布后的讲解<textarea maxLength={1200} value={draft.content.explanation} onChange={e => content({ explanation: e.target.value })} /></label>
+      <details className="exercise-student-preview"><summary>预览学生答题画面</summary><QuestionPreview key={draft.id} exercise={draft}/></details>
       <label>教师操作与接话（仅教师可见）<textarea maxLength={3000} value={draft.teachingCue} onChange={e => change({ teachingCue: e.target.value })} /></label>
       <label>数字人提示（仅教师可见）<textarea maxLength={1500} value={draft.assistantCue} onChange={e => change({ assistantCue: e.target.value })} /></label>
       <div className="participation-actions"><button className="participation-primary" disabled={busy}>保存到题库</button><button type="button" disabled={busy} onClick={() => setDraft(null)}>取消编辑</button></div>
