@@ -1,0 +1,90 @@
+{
+  "date": "2026-09-20",
+  "pages": 250,
+  "newPages": [
+    48,
+    50,
+    52
+  ],
+  "imagesAdded": 36,
+  "computedPlots": 44,
+  "computedTables": 25,
+  "tests": {
+    "passed": 323,
+    "skipped": 1,
+    "statisticsContextPassed": 9
+  },
+  "projection": {
+    "checks": 500,
+    "errors": [],
+    "failures": 0
+  },
+  "classroom": {
+    "checks": [
+      "course workspace exposes five ready and eleven planned lessons",
+      "lecture 1 opens as teacher-controlled native slides",
+      "independent student joins and receives the same page",
+      "next and previous controls synchronize",
+      "local page input, cross-lecture navigation and planned guards",
+      "refresh preserves both teacher and student progress",
+      "served assistant prompt matches the current lecture and page",
+      "narrow classroom maintains a complete 16:10 canvas",
+      "all 250 pages remain visible in both classroom roles at two widths",
+      "fullscreen keeps manual paging and hides unavailable activities",
+      "existing port and economics classrooms still render"
+    ],
+    "canvasChecks": 1000,
+    "errors": []
+  },
+  "release": {
+    "checkedAt": "2026-09-20T09:15:26.074Z",
+    "release": "/home/xingzhi/projects/edu-sys/output/campus-server-20260920-statistics-3-5",
+    "productionInstall": true,
+    "standaloneStartup": true,
+    "sourceAndGpuSubmodulesRequired": false,
+    "accountCreation": true,
+    "secureCookie": true,
+    "failClosed": true,
+    "staticRootIsolation": true,
+    "statistics": {
+      "pages": 250,
+      "readyLectures": 5,
+      "boundariesVerified": true,
+      "teacherMetadataExcluded": true
+    },
+    "management": {
+      "moduleCount": 17,
+      "lectureCount": 16,
+      "introductionCount": 1,
+      "lastStoredPage": 1477,
+      "teacherSourceMap": true
+    },
+    "verifiedResources": 949,
+    "backupIntegrity": true,
+    "backupDatabases": 6,
+    "node": "v24.20.0",
+    "scope": "Local HTTP connection to HTTPS-proxy upstream; school TLS, campus routing and real cloud AI are not exercised."
+  },
+  "https": {
+    "origin": "https://10.1.55.27:8443",
+    "verifiedAt": "2026-09-20T09:16:59Z",
+    "tlsVerified": true,
+    "campusMode": true,
+    "login": true,
+    "secureCookie": true,
+    "privateFilesBlocked": true,
+    "originEnforced": true,
+    "sessionSurvivesRestart": true,
+    "logoutRevokesSession": true,
+    "caddyReload": true,
+    "verifiedStaticFiles": 949,
+    "scope": "Verified from the server through its LAN HTTPS address; other devices and cloud AI were not exercised."
+  },
+  "preservation": {
+    "tables": 13,
+    "accounts": 73,
+    "courseAccess": 71,
+    "submissions": 316,
+    "exercises": 12
+  }
+}

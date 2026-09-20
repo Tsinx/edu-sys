@@ -128,7 +128,7 @@ with zipfile.ZipFile(archive) as outer:
     inner=outer.read('bank-additional.zip')
 with zipfile.ZipFile(io.BytesIO(inner)) as z:
     csv=z.read('bank-additional/bank-additional-full.csv'); description=z.read('bank-additional/bank-additional-names.txt')
-(archive.parent/'bank-additional-names.txt').write_bytes(description)
+(archive.parent/'bank-additional-names.txt').write_text('\n'.join(line.rstrip() for line in description.decode('utf-8-sig').splitlines())+'\n')
 bank=pd.read_csv(io.BytesIO(csv),sep=';'); assert len(bank)==41188
 # Conservative inputs known before today's call. Drop contact schedule and campaign count too.
 numeric=['age','previous']; categorical=['job','marital','education','default','housing','loan','poutcome']

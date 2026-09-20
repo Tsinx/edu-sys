@@ -51,13 +51,13 @@ Logistic、Probit、优势、OR和边际效应部分为公式计算示意。未�
 
 来源：[UCI Bank Marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing)，Moro, S., Rita, P., & Cortez, P. (2014)，[DOI 10.24432/C5K306](https://doi.org/10.24432/C5K306)，[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)。本目录归档官方原始压缩包；下载地址为`https://archive.ics.uci.edu/static/public/222/bank%2Bmarketing.zip`。数据经本课训练、预测、聚合，派生结果不是UCI提供的模型结论。
 
-本课只使用嵌套压缩包中的`bank-additional-full.csv`，41,188行、20个输入；不能混同旧版45,211行。原始变量说明保存在[bank-additional-names.txt](bank-additional-names.txt)。官方说明该文件按2008年5月至2010年11月的日期排序，但记录中没有完整日期、稳定客户ID。因此按原行序切分，并不能保证跨段客户独立。
+本课只使用嵌套压缩包中的`bank-additional-full.csv`，41,188行、20个输入；不能混同旧版45,211行。变量说明已规范为UTF-8/LF（压缩包保留原始字节），保存在[bank-additional-names.txt](bank-additional-names.txt)。官方说明该文件按2008年5月至2010年11月的日期排序，但记录中没有完整日期、稳定客户ID。因此按原行序切分，并不能保证跨段客户独立。
 
 预测任务：在本次电话开始前估计认购概率。使用9项保守特征：age、previous、job、marital、education、default、housing、loan、poutcome。排除duration以及本次联系过程/日程信息；也不使用宏观指标，目的是形成简单且可审阅的教学基准，非复现原论文最佳模型。unknown保留为类别；pdays=999为“此前未联系”，不当作实际天数（本模型直接不纳入pdays）。12条完全相同行因缺少客户ID而保留，不擅自认定为重复导入。
 
 前28,831行训练，中6,178行验证，后6,179行测试。标准化和独热编码只在训练集拟合。LogisticRegression使用L2正则化、C=1、lbfgs，未用测试集调参。阈值在0.01至0.99网格上最小化验证集FP+FN，并列取最高值；这是预定的等错分成本教学规则。模型与阈值冻结后计算测试指标。
 
-训练/验证/测试认购比例约为5.57%/4.49%/38.45%，存在明显时间构成变化。本次选中阈值0.99，测试集全预测未认购：TN=3803、FP=0、FN=2376、TP=0。召回率0；精确率**无定义**。准确率0.615与全负基准相同。ROC AUC约0.628、Average precision约0.529、Brier约0.314。AP不是梯形PR面积。校准图采用8个等频分箱，分箱比例存在抽样不确定性。ROC与PR显示抽稀坐标，指标以全部预测计算。
+训练/验证/测试认购比例约为5.57%/10.65%/38.45%，存在明显时间构成变化。本次选中阈值0.99，测试集全预测未认购：TN=3803、FP=0、FN=2376、TP=0。召回率0；精确率**无定义**。准确率0.615与全负基准相同。ROC AUC约0.628、Average precision约0.529、Brier约0.314。AP不是梯形PR面积。校准图采用8个等频分箱，分箱比例存在抽样不确定性。ROC与PR显示抽稀坐标，指标以全部预测计算。
 
 [bank-evaluation.csv](bank-evaluation.csv)保留验证/测试原始行号、真实标签和冻结预测概率，可独立复算阈值、混淆矩阵和概率误差。失败表现是课堂证据：不重新选取测试区间或利用测试集校准来美化成绩。后续应用需新的时间外验证和客户层面检查。
 

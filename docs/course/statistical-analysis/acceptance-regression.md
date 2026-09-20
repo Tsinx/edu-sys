@@ -18,4 +18,12 @@
 
 本机完整截图及浏览器JSON：`output/statistical-analysis-qa/`；计算、类型、测试、构建、发布验证日志：`.runtime/statistics-review/`。两目录按仓库约定忽略，不包含在Git交付中。逐页教师文档更新为250页：[page-design-and-notes.md](page-design-and-notes.md)。
 
-正式发布与生产数据保全结果在完成后追加。
+## 正式发布与保全
+
+已上线到 https://10.1.55.27:8443 ，课程工作区 `/courses/statistical-analysis`，预览从全局101、149、199分别进入第3、4、5讲。
+
+发布目录`output/campus-server-20260920-statistics-3-5`，releaseId `campus-20260920091507496`，课程实现提交`6174112`。独立包验收验证5讲全部边界、250页、949个静态资源哈希、账号登录和6个SQLite备份库完整性。线上HTTPS验收通过TLS、Secure Cookie、来源限制、重启会话持久化、退出撤销及949个静态文件校验。验证范围为本服务器经校园LAN HTTPS访问，未宣称其他终端或云AI已经实测。
+
+升级备份`.runtime/backups/upgrade-20260920-171635/data`。对13张业务表进行原有行哈希子集核对，73个账号、71条课程权限、316份实验提交、12道题库习题等原有记录均保留；不清理既有课堂。公开预览另检查新三讲首尾页，页码与250项目录一致。
+
+数据生成脚本重跑后，计算JSON与逐行评价CSV均字节一致。UCI说明文本仅清理BOM、换行和行尾空白，归档压缩包保持原始字节。

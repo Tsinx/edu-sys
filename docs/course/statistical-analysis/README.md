@@ -8,7 +8,7 @@
 
 [独立课件预览](http://127.0.0.1:5173/statistical-analysis-preview.html?page=1) 用于备课；`page` 是1—250的全局页码；各讲从1、49、101、149、199开始。该预览不发布课堂状态。每张投影为1600×1000，在窄屏按比例缩放。方向键与页面按钮可翻页。
 
-LBL由教师讲解、翻页和揭示证据；个人思考只作短暂停顿。教师备注在课堂侧的折叠区域，与学生画布分离。每页提供讲解重点、停顿位置、前后衔接和证据口径；五层助手提示保持当前课程、讲次与页面范围。
+LBL由教师讲解、翻页和揭示证据；个人思考只作短暂停顿。教师备注在课堂侧的折叠区域，与学生画布分离。每页提供讲解重点、停顿位置和证据口径；五层助手提示保持当前课程、讲次与页面范围。
 
 ## 课件源文件
 
@@ -23,11 +23,11 @@ LBL由教师讲解、翻页和揭示证据；个人思考只作短暂停顿。�
 | 60张正式配图与本地字体 | `apps/teacher-web/public/course-assets/statistical-analysis/` |
 | 逐页设计和教师讲解说明 | [page-design-and-notes.md](page-design-and-notes.md)、[JSON](page-design-and-notes.json) |
 | 配图生成提示与使用清单 | [image-prompts.json](image-prompts.json)、[asset-manifest.json](asset-manifest.json) |
-| 实测记录 | [acceptance.md](acceptance.md) |
+| 实测记录 | [前两讲验收](acceptance.md)、[第3—5讲验收](acceptance-regression.md) |
 
 课程封面和正文使用深墨蓝、暖纸白、琥珀和蓝绿。会员保持琥珀，非会员保持蓝绿；散点图同时用圆点与三角区分类别。图像承担情境，数据、坐标、中文和公式均由原生元素绘制。每一页的设计意图在逐页文档中登记。
 
-24张正式素材每讲12张，均由ImageGen生成。7张支持真实alpha透明背景的主体及其他摄影素材通过CSS裁切、渐变蒙版、局部透明度、斜边窗口与投影阴影合成。最终文件保留原始PNG字节，`asset-manifest.json`登记源路径、最终提示、像素尺寸、alpha范围与SHA-256；3次替换前的素材存于`image-iterations/`。原始生成清单和替换理由分别在`generated-assets.jsonl`与`asset-revisions.jsonl`。
+前两讲的24张正式素材每讲12张，均由ImageGen生成。7张支持真实alpha透明背景的主体及其他摄影素材通过CSS裁切、渐变蒙版、局部透明度、斜边窗口与投影阴影合成。最终文件保留原始PNG字节，`asset-manifest.json`登记源路径、最终提示、像素尺寸、alpha范围与SHA-256；3次替换前的素材存于`image-iterations/`。原始生成清单和替换理由分别在`generated-assets.jsonl`与`asset-revisions.jsonl`。
 
 字体采用Noto Sans CJK SC与Noto Serif CJK SC，源OTF与OFL许可保存在`font-originals/`，播放使用本地WOFF子集。修改中文后须重建字体子集。
 
