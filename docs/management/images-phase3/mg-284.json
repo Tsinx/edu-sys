@@ -1,0 +1,40 @@
+{
+  "id": "mg-284",
+  "deck": "l11",
+  "page": 33,
+  "title": "穿过沟通障碍",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l11, original page 33, 穿过沟通障碍; conceptual teaching artwork, not historical or statistical evidence. Subject: A small team faces each other across movable translucent acoustic panels in a modern studio, a clear shared opening suggests the possibility of understanding, no walls separating demographic groups. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-98689e84-89a6-4f2b-acd8-60bfba2dcd54.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-284.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-284.webp",
+  "originalSha256": "463eaa266e92139e4345dccb6f16fc29f621d7a948998dbd423736b20f4aff4c",
+  "webSha256": "c5591a22868696a442fd41fb38c58ce1a24a336fccfa719956477dff7689af7a",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 221684,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "463eaa266e92139e4345dccb6f16fc29f621d7a948998dbd423736b20f4aff4c",
+    "webSha256": "c5591a22868696a442fd41fb38c58ce1a24a336fccfa719956477dff7689af7a"
+  },
+  "pages": [
+    "mg-l11-s033-01"
+  ]
+}

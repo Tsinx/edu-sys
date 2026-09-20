@@ -1,0 +1,40 @@
+{
+  "id": "mg-322",
+  "deck": "l13",
+  "page": 32,
+  "title": "治理与问责",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 32, 治理与问责; conceptual teaching artwork, not historical or statistical evidence. Subject: A round academic discussion table with diverse adult participants examining a shared model, open sightlines and individual space to question, governance without corporate stock imagery. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-215fd2c7-41c6-4cbf-ac1f-2adf58994ba9.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-322.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-322.webp",
+  "originalSha256": "4ac40b53ad57495859f510a98354d5af312931e3042ac4b8dbed9a8c8181ba71",
+  "webSha256": "f0e65676924b19d51568f23b7aa7aef98147a21b25ca916ff84bd35699d7dd20",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 225296,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "4ac40b53ad57495859f510a98354d5af312931e3042ac4b8dbed9a8c8181ba71",
+    "webSha256": "f0e65676924b19d51568f23b7aa7aef98147a21b25ca916ff84bd35699d7dd20"
+  },
+  "pages": [
+    "mg-l13-s032-01"
+  ]
+}

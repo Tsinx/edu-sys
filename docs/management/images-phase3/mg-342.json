@@ -1,0 +1,40 @@
+{
+  "id": "mg-342",
+  "deck": "l14",
+  "page": 24,
+  "title": "多种未来情景",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l14, original page 24, 多种未来情景; conceptual teaching artwork, not historical or statistical evidence. Subject: Three model landscapes on a long table show different plausible water levels and transport options without damage, adult planners compare the models, no probabilities or numbers. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-26f85f7d-3573-47bf-8d5b-fb530d0f5bfc.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-342.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-342.webp",
+  "originalSha256": "ee1af2848de2b9c436dfe256f8020ea39deae9877edf8b848e31a81a4bf92409",
+  "webSha256": "a52b79276303e1c8cb1ac4e97933b77190eab5d873a20b96d3d7577c51979d67",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 237220,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "ee1af2848de2b9c436dfe256f8020ea39deae9877edf8b848e31a81a4bf92409",
+    "webSha256": "a52b79276303e1c8cb1ac4e97933b77190eab5d873a20b96d3d7577c51979d67"
+  },
+  "pages": [
+    "mg-l14-s024-01"
+  ]
+}

@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { PortSubmissionRepository, registerPortSubmissions } from "./port-submissions.js";
 import { withSpeechVisemes } from "./study/visemes.js";
-import { MANAGEMENT_SOURCE_MAP } from '@edu/course-content/management-principles/source-map';
+import { MANAGEMENT_SOURCE_MAP, MANAGEMENT_SOURCE_DISPOSITIONS } from '@edu/course-content/management-principles/source-map';
 import fastifyStatic from "@fastify/static";
 import { z } from "zod";
 import { CampusIdentityProvider } from "./campus/accounts.js";
@@ -181,6 +181,13 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   const edgeRecords = new EdgeRecordRepository(`${options.dataFile}.edge.sqlite`);
   registerEdgeRecords(app, edgeRecords, resolveActor);
   const portSubmissions = new PortSubmissionRepository(`${options.dataFile}.port-results.sqlite`);
+  // Carry forward tasks already announced before task publication was stored separately.
+  for (const session of store.listSessions()) {
+    const simulation = store.getClassroomSnapshot(session.id)?.simulation;
+    if (simulation?.deliveryMode === "local_solo" && !portSubmissions.taskPublished(session.courseId, simulation.learningStage ?? "full")) {
+      portSubmissions.publishTask(session.courseId, simulation.learningStage ?? "full", "existing-classroom");
+    }
+  }
   registerPortSubmissions(app, portSubmissions, { resolve: resolveActor, allowed: allowedCourseIds,
     classCourse: id => store.getSession(id)?.courseId,
     roster: course => identityProvider instanceof CampusIdentityProvider ? identityProvider.experimentRoster(course) : [] });
@@ -428,7 +435,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     await requireActor(request,'teacher');
     reply.header('Cache-Control','private, no-store');
     if(request.params.courseId!=='management-principles'||!store.getCourse(request.params.courseId))return reply.code(404).send({message:'该课程没有来源对照'});
-    return {courseId:request.params.courseId,mappings:MANAGEMENT_SOURCE_MAP};
+    return {courseId:request.params.courseId,mappings:MANAGEMENT_SOURCE_MAP,dispositions:MANAGEMENT_SOURCE_DISPOSITIONS};
   });
   app.get("/api/class-sessions", async request => {
     const actor = await resolveActor(request);
@@ -943,7 +950,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   app.post<{ Params: { id: string } }>(
     "/api/class-sessions/:id/simulation/setup",
     async (request, reply) => {
-      await requireActor(request, "teacher");
+      const actor = await requireActor(request, "teacher");
       const input = portSimulationSetupInputSchema.parse(request.body);
       const result = await store.setupPortSimulation(request.params.id, input);
       if (!result.ok) {
@@ -952,6 +959,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
           message: result.message
         });
       }
+      if (result.value.simulation?.deliveryMode === "local_solo") portSubmissions.publishTask(result.value.courseId, result.value.simulation.learningStage ?? "full", actor.actorId);
       return reply.status(201).send(result.value);
     }
   );
@@ -1858,7 +1866,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
           type: "lesson.go_to",
           description: "切换到 Slides 并跳转到指定已建设课次的封面",
           parameters: {
-            lesson: `1 到 ${deck.lessons.length} 的整数`,
+            lesson: `仅限登记键：${deck.lessons.filter(l=>l.status==='ready').map(l=>l.number).join('、')}`,
             readyLessons: readyLessonMap
           }
         }

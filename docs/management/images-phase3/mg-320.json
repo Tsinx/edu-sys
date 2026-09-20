@@ -1,0 +1,40 @@
+{
+  "id": "mg-320",
+  "deck": "l13",
+  "page": 25,
+  "title": "权利如何组织",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 25, 权利如何组织; conceptual teaching artwork, not historical or statistical evidence. Subject: An abstract kinetic mobile of brass and ivory forms balanced through multiple joints and supports, rights and governance as structural relationships, no vote counts or actual corporate diagram. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-be80bf37-7045-44eb-b36e-055be8bb6743.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-320.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-320.webp",
+  "originalSha256": "62fd74bd80514b48e9f99cbc0402dce87c624b1e1a65db403429367c52ca7d18",
+  "webSha256": "043fb2fa0d612983b50496fbe6ae9f274d48f3e516b4e397192c073552708dd9",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 152832,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "62fd74bd80514b48e9f99cbc0402dce87c624b1e1a65db403429367c52ca7d18",
+    "webSha256": "043fb2fa0d612983b50496fbe6ae9f274d48f3e516b4e397192c073552708dd9"
+  },
+  "pages": [
+    "mg-l13-s025-01"
+  ]
+}

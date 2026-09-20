@@ -81,6 +81,8 @@ export interface GlobeLocation extends GlobeCoordinate {
   showLabel?: boolean;
   kind?: "port" | "chokepoint" | "city";
   visibilityScope?: "all" | "global" | "featured";
+  /** Pixel offsets in presentation mode; geographic marker coordinates stay fixed. */
+  presentationLabelOffset?: readonly [number,number];
 }
 
 export interface GlobeRoute {
@@ -150,6 +152,9 @@ export interface InteractiveEarthGlobeProps {
   fallbackImageUrl?: string;
   minDistance?: number;
   maxDistance?: number;
+  zoomToCursor?: boolean;
+  choreographedRoutes?: boolean;
+  routePlayback?: {routeIds:readonly string[];elapsedMs:number;startedAt:number|null;durationMs:number};
   autoRotate?: boolean;
   autoRotateSpeed?: number;
   forceFallback?: boolean;
@@ -170,6 +175,7 @@ export interface InteractiveEarthGlobeProps {
   movingVessel?: GlobeMovingVessel;
   presentationMode?: boolean;
   onRenderStateChange?: (state: "loading" | "ready" | "error") => void;
+  onCameraChange?: (view: GlobeCoordinate & {distance:number}) => void;
   cameraTrackingCoordinate?: GlobeCoordinate;
   cameraTrackingDistance?: number;
   showProvinceBoundaries?: boolean;
@@ -1041,6 +1047,7 @@ function createMarker(
     const label = createLabelSprite(location.name, currentColor, minimal);
     if (label) {
       label.position.copy(normal.clone().multiplyScalar(minimal ? 1.06 : 1.22));
+      if(minimal&&location.presentationLabelOffset){const [x,y]=location.presentationLabelOffset;label.center.set(.5-x/256,.5+y/64);}
       group.add(label);
       labelSprite = label;
     }
@@ -1303,6 +1310,9 @@ export const InteractiveEarthGlobe = forwardRef<
     fallbackImageUrl = DEFAULT_TEXTURE,
     minDistance = DEFAULT_MIN_DISTANCE,
     maxDistance = DEFAULT_MAX_DISTANCE,
+    zoomToCursor = true,
+    choreographedRoutes = false,
+    routePlayback,
     autoRotate = true,
     autoRotateSpeed = 0.46,
     forceFallback = false,
@@ -1323,6 +1333,7 @@ export const InteractiveEarthGlobe = forwardRef<
     movingVessel,
     presentationMode = false,
     onRenderStateChange,
+    onCameraChange,
     cameraTrackingCoordinate,
     cameraTrackingDistance = 2.34,
     showProvinceBoundaries = true,
@@ -1357,6 +1368,8 @@ export const InteractiveEarthGlobe = forwardRef<
   const mountRef = useRef<HTMLDivElement>(null);
   const runtimeRef = useRef<GlobeRuntime | undefined>(undefined);
   const callbackRef = useRef(onLocationSelect);
+  const routePlaybackRef=useRef(routePlayback);routePlaybackRef.current=routePlayback;
+  const cameraCallbackRef=useRef(onCameraChange);cameraCallbackRef.current=onCameraChange;
   const activeIdsRef = useRef(activeLocationIds);
   const visibleLocationIdsRef = useRef(visibleLocationIds);
   const visibleRouteIdsRef = useRef(visibleRouteIds);
@@ -1710,7 +1723,7 @@ export const InteractiveEarthGlobe = forwardRef<
       controls.zoomSpeed = 0.72;
       controls.autoRotate = autoRotate && !prefersReducedMotion;
       controls.autoRotateSpeed = autoRotateSpeed;
-      controls.zoomToCursor = true;
+      controls.zoomToCursor = zoomToCursor;
 
       const initialMapModeBlend =
         resolvedMapMode === "administrative" ? 1 : 0;
@@ -1871,8 +1884,8 @@ export const InteractiveEarthGlobe = forwardRef<
         scene.add(tube);
         featuredRouteObjects.push(tube);
 
-        if (route.animated !== false) {
-          [0, 0.33, 0.66].forEach((offset, pulseIndex) => {
+        if (route.animated !== false || choreographedRoutes) {
+          (choreographedRoutes?[0]:[0, 0.33, 0.66]).forEach((offset, pulseIndex) => {
             const pulse = new Mesh(
               new SphereGeometry(0.016 + pulseIndex * 0.002, 12, 10),
               new MeshBasicMaterial({
@@ -1896,10 +1909,23 @@ export const InteractiveEarthGlobe = forwardRef<
         }
       });
 
+      let cameraReportTimer:ReturnType<typeof setTimeout>|undefined;
+      const onControlEnd=()=>{
+        if(!cameraCallbackRef.current)return;
+        clearTimeout(cameraReportTimer);
+        cameraReportTimer=setTimeout(()=>{
+          // Commit the remaining damping before publishing one reproducible view.
+          const damping=controls.enableDamping;controls.enableDamping=false;controls.update();controls.enableDamping=damping;
+          const distance=camera.position.length();
+          cameraCallbackRef.current?.({latitude:MathUtils.radToDeg(Math.asin(camera.position.y/distance)),longitude:MathUtils.radToDeg(Math.atan2(-camera.position.z,camera.position.x)),distance});
+        },350);
+      };
       const onControlStart = () => {
+        clearTimeout(cameraReportTimer);
         runtime.cameraTween = undefined;
       };
       controls.addEventListener("start", onControlStart);
+      controls.addEventListener("end", onControlEnd);
 
       const onPointerDown = (event: PointerEvent) => {
         pointerStart.set(event.clientX, event.clientY);
@@ -2066,7 +2092,10 @@ export const InteractiveEarthGlobe = forwardRef<
               runtime.shippingLaneDetail
             );
         });
+        const routeClock=routePlaybackRef.current,routeElapsed=routeClock?routeClock.elapsedMs+(routeClock.startedAt===null?0:Math.max(0,Date.now()-routeClock.startedAt)):0;
+        const routeProgress=routeClock?MathUtils.clamp(routeElapsed/Math.max(1,routeClock.durationMs),0,1):1;
         runtime.featuredRouteObjects.forEach((object) => {
+          if(choreographedRoutes&&object instanceof Line2){const total=object.geometry.getAttribute('instanceStart')?.count??0;object.geometry.instanceCount=Math.floor(total*(routeClock?.routeIds.includes(String(object.userData.featuredRouteId))?routeProgress:1));}
           const visibleRouteIds = visibleRouteIdsRef.current;
           object.visible =
             runtime.routeView === "featured" &&
@@ -2092,6 +2121,7 @@ export const InteractiveEarthGlobe = forwardRef<
         });
 
         routePulses.forEach((pulse) => {
+          if(choreographedRoutes){pulse.mesh.visible=pulse.mesh.visible&&!!routeClock?.routeIds.includes(pulse.routeId)&&routeProgress>0&&routeProgress<1;pulse.mesh.position.copy(pulse.curve.getPointAt(routeProgress));return;}
           if (voyageFrame && pulse.routeId === vessel?.motion?.routeId) {
             // A voyage has one position marker, anchored exactly beneath the hull.
             pulse.mesh.visible = pulse.mesh.visible && pulse.offset === 0;
@@ -2221,6 +2251,8 @@ export const InteractiveEarthGlobe = forwardRef<
         resizeObserver?.disconnect();
         intersectionObserver?.disconnect();
         controls.removeEventListener("start", onControlStart);
+        controls.removeEventListener("end", onControlEnd);
+        clearTimeout(cameraReportTimer);
         controls.dispose();
         renderer.domElement.removeEventListener(
           "pointerdown",
@@ -2254,6 +2286,8 @@ export const InteractiveEarthGlobe = forwardRef<
     forceFallback,
     locations,
     maxDistance,
+    zoomToCursor,
+    choreographedRoutes,
     minDistance,
     routes,
     presentationMode,

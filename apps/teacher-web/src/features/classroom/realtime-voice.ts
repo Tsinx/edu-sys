@@ -7,6 +7,9 @@ export interface RealtimeCaptureSink {
   commit(): Promise<void>;
   cancel(): void;
 }
+export function realtimeErrorMessage(message: string) {
+  return message.includes("文字输入") ? message : `${message} 请重新开始，或使用文字输入。`;
+}
 export function pcm16Base64(samples: Float32Array) {
   const bytes = new Uint8Array(samples.length * 2); const view = new DataView(bytes.buffer);
   samples.forEach((sample, i) => { const clipped = Math.max(-1, Math.min(1, sample)); view.setInt16(i * 2, clipped * (clipped < 0 ? 32768 : 32767), true); });
@@ -28,28 +31,41 @@ export class RealtimeVoiceClient implements RealtimeCaptureSink {
     url.protocol = location.protocol === "https:" ? "wss:" : "ws:";
     const ws = this.ws = new WebSocket(url);
     this.connecting = new Promise<void>((resolve, reject) => {
-      const timer = window.setTimeout(() => { reject(new Error("实时语音连接超时。")); ws.close(); }, 25_000);
+      let ready = false;
+      let failure: Error | undefined;
+      const timer = window.setTimeout(() => {
+        reportFailure(new Error("实时语音连接超时，尚未开始录音。"), "CONNECTION_TIMEOUT");
+        ws.close();
+      }, 25_000);
       const done = (error?: Error) => { window.clearTimeout(timer); if(this.ws===ws)this.connecting = undefined; error ? reject(error) : resolve(); };
+      const reportFailure = (error: Error, code: string) => {
+        if (this.ws !== ws || failure) return;
+        failure = error;
+        done(error);
+        this.receive({ type: "error", turnId: this.turn?.id, code, message: error.message });
+        this.fail(error);
+      };
       ws.onmessage = message => {
-        if (this.ws !== ws) return;
+        if (this.ws !== ws || failure) return;
         let event: RealtimeServerEvent;
         try { event = JSON.parse(String(message.data)); } catch { ws.close(); return; }
-        if (event.type === "session.ready") { done(); this.receive(event); return; }
-        if (event.type === "error" && !event.turnId) { done(new Error(event.message)); this.fail(new Error(event.message)); this.receive(event); return; }
+        if (event.type === "session.ready") { ready = true; done(); this.receive(event); return; }
+        if (event.type === "error" && !event.turnId) { reportFailure(new Error(event.message), event.code); ws.close(); return; }
         if ("turnId" in event && event.turnId !== this.turn?.id) return;
         this.receive(event);
         if (event.type === "turn.completed") { const turn = this.turn; this.turn = undefined; turn?.resolve(); }
         if (event.type === "error" || event.type === "turn.cancelled") this.fail(new Error(event.type === "error" ? event.message : "本轮已取消。"));
       };
-      ws.onerror = () => done(new Error("实时语音无法连接，请检查配置或使用文字输入。"));
+      ws.onerror = () => {
+        reportFailure(new Error(ready ? "实时语音连接中断，播放已停止。" : "实时语音无法连接，请检查服务连接或使用文字输入。"), ready ? "DISCONNECTED" : "CONNECTION_FAILED");
+        ws.close();
+      };
       ws.onclose = () => {
-        done(new Error("实时语音连接已断开。"));
-        if (this.ws !== ws) return;
-        this.ws = undefined;
+        if (this.ws !== ws) { done(new Error("实时语音连接已取消。")); return; }
         // The cloud may have finished while speech is still buffered locally.
-        // Notify the avatar on every unexpected disconnect to stop that queue.
-        this.receive({ type: "error", turnId: this.turn?.id, code: "DISCONNECTED", message: "实时语音已断线，播放已停止，请重新开始或使用文字输入。" });
-        this.fail(new Error("实时语音连接已断开。"));
+        // Stop it on disconnect, but never overwrite an earlier failure cause.
+        reportFailure(new Error(ready ? "实时语音已断线，播放已停止，请重新开始或使用文字输入。" : "实时语音连接在就绪前关闭，尚未开始录音。"), ready ? "DISCONNECTED" : "CONNECTION_CLOSED");
+        this.ws = undefined;
       };
     });
     return this.connecting;

@@ -1,0 +1,40 @@
+{
+  "id": "mg-330",
+  "deck": "l13",
+  "page": 58,
+  "title": "质量带来了什么",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 58, 质量带来了什么; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult customer calmly examines a reliable-looking handmade lamp beside the maker, quiet satisfaction and an open question about value, no claims or satisfaction metrics. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-6d36d451-9557-4ae3-8cae-d85b1e238741.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-330.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-330.webp",
+  "originalSha256": "ebe31716c9345ece91ea67a2d16af4904bd12513bc1b00295bd4366d81571174",
+  "webSha256": "a4c180a6192d8a40be1c570d7f1cacb42522c2142412eecaa35361dbbea49164",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 196906,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "ebe31716c9345ece91ea67a2d16af4904bd12513bc1b00295bd4366d81571174",
+    "webSha256": "a4c180a6192d8a40be1c570d7f1cacb42522c2142412eecaa35361dbbea49164"
+  },
+  "pages": [
+    "mg-l13-s058-01"
+  ]
+}

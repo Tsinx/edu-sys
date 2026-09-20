@@ -1,0 +1,40 @@
+{
+  "id": "mg-256",
+  "deck": "l10",
+  "page": 45,
+  "title": "成就、影响与联结",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 45, 成就、影响与联结; conceptual teaching artwork, not historical or statistical evidence. Subject: Three tactile sculptural arrangements on a single museum shelf: a carefully finished difficult joint, a balanced mobile and interlocking rings, no numbers or symbolic labels. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-8832113a-5c36-4eb4-bb2b-36979445cb89.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-256.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-256.webp",
+  "originalSha256": "154c7d695386e60d757411beb635c4f90bd8677351c58ad9f2928b6bc17d743f",
+  "webSha256": "2f07e8f28584b0201187c583681803eef6af1f36e3e3cbce1f80c9ff63d9b659",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 171950,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "154c7d695386e60d757411beb635c4f90bd8677351c58ad9f2928b6bc17d743f",
+    "webSha256": "2f07e8f28584b0201187c583681803eef6af1f36e3e3cbce1f80c9ff63d9b659"
+  },
+  "pages": [
+    "mg-l10-s045-01"
+  ]
+}

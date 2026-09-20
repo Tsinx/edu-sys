@@ -1,0 +1,40 @@
+{
+  "id": "mg-349",
+  "deck": "l14",
+  "page": 36,
+  "title": "预警与准备",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l14, original page 36, 预警与准备; conceptual teaching artwork, not historical or statistical evidence. Subject: A weather observation station at dawn with instruments, protected communications equipment and a small prepared team, clear visibility and measured attention, no data readouts. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-fa16a212-6595-4b48-90c0-48315b6c7e1f.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-349.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-349.webp",
+  "originalSha256": "794253bc711e89cfbf55d642b5a4aa9b519acdf7d0dcda160b382b7d3f10f9d4",
+  "webSha256": "5050b6521960e10d2eef2e9e0d738eae6d8597c7ff560c779c2b11a3ddbfc66e",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 314476,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "794253bc711e89cfbf55d642b5a4aa9b519acdf7d0dcda160b382b7d3f10f9d4",
+    "webSha256": "5050b6521960e10d2eef2e9e0d738eae6d8597c7ff560c779c2b11a3ddbfc66e"
+  },
+  "pages": [
+    "mg-l14-s036-01"
+  ]
+}

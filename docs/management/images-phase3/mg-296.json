@@ -1,0 +1,40 @@
+{
+  "id": "mg-296",
+  "deck": "l12",
+  "page": 10,
+  "title": "目标、资源与信息",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l12, original page 10, 目标、资源与信息; conceptual teaching artwork, not historical or statistical evidence. Subject: A refined still life of a small destination model, neatly arranged material blocks and a clear optical lens, three distinct visual metaphors on warm ivory stone without chart-like arrangement. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-eb37d2a8-bb11-4e1d-b4d2-1ef77b1879a8.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-296.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-296.webp",
+  "originalSha256": "6d7bf758bd5b2e821a8ae02800b1981dae30d145712b5d1399a5e3e9c64000b7",
+  "webSha256": "8c17676f558e9f31c10b823e69a719ad0949b84987208bedb0725a0920f3c30b",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 197900,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "6d7bf758bd5b2e821a8ae02800b1981dae30d145712b5d1399a5e3e9c64000b7",
+    "webSha256": "8c17676f558e9f31c10b823e69a719ad0949b84987208bedb0725a0920f3c30b"
+  },
+  "pages": [
+    "mg-l12-s010-01"
+  ]
+}

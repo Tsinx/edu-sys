@@ -1,0 +1,40 @@
+{
+  "id": "mg-347",
+  "deck": "l14",
+  "page": 33,
+  "title": "备份也需要检验",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l14, original page 33, 备份也需要检验; conceptual teaching artwork, not historical or statistical evidence. Subject: A generic data center with two physically separated storage enclosures and an adult engineer checking a restoration terminal with blank screen, calm preparedness, no logos or readable code. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-b868960c-a7b2-4332-900d-f33952b5ded3.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-347.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-347.webp",
+  "originalSha256": "94a6dd8980cf70232fb7986e350f1d522ac6250330c1c975171d6feaa1d16861",
+  "webSha256": "d7d9b2134ab1414d360b2f28193fd1c66c1855dcbb62b5224c1e1d36e3741e89",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 214382,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "94a6dd8980cf70232fb7986e350f1d522ac6250330c1c975171d6feaa1d16861",
+    "webSha256": "d7d9b2134ab1414d360b2f28193fd1c66c1855dcbb62b5224c1e1d36e3741e89"
+  },
+  "pages": [
+    "mg-l14-s033-01"
+  ]
+}

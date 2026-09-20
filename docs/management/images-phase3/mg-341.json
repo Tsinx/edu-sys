@@ -1,0 +1,40 @@
+{
+  "id": "mg-341",
+  "deck": "l14",
+  "page": 20,
+  "title": "工具的视野与边界",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l14, original page 20, 工具的视野与边界; conceptual teaching artwork, not historical or statistical evidence. Subject: Several lenses and a wide mirror arranged around one complex ceramic object, each reveals a different portion, no single instrument sees all sides, clean editorial still life. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-ba204d84-73c3-4d54-ae55-595e8872cd0d.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-341.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-341.webp",
+  "originalSha256": "0dcd6897bb6e70847df77a98bd4846511d73bf2d59fe41498c6b82abee251948",
+  "webSha256": "16df3680019199d8652ac1f0af2ad1972859db7a13d3b1cc3d6b7d3174a11eef",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 271740,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "0dcd6897bb6e70847df77a98bd4846511d73bf2d59fe41498c6b82abee251948",
+    "webSha256": "16df3680019199d8652ac1f0af2ad1972859db7a13d3b1cc3d6b7d3174a11eef"
+  },
+  "pages": [
+    "mg-l14-s020-01"
+  ]
+}

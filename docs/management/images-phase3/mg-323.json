@@ -1,0 +1,40 @@
+{
+  "id": "mg-323",
+  "deck": "l13",
+  "page": 35,
+  "title": "产业链上的合作",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 35, 产业链上的合作; conceptual teaching artwork, not historical or statistical evidence. Subject: A textile supply chain condensed into a tasteful connected architectural diorama: fiber preparation, fabric weaving and a small retail display, distinct stages, no arrows or invented output figures. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-3a4865aa-3175-4e7d-9913-96e8cd59dad9.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-323.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-323.webp",
+  "originalSha256": "27c65bbb16c4cb61ae0a01b2177366d0aec82484e0da2868114476d0093a8161",
+  "webSha256": "e1ab7ae040072908fbce9c46af8defa9f6baecfbfd9736d11185b01579f88245",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 338848,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "27c65bbb16c4cb61ae0a01b2177366d0aec82484e0da2868114476d0093a8161",
+    "webSha256": "e1ab7ae040072908fbce9c46af8defa9f6baecfbfd9736d11185b01579f88245"
+  },
+  "pages": [
+    "mg-l13-s035-01"
+  ]
+}

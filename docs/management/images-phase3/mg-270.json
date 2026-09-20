@@ -1,0 +1,40 @@
+{
+  "id": "mg-270",
+  "deck": "l11",
+  "page": 2,
+  "title": "信息抵达之后",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l11, original page 2, 信息抵达之后; conceptual teaching artwork, not historical or statistical evidence. Subject: A craftsperson explains the intended shape of a handmade vessel to a colleague who carefully examines the actual object, distinct perspectives and attentive listening, no speech bubbles. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-a3aaefb6-b327-4f38-8773-db9f39a561b9.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-270.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-270.webp",
+  "originalSha256": "6c765e351b8315e5d67a2b9702d9097ad18601347a760675d2409a2601710930",
+  "webSha256": "1244a6f26c6dfd1044b619738de00f2c2ec762182c4a2a9f9555735a1c308a47",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 182286,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "6c765e351b8315e5d67a2b9702d9097ad18601347a760675d2409a2601710930",
+    "webSha256": "1244a6f26c6dfd1044b619738de00f2c2ec762182c4a2a9f9555735a1c308a47"
+  },
+  "pages": [
+    "mg-l11-s002-01"
+  ]
+}

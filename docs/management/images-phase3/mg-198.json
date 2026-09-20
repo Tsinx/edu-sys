@@ -1,0 +1,40 @@
+{
+  "id": "mg-198",
+  "deck": "l9",
+  "page": 12,
+  "title": "方向与执行",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 12, 方向与执行; conceptual teaching artwork, not historical or statistical evidence. Subject: Two adjacent tactile models: one beautiful path without a finished bridge and another precise bridge without a connected destination, conceptual still life inviting comparison. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-94d9787c-f539-4b15-8bff-b436be300b0b.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-198.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-198.webp",
+  "originalSha256": "af38ff8f4bbab8f39822f76f1afc2543a8e970769c4d83006b12596b54509285",
+  "webSha256": "fd28f1d67cc21b55c2ba3fc7af37024bcd168ff43f2e3249e4a54925323f2b94",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 184490,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "af38ff8f4bbab8f39822f76f1afc2543a8e970769c4d83006b12596b54509285",
+    "webSha256": "fd28f1d67cc21b55c2ba3fc7af37024bcd168ff43f2e3249e4a54925323f2b94"
+  },
+  "pages": [
+    "mg-l9-s012-01"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "mg-257",
+  "deck": "l10",
+  "page": 47,
+  "title": "公平比较",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 47, 公平比较; conceptual teaching artwork, not historical or statistical evidence. Subject: A finely crafted balance with different bundles of effort-related tools and reward-like ceramic tokens, ambiguous balance inviting comparison rather than showing a real wage calculation. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-03ef8d0b-d394-451b-971e-6eb2d5bc5af0.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-257.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-257.webp",
+  "originalSha256": "86b8999159e92f1d82bc1d72e986c0b7eccb67e28e02c46c3151bb09f069cc0f",
+  "webSha256": "4b12fe2d257e9c7454398c0be662ebe2e6647e1b8ad25cbba72b2d9539d93520",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 179818,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "86b8999159e92f1d82bc1d72e986c0b7eccb67e28e02c46c3151bb09f069cc0f",
+    "webSha256": "4b12fe2d257e9c7454398c0be662ebe2e6647e1b8ad25cbba72b2d9539d93520"
+  },
+  "pages": [
+    "mg-l10-s047-01"
+  ]
+}

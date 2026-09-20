@@ -1,0 +1,40 @@
+{
+  "id": "mg-237",
+  "deck": "l10",
+  "page": 6,
+  "title": "课堂里的双向责任",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 6, 课堂里的双向责任; conceptual teaching artwork, not historical or statistical evidence. Subject: A university seminar room with adult students and a teacher jointly studying a physical model, reciprocal attention rather than a dominant podium, airy academic photography. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-d0ade886-bd3c-4e7b-b0df-7559767be5d2.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-237.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-237.webp",
+  "originalSha256": "46010d92181fd9c577ffd285e78cb194edd014030cc12a022c32dffc6ee15a1c",
+  "webSha256": "7d9e1d68f2cbf14b261743866780190a5b05f916b8444726a3bebd83c85b3d6a",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 177288,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "46010d92181fd9c577ffd285e78cb194edd014030cc12a022c32dffc6ee15a1c",
+    "webSha256": "7d9e1d68f2cbf14b261743866780190a5b05f916b8444726a3bebd83c85b3d6a"
+  },
+  "pages": [
+    "mg-l10-s006-01"
+  ]
+}

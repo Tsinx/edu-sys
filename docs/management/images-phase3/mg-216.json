@@ -1,0 +1,40 @@
+{
+  "id": "mg-216",
+  "deck": "l9",
+  "page": 37,
+  "title": "参与决策的空间",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 37, 参与决策的空间; conceptual teaching artwork, not historical or statistical evidence. Subject: Adult team members sit around an open circular workshop table, one offers a material sample and others evaluate it, warm natural expressions and no forced celebration. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-0a8facc9-8b0b-4a57-8f3a-f348d26f91f9.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-216.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-216.webp",
+  "originalSha256": "19ecf839e33405cdfc1750bcedc78a0d2d338e18c01722fe554bd8b18159f604",
+  "webSha256": "a471ea4d617ed3f05a4c3088e44adce91feac2b7f438b12239ae7e69a98e9ba7",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 211578,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "19ecf839e33405cdfc1750bcedc78a0d2d338e18c01722fe554bd8b18159f604",
+    "webSha256": "a471ea4d617ed3f05a4c3088e44adce91feac2b7f438b12239ae7e69a98e9ba7"
+  },
+  "pages": [
+    "mg-l9-s037-01"
+  ]
+}

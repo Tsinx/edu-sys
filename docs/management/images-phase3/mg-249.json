@@ -1,0 +1,40 @@
+{
+  "id": "mg-249",
+  "deck": "l10",
+  "page": 26,
+  "title": "需要随情境改变",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 26, 需要随情境改变; conceptual teaching artwork, not historical or statistical evidence. Subject: The same unoccupied reading desk seen through layered translucent seasons and changing light, a tea cup, work materials and a family keepsake, subtle temporal collage without clocks or text. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-41d08319-91d7-49fd-a0ad-5ad7ac9a1c75.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-249.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-249.webp",
+  "originalSha256": "3754e543a9030089b113b97673fa6fdbdf0eca4cda54d2bb118a719b86262813",
+  "webSha256": "16aff76239ca126c5dde58232d626de28ccca0070c91ce29a58ada6c6992df72",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 273274,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "3754e543a9030089b113b97673fa6fdbdf0eca4cda54d2bb118a719b86262813",
+    "webSha256": "16aff76239ca126c5dde58232d626de28ccca0070c91ce29a58ada6c6992df72"
+  },
+  "pages": [
+    "mg-l10-s026-01"
+  ]
+}

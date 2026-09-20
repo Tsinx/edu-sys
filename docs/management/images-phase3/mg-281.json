@@ -1,0 +1,40 @@
+{
+  "id": "mg-281",
+  "deck": "l11",
+  "page": 29,
+  "title": "尊重与真诚",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l11, original page 29, 尊重与真诚; conceptual teaching artwork, not historical or statistical evidence. Subject: Two pairs of adult hands carefully hold the edges of a delicate ceramic bowl together, shared care and respect, warm ivory tactile material, anatomically accurate hands, no heart-shaped gesture. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-98ea471e-196e-47b3-91ae-fd0929d4058b.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-281.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-281.webp",
+  "originalSha256": "1ed554d8181f33aa5260aa77b279ecd897541fdef3166217663bbd0addacb526",
+  "webSha256": "19b78bf449d636a8aca08f9389920283ff6bd411aa7a697cc51c920890dd514c",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 153168,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "1ed554d8181f33aa5260aa77b279ecd897541fdef3166217663bbd0addacb526",
+    "webSha256": "19b78bf449d636a8aca08f9389920283ff6bd411aa7a697cc51c920890dd514c"
+  },
+  "pages": [
+    "mg-l11-s029-01"
+  ]
+}

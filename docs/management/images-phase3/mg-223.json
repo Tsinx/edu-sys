@@ -1,0 +1,40 @@
+{
+  "id": "mg-223",
+  "deck": "l9",
+  "page": 44,
+  "title": "领导与被领导者",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 44, 领导与被领导者; conceptual teaching artwork, not historical or statistical evidence. Subject: Two adult colleagues exchange observations beside a workshop prototype, reciprocal listening instead of a one-way command scene. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-8a73841a-9063-435b-844a-25fa2072f8aa.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-223.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-223.webp",
+  "originalSha256": "944a60dd1273f7054ffaecbbf8b551298e047f06e84768e0b1d497a33eea7122",
+  "webSha256": "47e39054c55a8fc01416ee64462e235b93d91c14a025d1b0bc21e15cb8cc06f6",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 191324,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "944a60dd1273f7054ffaecbbf8b551298e047f06e84768e0b1d497a33eea7122",
+    "webSha256": "47e39054c55a8fc01416ee64462e235b93d91c14a025d1b0bc21e15cb8cc06f6"
+  },
+  "pages": [
+    "mg-l9-s044-01"
+  ]
+}

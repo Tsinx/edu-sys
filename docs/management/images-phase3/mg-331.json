@@ -1,0 +1,40 @@
+{
+  "id": "mg-331",
+  "deck": "l13",
+  "page": 63,
+  "title": "数据成为有用信息",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 63, 数据成为有用信息; conceptual teaching artwork, not historical or statistical evidence. Subject: A poetic still life of translucent raw glass fragments arranged beside a clear optical instrument and a coherent finished glass form, data processing metaphor, no screens, characters or charts. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-59eb9ad6-cb87-47d1-9597-c9957cd8d43f.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-331.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-331.webp",
+  "originalSha256": "f99dcbf9fdd13f54d1a0e0df2476f589b7ce4f3116709699569c2f601bc5d862",
+  "webSha256": "0486e0b860f11398e3bddff6cce0b8f1aed47519ad9c84fc44abe0daf1f80dc3",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 215452,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "f99dcbf9fdd13f54d1a0e0df2476f589b7ce4f3116709699569c2f601bc5d862",
+    "webSha256": "0486e0b860f11398e3bddff6cce0b8f1aed47519ad9c84fc44abe0daf1f80dc3"
+  },
+  "pages": [
+    "mg-l13-s063-01"
+  ]
+}

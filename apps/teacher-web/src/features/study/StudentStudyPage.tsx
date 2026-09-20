@@ -1,4 +1,5 @@
 import type { SpeechVisemeCue } from "@edu/contracts";
+import { PortLessonSixControls } from '../port-lesson-six/PortLessonSixStage';
 import {
   getPortManagementGlobalSlideIndex,
   getPortManagementLessonSlidePosition,
@@ -391,7 +392,7 @@ export function StudentStudyPage() {
           </div>
 
           {courseId==="course-port-management-intro"&&frame.lessonNumber===5&&<a className="l5-personal-link" href={lessonFiveExperimentUrl("C",`/study/${courseId}`,session.id,true)}>第5讲个人C实验</a>}
-          <div className="study-deck__stage"><ClassroomPlaybackSlot.Provider value={playbackSlot}><PortLessonFourControls.Provider value={{scope:`study:${session.actorId}:${courseId}`,openDemo:cueId=>window.location.assign(lessonFourExperimentUrl(cueId,`/study/${courseId}`,session.id))}}><SlideStage frame={frame} readOnly={courseId==="course-port-management-intro"&&frame.lessonNumber===5}/></PortLessonFourControls.Provider></ClassroomPlaybackSlot.Provider></div>
+          <div className="study-deck__stage"><ClassroomPlaybackSlot.Provider value={playbackSlot}><PortLessonSixControls.Provider value={{scope:`study:${session.actorId}:${courseId}`}}><PortLessonFourControls.Provider value={{scope:`study:${session.actorId}:${courseId}`,openDemo:cueId=>window.location.assign(lessonFourExperimentUrl(cueId,`/study/${courseId}`,session.id))}}><SlideStage frame={frame} readOnly={courseId==="course-port-management-intro"&&frame.lessonNumber===5}/></PortLessonFourControls.Provider></PortLessonSixControls.Provider></ClassroomPlaybackSlot.Provider></div>
           <div className="study-playback-slot" ref={setPlaybackSlot}/>
 
           <nav className="study-deck__navigation" aria-label="Slides翻页">

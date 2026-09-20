@@ -1,0 +1,40 @@
+{
+  "id": "mg-337",
+  "deck": "l14",
+  "page": 9,
+  "title": "目标与保障",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l14, original page 9, 目标与保障; conceptual teaching artwork, not historical or statistical evidence. Subject: An illuminated path toward a distant civic hall passes through carefully maintained bridges and sheltered passages, achieving objectives with protective arrangements, no padlock or shield icons. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-491adf71-25d6-4638-b1de-44c0b572cdcf.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-337.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-337.webp",
+  "originalSha256": "47d1dea6a09efac82bd13a1cbf37698f0b32a2998b59190d71a5afd66076f27b",
+  "webSha256": "3b4707ac39ec6efd55091c433dd2e717753061fb765a45269a4449e7216e9292",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 344530,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "47d1dea6a09efac82bd13a1cbf37698f0b32a2998b59190d71a5afd66076f27b",
+    "webSha256": "3b4707ac39ec6efd55091c433dd2e717753061fb765a45269a4449e7216e9292"
+  },
+  "pages": [
+    "mg-l14-s009-01"
+  ]
+}

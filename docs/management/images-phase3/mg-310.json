@@ -1,0 +1,40 @@
+{
+  "id": "mg-310",
+  "deck": "l13",
+  "page": 5,
+  "title": "预算与资源约束",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 5, 预算与资源约束; conceptual teaching artwork, not historical or statistical evidence. Subject: An editorial still life of carefully allocated brass tokens beside limited wood and stone materials for a physical model, resource planning without currency, numbers or data charts. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-022ce8e4-b817-4dec-9489-3c5d041f75f8.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-310.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-310.webp",
+  "originalSha256": "23189d5ed03c79ee2a3707f3d6137bbe5f2a52e7a4750664a9edc98d1b819c8f",
+  "webSha256": "06e6c6155adf60b8b1cb68e98a82305cc7ff17a439b89b64fb3a18a2512274a0",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 190042,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "23189d5ed03c79ee2a3707f3d6137bbe5f2a52e7a4750664a9edc98d1b819c8f",
+    "webSha256": "06e6c6155adf60b8b1cb68e98a82305cc7ff17a439b89b64fb3a18a2512274a0"
+  },
+  "pages": [
+    "mg-l13-s005-01"
+  ]
+}

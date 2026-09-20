@@ -1,0 +1,40 @@
+{
+  "id": "mg-378",
+  "deck": "l16",
+  "page": 12,
+  "title": "共同方向",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l16, original page 12, 共同方向; conceptual teaching artwork, not historical or statistical evidence. Subject: A group of adults assemble a shared model of a public courtyard from individually prepared pieces, each has room to contribute, warm restrained art-book composition. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-85fa5d78-2245-4c9f-90ab-5e37f7acfe87.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-378.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-378.webp",
+  "originalSha256": "19239183cbaeb301e78f9ed01c44049e9bc91d66a25b80a017b9f7f3c3d22eab",
+  "webSha256": "32c1fab6c73e3cf2fb9224c055ddab0591e68f85da9a4aa64af68cd74ecaad24",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 272368,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "19239183cbaeb301e78f9ed01c44049e9bc91d66a25b80a017b9f7f3c3d22eab",
+    "webSha256": "32c1fab6c73e3cf2fb9224c055ddab0591e68f85da9a4aa64af68cd74ecaad24"
+  },
+  "pages": [
+    "mg-l16-s012-01"
+  ]
+}

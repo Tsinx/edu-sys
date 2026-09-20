@@ -1,3 +1,6 @@
+import { PORT_LESSON_SIX_TITLE, PORT_LESSON_SIX_TIMING, PORT_LESSON_SIX_SOURCES } from './port-lesson-six.js';
+export * from './port-lesson-six.js';
+export * from './port-lesson-six-film.js';
 import { PORT_LESSON_FIVE_TITLE, PORT_LESSON_FIVE_TIMING } from './port-lesson-five.js';
 export * from './port-lesson-five.js';
 import { PORT_LBL_SOURCES } from "./port-lbl-sources.js";
@@ -250,7 +253,7 @@ export interface PortManagementGlobeCue {
 }
 
 export const PORT_MANAGEMENT_DECK_VERSION =
-  "release-port-management-capacity-v11";
+  "release-port-management-hinterland-v12";
 
 export const PORT_MANAGEMENT_GLOBE_CUES: readonly PortManagementGlobeCue[] = [
   {
@@ -387,6 +390,7 @@ export function getPortManagementGlobeCue(
 }
 
 export const PORT_MANAGEMENT_SOURCES: Record<string, PortCourseSource> = {
+  ...PORT_LESSON_SIX_SOURCES,
   'port-l5-concept': {label:'第5讲串联能力与六车排队概念模型',url:'/port-lesson-five-preview.html'},
   'port-l5-evidence': {label:'第5讲确定性实验记录 port-capacity/1.0',url:'/port-lesson-five-preview.html'},
   'port-l4-model': {label:'本课程单船教学模型与运行复核（2026-09-15）',url:'/port-lesson-four-preview.html'},
@@ -795,7 +799,7 @@ export const PORT_MANAGEMENT_LESSONS: readonly PortManagementLessonSpec[] = [
     }
   },
   {number:5,label:'第5讲',title:PORT_LESSON_FIVE_TITLE,status:'ready',slideStart:198,slideEnd:245,timing:PORT_LESSON_FIVE_TIMING,assistantBrief:{objective:'从同一起点的资源对照解释能力、等待与瓶颈，并完成个人C实验。',coreClaims:['能力与实际产出必须区分对象、单位和时窗。','局部提速不保证整船更早完成；使用同起点单变量比较。','到达节奏改变等待；边际改善可能随约束迁移而趋缓。'],guardrails:['S01与全部参数均为教学情境，非真实港口生产数据。','未揭示页不输出未来结果或代写个人解释。','模型记录不等于学生已经执行；不自动运行实验。'],responsePolicy:'先核对当前页或当前运行记录，再解释指标及条件；未知原因保留待核查。'}},
-  plannedLesson(6),
+  {number:6,label:'第6讲',title:PORT_LESSON_SIX_TITLE,status:'ready',slideStart:246,slideEnd:293,timing:PORT_LESSON_SIX_TIMING,assistantBrief:{objective:'解释堆场、集疏运与腹地，辨认典型港口及通道，并按同口径条件比较货物全程交付方案。',coreClaims:['在场箱量与进入离开流量须区分，稳定情境下平均在场量约为日均流量乘平均停留。','腹地是货源与市场的运输联系，可延伸也可重叠；不同货种与服务条件需要分别核查。','港内时间与货物交付时间的终点不同，减少局部等待不一定缩短全程。'],guardrails:['48页、90分钟，课件内演示，无个人仿真实验或成绩提交。','所有箱量和费用为教学设定，港口资料标明时间与来源，不提供真实报价和提箱指令。','路线为地理联系示意，不是导航、实时班次或独占腹地界线。','未揭示解析不输出答案或后续页结果。'],responsePolicy:'先回应问题，再引用已公开的地图节点、图层或演算条件；分清事实、概念与教学模型。'}},
   plannedLesson(7),
   plannedLesson(8),
   plannedLesson(9),
@@ -929,6 +933,7 @@ function appendContextLine(
 }
 
 function formatVoyagePrompt(slide: PortManagementSlideSpec): string {
+  if(slide.lesson===6)return '第6讲以新设进口教学箱I-01观察堆场、提箱与腹地交付。箱量收支和两路线费用属于独立教学情境；公开港口案例只证明相应日期的连接。教师控制地图、演算和解析；不对应前讲真实航次或个人仿真记录。';
   if(slide.lesson===5)return '第5讲资源对照：S01教学模型，116箱进口和78箱出口。同一起点，单变量改变；能力演算与实际仿真分别解释。教师演示和个人记录隔离，未有当前记录时不能推断完成。';
   if(slide.lesson===4)return [
     '第4讲单船实验：S01含116箱进口与78箱出口；这是本课程教学情境，按实体箱计数。',

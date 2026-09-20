@@ -1,0 +1,40 @@
+{
+  "id": "mg-333",
+  "deck": "l14",
+  "page": 1,
+  "title": "风险控制与危机管理",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l14, original page 1, 风险控制与危机管理; conceptual teaching artwork, not historical or statistical evidence. Subject: A monumental coastal library overlooking a changing sea, storm clouds on one horizon and calm daylight on the other, a sheltered terrace and carefully prepared resilient architecture, no people in danger. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-a62a18bd-7117-430c-a80e-717625dd70d0.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-333.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-333.webp",
+  "originalSha256": "1e8a4f49a7d821aad94d488daf7bdb6a1698af445dd291c6b5950a8a0f8a119e",
+  "webSha256": "767a7c8e63d7d196481f01ecb807b05df04191466534300ed205072df265d4f0",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 374544,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "1e8a4f49a7d821aad94d488daf7bdb6a1698af445dd291c6b5950a8a0f8a119e",
+    "webSha256": "767a7c8e63d7d196481f01ecb807b05df04191466534300ed205072df265d4f0"
+  },
+  "pages": [
+    "mg-l14-s001-01"
+  ]
+}

@@ -29,6 +29,15 @@ test("campus submissions are durable, idempotent, isolated and replace only a ve
     assert.equal((await post({ ...input, classSessionId: "another-course-class" })).statusCode, 400);
     assert.equal((await post({ ...input, courseId: "course-other" })).statusCode, 400);
     assert.equal((await post({ ...input, package: { ...pkg, record: "x".repeat(20_000_000) } })).statusCode, 413);
+    assert.equal((await post(input)).statusCode, 403, "unpublished task cannot accept results");
+    const tasksUrl = `${prefix}/courses/${course}/tasks`;
+    assert.equal((await app.inject({ method: "POST", url: tasksUrl, headers: { cookie: student }, payload: { unit: "arrival" } })).statusCode, 403);
+    for (const unit of ["arrival", "yard"]) {
+      const published = await app.inject({ method: "POST", url: tasksUrl, headers: { cookie: teacher }, payload: { unit } });
+      assert.equal(published.statusCode, 200, published.body);
+    }
+    const tasks = await app.inject({ url: tasksUrl, headers: { cookie: student } });
+    assert.equal(tasks.statusCode, 200); assert.equal(tasks.json().tasks.length, 2, "publishing another flow keeps the previous task available");
     const sent = await post(input); assert.equal(sent.statusCode, 202, sent.body); const id = sent.json().id;
     assert.equal((await post(input)).json().id, id, "lost acknowledgement retry is identical");
     assert.equal((await post({ ...input, expectedRevision: 99 })).statusCode, 409);

@@ -1,0 +1,40 @@
+{
+  "id": "mg-369",
+  "deck": "l16",
+  "page": 1,
+  "title": "组织创新",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l16, original page 1, 组织创新; conceptual teaching artwork, not historical or statistical evidence. Subject: A refined architectural pavilion with movable walls opens into interconnected work courtyards, people coordinate across spaces, warm ivory stone and teal foliage, renewal of organization rather than futuristic spectacle. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-5e99b8b9-ce95-44eb-81d2-236c91e4ced1.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-369.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-369.webp",
+  "originalSha256": "a41c4226261b6e457bbd2600458255f31ae887975986e7735d87a7158aaeab39",
+  "webSha256": "6c6eccc6a10e2eada29e4f6407c0c955055197bba38c2595287a4d6b05a35c2f",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 378036,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "a41c4226261b6e457bbd2600458255f31ae887975986e7735d87a7158aaeab39",
+    "webSha256": "6c6eccc6a10e2eada29e4f6407c0c955055197bba38c2595287a4d6b05a35c2f"
+  },
+  "pages": [
+    "mg-l16-s001-01"
+  ]
+}

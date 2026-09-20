@@ -1,0 +1,40 @@
+{
+  "id": "mg-338",
+  "deck": "l14",
+  "page": 12,
+  "title": "持续识别",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l14, original page 12, 持续识别; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult engineer and a frontline worker walk through a generic water treatment facility inspecting accessible guarded equipment, careful observational work with proper protective clothing. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-ac101df4-c50a-4d2d-bb15-769ded445ee0.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-338.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-338.webp",
+  "originalSha256": "0164a6d7f2e0179626d40f457e1b275702c1eec2e2f2ea3e0d00efed3884476d",
+  "webSha256": "455977132f858732610b383fe826fe5029ae686cee1c629d8535b54f4f5c08ba",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 264462,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "0164a6d7f2e0179626d40f457e1b275702c1eec2e2f2ea3e0d00efed3884476d",
+    "webSha256": "455977132f858732610b383fe826fe5029ae686cee1c629d8535b54f4f5c08ba"
+  },
+  "pages": [
+    "mg-l14-s012-01"
+  ]
+}

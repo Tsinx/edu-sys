@@ -1,0 +1,40 @@
+{
+  "id": "mg-370",
+  "deck": "l16",
+  "page": 3,
+  "title": "为持续创新提供条件",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l16, original page 3, 为持续创新提供条件; conceptual teaching artwork, not historical or statistical evidence. Subject: A multidisciplinary adult team maintains a working studio while a smaller group tests a new arrangement nearby, balance of resources, talent and collaboration, no diagrams. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-3f5c1635-1825-4665-91f1-621fea644b9e.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-370.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-370.webp",
+  "originalSha256": "3a8dba17b41dbca6bf4e9d4e62f05f7657361fc6c9e7078a6d982743ee7ca587",
+  "webSha256": "b555b19a6edf782357c2bfcbaba79f5db1827fbc6039cfa49ca21181d4228e05",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 258280,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "3a8dba17b41dbca6bf4e9d4e62f05f7657361fc6c9e7078a6d982743ee7ca587",
+    "webSha256": "b555b19a6edf782357c2bfcbaba79f5db1827fbc6039cfa49ca21181d4228e05"
+  },
+  "pages": [
+    "mg-l16-s003-01"
+  ]
+}

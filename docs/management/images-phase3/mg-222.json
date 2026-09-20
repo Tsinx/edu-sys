@@ -1,0 +1,40 @@
+{
+  "id": "mg-222",
+  "deck": "l9",
+  "page": 43,
+  "title": "宿舍中的协调",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 43, 宿舍中的协调; conceptual teaching artwork, not historical or statistical evidence. Subject: Four adult university roommates discuss shared living arrangements at a small dormitory table, books, desk lamp and sports bag subtly signal different routines. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-53c2c05f-cc65-423c-b8d8-c5d64eb82d5a.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-222.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-222.webp",
+  "originalSha256": "6e0d3d05eb073d89ae7668796a7e6a9a7f8da748832cbcec769549ce45c35fdb",
+  "webSha256": "c6d134928500da08135554ae494ee62ab6bf334af828105e87ad849f65b1c83c",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 240194,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "6e0d3d05eb073d89ae7668796a7e6a9a7f8da748832cbcec769549ce45c35fdb",
+    "webSha256": "c6d134928500da08135554ae494ee62ab6bf334af828105e87ad849f65b1c83c"
+  },
+  "pages": [
+    "mg-l9-s043-01"
+  ]
+}

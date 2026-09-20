@@ -1,0 +1,40 @@
+{
+  "id": "mg-246",
+  "deck": "l10",
+  "page": 22,
+  "title": "理解人的多种需要",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 22, 理解人的多种需要; conceptual teaching artwork, not historical or statistical evidence. Subject: An editorial assemblage of a meal bowl, house-shaped stone, linked ceramic rings, small award-like abstract form and unfinished sculpture, no hierarchy chart or words. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-77b5af88-9e5b-48d1-a6c9-5efa0b88fc90.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-246.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-246.webp",
+  "originalSha256": "124130488e308e5154c95a04803b4a4a025ab83f097c6ac7a265ed2a12166006",
+  "webSha256": "8f2cdf7e148b6c6d43ce2f44e5fe0a1beb3fa62d6de40c7be2c408d8bfa8704d",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 188138,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "124130488e308e5154c95a04803b4a4a025ab83f097c6ac7a265ed2a12166006",
+    "webSha256": "8f2cdf7e148b6c6d43ce2f44e5fe0a1beb3fa62d6de40c7be2c408d8bfa8704d"
+  },
+  "pages": [
+    "mg-l10-s022-01"
+  ]
+}

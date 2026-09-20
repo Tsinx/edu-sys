@@ -1,0 +1,40 @@
+{
+  "id": "mg-324",
+  "deck": "l13",
+  "page": 37,
+  "title": "共同规范与自我约束",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 37, 共同规范与自我约束; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult team in a quiet shared workshop tidies and checks common tools without a supervisor directing them, visible care for the shared workspace, natural restrained scene. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-39bed0b1-ac39-4969-85f8-21f2c7825aa0.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-324.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-324.webp",
+  "originalSha256": "cfe17c4234136887e8a5f13f9d54a90673d5f04f349a1a410c8eacbd64fd001b",
+  "webSha256": "68ab1d90ff857a130b4c46c68bc9963f01fecf53dc4df64d78b67aeec9c507b1",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 284302,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "cfe17c4234136887e8a5f13f9d54a90673d5f04f349a1a410c8eacbd64fd001b",
+    "webSha256": "68ab1d90ff857a130b4c46c68bc9963f01fecf53dc4df64d78b67aeec9c507b1"
+  },
+  "pages": [
+    "mg-l13-s037-01"
+  ]
+}

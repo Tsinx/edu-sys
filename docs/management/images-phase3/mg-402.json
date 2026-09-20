@@ -1,0 +1,40 @@
+{
+  "id": "mg-402",
+  "deck": "intro",
+  "page": 22,
+  "title": "经营自我与生活",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: intro, original page 22, 经营自我与生活; conceptual teaching artwork, not historical or statistical evidence. Subject: A thoughtful adult at a sunlit desk with a notebook, simple household objects and materials for a community project, balancing different commitments, no luxury success symbols or motivational text. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-d851ef0b-b36a-4086-a98d-1e3070e7390f.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-402.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-402.webp",
+  "originalSha256": "376b02a07bee75c21912629e231b94cc6d128f4a6d28cd07a1f115e9bc2d5262",
+  "webSha256": "795f9bf2a40058419f3ee225014e4b2fdc000cf26d4f6112a550c6dfa729bf39",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 203348,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "376b02a07bee75c21912629e231b94cc6d128f4a6d28cd07a1f115e9bc2d5262",
+    "webSha256": "795f9bf2a40058419f3ee225014e4b2fdc000cf26d4f6112a550c6dfa729bf39"
+  },
+  "pages": [
+    "mg-intro-s022-01"
+  ]
+}

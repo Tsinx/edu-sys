@@ -1,5 +1,5 @@
 import { PORT_MANAGEMENT_SLIDES } from "./slides.js";
-import { MANAGEMENT_BUILD, MANAGEMENT_COURSE_ID, MANAGEMENT_DECK_ID, MANAGEMENT_VERSION_ID, MANAGEMENT_SLIDES, MANAGEMENT_LESSONS, getManagementSlide, getManagementSlideByKey, getManagementLessonPosition, getManagementGlobalIndex, getManagementInteractionDefinition, validateManagementInteraction } from './management-principles/index.js';
+import { MANAGEMENT_SCOPE_LABEL, getManagementAdjacentIndex, MANAGEMENT_BUILD, MANAGEMENT_COURSE_ID, MANAGEMENT_DECK_ID, MANAGEMENT_VERSION_ID, MANAGEMENT_SLIDES, MANAGEMENT_LESSONS, getManagementSlide, getManagementSlideByKey, getManagementLessonPosition, getManagementGlobalIndex, getManagementInteractionDefinition, validateManagementInteraction } from './management-principles/index.js';
 import { STATISTICAL_ANALYSIS_SLIDES, STATISTICAL_ANALYSIS_LESSONS, STATISTICAL_ANALYSIS_COURSE_ID, STATISTICAL_ANALYSIS_DECK_ID, STATISTICAL_ANALYSIS_VERSION_ID, getStatisticalAnalysisSlide, getStatisticalAnalysisSlideByKey, getStatisticalAnalysisLessonPosition, getStatisticalAnalysisGlobalIndex } from './statistical-analysis/index.js';
 import { PORT_LBL_LEGACY_KEYS } from "./port-lbl-migration.js";
 import {
@@ -38,6 +38,8 @@ export interface CourseDeckSlideSummary {
 
 export interface CourseDeckLessonSummary {
   number: number;
+  kind?: "introduction" | "lecture";
+  displayLabel?: string;
   title: string;
   slideStart: number | null;
   slideEnd: number | null;
@@ -93,6 +95,8 @@ export interface CourseDeckDescriptor {
   getSlideByKey(slideKey: string): CourseDeckSlideSummary | undefined;
   getLessonPosition(index: number): CourseDeckPosition | null;
   getGlobalIndex(lessonNumber: number, localIndex?: number): number | null;
+  /** Storage indices remain stable even when the teaching order changes. */
+  getAdjacentIndex?(index: number, direction: -1 | 1): number | null;
   getInteractionDefaults(
     slideKey: string
   ): Readonly<Record<string, EconomicMathematicsInteractionScalar>> | null;
@@ -144,7 +148,7 @@ const portDescriptor: CourseDeckDescriptor = {
   slug: "gangkou-guanli-gailun",
   code: "PM-INTRO-001",
   deckId: "deck-course-port-management-intro-foundations",
-  versionId: "release-port-management-capacity-v11",
+  versionId: "release-port-management-hinterland-v12",
   title: "港口管理概论",
   totalHours: 32,
   slideTotal: PORT_MANAGEMENT_SLIDES.length,
@@ -311,12 +315,12 @@ const managementDescriptor: CourseDeckDescriptor = {
   deckId: MANAGEMENT_DECK_ID, versionId: MANAGEMENT_VERSION_ID, title: '管理学', totalHours: null,
   slideTotal: MANAGEMENT_SLIDES.length, lessons: MANAGEMENT_LESSONS, allowedActivities: ['slides'],
   presentation: { shortTitle:'管理学', categoryLabel:'管理学基础',
-    description:'管理导论、管理理论演变、决策过程、环境分析与理性决策。管理学课程组 · 韦笑。',
+    description:`${MANAGEMENT_SCOPE_LABEL}：管理基础、决策、组织、领导、控制与创新。管理学课程组 · 韦笑。`,
     heroImage:'/course-assets/management-principles/mg-001.webp', accent:'management-principles', assistantName:'小麦老师', supportsStudy:false,
-    resources:[{role:'课程署名',title:'管理学课程组 · 韦笑',detail:'据原始课件转换；课程代码及总学时待完善。'},{role:'建设范围',title:`前${MANAGEMENT_LESSONS.length}讲`,detail:`${MANAGEMENT_BUILD.sourcePageCount}个原页，${MANAGEMENT_SLIDES.length}个连续网页页面。`}]
+    resources:[{role:'课程署名',title:'管理学课程组 · 韦笑',detail:'据原始课件转换；课程代码及总学时待完善。'},{role:'建设范围',title:MANAGEMENT_SCOPE_LABEL,detail:`${MANAGEMENT_BUILD.sourcePageCount}个原页，${MANAGEMENT_SLIDES.length}个连续网页页面。`}]
   },
   getSlide:getManagementSlide, getSlideByKey:getManagementSlideByKey,
-  getLessonPosition:getManagementLessonPosition, getGlobalIndex:getManagementGlobalIndex,
+  getLessonPosition:getManagementLessonPosition, getGlobalIndex:getManagementGlobalIndex, getAdjacentIndex:getManagementAdjacentIndex,
   getInteractionDefaults(key){const p=getManagementSlideByKey(key);return p?.demo?getManagementInteractionDefinition(p.demo).defaults:null;},
   validateInteractionPatch(key,patch,current){const p=getManagementSlideByKey(key);return p?.demo?validateManagementInteraction(p.demo,patch,current):false;}
 };
@@ -348,4 +352,15 @@ export function getCoursePresentation(
 
 export function isCourseDeckReady(courseId: string): boolean {
   return Boolean(getCourseDeckByCourseId(courseId)?.slideTotal);
+}
+
+export function getCourseAdjacentIndex(deck: CourseDeckDescriptor, index: number, direction: -1 | 1): number | null {
+  if (!Number.isInteger(index) || index < 1 || index > deck.slideTotal) return null;
+  if (deck.getAdjacentIndex) return deck.getAdjacentIndex(index, direction);
+  const next = index + direction;
+  return next >= 1 && next <= deck.slideTotal ? next : null;
+}
+
+export function getCourseLessonLabel(lesson: Pick<CourseDeckLessonSummary, 'number' | 'kind' | 'displayLabel'>): string {
+  return lesson.displayLabel ?? (lesson.kind === 'introduction' ? '绪论' : `第${lesson.number}讲`);
 }

@@ -1,0 +1,40 @@
+{
+  "id": "mg-385",
+  "deck": "l16",
+  "page": 43,
+  "title": "层级与网络的结合",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l16, original page 43, 层级与网络的结合; conceptual teaching artwork, not historical or statistical evidence. Subject: A terraced building has clear structural supports and multiple horizontal bridges between workspaces, human-scale architecture metaphor for combining coordination forms, no arrows or corporate logos. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-8714e7f5-3b94-40aa-a850-21e66e046a3e.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-385.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-385.webp",
+  "originalSha256": "4b6a393a7d46fbf6bf93db30d7a6ee2a2f33abfc38222ed67a307287a3c39a6b",
+  "webSha256": "2f7c1b9641239a813bc5df8f8f868429b811b5c4e74fd79ffab1188c33192787",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 298488,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "4b6a393a7d46fbf6bf93db30d7a6ee2a2f33abfc38222ed67a307287a3c39a6b",
+    "webSha256": "2f7c1b9641239a813bc5df8f8f868429b811b5c4e74fd79ffab1188c33192787"
+  },
+  "pages": [
+    "mg-l16-s043-01"
+  ]
+}

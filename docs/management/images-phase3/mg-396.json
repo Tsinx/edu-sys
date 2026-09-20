@@ -1,0 +1,40 @@
+{
+  "id": "mg-396",
+  "deck": "intro",
+  "page": 8,
+  "title": "受欢迎的选修课",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: intro, original page 8, 受欢迎的选修课; conceptual teaching artwork, not historical or statistical evidence. Subject: A generic university lecture hall with a full seated adult audience and a few adults waiting outside through a glass door, clear safe aisles, no logos, no exact crowd count, no real teacher likeness. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-d745adf7-cd07-40e3-95cc-c53c796fb5e4.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-396.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-396.webp",
+  "originalSha256": "519ff86bfd473e70d0042b7ab2417785fb42e4376495ff66f055982799ba1f27",
+  "webSha256": "6ba53810bf287197bcb5efe841f7ab6b0684d3b0463fb5a11338f99c6854f7ae",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 215714,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "519ff86bfd473e70d0042b7ab2417785fb42e4376495ff66f055982799ba1f27",
+    "webSha256": "6ba53810bf287197bcb5efe841f7ab6b0684d3b0463fb5a11338f99c6854f7ae"
+  },
+  "pages": [
+    "mg-intro-s008-01"
+  ]
+}

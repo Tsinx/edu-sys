@@ -1,0 +1,40 @@
+{
+  "id": "mg-405",
+  "deck": "intro",
+  "page": 26,
+  "title": "走向自主实践",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: intro, original page 26, 走向自主实践; conceptual teaching artwork, not historical or statistical evidence. Subject: A young adult university learner independently prepares a small public-space model with an experienced mentor listening nearby, agency and guidance, no graduation or guaranteed-success symbolism. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-23a6fee3-6d37-447c-8f9e-5b46f5c7ed27.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-405.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-405.webp",
+  "originalSha256": "cd61b1fb57455555ffaae1cbd0f1bad14b2e1a7c90e917e01ee19f0d9f0c6c08",
+  "webSha256": "e821a11e4b16b7d29337f2c3d1a01f66c4cdb0f05ce0a7dfacb5256df39230ce",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 197450,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "cd61b1fb57455555ffaae1cbd0f1bad14b2e1a7c90e917e01ee19f0d9f0c6c08",
+    "webSha256": "e821a11e4b16b7d29337f2c3d1a01f66c4cdb0f05ce0a7dfacb5256df39230ce"
+  },
+  "pages": [
+    "mg-intro-s026-01"
+  ]
+}

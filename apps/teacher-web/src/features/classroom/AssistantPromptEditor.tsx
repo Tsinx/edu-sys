@@ -69,9 +69,9 @@ export function AssistantPromptEditor() {
     {notice && <p role="status">{notice}</p>}
     {busy && !workspace && <p role="status">正在读取课程提示词…</p>}
     {workspace && <>
-      <div className="prompt-coverage">已配置 {workspace.coverage.coveredSlides} / {workspace.coverage.slides} 页 · {workspace.coverage.lessons} 讲 · {workspace.coverage.experiments} 类实验／演示。每页均有五层上下文。</div>
+      <div className="prompt-coverage">已配置 {workspace.coverage.coveredSlides} / {workspace.coverage.slides} 页 · {workspace.coverage.introductions ? '绪论＋' : ''}{workspace.coverage.lessons} 讲 · {workspace.coverage.experiments} 类实验／演示。每页均有五层上下文。</div>
       <div className="prompt-selection">
-        <label>章／讲<select aria-label="选择讲次" disabled={busy || dirty || !workspace.pages.length} value={selectedPage?.lesson ?? ""} onChange={e => setIndex(workspace.pages.find(p => p.lesson === Number(e.target.value))!.index)}>{[...new Set(workspace.pages.map(p => p.lesson))].map(lesson => <option key={lesson} value={lesson}>第{lesson}讲</option>)}</select></label>
+        <label>章／讲<select aria-label="选择讲次" disabled={busy || dirty || !workspace.pages.length} value={selectedPage?.lesson ?? ""} onChange={e => setIndex(workspace.pages.find(p => p.lesson === Number(e.target.value))!.index)}>{[...new Set(workspace.pages.map(p => p.lesson))].sort((a,b)=>a-b).map(lesson => <option key={lesson} value={lesson}>{lesson===0?"绪论":`第${lesson}讲`}</option>)}</select></label>
         <label>Slide<select aria-label="选择Slide" disabled={busy || dirty || !workspace.pages.length} value={index} onChange={e => setIndex(Number(e.target.value))}>{workspace.pages.filter(p => p.lesson === selectedPage?.lesson).map((p, n) => <option key={p.key} value={p.index}>第{n + 1}页 · {p.title}</option>)}</select></label>
         <label>页面／实验<select aria-label="选择页面或实验" disabled={busy || dirty} value={activity} onChange={e => { setActivity(e.target.value); if(e.target.value.startsWith("demo:") && selectedPage?.lesson!==4) setIndex(workspace.pages.find(p=>p.lesson===4)!.index); }}><option value="slides">当前Slide（含页内实验）</option>{workspace.experiments.map(e => <option key={e.key} value={e.key}>{e.title}</option>)}</select></label>
       </div>

@@ -1,0 +1,40 @@
+{
+  "id": "mg-311",
+  "deck": "l13",
+  "page": 6,
+  "title": "独立检查",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 6, 独立检查; conceptual teaching artwork, not historical or statistical evidence. Subject: Two adult professionals examine a finished mechanical component from different angles at separate sides of a well-lit table, independent evidence checking, no logos, accusations or identifiable real auditors. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-6d029ad2-3db6-4615-ad97-0967a105148a.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-311.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-311.webp",
+  "originalSha256": "bcf10a8a334e2cd9c24dff8e0f1e4f34a90406adf8b459b1fa1f3d6d4ebf5267",
+  "webSha256": "6a0d064f7c14e4699241faba0aac2ba063c952760e7148f01706db719981991d",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 153816,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "bcf10a8a334e2cd9c24dff8e0f1e4f34a90406adf8b459b1fa1f3d6d4ebf5267",
+    "webSha256": "6a0d064f7c14e4699241faba0aac2ba063c952760e7148f01706db719981991d"
+  },
+  "pages": [
+    "mg-l13-s006-01"
+  ]
+}

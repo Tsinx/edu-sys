@@ -13,7 +13,7 @@ test('48 page prompt scopes, reveal gates and versioned experiment summaries fol
   const event=async(payload:object)=>{const r=await app.inject({method:'POST',url:root+'/events',payload});assert.ok(r.statusCode===200||r.statusCode===201,r.body);return r.json();};
   for(const page of pages){
    await event({type:'set_slide',index:page.index});const prompt=(await app.inject(root+'/assistant-prompts')).json();
-   assert.equal(prompt.modules.length,5);assert.equal(prompt.coverage.coveredSlides,245);
+   assert.equal(prompt.modules.length,5);assert.equal(prompt.coverage.coveredSlides,293);
    assert.match(prompt.compiled,new RegExp(`第5讲第${page.localPage}/48页`));assert.match(prompt.compiled,/s01-capacity-teaching/);assert.doesNotMatch(prompt.compiled,/oocl-spain-ll3-2023/);
    if(page.answerHidden){assert.match(prompt.compiled,/当前页答案尚未揭示/);assert.ok(!prompt.compiled.includes(page.teachingCue));if(page.reveal)assert.ok(!prompt.compiled.includes(page.reveal));}
   }

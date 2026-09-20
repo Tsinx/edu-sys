@@ -1,0 +1,40 @@
+{
+  "id": "mg-193",
+  "deck": "l9",
+  "page": 5,
+  "title": "共同目标与个人目标",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 5, 共同目标与个人目标; conceptual teaching artwork, not historical or statistical evidence. Subject: An overhead still life of a shared campus exhibition model beside individual study notebooks and carefully arranged craft materials, visually expressing finite time and different commitments. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-2033d0db-a73e-4411-bb36-18249ce89b6b.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-193.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-193.webp",
+  "originalSha256": "9eaa9dc7fe1fb34440155f9240d26e189596b72f6fe6f12270dbc8517fbbc251",
+  "webSha256": "477d3236dbd1ecf280e5d994a29e3bbc84013acceb5c0a9de3eafc889f6822ae",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 293250,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "9eaa9dc7fe1fb34440155f9240d26e189596b72f6fe6f12270dbc8517fbbc251",
+    "webSha256": "477d3236dbd1ecf280e5d994a29e3bbc84013acceb5c0a9de3eafc889f6822ae"
+  },
+  "pages": [
+    "mg-l9-s005-01"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "mg-321",
+  "deck": "l13",
+  "page": 27,
+  "title": "文化的延续与更新",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 27, 文化的延续与更新; conceptual teaching artwork, not historical or statistical evidence. Subject: An established craft studio welcomes a new adult partner who brings a fresh material sample while older tools remain in use, continuity and renewal, no Alibaba logo or real executive likeness. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-d32c6ec7-f2a9-4f7b-a779-2d70e4f14329.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-321.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-321.webp",
+  "originalSha256": "e5eb477deafad59b86d924d917b8468f9951b28b18ed57285e365b39a932bf72",
+  "webSha256": "2fb1be8b0dfe907e8020ac109988c4734e879a1c21a163ee44cecb38e63fdf5d",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 232500,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "e5eb477deafad59b86d924d917b8468f9951b28b18ed57285e365b39a932bf72",
+    "webSha256": "2fb1be8b0dfe907e8020ac109988c4734e879a1c21a163ee44cecb38e63fdf5d"
+  },
+  "pages": [
+    "mg-l13-s027-01"
+  ]
+}

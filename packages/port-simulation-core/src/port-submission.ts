@@ -96,7 +96,8 @@ export class PortSubmissionReplay {
   }
   reset() {
     const d = this.data;
-    this.course = this.unit === "full" ? undefined : createPortCourse(this.unit, d.schema);
+    if (d.mode !== undefined && !["practice", "battle"].includes(d.mode)) throw new Error("场次模式无效。");
+    this.course = this.unit === "full" ? undefined : createPortCourse(this.unit, d.schema, d.mode ?? "practice");
     if (this.course && d.fixture && JSON.stringify(d.fixture) !== JSON.stringify(this.course.fixture)) throw new Error("分段预置、初始参数或方案与版本不一致。");
     if (!this.course && (JSON.stringify(cleanPortConfig(d.config)) !== JSON.stringify(d.config) || JSON.stringify(cleanPortPlan(d.initialPlan)) !== JSON.stringify(d.initialPlan))) throw new Error("初始参数或方案不合法。");
     this.session = this.course?.simulation ?? createPortSession(d.mode, d.config, d.initialPlan, d.schema);
@@ -139,7 +140,7 @@ export class PortSubmissionReplay {
   }
   async result(requireEligible = true, verifiedReference?: { unitCost: number }): Promise<PortSubmissionResult> {
     const s = this.session, goals = this.course ? portCourseGoals(this.course).map(({ id, label, done }) => ({ id, label, done })) : [];
-    if (requireEligible && !this.course && (s.mode !== "battle" || s.status !== "completed" || s.second !== PORT_HORIZON)) throw new Error("仅完成48小时的实战可以提交综合成绩。");
+    if (requireEligible && !this.course && !["running", "paused", "completed", "interrupted"].includes(s.status)) throw new Error("请开始实验后提交综合成绩。");
     const breakdown = this.course ? null : portScore(s, verifiedReference ?? portReferenceCost(s.config, s.schema));
     return { unit: this.unit, mode: s.mode, ...(this.course ? { performance: portCoursePerformance(this.course) } : {}), score: breakdown?.total ?? Math.round(goals.filter(g => g.done).length / goals.length * 10000) / 100,
       second: s.second, elapsed: s.second - (this.course?.startSecond ?? 0), complete: this.course?.complete ?? s.status === "completed",

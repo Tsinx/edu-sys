@@ -1,0 +1,40 @@
+{
+  "id": "mg-336",
+  "deck": "l14",
+  "page": 7,
+  "title": "不同来源的风险",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l14, original page 7, 不同来源的风险; conceptual teaching artwork, not historical or statistical evidence. Subject: A tactile architectural still life juxtaposes a weathered natural rock, a mechanical hinge and a changing glass market pavilion, distinct sources of uncertainty without labels or statistics. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-7254fd3a-7b4b-47a7-b847-0e3ae0c03d84.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-336.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-336.webp",
+  "originalSha256": "883e5e99e426bab67fd7f94396280247383b22c4c5bdc54ea295c361778e7884",
+  "webSha256": "eadf9b94fa92983efb8279254fe3933c26f7d0ef8fa764e3b27b1c1e578bf60a",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 308648,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "883e5e99e426bab67fd7f94396280247383b22c4c5bdc54ea295c361778e7884",
+    "webSha256": "eadf9b94fa92983efb8279254fe3933c26f7d0ef8fa764e3b27b1c1e578bf60a"
+  },
+  "pages": [
+    "mg-l14-s007-01"
+  ]
+}

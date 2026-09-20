@@ -1,0 +1,40 @@
+{
+  "id": "mg-238",
+  "deck": "l10",
+  "page": 7,
+  "title": "看得见与看不见的信息",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 7, 看得见与看不见的信息; conceptual teaching artwork, not historical or statistical evidence. Subject: A meticulously crafted still life of two used camera bodies, one open to show internal wear and one visually pristine outside, information asymmetry metaphor, no brand markings. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-092b987f-5902-49f4-9bd4-cdabf1caef05.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-238.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-238.webp",
+  "originalSha256": "f5c62905a24d5f7d87a6c518800b2db048b778b19bce90faff02f479896d346b",
+  "webSha256": "cd95638af583f53f6abb1b598a505d458e19fa92d703aef07e93ae6b02249487",
+  "originalSize": [
+    1587,
+    991
+  ],
+  "webSize": [
+    1587,
+    991
+  ],
+  "webBytes": 236462,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "f5c62905a24d5f7d87a6c518800b2db048b778b19bce90faff02f479896d346b",
+    "webSha256": "cd95638af583f53f6abb1b598a505d458e19fa92d703aef07e93ae6b02249487"
+  },
+  "pages": [
+    "mg-l10-s007-01"
+  ]
+}

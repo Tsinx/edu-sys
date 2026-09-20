@@ -1,0 +1,40 @@
+{
+  "id": "mg-348",
+  "deck": "l14",
+  "page": 35,
+  "title": "从预兆到紧急状态",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l14, original page 35, 从预兆到紧急状态; conceptual teaching artwork, not historical or statistical evidence. Subject: A city operations room overlooking a rain-soaked but intact city, adult staff shift from observation to coordinated response, serious calm atmosphere without sensational disaster. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-d3c563c1-6bb3-4c44-8c77-5f90795965fd.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-348.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-348.webp",
+  "originalSha256": "dcc441da29731a8e53acc183cbfa0e6eccc24a7a86faa0db7048c9624cd609fd",
+  "webSha256": "08b2b2ba3a3a581babb9404288bb050f157066cd3d6f76f668f8d0c4e99b097b",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 256076,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "dcc441da29731a8e53acc183cbfa0e6eccc24a7a86faa0db7048c9624cd609fd",
+    "webSha256": "08b2b2ba3a3a581babb9404288bb050f157066cd3d6f76f668f8d0c4e99b097b"
+  },
+  "pages": [
+    "mg-l14-s035-01"
+  ]
+}

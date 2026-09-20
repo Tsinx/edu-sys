@@ -1,0 +1,40 @@
+{
+  "id": "mg-355",
+  "deck": "l15",
+  "page": 1,
+  "title": "创新原理",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l15, original page 1, 创新原理; conceptual teaching artwork, not historical or statistical evidence. Subject: A monumental ivory workshop opens toward a young grove, an elegant brass mechanism gradually becomes a living branching structure, a poetic image of purposeful renewal without magic technology. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-29a84f75-bf45-41c1-8b79-f4379639d82f.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-355.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-355.webp",
+  "originalSha256": "db0831637ed6735da68239613564d4150c501341c038a49ff08625c0aa006ad9",
+  "webSha256": "12a6b06d9003ca1fff79900510e9c9bcbb2f4934a6369585f2d4be8366705315",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 338278,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "db0831637ed6735da68239613564d4150c501341c038a49ff08625c0aa006ad9",
+    "webSha256": "12a6b06d9003ca1fff79900510e9c9bcbb2f4934a6369585f2d4be8366705315"
+  },
+  "pages": [
+    "mg-l15-s001-01"
+  ]
+}

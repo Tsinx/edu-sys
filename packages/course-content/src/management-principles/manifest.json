@@ -1,19 +1,38 @@
 {
-  "version": "management-principles-2026-v2",
-  "phase": 2,
-  "sourcePageCount": 517,
-  "webPageCount": 663,
-  "imageCount": 190,
+  "version": "management-principles-2026-v3",
+  "phase": 3,
+  "status": "validated",
+  "sourcePageCount": 1245,
+  "webPageCount": 1477,
+  "imageCount": 410,
+  "lectureCount": 16,
+  "introductionCount": 1,
+  "demoCount": 34,
+  "phase3": {
+    "reviewScope": 728,
+    "recordedSources": 728,
+    "independent": 572,
+    "shared": 154,
+    "omitted": 2
+  },
   "lessons": [
+    {
+      "number": 0,
+      "title": "绪论",
+      "kind": "introduction",
+      "displayLabel": "绪论",
+      "slideStart": 1407,
+      "slideEnd": 1477,
+      "slideTotal": 71,
+      "status": "ready"
+    },
     {
       "number": 1,
       "title": "管理导论",
       "slideStart": 1,
       "slideEnd": 67,
       "slideTotal": 67,
-      "status": "ready",
-      "sourcePages": 56,
-      "imageCount": 22
+      "status": "ready"
     },
     {
       "number": 2,
@@ -21,9 +40,7 @@
       "slideStart": 68,
       "slideEnd": 146,
       "slideTotal": 79,
-      "status": "ready",
-      "sourcePages": 67,
-      "imageCount": 24
+      "status": "ready"
     },
     {
       "number": 3,
@@ -31,9 +48,7 @@
       "slideStart": 147,
       "slideEnd": 227,
       "slideTotal": 81,
-      "status": "ready",
-      "sourcePages": 65,
-      "imageCount": 24
+      "status": "ready"
     },
     {
       "number": 4,
@@ -41,9 +56,7 @@
       "slideStart": 228,
       "slideEnd": 367,
       "slideTotal": 140,
-      "status": "ready",
-      "sourcePages": 111,
-      "imageCount": 40
+      "status": "ready"
     },
     {
       "number": 5,
@@ -51,9 +64,7 @@
       "slideStart": 368,
       "slideEnd": 449,
       "slideTotal": 82,
-      "status": "ready",
-      "sourcePages": 60,
-      "imageCount": 22
+      "status": "ready"
     },
     {
       "number": 6,
@@ -61,9 +72,7 @@
       "slideStart": 450,
       "slideEnd": 540,
       "slideTotal": 91,
-      "status": "ready",
-      "sourcePages": 64,
-      "imageCount": 24
+      "status": "ready"
     },
     {
       "number": 7,
@@ -71,9 +80,7 @@
       "slideStart": 541,
       "slideEnd": 606,
       "slideTotal": 66,
-      "status": "ready",
-      "sourcePages": 55,
-      "imageCount": 20
+      "status": "ready"
     },
     {
       "number": 8,
@@ -81,9 +88,88 @@
       "slideStart": 607,
       "slideEnd": 663,
       "slideTotal": 57,
-      "status": "ready",
-      "sourcePages": 39,
-      "imageCount": 14
+      "status": "ready"
+    },
+    {
+      "number": 9,
+      "title": "领导的一般理论",
+      "kind": "lecture",
+      "displayLabel": "第9讲",
+      "slideStart": 664,
+      "slideEnd": 841,
+      "slideTotal": 178,
+      "status": "ready"
+    },
+    {
+      "number": 10,
+      "title": "激励",
+      "kind": "lecture",
+      "displayLabel": "第10讲",
+      "slideStart": 842,
+      "slideEnd": 1002,
+      "slideTotal": 161,
+      "status": "ready"
+    },
+    {
+      "number": 11,
+      "title": "沟通",
+      "kind": "lecture",
+      "displayLabel": "第11讲",
+      "slideStart": 1003,
+      "slideEnd": 1079,
+      "slideTotal": 77,
+      "status": "ready"
+    },
+    {
+      "number": 12,
+      "title": "控制的类型与过程",
+      "kind": "lecture",
+      "displayLabel": "第12讲",
+      "slideStart": 1080,
+      "slideEnd": 1136,
+      "slideTotal": 57,
+      "status": "ready"
+    },
+    {
+      "number": 13,
+      "title": "控制的方法和技术",
+      "kind": "lecture",
+      "displayLabel": "第13讲",
+      "slideStart": 1137,
+      "slideEnd": 1235,
+      "slideTotal": 99,
+      "status": "ready"
+    },
+    {
+      "number": 14,
+      "title": "风险控制与危机管理",
+      "kind": "lecture",
+      "displayLabel": "第14讲",
+      "slideStart": 1236,
+      "slideEnd": 1301,
+      "slideTotal": 66,
+      "status": "ready"
+    },
+    {
+      "number": 15,
+      "title": "创新原理",
+      "kind": "lecture",
+      "displayLabel": "第15讲",
+      "slideStart": 1302,
+      "slideEnd": 1346,
+      "slideTotal": 45,
+      "status": "ready"
+    },
+    {
+      "number": 16,
+      "title": "组织创新",
+      "kind": "lecture",
+      "displayLabel": "第16讲",
+      "slideStart": 1347,
+      "slideEnd": 1406,
+      "slideTotal": 60,
+      "status": "ready"
     }
-  ]
+  ],
+  "validatedAt": "2026-09-19T18:18:21.332Z"
 }

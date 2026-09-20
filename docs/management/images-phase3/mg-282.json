@@ -1,0 +1,40 @@
+{
+  "id": "mg-282",
+  "deck": "l11",
+  "page": 30,
+  "title": "信息的量、质与时机",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l11, original page 30, 信息的量、质与时机; conceptual teaching artwork, not historical or statistical evidence. Subject: A beautifully arranged still life of a small set of clear glass vessels, a precise lens and an unmarked hourglass, ample visual breathing room, distinct objects without numeric claims. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-449896d4-49a7-4444-abd2-43f08e4be15a.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-282.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-282.webp",
+  "originalSha256": "306722d9c73751096b2e48d17ae5e5238703bf84f555912c0a30120cc10f357b",
+  "webSha256": "3c3f353a3cf9961015c83a555911b66a62f24aaaa77f02ad2a4a927cd5e9bc0d",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 198714,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "306722d9c73751096b2e48d17ae5e5238703bf84f555912c0a30120cc10f357b",
+    "webSha256": "3c3f353a3cf9961015c83a555911b66a62f24aaaa77f02ad2a4a927cd5e9bc0d"
+  },
+  "pages": [
+    "mg-l11-s030-01"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "mg-263",
+  "deck": "l10",
+  "page": 68,
+  "title": "被认可与被信任",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 68, 被认可与被信任; conceptual teaching artwork, not historical or statistical evidence. Subject: A quiet face-to-face exchange where a colleague hands responsibility for a small exhibition model to another adult, sincere recognition without applause, gifts or corporate poses. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-4d571ae8-6efd-4b6c-b177-1ec6b3f070f1.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-263.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-263.webp",
+  "originalSha256": "2e53c4d7902d5ea1351836120124b023a1e5dfc618c356754ec636462dc5c323",
+  "webSha256": "cb31baf9f2d21f6e189d1b681d487dcdba883ecb3b5569eb80510722ecc2faba",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 197298,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "2e53c4d7902d5ea1351836120124b023a1e5dfc618c356754ec636462dc5c323",
+    "webSha256": "cb31baf9f2d21f6e189d1b681d487dcdba883ecb3b5569eb80510722ecc2faba"
+  },
+  "pages": [
+    "mg-l10-s068-01"
+  ]
+}

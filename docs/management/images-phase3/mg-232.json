@@ -1,0 +1,40 @@
+{
+  "id": "mg-232",
+  "deck": "l9b",
+  "page": 31,
+  "title": "让方式适应环境",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9b, original page 31, 让方式适应环境; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult outdoor workshop facilitator adjusts tools and shelter as a group moves from individual practice to joint assembly, flexible coordination under changing conditions. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-e2d54237-e457-45e8-a2a4-572091334a01.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-232.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-232.webp",
+  "originalSha256": "82314861f9fe55d589b97285331195ad1dff36e924a4c58c273078a2ec2d92c9",
+  "webSha256": "847deb68d7f6845e830b62a658df026fd19e25c633a98e8728b4e5c9a7e8bdf2",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 349650,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "82314861f9fe55d589b97285331195ad1dff36e924a4c58c273078a2ec2d92c9",
+    "webSha256": "847deb68d7f6845e830b62a658df026fd19e25c633a98e8728b4e5c9a7e8bdf2"
+  },
+  "pages": [
+    "mg-l9b-s031-01"
+  ]
+}

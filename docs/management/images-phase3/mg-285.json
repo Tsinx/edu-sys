@@ -1,0 +1,40 @@
+{
+  "id": "mg-285",
+  "deck": "l11",
+  "page": 36,
+  "title": "分歧进入讨论",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l11, original page 36, 分歧进入讨论; conceptual teaching artwork, not historical or statistical evidence. Subject: Two design teams place different physical bridge models on a shared review table and listen to each other, constructive disagreement without aggression or obvious winner. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-fc11b71d-389e-4963-89c8-1f8a4949e157.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-285.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-285.webp",
+  "originalSha256": "04b20addbb4616b269140008c5bf35c7ff824f68587c0d2f1ff36a5d25be398a",
+  "webSha256": "e0ed26ebacc50f9345bdf4101fcec72bc476157a980af402f15f8aa89323e0bc",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 213458,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "04b20addbb4616b269140008c5bf35c7ff824f68587c0d2f1ff36a5d25be398a",
+    "webSha256": "e0ed26ebacc50f9345bdf4101fcec72bc476157a980af402f15f8aa89323e0bc"
+  },
+  "pages": [
+    "mg-l11-s036-01"
+  ]
+}

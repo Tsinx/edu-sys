@@ -1,0 +1,40 @@
+{
+  "id": "mg-382",
+  "deck": "l16",
+  "page": 38,
+  "title": "专业管理与协作",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l16, original page 38, 专业管理与协作; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult production planner and specialist mechanic compare a machine component in a workshop, complementary expertise rather than hierarchy posing, no named company or numbers. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-23b08679-ef29-4294-af5a-380165fafded.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-382.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-382.webp",
+  "originalSha256": "c66e43fe1c85d7321d3af83666b2a2377cdf89b0c4768233de87164d5b612736",
+  "webSha256": "a3d1459b04506f1f759b014ef27e17deb5c914f195027f08dee70907a8838fe4",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 200636,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "c66e43fe1c85d7321d3af83666b2a2377cdf89b0c4768233de87164d5b612736",
+    "webSha256": "a3d1459b04506f1f759b014ef27e17deb5c914f195027f08dee70907a8838fe4"
+  },
+  "pages": [
+    "mg-l16-s038-01"
+  ]
+}

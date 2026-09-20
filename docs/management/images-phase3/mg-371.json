@@ -1,0 +1,40 @@
+{
+  "id": "mg-371",
+  "deck": "l16",
+  "page": 4,
+  "title": "理解改变的需要",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l16, original page 4, 理解改变的需要; conceptual teaching artwork, not historical or statistical evidence. Subject: Two adult colleagues examine a well-worn doorway that no longer fits newly arriving equipment, thoughtful discussion before changing the structure, no accident or destruction. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-25c32b5f-9ac7-4220-8c44-5b3f47f2350c.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-371.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-371.webp",
+  "originalSha256": "de341afb816a68780c86a95ea6832cbc7bb73349fa3b78c43495a30e878d2853",
+  "webSha256": "ea258d9e301accf96cadaa7af21747e1bb16f0aced70c19760a20fe01d7a768b",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 233206,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "de341afb816a68780c86a95ea6832cbc7bb73349fa3b78c43495a30e878d2853",
+    "webSha256": "ea258d9e301accf96cadaa7af21747e1bb16f0aced70c19760a20fe01d7a768b"
+  },
+  "pages": [
+    "mg-l16-s004-01"
+  ]
+}

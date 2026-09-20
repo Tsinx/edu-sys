@@ -46,8 +46,15 @@ export class PortSubmissionRepository {
     if (!this.db.prepare("PRAGMA table_info(port_submissions)").all().some(row => row.name === "result")) this.db.exec("ALTER TABLE port_submissions ADD COLUMN result TEXT");
     if (!this.db.prepare("PRAGMA table_info(port_submissions)").all().some(row => row.name === "class_session_id")) this.db.exec("ALTER TABLE port_submissions ADD COLUMN class_session_id TEXT");
     this.db.exec("UPDATE port_submissions SET result=json_extract(verified,'$.result') WHERE verified IS NOT NULL AND result IS NULL");
+    this.db.exec(`CREATE TABLE IF NOT EXISTS port_tasks(course_id TEXT NOT NULL,unit TEXT NOT NULL,published_by TEXT NOT NULL,published_at TEXT NOT NULL,PRIMARY KEY(course_id,unit))`);
     this.pump();
   }
+  tasks(course: string) { return this.db.prepare("SELECT unit,published_at AS publishedAt FROM port_tasks WHERE course_id=? ORDER BY published_at").all(course); }
+  publishTask(course: string, unit: string, actorId: string) {
+    this.db.prepare("INSERT INTO port_tasks VALUES(?,?,?,?) ON CONFLICT(course_id,unit) DO UPDATE SET published_by=excluded.published_by,published_at=excluded.published_at").run(course, unit, actorId, new Date().toISOString());
+    return this.tasks(course);
+  }
+  taskPublished(course: string, unit: string) { return Boolean(this.db.prepare("SELECT 1 FROM port_tasks WHERE course_id=? AND unit=?").get(course, unit)); }
   get(id: string, evidence = true) { return this.db.prepare(`SELECT ${evidence ? "*" : summaryColumns} FROM port_submissions WHERE id=?`).get(id) as Row | undefined; }
   latestRevision(actor: string, course: string, type: string) { return Number(this.db.prepare("SELECT revision FROM port_latest WHERE actor_id=? AND course_id=? AND unit=?").get(actor, course, type)?.revision ?? 0); }
   submit(actor: ClassroomActor, input: SubmissionInput) {
@@ -126,12 +133,26 @@ export function registerPortSubmissions(app: FastifyInstance, repository: PortSu
     await identity(request, row.course_id);
     return row;
   };
+  app.get("/api/port-operations/courses/:courseId/tasks", async request => {
+    const course = (request.params as { courseId: string }).courseId;
+    const actor = await identity(request, course);
+    return { teacher: actor.roles.includes("teacher"), tasks: repository.tasks(course) };
+  });
+  app.post("/api/port-operations/courses/:courseId/tasks", async request => {
+    const course = (request.params as { courseId: string }).courseId;
+    const actor = await identity(request, course);
+    if (!actor.roles.includes("teacher")) throw campusError(403, "TEACHER_REQUIRED", "只有教师可以公布实验任务。");
+    const parsed = z.object({ unit }).strict().safeParse(request.body);
+    if (!parsed.success) throw campusError(400, "INVALID_TASK", "请选择有效的实验流程。");
+    return { teacher: true, tasks: repository.publishTask(course, parsed.data.unit, actor.actorId) };
+  });
   app.post("/api/port-operations/submissions", { bodyLimit: 20_000_000 }, async (request, reply) => {
     const actor = await identity(request), parsed = inputSchema.safeParse(request.body);
     if (!parsed.success) throw campusError(400, "INVALID_SUBMISSION", "提交格式、课程、实验类型或版本无效。");
     const input = parsed.data;
     if (!actor.roles.includes("student") || actor.roles.includes("teacher")) throw campusError(403, "STUDENT_REQUIRED", "教师演示不能作为学生成绩提交。");
     if (input.classSessionId && options.classCourse(input.classSessionId) !== input.courseId) throw campusError(400, "CLASS_COURSE_MISMATCH", "课堂与课程不一致。");
+    if (!repository.taskPublished(input.courseId, input.package.unit)) throw campusError(403, "TASK_NOT_PUBLISHED", "教师尚未公布本流程任务，可继续本机练习，公布后再上传成绩。");
     const result = repository.submit(actor, input);
     return reply.code(result.status === "verified" ? 200 : 202).send(result);
   });

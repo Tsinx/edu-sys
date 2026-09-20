@@ -1,0 +1,40 @@
+{
+  "id": "mg-211",
+  "deck": "l9",
+  "page": 32,
+  "title": "整合合作资源",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 32, 整合合作资源; conceptual teaching artwork, not historical or statistical evidence. Subject: Adult university researchers and workshop engineers discuss a physical material prototype together, complementary expertise and shared workspace, no grants or money shown. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-a9c01e9a-93e0-4446-946e-097114f57c89.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-211.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-211.webp",
+  "originalSha256": "13197a46c8a4ab86fcd4e476b7408ae316e907281085c9497329cca219b196a1",
+  "webSha256": "c5e15cbd0f34418bf012df7ae3eff3087af8f041a61629dd42af7113d1d463f1",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 183554,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "13197a46c8a4ab86fcd4e476b7408ae316e907281085c9497329cca219b196a1",
+    "webSha256": "c5e15cbd0f34418bf012df7ae3eff3087af8f041a61629dd42af7113d1d463f1"
+  },
+  "pages": [
+    "mg-l9-s032-01"
+  ]
+}

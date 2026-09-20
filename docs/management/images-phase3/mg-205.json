@@ -1,0 +1,40 @@
+{
+  "id": "mg-205",
+  "deck": "l9",
+  "page": 26,
+  "title": "能力与价值的结合",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 26, 能力与价值的结合; conceptual teaching artwork, not historical or statistical evidence. Subject: Three interlocking sculptural architectural volumes support a light-filled communal workspace, muted teal, ivory and brass, no literal logo or letters. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-606f0753-4773-41a8-b3cf-68b22e377162.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-205.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-205.webp",
+  "originalSha256": "fec2e70a8ec1f9f514199cdc05485970651708eaf82732d12ad34a0fd58f714f",
+  "webSha256": "de868e0bfdc4b29354575c4517193cdee2483e61b7993d120f83944b42294780",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 278586,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "fec2e70a8ec1f9f514199cdc05485970651708eaf82732d12ad34a0fd58f714f",
+    "webSha256": "de868e0bfdc4b29354575c4517193cdee2483e61b7993d120f83944b42294780"
+  },
+  "pages": [
+    "mg-l9-s026-01"
+  ]
+}

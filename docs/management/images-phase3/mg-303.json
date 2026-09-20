@@ -1,0 +1,40 @@
+{
+  "id": "mg-303",
+  "deck": "l12",
+  "page": 30,
+  "title": "多种测量渠道",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l12, original page 30, 多种测量渠道; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult workshop supervisor observes a sample in person while a colleague brings a blank report, a discreet desk telephone nearby, one coherent realistic scene about multiple evidence channels. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-055b64b0-9009-4a9e-bcdd-89232fe542e8.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-303.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-303.webp",
+  "originalSha256": "3e4e7dd23491cee86a00705a3060bf9c807db529c644b703a15898257db695c8",
+  "webSha256": "c137f53621aef817e15b734c456511289579d67ee088171fab28425b60026093",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 181984,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "3e4e7dd23491cee86a00705a3060bf9c807db529c644b703a15898257db695c8",
+    "webSha256": "c137f53621aef817e15b734c456511289579d67ee088171fab28425b60026093"
+  },
+  "pages": [
+    "mg-l12-s030-01"
+  ]
+}

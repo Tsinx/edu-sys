@@ -1,0 +1,40 @@
+{
+  "id": "mg-361",
+  "deck": "l15",
+  "page": 14,
+  "title": "实业与公共事业",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l15, original page 14, 实业与公共事业; conceptual teaching artwork, not historical or statistical evidence. Subject: Historical-inspired early twentieth century Chinese riverside industrial architecture beside a modest school courtyard, atmospheric editorial illustration, no actual named historical building or fabricated documentary photograph. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-ca3ddbb5-fa6b-4ca1-a9e4-c765b090eddd.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-361.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-361.webp",
+  "originalSha256": "aa5f9a5bd7a38f04834b476ed55e5202b639603e09e0250139f51e8c6ec45638",
+  "webSha256": "70edc59d9af8c7ba74491b4936000383bc1c0c80cdf71534c3bc02f7ab169d09",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 407568,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "aa5f9a5bd7a38f04834b476ed55e5202b639603e09e0250139f51e8c6ec45638",
+    "webSha256": "70edc59d9af8c7ba74491b4936000383bc1c0c80cdf71534c3bc02f7ab169d09"
+  },
+  "pages": [
+    "mg-l15-s014-01"
+  ]
+}

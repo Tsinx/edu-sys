@@ -1,0 +1,40 @@
+{
+  "id": "mg-225",
+  "deck": "l9",
+  "page": 48,
+  "title": "角色之间的转换",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 48, 角色之间的转换; conceptual teaching artwork, not historical or statistical evidence. Subject: A carefully organized editorial still life with a visitor chair, plain communication device, material samples and a small prototype, representing interpersonal, information and decision work. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-f18c08e1-8b67-4b8f-9802-f61c58fb195d.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-225.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-225.webp",
+  "originalSha256": "72da4d26cf9abf2322a52892f01955654ef8c1c9e04dfba004dafeb968c73564",
+  "webSha256": "263ffb8fb600454111b49dc24b69c1980bc7eac649dacaeb7a9cb42cf9f743a3",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 166088,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "72da4d26cf9abf2322a52892f01955654ef8c1c9e04dfba004dafeb968c73564",
+    "webSha256": "263ffb8fb600454111b49dc24b69c1980bc7eac649dacaeb7a9cb42cf9f743a3"
+  },
+  "pages": [
+    "mg-l9-s048-01"
+  ]
+}

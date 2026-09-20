@@ -1,0 +1,40 @@
+{
+  "id": "mg-266",
+  "deck": "l10",
+  "page": 74,
+  "title": "航空服务的反馈",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 74, 航空服务的反馈; conceptual teaching artwork, not historical or statistical evidence. Subject: A calm airport ground-service scene with baggage handled carefully and an adult team reviewing a blank operational board, no airline branding or statistics, refined editorial realism. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-d3993a30-2b78-45a9-a558-cff7c1664186.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-266.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-266.webp",
+  "originalSha256": "ed54e685d2fef6974a2b047f59991fc91c6aa8462099d3d15d3360f0b0084648",
+  "webSha256": "94ecc55599f7eb63217987515e7cfee98a1a031d26dc6f84c2f4be9abccb1aad",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 184050,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "ed54e685d2fef6974a2b047f59991fc91c6aa8462099d3d15d3360f0b0084648",
+    "webSha256": "94ecc55599f7eb63217987515e7cfee98a1a031d26dc6f84c2f4be9abccb1aad"
+  },
+  "pages": [
+    "mg-l10-s074-01"
+  ]
+}

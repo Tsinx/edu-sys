@@ -59,7 +59,7 @@ def paragraph(p: ET.Element) -> dict:
     return {"text": "".join(r["text"] for r in runs), "runs": runs, "properties": props.attrib if props is not None else {}}
 
 
-def extract_deck(lesson: int, deck_id: str, name: str, expected: int) -> dict:
+def extract_deck(lesson: int, deck_id: str, name: str, expected: int, parsed_path: Path | None = None) -> dict:
     data = subprocess.run([str(SEVEN), "x", "-so", str(ARCHIVE), "韦笑-管理学2025/" + name], capture_output=True, check=True).stdout
     if not data:
         data = subprocess.run([str(SEVEN), "x", "-so", str(ARCHIVE), "韦笑-管理学2025\\" + name], capture_output=True, check=True).stdout
@@ -68,7 +68,7 @@ def extract_deck(lesson: int, deck_id: str, name: str, expected: int) -> dict:
     if ppt_path.exists() and digest(ppt_path.read_bytes()) != digest(data):
         raise RuntimeError(f"Refusing to replace changed source: {ppt_path}")
     ppt_path.write_bytes(data)
-    with zipfile.ZipFile(ppt_path) as z:
+    with zipfile.ZipFile(parsed_path or ppt_path) as z:
         pres = ET.fromstring(z.read("ppt/presentation.xml"))
         rels = relationships(z, "ppt/presentation.xml")
         size = pres.find("p:sldSz", NS).attrib

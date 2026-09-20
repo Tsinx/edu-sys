@@ -10,6 +10,16 @@ export const mouthPoses: Record<Viseme, readonly [number, number, number, number
   F: [15, 8, 0, 0], G: [29, 2.5, 1, 0], H: [29, 10, 0.55, 1]
 };
 
+/** Continuous acoustic fallback; phonetic closures always take precedence. */
+export function speechMouthTarget(value: Viseme | undefined, level: number): number[] {
+  if (!Number.isFinite(level) || level < 0.025) return [...mouthPoses.X];
+  const energy = Math.min(1, level / 0.85);
+  const pose = value ? [...mouthPoses[value]] : mouthPoses.C.map((v, i) => v + (mouthPoses.D[i]! - v) * energy);
+  // Do not floor aperture at 72% or saturate it at medium volume: both flatten speech.
+  pose[1] = pose[1]! * (0.18 + 0.82 * energy);
+  return pose;
+}
+
 /** A handful of vector paths; only geometry changes, never open/closed image opacity. */
 export class XiaomaiMouth {
   readonly element: SVGSVGElement;
@@ -55,11 +65,9 @@ export class XiaomaiMouth {
   update(value: Viseme | undefined, level: number, delta: number, speaking: boolean, smile = 0) {
     this.element.style.display = speaking ? "block" : "none";
     if (!speaking) { this.values = [...mouthPoses.X]; return; }
-    const pose = mouthPoses[level < 0.025 ? "X" : value ?? (level > 0.5 ? "D" : "C")];
-    const amount = 1 - Math.exp(-Math.max(0.001, delta) / (pose[1] === 0 ? 0.018 : 0.035));
-    const target = [...pose];
-    // Acoustic energy adds modest articulation; closed consonants remain fully closed.
-    target[1] = pose[1] * (0.72 + Math.min(1, level * 2) * 0.28);
+    const target = speechMouthTarget(value, level);
+    // Follow every falling syllable quickly, including transitions between open vowels.
+    const amount = 1 - Math.exp(-Math.max(0, delta) / (target[1]! < this.values[1]! ? 0.014 : 0.022));
     this.values = this.values.map((v, index) => v + (target[index]! - v) * amount);
     const [w, h, teeth, tongue] = this.values as [number, number, number, number];
     const top = -h * 0.22 + smile * 2, bottom = 4 + h + smile * 2;

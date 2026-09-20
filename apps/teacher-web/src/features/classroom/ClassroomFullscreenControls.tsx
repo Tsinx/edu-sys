@@ -43,7 +43,7 @@ export function ClassroomFullscreenControls(props: FullscreenControlsProps) {
             <ChevronLeft size={19} />
           </button>
           <span className="fullscreen-page-position" aria-live="polite">
-            <small>第 {props.lessonNumber} 讲</small>
+            <small>{props.lessonNumber===0?'绪论':`第 ${props.lessonNumber} 讲`}</small>
             <span>{props.localIndex} <span>/ {props.localTotal}</span></span>
           </span>
           <button type="button" aria-label="下一页" title="下一页（→）"

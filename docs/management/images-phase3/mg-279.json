@@ -1,0 +1,40 @@
+{
+  "id": "mg-279",
+  "deck": "l11",
+  "page": 24,
+  "title": "协调共同生活",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l11, original page 24, 协调共同生活; conceptual teaching artwork, not historical or statistical evidence. Subject: The four adult female university roommates sit around a modest table calmly arranging a shared lamp and headphones, active listening and practical coordination, no written agreement or imposed outcome. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-6e490f09-a907-4fdc-aa1b-00624ab8fee2.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-279.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-279.webp",
+  "originalSha256": "797fc879bca2d10976a34d0b3ad45a0229d9000ef92c6c0fefe26a785a138f2a",
+  "webSha256": "43eadda703e8acda235ab1b2318b37f228358ea2dad52ceb1d03bb08ba25cb15",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 224812,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "797fc879bca2d10976a34d0b3ad45a0229d9000ef92c6c0fefe26a785a138f2a",
+    "webSha256": "43eadda703e8acda235ab1b2318b37f228358ea2dad52ceb1d03bb08ba25cb15"
+  },
+  "pages": [
+    "mg-l11-s024-01"
+  ]
+}

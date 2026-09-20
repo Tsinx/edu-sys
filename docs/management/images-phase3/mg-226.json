@@ -1,0 +1,40 @@
+{
+  "id": "mg-226",
+  "deck": "l9",
+  "page": 51,
+  "title": "情境改变工作方式",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 51, 情境改变工作方式; conceptual teaching artwork, not historical or statistical evidence. Subject: The same small workspace opens toward both a calm garden and a busy service courtyard, a team responds to different practical demands in an architectural cutaway. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-a48da6e1-0024-437a-9eb1-3ef2647f12d3.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-226.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-226.webp",
+  "originalSha256": "375d436b305dabc39b424509cb9fefdac60892cc48565f8c7679b76ebfa11901",
+  "webSha256": "7cf2b88a3ea80710bf0d878b16a144b6e2553c8f700f885f0dd704cf6c751ed9",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 421544,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "375d436b305dabc39b424509cb9fefdac60892cc48565f8c7679b76ebfa11901",
+    "webSha256": "7cf2b88a3ea80710bf0d878b16a144b6e2553c8f700f885f0dd704cf6c751ed9"
+  },
+  "pages": [
+    "mg-l9-s051-01"
+  ]
+}

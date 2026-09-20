@@ -1,0 +1,40 @@
+{
+  "id": "mg-304",
+  "deck": "l12",
+  "page": 35,
+  "title": "需求变化与调整",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l12, original page 35, 需求变化与调整; conceptual teaching artwork, not historical or statistical evidence. Subject: A product design team calmly compares an older functional prototype and a newly adapted version beside material samples, consumer needs implied by diverse use contexts, no brand identity. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-5534ba72-fe38-420d-a198-4736ea538216.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-304.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-304.webp",
+  "originalSha256": "62cb2a75ce0dddb32c54a7a38aa4c161f5f47452a2b4319882b10a2cb41d079d",
+  "webSha256": "95e2d1e990344245e43f8fbc076be3d0c412e5139856bcd9906c924d49eaf01f",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 234574,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "62cb2a75ce0dddb32c54a7a38aa4c161f5f47452a2b4319882b10a2cb41d079d",
+    "webSha256": "95e2d1e990344245e43f8fbc076be3d0c412e5139856bcd9906c924d49eaf01f"
+  },
+  "pages": [
+    "mg-l12-s035-01"
+  ]
+}

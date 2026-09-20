@@ -1,0 +1,40 @@
+{
+  "id": "mg-207",
+  "deck": "l9",
+  "page": 28,
+  "title": "个人、团队与组织",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 28, 个人、团队与组织; conceptual teaching artwork, not historical or statistical evidence. Subject: A finely crafted continuous wooden sculpture composed of individual pieces forming small clusters and then one coherent pavilion, organic human-scale unity, not a company logo. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-5ffb0c45-2941-4ee2-80f1-9bc39103917b.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-207.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-207.webp",
+  "originalSha256": "182ef0e74f1f1a6b32c0b182578236ddd8b23b4c799792e049528d5d915d3b7c",
+  "webSha256": "0adee270d734d7d105728fd072b633d0393b9b3972e77f581b49802e6963090a",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 263594,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "182ef0e74f1f1a6b32c0b182578236ddd8b23b4c799792e049528d5d915d3b7c",
+    "webSha256": "0adee270d734d7d105728fd072b633d0393b9b3972e77f581b49802e6963090a"
+  },
+  "pages": [
+    "mg-l9-s028-01"
+  ]
+}

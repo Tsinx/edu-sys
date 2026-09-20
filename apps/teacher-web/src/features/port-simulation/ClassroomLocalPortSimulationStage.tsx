@@ -92,7 +92,7 @@ export function ClassroomLocalPortSimulationStage({
     try {
       const snapshot = await api.setupPortSimulation(sessionId, {
         deliveryMode: "local_solo",
-        trainingMode: learningStage === "full" ? trainingMode : "practice",
+        trainingMode,
         learningStage,
         challengeId: selectedChallengeId,
         expectedStudentCount
@@ -100,8 +100,8 @@ export function ClassroomLocalPortSimulationStage({
       onClassroomSnapshot(snapshot);
       setNotice(
         isUpdatingPublishedChallenge
-          ? "本地挑战已更新。已经打开仿真页的学生刷新页面后会载入新挑战。"
-          : "本地挑战已发布。学生登录并载入页面后即可独立运行。"
+          ? "本流程任务已公布，可自主上传成绩；先前公布的流程继续接受提交。"
+          : "本流程任务已公布。学生可自主选择模式，并在复盘页上传成绩。"
       );
     } catch (reason) {
       setError((reason as Error).message);
@@ -162,11 +162,11 @@ export function ClassroomLocalPortSimulationStage({
           <a href={`/port-simulation-preview.html?course=${learningStage === "full" ? "arrival" : learningStage}&demo=1`} target="_blank" rel="noreferrer">▶ 打开课程标准演示</a>
         </label>
         <label>场次规则
-          <select aria-label="课堂训练场规则" disabled={learningStage !== "full"} value={learningStage === "full" ? trainingMode : "practice"} onChange={event => setTrainingMode(event.target.value as "practice" | "battle")}>
+          <select aria-label="课堂训练场规则" value={trainingMode} onChange={event => setTrainingMode(event.target.value as "practice" | "battle")}>
             <option value="practice">教学模式 · 首次新流程暂停，错误解释不扣分</option>
-            <option value="battle">实战模式 · 48 小时固定 60×，流程错误去重扣分</option>
+            <option value="battle">实战模式 · 固定 60×，流程错误去重扣分</option>
           </select>
-          <small>{learningStage === "full" ? "综合实训可选择教学或实战规则。" : "分段采用教学规则，记录实际目标与处置过程。"}学生载入后锁定本课分段；记录保存在本机。</small>
+          <small>此处设置建议模式；师生可自主选择教学或实战。公布后可上传本流程成绩，先前公布的任务继续有效。</small>
         </label>
         <label>
           预计登录人数
@@ -185,7 +185,7 @@ export function ClassroomLocalPortSimulationStage({
         </label>
         <button type="button" disabled={busy || !identityReady} onClick={() => void publishChallenge()}>
           {busy ? <LoaderCircle className="spin" aria-hidden="true" /> : <Send aria-hidden="true" />}
-          {simulation?.deliveryMode === "local_solo" ? "更新本地挑战" : "发布本地挑战"}
+          公布所选流程任务
         </button>
       </section>
 
@@ -196,7 +196,7 @@ export function ClassroomLocalPortSimulationStage({
             <span>{simulation?.deliveryMode === "local_solo" ? "当前已发布" : "检测到旧版多人配置"}</span>
             <h3>{activeChallenge.title}</h3>
             <p>当前分段：{portCourseDefinition(simulation?.learningStage ?? "full").title}</p>
-            <p>{simulation?.trainingMode === "battle" ? "实战模式 · 48 小时固定 60× · 流程错误每种扣 5 分一次" : "教学模式 · 首次新流程暂停 · 错误解释不扣分"}</p>
+            <p>{simulation?.trainingMode === "battle" ? "建议实战模式 · 固定 60× · 学生可自行切换" : "建议教学模式 · 流程停点讲解 · 学生可自行切换"}</p>
             <p>
               {simulation?.deliveryMode === "local_solo"
                 ? "学生可旋转、缩放并选择三维设施；实验支持本机存档、方案对比和复盘导出。"

@@ -5,11 +5,12 @@ from PIL import Image, ImageOps, ImageDraw
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'output/management-principles'
-p=argparse.ArgumentParser();p.add_argument('action',choices=['adopt','source-sheets','art-sheets']);p.add_argument('--id');p.add_argument('--source');args=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('action',choices=['adopt','source-sheets','art-sheets']);p.add_argument('--id');p.add_argument('--source');p.add_argument('--phase',type=int,choices=[2,3],default=2);args=p.parse_args()
+phase=f'phase{args.phase}'
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 if args.action=='adopt':
-    record=ROOT/f'docs/management/images-phase2/{args.id}.json';r=json.loads(record.read_text(encoding='utf-8'))
-    source=Path(args.source);raw=OUT/f'images-phase2/originals/{args.id}.png';web=ROOT/f'apps/teacher-web/public/course-assets/management-principles/{args.id}.webp'
+    record=ROOT/f'docs/management/images-{phase}/{args.id}.json';r=json.loads(record.read_text(encoding='utf-8'))
+    source=Path(args.source);raw=OUT/f'images-{phase}/originals/{args.id}.png';web=ROOT/f'apps/teacher-web/public/course-assets/management-principles/{args.id}.webp'
     raw.parent.mkdir(parents=True,exist_ok=True)
     if raw.exists():assert sha(raw)==sha(source),'Refusing to replace a different adopted original'
     else:shutil.copy2(source,raw)
@@ -20,8 +21,8 @@ if args.action=='adopt':
     print(json.dumps({'id':args.id,'adopted':str(web),'bytes':web.stat().st_size}))
 else:
     source_mode=args.action=='source-sheets'
-    files=sorted((OUT/'source-phase2/renders').glob('*/*.png')) if source_mode else sorted((OUT/'images-phase2/originals').glob('*.png'))
-    dest=OUT/('qa-phase2/source-sheets' if source_mode else 'qa-phase2/art-sheets');dest.mkdir(parents=True,exist_ok=True)
+    files=sorted((OUT/f'source-{phase}/renders').glob('*/*.png')) if source_mode else sorted((OUT/f'images-{phase}/originals').glob('*.png'))
+    dest=OUT/(f'qa-{phase}/source-sheets' if source_mode else f'qa-{phase}/art-sheets');dest.mkdir(parents=True,exist_ok=True)
     for start in range(0,len(files),6):
         sheet=Image.new('RGB',(1800,2160),'#dce1d7');draw=ImageDraw.Draw(sheet)
         for i,f in enumerate(files[start:start+6]):

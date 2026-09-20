@@ -1,0 +1,40 @@
+{
+  "id": "mg-271",
+  "deck": "l11",
+  "page": 4,
+  "title": "自我、人际与组织",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l11, original page 4, 自我、人际与组织; conceptual teaching artwork, not historical or statistical evidence. Subject: An open-plan university studio seen obliquely: one adult reflects in a quiet nook, two adults converse nearby, a small team collaborates further back; natural connected spaces rather than a diagram. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-11f2c751-dfd9-4e2a-9801-f80bb48e41c6.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-271.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-271.webp",
+  "originalSha256": "a640a3a740677f1aa2867f2079d162ae5f8ba8da5d892a4fa26efe03841eb948",
+  "webSha256": "282e10cfc973282c386305037078876caa5a9f25a067ce8c9fa59cdcde70d883",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 216652,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "a640a3a740677f1aa2867f2079d162ae5f8ba8da5d892a4fa26efe03841eb948",
+    "webSha256": "282e10cfc973282c386305037078876caa5a9f25a067ce8c9fa59cdcde70d883"
+  },
+  "pages": [
+    "mg-l11-s004-01"
+  ]
+}

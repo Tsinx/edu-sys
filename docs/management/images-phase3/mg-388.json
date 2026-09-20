@@ -1,0 +1,40 @@
+{
+  "id": "mg-388",
+  "deck": "l16",
+  "page": 48,
+  "title": "经验也可以更新",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l16, original page 48, 经验也可以更新; conceptual teaching artwork, not historical or statistical evidence. Subject: Old material samples and new trial pieces lie side by side in an orderly workshop, an adult compares their properties under natural light, continuity and learning. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-eee2ca36-3530-4d3e-8527-e1c210c69954.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-388.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-388.webp",
+  "originalSha256": "2c1c71f065fb0f07866bc273f44d081e8521a4e6a5e2c701bd5b22d070e565a0",
+  "webSha256": "31e205232fe67547885592f534989feec0a6b3ec09a9de8189dc93eff34a8377",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 239072,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "2c1c71f065fb0f07866bc273f44d081e8521a4e6a5e2c701bd5b22d070e565a0",
+    "webSha256": "31e205232fe67547885592f534989feec0a6b3ec09a9de8189dc93eff34a8377"
+  },
+  "pages": [
+    "mg-l16-s048-01"
+  ]
+}

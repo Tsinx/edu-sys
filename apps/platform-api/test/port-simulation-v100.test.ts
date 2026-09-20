@@ -80,7 +80,7 @@ test("V1.0 publishes one local challenge without server-side teams", async () =>
     });
     assert.equal(segmented.statusCode, 201);
     assert.equal(segmented.json().simulation.learningStage, "cargo");
-    assert.equal(segmented.json().simulation.trainingMode, "practice", "short course segments always use teaching rules");
+    assert.equal(segmented.json().simulation.trainingMode, "battle", "short course segments preserve the suggested mode");
     const stageUpdate = await app.inject({
       method: "POST", url: `/api/class-sessions/${sessionId}/simulation/setup`, headers: { cookie: teacherCookie },
       payload: { deliveryMode: "local_solo", expectedStudentCount: 30 }

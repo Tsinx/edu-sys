@@ -89,7 +89,7 @@ export const teacherSchema = z.object({
 export type Teacher = z.infer<typeof teacherSchema>;
 
 export const lessonSchema = z.object({
-  chapter: z.number().int().positive(),
+  chapter: z.number().int().nonnegative(),
   title: z.string(),
   summary: z.string()
 });
@@ -109,7 +109,7 @@ export const courseSchema = z.object({
   teacherId: z.string(),
   currentLesson: lessonSchema,
   createdAt: z.string()
-});
+}).refine(course=>course.currentLesson.chapter!==0||course.id==='management-principles',{message:'该课程没有登记绪论',path:['currentLesson','chapter']});
 export type Course = z.infer<typeof courseSchema>;
 
 export const createCourseInputSchema = z.object({
@@ -321,11 +321,11 @@ export const slideFrameSchema = z.object({
   logicalHeight: z.literal(SLIDE_LOGICAL_HEIGHT),
   aspectRatio: z.literal(SLIDE_ASPECT_RATIO),
   title: z.string(),
-  lessonNumber: z.number().int().min(1),
+  lessonNumber: z.number().int().min(0),
   lessonTitle: z.string(),
   section: z.string(),
   summary: z.string()
-});
+}).refine(frame=>frame.lessonNumber!==0||frame.deckId==='deck-management-principles',{message:'该课件没有登记绪论',path:['lessonNumber']});
 export type SlideFrame = z.infer<typeof slideFrameSchema>;
 
 export const slideInteractionScalarSchema = z.union([
@@ -873,6 +873,7 @@ export const teacherDemoSchema = z.object({
 export type TeacherDemo = z.infer<typeof teacherDemoSchema>;
 export const lessonFourPresentationSchema = z.object({slideKey:z.string().min(1).max(128),progress:z.number().finite().min(0).max(1)});
 export const lessonFivePresentationSchema = z.object({slideKey:z.string().min(1).max(128),progress:z.number().finite().min(0).max(1),revealed:z.boolean()});
+export const lessonSixPresentationSchema = z.object({slideKey:z.string().min(1).max(128),progress:z.number().finite().min(0).max(1),revealed:z.boolean(),option:z.number().int().min(0).max(2),cinematic:z.object({clipId:z.string().min(1).max(128),status:z.enum(['paused','playing']),elapsedMs:z.number().finite().min(0).max(120000),startedAt:z.number().finite().positive().nullable(),runId:z.string().min(1).max(80)}).strict().optional(),camera:z.object({latitude:z.number().finite().min(-90).max(90),longitude:z.number().finite().min(-180).max(180),distance:z.number().finite().min(1.45).max(4)}).strict().optional()});
 export const simulationNavigationSchema = z.object({
   experiment: z.literal("l5-capacity").optional(),
   plan: z.enum(["A","B","C","D","E"]).optional(),
@@ -895,6 +896,7 @@ export const classroomSnapshotSchema = z.object({
   teacherDemo: teacherDemoSchema.nullable().optional(),
   lessonFourPresentation: lessonFourPresentationSchema.nullable().optional(),
   lessonFivePresentation: lessonFivePresentationSchema.nullable().optional(),
+  lessonSixPresentation: lessonSixPresentationSchema.nullable().optional(),
   lessonFiveExperiment: z.object({runId:z.string().uuid(),plan:z.enum(["A","B","C","D","E"]),summary:z.string().max(6000)}).nullable().optional(),
   simulation: portSimulationClassroomSummarySchema.nullable(),
   avatar: classroomAvatarRuntimeSchema
@@ -1485,6 +1487,7 @@ export type LamRuntimeStatus = z.infer<typeof lamRuntimeStatusSchema>;
 export const classroomEventInputSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("set_simulation_navigation"), navigation: simulationNavigationSchema.nullable() }).strict(),
   z.object({type:z.literal("set_lesson_five_presentation"),...lessonFivePresentationSchema.shape}).strict(),
+  z.object({type:z.literal("set_lesson_six_presentation"),...lessonSixPresentationSchema.shape}).strict(),
   z.object({type:z.literal("set_lesson_five_summary"),runId:z.string().uuid(),plan:z.enum(["A","B","C","D","E"]),summary:z.string().max(6000)}).strict(),
   z.object({type:z.literal("set_lesson_four_progress"),...lessonFourPresentationSchema.shape}).strict(),
   z.object({type:z.literal("set_teacher_demo_summary"),runId:z.string().min(1).max(128),revision:z.number().int().positive(),summary:z.string().max(6000)}).strict(),
@@ -1572,7 +1575,7 @@ export const avatarControlActionSchema = z.discriminatedUnion("type", [
   z
     .object({
       type: z.literal("lesson.go_to"),
-      lesson: z.number().int().min(1).max(64)
+      lesson: z.number().int().min(0).max(64)
     })
     .strict(),
   z

@@ -1,0 +1,455 @@
+{
+  "checkedAt": "2026-09-19T18:18:19.634Z",
+  "status": "passed",
+  "scope": "第三期独立复算与解释边界；第一、二期记录保持原样。",
+  "arithmeticChecks": 19,
+  "interpretationChecks": 7,
+  "entries": [
+    {
+      "id": "capacity",
+      "documentId": "intro",
+      "originalPage": 13,
+      "slideKeys": [
+        "mg-intro-s013-01"
+      ],
+      "expression": "600 − 250",
+      "result": "单班缺口350人",
+      "boundary": "600为明确教学基数；原材料说600多人，不能把350冒充实际精确缺口。",
+      "status": "arithmetic-passed",
+      "sources": []
+    },
+    {
+      "id": "capacity-share",
+      "documentId": "intro",
+      "originalPage": 13,
+      "slideKeys": [
+        "mg-intro-s013-01"
+      ],
+      "expression": "250 ÷ 600 × 100",
+      "result": "约41.67%",
+      "boundary": "仅在600人教学基数及均等随机机会假设下成立。",
+      "status": "arithmetic-passed",
+      "sources": []
+    },
+    {
+      "id": "second-section",
+      "documentId": "intro",
+      "originalPage": 13,
+      "slideKeys": [
+        "mg-intro-s013-01"
+      ],
+      "expression": "600 − 2 × 250",
+      "result": "两班仍缺100人",
+      "boundary": "两班是可选教学方案，不表示现实已增设教师、课时或教室。",
+      "status": "arithmetic-passed",
+      "sources": []
+    },
+    {
+      "id": "herzberg-dissatisfaction",
+      "documentId": "l10",
+      "originalPage": 41,
+      "slideKeys": [
+        "mg-l10-s041-01",
+        "mg-l10-s041-02",
+        "mg-l10-s041-03"
+      ],
+      "expression": "69 + 31",
+      "result": "100%",
+      "boundary": "原历史图组内构成；样本与时间未知，不解释为当前员工比例。",
+      "status": "arithmetic-passed",
+      "sources": []
+    },
+    {
+      "id": "herzberg-satisfaction",
+      "documentId": "l10",
+      "originalPage": 41,
+      "slideKeys": [
+        "mg-l10-s041-01",
+        "mg-l10-s041-02",
+        "mg-l10-s041-03"
+      ],
+      "expression": "19 + 81",
+      "result": "100%",
+      "boundary": "两组分母不同，不将四项直接相加为一个总体比例。",
+      "status": "arithmetic-passed",
+      "sources": []
+    },
+    {
+      "id": "expectancy-1-1",
+      "documentId": "l10",
+      "originalPage": 57,
+      "slideKeys": [
+        "mg-l10-s057-01",
+        "mg-l10-s057-02",
+        "mg-l10-s057-03"
+      ],
+      "expression": "1 × 1",
+      "result": "1",
+      "boundary": "原简化式M=V×E；控制参数为教学赋值，不是张华的心理测量。进一步讨论区分努力—绩效、绩效—回报和效价。",
+      "status": "arithmetic-passed",
+      "sources": []
+    },
+    {
+      "id": "expectancy-0-1",
+      "documentId": "l10",
+      "originalPage": 57,
+      "slideKeys": [
+        "mg-l10-s057-01",
+        "mg-l10-s057-02",
+        "mg-l10-s057-03"
+      ],
+      "expression": "0 × 1",
+      "result": "0",
+      "boundary": "原简化式M=V×E；控制参数为教学赋值，不是张华的心理测量。进一步讨论区分努力—绩效、绩效—回报和效价。",
+      "status": "arithmetic-passed",
+      "sources": []
+    },
+    {
+      "id": "expectancy-1-0",
+      "documentId": "l10",
+      "originalPage": 57,
+      "slideKeys": [
+        "mg-l10-s057-01",
+        "mg-l10-s057-02",
+        "mg-l10-s057-03"
+      ],
+      "expression": "1 × 0",
+      "result": "0",
+      "boundary": "原简化式M=V×E；控制参数为教学赋值，不是张华的心理测量。进一步讨论区分努力—绩效、绩效—回报和效价。",
+      "status": "arithmetic-passed",
+      "sources": []
+    },
+    {
+      "id": "expectancy-0.6-0.8",
+      "documentId": "l10",
+      "originalPage": 57,
+      "slideKeys": [
+        "mg-l10-s057-01",
+        "mg-l10-s057-02",
+        "mg-l10-s057-03"
+      ],
+      "expression": "0.6 × 0.8",
+      "result": "0.48",
+      "boundary": "原简化式M=V×E；控制参数为教学赋值，不是张华的心理测量。进一步讨论区分努力—绩效、绩效—回报和效价。",
+      "status": "arithmetic-passed",
+      "sources": []
+    },
+    {
+      "id": "lincoln-sales-unit",
+      "documentId": "l10",
+      "originalPage": 75,
+      "slideKeys": [
+        "mg-l10-s075-01",
+        "mg-l10-s075-02"
+      ],
+      "expression": "4233百万美元 ÷ 100",
+      "result": "42.33亿美元",
+      "boundary": "2025净销售额；旧稿2400人、95.5%、4.4万与1.7万美元期间不明，不与新年度拼接。",
+      "status": "arithmetic-passed",
+      "sources": [
+        {
+          "id": "lincoln-2025",
+          "title": "林肯电气：2025年度结果",
+          "url": "https://ir.lincolnelectric.com/news/news-details/2026/Lincoln-Electric-Reports-Fourth-Quarter-and-Full-Year-2025-Results/default.aspx",
+          "period": "2025全年",
+          "note": "净销售额4233.0百万美元，即42.33亿美元；2026-02-12发布。不与原未注明期间的2400人作人均比较。"
+        },
+        {
+          "id": "lincoln-incentives",
+          "title": "林肯电气：员工发展与回报",
+          "url": "https://sustainability.lincolnelectric.com/employee-development.html",
+          "period": "2024可持续发展报告",
+          "note": "绩效薪酬、开放沟通、部分业务的利润分享；资格和区域范围有差别，不能推成全球永久不解雇承诺。"
+        }
+      ]
+    },
+    {
+      "id": "historical-ownership-before",
+      "documentId": "l10",
+      "originalPage": 83,
+      "slideKeys": [
+        "mg-l10-s083-01",
+        "mg-l10-s083-02",
+        "mg-l10-s083-03"
+      ],
+      "expression": "65.15 + 34.85",
+      "result": "100%",
+      "boundary": "合计正确仅是算术核对，不证明1997年股权叙述。7005万元、688人与299人不能用来补造个人认购金额。",
+      "status": "arithmetic-passed",
+      "sources": []
+    },
+    {
+      "id": "historical-ownership-after",
+      "documentId": "l10",
+      "originalPage": 83,
+      "slideKeys": [
+        "mg-l10-s083-01",
+        "mg-l10-s083-02",
+        "mg-l10-s083-03"
+      ],
+      "expression": "5.05 + 33.09 + 61.86",
+      "result": "100%",
+      "boundary": "保留原图期间和主体；不当作目前股权结构。",
+      "status": "arithmetic-passed",
+      "sources": []
+    },
+    {
+      "id": "historical-subscription",
+      "documentId": "l10",
+      "originalPage": 85,
+      "slideKeys": [
+        "mg-l10-s085-01",
+        "mg-l10-s085-02",
+        "mg-l10-s085-03"
+      ],
+      "expression": "144万元；225万元；30%—35%",
+      "result": "现金购买额度与收益率口径分开",
+      "boundary": "原2015例是购买现金额度而非股数；收益率缺价格、期间、税费及分配证据，不能重新算成可承诺收益。",
+      "status": "interpretation-boundary-reviewed",
+      "sources": []
+    },
+    {
+      "id": "tup-ratios",
+      "documentId": "l10",
+      "originalPage": 86,
+      "slideKeys": [
+        "mg-l10-s086-01",
+        "mg-l10-s086-02",
+        "mg-l10-s086-03"
+      ],
+      "expression": "2∶1 → 3∶1／4∶1；第五年结算",
+      "result": "原历史材料设想",
+      "boundary": "未取得匹配期间与口径，不能作为已经核实的劳动与资本回报统计；TUP与实际股权分开。",
+      "status": "interpretation-boundary-reviewed",
+      "sources": []
+    },
+    {
+      "id": "huawei-benefits",
+      "documentId": "l10",
+      "originalPage": 87,
+      "slideKeys": [
+        "mg-l10-s087-01",
+        "mg-l10-s087-02",
+        "mg-l10-s087-03"
+      ],
+      "expression": "209.9亿元",
+      "result": "2025年全球员工保障总体投入",
+      "boundary": "不直接转换为人均奖金；未提供匹配分母及个人资格。",
+      "status": "interpretation-boundary-reviewed",
+      "sources": [
+        {
+          "id": "huawei-2025",
+          "title": "华为：2025年报",
+          "url": "https://www.huawei.com/en/annual-report/2025",
+          "period": "2025全年",
+          "note": "员工福利投入209.9亿元人民币；公司自披露，不等于人均奖金或某项激励的因果效果。"
+        }
+      ]
+    },
+    {
+      "id": "financial-ratio",
+      "documentId": "l13",
+      "originalPage": 8,
+      "slideKeys": [
+        "mg-l13-s008-01",
+        "mg-l13-s008-02"
+      ],
+      "expression": "200 ÷ 100",
+      "result": "2.00",
+      "boundary": "明确标注教学金额万元。流动资产和流动负债采用同一时点；分母为0时无定义，不显示Infinity。",
+      "status": "arithmetic-passed",
+      "sources": [
+        {
+          "id": "financial-ratios",
+          "title": "SEC：财务报表入门",
+          "url": "https://www.sec.gov/about/reports-publications/investorpubsbegfinstmtguide",
+          "period": "2007教育资料；核验2026-09-19",
+          "note": "流量与存量、比率分母及行业差异；本课保留原利润总额口径并显式说明，不设统一健康阈值。"
+        }
+      ]
+    },
+    {
+      "id": "financial-definitions",
+      "documentId": "l13",
+      "originalPage": 9,
+      "slideKeys": [
+        "mg-l13-s009-01"
+      ],
+      "expression": "期间利润／同期平均资产；同期净利润／同期营业收入",
+      "result": "分子分母期间对齐",
+      "boundary": "速动资产说明剔除项；资产周转率用同期营业收入与平均资产。不同利润口径不能混比，不设置统一最优值。",
+      "status": "interpretation-boundary-reviewed",
+      "sources": [
+        {
+          "id": "financial-ratios",
+          "title": "SEC：财务报表入门",
+          "url": "https://www.sec.gov/about/reports-publications/investorpubsbegfinstmtguide",
+          "period": "2007教育资料；核验2026-09-19",
+          "note": "流量与存量、比率分母及行业差异；本课保留原利润总额口径并显式说明，不设统一健康阈值。"
+        }
+      ]
+    },
+    {
+      "id": "haidilao-four",
+      "documentId": "l13",
+      "originalPage": 23,
+      "slideKeys": [
+        "mg-l13-s023-01"
+      ],
+      "expression": "4 × 25%",
+      "result": "100%",
+      "boundary": "原历史示意，8000元与未出资细节无同口径原始证据，不用合计替代史实核验。",
+      "status": "arithmetic-passed",
+      "sources": []
+    },
+    {
+      "id": "haidilao-transfer-plus",
+      "documentId": "l13",
+      "originalPage": 24,
+      "slideKeys": [
+        "mg-l13-s024-01",
+        "mg-l13-s024-02"
+      ],
+      "expression": "50 + 18",
+      "result": "68%",
+      "boundary": "18为百分点，不是原50%持股的18%；转让比例与交易价格分开。",
+      "status": "arithmetic-passed",
+      "sources": []
+    },
+    {
+      "id": "haidilao-transfer-minus",
+      "documentId": "l13",
+      "originalPage": 24,
+      "slideKeys": [
+        "mg-l13-s024-01",
+        "mg-l13-s024-02"
+      ],
+      "expression": "50 − 18",
+      "result": "32%",
+      "boundary": "原图特定主体；不与当前上市公司股权表混用。",
+      "status": "arithmetic-passed",
+      "sources": []
+    },
+    {
+      "id": "yahoo-proxy-unit",
+      "documentId": "l13",
+      "originalPage": 31,
+      "slideKeys": [
+        "mg-l13-s031-01",
+        "mg-l13-s031-02"
+      ],
+      "expression": "121.5百万股 ÷ 100",
+      "result": "1.215亿股",
+      "boundary": "2014协议约定上限与实际持股取小值；15%提名支持门槛、软银超出30%的代理范围分别理解。",
+      "status": "arithmetic-passed",
+      "sources": [
+        {
+          "id": "alibaba-voting-2014",
+          "title": "阿里巴巴：2014年投票协议",
+          "url": "https://www.sec.gov/Archives/edgar/data/1577552/000119312514333674/d709111dex413.htm",
+          "period": "2014-09上市安排",
+          "note": "董事提名、投票支持、表决代理及观察员安排分别规定，不推为无条件永久权利。"
+        }
+      ]
+    },
+    {
+      "id": "dpmo",
+      "documentId": "l13",
+      "originalPage": 57,
+      "slideKeys": [
+        "mg-l13-s057-01"
+      ],
+      "expression": "10 ÷ (1000 × 2) × 1000000",
+      "result": "5000 DPMO",
+      "boundary": "件数、每件机会数与缺陷数为教学参数；缺陷不等于不合格件。",
+      "status": "arithmetic-passed",
+      "sources": [
+        {
+          "id": "asq-dmaic",
+          "title": "ASQ：DMAIC改进流程",
+          "url": "https://asq.org/quality-resources/dmaic",
+          "period": "核验2026-09-19",
+          "note": "定义、测量、分析、改进、控制；对应原图五步。"
+        },
+        {
+          "id": "asq-dpmo",
+          "title": "ASQ：质量过程分析师手册节选",
+          "url": "https://asq.org/-/media/public/gift/The-ASQ-Certified-Quality-Process-Analyst-Third-Edition-MegaSampler-ebook.pdf",
+          "period": "第三版手册节选；核验2026-09-19",
+          "note": "DPMO按缺陷机会计算；3.4约定涉及正态模型与均值1.5σ偏移，不能等同所有情形下百万件不良品数。"
+        }
+      ]
+    },
+    {
+      "id": "six-sigma",
+      "documentId": "l13",
+      "originalPage": 54,
+      "slideKeys": [
+        "mg-l13-s054-01",
+        "mg-l13-s054-02"
+      ],
+      "expression": "3.4 DPMO",
+      "result": "带条件的长期惯例",
+      "boundary": "正态过程及常用1.5σ均值漂移假设不能省略；DPMO单一数值不证明过程能力或六西格玛水平。",
+      "status": "interpretation-boundary-reviewed",
+      "sources": [
+        {
+          "id": "asq-six-sigma",
+          "title": "ASQ：六西格玛",
+          "url": "https://asq.org/quality-resources/six-sigma",
+          "period": "核验2026-09-19",
+          "note": "减少过程变异与缺陷；方法及组织角色随实施条件而变。"
+        },
+        {
+          "id": "asq-dpmo",
+          "title": "ASQ：质量过程分析师手册节选",
+          "url": "https://asq.org/-/media/public/gift/The-ASQ-Certified-Quality-Process-Analyst-Third-Edition-MegaSampler-ebook.pdf",
+          "period": "第三版手册节选；核验2026-09-19",
+          "note": "DPMO按缺陷机会计算；3.4约定涉及正态模型与均值1.5σ偏移，不能等同所有情形下百万件不良品数。"
+        }
+      ]
+    },
+    {
+      "id": "quality-poll",
+      "documentId": "l13",
+      "originalPage": 59,
+      "slideKeys": [
+        "mg-l13-s059-01",
+        "mg-l13-s059-02"
+      ],
+      "expression": "16.75 + 13.09 + 11.91 + 11.32 + 10.02 + 9.2 + 8.96 + 8.02 + 6.49 + 4.25",
+      "result": "100.01%",
+      "boundary": "2014年7月21日至8月21日848票；舍入与100.01%相容，票数不等于独立受访人数，自愿投票不代表总体。",
+      "status": "arithmetic-passed",
+      "sources": []
+    },
+    {
+      "id": "risk-score",
+      "documentId": "l14",
+      "originalPage": 23,
+      "slideKeys": [
+        "mg-l14-s023-01"
+      ],
+      "expression": "1—5可能性等级；1—5影响等级",
+      "result": "教学比较标尺",
+      "boundary": "顺序等级及其乘积不是统计概率或货币期望损失；选择措施不会自动降低风险等级。",
+      "status": "interpretation-boundary-reviewed",
+      "sources": []
+    },
+    {
+      "id": "network-rounds",
+      "documentId": "l11",
+      "originalPage": 10,
+      "slideKeys": [
+        "mg-l11-s010-01",
+        "mg-l11-s010-02",
+        "mg-l11-s010-03"
+      ],
+      "expression": "5节点；每轮沿一条边传播",
+      "result": "最短路径的离散轮次",
+      "boundary": "双向无延迟、无丢失的教学规则；轮数不等于真实沟通满意度或处理效率。",
+      "status": "interpretation-boundary-reviewed",
+      "sources": []
+    }
+  ]
+}

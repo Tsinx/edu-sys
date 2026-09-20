@@ -1,0 +1,40 @@
+{
+  "id": "mg-233",
+  "deck": "l10",
+  "page": 1,
+  "title": "激励：行动从何而来",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 1, 激励：行动从何而来; conceptual teaching artwork, not historical or statistical evidence. Subject: An elegant sculptural kinetic mobile with warm ivory stone weights, a fine teal ribbon and a small brass counterbalance suspended in a quiet sunlit gallery, poised movement as a metaphor for human motivation; left third empty for native title. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-96701a27-cfea-4ee3-ba64-28193192434f.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-233.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-233.webp",
+  "originalSha256": "ee55b3ab4b16016a34a73a77e4f9dbfa99684d803039a788f2b03c43587b0776",
+  "webSha256": "22474a7f1489d5d33189f8344f80a4c60b94f4d7aa8ffdab166b6335a7d2f20b",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 92356,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "ee55b3ab4b16016a34a73a77e4f9dbfa99684d803039a788f2b03c43587b0776",
+    "webSha256": "22474a7f1489d5d33189f8344f80a4c60b94f4d7aa8ffdab166b6335a7d2f20b"
+  },
+  "pages": [
+    "mg-l10-s001-01"
+  ]
+}

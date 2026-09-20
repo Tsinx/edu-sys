@@ -1,0 +1,40 @@
+{
+  "id": "mg-306",
+  "deck": "l12",
+  "page": 42,
+  "title": "采购中的可核实证据",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l12, original page 42, 采购中的可核实证据; conceptual teaching artwork, not historical or statistical evidence. Subject: A generic precision electronics workshop where two adults inspect small components and blank supplier documentation together, careful independent checking, no DJI branding, drones or alleged criminal scene. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-405db5fe-3804-40f3-beb4-38f33b71eec5.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-306.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-306.webp",
+  "originalSha256": "f851dca27fda666b301d63b401b81f1098515d6244421e95ba80873e2aa526c3",
+  "webSha256": "87144efbfebe99e1e15eb6896346db5eff0ccdf075d92290d554919ef0131b49",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 171284,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "f851dca27fda666b301d63b401b81f1098515d6244421e95ba80873e2aa526c3",
+    "webSha256": "87144efbfebe99e1e15eb6896346db5eff0ccdf075d92290d554919ef0131b49"
+  },
+  "pages": [
+    "mg-l12-s042-01"
+  ]
+}

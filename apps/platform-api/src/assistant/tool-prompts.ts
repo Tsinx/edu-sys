@@ -1,6 +1,6 @@
 import { getPortManagementLessonSlidePosition, getPortManagementReadyLessons, getPortManagementSlideByKey, PORT_MANAGEMENT_GLOBE_CUES, PORT_LESSON_FOUR_LABS } from "@edu/course-content";
 import { ECONOMIC_MATHEMATICS_COURSE_ID } from "@edu/course-content/economic-mathematics";
-import { getCourseDeckByCourseId } from "@edu/course-content/deck-registry";
+import { getCourseDeckByCourseId, getCourseLessonLabel } from "@edu/course-content/deck-registry";
 const responseInstructions = [
   "顶层键必须按以下顺序输出：replyKind、dialogue、actions、schema、version。",
   'replyKind 必须为 "control" 或 "answer"，先判断教师是否需要教学回答。',
@@ -19,7 +19,7 @@ export function buildClassroomToolPrompt(snapshot: { courseId: string; slide: { 
     const lessonMap = deck.lessons.filter(lesson => lesson.status === 'ready')
       .map(
         (lesson) =>
-          `第${lesson.number}讲“${lesson.title}”：全局第${lesson.slideStart}—${lesson.slideEnd}页`
+          `${getCourseLessonLabel(lesson)}“${lesson.title}”：全局第${lesson.slideStart}—${lesson.slideEnd}页`
       )
       .join("；");
     return [
@@ -29,7 +29,8 @@ export function buildClassroomToolPrompt(snapshot: { courseId: string; slide: { 
       `slides.go_to 的范围是1到${snapshot.slide.total}；lesson.go_to 仅允许已建设讲次：${deck.lessons.filter(l => l.status === 'ready').map(l => l.number).join('、')}。待建设讲次不得生成跳转动作。`,
       "不得生成 globe、simulation、whiteboard、video 或学生作答动作。",
       `可跳转课次：${lessonMap}。`,
-      `用户只说“第X页”时，默认指当前第${position.lessonNumber}讲的第X页；本讲内部全局页码 = ${position.lessonStart} + X - 1。`,
+      '上一页与下一页按登记播放顺序执行，不按全局索引直接加减；绪论使用内部键0，公开称绪论。',
+      `用户只说“第X页”时，默认指当前${getCourseLessonLabel(deck.lessons.find(l=>l.number===position.lessonNumber)!)}的第X页；本讲内部全局页码 = ${position.lessonStart} + X - 1。`,
       (legacy ? 'schema 固定为 "edu.classroom.assistant.response"，version 固定为 "1.0"。' : ""),
     ].join("\n");
   }

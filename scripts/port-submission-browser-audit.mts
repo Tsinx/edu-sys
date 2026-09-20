@@ -17,7 +17,7 @@ await identity.createAccount("student-qa", "实验验收学生", "student", pass
 const app = await buildApp({ dataFile: join(dir, "state.json"), identityProvider: identity, campusMode: true, secureIdentityCookie: false, publicOrigin: "http://127.0.0.1:5187", staticRoot: resolve("apps/teacher-web/dist") });
 await app.listen({ host: "127.0.0.1", port: 5187 });
 const base = "http://127.0.0.1:5187", errors: string[] = [], checks: string[] = [];
-const browser = await chromium.launch({ headless: true, args: ["--enable-webgl", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"] });
+const browser = await chromium.launch({ headless: true, args: process.env.EDU_PORT_QA_NO_WEBGL === "1" ? ["--disable-webgl"] : ["--enable-webgl", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"] });
 const student = await browser.newContext({ viewport: { width: 1600, height: 1000 } }), teacher = await browser.newContext({ viewport: { width: 1600, height: 1000 } });
 const p = await student.newPage(), t = await teacher.newPage();
 for (const page of [p, t]) { page.setDefaultTimeout(30000); page.on("pageerror", (error: Error) => errors.push(error.message)); }
@@ -33,6 +33,7 @@ async function login(page: any, role: string) {
   await page.goto(base); await page.getByLabel("账号", { exact: true }).fill(`${role}-qa`); await page.getByLabel("密码", { exact: true }).fill(password); await page.getByRole("button", { name: "登录", exact: true }).click(); await page.getByRole("button", { name: /离线与同步/ }).waitFor();
 }
 async function openUnit(type: string) {
+  await p.bringToFront();
   await p.goto(`${base}/simulations?course=${type}`);
   const skip = p.getByRole("button", { name: "跳过，直接练习" });
   await p.locator(`.port-ops[data-course="${type}"]`).waitFor({ timeout: 60000 });
@@ -45,10 +46,29 @@ try {
   for (let i = 0; ; i++) { try { if ((await fetch(base)).ok) break; } catch {} if (i > 100) throw new Error("Vite did not start"); await new Promise(r => setTimeout(r, 200)); }
   await login(p, "student"); await login(t, "teacher");
   await openUnit("arrival");
+  assert.equal(await p.getByRole("button", { name: "结束并提交", exact: true }).isDisabled(), true);
+  assert.equal(await p.getByRole("button", { name: "公布本流程任务", exact: true }).count(), 0);
+  async function publishUnit(unit: string) {
+    await t.bringToFront();
+    await t.goto(`${base}/simulations?course=${unit}`);
+    await t.locator(`.port-ops[data-course="${unit}"]`).waitFor({ timeout: 60000 });
+    const skip = t.getByRole("button", { name: "跳过，直接练习" });
+    if (await skip.count()) await skip.click();
+    await t.getByLabel("实验模式", { exact: true }).selectOption("battle");
+    await t.locator('.port-ops[data-mode="battle"]').waitFor();
+    await t.getByLabel("实验模式", { exact: true }).selectOption("practice");
+    await t.locator('.port-ops[data-mode="practice"]').waitFor();
+    await t.getByRole("button", { name: /^(重新)?公布本流程任务$/ }).click();
+    await t.getByRole("region", { name: "流程任务" }).getByRole("status").filter({ hasText: "任务已公布" }).waitFor();
+    await p.bringToFront();
+  }
+  await publishUnit("arrival");
+  pass("teacher chooses either mode and publishes; student cannot publish or upload before publication");
   // Deliberately fail the POST once; the actual UI must seal and persist before uploading.
   await p.route("**/api/port-operations/submissions", (route: any) => route.abort());
   await p.getByRole("button", { name: "结束并提交", exact: true }).click();
   await p.getByRole("region", { name: "实验成绩提交" }).getByRole("status").filter({ hasText: "待上传" }).waitFor();
+  await p.getByRole("region", { name: "实验成绩提交" }).getByRole("alert").waitFor();
   await p.unroute("**/api/port-operations/submissions"); await p.reload();
   await p.getByRole("button", { name: "跳过，直接练习" }).click(); await p.getByRole("button", { name: "复盘", exact: true }).click();
   await student.clearCookies(); await login(p, "student"); await openUnit("arrival");
@@ -56,10 +76,15 @@ try {
   pass("sealed package survives session expiry and student re-login");
   for (const type of ["arrival", "cargo", "yard", "planning", "departure", "full"]) {
     console.log(`CHECK ${type}`);
+    if (type !== "arrival") await publishUnit(type);
     let raw: string;
     if (type === "full") { const s = createPortSession("battle"); applyPortCommand(s, { kind: "start" }); applyPortCommand(s, { kind: "advance", seconds: 172800 }); raw = serializePortSession(s); }
-    else { const r = createPortCourse(type as PortCourseUnit); for (let i = 0; i < 1000 && !r.complete; i++) { const step = nextPortCourseStep(r); assert.ok(step); applyPortCourseCommand(r, step.command); } assert.ok(r.complete); raw = serializePortCourse(r); }
+    else { const r = createPortCourse(type as PortCourseUnit, undefined, "battle"); for (let i = 0; i < 1000 && !r.complete; i++) { const step = nextPortCourseStep(r); assert.ok(step); applyPortCourseCommand(r, step.command); } assert.ok(r.complete); raw = serializePortCourse(r); }
     await openUnit(type);
+    await p.getByLabel("实验模式", { exact: true }).selectOption("battle");
+    await p.locator('.port-ops[data-mode="battle"]').waitFor();
+    await p.getByLabel("实验模式", { exact: true }).selectOption("practice");
+    await p.locator('.port-ops[data-mode="practice"]').waitFor();
     await p.locator('.port-ops input[type="file"]').setInputFiles({ name: `experiment-${type}.json`, mimeType: "application/json", buffer: Buffer.from(raw) });
     await p.waitForFunction((type: string) => { const el = document.querySelector('.port-ops'); return el?.getAttribute('data-status') === 'completed' && el?.getAttribute('data-course') === type; }, type, { timeout: 60000 });
     await p.getByRole("button", { name: "复盘", exact: true }).click();
@@ -105,7 +130,7 @@ try {
   const otherRows = await (await teacher.request.get(`${base}/api/port-operations/courses/course-port-management-intro/results`)).json(); assert.equal(otherRows.rows.find((r: any) => r.displayName === "未提交学生").results.length, 0);
   pass("six independent latest records; resubmission replaces only arrival; missing is not zero");
   assert.deepEqual(errors, []);
-  await writeFile(join(output, "browser-report.json"), JSON.stringify({ checkedAt: new Date().toISOString(), checks, errors, fixtureDirectory: dir, scope: "Local campus-account UI; imported deterministic completed records; no school network deployment." }, null, 2));
+  await writeFile(join(output, "browser-report.json"), JSON.stringify({ checkedAt: new Date().toISOString(), checks, errors, fixtureDirectory: dir, scope: "Local campus-account UI; imported deterministic completed records; no school network deployment.", webgl: process.env.EDU_PORT_QA_NO_WEBGL !== "1" }, null, 2));
 } catch (error) {
   await p.screenshot({ path: join(output, "failure-student.png"), fullPage: true }).catch(() => {}); await t.screenshot({ path: join(output, "failure-teacher.png"), fullPage: true }).catch(() => {});
   await writeFile(join(output, "failure.json"), JSON.stringify({ checks, errors, message: (error as Error).stack, student: await p.locator("body").innerText().catch(() => "") }, null, 2)); throw error;

@@ -48,6 +48,7 @@ export interface ClassroomRuntimeState {
   globePlayback: GlobePlayback;
   teacherDemo?: TeacherDemo | null;
   lessonFivePresentation?: {slideKey:string;progress:number;revealed:boolean} | null;
+  lessonSixPresentation?: {slideKey:string;progress:number;revealed:boolean;option:number;camera?:{latitude:number;longitude:number;distance:number};cinematic?:{clipId:string;status:'paused'|'playing';elapsedMs:number;startedAt:number|null;runId:string}} | null;
   lessonFiveExperiment?: {runId:string;plan:"A"|"B"|"C"|"D"|"E";summary:string} | null;
   lessonFourPresentation?: {slideKey:string;progress:number} | null;
   simulation: PortSimulationClassroomRuntimeState | null;
@@ -147,7 +148,7 @@ export function createInitialClassroomRuntime(
 ): ClassroomRuntimeState {
   const deck = getCourseDeckByCourseId(courseId);
   if (!deck) throw new Error(`COURSE_DECK_NOT_READY:${courseId}`);
-  const firstSlide = deck.getSlide(1);
+  const firstSlide = deck.getSlide(deck.lessons.find(l=>l.status==='ready')?.slideStart ?? 1);
   return {
     activeActivity: "slides",
     slideIndex: firstSlide.index,
@@ -236,7 +237,7 @@ export function createSeedState(): PlatformState {
       id: 'management-principles', slug: 'management-principles', code: null,
       title: '管理学', category: '本科课程', discipline: '管理学', totalHours: null,
       progress: 100, status: 'active', featured: false, teacherId: teacher.id,
-      currentLesson: {chapter: 1, title: '管理导论', summary: MANAGEMENT_CONSTRUCTION_SUMMARY},
+      currentLesson: {chapter: 0, title: '绪论', summary: MANAGEMENT_CONSTRUCTION_SUMMARY},
       createdAt: new Date().toISOString()
     }, {
       id: 'statistical-analysis', slug: 'statistical-analysis', code: 'statistical-analysis',

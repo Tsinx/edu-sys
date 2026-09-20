@@ -1,48 +1,54 @@
-# 《管理学》前八讲交付索引
+# 《管理学》完整课程交付索引
 
-前八讲已覆盖 **517 个原页、663 个网页页面、190 张 Imagegen 图片、16 处教师控制演示**。第二期新增第 5—8 讲：218 个原页转换为 296 个网页页面，新增 80 张图片与 8 处演示。课程署名：管理学课程组 · 韦笑。第二期核验日期：2026 年 9 月 15 日。
+已完成**绪论＋第1—16讲**：1245个原页归档、1477个网页页面、410张Imagegen图片、34处教师控制演示。本期新增814页、220张图和18处演示。署名：管理学课程组 · 韦笑。核验日期：2026-09-20。
 
-## 直接使用
+打开[本机管理学课程](http://127.0.0.1:5173/courses/management-principles)，选择模块开始授课。教师可按原文件和原页码定位、推进或重置演示；学生同步只读。正式课程代码及总学时继续显示待完善。
 
-打开[本机管理学课程](http://127.0.0.1:5173/courses/management-principles)，选择讲次开始授课。授课页的“原 PPT 页码定位”按原文件、页码跳转；第四讲的两份文件分别列出，第五至第八讲各有独立来源标识。演示由教师推进、调整参数或重置，学生同步只读观看；刷新后恢复页面和已揭示步骤。正式课程代码、总学时继续显示“待完善”。
+## 全课目录
 
-| 讲次 | 原页 | 网页页数 | 全课页码 | Imagegen 图片 |
+| 模块 | 归档原页 | 网页页数 | 历史存储索引 | Imagegen图片 |
 |---|---:|---:|---|---:|
-| 第一讲：管理导论 | 56 | 67 | 1—67 | 22 |
-| 第二讲：管理理论的历史演变 | 67 | 79 | 68—146 | 24 |
-| 第三讲：决策与决策过程 | 65 | 81 | 147—227 | 24 |
-| 第四讲：环境分析与理性决策 | 111 | 140 | 228—367 | 40 |
-| 第五讲：决策的实施与调整 | 60 | 82 | 368—449 | 22 |
-| 第六讲：组织设计 | 64 | 91 | 450—540 | 24 |
-| 第七讲：人员配备 | 55 | 66 | 541—606 | 20 |
-| 第八讲：组织文化 | 39 | 57 | 607—663 | 14 |
-| 合计 | **517** | **663** | **1—663** | **190** |
+| 绪论 | 55 | 71 | 1407—1477 | 18 |
+| 第1讲：管理导论 | 56 | 67 | 1—67 | 22 |
+| 第2讲：管理理论的历史演变 | 67 | 79 | 68—146 | 24 |
+| 第3讲：决策与决策过程 | 65 | 81 | 147—227 | 24 |
+| 第4讲：环境分析与理性决策 | 111 | 140 | 228—367 | 40 |
+| 第5讲：决策的实施与调整 | 60 | 82 | 368—449 | 22 |
+| 第6讲：组织设计 | 64 | 91 | 450—540 | 24 |
+| 第7讲：人员配备 | 55 | 66 | 541—606 | 20 |
+| 第8讲：组织文化 | 39 | 57 | 607—663 | 14 |
+| 第9讲：领导的一般理论 | 133（主60＋补73） | 178 | 664—841 | 42 |
+| 第10讲：激励 | 222（主90＋补132） | 161 | 842—1002 | 36 |
+| 第11讲：沟通 | 54 | 77 | 1003—1079 | 20 |
+| 第12讲：控制的类型与过程 | 45 | 57 | 1080—1136 | 18 |
+| 第13讲：控制的方法和技术 | 71 | 99 | 1137—1235 | 26 |
+| 第14讲：风险控制与危机管理 | 52 | 66 | 1236—1301 | 22 |
+| 第15讲：创新原理 | 33 | 45 | 1302—1346 | 14 |
+| 第16讲：组织创新 | 63 | 60 | 1347—1406 | 24 |
+| 合计 | **1245** | **1477** | 身份保持连续 | **410** |
 
-## 教师审阅材料
+播放顺序是绪论→第一讲→…→第十六讲。绪论追加存储在末尾，以保留前八讲页面身份；历史存储索引不是目录顺序。第9、10讲归档数包含补充版本，重复共用页不重复制造教学页面。绪论2页旧行政安排省略，仍保留私有记录。[完整机器可读目录](course-index.json)包含每页标题和稳定标识。
 
-- [前八讲原页与网页对照](../../output/management-principles/review-phase2/index.html)：517 个原页逐页对应，可展开原文、新文、修改理由和来源。
-- [全课更新记录](updates.json)、[第二期更新记录](updates-phase2.json)：原表述、新表述、来源、统计或历史期间、理由。
-- [全课原页映射](source-map.json)、[第二期映射](source-map-phase2.json)：网页页面的原文件、原页码、拆页序号、校验值和私有记录。
-- [第二期事实与计算说明](FACT-CHECK-NOTES-PHASE2.md)、[复算结果](../../output/management-principles/qa-phase2/calculation-audit.json)、[21 项来源目录](sources-phase2.mjs)。
-- [新增 80 张图片及独立提示词](image-manifest-phase2.json)、[单张制作记录](images-phase2/)、[生成原件](../../output/management-principles/images-phase2/originals/)、[全课图片索引](image-manifest.json)。编号 mg-111 至 mg-190，保留生成原件和网页采用版本的 SHA-256。
-- [第二期验证报告](VERIFICATION-PHASE2.md)、[逐页视觉审阅记录](visual-review-phase2.json)、[实施说明](IMPLEMENTATION-PHASE2.md)。
+## 教师审阅与制作材料
 
-## 工作区文件
+- [完整原页与版本对照](../../output/management-principles/review-phase3/index.html)：1245个原页，可展开原表述、新表述、修改理由和来源；仅供教师审阅。
+- [全课更新记录](updates.json)、[第三期更新记录](updates-phase3.json)、[第三期处理状态](source-dispositions-phase3.json)、[多版本去重核对](duplicate-review-phase3.json)。
+- [全课原页映射](source-map.json)、[原稿逐页审阅](source-review-phase3.json)、[第三期来源目录](sources-phase3.mjs)、[复算与口径记录](CALCULATIONS-PHASE3.md)。
+- [新增220张图片及提示词](image-manifest-phase3.json)、[单张制作记录](images-phase3/)、[生成原件](../../output/management-principles/images-phase3/originals/)、[全课410张图片索引](image-manifest.json)。
+- [验证报告](VERIFICATION-PHASE3.md)、[逐页截图审阅与校验值](visual-review-phase3.json)、[制作记录](IMPLEMENTATION-PHASE3.md)。
+
+## 工作区与运行包
 
 | 内容 | 位置 |
 |---|---|
-| 第二期原 PPTX、提取索引、218 张原稿渲染 | `output/management-principles/source-phase2/` |
-| 逐页可编辑正文 | `docs/management/authored/` |
-| 页面、目录与演示定义 | `packages/course-content/src/management-principles/` |
-| 网页组件与样式 | `apps/teacher-web/src/features/management-principles/` |
-| 公开图片 | `apps/teacher-web/public/course-assets/management-principles/` |
-| 第二期运行截图、日志与校验结果 | `output/management-principles/qa-phase2/` |
-| 最终前八讲校内资源包 | [campus-management-phase2-20260915-delivery-final](../../output/campus-management-phase2-20260915-delivery-final/) |
+| 本期12份原稿、解析、媒体、渲染 | [source-phase3](../../output/management-principles/source-phase3/) |
+| 逐页可编辑正文 | [authored](authored/) |
+| 课程目录、公开页面、导航和演示 | [课程模块](../../packages/course-content/src/management-principles/) |
+| 本期截图、日志及真实服务结果 | [qa-phase3](../../output/management-principles/qa-phase3/) |
+| 完整校内资源包 | [campus-management-20260920-delivery](../../output/campus-management-20260920-delivery/) |
 
-最终资源包版本为 `campus-20260915130552670`，已验证独立安装、启动与 633 项发布资源。管理学资源组包含 199 个文件（190 张生成图片和 9 张原始资料图片），共 36,941,426 字节。公开资源由发布脚本与缓存清单收集；教师对照、原稿、完整提示词和测试数据保留在工作区，不应将整个 `output` 目录作为公开静态资源发布。
+最终包版本为 campus-20260919182941886，已通过生产依赖安装、独立启动、923项资源校验和从第二期缓存升级。管理学公开资源组为423文件（410生成图＋13资料图），90,259,450字节。私有原稿、来源详情、完整提示词与验收数据留在工作区，不随公开静态资源发布。启动说明见包内[DEPLOYMENT.md](../../output/campus-management-20260920-delivery/DEPLOYMENT.md)，本机日常启动使用[课堂启动脚本](../../scripts/start-classroom.ps1)。本次未外部部署。
 
-后续本机启动使用现有[课堂启动脚本](../../scripts/start-classroom.ps1)。本次交付为工作区课件及校内资源包，未进行外部部署。
+## 前两期存档
 
-## 第一期存档
-
-前四讲 367 页的标识、顺序和公开内容，以及原有 110 张图片均通过基线比对。第一期[原页对照](../../output/management-principles/review/index.html)、[验证报告](VERIFICATION.md)、[视觉审阅](visual-review.json)、[事实核验](FACT-CHECK-NOTES.md)、[实施说明](IMPLEMENTATION.md)、[发布包](../../output/management-campus-20260914-final/)保留。另有[第一期基线快照](../../output/management-principles/phase1-baseline/manifest.json)及[本次比对结果](../../output/management-principles/qa-phase2/baseline-audit.json)。
+第一期[验证报告](VERIFICATION.md)、[原页对照](../../output/management-principles/review/index.html)和[资源包](../../output/management-campus-20260914-final/)保留。第二期[交付索引](README-PHASE2.md)、[验证报告](VERIFICATION-PHASE2.md)、[原页对照](../../output/management-principles/review-phase2/index.html)和[资源包](../../output/campus-management-phase2-20260915-delivery-final/)保留。[第三期基线审计](../../output/management-principles/qa-phase3/baseline-audit.json)确认前八讲663页及190张原有图片保持一致。

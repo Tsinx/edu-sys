@@ -1,5 +1,5 @@
 import { getPortManagementAssistantContext, getPortManagementSlideByKey, type PortManagementSlideSpec } from "@edu/course-content";
-import type { CourseDeckDescriptor, CourseDeckSlideSummary } from "@edu/course-content/deck-registry";
+import { getCourseLessonLabel, type CourseDeckDescriptor, type CourseDeckSlideSummary } from "@edu/course-content/deck-registry";
 import { ECONOMIC_MATHEMATICS_LESSONS, getEconomicMathematicsSlideByKey, type EconomicMathematicsSlideSpec } from "@edu/course-content/economic-mathematics";
 
 // These are conceptual connections, not claims about whether the class has
@@ -62,7 +62,7 @@ export const contextualPageBoundary = (text: string) => text.replace(
   "优先依据本页与已列来源解释，可联系已提供的前置材料说明机制和影响。"
 );
 const label = (slide: CourseDeckSlideSummary, deck: CourseDeckDescriptor) =>
-  `第${slide.lessonNumber}讲第${deck.getLessonPosition(slide.index)!.localIndex}页“${slide.title}”`;
+  `${getCourseLessonLabel(deck.lessons.find(l=>l.number===slide.lessonNumber)!)}第${deck.getLessonPosition(slide.index)!.localIndex}页“${slide.title}”`;
 
 function previousContext(deck: CourseDeckDescriptor, slide: CourseDeckSlideSummary, math: boolean) {
   const previous: string[] = [];

@@ -1,0 +1,40 @@
+{
+  "id": "mg-327",
+  "deck": "l13",
+  "page": 44,
+  "title": "逐轮改进",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 44, 逐轮改进; conceptual teaching artwork, not historical or statistical evidence. Subject: A sequence of three related physical product prototypes on an ivory workbench shows subtle ergonomic refinements, coherent lineage and material detail, no labels or claim of measured superiority. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-f3409ea8-13ef-4844-a988-aa4080031f5a.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-327.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-327.webp",
+  "originalSha256": "c1fa9fd5a5ac844fed3e6ec88fe204cfee68c0f8c6eb3a277447554942b09868",
+  "webSha256": "af1a70a77a65e4e2f5dd866f03b051ce2668afa55ea390df80bb7201037b90aa",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 158110,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "c1fa9fd5a5ac844fed3e6ec88fe204cfee68c0f8c6eb3a277447554942b09868",
+    "webSha256": "af1a70a77a65e4e2f5dd866f03b051ce2668afa55ea390df80bb7201037b90aa"
+  },
+  "pages": [
+    "mg-l13-s044-01"
+  ]
+}

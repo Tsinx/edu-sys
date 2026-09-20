@@ -1,0 +1,40 @@
+{
+  "id": "mg-390",
+  "deck": "l16",
+  "page": 52,
+  "title": "组织记忆",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l16, original page 52, 组织记忆; conceptual teaching artwork, not historical or statistical evidence. Subject: A long-running workshop with tools arranged by use, carefully repaired fixtures and adults passing practices across experience levels, dignified ordinary scene, no genealogy or labels. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-830d2c7c-f87e-494b-9a6e-3f0379ccf27a.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-390.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-390.webp",
+  "originalSha256": "f31f4ce7e049975dcb95ea0734c472d373a150f98074dfeea5d85636dcedace5",
+  "webSha256": "66707458902e8387770be921a8055ce0d1eb9c30d47b3a49ad70ce44602b95f0",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 280634,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "f31f4ce7e049975dcb95ea0734c472d373a150f98074dfeea5d85636dcedace5",
+    "webSha256": "66707458902e8387770be921a8055ce0d1eb9c30d47b3a49ad70ce44602b95f0"
+  },
+  "pages": [
+    "mg-l16-s052-01"
+  ]
+}

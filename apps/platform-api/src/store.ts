@@ -1,4 +1,5 @@
 import { createHash, randomUUID } from "node:crypto";
+import { PORT_LESSON_SIX_SLIDES, lessonSixStateValid } from '@edu/course-content';
 import { CampusStateRepository } from "./campus/state-repository.js";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
@@ -71,7 +72,7 @@ import {
   PORT_MANAGEMENT_SLIDE_TOTAL
 } from "@edu/course-content";
 import { ECONOMIC_MATHEMATICS_COURSE_ID } from "@edu/course-content/economic-mathematics";
-import { getCourseDeckByCourseId } from "@edu/course-content/deck-registry";
+import { getCourseDeckByCourseId, getCourseAdjacentIndex, getCourseLessonLabel } from "@edu/course-content/deck-registry";
 import {
   DEFAULT_PORT_SIMULATION_CHALLENGE_ID,
   PORT_SIMULATION_ROLE_LABELS,
@@ -745,7 +746,7 @@ export class JsonStateStore {
         if (!existing) {
           courses.push(builtin);
           runtimeStateChanged = true;
-        } else if (builtin.id === 'management-principles' && existing.currentLesson.summary === '管理学课程组 · 韦笑。前四讲根据299页原始课件建设，课程代码与总学时待完善。') {
+        } else if (builtin.id === 'management-principles' && ['管理学课程组 · 韦笑。前四讲根据299页原始课件建设，课程代码与总学时待完善。','管理学课程组 · 韦笑。前8讲根据517页原始课件建设，课程代码与总学时待完善。'].includes(existing.currentLesson.summary)) {
           // Only replace the known system-authored construction summary; preserve teacher edits.
           existing.currentLesson = {...existing.currentLesson, summary:builtin.currentLesson.summary};
           runtimeStateChanged = true;
@@ -1568,6 +1569,7 @@ export class JsonStateStore {
       teacherDemo: runtime.teacherDemo ? structuredClone(runtime.teacherDemo) : null,
       simulationNavigation: runtime.simulationNavigation ? { ...runtime.simulationNavigation } : null,
       lessonFivePresentation: runtime.lessonFivePresentation ? {...runtime.lessonFivePresentation} : null,
+      lessonSixPresentation: runtime.lessonSixPresentation ? {...runtime.lessonSixPresentation} : null,
       lessonFiveExperiment: runtime.simulationNavigation?.experiment === "l5-capacity" && runtime.lessonFiveExperiment ? {...runtime.lessonFiveExperiment} : null,
       lessonFourPresentation: runtime.lessonFourPresentation ? {...runtime.lessonFourPresentation} : null,
       simulation:
@@ -2073,7 +2075,7 @@ export class JsonStateStore {
           );
       runtime.simulation = {
         learningStage: input.learningStage ?? runtime.simulation?.learningStage ?? "full",
-        trainingMode: (input.learningStage ?? runtime.simulation?.learningStage ?? "full") !== "full" ? "practice" : input.trainingMode ?? runtime.simulation?.trainingMode ?? "practice",
+        trainingMode: input.trainingMode ?? runtime.simulation?.trainingMode ?? "practice",
         scenarioId: challenge.scenarioId,
         scenarioVersion: challenge.scenarioVersion,
         challengeId: challenge.id,
@@ -4047,6 +4049,11 @@ export class JsonStateStore {
         runtime.simulationNavigation = input.navigation;
         runtime.activeActivity = "slides";
         completeActiveGlobe();
+      } else if(input.type === "set_lesson_six_presentation") {
+        const page=PORT_LESSON_SIX_SLIDES.find(p=>p.slideKey===input.slideKey);
+        if(session.courseId!=="course-port-management-intro"||!page||runtime.slideKey!==input.slideKey||deck.getSlide(runtime.slideIndex).lessonNumber!==6)throw Object.assign(new Error("第6讲页码已变化"),{statusCode:409});
+        if(!lessonSixStateValid(page,input)||(input.cinematic?.startedAt??0)>Date.now()+30000)throw Object.assign(new Error("第6讲呈现选项无效"),{statusCode:400});
+        runtime.lessonSixPresentation={slideKey:input.slideKey,progress:input.progress,revealed:input.revealed,option:input.option,...(input.camera?{camera:{...input.camera}}:{}),...(input.cinematic?{cinematic:{...input.cinematic}}:{})};
       } else if(input.type === "set_lesson_five_presentation") {
         if(session.courseId!=="course-port-management-intro" || deck.getSlide(runtime.slideIndex).lessonNumber!==5 || runtime.slideKey!==input.slideKey) throw Object.assign(new Error("第5讲页码已变化"),{statusCode:409});
         if(input.revealed && input.slideKey!=="l5-transfer-question") throw Object.assign(new Error("本页没有动态解析"),{statusCode:409});
@@ -4064,14 +4071,11 @@ export class JsonStateStore {
         runtime.lessonFourPresentation={slideKey:input.slideKey,progress:input.progress};
       } else if (input.type === "next_slide") {
         completeActiveGlobe();
-        runtime.slideIndex = Math.min(
-          deck.slideTotal,
-          runtime.slideIndex + 1
-        );
+        runtime.slideIndex = getCourseAdjacentIndex(deck, runtime.slideIndex, 1) ?? runtime.slideIndex;
         runtime.activeActivity = "slides";
       } else if (input.type === "previous_slide") {
         completeActiveGlobe();
-        runtime.slideIndex = Math.max(1, runtime.slideIndex - 1);
+        runtime.slideIndex = getCourseAdjacentIndex(deck, runtime.slideIndex, -1) ?? runtime.slideIndex;
         runtime.activeActivity = "slides";
       } else if (input.type === "set_slide") {
         completeActiveGlobe();
@@ -4348,10 +4352,7 @@ export class JsonStateStore {
         if(runtime.teacherDemo?.active && ["slides.next","slides.previous","slides.go_to","lesson.select","activity.switch"].includes(action.type)){runtime.teacherDemo.active=false;changed=true;}
         if (action.type === "slides.next") {
           completeActiveGlobe();
-          const nextSlide = Math.min(
-            deck.slideTotal,
-            runtime.slideIndex + 1
-          );
+          const nextSlide = getCourseAdjacentIndex(deck, runtime.slideIndex, 1) ?? runtime.slideIndex;
           const actionChanged =
             nextSlide !== runtime.slideIndex ||
             runtime.activeActivity !== "slides";
@@ -4371,7 +4372,7 @@ export class JsonStateStore {
 
         if (action.type === "slides.previous") {
           completeActiveGlobe();
-          const previousSlide = Math.max(1, runtime.slideIndex - 1);
+          const previousSlide = getCourseAdjacentIndex(deck, runtime.slideIndex, -1) ?? runtime.slideIndex;
           const actionChanged =
             previousSlide !== runtime.slideIndex ||
             runtime.activeActivity !== "slides";
@@ -4438,8 +4439,8 @@ export class JsonStateStore {
             type: action.type,
             status: actionChanged ? "applied" : "noop",
             message: actionChanged
-              ? `已跳转到第${lesson.number}讲“${lesson.title}”（Slides 第 ${lesson.slideStart} 页）`
-              : `已经位于第${lesson.number}讲“${lesson.title}”`
+              ? `已跳转到${getCourseLessonLabel(lesson)}“${lesson.title}”（Slides 第 ${lesson.slideStart} 页）`
+              : `已经位于${getCourseLessonLabel(lesson)}“${lesson.title}”`
           });
           return;
         }

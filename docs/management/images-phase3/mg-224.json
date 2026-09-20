@@ -1,0 +1,40 @@
+{
+  "id": "mg-224",
+  "deck": "l9",
+  "page": 46,
+  "title": "工作关系的质量",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 46, 工作关系的质量; conceptual teaching artwork, not historical or statistical evidence. Subject: An open office mentoring conversation with an experienced colleague giving useful feedback to an adult team member while nearby colleagues remain included in a shared workspace. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-52ecd61f-feac-4e7a-8008-38b71c373072.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-224.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-224.webp",
+  "originalSha256": "8371a7b459a5089e1a8fea4d9e0e96f615c7225125996446fe492807e0e3df18",
+  "webSha256": "264f7ab9abefa9b09c11b24285f6d8ea0199d1b7cfaf59e9601f921426815713",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 181604,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "8371a7b459a5089e1a8fea4d9e0e96f615c7225125996446fe492807e0e3df18",
+    "webSha256": "264f7ab9abefa9b09c11b24285f6d8ea0199d1b7cfaf59e9601f921426815713"
+  },
+  "pages": [
+    "mg-l9-s046-01"
+  ]
+}

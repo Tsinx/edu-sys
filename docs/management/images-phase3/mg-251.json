@@ -1,0 +1,40 @@
+{
+  "id": "mg-251",
+  "deck": "l10",
+  "page": 32,
+  "title": "目标发生转移",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 32, 目标发生转移; conceptual teaching artwork, not historical or statistical evidence. Subject: A university notebook and a small abstract trophy-like object reflected in a dark computer screen, study and achievement motives in one tactile still life; no grades or text. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-f17aa812-6b87-465c-9832-6cb47d8ee085.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-251.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-251.webp",
+  "originalSha256": "3f61dc199dd415e93fb32b1953920014f318d4ba1db8dbdb852274b23214d878",
+  "webSha256": "08d3267ab4c699ea5f64d544f0ed7d3d8aa0118e7f284cd4ee146677470cb4b2",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 159584,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "3f61dc199dd415e93fb32b1953920014f318d4ba1db8dbdb852274b23214d878",
+    "webSha256": "08d3267ab4c699ea5f64d544f0ed7d3d8aa0118e7f284cd4ee146677470cb4b2"
+  },
+  "pages": [
+    "mg-l10-s032-01"
+  ]
+}

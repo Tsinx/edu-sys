@@ -1,0 +1,40 @@
+{
+  "id": "mg-208",
+  "deck": "l9",
+  "page": 29,
+  "title": "观察客户需求",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 29, 观察客户需求; conceptual teaching artwork, not historical or statistical evidence. Subject: A product designer listens to an adult customer trying an unbranded household tool in a quiet demonstration room, attentive evidence gathering and tactile detail. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-094527ec-2fd0-4bcd-b9ed-4dc72454cb91.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-208.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-208.webp",
+  "originalSha256": "52e43471c9fb6295c96092b1d8b23640e9987d800ffca64ac561e351627f933a",
+  "webSha256": "6110b7d0620f35df049f793b654d5f3a4871aa99649497ca86ddd1018e5f6117",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 176802,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "52e43471c9fb6295c96092b1d8b23640e9987d800ffca64ac561e351627f933a",
+    "webSha256": "6110b7d0620f35df049f793b654d5f3a4871aa99649497ca86ddd1018e5f6117"
+  },
+  "pages": [
+    "mg-l9-s029-01"
+  ]
+}

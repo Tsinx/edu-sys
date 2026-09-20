@@ -1,0 +1,40 @@
+{
+  "id": "mg-259",
+  "deck": "l10",
+  "page": 58,
+  "title": "明确而可达到的目标",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 58, 明确而可达到的目标; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult archer in a serene practice space focuses on an abstract circular target with no scores, clear distance and calm preparation, not a competitive victory scene. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-8b3e055b-482f-46c7-82b2-9649c08c00e2.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-259.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-259.webp",
+  "originalSha256": "4885f6b362be07988b49d0fbe0bd09712c177b994b560ea7deaf1a385c8115e4",
+  "webSha256": "1d1b1b94db919e0e73f743ee576a29657fa835a7d1910ae7e0c0af31a1eb0e09",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 171970,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "4885f6b362be07988b49d0fbe0bd09712c177b994b560ea7deaf1a385c8115e4",
+    "webSha256": "1d1b1b94db919e0e73f743ee576a29657fa835a7d1910ae7e0c0af31a1eb0e09"
+  },
+  "pages": [
+    "mg-l10-s058-01"
+  ]
+}

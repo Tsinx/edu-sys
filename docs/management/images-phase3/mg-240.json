@@ -1,0 +1,40 @@
+{
+  "id": "mg-240",
+  "deck": "l10",
+  "page": 10,
+  "title": "核实所需的成本",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 10, 核实所需的成本; conceptual teaching artwork, not historical or statistical evidence. Subject: A quiet archival worktable with nested protective cases, magnifier, blank paper slips and carefully aligned objects awaiting inspection, textured editorial still life. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-b7d5981a-a573-4344-980b-f6c312e18dff.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-240.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-240.webp",
+  "originalSha256": "7c9025876f7f3445ef97079064b2b5573b536c7e17532e84075c516d134250f7",
+  "webSha256": "96920284eae6aa9069f8ea04126641111e59a49267cc13445d3c20c78b1071fb",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 201116,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "7c9025876f7f3445ef97079064b2b5573b536c7e17532e84075c516d134250f7",
+    "webSha256": "96920284eae6aa9069f8ea04126641111e59a49267cc13445d3c20c78b1071fb"
+  },
+  "pages": [
+    "mg-l10-s010-01"
+  ]
+}

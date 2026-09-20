@@ -1,0 +1,40 @@
+{
+  "id": "mg-241",
+  "deck": "l10",
+  "page": 12,
+  "title": "投入与创造",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 12, 投入与创造; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult designer moves from a rigid stack of blank task cards toward a freely sketched physical clay prototype, subtle transition from time spent to creative engagement, no legible marks. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-cb2d26fb-cbf7-4beb-ab2c-c39b0dcc7b70.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-241.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-241.webp",
+  "originalSha256": "f41b15dad95410ff294fedc4dd69b3932620be0f07100ab5cd369d0c11631925",
+  "webSha256": "d7a51084d823a8c20f736947440ab8edd740ed7c2d9d0177ae084d8340847615",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 165254,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "f41b15dad95410ff294fedc4dd69b3932620be0f07100ab5cd369d0c11631925",
+    "webSha256": "d7a51084d823a8c20f736947440ab8edd740ed7c2d9d0177ae084d8340847615"
+  },
+  "pages": [
+    "mg-l10-s012-01"
+  ]
+}

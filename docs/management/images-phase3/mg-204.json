@@ -1,0 +1,40 @@
+{
+  "id": "mg-204",
+  "deck": "l9",
+  "page": 24,
+  "title": "特质研究的历史",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 24, 特质研究的历史; conceptual teaching artwork, not historical or statistical evidence. Subject: A historically plausible mid-twentieth-century behavioral research office, empty interview chairs, blank index cards and a mechanical desk lamp, no invented historical portrait. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-2dbc59b3-94eb-4134-aec6-4d14ea831e0f.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-204.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-204.webp",
+  "originalSha256": "fa7baa0857b92e541c6fadaee426087b3c9332bb3922a1579c18b049cb99f6a4",
+  "webSha256": "e9d71bb41e00e920bb739d2e3cdbe1052c76c86d6dce53bfd811958bc8d52389",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 173142,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "fa7baa0857b92e541c6fadaee426087b3c9332bb3922a1579c18b049cb99f6a4",
+    "webSha256": "e9d71bb41e00e920bb739d2e3cdbe1052c76c86d6dce53bfd811958bc8d52389"
+  },
+  "pages": [
+    "mg-l9-s024-01"
+  ]
+}

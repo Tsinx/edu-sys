@@ -49,7 +49,7 @@ self.onmessage = async (event: MessageEvent<Request>) => {
             if (m.course) {
                 if (m.course.tutorial && m.raw) throw new Error("操作教学不接受练习存档。");
                 tutorial = m.course.tutorial ? createPortTutorial(m.course.unit) : undefined;
-                course = tutorial?.course ?? (m.raw ? restorePortCourse(m.raw) : createPortCourse(m.course.unit, m.schema === "port-operations/3.0" ? "port-course/1.0" : "port-course/1.2"));
+                course = tutorial?.course ?? (m.raw ? restorePortCourse(m.raw) : createPortCourse(m.course.unit, m.schema === "port-operations/3.0" ? "port-course/1.0" : "port-course/1.2", demo ? "practice" : m.mode));
                 if (course.unit !== m.course.unit) throw new Error("存档与当前课程分段不一致。");
                 session = course.simulation;
             } else session = m.raw ? restorePortSession(m.raw, true) : createPortSession(m.mode, m.config, m.plan, m.schema);
@@ -62,9 +62,12 @@ self.onmessage = async (event: MessageEvent<Request>) => {
             throw new Error("请先载入有效场次。");
         if (m.type === "seal") {
             if (tutorial || demo) throw new Error("演示和操作教学不能提交。");
-            if (!course && (session.mode !== "battle" || session.status !== "completed")) throw new Error("请完成48小时实战后提交。");
+            if (!course && session.status === "ready") throw new Error("请开始实验后提交。");
             if (!course && !reference) throw new Error("同情境评分基准正在计算，请稍后提交。");
-            if (course && session.status === "running") applyPortCourseCommand(course, { kind: "pause" });
+            if (session.status === "running") {
+                const command = { kind: session.mode === "battle" ? "interrupt" as const : "pause" as const };
+                if (course) applyPortCourseCommand(course, command); else applyPortCommand(session, command);
+            }
             sealed = true;
             snapshot(m.id);
             try {

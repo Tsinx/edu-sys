@@ -1,0 +1,40 @@
+{
+  "id": "mg-254",
+  "deck": "l10",
+  "page": 38,
+  "title": "需要层次的历史模型",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 38, 需要层次的历史模型; conceptual teaching artwork, not historical or statistical evidence. Subject: A graceful terraced garden with sheltered lower courtyard, communal middle terrace and open creative studio above, architectural metaphor with no pyramid chart or implied universal staircase. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-8651cc85-8cb7-4925-9b0e-258e22cd5c8f.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-254.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-254.webp",
+  "originalSha256": "a90a0ef7c2f8fdae71605d5582b42a9c5fff2dd8d0f5c5c83c514d303f7be32f",
+  "webSha256": "d0a6a3b6b093f665d296ec927b35785d8acadf410ba80334111f8f8209f19b4c",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 484194,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "a90a0ef7c2f8fdae71605d5582b42a9c5fff2dd8d0f5c5c83c514d303f7be32f",
+    "webSha256": "d0a6a3b6b093f665d296ec927b35785d8acadf410ba80334111f8f8209f19b4c"
+  },
+  "pages": [
+    "mg-l10-s038-01"
+  ]
+}

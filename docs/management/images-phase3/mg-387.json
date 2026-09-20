@@ -1,0 +1,40 @@
+{
+  "id": "mg-387",
+  "deck": "l16",
+  "page": 47,
+  "title": "文化在实践中形成",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l16, original page 47, 文化在实践中形成; conceptual teaching artwork, not historical or statistical evidence. Subject: A diverse adult team discusses a practical disagreement around a prototype while listening respectfully, evidence of dialogue and shared work, no celebratory staged handshake. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-cf8ee116-4cb9-4d51-ab5f-360fe14dfa8c.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-387.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-387.webp",
+  "originalSha256": "8d510358194bcd068c2b20915e589b443d5440e84a153e55c78c3ee17d8bd654",
+  "webSha256": "a950b586485080ced896210552d9c52a9f93c648f3f75a5b8321b0be2d188bac",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 209606,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "8d510358194bcd068c2b20915e589b443d5440e84a153e55c78c3ee17d8bd654",
+    "webSha256": "a950b586485080ced896210552d9c52a9f93c648f3f75a5b8321b0be2d188bac"
+  },
+  "pages": [
+    "mg-l16-s047-01"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "mg-290",
+  "deck": "l12",
+  "page": 2,
+  "title": "计划进入实践",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l12, original page 2, 计划进入实践; conceptual teaching artwork, not historical or statistical evidence. Subject: Adult university students rehearse a small presentation beside a physical business prototype and an unmarked hourglass, a historical classroom teaching scene without deadlines or visible text. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-d3a29fd5-cffc-4f89-ac57-e25563bb56d3.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-290.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-290.webp",
+  "originalSha256": "826c5f08b7157a07b2e9421a6c10a91198d2309a9fce9ff516ac7b5e3ac68885",
+  "webSha256": "c1bd856a6eb3b6db78a8577c9b37b22667b4982668703bf2c739c62a97b33580",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 177174,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "826c5f08b7157a07b2e9421a6c10a91198d2309a9fce9ff516ac7b5e3ac68885",
+    "webSha256": "c1bd856a6eb3b6db78a8577c9b37b22667b4982668703bf2c739c62a97b33580"
+  },
+  "pages": [
+    "mg-l12-s002-01"
+  ]
+}

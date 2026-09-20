@@ -1,0 +1,40 @@
+{
+  "id": "mg-264",
+  "deck": "l10",
+  "page": 70,
+  "title": "内部职业流动",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 70, 内部职业流动; conceptual teaching artwork, not historical or statistical evidence. Subject: An elegant interior with several open studio doors and an adult employee exploring a new workspace while carrying personal tools, organizational mobility, no Sony logo or claimed historical likeness. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-596e9b43-efd7-463e-88fe-5cf679e16a07.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-264.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-264.webp",
+  "originalSha256": "7b7c0f6c74cfab0afea3f78eb6963a399a573bececa464adb450336d854b6bdc",
+  "webSha256": "f2808f981fe7dca984fa9401e6adf9cf2371e86a82922e69d3fe35cef43d62e9",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 212506,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "7b7c0f6c74cfab0afea3f78eb6963a399a573bececa464adb450336d854b6bdc",
+    "webSha256": "f2808f981fe7dca984fa9401e6adf9cf2371e86a82922e69d3fe35cef43d62e9"
+  },
+  "pages": [
+    "mg-l10-s070-01"
+  ]
+}

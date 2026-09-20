@@ -1,0 +1,40 @@
+{
+  "id": "mg-209",
+  "deck": "l9",
+  "page": 30,
+  "title": "战略性思维",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 30, 战略性思维; conceptual teaching artwork, not historical or statistical evidence. Subject: A planner studies several physical landscape and workshop models viewed from a high oblique angle, foreground detail connects to a distant whole without diagrams or arrows. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-7c3cb7a8-a717-4027-9af8-4c87115796a4.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-209.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-209.webp",
+  "originalSha256": "d74ae4c59c10ce073046e0e8b0e0b4df5a757441ae61999adcf69070f439fef9",
+  "webSha256": "ec79466f6d19fac1e38a118566acbac96834f2f8656e5a331d96422709fe4cc5",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 342576,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "d74ae4c59c10ce073046e0e8b0e0b4df5a757441ae61999adcf69070f439fef9",
+    "webSha256": "ec79466f6d19fac1e38a118566acbac96834f2f8656e5a331d96422709fe4cc5"
+  },
+  "pages": [
+    "mg-l9-s030-01"
+  ]
+}

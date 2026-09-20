@@ -1,0 +1,40 @@
+{
+  "id": "mg-215",
+  "deck": "l9",
+  "page": 36,
+  "title": "工程目标的多重约束",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 36, 工程目标的多重约束; conceptual teaching artwork, not historical or statistical evidence. Subject: A detailed architectural scale model of an energy facility on an ivory worktable, engineers compare component layouts with careful attention to quality and feasibility, no numeric claims. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-1209bf73-43ab-415a-8361-be4d0f5cc162.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-215.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-215.webp",
+  "originalSha256": "a8029fc695e42cb250396c5fef2c1b48040b730b55f9defc536d11958dea825e",
+  "webSha256": "affd5c41981f1694b82f0f68f4d7b03716011a5eb8b5fbded80834ba253b4d60",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 237942,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "a8029fc695e42cb250396c5fef2c1b48040b730b55f9defc536d11958dea825e",
+    "webSha256": "affd5c41981f1694b82f0f68f4d7b03716011a5eb8b5fbded80834ba253b4d60"
+  },
+  "pages": [
+    "mg-l9-s036-01"
+  ]
+}

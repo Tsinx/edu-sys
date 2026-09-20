@@ -1,0 +1,6 @@
+import {createRequire} from 'node:module';
+import {writeFile} from 'node:fs/promises';
+import {pathToFileURL} from 'node:url';
+const {chromium}=createRequire('C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/entry.js')('playwright');
+const out='output/port-lesson-six-film',browser=await chromium.launch({headless:true}),p=await browser.newPage({viewport:{width:1600,height:840}});
+try{for(let i=0;i<4;i++){const html=`<!doctype html><meta charset="utf-8"><style>*{box-sizing:border-box}body{margin:0;background:#173441;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:8px;color:white;font:14px sans-serif}figure{margin:0}img{width:100%;display:block}figcaption{padding:4px}</style>`+Array.from({length:12},(_,j)=>{const n=i*12+j+1;return `<figure><img src="slide-${String(n).padStart(2,'0')}.png"><figcaption>第${n}页</figcaption></figure>`;}).join('');const file=`${out}/contact-${i+1}.html`;await writeFile(file,html);await p.goto(pathToFileURL(process.cwd()+'/'+file).href);await p.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth));await p.screenshot({path:`${out}/contact-${i+1}.png`,fullPage:true});}console.log('PASS 48-page contact sheets');}finally{await browser.close();}

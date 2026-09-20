@@ -1,0 +1,40 @@
+{
+  "id": "mg-192",
+  "deck": "l9",
+  "page": 3,
+  "title": "考试与科技文化节",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 3, 考试与科技文化节; conceptual teaching artwork, not historical or statistical evidence. Subject: Three adult Chinese university club organizers in a quiet campus studio: one holds blank festival materials, another studies at a nearby desk, a third hesitates between them; subtle conflicting priorities, no hostility. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-d5757702-2033-4d62-a012-a978280fe93e.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-192.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-192.webp",
+  "originalSha256": "bdcf281dad2a7b522d55fd3c63ef2b67c1fbc24d520ac618ce4af47c1eb4d748",
+  "webSha256": "b116f51e1661f853be751977278f0e2594e3547a9a7a680bed129ffe360aa88f",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 225820,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "bdcf281dad2a7b522d55fd3c63ef2b67c1fbc24d520ac618ce4af47c1eb4d748",
+    "webSha256": "b116f51e1661f853be751977278f0e2594e3547a9a7a680bed129ffe360aa88f"
+  },
+  "pages": [
+    "mg-l9-s003-01"
+  ]
+}

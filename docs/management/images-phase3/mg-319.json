@@ -1,0 +1,40 @@
+{
+  "id": "mg-319",
+  "deck": "l13",
+  "page": 23,
+  "title": "出资与经营贡献",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 23, 出资与经营贡献; conceptual teaching artwork, not historical or statistical evidence. Subject: Four adult restaurant founders consider a small model of a dining room with different tools and material contributions beside them, unbranded teaching scene, no likeness to Haidilao founders or ownership figures. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-be51ecda-a0e9-4cae-bad9-9171bf824850.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-319.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-319.webp",
+  "originalSha256": "b34fbb971cb79d4b4a0cc69531f774858be72402db56fb9b0b11d83a5dd27df5",
+  "webSha256": "c614979b6babf76f38ec87e4812b2a3fef4d458ed01a7056d16d40e2c4372a4c",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 248336,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "b34fbb971cb79d4b4a0cc69531f774858be72402db56fb9b0b11d83a5dd27df5",
+    "webSha256": "c614979b6babf76f38ec87e4812b2a3fef4d458ed01a7056d16d40e2c4372a4c"
+  },
+  "pages": [
+    "mg-l13-s023-01"
+  ]
+}

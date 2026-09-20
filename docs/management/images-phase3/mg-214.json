@@ -1,0 +1,40 @@
+{
+  "id": "mg-214",
+  "deck": "l9",
+  "page": 35,
+  "title": "挑战与稳健准备",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 35, 挑战与稳健准备; conceptual teaching artwork, not historical or statistical evidence. Subject: A precision craftsperson compares a finished object with an ambitious improved prototype and carefully selected tools, quiet determination rather than spectacle. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-a742da0a-c331-4823-94fd-fc4715ec7c43.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-214.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-214.webp",
+  "originalSha256": "fe07f550be2d19f4f3e5ad0667be6e41cf11cf91f68959248307c59eca072830",
+  "webSha256": "ef72189b95226527a7badd83eea115f8bef4fb22c97d522c5cc746f743f481c9",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 202398,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "fe07f550be2d19f4f3e5ad0667be6e41cf11cf91f68959248307c59eca072830",
+    "webSha256": "ef72189b95226527a7badd83eea115f8bef4fb22c97d522c5cc746f743f481c9"
+  },
+  "pages": [
+    "mg-l9-s035-01"
+  ]
+}

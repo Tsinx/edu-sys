@@ -1,0 +1,40 @@
+{
+  "id": "mg-360",
+  "deck": "l15",
+  "page": 12,
+  "title": "企业家精神的行动",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l15, original page 12, 企业家精神的行动; conceptual teaching artwork, not historical or statistical evidence. Subject: A small adult team tests a practical water-saving device in a public garden, attentive collaboration and stewardship, no famous person, corporate identity, readable instruments or invented performance claim. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-7f4e56a9-6dbe-4abc-bf76-db6e216221b8.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-360.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-360.webp",
+  "originalSha256": "958f061ad97f7b248d9e6fbc526f0f85027c72d5cf76ff5ccdd48b12ceaf8bef",
+  "webSha256": "8206a501297e6350637afde462b2b21766c1c6d48c10476cd0ca2c5106b2d645",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 308394,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "958f061ad97f7b248d9e6fbc526f0f85027c72d5cf76ff5ccdd48b12ceaf8bef",
+    "webSha256": "8206a501297e6350637afde462b2b21766c1c6d48c10476cd0ca2c5106b2d645"
+  },
+  "pages": [
+    "mg-l15-s012-01"
+  ]
+}

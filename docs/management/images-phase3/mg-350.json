@@ -1,0 +1,40 @@
+{
+  "id": "mg-350",
+  "deck": "l14",
+  "page": 38,
+  "title": "恢复秩序",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l14, original page 38, 恢复秩序; conceptual teaching artwork, not historical or statistical evidence. Subject: After a storm, adult service staff reopen a community library and carefully check electrical and structural safety before admitting visitors, hopeful but realistic recovery, no unsafe activity. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-793c5e2f-d3f9-4765-8bde-0d01b45b1408.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-350.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-350.webp",
+  "originalSha256": "19985ee4fec4e733afcaacc10e71fa0d5d711517e1c5e2c2efaaa808b4ffcfed",
+  "webSha256": "00064d3bf5b91adbea8efe3d7289ab098ce5a454ff61738a5ff5824f5d79b2b4",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 347998,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "19985ee4fec4e733afcaacc10e71fa0d5d711517e1c5e2c2efaaa808b4ffcfed",
+    "webSha256": "00064d3bf5b91adbea8efe3d7289ab098ce5a454ff61738a5ff5824f5d79b2b4"
+  },
+  "pages": [
+    "mg-l14-s038-01"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "mg-367",
+  "deck": "l15",
+  "page": 29,
+  "title": "评估创新",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l15, original page 29, 评估创新; conceptual teaching artwork, not historical or statistical evidence. Subject: Three distinct prototypes on a clean workbench are being carefully tested by adults using simple physical tools, evidence gathering rather than celebration, no numbers or readable labels. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-6f05727c-58ee-4a13-bba3-864905f1ee1c.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-367.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-367.webp",
+  "originalSha256": "7d035a86da4088668c54570f402cf7f1a4420a44e6023beafc9caef20c53a86f",
+  "webSha256": "e4a1747793c886456156a66946f508bbdb2289d2a3ae1c58bafbb74563a34247",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 178348,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "7d035a86da4088668c54570f402cf7f1a4420a44e6023beafc9caef20c53a86f",
+    "webSha256": "e4a1747793c886456156a66946f508bbdb2289d2a3ae1c58bafbb74563a34247"
+  },
+  "pages": [
+    "mg-l15-s029-01"
+  ]
+}

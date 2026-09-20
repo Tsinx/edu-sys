@@ -1,0 +1,40 @@
+{
+  "id": "mg-252",
+  "deck": "l10",
+  "page": 34,
+  "title": "及时回报的吸引力",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 34, 及时回报的吸引力; conceptual teaching artwork, not historical or statistical evidence. Subject: A non-digital tabletop puzzle with a few solved pieces glowing softly while a larger unfinished learning project rests nearby, immediate feedback metaphor without numerical scores. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-ec7ec216-6458-4032-a345-878e7c34d932.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-252.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-252.webp",
+  "originalSha256": "4b902fc5538aadf474009d04dcc34377b683bddab8a50051cb5f3c197254f432",
+  "webSha256": "a32141afc5b6c2e35e8b3927736787559d3b422021e882f1a70dcb7939e9db30",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 244680,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "4b902fc5538aadf474009d04dcc34377b683bddab8a50051cb5f3c197254f432",
+    "webSha256": "a32141afc5b6c2e35e8b3927736787559d3b422021e882f1a70dcb7939e9db30"
+  },
+  "pages": [
+    "mg-l10-s034-01"
+  ]
+}

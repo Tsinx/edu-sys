@@ -1,0 +1,40 @@
+{
+  "id": "mg-239",
+  "deck": "l10",
+  "page": 9,
+  "title": "信任与制度",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 9, 信任与制度; conceptual teaching artwork, not historical or statistical evidence. Subject: Close-up of two adult craftspeople carefully handing over a fragile ceramic vessel across a workbench with a neutral inspection light nearby, trust supported by verification. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-9c392619-02c7-48ba-88fa-5e88a51dfdc2.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-239.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-239.webp",
+  "originalSha256": "be85b839255f92169ca57694035f405a8d87ccd37cac4f63c7cbdaa46dbe7ea2",
+  "webSha256": "e5452a740d2f1c6fe52b20a108a5a3f687c6637f0bcd8f4a5e34e1eeadd0e54b",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 183484,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "be85b839255f92169ca57694035f405a8d87ccd37cac4f63c7cbdaa46dbe7ea2",
+    "webSha256": "e5452a740d2f1c6fe52b20a108a5a3f687c6637f0bcd8f4a5e34e1eeadd0e54b"
+  },
+  "pages": [
+    "mg-l10-s009-01"
+  ]
+}

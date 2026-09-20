@@ -1,0 +1,40 @@
+{
+  "id": "mg-356",
+  "deck": "l15",
+  "page": 2,
+  "title": "变化中的工作环境",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l15, original page 2, 变化中的工作环境; conceptual teaching artwork, not historical or statistical evidence. Subject: A contemporary community workshop with adults observing physical materials and unbranded connected devices, a large open window shows changing weather, concrete useful work rather than abstract holograms. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-3069a15b-f5d7-4085-a29d-3470aea4cd66.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-356.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-356.webp",
+  "originalSha256": "0df3d51ecca1e6beaed5cdae0e559cf8f22e5b285d18853d4e97cf0507903bcc",
+  "webSha256": "720380ee90db60d14766362cb60d94b7265ea9bf8b4c14f31c90b9ac5a10b3e6",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 242262,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "0df3d51ecca1e6beaed5cdae0e559cf8f22e5b285d18853d4e97cf0507903bcc",
+    "webSha256": "720380ee90db60d14766362cb60d94b7265ea9bf8b4c14f31c90b9ac5a10b3e6"
+  },
+  "pages": [
+    "mg-l15-s002-01"
+  ]
+}

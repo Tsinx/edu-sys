@@ -1,0 +1,40 @@
+{
+  "id": "mg-389",
+  "deck": "l16",
+  "page": 50,
+  "title": "隐性与显性知识",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l16, original page 50, 隐性与显性知识; conceptual teaching artwork, not historical or statistical evidence. Subject: An expert adult potter demonstrates subtle hand pressure to a learner beside a blank illustrated notebook without text, tactile knowledge and recorded knowledge together, anatomically natural hands. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-89a0aeda-477a-40f8-8efe-74f839721829.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-389.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-389.webp",
+  "originalSha256": "1392d7508b6f042d2b6cab09eb6564a4c4ba05a9815c47ec8aa426b49fbc1623",
+  "webSha256": "436d4c75754c81657bf6ec3ba5a5e7e2a0e94b8364606c9729900ac7822d2997",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 252404,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "1392d7508b6f042d2b6cab09eb6564a4c4ba05a9815c47ec8aa426b49fbc1623",
+    "webSha256": "436d4c75754c81657bf6ec3ba5a5e7e2a0e94b8364606c9729900ac7822d2997"
+  },
+  "pages": [
+    "mg-l16-s050-01"
+  ]
+}

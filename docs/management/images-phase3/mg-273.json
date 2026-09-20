@@ -1,0 +1,40 @@
+{
+  "id": "mg-273",
+  "deck": "l11",
+  "page": 7,
+  "title": "正式与非正式渠道",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l11, original page 7, 正式与非正式渠道; conceptual teaching artwork, not historical or statistical evidence. Subject: A refined academic illustration of a workshop with a scheduled small meeting in a glass room and a casual conversation at the adjacent tea counter, coherent single spatial composition. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-d4f8b510-8189-41d2-9cda-a12ff3d6da94.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-273.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-273.webp",
+  "originalSha256": "b6f9ea76d87e7cb06ea0ebe51a71fcca3957166e57f7d59a5d17532f45cba06a",
+  "webSha256": "befaa35f988de88f73c5f23d1b228433da5f22d57f7e29dd63a969fc6b13ad28",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 232018,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "b6f9ea76d87e7cb06ea0ebe51a71fcca3957166e57f7d59a5d17532f45cba06a",
+    "webSha256": "befaa35f988de88f73c5f23d1b228433da5f22d57f7e29dd63a969fc6b13ad28"
+  },
+  "pages": [
+    "mg-l11-s007-01"
+  ]
+}

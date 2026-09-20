@@ -1,0 +1,40 @@
+{
+  "id": "mg-366",
+  "deck": "l15",
+  "page": 26,
+  "title": "发现创新机会",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l15, original page 26, 发现创新机会; conceptual teaching artwork, not historical or statistical evidence. Subject: An observant adult examines the junction of an old water channel and a new garden path, subtle mismatched flow becomes an opportunity for a small practical improvement, no diagrams or impossible machinery. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-5fe8b1af-f6a1-4e6d-8a64-6c48ec2a8460.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-366.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-366.webp",
+  "originalSha256": "c9d005746549bba50f4170f83f5e3146466ac8db8faf7c701fcc9b097cdb0c44",
+  "webSha256": "2ffd175ebf3790c182c399bceb938337609072c9b6631608657218e5e6e9fcab",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 333924,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "c9d005746549bba50f4170f83f5e3146466ac8db8faf7c701fcc9b097cdb0c44",
+    "webSha256": "2ffd175ebf3790c182c399bceb938337609072c9b6631608657218e5e6e9fcab"
+  },
+  "pages": [
+    "mg-l15-s026-01"
+  ]
+}

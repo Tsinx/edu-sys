@@ -1,0 +1,40 @@
+{
+  "id": "mg-380",
+  "deck": "l16",
+  "page": 35,
+  "title": "权责与协调",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l16, original page 35, 权责与协调; conceptual teaching artwork, not historical or statistical evidence. Subject: A precise architectural still life of interlocking but separable stone and brass pieces, a stable shared foundation with distinct responsibilities suggested by form, no diagram labels. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-5818a9e3-54ad-4210-b7a1-44c28380773c.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-380.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-380.webp",
+  "originalSha256": "2e93e0f290f3fbfdf93f9af017391102ca0f3d4cfbf5e5bc1879111199067538",
+  "webSha256": "b3c60885c7d0c65a4ff733b5023d61480ac887510e81eed5ce55a0784d22b998",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 190090,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "2e93e0f290f3fbfdf93f9af017391102ca0f3d4cfbf5e5bc1879111199067538",
+    "webSha256": "b3c60885c7d0c65a4ff733b5023d61480ac887510e81eed5ce55a0784d22b998"
+  },
+  "pages": [
+    "mg-l16-s035-01"
+  ]
+}

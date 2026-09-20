@@ -1,0 +1,40 @@
+{
+  "id": "mg-258",
+  "deck": "l10",
+  "page": 54,
+  "title": "努力怎样通向结果",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 54, 努力怎样通向结果; conceptual teaching artwork, not historical or statistical evidence. Subject: A delicate continuous path of stepping stones crossing a shallow indoor water feature toward a luminous open workshop, a visible gap prompts thought about expectations, no arrows. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-a622be01-d01a-4602-9d84-4b19264cf927.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-258.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-258.webp",
+  "originalSha256": "d54a9ddf5943664802875aedab247247b0f3819ea52c25e29c43e3dbd6d0016a",
+  "webSha256": "cf94ca3fa40b0d58b6b3eca20d77f316929e3c258c5df99dbd66f2466f988b19",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 333310,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "d54a9ddf5943664802875aedab247247b0f3819ea52c25e29c43e3dbd6d0016a",
+    "webSha256": "cf94ca3fa40b0d58b6b3eca20d77f316929e3c258c5df99dbd66f2466f988b19"
+  },
+  "pages": [
+    "mg-l10-s054-01"
+  ]
+}

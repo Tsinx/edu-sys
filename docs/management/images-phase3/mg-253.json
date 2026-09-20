@@ -1,0 +1,40 @@
+{
+  "id": "mg-253",
+  "deck": "l10",
+  "page": 37,
+  "title": "三种理论视角",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 37, 三种理论视角; conceptual teaching artwork, not historical or statistical evidence. Subject: Three transparent optical lenses cast distinct overlapping pools of teal, ivory and gold light onto the same handcrafted human-scale object, motivation perspectives, no labels. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-0bf61d6c-bbb9-4acf-81ce-d612dde45793.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-253.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-253.webp",
+  "originalSha256": "06a760fd66f4f793b9bdaf94a124ab0e9ac85815c40eeec4c8d68cbe4e7c831c",
+  "webSha256": "aecea01d4740864edac6915a29a842b89279cf246d84858850cc2850dcd46563",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 125684,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "06a760fd66f4f793b9bdaf94a124ab0e9ac85815c40eeec4c8d68cbe4e7c831c",
+    "webSha256": "aecea01d4740864edac6915a29a842b89279cf246d84858850cc2850dcd46563"
+  },
+  "pages": [
+    "mg-l10-s037-01"
+  ]
+}

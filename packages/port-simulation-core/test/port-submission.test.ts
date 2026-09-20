@@ -64,11 +64,14 @@ test("old records are replayable without claiming complete rejected-operation co
   const verified = await verifyPortSubmission(await makePortSubmission(JSON.stringify(raw)));
   assert.equal(verified.result.traceCoverage, "legacy");
 });
-test("comprehensive submission requires completed battle and preserves scores and container evidence", { timeout: 180000 }, async () => {
+test("comprehensive submission accepts both modes and partial progress without claiming completion", { timeout: 180000 }, async () => {
   const practice = createPortSession("practice");
-  await assert.rejects(makePortSubmission(serializePortSession(practice)), /48小时/);
+  await assert.rejects(makePortSubmission(serializePortSession(practice)), /开始实验/);
+  applyPortCommand(practice, { kind: "start" }); applyPortCommand(practice, { kind: "pause" });
+  const partial = await verifyPortSubmission(await makePortSubmission(serializePortSession(practice), practice));
+  assert.equal(partial.result.mode, "practice"); assert.equal(partial.result.complete, false);
   const interrupted = createPortSession("battle"); applyPortCommand(interrupted, { kind: "start" }); applyPortCommand(interrupted, { kind: "interrupt" });
-  await assert.rejects(makePortSubmission(serializePortSession(interrupted)), /48小时/);
+  assert.equal((await verifyPortSubmission(await makePortSubmission(serializePortSession(interrupted), interrupted))).result.complete, false);
   const full = createPortSession("battle"); applyPortCommand(full, { kind: "start" }); applyPortCommand(full, { kind: "advance", seconds: 172800 });
   const pkg = await makePortSubmission(serializePortSession(full), full), verified = await verifyPortSubmission(pkg);
   assert.equal(verified.result.stateHash, await portStateHash(full));
@@ -77,3 +80,20 @@ test("comprehensive submission requires completed battle and preserves scores an
   const raw = JSON.parse(pkg.record); raw.schedule[0].ata++;
   await assert.rejects(verifyPortSubmission({ ...pkg, record: JSON.stringify(raw) }), /船期/);
 });
+
+for (const unit of ["arrival", "cargo", "yard", "planning", "departure"] as PortCourseUnit[]) {
+  test(`${unit}: battle uses the same fixture, never pauses at intermediate goals and replays mode`, async () => {
+    const run = createPortCourse(unit, undefined, "battle");
+    assert.deepEqual(run.fixture, createPortCourse(unit).fixture);
+    for (let i = 0; i < 1500 && !run.complete; i++) {
+      const step = nextPortCourseStep(run); assert.ok(step);
+      applyPortCourseCommand(run, step.command);
+      if (!run.complete) assert.notEqual(run.simulation.status, "paused");
+    }
+    assert.ok(run.complete);
+    const result = await verifyPortSubmission(await makePortSubmission(serializePortCourse(run), run.simulation));
+    assert.equal(result.result.mode, "battle"); assert.equal(result.result.score, 100);
+    const raw = JSON.parse(serializePortCourse(run)); raw.mode = "invalid";
+    await assert.rejects(makePortSubmission(JSON.stringify(raw)), /模式/);
+  });
+}

@@ -1,0 +1,40 @@
+{
+  "id": "mg-230",
+  "deck": "l9b",
+  "page": 28,
+  "title": "从个体到群体",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9b, original page 28, 从个体到群体; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult student quietly observes a small collaborative workshop then joins to help, social understanding expressed through natural interaction. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-b4f560ec-c793-45b5-abb5-46982d3286e9.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-230.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-230.webp",
+  "originalSha256": "af5f5aab8ed0cc853b65d6f11fef05b2e053d9c32618fc1ed946c54d8d67361c",
+  "webSha256": "841957e863b5923addbfa06f94559719efffcf5df577a1957ec23596ed10de86",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 195812,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "af5f5aab8ed0cc853b65d6f11fef05b2e053d9c32618fc1ed946c54d8d67361c",
+    "webSha256": "841957e863b5923addbfa06f94559719efffcf5df577a1957ec23596ed10de86"
+  },
+  "pages": [
+    "mg-l9b-s028-01"
+  ]
+}

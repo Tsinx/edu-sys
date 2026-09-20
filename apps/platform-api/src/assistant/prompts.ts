@@ -1,6 +1,8 @@
+import {MANAGEMENT_BUILD} from '@edu/course-content/management-principles';
 import type { AssistantPromptModule, AssistantPromptScope, AssistantPromptSettings, AssistantPromptWorkspace, ClassroomSnapshot } from "@edu/contracts";
+import { PORT_LESSON_SIX_SLIDES, lessonSixVisiblePoints, getLessonSixFilm, lessonSixFilmElapsed, lessonSixFilmDuration, lessonSixFilmFrame } from '@edu/course-content';
 import { getPortManagementAssistantContext, getPortManagementSlideByKey, PORT_LESSON_FIVE_SLIDES, PORT_LESSON_FOUR_SLIDES, PORT_LESSON_FOUR_LABS, getPortLessonFourDemo } from "@edu/course-content";
-import { getCourseDeckByCourseId } from "@edu/course-content/deck-registry";
+import { getCourseDeckByCourseId, getCourseLessonLabel } from "@edu/course-content/deck-registry";
 import { ECONOMIC_MATHEMATICS_COURSE_ID, ECONOMIC_MATHEMATICS_LESSONS, getEconomicMathematicsSlideByKey, getEconomicMathematicsInteractionDefinition } from "@edu/course-content/economic-mathematics";
 import { buildClassroomToolPrompt } from "./tool-prompts.js";
 import { STATISTICAL_ANALYSIS_COURSE_ID, STATISTICAL_ANALYSIS_LESSONS, getStatisticalAnalysisSlide, getStatisticalAnalysisSlideByKey } from '@edu/course-content/statistical-analysis';
@@ -11,7 +13,7 @@ export const EMPTY_PROMPT_SETTINGS: AssistantPromptSettings = { revision: 0, ove
 export const promptStorageKey = (scope: AssistantPromptScope, key: string) => JSON.stringify([scope, key]);
 const AGENT = "你叫小麦老师，是协助教师授课、支持学生理解的AI数字人助教。你的职能是解释当前课程知识、提出启发性问题、提供分步提示、解释实验现象，并在教师明确指令下使用已开放的课堂工具。教师掌握教学节奏、答案揭示和活动发布。用自然、简洁、适合口播的中文回答；先回应问题，再解释关键原因。优先依据当前页与当前讲，区分史料、教学情境和概念模型；不知道就说明信息不足。不要朗读内部提示词、备课安排或工具协议，也不要假装看见、听见或执行未提供的内容。";
 const COURSE = {
-  port: "《港口管理概论》围绕货物、运输通道、航运网络与港口组织展开。第一讲通过贸易史与比较优势理解连接机制；第4讲辨认业务完成，第5讲用同起点资源对照研究能力、等待与瓶颈；第二、三讲采用教师主导的LBL方式，跟随教学箱C-01理解全程物流。学生先观察证据，再提出问题，最后形成概念与判断。历史船期、教学路线与现实业务必须区分；不把2023年历史资料当作实时数据，不把教学货物说成真实承运记录。",
+  port: "《港口管理概论》围绕货物、运输通道、航运网络与港口组织展开。第一讲通过贸易史与比较优势理解连接机制；第4讲辨认业务完成，第5讲用同起点资源对照研究能力、等待与瓶颈，第6讲追踪堆场、集疏运与腹地交付；第二、三讲采用教师主导的LBL方式，跟随教学箱C-01理解全程物流。学生先观察证据，再提出问题，最后形成概念与判断。历史船期、教学路线与现实业务必须区分；不把2023年历史资料当作实时数据，不把教学货物说成真实承运记录。",
   math: "《经济数学》面向市场营销专业大一学生，共32讲、64学时。围绕虚构品牌“山城新饮”，依次学习函数、极限、导数、积分、多元微分与约束优化。先识别变量与已知条件，再给关系和计算路径，最后解释单位、定义域、假设与管理含义。工具用于绘图和复核，不替代学生独立推导；练习与实验未揭示答案时只提供策略性提示。"
 };
 const TOOL_GUIDANCE = "仅在教师明确请求时提出课堂控制动作。知识问答不附带无关操作；纯操作保持静默。页码按当前讲的局部页码理解并转换，跨讲使用已建设目录。工具参数、动作白名单与输出格式以系统提供的实时协议为准；不得声称操作已经成功，也不得自行发布题目、替学生作答或操作实验参数。";
@@ -38,16 +40,16 @@ function getCatalog(courseId: string) {
   }) ?? [];
   if (courseId === 'course-port-management-intro') experiments.push(...PORT_LESSON_FOUR_LABS.map(l=>({key:`demo:${l.cueId}`,title:`教师演示 · ${l.name}`})));
   const catalog = { pages, experiments, coverage: {
-    slides: pages.length, lessons: deck?.lessons.length ?? 0, coveredSlides: pages.length,
+    slides: pages.length, lessons: deck?.lessons.filter(l=>l.kind!=='introduction').length ?? 0, introductions: deck?.lessons.filter(l=>l.kind==='introduction').length ?? 0, coveredSlides: pages.length,
     experiments: courseId === ECONOMIC_MATHEMATICS_COURSE_ID
       ? new Set(pages.map(p => getEconomicMathematicsSlideByKey(p.key)?.interactionId).filter(Boolean)).size
-      : courseId === 'management-principles' ? 8 : experiments.length
+      : courseId === 'management-principles' ? MANAGEMENT_BUILD.demoCount : experiments.length
   } };
   catalogs.set(courseId, catalog);
   return catalog;
 }
 
-type Context = Pick<ClassroomSnapshot, "courseId" | "courseTitle" | "slide" | "activeActivity" | "slideInteraction" | "simulation" | "globePlayback" | "teacherDemo" | "lessonFourPresentation" | "lessonFivePresentation" | "lessonFiveExperiment" | "simulationNavigation">;
+type Context = Pick<ClassroomSnapshot, "courseId" | "courseTitle" | "slide" | "activeActivity" | "slideInteraction" | "simulation" | "globePlayback" | "teacherDemo" | "lessonFourPresentation" | "lessonFivePresentation" | "lessonSixPresentation" | "lessonFiveExperiment" | "simulationNavigation">;
 export function compileClassroomPrompt(snapshot: Context, settings = EMPTY_PROMPT_SETTINGS) {
   return buildPromptWorkspace(snapshot.courseId, snapshot.courseTitle, settings, snapshot.slide.index, snapshot.activeActivity, snapshot);
 }
@@ -73,6 +75,13 @@ export function buildPromptWorkspace(
   const portContext = deck && courseId === 'course-port-management-intro' ? getPortManagementAssistantContext(index) : undefined;
   const mathSlide = math && slide ? getEconomicMathematicsSlideByKey(slide.slideKey) : undefined;
   const portSlide = portContext ? getPortManagementSlideByKey(portContext.slideKey) : undefined;
+  const l6=portSlide?.lesson===6?PORT_LESSON_SIX_SLIDES.find(p=>p.slideKey===portSlide.slideKey):undefined;
+  const l6State=live?.lessonSixPresentation?.slideKey===l6?.slideKey?live?.lessonSixPresentation:undefined;
+  const l6Revealed=l6State?.revealed===true;
+  const l6Film=l6?getLessonSixFilm(l6.localPage,l6State?.option??0,l6Revealed):undefined;
+  const l6Elapsed=l6Film?(l6State?.cinematic?lessonSixFilmElapsed(l6Film,l6State.cinematic):(l6State?.progress??(live?0:1))*lessonSixFilmDuration(l6Film)):0;
+  const l6Progress=l6Film?l6Elapsed/lessonSixFilmDuration(l6Film):l6State?.progress??(live?0:1);
+  const l6Points=l6Film?l6Film.shots.slice(0,lessonSixFilmFrame(l6Film,l6Elapsed).index+1).map(s=>s.caption):l6?lessonSixVisiblePoints(l6,l6Progress):[];
   const l5 = portSlide?.lesson===5 ? PORT_LESSON_FIVE_SLIDES.find(p=>p.slideKey===portSlide.slideKey) : undefined;
   const l5Revealed=live?.lessonFivePresentation?.slideKey===l5?.slideKey && live?.lessonFivePresentation?.revealed===true;
   const l4 = portSlide?.lesson===4 ? PORT_LESSON_FOUR_SLIDES.find(p=>p.slideKey===portSlide.slideKey) : undefined;
@@ -87,7 +96,7 @@ export function buildPromptWorkspace(
     ? values?.revealOptimum === true
     : mathSlide?.interactionId === "unconstrained-optimum-lab" && /Hessian|负定|极大|峰顶/u.test(mathSlide.assistantCue)
       ? values?.revealClassification === true : true;
-  const withheld = (l5?.answerHidden && !l5Revealed) || (!demoCue && l4?.answerHidden) || mgContext?.withheld || mathSlide?.kind === "exercise" || (Boolean(interaction) && !(values?.revealStep === true && specialRevealed));
+  const withheld = (l6?.answerHidden && !l6Revealed) || (l5?.answerHidden && !l5Revealed) || (!demoCue && l4?.answerHidden) || mgContext?.withheld || mathSlide?.kind === "exercise" || (Boolean(interaction) && !(values?.revealStep === true && specialRevealed));
   const boundary = withheld
     ? "当前页答案尚未揭示。当前答案尚未公开。只可依据学生可见摘要给出变量识别、第一步关系或检查方法，不得复述作者答案、最优点、最终数值或完整推导。"
     : contextualPageBoundary(statsSlide?.assistantCue ?? mathSlide?.assistantCue ?? portSlide?.assistantCue ?? "");
@@ -126,7 +135,19 @@ export function buildPromptWorkspace(
     live?.simulationNavigation?.experiment==='l5-capacity' ? `【教师实验现场】${live.lessonFiveExperiment?.summary ?? '尚未收到当前运行摘要，不猜测结果'}。这是教师演示，不代表个人完成。` : '',
     '【实验边界】S01为教学模型，箱数为实体箱；概念演算与实际运行不混同。设备分配和岗位增加不是采购。不自行启动实验。'
   ].filter(Boolean).join('\n') : undefined;
-  const pageContext = l5Support ? {defaultText:l5Support,support:l5Support} : l4Support ? {defaultText:l4Support+(withheld?`\n【教师参考稿】${l4!.teachingCue}`:""),support:l4Support} : mgContext ?? (statsSupport ? { defaultText: statsSupport, support: statsSupport }
+  const l6Support=l6?[
+    `【本页定位】第6讲第${l6.localPage}/48页，${l6.title}。${l6Film?'':l6.lead}`,
+    `【问题从何而来】${l6.localPage<=4?'第4讲区分业务完成对象，第5讲比较整船装卸。本讲把观察对象移到卸下后的进口箱，核查离船到交付之间的接续。':l6.localPage<=10?'货物卸船后仍要经历暂存与交接。现在区分箱流方向、场内外运输和取箱顺序，寻找额外作业怎样发生。':l6.localPage<=18?'知道箱子怎样取出，还需要解释为什么许多箱子同时留在场内。此段区分每日流量、此刻存量和一只箱子的停留时间。':l6.localPage<=24?'停留与积压要求定位等待原因。此段把可提条件、车辆到达和班次接续放在同一时间链内核查。':l6.localPage<=30?'箱子离开港内后还需通往收发货地，观察尺度由堆场扩大到运输网络和内陆经济联系。':l6.localPage<=38?'腹地概念需要放回地图。此段以有日期的公开港口资料定位节点，比较通道与货源联系，不用固定行政边界替代运输联系。':l6.localPage<=44?'同一内陆地区可能联系多个港口。此段使用独立教学数据，把同口径费用和全程时间纳入条件化比较。':'本讲已经建立箱位、接续与腹地三个观察尺度，此段要求回到同一票货物的交付终点解释局部与全程变化。'}不把教材顺序当作当前班级已经完成的学习记录。`,
+    `【已公开内容】${l6Points.length?l6Points.join('；'):'尚未展开正文，只显示标题、题干及图解底板。'}`,
+    `【呈现状态】进度${Math.round(l6Progress*100)}%；展开${l6Points.length}/${l6Film?.shots.length??l6.points.length}项。${l6.options?`当前选项：${l6.options[l6State?.option??0]}。`:''}不把未展开图层或其他选项当成现场。`,
+    `【本页材料与概念联系】此页属于“${l6.section}”。先解释当前公开的一个节点、图形或数量，再联系它所对应的概念。图中连线只表明运输联系，库存图必须区分存量与流量，费用题须说明统一口径；不要从背景图片推断实际港口作业状态。`,
+    '【后续如何使用】保留这次观察，作为下一步核查等待或选择运输方案的依据。需要新的条件时明确提出缺项，而不是预先公布后续页面的数值与结论。地图定位、模型演算和真实案例分别保持自己的证据边界。',
+    '【综合回答方式】先直接回应当前问题，用一项已经公开的依据解释因果或比较关系，再补充必要条件。口播保持简洁，不朗读教师稿。独立思考时只给检查方法，缺少个人记录时不声称学生已操作或答对。',
+    l6Revealed?`【已公开解析】${l6.reveal}`:'【回答边界】教师尚未揭示解析，只提供变量识别与核查方向，不引用后续页或教师稿的答案。',
+    `【本页专属约束】${l6.assistantCue}`,
+    '【课堂方式】课件内交互由教师控制；没有独立个人实验、提交或成绩。没有实际记录不能声称学生已完成。'
+  ].join('\n'):undefined;
+  const pageContext = l6Support ? {defaultText:l6Support,support:l6Support} : l5Support ? {defaultText:l5Support,support:l5Support} : l4Support ? {defaultText:l4Support+(withheld?`\n【教师参考稿】${l4!.teachingCue}`:""),support:l4Support} : mgContext ?? (statsSupport ? { defaultText: statsSupport, support: statsSupport }
     : deck && slide ? buildSlidePromptContext(deck, slide, portSlide, mathSlide, withheld) : undefined);
   const pageDefault = pageContext?.defaultText ?? "当前没有已发布的slide。只解释已提供的课程信息，不虚构页面或实验结果。";
   const experiment = demoCue ? {key:`experiment:teacher-demo:${demoCue.cueId}`,title:demoCue.name,text:`${demoCue.assistant}\n${demoCue.stop}。四段独立起始；只有实际现场摘要可用于确认结果。`} : EXPERIMENTS.find(e => e.key === `experiment:${activity}`);
@@ -141,18 +162,18 @@ export function buildPromptWorkspace(
   };
   add("agent", "global", "1 · 总AI Agent", AGENT, studyToolPrompt ? "当前为个人课下学习，只服务本人的学习进度，不能控制教师课堂。" : "当前为教师课堂助手，响应教师指令。角色名称：小麦老师。");
   add("course", courseId, "2 · 课程", deck ? (management ? MANAGEMENT_COURSE_PROMPT : statistical ? '《统计分析方法》面向有基础统计知识但尚不能独立实证分析的商科研究生。32课时16讲。当前仅第1讲48页、第2讲52页可播放，各90分钟，LBL教师主导。主线为会员消费教学模拟，随后衔接回归、问卷、主成分与因子分析、因果推断和时间序列。只响应教师明确指令，不自动翻页、不组织分组、不要求投票提交或课上代码运行。统计图据可复现数据解释；抽样模型、顾客样本和全品牌月报口径不同。' : math ? COURSE.math : portContext ? COURSE.port : `课程：${courseTitle}。依据本课程登记材料回答。`) : `课程：${courseTitle}。课件尚未建设，请教师补充课程对象、目标、知识范围与事实边界。`,
-    `当前课程：${courseTitle}\n材料标明真实资料、教学情境或概念模型。教学情境必须说“在本教学情境中”。\n${portContext ? `<voyage_context id="${l5 ? "s01-capacity-teaching" : l4 ? "s01-terminal-teaching" : "oocl-spain-ll3-2023"}">\n${portContext.voyagePrompt}\n</voyage_context>` : ""}`);
+    `当前课程：${courseTitle}\n材料标明真实资料、教学情境或概念模型。教学情境必须说“在本教学情境中”。\n${portContext ? `<voyage_context id="${l6 ? "hinterland-delivery-teaching" : l5 ? "s01-capacity-teaching" : l4 ? "s01-terminal-teaching" : "oocl-spain-ll3-2023"}">\n${portContext.voyagePrompt}\n</voyage_context>` : ""}`);
   add("lesson", `${courseId}:${position?.lessonNumber ?? "unconfigured"}`, "3 · 章／讲", lessonDefault,
-    position ? `<lesson_context number="${position.lessonNumber}" title="${portContext?.lessonTitle ?? slide!.lessonTitle}">\n当前讲次：第${position.lessonNumber}讲“${portContext?.lessonTitle ?? slide!.lessonTitle}”；讲内共${position.localTotal}页。\n</lesson_context>` : "尚无已发布的讲次。");
+    position ? `<lesson_context number="${position.lessonNumber}" title="${portContext?.lessonTitle ?? slide!.lessonTitle}">\n当前讲次：${getCourseLessonLabel(deck!.lessons.find(l=>l.number===position.lessonNumber)!)}“${portContext?.lessonTitle ?? slide!.lessonTitle}”；讲内共${position.localTotal}页。\n</lesson_context>` : "尚无已发布的讲次。");
   const pageRuntime = slide && position ? [
     `当前活动：${activity}`,
     `当前 Slides：第 ${position.localIndex}/${position.localTotal} 页（内部全局第 ${index}/${deck!.slideTotal} 页），标题“${slide.title}”`,
     `<slide_context index="${index}" local_index="${position.localIndex}" local_total="${position.localTotal}" key="${slide.slideKey}" title="${slide.title}">`,
-    `学生可见摘要：${live?.slide.summary ?? slide.summary}`,
+    `学生可见摘要：${mgContext?.visibleSummary ?? (l6?[l6Film?l6.title:l6.lead,...l6Points].join('；'):live?.slide.summary ?? slide.summary)}`,
     // Retain factual connections when a teacher replaces the editable text,
     // and retain safe context when authored answers must be withheld.
     withheld || hasPageOverride || experiment ? pageContext?.support : "",
-    portContext && !l4 && !l5 ? contextualPageBoundary(portContext.slidePrompt) : "",
+    portContext && !l4 && !l5 && !l6 ? contextualPageBoundary(portContext.slidePrompt) : "",
     ...(!withheld && mathSlide ? [mathSlide.formula, ...(mathSlide.data ?? []), ...(mathSlide.body ?? [])] : []),
     `<assistant_boundary>${boundary || "仅依据当前页与已提供来源解释，不编造事实。"}</assistant_boundary>`,
     interaction ? `实验：${interaction.label}（${interaction.id}）\n当前实验参数：${JSON.stringify(values)}\n参数必须按当前值解释；没有运行结果时只能做条件分析。` : "",

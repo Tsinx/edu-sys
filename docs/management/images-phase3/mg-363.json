@@ -1,0 +1,40 @@
+{
+  "id": "mg-363",
+  "deck": "l15",
+  "page": 19,
+  "title": "重新理解价值",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l15, original page 19, 重新理解价值; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult team studies different uses for one modular public-space structure through tactile scale models, thoughtful strategic choice, no corporate identities or promised success. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-7ec9b5e9-7c5e-4180-8b4f-e2f464da9703.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-363.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-363.webp",
+  "originalSha256": "7ea756a439f6e6e409c8be4180a0691ee63ff06c835dbd7e1eb919325025dea5",
+  "webSha256": "554f9837c7b4adb15416c805409f3c34190fc9ba115fec5135cb4b79f612551a",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 240782,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "7ea756a439f6e6e409c8be4180a0691ee63ff06c835dbd7e1eb919325025dea5",
+    "webSha256": "554f9837c7b4adb15416c805409f3c34190fc9ba115fec5135cb4b79f612551a"
+  },
+  "pages": [
+    "mg-l15-s019-01"
+  ]
+}

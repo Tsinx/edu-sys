@@ -1,0 +1,40 @@
+{
+  "id": "mg-297",
+  "deck": "l12",
+  "page": 11,
+  "title": "工具与责任",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l12, original page 11, 工具与责任; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult quality coordinator and craftsperson examine a sample together in a bright workshop, blank checklist on a clipboard, equal respectful attention to their shared responsibility. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-678da17c-29c4-403f-9b74-0e05f25eacbc.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-297.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-297.webp",
+  "originalSha256": "71d1e49b8f6b7c50712d34efda54c4a3036fe427d041f2e2b3a69f1879de2bf4",
+  "webSha256": "fbe7d85b1d627b1aaf4fc584d62557472f0e60df8cb6fce6012bbb555dd1dc93",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 198476,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "71d1e49b8f6b7c50712d34efda54c4a3036fe427d041f2e2b3a69f1879de2bf4",
+    "webSha256": "fbe7d85b1d627b1aaf4fc584d62557472f0e60df8cb6fce6012bbb555dd1dc93"
+  },
+  "pages": [
+    "mg-l12-s011-01"
+  ]
+}

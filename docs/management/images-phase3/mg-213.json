@@ -1,0 +1,40 @@
+{
+  "id": "mg-213",
+  "deck": "l9",
+  "page": 34,
+  "title": "门店与管理者的协作",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 34, 门店与管理者的协作; conceptual teaching artwork, not historical or statistical evidence. Subject: A retail store manager and a visiting operations colleague inspect product placement together in a modest unbranded shop, equal footing and practical problem solving. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-88b830d6-bb23-4da0-ad66-66ca2d818366.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-213.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-213.webp",
+  "originalSha256": "5740cb9236c49036fe8e72b0eef88794decf3d5c49ba21912e7aa71f6b7d4015",
+  "webSha256": "d81a608e79d1a46dbf928270f9f8673b2ab77635d0d31fdbe5ac6ae175d6bf9c",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 218906,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "5740cb9236c49036fe8e72b0eef88794decf3d5c49ba21912e7aa71f6b7d4015",
+    "webSha256": "d81a608e79d1a46dbf928270f9f8673b2ab77635d0d31fdbe5ac6ae175d6bf9c"
+  },
+  "pages": [
+    "mg-l9-s034-01"
+  ]
+}

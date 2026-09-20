@@ -1,0 +1,40 @@
+{
+  "id": "mg-394",
+  "deck": "intro",
+  "page": 4,
+  "title": "组织与资源",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: intro, original page 4, 组织与资源; conceptual teaching artwork, not historical or statistical evidence. Subject: An overhead editorial still life of a civic project model, carefully limited materials, tools and personal notebooks arranged for shared use, resource coordination without charts or quantities. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-31efc567-474c-4fef-a01b-a026689b6418.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-394.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-394.webp",
+  "originalSha256": "cf7a5a567e880ec8ac493dd8a516b91741ed06d99def5ba5df000a1c53c22ef9",
+  "webSha256": "4eeef6933ab59308e9f55128eb92068540ed109fdce42d044bc83066c25bdec6",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 258102,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "cf7a5a567e880ec8ac493dd8a516b91741ed06d99def5ba5df000a1c53c22ef9",
+    "webSha256": "4eeef6933ab59308e9f55128eb92068540ed109fdce42d044bc83066c25bdec6"
+  },
+  "pages": [
+    "mg-intro-s004-01"
+  ]
+}

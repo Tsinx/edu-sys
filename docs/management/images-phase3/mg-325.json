@@ -1,0 +1,40 @@
+{
+  "id": "mg-325",
+  "deck": "l13",
+  "page": 39,
+  "title": "产品与工作质量",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 39, 产品与工作质量; conceptual teaching artwork, not historical or statistical evidence. Subject: A fine ceramic vessel beside the carefully maintained tools and clean work surface that produced it, product and process quality, tactile close-up editorial still life. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-e8eee0f3-4511-49c9-9691-02ed40cd4d44.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-325.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-325.webp",
+  "originalSha256": "943657b498f2adca567660cf4b2eac729ddc81b40722fc4f8058973333ecbd4a",
+  "webSha256": "1d3467f9f16b8f4f60c4d75912e2d92138f3795323c2206a525542e14d9725f7",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 214226,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "943657b498f2adca567660cf4b2eac729ddc81b40722fc4f8058973333ecbd4a",
+    "webSha256": "1d3467f9f16b8f4f60c4d75912e2d92138f3795323c2206a525542e14d9725f7"
+  },
+  "pages": [
+    "mg-l13-s039-01"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "mg-219",
+  "deck": "l9",
+  "page": 40,
+  "title": "人员与生产",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 40, 人员与生产; conceptual teaching artwork, not historical or statistical evidence. Subject: A humane modern craft workshop balances organized production stations with a welcoming shared break corner, visible practical links and no generic office tower. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-884e667e-3b47-4f8f-83c4-2716a48fe855.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-219.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-219.webp",
+  "originalSha256": "76612f9fa6a2f5a349430c75203f08f9e2f544e67687b674321344281201e3e7",
+  "webSha256": "69e9f1d8f694fc5ed5f35e0bdaccc701e6e87ceae66cb22fbfb48d73a6d25d2d",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 293464,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "76612f9fa6a2f5a349430c75203f08f9e2f544e67687b674321344281201e3e7",
+    "webSha256": "69e9f1d8f694fc5ed5f35e0bdaccc701e6e87ceae66cb22fbfb48d73a6d25d2d"
+  },
+  "pages": [
+    "mg-l9-s040-01"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "mg-274",
+  "deck": "l11",
+  "page": 11,
+  "title": "为什么是这两个人争论",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l11, original page 11, 为什么是这两个人争论; conceptual teaching artwork, not historical or statistical evidence. Subject: A still life in an adult university dormitory: a lit desk lamp, headphones, a folded sleeping mask and a quiet clock face without markings, conflicting routines implied, no people arguing. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-570b8aaf-5e06-416a-b6c5-2e872c97cea2.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-274.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-274.webp",
+  "originalSha256": "7a544457e2a81f7ef7b7667c0efffb32698dc5c9d0644688721470f0e338abec",
+  "webSha256": "995e605d51e9e64f4eb4f61c6db73816773b63529bd2de96bef35dbb07de5e00",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 169294,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "7a544457e2a81f7ef7b7667c0efffb32698dc5c9d0644688721470f0e338abec",
+    "webSha256": "995e605d51e9e64f4eb4f61c6db73816773b63529bd2de96bef35dbb07de5e00"
+  },
+  "pages": [
+    "mg-l11-s011-01"
+  ]
+}

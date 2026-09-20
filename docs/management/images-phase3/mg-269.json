@@ -1,0 +1,40 @@
+{
+  "id": "mg-269",
+  "deck": "l11",
+  "page": 1,
+  "title": "沟通：信息与理解",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l11, original page 1, 沟通：信息与理解; conceptual teaching artwork, not historical or statistical evidence. Subject: Two adult university colleagues on opposite sides of a translucent screen lean toward a small shared physical model through an open gap, communication and mutual understanding, elegant architectural metaphor. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-f24819fc-3f8c-4c47-882c-835a312183dd.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-269.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-269.webp",
+  "originalSha256": "72a45c74f04ce749522a2d59b8e7bf71673397b4fab750a7d53632e12ba2b42e",
+  "webSha256": "e25884ad60b7e01ac9dafa41da82a46706ec41b4c5ff9176cde8bca171cdbbd3",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 164824,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "72a45c74f04ce749522a2d59b8e7bf71673397b4fab750a7d53632e12ba2b42e",
+    "webSha256": "e25884ad60b7e01ac9dafa41da82a46706ec41b4c5ff9176cde8bca171cdbbd3"
+  },
+  "pages": [
+    "mg-l11-s001-01"
+  ]
+}

@@ -49,8 +49,9 @@ const act = (s: PortSession, c: PortCommand) => applyPortCommand(s, c, false);
 const ordinaryTopics = ["documents", "arrival", "work", "yard", "exception", "departure"];
 
 /** A separate, versioned single-call lesson fixture. The 48-hour generator and old replays are unchanged. */
-export function createPortCourse(unit: PortCourseUnit, schema: PortCourseRun["schema"] = PORT_COURSE_SCHEMA): PortCourseRun {
+export function createPortCourse(unit: PortCourseUnit, schema: PortCourseRun["schema"] = PORT_COURSE_SCHEMA, mode: PortSession["mode"] = "practice"): PortCourseRun {
   if (!isPortCourseUnit(unit)) throw new Error("未知课程分段。");
+  if (mode !== "practice" && mode !== "battle") throw new Error("场次模式无效。");
   const s = createPortSession("practice", undefined, undefined, schema === "port-course/1.0" ? "port-operations/3.0" : "port-operations/3.1");
   if (schema !== "port-course/1.2") delete s.scoringVersion;
   s.schedules = s.schedules.slice(0, 1);
@@ -86,6 +87,8 @@ export function createPortCourse(unit: PortCourseUnit, schema: PortCourseRun["sc
     }
   }
   s.status = "ready";
+  // Build the identical prepared scene before applying the learner's rules.
+  s.mode = mode;
   s.pauseReason = "";
   s.commands = [];
   const run: PortCourseRun = { schema, unit, simulation: s, commands: [], inputLog: [], traceCoverage: "complete", baselineAttempts: s.attempts.length, startSecond: s.second, configured: false, complete: false, reached: [] };
@@ -113,7 +116,7 @@ function settleCourse(r: PortCourseRun, pauseAtMilestone: boolean) {
   const goals = portCourseGoals(r), newly = goals.filter(g => g.done && !r.reached.includes(g.id));
   r.reached.push(...newly.map(g => g.id));
   r.complete = goals.every(g => g.done);
-  if (r.complete || pauseAtMilestone && newly.length && r.simulation.status === "running") {
+  if (r.complete || r.simulation.mode === "practice" && pauseAtMilestone && newly.length && r.simulation.status === "running") {
     r.simulation.status = "paused";
     r.simulation.pauseReason = r.complete ? "本段目标已完成，可复核记录、重练或进入下一段。" : `已验证：${newly.map(g => g.label).join("；")}。可查看结果后继续。`;
   }
@@ -225,16 +228,16 @@ export function portCoursePerformance(r: PortCourseRun) {
     submissionSpan: submitted.length > 1 ? Math.max(...submitted) - Math.min(...submitted) : 0 };
 }
 export type PortCourseView = ReturnType<typeof portCourseView>["lesson"];
-export function serializePortCourse(r: PortCourseRun, demo = false) { return JSON.stringify({ schema: r.schema, ...(r.schema !== "port-course/1.0" ? { navigationVersion: PORT_NAVIGATION_VERSION } : {}), unit: r.unit, demo, fixture: r.fixture, commands: r.commands, inputLog: r.inputLog ?? [], traceCoverage: r.traceCoverage ?? "complete" }); }
+export function serializePortCourse(r: PortCourseRun, demo = false) { return JSON.stringify({ schema: r.schema, mode: r.simulation.mode, ...(r.schema !== "port-course/1.0" ? { navigationVersion: PORT_NAVIGATION_VERSION } : {}), unit: r.unit, demo, fixture: r.fixture, commands: r.commands, inputLog: r.inputLog ?? [], traceCoverage: r.traceCoverage ?? "complete" }); }
 export function restorePortCourse(raw: string) {
   const data = JSON.parse(raw);
   if (![PORT_COURSE_SCHEMA, "port-course/1.0", "port-course/1.1"].includes(data.schema) || !isPortCourseUnit(data.unit) || !Array.isArray(data.commands) || data.commands.length > 50000) throw new Error("课程分段记录无效。");
   if(data.schema !== "port-course/1.0" && data.navigationVersion !== PORT_NAVIGATION_VERSION) throw new Error("航行规则版本无效。");
-  const r = createPortCourse(data.unit, data.schema);
+  const r = createPortCourse(data.unit, data.schema, data.mode ?? "practice");
   const inputs = data.inputLog ?? data.commands;
   if (!Array.isArray(inputs) || inputs.length > 50000) throw new Error("操作记录过多。");
   for (const command of inputs) applyPortCourseCommand(r, command, data.demo === true);
   r.traceCoverage = data.inputLog && data.traceCoverage !== "legacy" ? "complete" : "legacy";
-  if (!r.complete && r.simulation.status === "running") applyPortCourseCommand(r, { kind: "pause" });
+  if (!r.complete && r.simulation.status === "running") applyPortCourseCommand(r, { kind: r.simulation.mode === "battle" ? "interrupt" : "pause" });
   return r;
 }

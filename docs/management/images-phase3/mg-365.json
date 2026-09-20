@@ -1,0 +1,40 @@
+{
+  "id": "mg-365",
+  "deck": "l15",
+  "page": 24,
+  "title": "需求与人才",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l15, original page 24, 需求与人才; conceptual teaching artwork, not historical or statistical evidence. Subject: A craft entrepreneur listens to an adult customer while an experienced colleague teaches a new colleague at a nearby workbench, diverse ordinary adults, warm respectful observation, no logos. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-e14a23d2-63e7-438d-9063-b65bf5bf7f2d.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-365.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-365.webp",
+  "originalSha256": "5b3e4260bd10ba5652b44acab1e3530b94f75cbb26fac0271e78b7fb1dd71369",
+  "webSha256": "4438dc1b4fc2a1f843ab0e63fafe4d7186f778dd612112071f1c6437a8f35ecb",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 233844,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "5b3e4260bd10ba5652b44acab1e3530b94f75cbb26fac0271e78b7fb1dd71369",
+    "webSha256": "4438dc1b4fc2a1f843ab0e63fafe4d7186f778dd612112071f1c6437a8f35ecb"
+  },
+  "pages": [
+    "mg-l15-s024-01"
+  ]
+}

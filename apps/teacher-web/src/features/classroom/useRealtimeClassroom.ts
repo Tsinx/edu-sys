@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, type RefObject } from "react";
 import type { ClassroomSnapshot } from "@edu/contracts";
 import type { LamAvatarController } from "./LamAvatarSurface";
-import { RealtimeVoiceClient, type RealtimeCaptureSink } from "./realtime-voice";
+import { realtimeErrorMessage, RealtimeVoiceClient, type RealtimeCaptureSink } from "./realtime-voice";
 
 export function useRealtimeClassroom(sessionId: string, enabled: boolean, contextKey: string, callbacks: {
   avatar: RefObject<LamAvatarController | null>;
@@ -18,7 +18,7 @@ export function useRealtimeClassroom(sessionId: string, enabled: boolean, contex
     let text = "";
     return new RealtimeVoiceClient(sessionId, event => {
       const cb = latest.current;
-      if (event.type === "session.ready") cb.notice("实时语音连接已就绪。");
+      if (event.type === "session.ready") { cb.error(""); cb.notice("实时语音连接已就绪。"); }
       if (event.type === "input.transcript") cb.notice(`语音识别：“${event.text}”`);
       if (event.type === "turn.started") text = "";
       if (event.type === "dialogue.delta") { text += event.delta; cb.transcript(text); cb.phase("streaming"); cb.avatar.current?.pushRealtimeText?.(event.turnId, event.delta); }
@@ -40,7 +40,7 @@ export function useRealtimeClassroom(sessionId: string, enabled: boolean, contex
       if (event.type === "error" || event.type === "turn.cancelled") {
         playback.current = undefined;
         cb.avatar.current?.interrupt(); cb.phase("idle");
-        if (event.type === "error") cb.error(`${event.message} 请重新开始，或使用文字输入。`);
+        if (event.type === "error") cb.error(realtimeErrorMessage(event.message));
       }
     });
   }, [sessionId]);
@@ -54,8 +54,9 @@ export function useRealtimeClassroom(sessionId: string, enabled: boolean, contex
   }, [contextKey]);
   useEffect(() => {
     if (!enabled) return;
-    void client.prepare().catch(error => latest.current.error(`${error.message} 请检查实时服务连接，或使用文字输入。`));
-    return () => { playback.current = undefined; client.close(); latest.current.avatar.current?.interrupt(); latest.current.phase("idle"); };
+    let active = true;
+    void client.prepare().catch(error => { if (active) latest.current.error(realtimeErrorMessage(error.message)); });
+    return () => { active = false; playback.current = undefined; client.close(); latest.current.avatar.current?.interrupt(); latest.current.phase("idle"); };
   }, [client, enabled]);
   const sink = useMemo<RealtimeCaptureSink>(() => ({
     prepare: () => { latest.current.avatar.current?.interrupt(); return client.prepare(); },

@@ -38,6 +38,39 @@ try {
   await page.waitForFunction(()=>document.querySelector('.live2d-avatar__canvas>svg')?.style.display==='none');
   assert.equal(await page.locator('output').textContent(),'ready');
   checks.push('interrupt hides articulation immediately and restores native neutral mouth');
+  // Realtime PCM has no phonetic cues. Exercise voiced peaks, quieter syllables
+  // and short pauses through the actual Web Audio meter and rendered SVG.
+  await page.unroute('**/api/teacher/tts');
+  const rhythmicPcm=Buffer.alloc(24000*2*5);
+  for(let i=0;i<24000*5;i++) {
+    const phase=(i/24000)%0.8;
+    const amplitude=phase<0.25?0.28:phase<0.55?0.055:0;
+    rhythmicPcm.writeInt16LE(Math.round(Math.sin(i*2*Math.PI*180/24000)*32767*amplitude),i*2);
+  }
+  await page.route('**/api/teacher/tts',route=>route.fulfill({contentType:'text/event-stream',body:`data: ${JSON.stringify({audioBase64:rhythmicPcm.toString('base64'),sampleRate:24000})}\n\n`}));
+  await page.getByRole('button',{name:'讲解',exact:true}).click();
+  await page.waitForFunction(()=>document.querySelector('[data-xiaomai-mouth]')?.style.display==='block');
+  const articulation=await page.evaluate(async()=>{
+    const cavity=document.querySelectorAll('[data-xiaomai-mouth] path')[2];
+    const frames=[];
+    await new Promise(resolve=>{
+      const started=performance.now();
+      const sample=()=>{
+        const coordinates=cavity.getAttribute('d').match(/-?\d+(?:\.\d+)?(?:e[+-]?\d+)?/gi).map(Number);
+        frames.push({at:performance.now()-started,bottom:coordinates[9],closed:cavity.style.display==='none'});
+        if(performance.now()-started<3200)requestAnimationFrame(sample);else resolve();
+      };requestAnimationFrame(sample);
+    });
+    return frames;
+  });
+  const open=articulation.filter(f=>!f.closed);
+  assert.ok(Math.max(...open.map(f=>f.bottom))-Math.min(...open.map(f=>f.bottom))>5,'voiced syllables must visibly vary aperture');
+  assert.ok(articulation.filter((f,i)=>f.closed && i>0 && !articulation[i-1].closed).length>=3,'each short pause must close the mouth');
+  await page.waitForFunction(()=>document.querySelectorAll('[data-xiaomai-mouth] path')[2]?.style.display!=='none');
+  await avatar.screenshot({path:resolve(output,'acoustic-speaking.png')});
+  await page.getByRole('button',{name:'打断',exact:true}).click();
+  await page.waitForFunction(()=>document.querySelector('[data-xiaomai-mouth]')?.style.display==='none');
+  checks.push({name:'PCM without visemes retains syllable contrast and closes at short pauses',frames:articulation.length});
   await page.setViewportSize({width:390,height:844});
   await page.getByRole('button',{name:'讲解',exact:true}).click();await page.waitForTimeout(3300);
   await avatar.screenshot({path:resolve(output,'narrow-speaking.png')});
@@ -50,6 +83,6 @@ try {
   assert.equal(await page.locator('.live2d-avatar__canvas>svg').count(),0);
   checks.push('switching to video releases the custom mouth');
   assert.deepEqual(errors,[]);
-  await writeFile(resolve(output,'browser-report.json'),JSON.stringify({checks,errors,paths},null,2));
+  await writeFile(resolve(output,'browser-report.json'),JSON.stringify({checks,errors,paths,articulation},null,2));
   console.log(JSON.stringify({checks,errors}));
 } finally {await browser.close();}

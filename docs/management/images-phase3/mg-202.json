@@ -1,0 +1,40 @@
+{
+  "id": "mg-202",
+  "deck": "l9",
+  "page": 20,
+  "title": "领导者、成员与情境",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 20, 领导者、成员与情境; conceptual teaching artwork, not historical or statistical evidence. Subject: A small sailing crew adjusts a vessel together in a sheltered harbor under changing clouds, clear mutual attention and realistic safe posture, no heroic lone captain. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-1b13e5e5-38bd-4a6b-bdc8-837aa5239e0d.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-202.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-202.webp",
+  "originalSha256": "8a6a5d327211d3014cc9a4f9f7251c205d5de253486cd533e2ee9803633ffbe1",
+  "webSha256": "c90a901f4949ae2b0e0986fdb2ea4d95c881db8d9f655a783f06eccc3f61f614",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 268412,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "8a6a5d327211d3014cc9a4f9f7251c205d5de253486cd533e2ee9803633ffbe1",
+    "webSha256": "c90a901f4949ae2b0e0986fdb2ea4d95c881db8d9f655a783f06eccc3f61f614"
+  },
+  "pages": [
+    "mg-l9-s020-01"
+  ]
+}

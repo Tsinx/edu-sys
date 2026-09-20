@@ -1,0 +1,40 @@
+{
+  "id": "mg-268",
+  "deck": "l10",
+  "page": 79,
+  "title": "整体回报的四个维度",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 79, 整体回报的四个维度; conceptual teaching artwork, not historical or statistical evidence. Subject: An abstract four-part architectural courtyard with a secure shelter, shared garden, learning studio and focused workroom linked by open paths, total rewards metaphor, no charts or brand identity. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-8741ada4-6d14-4110-84bd-0ff49dd5c2c3.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-268.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-268.webp",
+  "originalSha256": "93cdce3a86efb5325a34f2ca36ff03c3c8bc55492fd3cdaa9b78a41328ebeb0f",
+  "webSha256": "c366511c9729ba39500f47255e66a9de6130fe07b383aab0fc69088d6f10fe36",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 398462,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "93cdce3a86efb5325a34f2ca36ff03c3c8bc55492fd3cdaa9b78a41328ebeb0f",
+    "webSha256": "c366511c9729ba39500f47255e66a9de6130fe07b383aab0fc69088d6f10fe36"
+  },
+  "pages": [
+    "mg-l10-s079-01"
+  ]
+}

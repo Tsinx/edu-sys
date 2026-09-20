@@ -1,0 +1,40 @@
+{
+  "id": "mg-294",
+  "deck": "l12",
+  "page": 8,
+  "title": "不同层级的观察",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l12, original page 8, 不同层级的观察; conceptual teaching artwork, not historical or statistical evidence. Subject: An architectural cutaway of three connected workshop levels, adults consider long-term design at the upper level and production details below, no labels, arrows or pyramid hierarchy. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-c8ca41d9-43ba-4bf9-93dc-7042a2792bd1.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-294.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-294.webp",
+  "originalSha256": "fd81a09844437d9d657487db05013fd9d4996fabb6e796419dddd767671879fc",
+  "webSha256": "4b011b80b5dac871d5a8a6d29ad421249ba338cbc5750630ef4312f5c26be0aa",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 358420,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "fd81a09844437d9d657487db05013fd9d4996fabb6e796419dddd767671879fc",
+    "webSha256": "4b011b80b5dac871d5a8a6d29ad421249ba338cbc5750630ef4312f5c26be0aa"
+  },
+  "pages": [
+    "mg-l12-s008-01"
+  ]
+}

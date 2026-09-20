@@ -1,0 +1,40 @@
+{
+  "id": "mg-195",
+  "deck": "l9",
+  "page": 8,
+  "title": "影响与共同方向",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 8, 影响与共同方向; conceptual teaching artwork, not historical or statistical evidence. Subject: A chamber music ensemble rehearses in a sunlit warm-white studio, a standing conductor quietly listens as seated adult musicians coordinate; no stage spectacle. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-f712fc94-202b-4809-a6c0-d08ec52ebe08.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-195.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-195.webp",
+  "originalSha256": "27817c20516293faa0b17ad9b685e2a67ef21b5b6fc59ebbddab0248f56b30cf",
+  "webSha256": "30d20efa5d100248a951adbb91abafb04860ae15bc302b5abc6f1821b78f72a7",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 236460,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "27817c20516293faa0b17ad9b685e2a67ef21b5b6fc59ebbddab0248f56b30cf",
+    "webSha256": "30d20efa5d100248a951adbb91abafb04860ae15bc302b5abc6f1821b78f72a7"
+  },
+  "pages": [
+    "mg-l9-s008-01"
+  ]
+}

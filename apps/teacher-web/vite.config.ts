@@ -30,6 +30,7 @@ export default defineConfig({
         globePreview: resolve(teacherWebRoot, "globe-preview.html"),
         portLblPreview: resolve(teacherWebRoot, "port-lbl-preview.html"),
         portLessonFivePreview: resolve(teacherWebRoot, "port-lesson-five-preview.html"),
+        portLessonSixPreview: resolve(teacherWebRoot, "port-lesson-six-preview.html"),
         portLessonFourPreview: resolve(teacherWebRoot, "port-lesson-four-preview.html"),
         portSimulationPreview: resolve(
           teacherWebRoot,
@@ -60,7 +61,10 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: apiProxyTarget,
-        changeOrigin: true
+        // Realtime voice uses this same-origin WebSocket route. Preserve Host
+        // so the API can validate it against the browser's unchanged Origin.
+        changeOrigin: false,
+        ws: true
       },
       "/openavatarchat-runtime": {
         target: "http://127.0.0.1:8282",

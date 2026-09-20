@@ -1,0 +1,40 @@
+{
+  "id": "mg-354",
+  "deck": "l14",
+  "page": 51,
+  "title": "复盘与修复",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l14, original page 51, 复盘与修复; conceptual teaching artwork, not historical or statistical evidence. Subject: A repaired bridge model sits beside original construction plans without text, adult team members calmly examine reinforced joints and document lessons on blank paper, recovery and learning. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-726fd20d-55ba-45b8-9ddf-82c23c4d54f0.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-354.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-354.webp",
+  "originalSha256": "bce503105ef77d7971258ea9af27d54bb0d1c26a54ac5526e03889db0cadca99",
+  "webSha256": "f8a6724e58ec6b7233071819d51ae8c82c858cf314bd1751a192f062d343f238",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 238358,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "bce503105ef77d7971258ea9af27d54bb0d1c26a54ac5526e03889db0cadca99",
+    "webSha256": "f8a6724e58ec6b7233071819d51ae8c82c858cf314bd1751a192f062d343f238"
+  },
+  "pages": [
+    "mg-l14-s051-01"
+  ]
+}

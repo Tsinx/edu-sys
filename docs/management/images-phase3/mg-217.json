@@ -1,0 +1,40 @@
+{
+  "id": "mg-217",
+  "deck": "l9",
+  "page": 38,
+  "title": "授权的程度",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 38, 授权的程度; conceptual teaching artwork, not historical or statistical evidence. Subject: An experienced designer gradually steps back as an adult colleague chooses and assembles components independently, one continuous realistic scene, no arrows. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-a35b380c-b822-4a8e-845c-d50a9436a5d4.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-217.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-217.webp",
+  "originalSha256": "f9351a95c1cd7c822e87f4365a170bf9e0f54586d4da9fe31a53c8932a84ff14",
+  "webSha256": "88a3dfaeeb3aae142eabec88b7bee481b23305bfa83b8c63557e2b6cc7d7fd3d",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 214052,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "f9351a95c1cd7c822e87f4365a170bf9e0f54586d4da9fe31a53c8932a84ff14",
+    "webSha256": "88a3dfaeeb3aae142eabec88b7bee481b23305bfa83b8c63557e2b6cc7d7fd3d"
+  },
+  "pages": [
+    "mg-l9-s038-01"
+  ]
+}

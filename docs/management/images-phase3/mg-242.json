@@ -1,0 +1,40 @@
+{
+  "id": "mg-242",
+  "deck": "l10",
+  "page": 14,
+  "title": "私人信息",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 14, 私人信息; conceptual teaching artwork, not historical or statistical evidence. Subject: A folded translucent envelope beside an open geometric object and an opaque closed object, asymmetrical visibility in a calm museum display, no text or seals. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-8120f6e9-f209-452f-af99-b0ed81e8dded.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-242.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-242.webp",
+  "originalSha256": "b9a230f1f4467e674513b3af5c260eea1e5c6a07f35f427eb074c260aac64eb5",
+  "webSha256": "cd00381691d2f6954072812ab535f63fcf0b22ea46b10c352bb27e35c388f74b",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 136342,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "b9a230f1f4467e674513b3af5c260eea1e5c6a07f35f427eb074c260aac64eb5",
+    "webSha256": "cd00381691d2f6954072812ab535f63fcf0b22ea46b10c352bb27e35c388f74b"
+  },
+  "pages": [
+    "mg-l10-s014-01"
+  ]
+}

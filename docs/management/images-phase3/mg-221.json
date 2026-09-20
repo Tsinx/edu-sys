@@ -1,0 +1,40 @@
+{
+  "id": "mg-221",
+  "deck": "l9",
+  "page": 42,
+  "title": "高层团队的经验",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 42, 高层团队的经验; conceptual teaching artwork, not historical or statistical evidence. Subject: A diverse adult leadership team evaluates the same physical city-service model from different sides, each brings different work materials, no demographic ranking. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-2877f039-74b0-400a-ae32-67a1a02a11cb.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-221.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-221.webp",
+  "originalSha256": "56bdabaf0e3b2cfb3f35c296670c9c1d53b9d068f9bc322d38a4ced4a947c69a",
+  "webSha256": "a3cc1f0f041596ec7e3f78e3d59962628af7443a429615e58889fb2f30bbc7cd",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 234650,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "56bdabaf0e3b2cfb3f35c296670c9c1d53b9d068f9bc322d38a4ced4a947c69a",
+    "webSha256": "a3cc1f0f041596ec7e3f78e3d59962628af7443a429615e58889fb2f30bbc7cd"
+  },
+  "pages": [
+    "mg-l9-s042-01"
+  ]
+}

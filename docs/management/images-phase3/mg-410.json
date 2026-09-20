@@ -1,0 +1,40 @@
+{
+  "id": "mg-410",
+  "deck": "intro",
+  "page": 53,
+  "title": "理论联系实际",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: intro, original page 53, 理论联系实际; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult team compares a simple architectural model with the actual courtyard outside a workshop, observing conditions and discussing revisions, theory tested through practical work, calm academic art-book mood. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-eb280985-3fff-4865-a382-5086fe8208c4.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-410.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-410.webp",
+  "originalSha256": "33f587168553e7353374a570951fa0b9264afbe9f926546890bc6e92f0975d46",
+  "webSha256": "ff9f09a96a283844812c5760ded0f97d726da1242ff191b5dddc4ac17489aebc",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 325924,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "33f587168553e7353374a570951fa0b9264afbe9f926546890bc6e92f0975d46",
+    "webSha256": "ff9f09a96a283844812c5760ded0f97d726da1242ff191b5dddc4ac17489aebc"
+  },
+  "pages": [
+    "mg-intro-s053-01"
+  ]
+}

@@ -149,7 +149,7 @@ export function Live2DAvatarPlayer(props: Live2DAvatarPlayerProps) {
           painted?.update(pose,state==="speaking");eyes?.update(pose); mouth?.setPose(pose);
           const expression=state!=="speaking" && pose.expressionOpen>.05;
           hideMouth=state==="speaking"||expression;
-          mouth?.update(expression?"F":current.current.readViseme?.(), expression?.08:mouthLevel, deltaSeconds, state === "speaking"||expression, pose.smile);
+          mouth?.update(expression?"F":current.current.readViseme?.(), expression?.6:mouthLevel, deltaSeconds, state === "speaking"||expression, pose.smile);
           core.setParameterValueById("ParamEyeLOpen", pose.eyeOpen);
           core.setParameterValueById("ParamEyeROpen", pose.eyeOpen);
           core.setParameterValueById("ParamMouthOpenY", expression?1:mouthLevel);

@@ -1,0 +1,40 @@
+{
+  "id": "mg-386",
+  "deck": "l16",
+  "page": 44,
+  "title": "共同的行为准则",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l16, original page 44, 共同的行为准则; conceptual teaching artwork, not historical or statistical evidence. Subject: Adults in a shared studio care for tools, welcome a colleague and coordinate quietly, culture expressed through ordinary visible actions, no slogans or abstract business icons. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-78690ca3-1897-4683-a948-3c3e86c1508f.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-386.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-386.webp",
+  "originalSha256": "faffce9e6301da41d6827815548fc4d129e536ac03e12c956594952177d21128",
+  "webSha256": "a9e3fbca0156227e1d60ddf5e9fb1f05a1aec4f061c41440d974ff3af2b7413d",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 271498,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "faffce9e6301da41d6827815548fc4d129e536ac03e12c956594952177d21128",
+    "webSha256": "a9e3fbca0156227e1d60ddf5e9fb1f05a1aec4f061c41440d974ff3af2b7413d"
+  },
+  "pages": [
+    "mg-l16-s044-01"
+  ]
+}

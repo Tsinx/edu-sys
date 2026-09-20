@@ -1,0 +1,40 @@
+{
+  "id": "mg-357",
+  "deck": "l15",
+  "page": 5,
+  "title": "从想法走向实践",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l15, original page 5, 从想法走向实践; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult designer compares a rough clay prototype with a carefully made working object on a warm stone table, materials and tool marks visible, no charts or text. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-b2b07fdb-1f4d-4724-bac3-94c1829ea0e8.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-357.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-357.webp",
+  "originalSha256": "493c636d2f348b5e18c4173fb7e1923f22cd5ffb11e96df2585205d2e3203f6e",
+  "webSha256": "6125b9e9fc0ec31d43e7f680fc6ef10520cdb4399c1915a703b89e20ab4d615d",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 171808,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "493c636d2f348b5e18c4173fb7e1923f22cd5ffb11e96df2585205d2e3203f6e",
+    "webSha256": "6125b9e9fc0ec31d43e7f680fc6ef10520cdb4399c1915a703b89e20ab4d615d"
+  },
+  "pages": [
+    "mg-l15-s005-01"
+  ]
+}

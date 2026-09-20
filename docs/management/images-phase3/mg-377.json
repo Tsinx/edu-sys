@@ -1,0 +1,40 @@
+{
+  "id": "mg-377",
+  "deck": "l16",
+  "page": 11,
+  "title": "参与改变",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l16, original page 11, 参与改变; conceptual teaching artwork, not historical or statistical evidence. Subject: Adult service staff and a coordinator collaboratively test a movable reception counter, practical employee participation, blank paper and physical model, no coercion or corporate branding. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-c2f9daca-6072-4e80-a90f-4d3b2a0f3617.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-377.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-377.webp",
+  "originalSha256": "8d6f37228e039a292ce60de9f9cccb1784dc36e3d473e9d79f2b8f4b8c4a3d08",
+  "webSha256": "b18f93dc97178e1023629daf9a7f52f45597210058e97a5d42aa930c12e5846a",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 241610,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "8d6f37228e039a292ce60de9f9cccb1784dc36e3d473e9d79f2b8f4b8c4a3d08",
+    "webSha256": "b18f93dc97178e1023629daf9a7f52f45597210058e97a5d42aa930c12e5846a"
+  },
+  "pages": [
+    "mg-l16-s011-01"
+  ]
+}

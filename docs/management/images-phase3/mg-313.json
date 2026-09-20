@@ -1,0 +1,40 @@
+{
+  "id": "mg-313",
+  "deck": "l13",
+  "page": 11,
+  "title": "组织内部的交换",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 11, 组织内部的交换; conceptual teaching artwork, not historical or statistical evidence. Subject: Two adult workshop teams exchange carefully crafted components across a shared material counter, reciprocal internal service and cooperation, no sales signage or literal markets. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-82dceeee-9918-40b3-af9e-18d171cd140d.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-313.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-313.webp",
+  "originalSha256": "6ae9af0a7b0540d7417aab23eaca3a022851face8fc14ab76b7bf513ac3d24e7",
+  "webSha256": "251c34bf18582a212f6c870f82014b4cee6118e1b6472f8151181c5ec2348417",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 215872,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "6ae9af0a7b0540d7417aab23eaca3a022851face8fc14ab76b7bf513ac3d24e7",
+    "webSha256": "251c34bf18582a212f6c870f82014b4cee6118e1b6472f8151181c5ec2348417"
+  },
+  "pages": [
+    "mg-l13-s011-01"
+  ]
+}

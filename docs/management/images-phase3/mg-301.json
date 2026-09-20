@@ -1,0 +1,40 @@
+{
+  "id": "mg-301",
+  "deck": "l12",
+  "page": 21,
+  "title": "一句任务留下的空白",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l12, original page 21, 一句任务留下的空白; conceptual teaching artwork, not historical or statistical evidence. Subject: Two adult office colleagues thoughtfully examine a blank document beside a small unmarked clock, unclear task expectations conveyed through contemplative posture, no angry caricature. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-8c3d0278-2c3b-40b1-92b1-0782ceb5f5d6.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-301.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-301.webp",
+  "originalSha256": "37b96671f85d052236dbd6f225694634170964b54db69c7ded7488008c4593a8",
+  "webSha256": "1c1b28dc540325ff9636dfa39d2fb09ddc34949ee196e193c37a760b4b00f93b",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 152806,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "37b96671f85d052236dbd6f225694634170964b54db69c7ded7488008c4593a8",
+    "webSha256": "1c1b28dc540325ff9636dfa39d2fb09ddc34949ee196e193c37a760b4b00f93b"
+  },
+  "pages": [
+    "mg-l12-s021-01"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "mg-312",
+  "deck": "l13",
+  "page": 7,
+  "title": "资金与经营活动",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 7, 资金与经营活动; conceptual teaching artwork, not historical or statistical evidence. Subject: A conceptual composition of a small workshop, material stock and finished objects connected by continuous architectural space, financial control as attention to resources and outcomes, no money or numbers. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-91b0971a-d13b-4449-977e-41a6029d3ee3.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-312.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-312.webp",
+  "originalSha256": "d225120f17bd43494d6872422ce180173b00439f9e4a9e4ba4679c723c1f4f05",
+  "webSha256": "57ab9526e11ff53605405c00066524009feda63559c250c1c439ca925b6b3571",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 241866,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "d225120f17bd43494d6872422ce180173b00439f9e4a9e4ba4679c723c1f4f05",
+    "webSha256": "57ab9526e11ff53605405c00066524009feda63559c250c1c439ca925b6b3571"
+  },
+  "pages": [
+    "mg-l13-s007-01"
+  ]
+}

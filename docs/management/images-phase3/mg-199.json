@@ -1,0 +1,40 @@
+{
+  "id": "mg-199",
+  "deck": "l9",
+  "page": 14,
+  "title": "凝聚与协调",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 14, 凝聚与协调; conceptual teaching artwork, not historical or statistical evidence. Subject: A group of adult volunteers calmly positions the final roof of a small community pavilion model, a coordinator both listens and helps align the parts. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-d325bc56-5911-4fe7-8f41-cf8010b7b30f.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-199.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-199.webp",
+  "originalSha256": "63668425b4fbdc98e1d2ba406386231bc0197db9aad971cb8068619412c23259",
+  "webSha256": "124a499c7dd039bcd64a37cd0ec24f1627c42507284a98bf3cf311e34b5a23c6",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 216702,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "63668425b4fbdc98e1d2ba406386231bc0197db9aad971cb8068619412c23259",
+    "webSha256": "124a499c7dd039bcd64a37cd0ec24f1627c42507284a98bf3cf311e34b5a23c6"
+  },
+  "pages": [
+    "mg-l9-s014-01"
+  ]
+}

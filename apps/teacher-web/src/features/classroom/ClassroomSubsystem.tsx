@@ -1,4 +1,6 @@
 import { PortLessonFiveControls, type LessonFivePresentation } from "../port-lesson-five/PortLessonFiveStage";
+import { PortLessonSixControls } from '../port-lesson-six/PortLessonSixStage';
+import type { LessonSixPresentation } from '@edu/course-content';
 import { lessonFiveExperimentUrl } from "../port-lesson-five/navigation";
 import type { LessonFivePlan } from "@edu/course-content";
 import { PortLessonFourControls } from "../port-lesson-four/PortLessonFourStage";
@@ -12,7 +14,7 @@ import type {
   LamRuntimeStatus,
   SlideInteractionValues
 } from "@edu/contracts";
-import type { CourseDeckDescriptor } from "@edu/course-content/deck-registry";
+import { getCourseAdjacentIndex, getCourseLessonLabel, type CourseDeckDescriptor } from "@edu/course-content/deck-registry";
 import {
   getPortManagementGlobeCue,
   getPortManagementGlobalSlideIndex,
@@ -478,6 +480,23 @@ export function ClassroomSubsystem() {
     }
   }
 
+  const lessonSixReportRef=useRef({last:0,key:"",revealed:false,option:0});
+  const lessonSixQueue=useRef(Promise.resolve());
+  const lessonSixTrailing=useRef<ReturnType<typeof setTimeout>|undefined>(undefined);
+  useEffect(()=>()=>clearTimeout(lessonSixTrailing.current),[]);
+  function reportLessonSix(slideKey:string,value:LessonSixPresentation){
+    if(snapshotRef.current?.slide.slideId!==slideKey)return;
+    const last=lessonSixReportRef.current,now=Date.now();
+    clearTimeout(lessonSixTrailing.current);
+    if(last.key===slideKey&&last.revealed===value.revealed&&last.option===value.option&&now-last.last<300&&value.progress!==0&&value.progress!==1){
+      lessonSixTrailing.current=setTimeout(()=>reportLessonSix(slideKey,value),300-(now-last.last));return;
+    }
+    lessonSixReportRef.current={last:now,key:slideKey,revealed:value.revealed,option:value.option};
+    lessonSixQueue.current=lessonSixQueue.current.then(async()=>{
+      if(snapshotRef.current?.slide.slideId!==slideKey)return;
+      mergeSnapshot(await api.sendClassroomEvent(sessionId,{type:'set_lesson_six_presentation',slideKey,...value}));
+    }).catch(reason=>{if(!(reason instanceof ApiError&&reason.status===409))setError(`第6讲同步未完成：${reason.message}`);});
+  }
   const lessonFiveReportRef=useRef({last:0,key:"",revealed:false});
   const lessonFiveQueue=useRef(Promise.resolve());
   const lessonFiveTrailing=useRef<ReturnType<typeof setTimeout>|undefined>(undefined);
@@ -963,7 +982,7 @@ export function ClassroomSubsystem() {
   const lessonOptions = isRegisteredCourse
     ? courseDeck!.lessons.map((lesson) => ({
         number: lesson.number,
-        label: `第${lesson.number}讲`,
+        label: getCourseLessonLabel(lesson),
         title: lesson.title,
         slideStart: lesson.slideStart,
         status: lesson.status
@@ -1098,7 +1117,7 @@ export function ClassroomSubsystem() {
 
       {isManagement && !isFullscreen && <ManagementSourceLocator index={snapshot.slide.index} onJump={index => void sendEvent({type:"set_slide",index})}/>}
       {isStatisticalAnalysis && !isFullscreen && <Suspense fallback={null}><StatisticalAnalysisTeachingNotes index={snapshot.slide.index}/></Suspense>}
-      <ClassroomPlaybackSlot.Provider value={isFullscreen ? fullscreenPlaybackSlot : playbackSlot}><PortLessonFiveControls.Provider value={{scope:sessionId,openExperiment:(plan,personal)=>void openLessonFive(plan,personal),onChange:reportLessonFive}}><PortLessonFourControls.Provider value={{scope:sessionId,openDemo:cueId=>void lessonFourAction(cueId),onProgress:reportLessonFourProgress}}>
+      <ClassroomPlaybackSlot.Provider value={isFullscreen ? fullscreenPlaybackSlot : playbackSlot}><PortLessonSixControls.Provider value={{scope:sessionId,initial:snapshot.lessonSixPresentation,onChange:reportLessonSix}}><PortLessonFiveControls.Provider value={{scope:sessionId,openExperiment:(plan,personal)=>void openLessonFive(plan,personal),onChange:reportLessonFive}}><PortLessonFourControls.Provider value={{scope:sessionId,openDemo:cueId=>void lessonFourAction(cueId),onProgress:reportLessonFourProgress}}>
       <div
         ref={fullscreenRef}
         tabIndex={-1}
@@ -1313,7 +1332,7 @@ export function ClassroomSubsystem() {
             <div className="slide-navigation-controls">
               <button
                 type="button"
-                disabled={!isSlides || busy || snapshot.slide.index <= 1}
+                disabled={!isSlides || busy || (courseDeck ? getCourseAdjacentIndex(courseDeck, snapshot.slide.index, -1) === null : snapshot.slide.index <= 1)}
                 onClick={() => void sendEvent({ type: "previous_slide" })}
               >
                 <ChevronLeft size={18} /> <span>上一页</span>
@@ -1359,7 +1378,7 @@ export function ClassroomSubsystem() {
               </label>
               <button
                 type="button"
-                disabled={!isSlides || busy || snapshot.slide.index >= snapshot.slide.total}
+                disabled={!isSlides || busy || (courseDeck ? getCourseAdjacentIndex(courseDeck, snapshot.slide.index, 1) === null : snapshot.slide.index >= snapshot.slide.total)}
                 onClick={() => void sendEvent({ type: "next_slide" })}
               >
                 <span>下一页</span> <ChevronRight size={18} />
@@ -1382,6 +1401,7 @@ export function ClassroomSubsystem() {
             </div>
 
             {isSlides && <div className="classroom-playback-slot" ref={setPlaybackSlot} />}
+            {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 6 && <a className="port-l4-classroom-link" href={`/port-lesson-six-preview.html?page=${snapshot.slide.index-245}`} target="_blank" rel="noreferrer">第6讲授课台 ↗</a>}
             {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 5 && <a className="port-l4-classroom-link" href={`/port-lesson-five-preview.html?page=${snapshot.slide.index-197}`} target="_blank" rel="noreferrer">第5讲授课台 ↗</a>}
             {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 4 && <a className="port-l4-classroom-link" href={`/port-lesson-four-preview.html?page=${snapshot.slide.index-153}`} target="_blank" rel="noreferrer">第4讲授课台 ↗</a>}
             {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 4 && <button className="stage-tool-button" disabled={busy} onClick={()=>void openFullLessonFourSimulation()}><FlaskConical size={17}/>仿真系统</button>}
@@ -1630,7 +1650,7 @@ export function ClassroomSubsystem() {
         )}
       </div>
 
-      </PortLessonFourControls.Provider></PortLessonFiveControls.Provider></ClassroomPlaybackSlot.Provider>
+      </PortLessonFourControls.Provider></PortLessonFiveControls.Provider></PortLessonSixControls.Provider></ClassroomPlaybackSlot.Provider>
       {settingsOpen && (
         <div className="classroom-dialog-backdrop">
           <section className="classroom-dialog" role="dialog" aria-modal="true" aria-labelledby="classroom-settings-title">

@@ -1,0 +1,40 @@
+{
+  "id": "mg-197",
+  "deck": "l9",
+  "page": 10,
+  "title": "西游记团队的文学意象",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 10, 西游记团队的文学意象; conceptual teaching artwork, not historical or statistical evidence. Subject: An elegant ink-and-mineral-color landscape with four tiny fictional Journey to the West travelers and a white horse crossing a mountain path, composition emphasizes complementary roles and a distant shared destination, no identifiable actors. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-2f440bcb-26b3-474c-b38e-fdac29394838.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-197.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-197.webp",
+  "originalSha256": "4ed1da5102862e7184cb29681f2aef6d2f40a7b73d958383a14fbf9721c1fcf8",
+  "webSha256": "5fe3733399afda060bd3283ca8ca7fc7f7b995817411bc9e5feee34f768e152e",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 424838,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "4ed1da5102862e7184cb29681f2aef6d2f40a7b73d958383a14fbf9721c1fcf8",
+    "webSha256": "5fe3733399afda060bd3283ca8ca7fc7f7b995817411bc9e5feee34f768e152e"
+  },
+  "pages": [
+    "mg-l9-s010-01"
+  ]
+}

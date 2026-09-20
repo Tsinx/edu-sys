@@ -1,0 +1,40 @@
+{
+  "id": "mg-220",
+  "deck": "l9",
+  "page": 41,
+  "title": "共同关注成果与人",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 41, 共同关注成果与人; conceptual teaching artwork, not historical or statistical evidence. Subject: Two adult colleagues inspect a finished ceramic vessel together, meticulous quality and mutual respect conveyed through hands and relaxed posture, close editorial framing. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-c2032283-e873-4b08-8f92-0d788a0bc1c9.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-220.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-220.webp",
+  "originalSha256": "14fecd56745870b6c477a3b2697fe30f323249961edb3e335ed0a7f64f9dcb61",
+  "webSha256": "2623e76216f50c81c2368ac9ac6df90528f7edecb3ae9af26379029723b65b8c",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 170438,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "14fecd56745870b6c477a3b2697fe30f323249961edb3e335ed0a7f64f9dcb61",
+    "webSha256": "2623e76216f50c81c2368ac9ac6df90528f7edecb3ae9af26379029723b65b8c"
+  },
+  "pages": [
+    "mg-l9-s041-01"
+  ]
+}

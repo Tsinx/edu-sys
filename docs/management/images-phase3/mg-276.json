@@ -1,0 +1,40 @@
+{
+  "id": "mg-276",
+  "deck": "l11",
+  "page": 17,
+  "title": "态度与参与",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l11, original page 17, 态度与参与; conceptual teaching artwork, not historical or statistical evidence. Subject: One adult student hesitates at the edge of a seminar while a peer makes an open welcoming gesture, thoughtful nonjudgmental atmosphere, natural daylight, no smiling corporate pose. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-2e63957d-8029-43d6-8c49-962f8c632e6c.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-276.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-276.webp",
+  "originalSha256": "6e0f3d7f525c216f8c32e946312b4ba6ec4a942c63e6f07b471621d9667e70a0",
+  "webSha256": "c54cef455e396b138ffb609cd2f2ba87df82266779b351470526da8fe65bb5a2",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 201384,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "6e0f3d7f525c216f8c32e946312b4ba6ec4a942c63e6f07b471621d9667e70a0",
+    "webSha256": "c54cef455e396b138ffb609cd2f2ba87df82266779b351470526da8fe65bb5a2"
+  },
+  "pages": [
+    "mg-l11-s017-01"
+  ]
+}

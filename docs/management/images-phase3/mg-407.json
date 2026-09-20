@@ -1,0 +1,40 @@
+{
+  "id": "mg-407",
+  "deck": "intro",
+  "page": 34,
+  "title": "工厂与现代组织",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: intro, original page 34, 工厂与现代组织; conceptual teaching artwork, not historical or statistical evidence. Subject: A sophisticated editorial diptych-like architectural composition connecting a historical workshop and a contemporary collaborative workspace, no real company and no identifiable historical people, material continuity. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-c66c98bd-2904-4e1f-aed9-5cc2d12adad7.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-407.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-407.webp",
+  "originalSha256": "f86466cb4df61abd9988e5283b702c663195bb4da1f7f27ab14034796d479bba",
+  "webSha256": "3185555a849c0a54e19a2843bc13f25109140c1cee90ae38eac143d3cd0b0b78",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 306564,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "f86466cb4df61abd9988e5283b702c663195bb4da1f7f27ab14034796d479bba",
+    "webSha256": "3185555a849c0a54e19a2843bc13f25109140c1cee90ae38eac143d3cd0b0b78"
+  },
+  "pages": [
+    "mg-intro-s034-01"
+  ]
+}

@@ -312,9 +312,9 @@ test("authored compositions retain the teaching evidence needed on screen", () =
   assert.doesNotMatch(exchangeRange, /重庆基地|欧洲基地/u);
 });
 
-test("all 245 pages have an explicit authored composition", () => {
-  assert.equal(AUTHORED_TEACHING_SLIDE_KEYS.length, 245);
-  assert.equal(new Set(AUTHORED_TEACHING_SLIDE_KEYS).size, 245);
+test("all 293 pages have an explicit authored composition", () => {
+  assert.equal(AUTHORED_TEACHING_SLIDE_KEYS.length, 293);
+  assert.equal(new Set(AUTHORED_TEACHING_SLIDE_KEYS).size, 293);
   assert.deepEqual(
     new Set(AUTHORED_TEACHING_SLIDE_KEYS),
     new Set(PORT_MANAGEMENT_SLIDES.map((slide) => slide.slideKey))
@@ -327,7 +327,7 @@ test("all 245 pages have an explicit authored composition", () => {
       /data-slide-composition=/u,
       `${slide.slideKey} exposed its authored composition identifier`
     );
-    assert.match(markup, /class="[^"]*\b(?:authored-slide|lbl-slide|port-l5-slide)\b/u);
+    assert.match(markup, /class="[^"]*\b(?:authored-slide|lbl-slide|port-l5-slide|port-l6-slide)\b/u);
     assert.doesNotMatch(
       markup,
       /course-slide__(?:columns|stat|steps|table|bullets)/u,

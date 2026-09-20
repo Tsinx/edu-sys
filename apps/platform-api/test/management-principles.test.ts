@@ -5,7 +5,7 @@ import {tmpdir} from 'node:os';
 import {join,resolve} from 'node:path';
 import {getCourseDeckByCourseId} from '@edu/course-content/deck-registry';
 import {MANAGEMENT_BUILD as build, MANAGEMENT_SLIDES as pages, MANAGEMENT_LESSONS as lessons, getManagementVisibleDemo, getManagementInteractionDefinition, validateManagementInteraction, evaluateManagementPayoffs, evaluateManagementTree,calculateManagementHierarchy} from '@edu/course-content/management-principles';
-import {MANAGEMENT_SOURCE_MAP as mappings} from '@edu/course-content/management-principles/source-map';
+import {MANAGEMENT_SOURCE_MAP as mappings, MANAGEMENT_SOURCE_DISPOSITIONS as dispositions} from '@edu/course-content/management-principles/source-map';
 import {buildPromptWorkspace} from '../src/assistant/prompts.js';
 import {buildApp} from '../src/app.js';
 import {createSeedState} from '../src/seed.js';
@@ -20,11 +20,11 @@ class CaptureProvider implements AssistantJsonStreamProvider {
 test('management coverage: all registered source pages, continuous splits, lecture boundaries and images',()=>{
  const deck=getCourseDeckByCourseId(id)!;assert.equal(deck.slideTotal,pages.length);assert.equal(lessons.length,build.lessons.length);
  assert.equal(deck.code,null);assert.equal(deck.totalHours,null);assert.equal(deck.presentation.supportsStudy,false);assert.deepEqual(deck.allowedActivities,['slides']);
- assert.equal(new Set(pages.map(p=>p.slideKey)).size,pages.length);assert.equal(mappings.length,pages.length);
- assert.equal(new Set(mappings.map(m=>`${m.documentId}/${m.originalPage}`)).size,build.sourcePageCount);
- for(const [doc,count] of Object.entries({l1:56,l2:67,l3:65,l4a:78,l4b:33,l5:60,l6:64,l7:55,l8:39})){
-  const rows=mappings.filter(m=>m.documentId===doc);assert.deepEqual([...new Set(rows.map(m=>m.originalPage))],Array.from({length:count},(_,i)=>i+1));
-  for(let n=1;n<=count;n++){const splits=rows.filter(m=>m.originalPage===n);assert.deepEqual(splits.map(m=>m.splitIndex),splits.map((_,i)=>i+1));assert.ok(splits.every(m=>m.splitTotal===splits.length));}
+ assert.equal(new Set(pages.map(p=>p.slideKey)).size,pages.length);assert.equal(new Set(mappings.map(m=>m.slideKey)).size,pages.length);
+ assert.equal(new Set(dispositions.map(m=>`${m.documentId}/${m.originalPage}`)).size,build.sourcePageCount);
+ for(const [doc,count] of Object.entries({l1:56,l2:67,l3:65,l4a:78,l4b:33,l5:60,l6:64,l7:55,l8:39,l9:60,l9b:73,l10:90,l10a:79,l10b:53,l11:54,l12:45,l13:71,l14:52,l15:33,l16:63,intro:55})){
+  const rows=mappings.filter(m=>m.documentId===doc);assert.deepEqual([...new Set(dispositions.filter(m=>m.documentId===doc).map(m=>m.originalPage))],Array.from({length:count},(_,i)=>i+1));
+  for(let n=1;n<=count;n++){const splits=rows.filter(m=>m.originalPage===n);if(!splits.length)assert.equal(dispositions.find(d=>d.documentId===doc&&d.originalPage===n)!.disposition,'omitted');assert.deepEqual(splits.map(m=>m.splitIndex),splits.map((_,i)=>i+1));assert.ok(splits.every(m=>m.splitTotal===splits.length));}
  }
  assert.equal(new Set(pages.filter(p=>p.image?.src.match(/mg-\d+\.webp$/)).map(p=>p.image!.src)).size,build.imageCount);
  for(const p of pages){assert.equal(deck.getGlobalIndex(p.lessonNumber,p.localIndex),p.index);assert.equal(deck.getLessonPosition(p.index)!.localIndex,p.localIndex);assert.doesNotMatch(JSON.stringify(p),/teachingCue|assistantCue|originalNotes|originalAnimation|让学生|告诉学生|先拆掉|今天不先|不背口号/);}
@@ -81,7 +81,7 @@ test('management additive migration, teacher source isolation, all demos synchro
   const cookieFor=async(role:'teacher'|'student')=>String((await app.inject({method:'POST',url:'/api/identity/development/session',payload:{role}})).headers['set-cookie']).split(';')[0]!;
   const teacher=await cookieFor('teacher'),student=await cookieFor('student');const privateUrl=`/api/courses/${id}/source-map`;
   assert.equal((await app.inject(privateUrl)).statusCode,401);assert.equal((await app.inject({url:privateUrl,headers:{cookie:student}})).statusCode,403);
-  const source=await app.inject({url:privateUrl,headers:{cookie:teacher}});assert.equal(source.statusCode,200);assert.equal(source.json().mappings.length,pages.length);assert.match(String(source.headers['cache-control']),/no-store/);
+  const source=await app.inject({url:privateUrl,headers:{cookie:teacher}});assert.equal(source.statusCode,200);assert.equal(source.json().mappings.length,mappings.length);assert.match(String(source.headers['cache-control']),/no-store/);
   const courses=(await app.inject('/api/courses')).json();assert.equal(courses.filter((c:{id:string})=>c.id===id).length,1);
   const start=await app.inject({method:'POST',url:`/api/courses/${id}/class-sessions`,headers:{cookie:teacher}});assert.equal(start.statusCode,201);const session=start.json().id;
   const url=`/api/class-sessions/${session}`;

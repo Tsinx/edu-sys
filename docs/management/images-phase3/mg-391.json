@@ -1,0 +1,40 @@
+{
+  "id": "mg-391",
+  "deck": "l16",
+  "page": 54,
+  "title": "共享的场",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l16, original page 54, 共享的场; conceptual teaching artwork, not historical or statistical evidence. Subject: An inviting collaborative room opens to a garden, adults exchange prototypes and listen in a small circle, physical place supporting emerging understanding, no holograms or diagrams. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-38015799-9d60-4bd8-b268-58dc6513e098.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-391.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-391.webp",
+  "originalSha256": "069a51ebdba6009ca73dad49c86969072b1ee473a1c33d429f476ab2eac0e3f6",
+  "webSha256": "46d220067d419afa1bb52300d404e1322a7b696b659d245beca43d5858cf72c6",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 253310,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "069a51ebdba6009ca73dad49c86969072b1ee473a1c33d429f476ab2eac0e3f6",
+    "webSha256": "46d220067d419afa1bb52300d404e1322a7b696b659d245beca43d5858cf72c6"
+  },
+  "pages": [
+    "mg-l16-s054-01"
+  ]
+}

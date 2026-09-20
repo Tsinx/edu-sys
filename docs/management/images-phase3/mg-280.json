@@ -1,0 +1,40 @@
+{
+  "id": "mg-280",
+  "deck": "l11",
+  "page": 26,
+  "title": "积极倾听",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l11, original page 26, 积极倾听; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult woman listens attentively to an adult colleague in a quiet university courtyard, relaxed natural gaze and a closed notebook, respectful distance, refined documentary-like teaching scene. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-dfb07333-4fdd-456a-aad3-320c61c58ebd.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-280.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-280.webp",
+  "originalSha256": "b027c39ea8034eb8a7171203b4c792fcbc5184631065b69cb3d735532447705e",
+  "webSha256": "4252e12179f19cd1ed40d13a0cd6b1cb299d648e608f69344965dd59bc06cfe2",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 196588,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "b027c39ea8034eb8a7171203b4c792fcbc5184631065b69cb3d735532447705e",
+    "webSha256": "4252e12179f19cd1ed40d13a0cd6b1cb299d648e608f69344965dd59bc06cfe2"
+  },
+  "pages": [
+    "mg-l11-s026-01"
+  ]
+}

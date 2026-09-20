@@ -1,0 +1,40 @@
+{
+  "id": "mg-302",
+  "deck": "l12",
+  "page": 25,
+  "title": "质量与时间",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l12, original page 25, 质量与时间; conceptual teaching artwork, not historical or statistical evidence. Subject: A clean generic quick-service kitchen with a prepared tray, careful adult staff and an unmarked analog timing device, food handled hygienically, no brands or implied real operating standards. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-c9f8242b-21c4-4d94-b5de-b5a1f6b4fc7b.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-302.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-302.webp",
+  "originalSha256": "54d3f2fa7dce913db70856f90ad7125897c0362547279cc06c51c20e1a167adf",
+  "webSha256": "a4bda6215c3ae12470980b130df07cd3a2cf5ccec6668a3eda49982d7e9ed4b2",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 174140,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "54d3f2fa7dce913db70856f90ad7125897c0362547279cc06c51c20e1a167adf",
+    "webSha256": "a4bda6215c3ae12470980b130df07cd3a2cf5ccec6668a3eda49982d7e9ed4b2"
+  },
+  "pages": [
+    "mg-l12-s025-01"
+  ]
+}

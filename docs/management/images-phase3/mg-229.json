@@ -1,0 +1,40 @@
+{
+  "id": "mg-229",
+  "deck": "l9",
+  "page": 59,
+  "title": "理解不同背景",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 59, 理解不同背景; conceptual teaching artwork, not historical or statistical evidence. Subject: Adult international colleagues compare everyday work practices around an unbranded shared project, individualized people, no national flags, costumes or stereotypes. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-679a0153-ebdb-4073-9b7a-02e48a3db345.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-229.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-229.webp",
+  "originalSha256": "a724f745dacb1d8506a346a2d6240003a1f18c46933e7b9c97e2b83da287ae14",
+  "webSha256": "6500174a4a4ea7eeebcc50be84cb1ec3dda0febfbe750eee487131faf0a2f060",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 223414,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "a724f745dacb1d8506a346a2d6240003a1f18c46933e7b9c97e2b83da287ae14",
+    "webSha256": "6500174a4a4ea7eeebcc50be84cb1ec3dda0febfbe750eee487131faf0a2f060"
+  },
+  "pages": [
+    "mg-l9-s059-01"
+  ]
+}

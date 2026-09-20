@@ -1,0 +1,40 @@
+{
+  "id": "mg-397",
+  "deck": "intro",
+  "page": 9,
+  "title": "学习机会与座位",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: intro, original page 9, 学习机会与座位; conceptual teaching artwork, not historical or statistical evidence. Subject: A quiet row of unoccupied lecture seats in the foreground and interested adult students waiting in a spacious campus corridor beyond, a thoughtful resource allocation dilemma, no pushing or unsafe crowd. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-957e03ee-b38e-4b06-bf87-9465e746fe6d.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-397.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-397.webp",
+  "originalSha256": "8bb510c817eeef28ed3d56d9146401b26a4241f52b3294dba07eaa6339adb484",
+  "webSha256": "41cc553b1dc62b0f610836f25ab216f3c4d2b871e640b1dcc101d8c649c18c1c",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 228416,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "8bb510c817eeef28ed3d56d9146401b26a4241f52b3294dba07eaa6339adb484",
+    "webSha256": "41cc553b1dc62b0f610836f25ab216f3c4d2b871e640b1dcc101d8c649c18c1c"
+  },
+  "pages": [
+    "mg-intro-s009-01"
+  ]
+}

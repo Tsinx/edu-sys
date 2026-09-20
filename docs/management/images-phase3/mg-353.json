@@ -1,0 +1,40 @@
+{
+  "id": "mg-353",
+  "deck": "l14",
+  "page": 47,
+  "title": "危机沟通团队",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l14, original page 47, 危机沟通团队; conceptual teaching artwork, not historical or statistical evidence. Subject: A modest cross-functional adult response team listens to a customer representative and coordinates around an uncluttered table with blank briefing sheets, honest attention not publicity posing. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-fc78b8c6-19a3-44dd-a8d4-a54d9e860546.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-353.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-353.webp",
+  "originalSha256": "42e285d7c4343e781df415691f42f98af863dd3b5023da4799fe8a9c1ad804b4",
+  "webSha256": "cb26c0458bfd697808c5a156a3516fc280afe21c89049ab9c021c44907e5c2c3",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 164104,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "42e285d7c4343e781df415691f42f98af863dd3b5023da4799fe8a9c1ad804b4",
+    "webSha256": "cb26c0458bfd697808c5a156a3516fc280afe21c89049ab9c021c44907e5c2c3"
+  },
+  "pages": [
+    "mg-l14-s047-01"
+  ]
+}

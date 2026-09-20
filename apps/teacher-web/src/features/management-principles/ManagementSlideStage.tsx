@@ -21,22 +21,22 @@ function Art({slide,compact=false}:{slide:ManagementSlide;compact?:boolean}){
   if(!slide.image)return null;
   return <figure className={`mg-art${compact?' mg-art--compact':''}`}><img src={slide.image.src} alt={slide.image.alt} decoding="async" draggable={false}/><figcaption>{slide.image.label}</figcaption>{slide.referenceImage&&<figure className="mg-reference"><img src={slide.referenceImage.src} alt={slide.referenceImage.alt}/><figcaption>{slide.referenceImage.label}</figcaption></figure>}</figure>;
 }
-export function ManagementSlideStage({frame,interaction=null,readOnly=true,onInteractionPatch,onInteractionReset}:{frame:SlideFrame;interaction?:SlideInteractionState|null;readOnly?:boolean;onInteractionPatch?:(patch:SlideInteractionValues)=>void;onInteractionReset?:()=>void}){
-  const s=getManagementSlide(frame.index);
+export function ManagementSlideStage({frame,slide,interaction=null,readOnly=true,onInteractionPatch,onInteractionReset}:{frame:SlideFrame;slide?:ManagementSlide;interaction?:SlideInteractionState|null;readOnly?:boolean;onInteractionPatch?:(patch:SlideInteractionValues)=>void;onInteractionReset?:()=>void}){
+  const s=slide??getManagementSlide(frame.index);
   const values=interaction?.slideId===s.slideKey?interaction.values:{};
   const d=s.demo?getManagementVisibleDemo(s.demo,values):undefined;
   const cover=s.layout==='cover'||s.layout==='opener';
   const structured=Boolean(s.table||s.diagram||d);
   const spread=!cover&&!structured&&Boolean(s.image);
-  return <SlideViewport label={`管理学，第${s.lessonNumber}讲第${s.localIndex}页：${s.title}`}><article className={`mg-slide mg-slide--${s.layout}${cover?' mg-slide--cover':''}${spread?' mg-slide--spread':''}${structured?' mg-slide--structured':''}${structured&&s.image?' mg-slide--head-art':''}${s.lessonNumber>=5&&s.sources.length>2?' mg-slide--many-sources':''}`} data-management-page={s.slideKey}>
+  return <SlideViewport label={`管理学，${s.lessonNumber===0?'绪论':`第${s.lessonNumber}讲`}第${s.localIndex}页：${s.title}`}><article className={`mg-slide mg-slide--${s.layout}${cover?' mg-slide--cover':''}${spread?' mg-slide--spread':''}${structured?' mg-slide--structured':''}${structured&&s.image?' mg-slide--head-art':''}${s.lessonNumber>=5&&s.sources.length>2?' mg-slide--many-sources':''}`} data-management-page={s.slideKey}>
     {cover&&<Art slide={s}/>}
-    <header className="mg-header"><div className="mg-kicker"><span>PRINCIPLES OF MANAGEMENT</span><span>0{s.lessonNumber} / {s.section}</span></div><h1>{s.title}</h1>{s.partTotal>1&&<span className="mg-continuation">{s.part} / {s.partTotal}</span>}</header>
+    <header className="mg-header"><div className="mg-kicker"><span>PRINCIPLES OF MANAGEMENT</span><span>{s.lessonNumber===0?'绪论':String(s.lessonNumber).padStart(2,'0')} / {s.section}</span></div><h1>{s.title}</h1>{s.partTotal>1&&<span className="mg-continuation">{s.part} / {s.partTotal}</span>}</header>
     {structured&&<Art slide={s} compact/>}
     <section className="mg-content">
       {d?<div className="mg-demo">
         <div className="mg-demo-heading"><h2>{d.heading}</h2><span>{d.step+1} / {d.maxStep+1}</span></div>
         <div className={`mg-demo-material${d.table||d.diagram?' mg-demo-material--visual':''}${s.lessonNumber>=5&&(d.table||d.diagram?.kind==='org-chart')?' mg-demo-material--wide':''}`}>
-          {(d.table||d.diagram)&&<div className="mg-demo-figure">{d.table&&<NativeTable value={d.table}/>} {d.diagram&&<Diagram value={d.diagram} extended={s.lessonNumber>=5}/>}</div>}
+          {(d.table||d.diagram)&&<div className="mg-demo-figure">{d.table&&<NativeTable value={d.table}/>} {d.diagram&&<Diagram value={d.diagram} extended={s.lessonNumber===0||s.lessonNumber>=5}/>}</div>}
           <div className="mg-demo-explanation"><Paragraphs lines={d.body}/>{d.metrics&&<div className="mg-metrics">{d.metrics.map(m=><div key={m.label}><span>{m.label}</span><strong>{m.value}</strong>{m.detail&&<small>{m.detail}</small>}</div>)}</div>}</div>
         </div>
         <div className="mg-demo-controls">{d.controls.map(c=><label key={c.key}><span>{c.label}</span>{c.options?<select disabled={readOnly} value={String(d.values[c.key])} onChange={e=>onInteractionPatch?.({[c.key]:e.target.value})}>{c.options.map(o=><option value={o.value} key={o.value}>{o.label}</option>)}</select>:<><input type="range" aria-label={c.label} min={c.min} max={c.max} step={c.step} value={Number(d.values[c.key])} disabled={readOnly} onChange={e=>onInteractionPatch?.({[c.key]:Number(e.target.value)})}/><output>{String(d.values[c.key])}</output></>}</label>)}
@@ -44,7 +44,7 @@ export function ManagementSlideStage({frame,interaction=null,readOnly=true,onInt
           {readOnly&&<span className="mg-sync-label">课堂同步 · 当前步骤</span>}
         </div>
       </div>:<>
-        <div className="mg-prose"><Paragraphs lines={s.body}/>{s.diagram&&<Diagram value={s.diagram} extended={s.lessonNumber>=5}/>} {s.table&&<NativeTable value={s.table}/>}</div>
+        <div className="mg-prose"><Paragraphs lines={s.body}/>{s.diagram&&<Diagram value={s.diagram} extended={s.lessonNumber===0||s.lessonNumber>=5}/>} {s.table&&<NativeTable value={s.table}/>}</div>
         {spread&&<Art slide={s}/>}
       </>}
     </section>

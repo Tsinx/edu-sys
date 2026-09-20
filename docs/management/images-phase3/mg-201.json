@@ -1,0 +1,40 @@
+{
+  "id": "mg-201",
+  "deck": "l9",
+  "page": 18,
+  "title": "职位与个人力量",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9, original page 18, 职位与个人力量; conceptual teaching artwork, not historical or statistical evidence. Subject: A restrained still life with a plain office key and a well-used precision hand tool on equal ceramic plinths, authority and expertise as distinct resources. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-ee60ae62-c3fe-4cb7-bd3c-285ab3b69aa1.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-201.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-201.webp",
+  "originalSha256": "afd6e26960e434d3be055243ede910417f026fe5ac81ea7339fb640000f561a5",
+  "webSha256": "27e6db2d72b5bdf181f26b930abd5ad84cf435e1aabe9a06f7fc218a2655bea9",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 131102,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "afd6e26960e434d3be055243ede910417f026fe5ac81ea7339fb640000f561a5",
+    "webSha256": "27e6db2d72b5bdf181f26b930abd5ad84cf435e1aabe9a06f7fc218a2655bea9"
+  },
+  "pages": [
+    "mg-l9-s018-01"
+  ]
+}

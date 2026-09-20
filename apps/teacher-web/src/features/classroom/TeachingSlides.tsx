@@ -28,6 +28,8 @@ import { PORT_LBL_SLIDES } from "@edu/course-content";
 import { PORT_LESSON_FOUR_SLIDES } from '@edu/course-content';
 import { PORT_LESSON_FIVE_SLIDES } from '@edu/course-content';
 import { PortLessonFiveStage, type LessonFivePresentation } from '../port-lesson-five/PortLessonFiveStage';
+import { PortLessonSixStage } from '../port-lesson-six/PortLessonSixStage';
+import { PORT_LESSON_SIX_SLIDES, type LessonSixPresentation } from '@edu/course-content';
 import { PortLessonFourStage } from '../port-lesson-four/PortLessonFourStage';
 
 const EconomicMathematicsSlideStage = lazy(() =>
@@ -812,6 +814,7 @@ export function SlideStage({
   readOnly = true,
   presentationProgress,
   lessonFivePresentation,
+  lessonSixPresentation,
   onInteractionPatch,
   onInteractionReset
 }: {
@@ -820,6 +823,7 @@ export function SlideStage({
   readOnly?: boolean;
   presentationProgress?: number;
   lessonFivePresentation?: LessonFivePresentation;
+  lessonSixPresentation?: LessonSixPresentation;
   onInteractionPatch?: (patch: SlideInteractionValues) => void;
   onInteractionReset?: () => void;
 }) {
@@ -851,6 +855,8 @@ export function SlideStage({
   const spec = getPortManagementSlide(frame.index);
   const lessonFourPage = PORT_LESSON_FOUR_SLIDES.find(page=>page.slideKey===spec.slideKey);
   const lessonFivePage=PORT_LESSON_FIVE_SLIDES.find(p=>p.slideKey===spec.slideKey);
+  const lessonSixPage=PORT_LESSON_SIX_SLIDES.find(p=>p.slideKey===spec.slideKey);
+  if(lessonSixPage)return <PortLessonSixStage page={lessonSixPage} readOnly={readOnly} state={lessonSixPresentation}/>;
   if(lessonFivePage)return <PortLessonFiveStage page={lessonFivePage} readOnly={readOnly} state={lessonFivePresentation}/>;
   if(lessonFourPage)return <PortLessonFourStage page={lessonFourPage} readOnly={readOnly} progress={presentationProgress}/>;
   const lblPage = PORT_LBL_SLIDES.find(page=>page.slideKey===spec.slideKey);

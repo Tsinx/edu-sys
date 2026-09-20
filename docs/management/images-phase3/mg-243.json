@@ -1,0 +1,40 @@
+{
+  "id": "mg-243",
+  "deck": "l10",
+  "page": 16,
+  "title": "让真实选择浮现",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 16, 让真实选择浮现; conceptual teaching artwork, not historical or statistical evidence. Subject: Several differently shaped ceramic pieces reveal their inner cavities when placed under gentle light, a hand carefully selecting an appropriate holder, elegant mechanism metaphor. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-bbdfcbc1-09e2-4cdb-bbfe-35dce7326beb.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-243.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-243.webp",
+  "originalSha256": "0392762c4eec7f26dbbcc74f42979d8c994e8dbd3ca173f37d408559447201a3",
+  "webSha256": "3f526722151426b7980eeb8c60a7a2c0c6c97386b9b6de69318eafddc2246450",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 164046,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "0392762c4eec7f26dbbcc74f42979d8c994e8dbd3ca173f37d408559447201a3",
+    "webSha256": "3f526722151426b7980eeb8c60a7a2c0c6c97386b9b6de69318eafddc2246450"
+  },
+  "pages": [
+    "mg-l10-s016-01"
+  ]
+}

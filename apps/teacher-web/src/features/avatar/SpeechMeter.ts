@@ -4,7 +4,8 @@ import type { SpeechVisemeCue } from "@edu/contracts";
 export class SpeechMeter {
   private context?: AudioContext;
   private analyser?: AnalyserNode;
-  private samples = new Float32Array(1024);
+  // A short window preserves consonant gaps instead of averaging adjacent syllables.
+  private samples = new Float32Array(256);
   private sources = new Set<AudioBufferSourceNode>();
   private level = 0;
   private lastTime = 0;
@@ -14,7 +15,7 @@ export class SpeechMeter {
     const context = source.context as AudioContext;
     if (this.context !== context) {
       this.analyser?.disconnect();
-      this.cues.clear(); this.sources.clear(); this.lastTime = 0;
+      this.cues.clear(); this.sources.clear(); this.level = 0; this.lastTime = context.currentTime;
       this.context = context;
       this.analyser = context.createAnalyser();
       this.analyser.fftSize = this.samples.length;
@@ -44,17 +45,21 @@ export class SpeechMeter {
   readonly read = () => {
     if (!this.analyser || this.context?.state !== "running" || !this.sources.size) {
       this.level = 0;
+      this.lastTime = this.context?.currentTime ?? 0;
       return 0;
     }
     this.analyser.getFloatTimeDomainData(this.samples);
     let sum = 0;
     for (const sample of this.samples) sum += sample * sample;
     const rms = Math.sqrt(sum / this.samples.length);
-    const target = rms < 0.006 ? 0 : Math.min(0.85, Math.sqrt(rms) * 2.1);
+    // Soft compression retains changes in ordinary speech and loud vowels alike.
+    // The old square-root gain hit its ceiling at RMS 0.164.
+    const energy = Math.max(0, rms - 0.004);
+    const target = rms < 0.006 ? 0 : 0.95 * energy / (energy + 0.1);
     const now = this.context.currentTime;
     const delta = Math.max(0, Math.min(0.1, now - this.lastTime));
     this.lastTime = now;
-    this.level += (target - this.level) * (1 - Math.exp(-delta / (target > this.level ? 0.025 : 0.055)));
+    this.level += (target - this.level) * (1 - Math.exp(-delta / (target > this.level ? 0.018 : 0.02)));
     return this.level;
   };
 

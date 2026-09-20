@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { LocalKeywordRecording } from "../src/features/classroom/local-keyword-recording.js";
-import { pcm16Base64, RealtimeVoiceClient } from "../src/features/classroom/realtime-voice.js";
+import { pcm16Base64, realtimeErrorMessage, RealtimeVoiceClient } from "../src/features/classroom/realtime-voice.js";
 import type { RealtimeServerEvent } from "@edu/contracts";
 
 test("streaming capture holds all pre-wake audio locally and sends the wake frame exactly once", () => {
@@ -79,5 +79,68 @@ test("cancelled turns discard late events; disconnect stops queued playback and 
   } finally {
     client.close();
     for(const [key,descriptor] of originals) { if(descriptor)Object.defineProperty(globalThis,key,descriptor);else Reflect.deleteProperty(globalThis,key); }
+  }
+});
+
+test("startup failures preserve their cause through close, report once, and allow a fresh connection", async t => {
+  for (const scenario of ["timeout", "handshake", "upstream", "early-close"] as const) {
+    await t.test(scenario, async () => {
+      let timeout!: () => void;
+      class Socket {
+        static OPEN = 1;
+        static all: Socket[] = [];
+        readyState = 0;
+        onmessage?: (event: { data: string }) => void;
+        onclose?: () => void;
+        onerror?: () => void;
+        constructor(_url: unknown) { Socket.all.push(this); }
+        message(event: RealtimeServerEvent) { this.onmessage?.({ data: JSON.stringify(event) }); }
+        close() { this.readyState = 3; this.onclose?.(); }
+      }
+      const originals = ["window", "location", "WebSocket"].map(key => [key, Object.getOwnPropertyDescriptor(globalThis, key)] as const);
+      Object.defineProperties(globalThis, {
+        window: { configurable: true, value: { setTimeout: (callback: () => void) => { timeout = callback; return 1; }, clearTimeout: () => {} } },
+        location: { configurable: true, value: { href: "http://127.0.0.1:5173/", protocol: "http:" } },
+        WebSocket: { configurable: true, value: Socket }
+      });
+      const events: RealtimeServerEvent[] = [];
+      const client = new RealtimeVoiceClient("test-session", event => events.push(event));
+      try {
+        const preparing = client.prepare();
+        assert.equal(client.prepare(), preparing, "simultaneous startup shares one connection");
+        const socket = Socket.all[0]!;
+        const expected = scenario === "timeout" ? /连接超时/ : scenario === "handshake" ? /无法连接/ : scenario === "upstream" ? /模型权限不足/ : /就绪前关闭/;
+        const rejected = assert.rejects(preparing, expected);
+        if (scenario === "timeout") timeout();
+        else if (scenario === "handshake") socket.onerror?.();
+        else if (scenario === "upstream") socket.message({ type: "error", code: "REALTIME_FAILED", message: "模型权限不足。" });
+        else socket.close();
+        await rejected;
+        socket.close();
+        const errors = events.filter(event => event.type === "error");
+        assert.equal(errors.length, 1);
+        assert.match(errors[0]!.message, expected);
+        assert.doesNotMatch(errors[0]!.message, /播放已停止/);
+        const displayed = realtimeErrorMessage(errors[0]!.message);
+        assert.equal(displayed.split("文字输入").length - 1, 1);
+        assert.equal(realtimeErrorMessage(displayed), displayed);
+
+        const reconnecting = client.prepare(), next = Socket.all[1]!;
+        next.readyState = 1;
+        next.message({ type: "session.ready" });
+        await reconnecting;
+        socket.onerror?.();
+        socket.close();
+        assert.equal(events.filter(event => event.type === "error").length, 1, "stale socket cannot interrupt a reconnected session");
+        client.close();
+        assert.equal(events.filter(event => event.type === "error").length, 1, "intentional cleanup must not report a failure");
+      } finally {
+        client.close();
+        for (const [key, descriptor] of originals) {
+          if (descriptor) Object.defineProperty(globalThis, key, descriptor);
+          else Reflect.deleteProperty(globalThis, key);
+        }
+      }
+    });
   }
 });

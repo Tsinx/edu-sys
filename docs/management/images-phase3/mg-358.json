@@ -1,0 +1,40 @@
+{
+  "id": "mg-358",
+  "deck": "l15",
+  "page": 7,
+  "title": "维持与创新的张力",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l15, original page 7, 维持与创新的张力; conceptual teaching artwork, not historical or statistical evidence. Subject: A mature tree supported by a carefully maintained stone terrace sends fresh branches toward the light, balanced composition showing continuity and renewal, no diagram or labels. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-d9ce509e-8084-441e-ade7-43f167d76e64.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-358.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-358.webp",
+  "originalSha256": "024d85ddea295a10f430c3cb122548fc0eb0fe2fa672eb18f4d0e12b1a2a3572",
+  "webSha256": "3f6b29f0c38711867f2828e672b4595127beca6b422f4c73809455ddf222eca0",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 409668,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "024d85ddea295a10f430c3cb122548fc0eb0fe2fa672eb18f4d0e12b1a2a3572",
+    "webSha256": "3f6b29f0c38711867f2828e672b4595127beca6b422f4c73809455ddf222eca0"
+  },
+  "pages": [
+    "mg-l15-s007-01"
+  ]
+}

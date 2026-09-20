@@ -1,10 +1,13 @@
 import type {ManagementDemo, ManagementValues, ManagementTable, ManagementDiagram} from './types.js';
 import {phaseTwoDefinitions,getPhaseTwoVisibleDemo} from './interactions-phase2.js';
+import {phaseThreeDefinitions,getPhaseThreeVisibleDemo} from './interactions-phase3.js';
+export {classifyTaskReadiness,classifyFiedlerSituation,traceCommunicationNetwork,calculateManagementRatio,calculateDpmo} from './interactions-phase3.js';
 export {calculateManagementHierarchy} from './interactions-phase2.js';
 export interface ManagementControl {key:string;label:string;min?:number;max?:number;step?:number;options?:{value:string;label:string}[]}
 interface Definition {maxStep:number;defaults:Record<string,number|string|boolean>;controls:ManagementControl[]}
 const definitions:Record<ManagementDemo,Definition>={
   ...phaseTwoDefinitions,
+  ...phaseThreeDefinitions,
   efficiency:{maxStep:3,defaults:{step:0,resources:60,output:72},controls:[{key:'resources',label:'乙投入资源',min:20,max:140,step:10},{key:'output',label:'乙合格产出',min:0,max:120,step:6}]},
   system:{maxStep:3,defaults:{step:0,middle:8},controls:[{key:'middle',label:'中间环节能力（件/时）',min:2,max:20,step:1}]},
   timeline:{maxStep:5,defaults:{step:0},controls:[]},
@@ -21,6 +24,8 @@ export function validateManagementInteraction(demo:ManagementDemo,patch:Manageme
   const merged={...def.defaults,...current,...patch};
   if(typeof merged.step!=='number'||!Number.isInteger(merged.step)||merged.step<0||merged.step>def.maxStep)return false;
   if(demo==='span-hierarchy'&&!Number.isInteger(merged.span))return false;
+  if(demo==='risk-response'&&(!Number.isInteger(merged.likelihood)||!Number.isInteger(merged.impact)))return false;
+  if(demo==='quality-dmaic'&&['units','opportunities','defects'].some(k=>!Number.isInteger(merged[k])))return false;
   return def.controls.every(c=>c.options?c.options.some(o=>o.value===merged[c.key]):typeof merged[c.key]==='number'&&Number.isFinite(merged[c.key])&&(merged[c.key] as number)>=c.min!&&(merged[c.key] as number)<=c.max!);
 }
 export interface ManagementVisibleDemo {
@@ -46,6 +51,7 @@ export function getManagementVisibleDemo(demo:ManagementDemo,input:ManagementVal
   const def=definitions[demo],v={...def.defaults,...input},step=Math.max(0,Math.min(def.maxStep,Number(v.step)||0));
   const base={step,maxStep:def.maxStep,controls:def.controls,values:v};
   switch(demo){
+    case 'situational-leadership':case 'fiedler-match':case 'equity-comparison':case 'zhang-expectancy':case 'communication-network':case 'dorm-feedback':case 'control-timing':case 'procurement-controls':case 'financial-ratios':case 'quality-dmaic':case 'risk-response':case 'crisis-evidence':case 'innovation-types':case 'innovation-process':case 'organization-change':case 'organization-learning':case 'course-allocation':case 'science-practice':return getPhaseThreeVisibleDemo(demo,v,step,base);
     case 'efficiency':{
       const r=Number(v.resources),o=Number(v.output);
       const table:ManagementTable={headers:['组织','投入资源','合格产出','目标产出'],rows:[['甲',100,90,90],['乙',r,o,90]]};

@@ -31,5 +31,5 @@ export interface AssistantPromptWorkspace {
   compiled: string;
   pages: Array<{ key: string; index: number; lesson: number; title: string }>;
   experiments: Array<{ key: string; title: string }>;
-  coverage: { slides: number; lessons: number; experiments: number; coveredSlides: number };
+  coverage: { slides: number; lessons: number; introductions?: number; experiments: number; coveredSlides: number };
 }

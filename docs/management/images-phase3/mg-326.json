@@ -1,0 +1,40 @@
+{
+  "id": "mg-326",
+  "deck": "l13",
+  "page": 41,
+  "title": "从用户需要出发",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 41, 从用户需要出发; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult product designer observes an adult user handling a generic unbranded handheld device at an accessible worktable, careful feedback rather than advertising, no text on screen. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-c5a13c45-e2ca-4dda-9962-564a134bb8b7.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-326.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-326.webp",
+  "originalSha256": "5ad440539fffc064c6cc667a412cb45e8fb109ba8b15f02f493adda4968964ec",
+  "webSha256": "f8f4da5b139594a1237abd0308b9f6341f5d9fa56739a221eea189bf29c6d27f",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 181976,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "5ad440539fffc064c6cc667a412cb45e8fb109ba8b15f02f493adda4968964ec",
+    "webSha256": "f8f4da5b139594a1237abd0308b9f6341f5d9fa56739a221eea189bf29c6d27f"
+  },
+  "pages": [
+    "mg-l13-s041-01"
+  ]
+}

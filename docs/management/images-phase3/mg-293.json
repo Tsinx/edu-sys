@@ -1,0 +1,40 @@
+{
+  "id": "mg-293",
+  "deck": "l12",
+  "page": 6,
+  "title": "变化中的目标",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l12, original page 6, 变化中的目标; conceptual teaching artwork, not historical or statistical evidence. Subject: A small elegant sailboat navigates calm shifting currents around a coastal headland, adult crew calmly adjusting a sail, dynamic conditions without storms or danger. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-1e002efa-2221-4f93-a71a-b7b94dc91c8b.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-293.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-293.webp",
+  "originalSha256": "197ba5786f54709ca440c250f64686122b7105604575faa517fd5d36fe094b91",
+  "webSha256": "85b5df78066dfecaa22d598f65826fbc0b84bbbec5cb6feb00d9d9ee17fbc133",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 315970,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "197ba5786f54709ca440c250f64686122b7105604575faa517fd5d36fe094b91",
+    "webSha256": "85b5df78066dfecaa22d598f65826fbc0b84bbbec5cb6feb00d9d9ee17fbc133"
+  },
+  "pages": [
+    "mg-l12-s006-01"
+  ]
+}

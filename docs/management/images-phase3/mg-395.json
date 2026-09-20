@@ -1,0 +1,40 @@
+{
+  "id": "mg-395",
+  "deck": "intro",
+  "page": 7,
+  "title": "身边的管理问题",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: intro, original page 7, 身边的管理问题; conceptual teaching artwork, not historical or statistical evidence. Subject: Adult university students coordinate a modest campus exhibition, one listens while another aligns the display and another checks a physical prototype, natural observation rather than celebration. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-22b506b3-aa24-47ae-8339-6a5d1ab90a16.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-395.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-395.webp",
+  "originalSha256": "f0417ca7ba3ec74d12575c49e8b343fd0e73d319994136f459003846e023fed5",
+  "webSha256": "a30cc8ce996c607a2a7d3a97e2c9ff3be3b6697cdee2c0f2c11623ee7919114d",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 197252,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "f0417ca7ba3ec74d12575c49e8b343fd0e73d319994136f459003846e023fed5",
+    "webSha256": "a30cc8ce996c607a2a7d3a97e2c9ff3be3b6697cdee2c0f2c11623ee7919114d"
+  },
+  "pages": [
+    "mg-intro-s007-01"
+  ]
+}

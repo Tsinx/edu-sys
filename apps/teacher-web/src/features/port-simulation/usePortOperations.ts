@@ -203,7 +203,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
         };
         w.onerror = e => { setError(`仿真工作线程失败：${e.message}`); setBusy(false); clockPending.current = false; };
         try {
-            const preferred = course ? "practice" : locked ? initialMode : storage?.getItem(`edu-port-operations:selection:${scope}`);
+            const preferred = course?.demo || course?.tutorial ? "practice" : locked ? initialMode : storage?.getItem(`edu-port-operations:selection:${scope}`);
             const mode = preferred === "battle" || preferred === "practice" ? preferred : initialMode;
             modeRef.current = mode;
             book.current = readBook(mode);
@@ -244,6 +244,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
             return;
         }
         if (mode !== modeRef.current) {
+            if (latest.current && ["running", "paused"].includes(latest.current.status) && !sealedRef.current) await send({ kind: "interrupt" });
             persist();
             modeRef.current = mode;
             try {
@@ -303,7 +304,9 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
             if (course) {
                 if (!["port-course/1.0", "port-course/1.1", "port-course/1.2"].includes(data.schema) || data.unit !== course.unit || data.demo === true) throw new Error("请导入当前分段的自主练习记录；演示记录与综合场次不能作为本段练习。");
                 if (["running", "paused"].includes(latest.current?.status ?? "")) await send({ kind: "pause" });
-                await launch("practice", initialConfig, defaultPortPlan(), raw);
+                const importedMode = data.mode ?? "practice";
+                if (importedMode !== modeRef.current) { persist(); modeRef.current = importedMode; book.current = readBook(importedMode); }
+                await launch(importedMode, initialConfig, defaultPortPlan(), raw);
                 return;
             }
             if (!["port-operations/3.0", "port-operations/3.1"].includes(data.schema))
@@ -312,11 +315,12 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
                 throw new Error("导入场次与教师指定模式不一致。");
             if (latest.current?.status === "running" || latest.current?.status === "paused")
                 await send({ kind: "interrupt" });
-            if (data.mode !== modeRef.current) {
-                modeRef.current = data.mode;
-                book.current = readBook(data.mode);
+            const importedMode = data.mode ?? "practice";
+            if (importedMode !== modeRef.current) {
+                modeRef.current = importedMode;
+                book.current = readBook(importedMode);
             }
-            await launch(data.mode, data.config, data.initialPlan, raw);
+            await launch(importedMode, data.config, data.initialPlan, raw);
         }
         catch (e) {
             setError((e as Error).message);

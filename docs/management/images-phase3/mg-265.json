@@ -1,0 +1,40 @@
+{
+  "id": "mg-265",
+  "deck": "l10",
+  "page": 73,
+  "title": "部门比较与合作",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 73, 部门比较与合作; conceptual teaching artwork, not historical or statistical evidence. Subject: Several distinct handmade prototypes share one long review table, their makers observe each other thoughtfully; no winner podium, ranking or corporate identification. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-f349cc5f-810a-488a-a86f-f12fb0ac58c2.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-265.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-265.webp",
+  "originalSha256": "100bd7f081fc2c6c2b81eb72f156572df9a0aa6293c22bca22444d1f6606eb1f",
+  "webSha256": "8fae5782eca6311e50c47b1446840e4e363bf18178453bdefc6891ef151a0d4a",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 242458,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "100bd7f081fc2c6c2b81eb72f156572df9a0aa6293c22bca22444d1f6606eb1f",
+    "webSha256": "8fae5782eca6311e50c47b1446840e4e363bf18178453bdefc6891ef151a0d4a"
+  },
+  "pages": [
+    "mg-l10-s073-01"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "mg-292",
+  "deck": "l12",
+  "page": 5,
+  "title": "观察与纠正",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l12, original page 5, 观察与纠正; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult potter gently adjusts the rim of a clay bowl while examining its contour against a simple wooden form, skilled corrective action, anatomically accurate hands. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-df235ec9-8041-4fcf-a47b-cbf23fe4fcb1.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-292.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-292.webp",
+  "originalSha256": "c8ae6a2394740bfcb74150b88a3691ac811ba0a8dcfc00d08b031461163d780a",
+  "webSha256": "24a61d7b01e601bbb861ab47c71040c2985db3cf12fe38fc51eb93ce727c538e",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 214964,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "c8ae6a2394740bfcb74150b88a3691ac811ba0a8dcfc00d08b031461163d780a",
+    "webSha256": "24a61d7b01e601bbb861ab47c71040c2985db3cf12fe38fc51eb93ce727c538e"
+  },
+  "pages": [
+    "mg-l12-s005-01"
+  ]
+}

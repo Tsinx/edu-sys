@@ -1,0 +1,40 @@
+{
+  "id": "mg-334",
+  "deck": "l14",
+  "page": 3,
+  "title": "变化中的组织",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l14, original page 3, 变化中的组织; conceptual teaching artwork, not historical or statistical evidence. Subject: A refined city model under shifting translucent cloud shadows, a small adult planning team quietly observes weak connections between buildings and transport, uncertainty without disaster spectacle. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-62136185-81cc-4ac6-b1a3-7451b54ec04e.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-334.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-334.webp",
+  "originalSha256": "460fc8c798baed020ae4aba3a4d17ba65d2a7dbb789266ff223e0bcd2d11f9ba",
+  "webSha256": "ee3f6b96815183f4fe57951f7d2700f3be3cd397076e8844d5148ff9e15c6fa4",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 275684,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "460fc8c798baed020ae4aba3a4d17ba65d2a7dbb789266ff223e0bcd2d11f9ba",
+    "webSha256": "ee3f6b96815183f4fe57951f7d2700f3be3cd397076e8844d5148ff9e15c6fa4"
+  },
+  "pages": [
+    "mg-l14-s003-01"
+  ]
+}

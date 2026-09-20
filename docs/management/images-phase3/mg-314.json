@@ -1,0 +1,40 @@
+{
+  "id": "mg-314",
+  "deck": "l13",
+  "page": 14,
+  "title": "成为伙伴",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 14, 成为伙伴; conceptual teaching artwork, not historical or statistical evidence. Subject: Several distinct pieces of stone, dark wood and brass fit into one elegant freestanding sculpture, each visible contribution retained, partnership metaphor, no jigsaw cliché. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-25a6b519-1c78-4466-86e4-f3dce02e4c63.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-314.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-314.webp",
+  "originalSha256": "bf448727d8cc64404c201eba483cc262d2accab5d71c358322e51413e4a28f10",
+  "webSha256": "ed770d8878ec81f1ec28d1144480bf1c07e0870cb6c439df0728aeb1a060d3a8",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 184378,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "bf448727d8cc64404c201eba483cc262d2accab5d71c358322e51413e4a28f10",
+    "webSha256": "ed770d8878ec81f1ec28d1144480bf1c07e0870cb6c439df0728aeb1a060d3a8"
+  },
+  "pages": [
+    "mg-l13-s014-01"
+  ]
+}

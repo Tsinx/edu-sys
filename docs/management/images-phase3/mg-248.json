@@ -1,0 +1,40 @@
+{
+  "id": "mg-248",
+  "deck": "l10",
+  "page": 25,
+  "title": "自主与成长",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 25, 自主与成长; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult ceramic artist works independently on an ambitious new vessel beside earlier simpler pieces, concentration and agency, warm-white studio with teal accents. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-167170ae-8711-45fc-a9f0-ba17de84c514.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-248.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-248.webp",
+  "originalSha256": "a35defbc8924ad82b8aeaaa301db6a4ddfa4c6b4fd6cdae09ac5175dfaa46c6e",
+  "webSha256": "2d777ec6337ee19b3aafe99be9f1ea0b6d6899fb9ed06aaefb387c23745c9fbd",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 219002,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "a35defbc8924ad82b8aeaaa301db6a4ddfa4c6b4fd6cdae09ac5175dfaa46c6e",
+    "webSha256": "2d777ec6337ee19b3aafe99be9f1ea0b6d6899fb9ed06aaefb387c23745c9fbd"
+  },
+  "pages": [
+    "mg-l10-s025-01"
+  ]
+}

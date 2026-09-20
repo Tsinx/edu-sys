@@ -1,0 +1,40 @@
+{
+  "id": "mg-283",
+  "deck": "l11",
+  "page": 32,
+  "title": "邀请与回应",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l11, original page 32, 邀请与回应; conceptual teaching artwork, not historical or statistical evidence. Subject: Two adult Chinese university friends discuss a visit outside a small contemporary art gallery; one considers a pocket planner with completely blank pages, calm open-ended invitation. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-c93cc871-ad25-4c2a-a75d-9045068674ef.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-283.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-283.webp",
+  "originalSha256": "b11bce25a3f4957a1ba90fc68397b86d44666c17ca6a2e9bc098fca0068332ef",
+  "webSha256": "e3a260b6992cded397d7d56f418cb070c9c186a68f59b6e076422080ab5e4af3",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 216922,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "b11bce25a3f4957a1ba90fc68397b86d44666c17ca6a2e9bc098fca0068332ef",
+    "webSha256": "e3a260b6992cded397d7d56f418cb070c9c186a68f59b6e076422080ab5e4af3"
+  },
+  "pages": [
+    "mg-l11-s032-01"
+  ]
+}

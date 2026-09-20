@@ -5,6 +5,7 @@ export interface SubmissionSummary { id: string; actorId: string; displayName: s
 export interface SubmissionInput { requestId: string; courseId: string; classSessionId?: string; expectedRevision: number; package: PortSubmissionPackage }
 export interface ResultRow { actorId: string; identifier: string; displayName: string; results: SubmissionSummary[]; pending: SubmissionSummary[] }
 export interface ResultsResponse { teacher: boolean; rows: ResultRow[] }
+export interface TasksResponse { teacher: boolean; tasks: Array<{ unit: PortCourseSelection; publishedAt: string }> }
 export interface ReplayResponse { package: PortSubmissionPackage; result: PortSubmissionResult; nodes: PortEvidenceNode[]; report: unknown }
 export const submissionStatus = { queued: "等待核验", verifying: "核验中", verified: "提交成功", rejected: "核验失败" };
 export async function resultRequest<T>(path: string, data?: unknown): Promise<T> {

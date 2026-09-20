@@ -1,0 +1,40 @@
+{
+  "id": "mg-309",
+  "deck": "l13",
+  "page": 4,
+  "title": "规则与层级",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 4, 规则与层级; conceptual teaching artwork, not historical or statistical evidence. Subject: A serene civic archive with orderly shelves, open walkways and adult staff checking blank folders, institutional order and clear responsibilities without authoritarian imagery. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-1e24b491-f39a-4ebf-98b2-963566d16883.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-309.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-309.webp",
+  "originalSha256": "fd2035f1ebcd5cc3deb27e1a3f4cb8aa0f368dd6657f6b4f22dd59f49340cf2b",
+  "webSha256": "66f995cb719f49bb4f11144c1434e767979b60da2eeeb2cf4d74a697881725fa",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 211936,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "fd2035f1ebcd5cc3deb27e1a3f4cb8aa0f368dd6657f6b4f22dd59f49340cf2b",
+    "webSha256": "66f995cb719f49bb4f11144c1434e767979b60da2eeeb2cf4d74a697881725fa"
+  },
+  "pages": [
+    "mg-l13-s004-01"
+  ]
+}

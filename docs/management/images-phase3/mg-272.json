@@ -1,0 +1,40 @@
+{
+  "id": "mg-272",
+  "deck": "l11",
+  "page": 6,
+  "title": "语言之外",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l11, original page 6, 语言之外; conceptual teaching artwork, not historical or statistical evidence. Subject: Close but respectfully framed adult colleagues in a quiet discussion, clear attentive posture and gentle expressive hands, notebooks with blank pages, mood and body language without caricature. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-b83ff92c-85f9-4c02-a6f3-7d86c104e9e3.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-272.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-272.webp",
+  "originalSha256": "a7ad897b06d036a4f23f884946fcac278e89ca79ac754c1fb68ac7225dd368a1",
+  "webSha256": "007eed272f57e75cb70e61a66029cceb03b136783baa794341ee9b2c2e2c1ee1",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 174588,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "a7ad897b06d036a4f23f884946fcac278e89ca79ac754c1fb68ac7225dd368a1",
+    "webSha256": "007eed272f57e75cb70e61a66029cceb03b136783baa794341ee9b2c2e2c1ee1"
+  },
+  "pages": [
+    "mg-l11-s006-01"
+  ]
+}

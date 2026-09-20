@@ -1,0 +1,40 @@
+{
+  "id": "mg-332",
+  "deck": "l13",
+  "page": 67,
+  "title": "柔性作业",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l13, original page 67, 柔性作业; conceptual teaching artwork, not historical or statistical evidence. Subject: A clean generic automated manufacturing cell with modular fixtures and varied small workpieces, adult technician safely outside guarded robotic space, flexibility through modular design, no brand or production statistics. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-47be0127-f829-4c30-a07b-ca925de651b8.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-332.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-332.webp",
+  "originalSha256": "a5ffe6bca4bea31003e97853d94826e2426740afc6092c74562004f901db22f2",
+  "webSha256": "a10719780d8410afdf5ce8ff5d3e2a6ae17fc3e9864165a7ea4536b1ade3a25f",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 217752,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "a5ffe6bca4bea31003e97853d94826e2426740afc6092c74562004f901db22f2",
+    "webSha256": "a10719780d8410afdf5ce8ff5d3e2a6ae17fc3e9864165a7ea4536b1ade3a25f"
+  },
+  "pages": [
+    "mg-l13-s067-01"
+  ]
+}

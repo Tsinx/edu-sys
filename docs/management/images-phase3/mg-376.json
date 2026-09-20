@@ -1,0 +1,40 @@
+{
+  "id": "mg-376",
+  "deck": "l16",
+  "page": 10,
+  "title": "利益与顾虑",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l16, original page 10, 利益与顾虑; conceptual teaching artwork, not historical or statistical evidence. Subject: A respectful workplace conversation between adults seated at equal height, personal tools and shared materials on the table suggest different stakes, nuanced calm faces without villains. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-8d237bf1-142d-4d1f-84d5-72c189bd6d40.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-376.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-376.webp",
+  "originalSha256": "cbc58b485926b7002dd259d0d00a6cf52a023285a721c6346eb8673afb5d6387",
+  "webSha256": "0112e69362554d022b342f997c5e2132554315deb306c408ee86852db07fc87f",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 193510,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "cbc58b485926b7002dd259d0d00a6cf52a023285a721c6346eb8673afb5d6387",
+    "webSha256": "0112e69362554d022b342f997c5e2132554315deb306c408ee86852db07fc87f"
+  },
+  "pages": [
+    "mg-l16-s010-01"
+  ]
+}

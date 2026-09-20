@@ -1,0 +1,40 @@
+{
+  "id": "mg-408",
+  "deck": "intro",
+  "page": 36,
+  "title": "古代思想的管理启示",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: intro, original page 36, 古代思想的管理启示; conceptual teaching artwork, not historical or statistical evidence. Subject: A quiet traditional Chinese courtyard with a study desk, blank bamboo slips and a carefully tended water garden, historical atmosphere without portraits, calligraphy, inscriptions or mystical symbols. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-a95532b0-9060-4860-8af6-4f4c24d065bb.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-408.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-408.webp",
+  "originalSha256": "e41be431a7acc99ac3a523f9458c642808c6086b7c7fb7c3cff8e99872c1eb62",
+  "webSha256": "487436466accff71fc16f2cea7192a3b8a9db76cc6d111ed3c352e836a4f9e85",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 379264,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "e41be431a7acc99ac3a523f9458c642808c6086b7c7fb7c3cff8e99872c1eb62",
+    "webSha256": "487436466accff71fc16f2cea7192a3b8a9db76cc6d111ed3c352e836a4f9e85"
+  },
+  "pages": [
+    "mg-intro-s036-01"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "mg-409",
+  "deck": "intro",
+  "page": 43,
+  "title": "劳动分工",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: intro, original page 43, 劳动分工; conceptual teaching artwork, not historical or statistical evidence. Subject: A historical-inspired small craft workshop where adults carry out complementary stages of making simple metal components, dignified workers, believable tools, no claimed exact Smith factory reconstruction. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-6c11dab3-7a7e-4829-8124-a3033fc6e47d.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-409.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-409.webp",
+  "originalSha256": "4320220d9319d51f85a3fbb691c3af8f49890d6d58c87acf83ed5de398a56f56",
+  "webSha256": "18ffa0e653b02850f6f1ff3de1d92521bc07d583940638e52339b84d0b68ca89",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 273954,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "4320220d9319d51f85a3fbb691c3af8f49890d6d58c87acf83ed5de398a56f56",
+    "webSha256": "18ffa0e653b02850f6f1ff3de1d92521bc07d583940638e52339b84d0b68ca89"
+  },
+  "pages": [
+    "mg-intro-s043-01"
+  ]
+}

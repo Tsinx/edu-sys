@@ -1,0 +1,40 @@
+{
+  "id": "mg-234",
+  "deck": "l10",
+  "page": 3,
+  "title": "需要、行动与共同目标",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 3, 需要、行动与共同目标; conceptual teaching artwork, not historical or statistical evidence. Subject: A refined paper-cut landscape of small independent paths converging toward a shared open pavilion, deep layered handmade paper and a single gold path, conceptual not a labeled diagram. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-5a63b83b-2251-4381-a516-43bcf2d03ae0.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-234.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-234.webp",
+  "originalSha256": "a48c5f5b805a34b187e49537b39d863170ed7a72f2b89036647e7e0d9a11c125",
+  "webSha256": "3504201c00acd3ac6e5a111481fb0f7a8b771bff00f64b9ef6729bb99329481d",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 312252,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "a48c5f5b805a34b187e49537b39d863170ed7a72f2b89036647e7e0d9a11c125",
+    "webSha256": "3504201c00acd3ac6e5a111481fb0f7a8b771bff00f64b9ef6729bb99329481d"
+  },
+  "pages": [
+    "mg-l10-s003-01"
+  ]
+}

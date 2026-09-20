@@ -1,0 +1,40 @@
+{
+  "id": "mg-298",
+  "deck": "l12",
+  "page": 12,
+  "title": "关键控制点",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l12, original page 12, 关键控制点; conceptual teaching artwork, not historical or statistical evidence. Subject: Close view of a carefully fitted joint in a large wooden architectural model, an adult hand gently checks the connection while the wider structure recedes in soft focus, precision not surveillance. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-21e4b615-2a97-4047-872c-c5b53ea44c25.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-298.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-298.webp",
+  "originalSha256": "d2e40a7c4718c72ee60d2e576ce816094b47c79e110c231a6630233e17b7da9c",
+  "webSha256": "b77e75abef95b8b3500ce355e45801b7c8b203d890e403b9284818a73c1897c7",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 188326,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "d2e40a7c4718c72ee60d2e576ce816094b47c79e110c231a6630233e17b7da9c",
+    "webSha256": "b77e75abef95b8b3500ce355e45801b7c8b203d890e403b9284818a73c1897c7"
+  },
+  "pages": [
+    "mg-l12-s012-01"
+  ]
+}

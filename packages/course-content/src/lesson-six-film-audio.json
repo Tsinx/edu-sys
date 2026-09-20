@@ -1,0 +1,506 @@
+{
+  "25-a": {
+    "src": "/course-assets/port-management/l6-film/25-a-66542d578380.wav",
+    "durationMs": 9372.333333333334,
+    "sha256": "5ca026f1c1c3ff2b528daa032bec7a5eba29f2304609c18385dd4159d7c8c1d0",
+    "textSha256": "66542d578380bb8340e2c595c0b6cb55557240137b92b70bfb779276335ec8e2",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "25-b": {
+    "src": "/course-assets/port-management/l6-film/25-b-6d0fc7c28cec.wav",
+    "durationMs": 8955.666666666666,
+    "sha256": "aa958bbc19b0567dee6ef1b030d613e7bde4886a5063cddc46701122f47195d0",
+    "textSha256": "6d0fc7c28cec1e50a72623bff7ae12441da5a145806af6ecc9ad46aba2809c18",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "25-c": {
+    "src": "/course-assets/port-management/l6-film/25-c-be3ee0ce1791.wav",
+    "durationMs": 7622.333333333333,
+    "sha256": "b53397eec1823b521d5bb6c1a238c197ee847efc20b8b51d9118a394c4ec4418",
+    "textSha256": "be3ee0ce1791b2ffe38eb369b505408c290dcb866aec673e71f6e7db23abe205",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "25-d": {
+    "src": "/course-assets/port-management/l6-film/25-d-6b6195444c5a.wav",
+    "durationMs": 9455.666666666666,
+    "sha256": "e0dd6f9c410687629e9afc9a18e2a8480540943a7dd70fcdbf02e269911ab61f",
+    "textSha256": "6b6195444c5a8c29975ff93c30e5c46a4d83ad8a0b1c989e1614b29da2e8d914",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "26-a": {
+    "src": "/course-assets/port-management/l6-film/26-a-083bb1563609.wav",
+    "durationMs": 8122.333333333333,
+    "sha256": "b71f128549f418ad0da35295985c91732ea7ff98061cc2e4e2470afd7db66371",
+    "textSha256": "083bb1563609c598ddd9bdd91594c79a25176827b0631f1b040a46b1bc1eb453",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "26-b": {
+    "src": "/course-assets/port-management/l6-film/26-b-b8b1db61d620.wav",
+    "durationMs": 7039,
+    "sha256": "a1a96463e249b13bdff48b4e64463a63e67dce73bd2e45e2cc220f0676f2c9d1",
+    "textSha256": "b8b1db61d6209f56942ca95612c8ff81bc22a670bcc1a51390f74a68f4f7aa8e",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "26-c": {
+    "src": "/course-assets/port-management/l6-film/26-c-7590ac46a8f1.wav",
+    "durationMs": 7539,
+    "sha256": "3da88e8c40a9164bae0d5f5dc61a025c92c2bbb55ffd0710af5a6827dd0a80fe",
+    "textSha256": "7590ac46a8f16aab7701a14219ca6efeb2807874f78750e5c6972f08c37c86c8",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "26-d": {
+    "src": "/course-assets/port-management/l6-film/26-d-c6a231fdde2e.wav",
+    "durationMs": 7039,
+    "sha256": "7feebbc3c4ee5b3ced402512c094067e6cb76dfb08fd40e9a084da6f7b9de72c",
+    "textSha256": "c6a231fdde2e2cb9e89bffd525ea3c232480412e88e4d650dcc28bfec755e875",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "26-e": {
+    "src": "/course-assets/port-management/l6-film/26-e-8e0103ba7a3f.wav",
+    "durationMs": 6955.666666666667,
+    "sha256": "0766262e0afb917bad68e84a6685e67e221180db315da86ebc0bb4610ac85fb5",
+    "textSha256": "8e0103ba7a3f4e943a69884633a4c70e5ac828279125e204d145de913f68d416",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "26-f": {
+    "src": "/course-assets/port-management/l6-film/26-f-99d634ee4198.wav",
+    "durationMs": 7622.333333333333,
+    "sha256": "45624367db66c56c78f4c2619fb4d229a89107f67c9f6ba63a743299a57c0b96",
+    "textSha256": "99d634ee4198da1cd99a86a4813e0e72c1eac372a15a8db1e8b0575058144da8",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "26-g": {
+    "src": "/course-assets/port-management/l6-film/26-g-f48c344140a1.wav",
+    "durationMs": 8705.666666666666,
+    "sha256": "90874486fe94a45c5540da4d408046a8c84c7bc65c181aa48ad0d90b1de798c5",
+    "textSha256": "f48c344140a147bbbd25076d39a22e8c0d7a46b22c25d52303541da05ef1a858",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "27-a": {
+    "src": "/course-assets/port-management/l6-film/27-a-30e6bd0cf35d.wav",
+    "durationMs": 8039,
+    "sha256": "3e06ecb6f5fcea68b12682956662a5c6be369fa745cf50dee3a662e0f894e66b",
+    "textSha256": "30e6bd0cf35dc7015725422434b88b5ca87cb0dbe290e0b768db539f207b6f0f",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "27-b": {
+    "src": "/course-assets/port-management/l6-film/27-b-43117fff1881.wav",
+    "durationMs": 8789,
+    "sha256": "92f8936a1269832bd3488bf05bc71f76b15ebd0d09e5a28c23cc1f9e46762dcc",
+    "textSha256": "43117fff18814608b6a3d28e5d244659f58695181f06f25715b595edcc6ba0b8",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "27-c": {
+    "src": "/course-assets/port-management/l6-film/27-c-58819266bd78.wav",
+    "durationMs": 9039,
+    "sha256": "51ef37cfe4bbc0a4ffda78545ec1425f758545e3e86da93a40a8fc3f089af2a5",
+    "textSha256": "58819266bd785fccf9211c4cee14e46b409a727262024af6b1f1783a18ea98ad",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "27-d": {
+    "src": "/course-assets/port-management/l6-film/27-d-f8c96c5cc477.wav",
+    "durationMs": 8455.666666666666,
+    "sha256": "45621d29890d94397ed27d70603b348c9429212a2509fc6902a9aecc08344e90",
+    "textSha256": "f8c96c5cc47741907b85ec8c27988b6ad4119455dda09d238cec46052ba97eaf",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "29-a": {
+    "src": "/course-assets/port-management/l6-film/29-a-d8a29bc62331.wav",
+    "durationMs": 7455.666666666667,
+    "sha256": "afafadfa952620cc370668d133e2a35e24c61a16561e6a52538883ba6d1dc668",
+    "textSha256": "d8a29bc62331e7e14c61c4bd3a31092f8a92329ee6429b4c7b781a3191013891",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "29-b": {
+    "src": "/course-assets/port-management/l6-film/29-b-a968074b65a8.wav",
+    "durationMs": 8872.333333333334,
+    "sha256": "b1436a8c8ca1f227ca148b9c8979c091503792200c340b4e2256f745767b88b9",
+    "textSha256": "a968074b65a8fb7f672427496383ff7cc949baafbbec777e49699c103e63cb2f",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "29-c": {
+    "src": "/course-assets/port-management/l6-film/29-c-58ae830e682a.wav",
+    "durationMs": 7205.666666666667,
+    "sha256": "2525fc8bc801775291d96b7cc1b097f1a8af063045af58d8645297f5c49ecf94",
+    "textSha256": "58ae830e682a65227fcdc27b0eb934dcba63c14d149acd440ebb3667c02d8a0a",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "29-d": {
+    "src": "/course-assets/port-management/l6-film/29-d-0e912d27076c.wav",
+    "durationMs": 8622.333333333334,
+    "sha256": "c6ab27aa6933c36815a6093ad5c3dbbd97ebeedf954231b0eda83ce3fbb1a3ea",
+    "textSha256": "0e912d27076c27c109257b9bdb3a0cba2d6942ef42cf7ce85964f7751e926dc8",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "29-single-c": {
+    "src": "/course-assets/port-management/l6-film/29-single-c-c981f27490a0.wav",
+    "durationMs": 8455.666666666666,
+    "sha256": "e434811d03af04c73e0d626c5ce6da98c5793b156a0f5064c68dfa28105ac7ce",
+    "textSha256": "c981f27490a0f7c35545c1b57e4bfae8022459e74a1cfe9c027e50900ffb8fc9",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "31-a": {
+    "src": "/course-assets/port-management/l6-film/31-a-22c7d603b3c8.wav",
+    "durationMs": 8039,
+    "sha256": "55376dc2b24cb723e7d693457894411244aa3cdd74a06bda0fb3186721c58b80",
+    "textSha256": "22c7d603b3c80bf40722eee2466405679c42cf8c9748f759735fd940a9ae4e67",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "31-b": {
+    "src": "/course-assets/port-management/l6-film/31-b-5c086784eaca.wav",
+    "durationMs": 7705.666666666667,
+    "sha256": "1a6220de0d3fcb2140f918f08df65f0085a6c029cb23638fe8d115add462a65f",
+    "textSha256": "5c086784eaca760b5e420b8c1d26ca16c9af3b67b29bf34a5004033f9b6c9064",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "31-c": {
+    "src": "/course-assets/port-management/l6-film/31-c-155a839ced2c.wav",
+    "durationMs": 6289,
+    "sha256": "b86b5f65a0797645e2e1cd4c6233264e4b8e96fb7e7d15b9db9d0ea182f13019",
+    "textSha256": "155a839ced2c8a2ab7209e406f67acdd21e52f3d540f55e2b7a2bc39875c935f",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "31-d": {
+    "src": "/course-assets/port-management/l6-film/31-d-4acf36b761da.wav",
+    "durationMs": 10789,
+    "sha256": "c3bec6c7a4a6e3ef45fad67b7cb28720317485f78bb8195c82864cc1d86d3faf",
+    "textSha256": "4acf36b761da9cbd81696049092fd4e99e75f2dc1e1c07b44370d6c9e462606e",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "32-a": {
+    "src": "/course-assets/port-management/l6-film/32-a-7d9d25469519.wav",
+    "durationMs": 8122.333333333333,
+    "sha256": "bae69dbc476461b0f78ad8294b307dd1a2eba41fc3f1c3b51ddbf3a6a3593356",
+    "textSha256": "7d9d25469519dbbdd19cc2196a49cd8267e8a557ee14f988fc261415964f2675",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "32-b": {
+    "src": "/course-assets/port-management/l6-film/32-b-ac75f191af48.wav",
+    "durationMs": 7539,
+    "sha256": "cd2959ae181b4bbe1d921acb5d7d72654cfa5875448d972530080f2423087be1",
+    "textSha256": "ac75f191af48246bc63766cc6a843b23fb4b0aa6a799a8cdb6eb181dd50cd934",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "32-c": {
+    "src": "/course-assets/port-management/l6-film/32-c-45836658b8d9.wav",
+    "durationMs": 8705.666666666666,
+    "sha256": "7c8aae03d61d10ce9bb976ddb128d7d7b40a076878765fa6acd0ee5843ead614",
+    "textSha256": "45836658b8d91345b54f59ec1a5cd0d18582d7e04f9bc32475063e9bfd23c868",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "32-d": {
+    "src": "/course-assets/port-management/l6-film/32-d-24c2ebcd9afe.wav",
+    "durationMs": 9539,
+    "sha256": "49d017c355626f91e2359e55e8a1df9de73fb7cc005cb5aad3a1beae3ace4253",
+    "textSha256": "24c2ebcd9afe26da36c1d2a84e4bc0d939eefc523e92aa5ab66cf05650da22bd",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "33-a": {
+    "src": "/course-assets/port-management/l6-film/33-a-ffec824a3b1d.wav",
+    "durationMs": 8122.333333333333,
+    "sha256": "1adfa5e6a67833b5ac36a257095de683c7e9d520c03f219c17a890062ffef608",
+    "textSha256": "ffec824a3b1dd5804c7f293a4462a9f49cf9eb21d62b975cbc140ed2b444d90a",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "33-b": {
+    "src": "/course-assets/port-management/l6-film/33-b-483aaae05881.wav",
+    "durationMs": 7539,
+    "sha256": "895f95bb8b984f4c8a51defdb4e0eb7631ac9255fd3935bb4668bb4637874f16",
+    "textSha256": "483aaae05881d22b214ff0fc90fa443753ec7125676eb99ba5e90353d23b537b",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "33-c": {
+    "src": "/course-assets/port-management/l6-film/33-c-fe5dc28d0d81.wav",
+    "durationMs": 7455.666666666667,
+    "sha256": "b958738245669b51b3b753703395abbc66327867941cab969f1e0d398f3597d2",
+    "textSha256": "fe5dc28d0d81519e07218d06202f2544dd27650f6e29867ad54cc4aad00d9c18",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "33-d": {
+    "src": "/course-assets/port-management/l6-film/33-d-2997570e4d14.wav",
+    "durationMs": 9955.666666666666,
+    "sha256": "739c43459eaf0c9a7aa54c58ccd0fa654d4cd8462da7e94a6e56a2a79e858a4a",
+    "textSha256": "2997570e4d141c895bd8a13af688b4765351704d3cb28198a50619ff16f41449",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "34-a": {
+    "src": "/course-assets/port-management/l6-film/34-a-fb79c3a17282.wav",
+    "durationMs": 8789,
+    "sha256": "a69da00df17fd0cfa51f41cef154380482586b6b44a401c4109c717043f8c59f",
+    "textSha256": "fb79c3a17282e8a30776d421d86fcce2dd7177de1ca6475ab1e71a9a346fbb6f",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "34-b": {
+    "src": "/course-assets/port-management/l6-film/34-b-59d798c7ce01.wav",
+    "durationMs": 10039,
+    "sha256": "53c0d51d1bb991cb62b4f8ac40ffa0178fd5f925cb14f74f59ba0b59218211f6",
+    "textSha256": "59d798c7ce01c2fa4219698d26970d02523d7892585e3edf94069654dae6bba9",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "34-c": {
+    "src": "/course-assets/port-management/l6-film/34-c-e85b9cea2247.wav",
+    "durationMs": 10455.666666666666,
+    "sha256": "ca35214ec3156f0d3511b7179c34a5a2d97a99d79c21ad91791c7f11f744e8a6",
+    "textSha256": "e85b9cea2247c781eb06accc365498856da22462b2eb24ad0ee918c29d211b88",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "34-d": {
+    "src": "/course-assets/port-management/l6-film/34-d-6fe8077de4a4.wav",
+    "durationMs": 9789,
+    "sha256": "be94580ba0d22558750904526edffbad04c850732dff5cfec4ff222128c700a0",
+    "textSha256": "6fe8077de4a4a14f0ecb912dd6246367140c3a3ea54a174a98c27374b7c5ccb0",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "35-a": {
+    "src": "/course-assets/port-management/l6-film/35-a-54e13407098e.wav",
+    "durationMs": 8789,
+    "sha256": "86b221cafa29debf0e2cebee38100900146f8ad2e884fb4cca67a5e4829f6ee5",
+    "textSha256": "54e13407098ecf5bc983a5225052c6f6bef21a9e5d6343bab199207cec6c7a10",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "35-b": {
+    "src": "/course-assets/port-management/l6-film/35-b-3ae70b582750.wav",
+    "durationMs": 10955.666666666666,
+    "sha256": "eebfb4f777025bd7683ff78b14466e195e67eaf22825d0d24f4fa011209152b1",
+    "textSha256": "3ae70b5827500a00f64533cba930efeaeac482e61c0b0dd4587d3f1d5833228b",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "35-c": {
+    "src": "/course-assets/port-management/l6-film/35-c-7c00434425f9.wav",
+    "durationMs": 9205.666666666666,
+    "sha256": "862e8678beafb86f8ada39120459e110ea4ecddc936bddd70fc88c3f697b2de5",
+    "textSha256": "7c00434425f95da19f4c53480ea658a6873146ba297b141029ce387fe5eb2843",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "35-d": {
+    "src": "/course-assets/port-management/l6-film/35-d-391b5c21bc60.wav",
+    "durationMs": 10539,
+    "sha256": "29c11a2f3cd295dbf43608108c6172a55fe4176134ffb78900fcf4ef1df7fee2",
+    "textSha256": "391b5c21bc60b045279903365f424be2689efd4be16c0a8f4fa1cf00f6ea4eab",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "36-a": {
+    "src": "/course-assets/port-management/l6-film/36-a-128a45b157bd.wav",
+    "durationMs": 7205.666666666667,
+    "sha256": "bc9775ccbb44813484634364f85ca1a0661960373b09b7192b76f61feb0a0df8",
+    "textSha256": "128a45b157bd6f59c7af49e744b404e32f787159495eedfa4a95dc347313e603",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "36-b": {
+    "src": "/course-assets/port-management/l6-film/36-b-37e2b3d1864a.wav",
+    "durationMs": 7622.333333333333,
+    "sha256": "60d452253a3890f75da2a3f68c2a0e04e41f5ee6e7f5b17c619b7bdeaa4aaa0c",
+    "textSha256": "37e2b3d1864a2d8e2a06f1a6430445abb1f204a54f583a7d010d7e5c5facdc72",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "36-c": {
+    "src": "/course-assets/port-management/l6-film/36-c-4d9451b6cd38.wav",
+    "durationMs": 8205.666666666666,
+    "sha256": "1375fead6b418bc19c2bb81d228fc6af5b29f976d9a01453269f7808b6623ea9",
+    "textSha256": "4d9451b6cd3801045e6ee73df0dd4be1acbdaed60446e172efcc0996aa386735",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "36-d": {
+    "src": "/course-assets/port-management/l6-film/36-d-4a029e895fb3.wav",
+    "durationMs": 9039,
+    "sha256": "eecc4766bb6932643cb371552424378059ca539e10fb5dd1a32f2868ae4ad6f1",
+    "textSha256": "4a029e895fb3e1a27e01ee1830c321eff4d77270efdbca7c49d30371d6885c87",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "37-a": {
+    "src": "/course-assets/port-management/l6-film/37-a-7bc1b70ab1dc.wav",
+    "durationMs": 7455.666666666667,
+    "sha256": "20caf83c9c888b7ef292c377f0148ac6df2ff19b9ce0a05097e2c64397b2ed45",
+    "textSha256": "7bc1b70ab1dce8fc1a4a7c6e6ba299c5fbb77c274cbc9aec6ef56928268b2e9d",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "37-b": {
+    "src": "/course-assets/port-management/l6-film/37-b-58b422bb7a15.wav",
+    "durationMs": 8122.333333333333,
+    "sha256": "3c9a8fb9abb48526dc95ed4cad026e72a249fc8837aa17f2ec55aa70ced10300",
+    "textSha256": "58b422bb7a15c5ae402693687f6194d35a588daadb396302d492c2348d72f77e",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "37-c": {
+    "src": "/course-assets/port-management/l6-film/37-c-3f8c7f6548a6.wav",
+    "durationMs": 8205.666666666666,
+    "sha256": "877d5991fd08c08e710d5f66bd0dadf74f9c1fa4d4b006f54eb7cbee49a37515",
+    "textSha256": "3f8c7f6548a61b8364949cc56a34c1f1380c7fc489a4cb7eb41123bcbebeacbb",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "37-d": {
+    "src": "/course-assets/port-management/l6-film/37-d-f18854e14b90.wav",
+    "durationMs": 8955.666666666666,
+    "sha256": "6f798d19404804b78d35efec9e68ff624bb06c5707b0cd3ba14c8d738252c8d8",
+    "textSha256": "f18854e14b900da19f23c353a2282ad5b5a19c83264fb7bdab45fec570e2eee0",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "38-a": {
+    "src": "/course-assets/port-management/l6-film/38-a-9315d36aad16.wav",
+    "durationMs": 7872.333333333333,
+    "sha256": "2b2321c531a7d753e089d3ef7831c60ea1b12c6f1d07d3134b661f0107a3c303",
+    "textSha256": "9315d36aad1655a0b740419460108efe92721e2cf30438391ff2cc2cf10785f4",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "38-answer-a": {
+    "src": "/course-assets/port-management/l6-film/38-answer-a-4ea1f5e60eb2.wav",
+    "durationMs": 9039,
+    "sha256": "9b84cffcf595dc792dc4c636551e243a3909bda6efa3a565a3d81ddcac70ed92",
+    "textSha256": "4ea1f5e60eb293990890bb1408ffc042fd18244af539e23ad541f1d208d39ea0",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "38-answer-b": {
+    "src": "/course-assets/port-management/l6-film/38-answer-b-7345804d4f94.wav",
+    "durationMs": 8872.333333333334,
+    "sha256": "b1405bda82c07526d6608db24ab2bf186dab411b125cbb02d03ca66073b18cbb",
+    "textSha256": "7345804d4f94c35a0fa50e13126c16ea249dc2a30cbae8637a5132c25be3d36a",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "38-answer-c": {
+    "src": "/course-assets/port-management/l6-film/38-answer-c-be938a926105.wav",
+    "durationMs": 10289,
+    "sha256": "6a7ab273d399b4d4986c537aa2e0c53a426883d179c6a735cb0a4e8c1bdd0ab6",
+    "textSha256": "be938a92610575c029f08efaa8f3f25aeed5b7ab7af67d80d9bb3691b48a86f4",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "38-answer-d": {
+    "src": "/course-assets/port-management/l6-film/38-answer-d-4355ee0a1360.wav",
+    "durationMs": 11205.666666666666,
+    "sha256": "8c27cdcbe4901c24450764f815b0ab23295f08310ce6df716e849451844e2195",
+    "textSha256": "4355ee0a1360e4545632d9267b582813f1f4841f0cd1e88e96a7c982887f8307",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "38-b": {
+    "src": "/course-assets/port-management/l6-film/38-b-af42a9842eaa.wav",
+    "durationMs": 7122.333333333333,
+    "sha256": "ab83d880fe5cf537ff506e3ddb2c663b6c0579a397a024a3cf049de40ea95d5e",
+    "textSha256": "af42a9842eaa32c6ce62b91bb3dd1056c1a7a32db9e04713d3dae85e2dbeb344",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "38-c": {
+    "src": "/course-assets/port-management/l6-film/38-c-ca461ed8f7e2.wav",
+    "durationMs": 8289,
+    "sha256": "0386ed7bc021c5a9e1b8c2f8efbc483246fdf964c43eedd789e912c0378ca03e",
+    "textSha256": "ca461ed8f7e242d59f630037bf4bd63106753c41d732b7f3f4fbc5f0a2364161",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  },
+  "38-d": {
+    "src": "/course-assets/port-management/l6-film/38-d-0c739fd4a589.wav",
+    "durationMs": 8372.333333333334,
+    "sha256": "2d622949d66e6bb83599cc175bfc15cb18c431b55e447706fc41221e215debe7",
+    "textSha256": "0c739fd4a5899e54f39f81bc680d85f0c741889edd931288ec3ce9f1db8bf76b",
+    "voiceProfile": "default",
+    "voiceFingerprint": "10f6c2241a2783b3d22c7c3ec70758b64c2851afbe67eb6827261ac3230bed7d",
+    "model": "qwen3-tts-vd-realtime-2026-01-15"
+  }
+}

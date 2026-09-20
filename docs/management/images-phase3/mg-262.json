@@ -1,0 +1,40 @@
+{
+  "id": "mg-262",
+  "deck": "l10",
+  "page": 66,
+  "title": "工作丰富与轮换",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 66, 工作丰富与轮换; conceptual teaching artwork, not historical or statistical evidence. Subject: An open studio with three distinct adult craft stations, a participant learns a new task while another makes a design choice independently, skill variety and agency. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-1aae2f58-d268-4ed8-8787-81a8cc2ee0f8.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-262.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-262.webp",
+  "originalSha256": "a80ac39673b8ff46eac06d6fde1c85d6d4ab1c5e07304471f091beb1f6d04abb",
+  "webSha256": "5dd5ef51b22180dc16353b383b59aad460fdedfbc5cf0fbaaf86bda70d428372",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 277014,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "a80ac39673b8ff46eac06d6fde1c85d6d4ab1c5e07304471f091beb1f6d04abb",
+    "webSha256": "5dd5ef51b22180dc16353b383b59aad460fdedfbc5cf0fbaaf86bda70d428372"
+  },
+  "pages": [
+    "mg-l10-s066-01"
+  ]
+}

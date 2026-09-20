@@ -1,0 +1,40 @@
+{
+  "id": "mg-267",
+  "deck": "l10",
+  "page": 75,
+  "title": "焊接生产与激励",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l10, original page 75, 焊接生产与激励; conceptual teaching artwork, not historical or statistical evidence. Subject: A modern welding workshop with an adult worker using appropriate protective mask and gloves, softly glowing weld and clearly finished components nearby, no company branding or unsafe spectators. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-c3427280-e7c4-4d10-aac5-42bcf75b5b7c.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-267.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-267.webp",
+  "originalSha256": "f6e55a9c175358f060c7959212de6e4dfaf8aefae5d4b7c5552d171a441ff095",
+  "webSha256": "44697642e2aa0c38f6e8af01d7312c05e64b211ef37cfa8de073ab68aaf00b67",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 220744,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "f6e55a9c175358f060c7959212de6e4dfaf8aefae5d4b7c5552d171a441ff095",
+    "webSha256": "44697642e2aa0c38f6e8af01d7312c05e64b211ef37cfa8de073ab68aaf00b67"
+  },
+  "pages": [
+    "mg-l10-s075-01"
+  ]
+}

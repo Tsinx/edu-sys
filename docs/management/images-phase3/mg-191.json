@@ -1,0 +1,40 @@
+{
+  "id": "mg-191",
+  "deck": "l9",
+  "page": 1,
+  "title": "领导的一般理论",
+  "label": "艺术示意",
+  "prompt": "Use case: stylized-concept. Asset type: management course chapter-opening artwork. Subject: a beautifully crafted open architectural model of a shared civic workshop, with an experienced adult coordinator listening to a small diverse team gathered around a physical pavilion prototype; different expertise contributes to a common direction, leadership communicated through attention and coordination rather than rank. Style: museum-quality contemporary editorial art combining tactile miniature architecture with natural human detail, sophisticated academic art-book finish. Composition: wide 16:10, focal group and model occupy the right two thirds, softly lit warm ivory negative space on the left for native webpage title. Palette: warm white, deep ink, muted teal, restrained brass accents. Lighting: gentle oblique daylight with dimensional material textures. Source basis: chapter 9 leadership, influence and coordinated collective action; this is a conceptual teaching scene, not a real company or historical event. Avoid all text, letters, numbers, logos, watermarks, charts, arrows, corporate stock-photo posing, giant leader figures, duplicated limbs or surreal hands. One independent image only.",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-45376736-6b7c-48a6-a65d-3a44ae0d9aea.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-191.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-191.webp",
+  "originalSha256": "82fa639c6bbdc8e133740f5c710e2bbf71e313dbe5e814c04672833049282009",
+  "webSha256": "4a8eb4a98ccb8c4503ee775c6901242b00e15474b97a448b10c1978dc59b92ba",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 171910,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "82fa639c6bbdc8e133740f5c710e2bbf71e313dbe5e814c04672833049282009",
+    "webSha256": "4a8eb4a98ccb8c4503ee775c6901242b00e15474b97a448b10c1978dc59b92ba"
+  },
+  "pages": [
+    "mg-l9-s001-01"
+  ]
+}

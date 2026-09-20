@@ -1,0 +1,40 @@
+{
+  "id": "mg-400",
+  "deck": "intro",
+  "page": 18,
+  "title": "共同的分析基础",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: intro, original page 18, 共同的分析基础; conceptual teaching artwork, not historical or statistical evidence. Subject: A sculptural architectural foundation supports several distinct human-scale pavilions used for learning, services and making, shared foundations and different contexts, no corporate logos. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-a7c3bb34-fa72-4e9f-8cac-5b4f6d19a745.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-400.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-400.webp",
+  "originalSha256": "31de2b3a3a47249f7a4aabd4206f492d337a100dd285483da9353e6f56ee19d7",
+  "webSha256": "4902884ef678bef3e04144ea86e236312afd7e9c33ddfc205f477e94baef8d78",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 354398,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "31de2b3a3a47249f7a4aabd4206f492d337a100dd285483da9353e6f56ee19d7",
+    "webSha256": "4902884ef678bef3e04144ea86e236312afd7e9c33ddfc205f477e94baef8d78"
+  },
+  "pages": [
+    "mg-intro-s018-01"
+  ]
+}

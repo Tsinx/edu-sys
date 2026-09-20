@@ -1,0 +1,40 @@
+{
+  "id": "mg-231",
+  "deck": "l9b",
+  "page": 30,
+  "title": "在实践中建立信任",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: l9b, original page 30, 在实践中建立信任; conceptual teaching artwork, not historical or statistical evidence. Subject: An adult university club member offers skilled help fixing an exhibition model while peers watch and then join in, credibility through useful contribution. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-3a1a8acb-db1b-4349-9e39-829cfec9e27d.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-231.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-231.webp",
+  "originalSha256": "b456feed76439cd9e533dca48d17080fce099fc33ae83a058d254f6ce087350a",
+  "webSha256": "c454c3953acb51d9777231b39234b297c8097e8f312f2351b6322373cf8d2dab",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 219330,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-19",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "b456feed76439cd9e533dca48d17080fce099fc33ae83a058d254f6ce087350a",
+    "webSha256": "c454c3953acb51d9777231b39234b297c8097e8f312f2351b6322373cf8d2dab"
+  },
+  "pages": [
+    "mg-l9b-s030-01"
+  ]
+}

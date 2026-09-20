@@ -1,0 +1,40 @@
+{
+  "id": "mg-399",
+  "deck": "intro",
+  "page": 16,
+  "title": "共同完成一件事",
+  "prompt": "Use case: stylized-concept. Asset type: management course academic art-book illustration. Source basis: intro, original page 16, 共同完成一件事; conceptual teaching artwork, not historical or statistical evidence. Subject: Adult volunteers assemble a small elegant wooden bridge across a dry garden channel, complementary tasks and visible coordination, safe tools, believable engineering, no leader on a pedestal. Style: refined contemporary editorial art with tactile materials and believable human detail. Composition: wide 16:10 with a clear focal scene and generous breathing room; suitable beside native webpage text. Lighting: soft oblique daylight and subtle dimensional shadows. Palette: warm ivory, deep ink, low-saturation teal, restrained brass gold. Avoid: all text, letters, numbers, labels, logos, watermarks, invented data, charts, arrows, corporate stock-photo poses, duplicate limbs and distorted hands. One independent image only.",
+  "label": "艺术示意",
+  "status": "adopted",
+  "tool": "built-in Imagegen",
+  "generatedSource": "C:\\Users\\Administrator\\.codex\\generated_images\\01a09b3e-9f3a-7b72-9b35-a6e4485922c5\\exec-ba6d52c7-f673-4a09-8ce1-e69dcd42c8bb.png",
+  "original": "output\\management-principles\\images-phase3\\originals\\mg-399.png",
+  "adopted": "apps\\teacher-web\\public\\course-assets\\management-principles\\mg-399.webp",
+  "originalSha256": "bbbe2bf9eedc0efc25b7ed610aacdefe4ce29c7ae576819f8cdf1f2da6157cba",
+  "webSha256": "513cf440a5ab7901d5bdbdaf65fd13df2f36e41e04a1361f610fd9ae1716f408",
+  "originalSize": [
+    1586,
+    992
+  ],
+  "webSize": [
+    1586,
+    992
+  ],
+  "webBytes": 417502,
+  "review": {
+    "status": "reviewed",
+    "reviewedAt": "2026-09-20",
+    "scope": "individual visual inspection of generated image or numbered contact sheet",
+    "checks": [
+      "composition supports stated teaching scene",
+      "no fabricated statistical evidence or corporate attribution",
+      "no unintended readable text",
+      "no obvious distracting anatomical or material defects"
+    ],
+    "originalSha256": "bbbe2bf9eedc0efc25b7ed610aacdefe4ce29c7ae576819f8cdf1f2da6157cba",
+    "webSha256": "513cf440a5ab7901d5bdbdaf65fd13df2f36e41e04a1361f610fd9ae1716f408"
+  },
+  "pages": [
+    "mg-intro-s016-01"
+  ]
+}

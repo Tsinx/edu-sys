@@ -1,5 +1,15 @@
 [
   {
+    "number": 0,
+    "title": "绪论",
+    "kind": "introduction",
+    "displayLabel": "绪论",
+    "slideStart": 1407,
+    "slideEnd": 1477,
+    "slideTotal": 71,
+    "status": "ready"
+  },
+  {
     "number": 1,
     "title": "管理导论",
     "slideStart": 1,
@@ -61,6 +71,86 @@
     "slideStart": 607,
     "slideEnd": 663,
     "slideTotal": 57,
+    "status": "ready"
+  },
+  {
+    "number": 9,
+    "title": "领导的一般理论",
+    "kind": "lecture",
+    "displayLabel": "第9讲",
+    "slideStart": 664,
+    "slideEnd": 841,
+    "slideTotal": 178,
+    "status": "ready"
+  },
+  {
+    "number": 10,
+    "title": "激励",
+    "kind": "lecture",
+    "displayLabel": "第10讲",
+    "slideStart": 842,
+    "slideEnd": 1002,
+    "slideTotal": 161,
+    "status": "ready"
+  },
+  {
+    "number": 11,
+    "title": "沟通",
+    "kind": "lecture",
+    "displayLabel": "第11讲",
+    "slideStart": 1003,
+    "slideEnd": 1079,
+    "slideTotal": 77,
+    "status": "ready"
+  },
+  {
+    "number": 12,
+    "title": "控制的类型与过程",
+    "kind": "lecture",
+    "displayLabel": "第12讲",
+    "slideStart": 1080,
+    "slideEnd": 1136,
+    "slideTotal": 57,
+    "status": "ready"
+  },
+  {
+    "number": 13,
+    "title": "控制的方法和技术",
+    "kind": "lecture",
+    "displayLabel": "第13讲",
+    "slideStart": 1137,
+    "slideEnd": 1235,
+    "slideTotal": 99,
+    "status": "ready"
+  },
+  {
+    "number": 14,
+    "title": "风险控制与危机管理",
+    "kind": "lecture",
+    "displayLabel": "第14讲",
+    "slideStart": 1236,
+    "slideEnd": 1301,
+    "slideTotal": 66,
+    "status": "ready"
+  },
+  {
+    "number": 15,
+    "title": "创新原理",
+    "kind": "lecture",
+    "displayLabel": "第15讲",
+    "slideStart": 1302,
+    "slideEnd": 1346,
+    "slideTotal": 45,
+    "status": "ready"
+  },
+  {
+    "number": 16,
+    "title": "组织创新",
+    "kind": "lecture",
+    "displayLabel": "第16讲",
+    "slideStart": 1347,
+    "slideEnd": 1406,
+    "slideTotal": 60,
     "status": "ready"
   }
 ]
