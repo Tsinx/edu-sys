@@ -33,7 +33,7 @@ export async function synchronize(actorId:string) {
         body:JSON.stringify({...pending,key:record.key,deviceId:id})});
       if(response.status===409) {
         await changeRecord(actorId,record.key,current=>({...current!,conflict:true}));
-        notice("发现另一台设备的更新；两份存档已保留，请在离线与同步面板选择版本");continue;
+        notice("发现另一台设备的更新；两份存档已保留，请在课件与存档面板选择版本");continue;
       }
       if(!response.ok){notice(response.status===401?"登录已过期，记录待同步":"服务器暂未接收存档，稍后自动重试");return;}
       const receipt=await response.json() as {revision:number};

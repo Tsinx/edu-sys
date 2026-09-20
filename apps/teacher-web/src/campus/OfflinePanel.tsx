@@ -36,6 +36,7 @@ export function OfflinePanel({actorId}:{actorId:string}) {
     const timer=setInterval(sync,30_000+Math.random()*5_000);update();sync();
     return()=>{clearInterval(timer);window.removeEventListener("edu-sync-change",update);window.removeEventListener("edu-storage-change",update);window.removeEventListener("online",sync);};
   },[actorId]);
+  useEffect(()=>{const open=()=>setOpen(true);window.addEventListener("open-offline-panel",open);return()=>window.removeEventListener("open-offline-panel",open);},[]);
   const download=async(group:string)=>{setBusy(true);setError("");try{setManifest(await message("download",group,setProgress));}catch(reason){setError((reason as Error).message);}finally{setBusy(false);}};
   const importRecords=async(file:File)=>{
     if(file.size>35_000_000)throw new Error("存档文件过大。");
@@ -47,13 +48,13 @@ export function OfflinePanel({actorId}:{actorId:string}) {
     for(const item of data.records)await changeRecord(actorId,item.key,existing=>existing??{...item,revision:0,dirty:true,conflict:false,pending:undefined});
     setNotice("已导入尚未存在的存档；原有本机版本已保留。重新打开实验以读取。");
   };
-  return <><button className="campus-offline-toggle" onClick={()=>setOpen(!open)}>离线与同步{records.some(item=>item.dirty)?" · 待同步":""}</button>
-    {open&&<aside className="campus-offline-panel" aria-label="离线资源与存档同步"><h2>课程随身带</h2><p role="status">{notice}</p>
-      <p>先下载基础程序与对应课程；需要角色动作时，再下载数字人素材。</p>
+  return <><button className="campus-offline-toggle" onClick={()=>setOpen(!open)}>课件与存档{records.some(item=>item.dirty)?" · 待同步":""}</button>
+    {open&&<aside className="campus-offline-panel" aria-label="离线资源与存档同步"><h2>课件与存档</h2><button onClick={()=>setOpen(false)}>关闭</button><p>练习会自动保存。存档同步用于换设备继续；正式成绩请在实验页“结束并提交”。</p><p role="status">{notice}</p>
+      <details><summary>下载课程供离线阅读</summary><p>先下载基础程序与对应课程；需要角色动作时，再下载数字人素材。</p>
       {manifest?.groups.map(group=><article key={group.id}><strong>{group.label}</strong><p>{size(manifest.files.filter(file=>file.group===group.id).reduce((n,file)=>n+file.bytes,0))} · {manifest.ready.includes(group.id)?"已校验，可离线使用":"尚未完整下载"}</p>
         <button disabled={busy} onClick={()=>void download(group.id)}>下载并校验</button></article>)}
       {busy&&<><progress value={progress.done} max={progress.total||1}/><p>{size(progress.done)} / {size(progress.total)}</p></>}
-      <div className="campus-offline-actions"><button onClick={()=>void synchronize(actorId)}>立即同步存档</button><button onClick={()=>exportData("教学平台本机存档.json",{schema:"edu.local-backup/1",records})}>导出本机存档</button>
+      </details><details><summary>高级存档维护</summary><div className="campus-offline-actions"><button onClick={()=>void synchronize(actorId)}>立即同步存档</button><button onClick={()=>exportData("教学平台本机存档.json",{schema:"edu.local-backup/1",records})}>导出本机存档</button>
         <button onClick={()=>void restoreCloudRecords(actorId).then(items=>{setCloud(items);setNotice("服务器存档已读取；仅自动恢复本机尚无的记录。重新打开实验以读取。");}).catch(reason=>setError(reason.message))}>读取服务器存档</button>
         <button onClick={()=>void navigator.storage.persist().then(granted=>setNotice(granted?"已获准持久存储；请仍定期导出备份":"浏览器未批准持久存储，请定期同步或导出"))}>申请持久存储</button></div>
       <label>导入已导出的存档<input type="file" accept="application/json,.json" onChange={event=>{const file=event.target.files?.[0];if(file)void importRecords(file).catch(reason=>setError(reason.message));}}/></label>
@@ -67,6 +68,6 @@ export function OfflinePanel({actorId}:{actorId:string}) {
           catch(reason){setError(`暂时无法恢复，请保留导出的备份：${(reason as Error).message}`);}
         }}>备份本机后采用服务器版本</button>}</article>)}
       {!!cloud.length&&<button onClick={()=>exportData("服务器存档.json",{schema:"edu.local-backup/1",records:cloud})}>导出服务器版本</button>}
-      {error&&<p role="alert">{error}</p>}<p>本机模拟分数用于练习诊断，存档同步不等于正式成绩认证。</p>
+      </details>{error&&<p role="alert">{error}</p>}<p>本机模拟分数用于练习诊断，存档同步不等于正式成绩认证。</p>
     </aside>}</>;
 }

@@ -165,7 +165,7 @@ const portDescriptor: CourseDeckDescriptor = {
     shortTitle: "港口管理",
     categoryLabel: "港航管理",
     description: "沿货物、航线与港口网络理解现代港口管理。",
-    heroImage: "/course-assets/port-management/images/lesson1/oocl-spain-shanghai.png",
+    heroImage: "/course-assets/port-management/lesson-1-maritime-continental-hero.png",
     accent: "port",
     assistantName: "小麦老师",
     supportsStudy: true,

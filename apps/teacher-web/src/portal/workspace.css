@@ -1,0 +1,450 @@
+.workspace-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  background: #f4f7fb;
+  color: #20334c;
+}
+.workspace-shell--compact {
+  grid-template-columns: 136px minmax(0, 1fr);
+}
+.workspace-sidebar {
+  background: #122c44;
+  color: white;
+  padding: 30px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.workspace-sidebar a {
+  color: inherit;
+  text-decoration: none;
+}
+.workspace-brand {
+  font-size: 23px;
+  font-weight: 750;
+}
+.workspace-sidebar nav {
+  display: grid;
+  gap: 10px;
+}
+.workspace-sidebar nav a {
+  padding: 14px;
+  border-radius: 10px;
+}
+.workspace-sidebar .active {
+  background: #275675;
+}
+.workspace-sidebar small {
+  margin-top: auto;
+  color: #adbecd;
+}
+.workspace-main {
+  min-width: 0;
+}
+.workspace-topbar {
+  background: white;
+  border-bottom: 1px solid #dde5ef;
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.workspace-topbar-actions,
+.workspace-actions,
+.workspace-tabs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.workspace-topbar-actions button,
+.workspace button,
+.workspace-reader button {
+  padding: 9px 14px;
+  border: 1px solid #bacbdc;
+  background: white;
+  color: #183c59;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.workspace button:disabled,
+.workspace-reader button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.workspace button[aria-pressed="true"] {
+  background: #174b68;
+  color: white;
+}
+.workspace-menu {
+  display: none;
+}
+.workspace {
+  max-width: 1440px;
+  padding: 32px;
+  margin: auto;
+  min-width: 0;
+}
+.workspace h1 {
+  font-size: 28px;
+  margin: 8px 0 14px;
+}
+.workspace h2 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+.workspace p {
+  line-height: 1.75;
+  color: #576b80;
+}
+.workspace a,
+.workspace-reader a {
+  color: #136288;
+}
+.workspace-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.workspace section {
+  margin: 26px 0;
+}
+.workspace-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 20px;
+}
+.workspace-card {
+  border: 1px solid #d9e3ec;
+  border-radius: 14px;
+  background: white;
+  overflow: hidden;
+}
+.workspace-card > div {
+  padding: 22px;
+}
+.workspace-card > img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+.workspace-card span {
+  font-size: 13px;
+  color: #61788c;
+}
+.workspace-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: white;
+  border: 1px solid #d9e3ec;
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin: 12px 0;
+  overflow-wrap: anywhere;
+}
+.workspace-row p {
+  margin: 7px 0 0;
+}
+.workspace-row > a {
+  flex-shrink: 0;
+}
+.workspace-empty {
+  padding: 24px;
+  background: white;
+  border-radius: 12px;
+}
+.workspace-tabs {
+  margin: 18px 0 24px;
+}
+.workspace-form {
+  display: grid;
+  gap: 16px;
+  max-width: 760px;
+  margin: 20px 0;
+}
+.workspace input:not([type="checkbox"]),
+.workspace textarea,
+.workspace select,
+.workspace-reader select {
+  max-width: 100%;
+  padding: 10px;
+  border: 1px solid #bacbdc;
+  border-radius: 6px;
+  background: white;
+  color: #243a50;
+}
+.workspace-form label {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.workspace-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+.workspace-section,
+.workspace-notice {
+  padding: 20px;
+  background: white;
+  border: 1px solid #d9e3ec;
+  border-radius: 10px;
+  margin: 20px;
+}
+.workspace-error {
+  color: #9f293d !important;
+  padding: 12px;
+  background: #fff0f0;
+}
+.workspace-reader {
+  background: #172433;
+  min-height: 100vh;
+  color: white;
+  padding: 16px;
+}
+.workspace-reader header,
+.workspace-reader nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 10px 0;
+}
+.workspace-reader a {
+  color: #a2d6ff;
+}
+.workspace-reader .slide-viewport {
+  margin: auto;
+}
+.workspace-reader select {
+  max-width: 440px;
+}
+.workspace-reader nav {
+  position: sticky;
+  top: 0;
+  background: #172433;
+  z-index: 10;
+}
+.campus-student-header nav {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.port-result-detail {
+  scroll-margin-top: 20px;
+}
+.port-result-table-wrap {
+  max-width: 100%;
+  overflow: auto;
+}
+.workspace-shell .port-results-page {
+  padding: 28px;
+}
+.workspace-row strong {
+  line-height: 1.7;
+}
+summary {
+  cursor: pointer;
+}
+@media (max-width: 900px) {
+  .workspace-shell,
+  .workspace-shell--compact {
+    grid-template-columns: 145px minmax(0, 1fr);
+  }
+  .workspace {
+    padding: 22px;
+  }
+  .workspace-topbar {
+    padding: 16px;
+  }
+  .workspace-grid {
+    gap: 14px;
+  }
+}
+@media (max-width: 600px) {
+  .workspace-shell,
+  .workspace-shell--compact {
+    display: block;
+  }
+  .workspace-sidebar {
+    display: none;
+    padding: 18px;
+    gap: 16px;
+  }
+  .workspace-sidebar.is-open {
+    display: flex;
+  }
+  .workspace-sidebar nav {
+    display: flex;
+    gap: 6px;
+  }
+  .workspace-menu {
+    display: block;
+  }
+  .workspace-topbar {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .workspace-topbar-actions {
+    gap: 12px;
+    font-size: 13px;
+  }
+  .workspace {
+    padding: 18px 14px;
+  }
+  .workspace-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .workspace h1 {
+    font-size: 25px;
+  }
+  .workspace-row {
+    padding: 16px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .workspace-card > div {
+    padding: 18px;
+  }
+  .workspace-reader {
+    padding: 6px;
+  }
+  .workspace-reader header {
+    font-size: 13px;
+  }
+  .workspace-reader select {
+    max-width: 280px;
+  }
+  .campus-student-header {
+    flex-wrap: wrap;
+    gap: 12px !important;
+  }
+  .campus-student-header nav {
+    gap: 16px;
+  }
+  .workspace-shell .port-results-page {
+    padding: 16px;
+  }
+  .workspace-form label {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+}
+.port-submission-dock {
+  position: sticky;
+  top: 0;
+  z-index: 22;
+  background: #f5fafc;
+  max-height: 45vh;
+  overflow: auto;
+}
+.port-submission-dock:empty {
+  display: none;
+}
+.port-submission-dock .port-submission-card {
+  margin: 0;
+  padding: 10px 16px;
+}
+.port-submission-dock p {
+  margin: 5px 0;
+}
+.port-submission-dock h3 {
+  margin: 4px 0;
+}
+.port-support-tools {
+  position: relative;
+}
+.port-support-tools > div {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 240px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 16px;
+  background: white;
+  border: 1px solid #ccdbe5;
+  border-radius: 10px;
+  z-index: 30;
+}
+.port-course-return {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 16px;
+}
+.port-result-table {
+  min-width: 850px;
+}
+.port-result-table td {
+  min-width: 145px;
+}
+.port-result-detail {
+  max-height: 80vh;
+  overflow: auto;
+}
+.workspace-card .workspace-actions {
+  margin-top: 18px;
+}
+@media (max-width: 600px) {
+  .port-course-guide .port-course-goals {
+    max-height: 150px;
+    overflow: auto;
+  }
+  .port-submission-dock {
+    top: 0;
+  }
+  .port-submission-dock .port-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .port-support-tools > div {
+    right: 0;
+  }
+  .port-kpis {
+    max-height: 130px;
+    overflow: auto;
+  }
+  .port-result-table {
+    font-size: 13px;
+  }
+  .port-results-page .port-result-table td {
+    padding: 10px;
+    min-width: 145px;
+  }
+}
+.workspace-reader-stage {
+  width: 100%;
+  aspect-ratio: 16/10;
+  max-width: 1600px;
+  margin: 12px auto;
+  position: relative;
+}
+.workspace-reader-stage > .slide-letterbox {
+  width: 100%;
+  height: 100%;
+}
+.workspace a.button--primary {
+  color: white;
+}
+.workspace-reader-stage > .lbl-stage,
+.workspace-reader-stage > .l4-stage {
+  height: 100%;
+}
+.workspace-reader-stage {
+  max-height: calc(100dvh - 160px);
+}
+body:has(.workspace-reader, .port-ops, .student-learning, .classroom-shell)
+  .campus-offline-toggle {
+  display: none;
+}

@@ -104,6 +104,7 @@ export function AuthenticatedLocalPortSimulationPage() {
   if (sessionId && !actor.roles.includes("teacher")) return <Navigate to={`/join/${encodeURIComponent(sessionId)}`} replace/>;
   return (
     <>
+    <nav className="port-course-return" aria-label="实验任务导航"><a href="/tasks">← 实验任务</a><strong>港口管理概论 · {actor.roles.includes("teacher") ? "教师演示空间" : "个人实验空间"}</strong><a href={actor.roles.includes("teacher") ? "/courses/course-port-management-intro/experiment-results" : "/submissions"}>{actor.roles.includes("teacher") ? "查看学生提交" : "我的提交"}</a><span>本入口继续个人存档；课堂中的练习另行保存。</span></nav>
     {returnTo && <nav className="port-course-return" aria-label="课件与实验导航">
       <a href={returnTo} onClick={event=>{event.preventDefault();void returnToSlides();}}>← 返回课件</a>
       <span>第4讲 · 完整实验系统{sessionId ? " · 课堂关联实验" : ""}</span>

@@ -1,127 +1,81 @@
-import { PortResultsPage, PortResultsLink } from "./features/port-simulation/PortResultsPage";
-import {MANAGEMENT_SCOPE_LABEL, MANAGEMENT_BUILD, MANAGEMENT_LESSONS, MANAGEMENT_SLIDES} from '@edu/course-content/management-principles';
-import { getCourseDeckByCourseId, getCoursePresentation } from "@edu/course-content/deck-registry";
-import { ManagementCourseOverview } from "./features/management-principles/ManagementTeacherTools";
-import type {
-  AvatarPresentation,
-  ClassSession,
-  Course,
-  CreateCourseInput,
-  Dashboard,
-  Teacher
-} from "@edu/contracts";
 import {
-  Activity,
-  Bell,
+  WorkspaceShell,
+  WorkspaceHome,
+  CourseCatalog,
+  CourseWorkspace,
+  TaskWorkspace,
+  PreferencesPage,
+  AllActivity,
+  ClassroomRecords,
+  CourseReader,
+  NotFound,
+} from "./portal/WorkspacePages";
+import { PortResultsPage } from "./features/port-simulation/PortResultsPage";
+import { getCoursePresentation } from "@edu/course-content/deck-registry";
+import type { Course, CreateCourseInput } from "@edu/contracts";
+import {
   BookOpen,
-  CalendarDays,
-  Check,
-  CheckCircle2,
-  ChevronDown,
   ChevronRight,
   CircleAlert,
-  ClipboardCheck,
-  Clock3,
-  FlaskConical,
-  GraduationCap,
-  Home,
-  Library,
   LoaderCircle,
-  LogOut,
-  MapPin,
-  Menu,
-  MonitorPlay,
-  PencilLine,
-  Play,
   Plus,
-  Save,
-  Settings,
   ShipWheel,
-  Sparkles,
   X,
-  type LucideIcon
 } from "lucide-react";
-import {
-  type FormEvent,
-  lazy,
-  Suspense,
-  useEffect,
-  useMemo,
-  useState
-} from "react";
+import { type FormEvent, lazy, Suspense, useState } from "react";
 import {
   BrowserRouter,
   Link,
-  NavLink,
   Navigate,
-  Outlet,
   Route,
   Routes,
-  useLocation,
   useNavigate,
-  useOutletContext,
-  useParams
+  useParams,
 } from "react-router-dom";
 import { api } from "./api";
-import { runtimeConfig } from "./campus/runtime";
-import { HarborAssistant, PortScene } from "./art";
 import { ClassroomSubsystem } from "./features/classroom/ClassroomSubsystem";
 import { StudentClassroom } from "./features/classroom/StudentClassroom";
 import { CourseExercisePage } from "./features/classroom/ExerciseLibrary";
 import { AssistantPromptEditor } from "./features/classroom/AssistantPromptEditor";
 
 const AuthenticatedLocalPortSimulationPage = lazy(() =>
-  import("./features/port-simulation/AuthenticatedLocalPortSimulationPage").then(
-    (module) => ({ default: module.AuthenticatedLocalPortSimulationPage })
-  )
+  import(
+    "./features/port-simulation/AuthenticatedLocalPortSimulationPage"
+  ).then((module) => ({
+    default: module.AuthenticatedLocalPortSimulationPage,
+  })),
 );
 
 const StudentStudyPage = lazy(() =>
   import("./features/study/StudentStudyPage").then((module) => ({
-    default: module.StudentStudyPage
-  }))
+    default: module.StudentStudyPage,
+  })),
 );
-const XiaomaiAnimationPreview = lazy(() => import("./features/avatar/XiaomaiAnimationPreview").then(module => ({default:module.XiaomaiAnimationPreview})));
-
-const ECONOMIC_MATHEMATICS_COURSE_ID = "course-economic-mathematics";
-const STATISTICAL_ANALYSIS_COURSE_ID = "statistical-analysis";
-const StatisticalAnalysisCourseOverview = lazy(() => import("./features/statistical-analysis/StatisticalAnalysisCourseOverview").then(m => ({default:m.StatisticalAnalysisCourseOverview})));
-
-function CourseArtwork({ courseId }: { courseId: string }) {
-  const profile=getCoursePresentation(courseId);
-  return profile ? <div className="portal-course-art"><img src={profile.heroImage} alt={`${profile.shortTitle} · 教学情境艺术图`} decoding="async"/></div> : <div className="portal-course-art"><BookOpen size={70}/></div>;
-}
+const XiaomaiAnimationPreview = lazy(() =>
+  import("./features/avatar/XiaomaiAnimationPreview").then((module) => ({
+    default: module.XiaomaiAnimationPreview,
+  })),
+);
 
 function StudyRoute() {
   const { courseId = "" } = useParams();
-  const profile=getCoursePresentation(courseId);
-  if (!profile?.supportsStudy) return <main className="study-unavailable"><BookOpen size={32}/><h1>{profile?.shortTitle ?? "本课程"}课下学习暂未开放</h1><span>请通过教师课堂与学生同步画面学习。</span><Link to={`/courses/${courseId}`}>返回课程工作区</Link></main>;
-  return <Suspense fallback={<LoadingState label="正在打开课下学习空间"/>}><StudentStudyPage/></Suspense>;
+  const profile = getCoursePresentation(courseId);
+  if (courseId !== "course-port-management-intro") return <CourseReader />;
+  if (!profile?.supportsStudy)
+    return (
+      <main className="study-unavailable">
+        <BookOpen size={32} />
+        <h1>{profile?.shortTitle ?? "本课程"}课下学习暂未开放</h1>
+        <span>请通过教师课堂与学生同步画面学习。</span>
+        <Link to={`/courses/${courseId}`}>返回课程工作区</Link>
+      </main>
+    );
+  return (
+    <Suspense fallback={<LoadingState label="正在打开课下学习空间" />}>
+      <StudentStudyPage />
+    </Suspense>
+  );
 }
-
-interface PortalContextValue {
-  openCourseModal: () => void;
-}
-
-const navItems: Array<{ to: string; label: string; icon: LucideIcon }> = [
-  { to: "/", label: "首页", icon: Home },
-  { to: "/courses", label: "我的课程", icon: BookOpen },
-  { to: "/classrooms", label: "课堂教学", icon: MonitorPlay },
-  { to: "/simulations", label: "模拟实验", icon: FlaskConical },
-  { to: "/evaluations", label: "教学评价", icon: ClipboardCheck },
-  { to: "/resources", label: "资源中心", icon: Library }
-];
-
-const routeTitles: Record<string, string> = {
-  "/": "教学工作台",
-  "/courses": "我的课程",
-  "/classrooms": "课堂教学",
-  "/simulations": "模拟实验",
-  "/evaluations": "教学评价",
-  "/resources": "资源中心",
-  "/activity": "全部动态",
-  "/settings": "个人设置"
-};
 
 export function App() {
   const [courseModalOpen, setCourseModalOpen] = useState(false);
@@ -129,59 +83,62 @@ export function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/preview/:courseId" element={<CourseReader preview />} />
         <Route path="/signed-out" element={<SignedOutPage />} />
-        <Route path="/avatar/xiaomai/preview" element={<Suspense fallback={<p>正在打开动画预览…</p>}><XiaomaiAnimationPreview/></Suspense>} />
+        <Route
+          path="/avatar/xiaomai/preview"
+          element={
+            <Suspense fallback={<p>正在打开动画预览…</p>}>
+              <XiaomaiAnimationPreview />
+            </Suspense>
+          }
+        />
         <Route path="/classroom/:sessionId" element={<ClassroomSubsystem />} />
         <Route path="/join/:sessionId" element={<StudentClassroom />} />
+        <Route path="/study/:courseId" element={<StudyRoute />} />
         <Route
-          path="/study/:courseId"
-          element={<StudyRoute />}
-        />
-        <Route element={<Shell onNewCourse={() => setCourseModalOpen(true)} />}>
-          <Route index element={<DashboardPage />} />
-          <Route path="courses" element={<CoursesPage />} />
-          <Route path="courses/:courseId" element={<CourseDetailPage />} />
-          <Route path="courses/:courseId/experiment-results" element={<PortResultsPage />} />
-          <Route path="courses/:courseId/exercises" element={<CourseExercisePage />} />
-          <Route path="courses/:courseId/assistant-prompts" element={<AssistantPromptEditor />} />
-          <Route path="classrooms" element={<ClassroomsPage />} />
+          element={
+            <WorkspaceShell onNewCourse={() => setCourseModalOpen(true)} />
+          }
+        >
+          <Route index element={<WorkspaceHome />} />
+          <Route path="courses" element={<CourseCatalog />} />
+          <Route path="courses/:courseId" element={<CourseWorkspace />} />
+          <Route
+            path="courses/:courseId/experiment-results"
+            element={<PortResultsPage />}
+          />
+          <Route
+            path="courses/:courseId/exercises"
+            element={<CourseExercisePage />}
+          />
+          <Route
+            path="courses/:courseId/assistant-prompts"
+            element={<AssistantPromptEditor />}
+          />
+          <Route path="classrooms" element={<ClassroomRecords />} />
           <Route
             path="simulations"
             element={
-              <Suspense fallback={<LoadingState label="正在装载本地港口仿真" />}>
+              <Suspense
+                fallback={<LoadingState label="正在装载本地港口仿真" />}
+              >
                 <AuthenticatedLocalPortSimulationPage />
               </Suspense>
             }
           />
+          <Route path="tasks" element={<TaskWorkspace />} />
           <Route
             path="evaluations"
-            element={
-              <ModulePage
-                icon={ClipboardCheck}
-                eyebrow="TEACHING ASSESSMENT"
-                title="教学评价"
-                description="统一汇集课堂互动、作业、实验与阶段测评，形成可解释的教学反馈。"
-                status="等待评价模型接入"
-                details={["形成性评价", "量规与作业", "学习风险提示"]}
-              />
-            }
+            element={<Navigate to="/tasks" replace />}
           />
           <Route
             path="resources"
-            element={
-              <ModulePage
-                icon={Library}
-                eyebrow="RESOURCE HUB"
-                title="资源中心"
-                description="管理课堂 slides、讲义、案例、视频以及数字人轻量素材，并保留课程版本关系。"
-                status="资源服务接口已预留"
-                details={["课堂 Slides", "案例与讲义", "数字人动作素材"]}
-              />
-            }
+            element={<Navigate to="/courses" replace />}
           />
-          <Route path="activity" element={<ActivityPage />} />
-          <Route path="settings" element={<SettingsPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="activity" element={<AllActivity />} />
+          <Route path="settings" element={<PreferencesPage />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
 
@@ -195,914 +152,9 @@ export function App() {
   );
 }
 
-function Shell({ onNewCourse }: { onNewCourse: () => void }) {
-  const [teacher, setTeacher] = useState<Teacher>();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
-  const location = useLocation();
-
-  useEffect(() => {
-    void api.getMe().then(setTeacher);
-  }, []);
-
-  const title =
-    routeTitles[location.pathname] ??
-    (location.pathname.startsWith("/courses/") ? "课程工作区" : "课堂工作区");
-
-  return (
-    <div className="app-shell">
-      <aside className={`sidebar ${sidebarOpen ? "sidebar--open" : ""}`}>
-        <Link className="brand" to="/" onClick={() => setSidebarOpen(false)}>
-          <span className="brand__mark">
-            <GraduationCap size={24} />
-          </span>
-          <span>
-            <strong>教学中枢</strong>
-            <small>EDU COMMAND</small>
-          </span>
-        </Link>
-
-        <nav className="primary-nav" aria-label="主导航">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                aria-label={item.label}
-                title={item.label}
-                end={item.to === "/"}
-                onClick={() => setSidebarOpen(false)}
-                className={({ isActive }) => (isActive ? "nav-item nav-item--active" : "nav-item")}
-              >
-                <Icon size={20} />
-                <span>{item.label}</span>
-              </NavLink>
-            );
-          })}
-        </nav>
-
-        <div className="sidebar__footer">
-          <div className="system-status">
-            <span className="status-dot" />
-            <div>
-              <strong>平台服务正常</strong>
-              <small>本地开发环境</small>
-            </div>
-          </div>
-          <p>教育系统 · v0.1</p>
-        </div>
-      </aside>
-
-      {sidebarOpen && (
-        <button
-          className="sidebar-backdrop"
-          aria-label="关闭导航"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      <main className="app-main">
-        <header className="topbar">
-          <div className="topbar__title">
-            <button
-              className="icon-button mobile-menu"
-              aria-label="打开导航"
-              onClick={() => setSidebarOpen(true)}
-            >
-              <Menu size={21} />
-            </button>
-            <div>
-              <span className="topbar__eyebrow">TEACHER PORTAL</span>
-              <h1>{title}</h1>
-            </div>
-          </div>
-
-          <div className="topbar__actions">
-            {location.pathname !== "/courses" && <button className="button button--primary topbar__create" aria-label="新建课程" onClick={onNewCourse}>
-              <Plus size={18} />
-              <span>新建课程</span>
-            </button>}
-
-            <div className="popover-anchor">
-              <button
-                className="icon-button"
-                aria-label="查看通知"
-                aria-expanded={notificationsOpen}
-                onClick={() => {
-                  setNotificationsOpen((open) => !open);
-                  setProfileOpen(false);
-                }}
-              >
-                <Bell size={20} />
-                <span className="notification-dot" />
-              </button>
-              {notificationsOpen && (
-                <div className="popover notification-popover">
-                  <div className="popover__header">
-                    <strong>通知</strong>
-                    <button onClick={() => setNotificationsOpen(false)}>标记已读</button>
-                  </div>
-                  <p>“港口管理概论”有 2 次待进行课堂。</p>
-                  <Link to="/classrooms" onClick={() => setNotificationsOpen(false)}>
-                    查看课堂安排 <ChevronRight size={15} />
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            <div className="popover-anchor">
-              <button
-                className="profile-button"
-                aria-label="打开个人菜单"
-                aria-expanded={profileOpen}
-                onClick={() => {
-                  setProfileOpen((open) => !open);
-                  setNotificationsOpen(false);
-                }}
-              >
-                <span className="avatar">李</span>
-                <span className="profile-button__copy">
-                  <strong>{teacher?.name ?? "李行之"}</strong>
-                  <small>{teacher?.institution ?? "重庆交通大学"}</small>
-                </span>
-                <ChevronDown size={16} />
-              </button>
-              {profileOpen && (
-                <div className="popover profile-popover">
-                  <Link to="/settings" onClick={() => setProfileOpen(false)}>
-                    <Settings size={16} /> 个人设置
-                  </Link>
-                  <Link to="/signed-out" onClick={event => {
-                    setProfileOpen(false);
-                    if(runtimeConfig.profile==="campus"){event.preventDefault();void api.logoutIdentitySession().then(()=>window.location.assign("/"));}
-                  }}>
-                    <LogOut size={16} /> {runtimeConfig.profile==="campus"?"退出登录":"退出当前演示"}
-                  </Link>
-                </div>
-              )}
-            </div>
-          </div>
-        </header>
-
-        <div className="page-container">
-          <Outlet context={{ openCourseModal: onNewCourse } satisfies PortalContextValue} />
-        </div>
-      </main>
-    </div>
-  );
-}
-
-function DashboardPage() {
-  const [dashboard, setDashboard] = useState<Dashboard>();
-  const [error, setError] = useState("");
-  const [starting, setStarting] = useState(false);
-  const [assistantOpen, setAssistantOpen] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    void api.getDashboard().then(setDashboard).catch((reason: Error) => setError(reason.message));
-  }, []);
-
-  async function startClass(courseId: string) {
-    setStarting(true);
-    setError("");
-    try {
-      const session = await api.startClass(courseId);
-      navigate(`/classroom/${session.id}`);
-    } catch (reason) {
-      setError((reason as Error).message);
-      setStarting(false);
-    }
-  }
-
-  if (error && !dashboard) {
-    return <ErrorState message={error} onRetry={() => window.location.reload()} />;
-  }
-  if (!dashboard) {
-    return <LoadingState label="正在载入教师工作台" />;
-  }
-
-  const course = dashboard.featuredCourse;
-  const today = new Date();
-
-  return (
-    <>
-      <section className="welcome-row">
-        <div>
-          <p className="section-kicker">2026 秋季学期 · 教师工作台</p>
-          <h2>{dashboard.teacher.name}老师，你好</h2>
-          <p>备好这一课，从容走进课堂。</p>
-        </div>
-        <div className="date-chip">
-          <CalendarDays size={19} />
-          <span>
-            <strong>{today.toLocaleDateString("zh-CN", { month: "long", day: "numeric" })}</strong>
-            <small>{today.toLocaleDateString("zh-CN", { weekday: "long" })}</small>
-          </span>
-        </div>
-      </section>
-
-      {error && <InlineAlert message={error} />}
-
-      <section className="dashboard-grid">
-        <article className="course-hero">
-          <CourseArtwork courseId={course.id} />
-          <div className="course-hero__shade" />
-          <div className="course-hero__content">
-            <span className="hero-tag">
-              <span className="live-dot" /> 当前课程
-            </span>
-            <div>
-              <p>{course.category} · {course.code}</p>
-              <h2>{course.title}</h2>
-              <p className="hero-lesson">
-                {course.currentLesson.chapter===0?'绪论':`第${course.currentLesson.chapter}${[ECONOMIC_MATHEMATICS_COURSE_ID, STATISTICAL_ANALYSIS_COURSE_ID, 'management-principles'].includes(course.id) ? '讲' : '章'}`} <span /> {course.currentLesson.title}
-              </p>
-            </div>
-            <div className="hero-progress">
-              <div>
-                <span>备课进度</span>
-                <strong>{course.progress}%</strong>
-              </div>
-              <div className="progress-track">
-                <span style={{ width: `${course.progress}%` }} />
-              </div>
-            </div>
-            <div className="hero-actions">
-              <button
-                className="button button--light"
-                onClick={() => navigate(`/courses/${course.id}`)}
-              >
-                <PencilLine size={17} /> 继续备课
-              </button>
-              <button
-                className="button button--coral"
-                disabled={starting}
-                onClick={() => void startClass(course.id)}
-              >
-                {starting ? <LoaderCircle className="spin" size={17} /> : <Play size={17} />}
-                {starting ? "正在启动" : "开始上课"}
-              </button>
-            </div>
-          </div>
-        </article>
-
-        <article className="assistant-card">
-          <div className="assistant-card__copy">
-            <span className="assistant-label">
-              <Sparkles size={15} /> 小麦老师
-            </span>
-            <h3>给教学多一份支持</h3>
-            <p>选择课堂讲解或课下学习，查看适合的助手模式。</p>
-            <button className="text-action" onClick={() => setAssistantOpen(true)}>
-              查看助手模式 <ChevronRight size={16} />
-            </button>
-          </div>
-          <span className="assistant-card__note">随课堂节奏，按需开启</span>
-          <HarborAssistant />
-        </article>
-      </section>
-
-      <MetricsGrid metrics={dashboard.metrics} />
-
-      <section className="lower-grid">
-        <article className="panel upcoming-panel">
-          <PanelHeader
-            title="近期课堂"
-            detail="按时间进入备课或直接启动"
-            action={<Link to="/classrooms">查看全部 <ChevronRight size={15} /></Link>}
-          />
-          <div className="class-list">
-            {dashboard.upcomingClasses.map((session) => (
-              <div className="class-row" key={session.id}>
-                <DateBadge date={session.startsAt} />
-                <div className="class-row__content">
-                  <strong>{session.lessonTitle}</strong>
-                  <span>{session.courseTitle}</span>
-                  <small>
-                    <Clock3 size={13} /> {formatTime(session.startsAt)}
-                    <MapPin size={13} /> {session.room}
-                  </small>
-                </div>
-                <button
-                  className="button button--ghost button--small"
-                  onClick={() => navigate(`/courses/${session.courseId}`)}
-                >
-                  进入备课
-                </button>
-              </div>
-            ))}
-          </div>
-        </article>
-
-        <article className="panel activity-panel">
-          <PanelHeader
-            title="最近动态"
-            detail="最近的备课与课堂记录"
-            action={<Link to="/activity">全部动态 <ChevronRight size={15} /></Link>}
-          />
-          <div className="activity-list">
-            {dashboard.recentActivities.slice(0, 3).map((activityItem) => (
-              <div className="activity-row" key={activityItem.id}>
-                <span className={`activity-icon activity-icon--${activityItem.type}`}>
-                  {activityItem.type === "course_created" ? (
-                    <BookOpen size={17} />
-                  ) : activityItem.type === "class_started" ? (
-                    <Play size={17} />
-                  ) : (
-                    <PencilLine size={17} />
-                  )}
-                </span>
-                <div>
-                  <strong>{activityItem.title}</strong>
-                  <p>{activityItem.detail}</p>
-                  <small>{formatDateTime(activityItem.occurredAt)}</small>
-                </div>
-              </div>
-            ))}
-          </div>
-        </article>
-      </section>
-
-      {assistantOpen && (
-        <AssistantModal course={course} onClose={() => setAssistantOpen(false)} />
-      )}
-    </>
-  );
-}
-
-function MetricsGrid({ metrics }: { metrics: Dashboard["metrics"] }) {
-  const cards = [
-    {
-      label: "进行中课程",
-      value: metrics.activeCourses,
-      detail: "当前教学周期",
-      icon: BookOpen,
-      to: "/courses",
-      tone: "teal"
-    },
-    {
-      label: "近期课堂",
-      value: metrics.upcomingClasses,
-      detail: "已排入课程表",
-      icon: MonitorPlay,
-      to: "/classrooms",
-      tone: "blue"
-    },
-    {
-      label: "待评价任务",
-      value: metrics.pendingEvaluations,
-      detail: "当前无需处理",
-      icon: ClipboardCheck,
-      to: "/evaluations",
-      tone: "amber"
-    },
-    {
-      label: "模拟实验资源",
-      value: metrics.simulationResources,
-      detail: "等待首个资源接入",
-      icon: FlaskConical,
-      to: "/simulations",
-      tone: "coral"
-    }
-  ];
-
-  return (
-    <section className="metrics-grid" aria-label="教学概览">
-      {cards.map((card) => {
-        const Icon = card.icon;
-        return (
-          <Link className="metric-card" to={card.to} key={card.label}>
-            <span className={`metric-card__icon metric-card__icon--${card.tone}`}>
-              <Icon size={22} />
-            </span>
-            <div>
-              <span>{card.label}</span>
-              <strong>{String(card.value).padStart(2, "0")}</strong>
-              <small>{card.detail}</small>
-            </div>
-            <ChevronRight size={17} className="metric-card__arrow" />
-          </Link>
-        );
-      })}
-    </section>
-  );
-}
-
-function CoursesPage() {
-  const [courses, setCourses] = useState<Course[]>();
-  const [error, setError] = useState("");
-  const { openCourseModal } = useOutletContext<PortalContextValue>();
-
-  useEffect(() => {
-    void api.getCourses().then(setCourses).catch((reason: Error) => setError(reason.message));
-  }, []);
-
-  if (error) return <ErrorState message={error} onRetry={() => window.location.reload()} />;
-  if (!courses) return <LoadingState label="正在读取课程" />;
-
-  return (
-    <section>
-      <PageHeading
-        eyebrow="COURSE WORKSPACE"
-        title="我的课程"
-        description="整理课程内容，继续备课，随时进入课堂。"
-        action={
-          <button className="button button--primary" onClick={openCourseModal}>
-            <Plus size={17} /> 新建课程
-          </button>
-        }
-      />
-      <div className="course-list-caption">
-        <span>课程目录</span>
-        <span>{courses.length} 门课程</span>
-      </div>
-      <div className="course-grid">
-        {courses.map((course) => (
-          <Link className="course-card" to={`/courses/${course.id}`} key={course.id}>
-            <div className="course-card__art">
-              <CourseArtwork courseId={course.id} />
-              <span className="course-card__art-label">课程情境插画</span>
-              <span className={`status-pill status-pill--${course.status}`}>
-                {course.status === "active" ? "进行中" : course.status === "draft" ? "草稿" : "已归档"}
-              </span>
-            </div>
-            <div className="course-card__body">
-              <span>{course.category} · {course.code}</span>
-              <h3>{course.title}</h3>
-              <p>{course.currentLesson.title}</p>
-              <div className="course-card__progress-label">
-                <span>备课进度</span>
-                <span>{course.progress}%</span>
-              </div>
-              <div className="mini-progress">
-                <span style={{ width: `${course.progress}%` }} />
-              </div>
-              <footer>
-                <small>{course.totalHours === null ? "总学时待完善" : `${course.totalHours} 学时`}</small>
-                <strong>进入课程 <ChevronRight size={15} /></strong>
-              </footer>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function CourseDetailPage() {
-  const { courseId = "" } = useParams();
-  const [course, setCourse] = useState<Course>();
-  const [error, setError] = useState("");
-  const [starting, setStarting] = useState(false);
-  const [editorOpen, setEditorOpen] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    void api.getCourse(courseId).then(setCourse).catch((reason: Error) => setError(reason.message));
-  }, [courseId]);
-
-  async function startClass(lesson = 1) {
-    if (!course) return;
-    setStarting(true);
-    try {
-      try {
-        const identity = await api.getIdentitySession();
-        if (!identity.actor.roles.includes("teacher")) {
-          await api.createDevelopmentIdentitySession("teacher", "李行之");
-        }
-      } catch {
-        await api.createDevelopmentIdentitySession("teacher", "李行之");
-      }
-      const session = await api.startClass(course.id);
-      const startIndex = getCourseDeckByCourseId(course.id)?.getGlobalIndex(lesson);
-      if (startIndex && startIndex !== 1) await api.sendClassroomEvent(session.id, {type:"set_slide",index:startIndex});
-      navigate(`/classroom/${session.id}`);
-    } catch (reason) {
-      setError((reason as Error).message);
-      setStarting(false);
-    }
-  }
-
-  if (error && !course) return <ErrorState message={error} onRetry={() => navigate("/courses")} />;
-  if (!course) return <LoadingState label="正在打开课程工作区" />;
-  const isEconomicMathematics = course.id === ECONOMIC_MATHEMATICS_COURSE_ID;
-  const isStatisticalAnalysis = course.id === STATISTICAL_ANALYSIS_COURSE_ID;
-  const isManagement = course.id === "management-principles";
-  const lessonPreparationSteps = isManagement ? [
-    {label:"讲次范围",status:`${MANAGEMENT_SCOPE_LABEL} · 原${MANAGEMENT_BUILD.sourcePageCount}页`},{label:"课堂 Slides",status:`${MANAGEMENT_SLIDES.length}个连续网页页面`},
-    {label:"课堂演示",status:`${MANAGEMENT_SLIDES.filter(slide=>slide.demo).length}处教师推进 · 同步观看`},{label:"课程署名",status:"管理学课程组 · 韦笑"}
-  ] : isStatisticalAnalysis ? [
-    {label:"课程大纲",status:"32课时 · 16讲"}, {label:"课堂 Slides",status:"前两讲100页 · 48+52"},
-    {label:"教学方式",status:"LBL讲解 · 教师翻页揭示"}, {label:"数据与图形",status:"可复现教学数据 · 24张原创配图"}
-  ] : isEconomicMathematics
-    ? [
-        { label: "课程大纲", status: "8单元 · 32讲已对齐" },
-        { label: "课堂 Slides", status: "1460页已注册" },
-        { label: "课堂活动", status: "13类实验 · 66页逐页初值" },
-        { label: "教材资源", status: "指定教材与辅导书已关联" }
-      ]
-    : [
-        { label: "教学目标", status: "已建立初稿" },
-        { label: "课堂 Slides", status: "已建立初稿" },
-        { label: "课堂活动", status: "习题管理与课堂发布已接入" },
-        { label: "课后资源", status: "等待完善" }
-      ];
-
-  return (
-    <section>
-      <div className="detail-hero">
-        <CourseArtwork courseId={course.id} />
-        <div className="detail-hero__shade" />
-        <div className="detail-hero__content">
-          <Link to="/courses">我的课程</Link>
-          <span>/</span>
-          <strong>{course.title}</strong>
-          <div>
-            <span className="hero-tag">{course.category}</span>
-            <h2>{course.title}</h2>
-            <p>{course.code ?? "课程代码待完善"} · {course.totalHours === null ? "总学时待完善" : `${course.totalHours} 学时`} · {course.discipline}</p>
-          </div>
-        </div>
-      </div>
-
-      {error && <InlineAlert message={error} />}
-      <PortResultsLink courseId={courseId}/>
-
-      <div className="detail-layout">
-        <article className="panel lesson-editor">
-          <PanelHeader
-            title={`${course.currentLesson.chapter===0?'绪论':(isEconomicMathematics || isStatisticalAnalysis || isManagement) ? "第 " + course.currentLesson.chapter + " 讲" : "第 " + course.currentLesson.chapter + " 章"} · ${course.currentLesson.title}`}
-            detail="当前备课节点"
-            action={
-              <button className="text-action" onClick={() => setEditorOpen((open) => !open)}>
-                <PencilLine size={15} /> {editorOpen ? "收起编辑" : "编辑本节"}
-              </button>
-            }
-          />
-          <p className="lesson-summary">{course.currentLesson.summary}</p>
-          {editorOpen && (
-            <div className="editor-preview">
-              <label>
-                本节教学目标
-                <textarea
-                  defaultValue={
-                    isManagement ? "理解管理与组织，沿理论演变、决策过程和环境分析形成有证据的管理判断。" : isStatisticalAnalysis ? "把商业判断转化为清楚的研究问题；核查数据口径；用效应大小、区间和图形表达证据及其边界。" : course.id === ECONOMIC_MATHEMATICS_COURSE_ID
-                      ? "从可观察的营销数据建立变量关系；独立完成推导与计算；用单位、定义域与模型边界复核结论。"
-                      : "理解港口的基本构成；能够区分港口主要功能；建立港口管理对象的整体框架。"
-                  }
-                />
-              </label>
-              <button
-                className="button button--secondary"
-                onClick={() => setEditorOpen(false)}
-              >
-                <Check size={16} /> 保存本次编辑
-              </button>
-                <small>{(isEconomicMathematics || isStatisticalAnalysis || isManagement) ? "正式课件由版本化课程注册表维护；此处编辑只保留当前界面草稿。" : "本轮入口原型先保存界面状态；正式内容版本服务将在下一纵切接入。"}</small>
-            </div>
-          )}
-          <div className="lesson-steps">
-            {lessonPreparationSteps.map((step, index) => {
-              const completed = isEconomicMathematics || isStatisticalAnalysis || isManagement || index < 2;
-              return (
-              <div key={step.label} className={completed ? "lesson-step lesson-step--done" : "lesson-step"}>
-                <span>{completed ? <Check size={15} /> : index + 1}</span>
-                <div>
-                  <strong>{step.label}</strong>
-                  <small>{step.status}</small>
-                </div>
-              </div>
-              );
-            })}
-          </div>
-          {isManagement && <ManagementCourseOverview onStart={lesson => void startClass(lesson)} busy={starting}/>}
-          {isStatisticalAnalysis && <Suspense fallback={<p>正在装载讲次目录…</p>}><StatisticalAnalysisCourseOverview onStart={lesson => void startClass(lesson)} busy={starting}/></Suspense>}
-          {course.id === ECONOMIC_MATHEMATICS_COURSE_ID && (
-            <section className="economic-mathematics-resources" aria-label="经济数学教材资源">
-              <span>指定教材</span>
-              <strong>吴传生《经济数学——微积分》第5版</strong>
-              <p>高等教育出版社；课堂例题、图表与业务数据均独立编写，不复制教材页面。</p>
-              <a href="https://www.hep.com.cn/book/show/d00ab8e3-a707-4083-8b71-6160b32eaaaa" rel="noreferrer" target="_blank">查看出版社书目信息</a>
-              <small>配套：第4版《学习辅导与习题选解》；MOOC仅作课外资源。</small>
-            </section>
-          )}
-        </article>
-
-        <aside className="panel launch-card">
-          {!isStatisticalAnalysis && !isManagement && <Link className="button button--secondary button--wide" to={`/courses/${course.id}/exercises`}><ClipboardCheck size={17} />管理习题与活动</Link>}
-          <Link className="button button--secondary button--wide" to={`/courses/${course.id}/assistant-prompts`}><Sparkles size={17} />小麦老师 · 提示词设置</Link>
-          <span className="launch-card__icon"><MonitorPlay size={23} /></span>
-          <h3>准备进入课堂</h3>
-          <p>打开课件与课堂控制台，开始这一堂课。</p>
-          <button
-            className="button button--coral button--wide"
-            onClick={() => void startClass()}
-            disabled={starting}
-          >
-            {starting ? <LoaderCircle className="spin" size={17} /> : <Play size={17} />}
-            {starting ? "正在创建课堂" : "开始上课"}
-          </button>
-          {getCoursePresentation(course.id)?.supportsStudy && (
-            <Link className="button button--secondary button--wide" to={`/study/${course.id}`}>
-              <GraduationCap size={17} /> 预览课下学习
-            </Link>
-          )}
-          <ul>
-            <li><CheckCircle2 size={15} /> 课程与章节已关联</li>
-            <li><CheckCircle2 size={15} /> {isManagement ? `${MANAGEMENT_SCOPE_LABEL}网页课件已关联` : isStatisticalAnalysis ? "第1、2讲完整课件已关联" : course.id === ECONOMIC_MATHEMATICS_COURSE_ID ? "32讲手工课件已关联" : "实时数字人接口已预留"}</li>
-            <li><CircleAlert size={15} /> {isManagement ? "原页定位、分步演示与学生同步" : isStatisticalAnalysis ? "教师播放、讲解备注与学生同步" : course.id === ECONOMIC_MATHEMATICS_COURSE_ID ? "支持课件同步、点名与答题" : "GPU 服务按需启动"}</li>
-          </ul>
-        </aside>
-      </div>
-    </section>
-  );
-}
-
-function ClassroomsPage() {
-  const [sessions, setSessions] = useState<ClassSession[]>();
-  const [error, setError] = useState("");
-  const [startingId, setStartingId] = useState("");
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    void api.getSessions().then(setSessions).catch((reason: Error) => setError(reason.message));
-  }, []);
-
-  async function enterSession(session: ClassSession) {
-    if (session.status === "live") {
-      navigate(`/classroom/${session.id}`);
-      return;
-    }
-    setStartingId(session.id);
-    try {
-      const liveSession = await api.startClass(session.courseId);
-      navigate(`/classroom/${liveSession.id}`);
-    } catch (reason) {
-      setError((reason as Error).message);
-      setStartingId("");
-    }
-  }
-
-  if (!sessions && !error) return <LoadingState label="正在读取课堂安排" />;
-
-  return (
-    <section>
-      <PageHeading
-        eyebrow="CLASSROOM ORCHESTRATION"
-        title="课堂教学"
-        description="这里负责课堂启动、教学节奏与实时数字人助手的按需调度。"
-      />
-      {error && <InlineAlert message={error} />}
-      <div className="schedule-list">
-        {sessions?.map((session) => (
-          <article className="schedule-card" key={session.id}>
-            <DateBadge date={session.startsAt} />
-            <div className="schedule-card__body">
-              <span className={`status-pill status-pill--${session.status}`}>
-                {session.status === "live" ? "进行中" : session.status === "scheduled" ? "已排课" : "已结束"}
-              </span>
-              <h3>{session.lessonTitle}</h3>
-              <p>{session.courseTitle}</p>
-              <small>
-                <Clock3 size={14} /> {formatDateTime(session.startsAt)}
-                <MapPin size={14} /> {session.room}
-              </small>
-            </div>
-            <button
-              className="button button--secondary"
-              onClick={() => void enterSession(session)}
-              disabled={session.status === "completed" || startingId === session.id}
-            >
-              {startingId === session.id ? (
-                <LoaderCircle className="spin" size={16} />
-              ) : session.status === "live" ? (
-                <MonitorPlay size={16} />
-              ) : (
-                <Play size={16} />
-              )}
-              {startingId === session.id ? "正在启动" : session.status === "live" ? "进入课堂" : "立即开课"}
-            </button>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function ActivityPage() {
-  const [dashboard, setDashboard] = useState<Dashboard>();
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    void api.getDashboard().then(setDashboard).catch((reason: Error) => setError(reason.message));
-  }, []);
-
-  if (error) return <ErrorState message={error} onRetry={() => window.location.reload()} />;
-  if (!dashboard) return <LoadingState label="正在读取系统动态" />;
-
-  return (
-    <section>
-      <PageHeading
-        eyebrow="AUDIT TRAIL"
-        title="全部动态"
-        description="课程建立、备课与课堂启动都会在这里留下可追踪记录。"
-      />
-      <article className="panel timeline">
-        {dashboard.recentActivities.map((item) => (
-          <div className="timeline__item" key={item.id}>
-            <span />
-            <div>
-              <small>{formatDateTime(item.occurredAt)}</small>
-              <h3>{item.title}</h3>
-              <p>{item.detail}</p>
-            </div>
-          </div>
-        ))}
-      </article>
-    </section>
-  );
-}
-
-function SettingsPage() {
-  const initialSettings = useMemo(() => {
-    const saved = localStorage.getItem("edu-portal-preferences");
-    return saved
-      ? (JSON.parse(saved) as { compactSidebar: boolean; classReminders: boolean })
-      : { compactSidebar: false, classReminders: true };
-  }, []);
-  const [settings, setSettings] = useState(initialSettings);
-  const [saved, setSaved] = useState(false);
-
-  function saveSettings() {
-    localStorage.setItem("edu-portal-preferences", JSON.stringify(settings));
-    setSaved(true);
-    window.setTimeout(() => setSaved(false), 2200);
-  }
-
-  return (
-    <section>
-      <PageHeading
-        eyebrow="PERSONAL PREFERENCES"
-        title="个人设置"
-        description="本轮先提供本地偏好保存；账号与学校统一认证将在认证服务接入时迁移。"
-      />
-      <article className="panel settings-panel">
-        <h3>工作台偏好</h3>
-        <label className="toggle-row">
-          <span>
-            <strong>课堂提醒</strong>
-            <small>在工作台显示即将开始的课堂</small>
-          </span>
-          <input
-            type="checkbox"
-            checked={settings.classReminders}
-            onChange={(event) => setSettings({ ...settings, classReminders: event.target.checked })}
-          />
-        </label>
-        <label className="toggle-row">
-          <span>
-            <strong>紧凑导航偏好</strong>
-            <small>记录未来导航密度设置</small>
-          </span>
-          <input
-            type="checkbox"
-            checked={settings.compactSidebar}
-            onChange={(event) => setSettings({ ...settings, compactSidebar: event.target.checked })}
-          />
-        </label>
-        <button className="button button--primary" onClick={saveSettings}>
-          {saved ? <Check size={17} /> : <Save size={17} />}
-          {saved ? "已保存" : "保存偏好"}
-        </button>
-      </article>
-    </section>
-  );
-}
-
-function ModulePage({
-  icon: Icon,
-  eyebrow,
-  title,
-  description,
-  status,
-  details
-}: {
-  icon: LucideIcon;
-  eyebrow: string;
-  title: string;
-  description: string;
-  status: string;
-  details: string[];
-}) {
-  return (
-    <section>
-      <PageHeading eyebrow={eyebrow} title={title} description={description} />
-      <article className="module-preview">
-        <div className="module-preview__icon"><Icon size={34} /></div>
-        <span className="module-status"><span /> {status}</span>
-        <h3>{title}模块已经进入系统导航</h3>
-        <p>当前入口是真实路由，不是无响应占位按钮。下一纵切可以在该模块边界内继续接入业务服务。</p>
-        <div className="module-detail-grid">
-          {details.map((detail, index) => (
-            <div key={detail}>
-              <span>0{index + 1}</span>
-              <strong>{detail}</strong>
-            </div>
-          ))}
-        </div>
-      </article>
-    </section>
-  );
-}
-
-function AssistantModal({ course, onClose }: { course: Course; onClose: () => void }) {
-  const [loading, setLoading] = useState<"classroom" | "selfstudy" | "">("");
-  const [result, setResult] = useState<AvatarPresentation>();
-  const [error, setError] = useState("");
-  const isEconomicMathematics = course.id === ECONOMIC_MATHEMATICS_COURSE_ID;
-  const isStatisticalAnalysis = course.id === STATISTICAL_ANALYSIS_COURSE_ID;
-  const isManagement = course.id === "management-principles";
-
-  async function prepare(scene: "classroom" | "selfstudy") {
-    setLoading(scene);
-    setError("");
-    try {
-      setResult(await api.prepareAvatar({ courseId: course.id, scene }));
-    } catch (reason) {
-      setError((reason as Error).message);
-    } finally {
-      setLoading("");
-    }
-  }
-
-  return (
-    <div className="modal-backdrop portal-modal" role="presentation">
-      <section className="modal assistant-modal" role="dialog" aria-modal="true" aria-labelledby="assistant-title">
-        <button className="modal__close" onClick={onClose} aria-label="关闭助手设置">
-          <X size={19} />
-        </button>
-        <div className="assistant-modal__heading">
-          <span><Sparkles size={21} /></span>
-          <div>
-            <p>{course.title}</p>
-            <h2 id="assistant-title">选择助手模式</h2>
-          </div>
-        </div>
-        <div className="mode-grid">
-          <button
-            className="mode-card"
-            disabled={Boolean(loading)}
-            onClick={() => void prepare("classroom")}
-          >
-            <MonitorPlay size={24} />
-            <strong>课堂实时助手</strong>
-            <p>接入 OpenAvatarChat，按课堂时段申请 GPU 资源。</p>
-            <span>{loading === "classroom" ? "正在创建…" : "创建课堂计划"}</span>
-          </button>
-          {(isEconomicMathematics || isStatisticalAnalysis || isManagement) ? (
-            <div className="mode-card mode-card--light mode-card--unavailable">
-              <GraduationCap size={24} />
-              <strong>课下学习暂未开放</strong>
-              <p>本课程当前开放教师课堂与学生同步画面。</p>
-              <span>课堂内由小麦老师按揭示状态提供提示</span>
-            </div>
-          ) : (
-            <button
-              className="mode-card mode-card--light"
-              disabled={Boolean(loading)}
-              onClick={() => void prepare("selfstudy")}
-            >
-              <GraduationCap size={24} />
-              <strong>课下轻量助手</strong>
-              <p>使用“澜舟”半写实形象、预录动作与准确字幕，不占用实时 GPU。</p>
-              <span>{loading === "selfstudy" ? "正在准备…" : "启用轻量模式"}</span>
-            </button>
-          )}
-        </div>
-        {error && <InlineAlert message={error} />}
-        {result && (
-          <div className="mode-result">
-            <CheckCircle2 size={20} />
-            <div>
-              <strong>{result.requiresGpu ? "实时模式计划已建立" : "轻量模式已经就绪"}</strong>
-              <p>{result.message}</p>
-              {result.mode === "selfstudy_prerecorded" && (
-                <Link to={`/study/${course.id}`} onClick={onClose}>进入学习页预览</Link>
-              )}
-            </div>
-          </div>
-        )}
-      </section>
-    </div>
-  );
-}
-
 function NewCourseModal({
   onClose,
-  onCreated
+  onCreated,
 }: {
   onClose: () => void;
   onCreated: (course: Course) => void;
@@ -1113,7 +165,7 @@ function NewCourseModal({
     code: "",
     category: "本科课程",
     discipline: "管理学",
-    totalHours: 32
+    totalHours: 32,
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -1134,12 +186,23 @@ function NewCourseModal({
 
   return (
     <div className="modal-backdrop portal-modal" role="presentation">
-      <section className="modal course-modal" role="dialog" aria-modal="true" aria-labelledby="course-modal-title">
-        <button className="modal__close" onClick={onClose} aria-label="关闭新建课程窗口">
+      <section
+        className="modal course-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="course-modal-title"
+      >
+        <button
+          className="modal__close"
+          onClick={onClose}
+          aria-label="关闭新建课程窗口"
+        >
           <X size={19} />
         </button>
         <div className="modal__heading">
-          <span><BookOpen size={22} /></span>
+          <span>
+            <BookOpen size={22} />
+          </span>
           <div>
             <p>COURSE CREATION</p>
             <h2 id="course-modal-title">建立一门新课程</h2>
@@ -1153,7 +216,9 @@ function NewCourseModal({
               minLength={2}
               value={form.title}
               placeholder="例如：港口物流专题"
-              onChange={(event) => setForm({ ...form, title: event.target.value })}
+              onChange={(event) =>
+                setForm({ ...form, title: event.target.value })
+              }
             />
           </label>
           <label className="field">
@@ -1162,7 +227,9 @@ function NewCourseModal({
               required
               value={form.code}
               placeholder="例如：PORT-LOG-01"
-              onChange={(event) => setForm({ ...form, code: event.target.value })}
+              onChange={(event) =>
+                setForm({ ...form, code: event.target.value })
+              }
             />
           </label>
           <label className="field">
@@ -1173,14 +240,18 @@ function NewCourseModal({
               min={1}
               max={300}
               value={form.totalHours}
-              onChange={(event) => setForm({ ...form, totalHours: Number(event.target.value) })}
+              onChange={(event) =>
+                setForm({ ...form, totalHours: Number(event.target.value) })
+              }
             />
           </label>
           <label className="field">
             <span>课程类型</span>
             <select
               value={form.category}
-              onChange={(event) => setForm({ ...form, category: event.target.value })}
+              onChange={(event) =>
+                setForm({ ...form, category: event.target.value })
+              }
             >
               <option>本科课程</option>
               <option>研究生课程</option>
@@ -1191,20 +262,38 @@ function NewCourseModal({
             <span>学科领域</span>
             <select
               value={form.discipline}
-              onChange={(event) => setForm({ ...form, discipline: event.target.value })}
+              onChange={(event) =>
+                setForm({ ...form, discipline: event.target.value })
+              }
             >
               <option>管理学</option>
               <option>交通运输</option>
               <option>工程技术</option>
             </select>
           </label>
-          {error && <div className="field--wide"><InlineAlert message={error} /></div>}
+          {error && (
+            <div className="field--wide">
+              <InlineAlert message={error} />
+            </div>
+          )}
           <div className="form-actions field--wide">
-            <button type="button" className="button button--ghost" onClick={onClose}>
+            <button
+              type="button"
+              className="button button--ghost"
+              onClick={onClose}
+            >
               取消
             </button>
-            <button type="submit" className="button button--primary" disabled={saving}>
-              {saving ? <LoaderCircle className="spin" size={17} /> : <Plus size={17} />}
+            <button
+              type="submit"
+              className="button button--primary"
+              disabled={saving}
+            >
+              {saving ? (
+                <LoaderCircle className="spin" size={17} />
+              ) : (
+                <Plus size={17} />
+              )}
               {saving ? "正在建立" : "建立课程"}
             </button>
           </div>
@@ -1218,67 +307,16 @@ function SignedOutPage() {
   const navigate = useNavigate();
   return (
     <main className="signed-out">
-      <div className="signed-out__mark"><ShipWheel size={31} /></div>
+      <div className="signed-out__mark">
+        <ShipWheel size={31} />
+      </div>
       <p>TEACHING COMMAND CENTER</p>
-      <h1>已退出本次本地演示</h1>
-      <span>统一身份认证接入前，可直接返回李行之老师的教师工作台。</span>
+      <h1>已退出登录</h1>
+      <span>请返回系统入口重新登录。</span>
       <button className="button button--primary" onClick={() => navigate("/")}>
         返回系统入口 <ChevronRight size={17} />
       </button>
     </main>
-  );
-}
-
-function PageHeading({
-  eyebrow,
-  title,
-  description,
-  action
-}: {
-  eyebrow: string;
-  title: string;
-  description: string;
-  action?: React.ReactNode;
-}) {
-  return (
-    <div className="page-heading">
-      <div>
-        <p>{eyebrow}</p>
-        <h2>{title}</h2>
-        <span>{description}</span>
-      </div>
-      {action}
-    </div>
-  );
-}
-
-function PanelHeader({
-  title,
-  detail,
-  action
-}: {
-  title: string;
-  detail: string;
-  action?: React.ReactNode;
-}) {
-  return (
-    <header className="panel-header">
-      <div>
-        <h3>{title}</h3>
-        <p>{detail}</p>
-      </div>
-      {action}
-    </header>
-  );
-}
-
-function DateBadge({ date }: { date: string }) {
-  const parsed = new Date(date);
-  return (
-    <div className="date-badge">
-      <strong>{parsed.getDate().toString().padStart(2, "0")}</strong>
-      <span>{parsed.getMonth() + 1} 月</span>
-    </div>
   );
 }
 
@@ -1291,13 +329,21 @@ function LoadingState({ label }: { label: string }) {
   );
 }
 
-function ErrorState({ message, onRetry }: { message: string; onRetry: () => void }) {
+function ErrorState({
+  message,
+  onRetry,
+}: {
+  message: string;
+  onRetry: () => void;
+}) {
   return (
     <div className="error-state">
       <CircleAlert size={30} />
       <h2>暂时无法打开</h2>
       <p>{message}</p>
-      <button className="button button--secondary" onClick={onRetry}>重试</button>
+      <button className="button button--secondary" onClick={onRetry}>
+        重试
+      </button>
     </div>
   );
 }
@@ -1308,22 +354,4 @@ function InlineAlert({ message }: { message: string }) {
       <CircleAlert size={17} /> {message}
     </div>
   );
-}
-
-function formatTime(value: string) {
-  return new Intl.DateTimeFormat("zh-CN", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false
-  }).format(new Date(value));
-}
-
-function formatDateTime(value: string) {
-  return new Intl.DateTimeFormat("zh-CN", {
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false
-  }).format(new Date(value));
 }

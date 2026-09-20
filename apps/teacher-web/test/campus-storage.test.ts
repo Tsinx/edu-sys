@@ -2,7 +2,7 @@ import "fake-indexeddb/auto";
 import assert from "node:assert/strict";
 import test from "node:test";
 import { changeRecord, getRecords, localGet, localSet } from "../src/campus/storage";
-import { cachedRequest } from "../src/campus/offline-api";
+import { cachedRequest, flushStudyProgress } from "../src/campus/offline-api";
 import { stripAuthoringMetadata } from "../campus-build";
 
 Object.defineProperty(globalThis,"window",{value:new EventTarget(),configurable:true});
@@ -29,4 +29,22 @@ test("IndexedDB keeps account isolation and a changed local save while acknowled
   await changeRecord("student-a","run",old=>({...old!,revision:1,pending:undefined,dirty:old!.value!=="v1"}));
   const stored=(await getRecords("student-a"))[0]!;assert.equal(stored.value,"v2");assert.equal(stored.dirty,true);assert.equal(stored.revision,1);
   assert.equal((await getRecords("student-b")).length,0);
+});
+
+test("independent reading stays account scoped offline and refuses conflicting server revisions",async()=>{
+  const actorId='reading-student',path='/api/courses/management-principles/reading',key=`reading:${actorId}:${path}`;
+  await localSet('identity',{actor:{actorId},expiresAt:new Date(Date.now()+60000).toISOString()});
+  const body=JSON.stringify({slideKey:'mg-002',deckVersion:'v1',revision:2});
+  const offline=await cachedRequest(path,{method:'PUT',body},async()=>{throw new Error('offline');});
+  assert.equal((await offline.json()).pendingSync,true);
+  assert.equal((await cachedRequest(path,{},async()=>Response.json(null))).status,200);
+  const fetch=globalThis.fetch;let writes=0;
+  try{
+    globalThis.fetch=async(url,init)=>String(url).endsWith('/identity/session')?Response.json({actor:{actorId:'other-account'}}):(writes++,Response.json({}, {status:409}));
+    await flushStudyProgress(actorId);assert.equal(writes,0,'never upload previous account progress into new session');
+    globalThis.fetch=async(url,init)=>String(url).endsWith('/identity/session')?Response.json({actor:{actorId}}):(writes++,Response.json({}, {status:409}));
+    await flushStudyProgress(actorId);assert.equal(writes,1);assert.ok(await localGet(key),'conflicting local progress is retained');
+    globalThis.fetch=async(url,init)=>String(url).endsWith('/identity/session')?Response.json({actor:{actorId}}):Response.json({slideKey:'mg-002',deckVersion:'v1',revision:3});
+    await flushStudyProgress(actorId);assert.equal(await localGet(key),undefined);assert.equal((await localGet<{revision:number}>(`api:${actorId}:${path}`))?.revision,3);
+  }finally{globalThis.fetch=fetch;}
 });

@@ -1081,10 +1081,10 @@ export function ClassroomSubsystem() {
           </button>
           <button
             type="button"
-            aria-label="课堂设置"
+            aria-label="课堂显示信息"
             onClick={() => setSettingsOpen(true)}
           >
-            <Settings size={18} /> <span>设置</span>
+            <Settings size={18} /> <span>显示信息</span>
           </button>
           <button
             className="end-class-button"
@@ -1657,13 +1657,13 @@ export function ClassroomSubsystem() {
             <button
               className="classroom-dialog__close"
               type="button"
-              aria-label="关闭课堂设置"
+              aria-label="关闭课堂显示信息"
               onClick={() => setSettingsOpen(false)}
             >
               <X size={18} />
             </button>
             <span className="classroom-dialog__icon"><Settings size={23} /></span>
-            <h2 id="classroom-settings-title">课堂显示设置</h2>
+            <h2 id="classroom-settings-title">课堂显示信息</h2>
             <p>Slides 使用固定逻辑画布，设备尺寸只改变统一缩放比例。</p>
             <dl className="display-contract-list">
               <div><dt>逻辑分辨率</dt><dd>1600 × 1000</dd></div>

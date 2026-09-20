@@ -122,6 +122,9 @@ export const createCourseInputSchema = z.object({
 export type CreateCourseInput = z.infer<typeof createCourseInputSchema>;
 
 export const classSessionSchema = z.object({
+  teacherId: z.string().optional(),
+  teacherName: z.string().optional(),
+  lessonNumber: z.number().int().nonnegative().optional(),
   id: z.string(),
   courseId: z.string(),
   courseTitle: z.string(),
@@ -134,6 +137,9 @@ export const classSessionSchema = z.object({
 export type ClassSession = z.infer<typeof classSessionSchema>;
 
 export const activitySchema = z.object({
+  courseId: z.string().optional(),
+  actorId: z.string().optional(),
+  sessionId: z.string().optional(),
   id: z.string(),
   type: z.enum(["course_created", "lesson_prepared", "class_started"]),
   title: z.string(),
@@ -1871,3 +1877,5 @@ export type TeacherAvatarCommandResponse = z.infer<
 export * from "./streaming-json.js";
 export * from "./classroom-participation.js";
 export * from "./classroom-realtime.js";
+
+export type { PreparationNote, ReadingProgress, PortalPreferences, StartClassOptions } from "./portal.js";

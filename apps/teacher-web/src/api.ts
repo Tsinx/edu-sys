@@ -67,7 +67,7 @@ export class ApiError extends Error {
   }
 }
 
-async function request<T>(path: string, init?: RequestInit): Promise<T> {
+export async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const headers =
     init?.body === undefined
       ? init?.headers
@@ -597,9 +597,9 @@ export const api = {
       method: "POST",
       body: JSON.stringify(input)
     }),
-  startClass: (courseId: string) =>
+  startClass: (courseId: string, options: import("@edu/contracts").StartClassOptions = {}) =>
     request<ClassSession>(`/api/courses/${courseId}/class-sessions`, {
-      method: "POST"
+      method: "POST", body: JSON.stringify({...options, requestId: options.requestId ?? crypto.randomUUID()})
     }),
   prepareAvatar: (input: AvatarPresentationInput) =>
     request<AvatarPresentation>("/api/avatar/presentations", {

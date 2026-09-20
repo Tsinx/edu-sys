@@ -156,6 +156,12 @@ export function registerPortSubmissions(app: FastifyInstance, repository: PortSu
     const result = repository.submit(actor, input);
     return reply.code(result.status === "verified" ? 200 : 202).send(result);
   });
+  app.get("/api/port-operations/history", async request => {
+    const actor=await identity(request);
+    const q=z.object({page:z.coerce.number().int().min(1).default(1)}).parse(request.query);
+    const rows=repository.db.prepare(`SELECT ${summaryColumns} FROM port_submissions WHERE actor_id=? ORDER BY created_at DESC,id DESC LIMIT 20 OFFSET ?`).all(actor.actorId,(q.page-1)*20) as Row[];
+    return {rows:rows.map(r=>repository.summary(r)),page:q.page,total:Number(repository.db.prepare("SELECT COUNT(*) AS n FROM port_submissions WHERE actor_id=?").get(actor.actorId)?.n??0)};
+  });
   app.get("/api/port-operations/submissions/:id", async request => repository.summary(await read(request)));
   app.get("/api/port-operations/submissions/:id/replay", async request => {
     const row = await read(request, true);
@@ -167,6 +173,12 @@ export function registerPortSubmissions(app: FastifyInstance, repository: PortSu
     const teacher = actor.roles.includes("teacher"), data = repository.results(course, teacher ? undefined : actor.actorId);
     const roster = new Map((teacher ? options.roster(course) : [{ actorId: actor.actorId, displayName: actor.displayName, identifier: "" }]).map(r => [r.actorId, r]));
     for (const r of [...data.results, ...data.pending]) if (!roster.has(r.actorId)) roster.set(r.actorId, { actorId: r.actorId, displayName: r.displayName, identifier: "" });
-    return { courseId: course, teacher, rows: [...roster.values()].map(r => ({ ...r, results: data.results.filter(s => s.actorId === r.actorId), pending: data.pending.filter(s => s.actorId === r.actorId) })) };
+    const q=z.object({page:z.coerce.number().int().min(1).optional(),search:z.string().max(100).default(''),unit:z.enum(['all','arrival','cargo','yard','planning','departure','full']).default('all'),status:z.enum(['all','missing','verified','pending','rejected']).default('all'),export:z.enum(['true']).optional()}).parse(request.query);
+    const units=q.unit==='all'?['arrival','cargo','yard','planning','departure','full']:[q.unit];
+    const rows=[...roster.values()].map(r=>({...r,results:data.results.filter(s=>s.actorId===r.actorId),pending:data.pending.filter(s=>s.actorId===r.actorId)}))
+      .filter(r=>`${r.displayName} ${r.identifier}`.toLowerCase().includes(q.search.toLowerCase()))
+      .filter(r=>q.status==='all'||units.some(u=>{const result=r.results.find(s=>s.unit===u),pending=r.pending.find(s=>s.unit===u);return q.status==='missing'?!result&&!pending:q.status==='verified'?!!result:q.status==='pending'?!!pending&&pending.status!=='rejected':pending?.status==='rejected';}))
+      .sort((a,b)=>a.identifier.localeCompare(b.identifier)||a.actorId.localeCompare(b.actorId));
+    return {courseId:course,teacher,total:rows.length,page:q.page??1,pageSize:20,rows:q.page&&!q.export?rows.slice((q.page-1)*20,q.page*20):rows};
   });
 }

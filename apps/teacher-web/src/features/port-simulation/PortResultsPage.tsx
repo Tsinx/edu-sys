@@ -18,36 +18,41 @@ export function PortResultsPage() {
   const { courseId = "course-port-management-intro" } = useParams();
   const [data, setData] = useState<ResultsResponse>(), [error, setError] = useState(""), [teacher, setTeacher] = useState(false);
   const [search, setSearch] = useState(""), [unit, setUnit] = useState("all"), [status, setStatus] = useState("all"), [selected, setSelected] = useState<SubmissionSummary>();
-  const refresh = async () => { const value = await resultRequest<ResultsResponse>(`courses/${courseId}/results`); if (!value.teacher) throw new Error("实验成绩浏览仅对教师开放。"); setData(value); setError(""); };
+  const [page,setPage]=useState(1);
+  const generation=useRef(0);
+  const query=new URLSearchParams({page:String(page),search,unit,status});
+  const refresh = async () => { const version=++generation.current; const value = await resultRequest<ResultsResponse>(`courses/${courseId}/results?${query}`); if (!value.teacher) throw new Error("实验成绩浏览仅对教师开放。"); if(version===generation.current){setData(value); setError("");} };
   useEffect(() => { let live = true; void api.getIdentitySession().then(identity => {
     if (!live) return; if (!identity.actor.roles.includes("teacher")) throw new Error("请使用教师账号查看实验成绩。"); setTeacher(true); return refresh();
-  }).catch(reason => { if (live) setError(reason.message); }); return () => { live = false; }; }, [courseId]);
+  }).catch(reason => { if (live) setError(reason.message); }); return () => { live = false; generation.current++; }; }, [courseId,page,search,unit,status]);
   const units = PORT_COURSE_UNITS.filter(u => unit === "all" || u.id === unit);
-  const rows = data?.rows.filter(row => `${row.displayName} ${row.identifier}`.includes(search)).filter(row => status === "all" || units.some(u => {
-    const pending = row.pending.find(s => s.unit === u.id), result = row.results.find(s => s.unit === u.id);
-    return status === "missing" ? !result && !pending : status === "verified" ? !!result : status === "pending" ? !!pending && pending.status !== "rejected" : pending?.status === "rejected";
-  })) ?? [];
-  function exportCsv() {
+  const rows = data?.rows ?? [];
+  async function exportCsv() {
+    const exported=await resultRequest<ResultsResponse>(`courses/${courseId}/results?${query}&export=true`);
+    const rows=exported.rows;
     const cell = (value: string) => `"${(/^[=+\-@\t\r]/.test(value) ? "'" : "") + value.replaceAll('"', '""')}"`;
     const lines = [["姓名", "账号", ...units.flatMap(u => [`${u.title}${u.id === "full" ? "综合成绩" : "完成度"}`, `${u.title}仿真分钟`, `${u.title}本段成本`, `${u.title}模式`, `${u.title}完成状态`])], ...rows.map(row => [row.displayName, row.identifier, ...units.flatMap(u => { const s = row.results.find(s => s.unit === u.id); return s?.result ? [s.result.score.toFixed(2), (s.result.elapsed / 60).toFixed(1), s.result.performance?.cost.toFixed(1) ?? "", s.result.mode === "battle" ? "实战模式" : "教学模式", s.result.complete ? "已完成" : "未完成"] : ["未提交", "", "", "", ""]; })])];
     const url = URL.createObjectURL(new Blob(["\ufeff" + lines.map(row => row.map(cell).join(",")).join("\r\n")], { type: "text/csv;charset=utf-8" }));
     const a = document.createElement("a"); a.href = url; a.download = "港口实验成绩.csv"; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
-  return <section className="port-results-page"><Link to={`/courses/${courseId}`}>← 返回课程</Link><header><span>PORT LAB · RESULTS</span><h1>实验成绩</h1><p>分段显示目标完成度，综合挑战显示综合成绩；耗时与成本另列用于比较。六类实验分别提交。每格显示最近一份通过复算的结果；新提交核验失败不会覆盖原成绩。</p></header>
+  return <section className="port-results-page"><Link to="/tasks">← 返回实验任务</Link><header><span>PORT LAB · RESULTS</span><h1>实验成绩</h1><p>分段显示目标完成度，综合挑战显示综合成绩；耗时与成本另列用于比较。六类实验分别提交。每格显示最近一份通过复算的结果；新提交核验失败不会覆盖原成绩。</p></header>
     {error && <p role="alert">{error}</p>}
-    {teacher && <><div className="port-result-filters"><label>学生<input value={search} onChange={e => setSearch(e.target.value)} placeholder="姓名或账号"/></label><label>实验<select value={unit} onChange={e => setUnit(e.target.value)}><option value="all">全部实验</option>{PORT_COURSE_UNITS.map(u => <option key={u.id} value={u.id}>{u.title}</option>)}</select></label><label>提交状态<select value={status} onChange={e => setStatus(e.target.value)}><option value="all">全部状态</option><option value="verified">已有成绩</option><option value="missing">未提交</option><option value="pending">核验中</option><option value="rejected">核验失败</option></select></label><button onClick={() => void refresh().catch(reason => setError(reason.message))}>刷新</button><button disabled={!data} onClick={exportCsv}>导出当前成绩表</button></div>
-      <div className="port-result-table-wrap"><table className="port-result-table"><caption>{rows.length} 位学生 · 未提交不计为零分</caption><thead><tr><th>学生</th>{units.map(u => <th key={u.id}>{u.short}</th>)}</tr></thead><tbody>{rows.map(row => <tr key={row.actorId}><th>{row.displayName}<small>{row.identifier}</small></th>{units.map(u => {
+    {teacher && <><div className="port-result-filters"><label>学生<input value={search} onChange={e => {setSearch(e.target.value);setPage(1);}} placeholder="姓名或账号"/></label><label>实验<select value={unit} onChange={e => {setUnit(e.target.value);setPage(1);}}><option value="all">全部实验</option>{PORT_COURSE_UNITS.map(u => <option key={u.id} value={u.id}>{u.title}</option>)}</select></label><label>提交状态<select value={status} onChange={e => {setStatus(e.target.value);setPage(1);}}><option value="all">全部状态</option><option value="verified">已有成绩</option><option value="missing">未提交</option><option value="pending">核验中</option><option value="rejected">核验失败</option></select></label><button onClick={() => void refresh().catch(reason => setError(reason.message))}>刷新</button><button disabled={!data} onClick={()=>void exportCsv().catch(e=>setError(e.message))}>导出全部筛选结果</button></div>
+      <div className="port-result-table-wrap"><table className="port-result-table"><caption>{data?.total??rows.length} 位学生 · 未提交不计为零分</caption><thead><tr><th>学生</th>{units.map(u => <th key={u.id}>{u.short}</th>)}</tr></thead><tbody>{rows.map(row => <tr key={row.actorId}><th>{row.displayName}<small>{row.identifier}</small></th>{units.map(u => {
         const current = row.results.find(s => s.unit === u.id), pending = row.pending.find(s => s.unit === u.id);
         return <td key={u.id}>{current?.result ? <button onClick={() => setSelected(current)} aria-label={`查看${row.displayName}的${u.title}成绩`}><strong>{current.result.score.toFixed(2)}</strong><small>{u.id === "full" ? "综合成绩" : "目标完成度"} · {(current.result.elapsed / 60).toFixed(1)} 分钟</small><small>{current.result.mode === "battle" ? "实战模式" : "教学模式"} · {current.result.complete ? "已完成" : "未完成"}</small><small>{date(current.updatedAt)}</small></button> : <span>未提交</span>}{pending && <small className="port-result-pending" title={pending.error ?? ""}>{submissionStatus[pending.status]}{pending.error && `：${pending.error}`}</small>}</td>;
       })}</tr>)}</tbody></table></div>{!rows.length && <p>当前筛选下没有学生记录。</p>}
+      <nav className="workspace-actions" aria-label="成绩分页"><button disabled={page<=1} onClick={()=>setPage(page-1)}>上一页</button><span>第 {page} / {Math.max(1,Math.ceil((data?.total??0)/20))} 页</span><button disabled={page*20 >= (data?.total??0)} onClick={()=>setPage(page+1)}>下一页</button></nav>
       {selected && <PortResultDetail key={selected.id} selected={selected} onClose={() => setSelected(undefined)}/>}</>}
   </section>;
 }
-function PortResultDetail({ selected, onClose }: { selected: SubmissionSummary; onClose: () => void }) {
+export function PortResultDetail({ selected, onClose }: { selected: SubmissionSummary; onClose: () => void }) {
+  const detail=useRef<HTMLElement>(null);
+  useEffect(()=>{detail.current?.scrollIntoView({behavior:"smooth",block:"start"});},[selected.id]);
   const [data, setData] = useState<ReplayResponse>(), [error, setError] = useState(""), [showReplay, setShowReplay] = useState(false);
   useEffect(() => { let live = true; void resultRequest<ReplayResponse>(`submissions/${selected.id}/replay`).then(value => { if (live) setData(value); }).catch(reason => { if (live) setError(reason.message); }); return () => { live = false; }; }, [selected.id]);
   const result = selected.result!;
-  return <section className="port-result-detail" aria-label="实验结果详情"><header><div><h2>{selected.displayName} · {PORT_COURSE_UNITS.find(u => u.id === selected.unit)?.title}</h2><p>{date(selected.createdAt)} · {result.mode === "battle" ? "实战模式" : "教学模式"} · {result.complete ? "已完成" : "提前结束 / 未完成"} · 服务端复算通过</p></div><button onClick={onClose}>关闭详情</button></header>
+  return <section ref={detail} className="port-result-detail" aria-label="实验结果详情"><header><div><h2>{selected.displayName} · {PORT_COURSE_UNITS.find(u => u.id === selected.unit)?.title}</h2><p>{date(selected.createdAt)} · {result.mode === "battle" ? "实战模式" : "教学模式"} · {result.complete ? "已完成" : "提前结束 / 未完成"} · 服务端复算通过</p></div><button onClick={onClose}>关闭详情</button></header>
     <p>{selected.unit === "full" ? "综合成绩" : "目标完成度（不等同于效率或管理能力总分）"}</p><strong className="port-final-score">{result.score.toFixed(2)}<small> / 100</small></strong><p>本次运行 {Math.round(result.elapsed / 60)} 分钟（仿真时间） · {result.commands} 条输入记录</p>
     {result.performance && <PortPerformanceSummary value={result.performance}/>}
     {result.goals.length > 0 && <ul>{result.goals.map(g => <li key={g.id}>{g.done ? "✓ 已达成" : "○ 未达成"} · {g.label}</li>)}</ul>}

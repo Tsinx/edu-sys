@@ -1,6 +1,7 @@
+import { spawnSync } from "node:child_process";
 import assert from "node:assert/strict";
 import test from "node:test";
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdtemp, rm, mkdir, readdir, copyFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { randomUUID } from "node:crypto";
@@ -12,7 +13,7 @@ import { submissionWorker } from "../src/port-submissions.js";
 const cookie = (r: { headers: Record<string, unknown> }) => String(r.headers["set-cookie"]).split(";")[0]!;
 const course = "course-port-management-intro", prefix = "/api/port-operations";
 test("campus submissions are durable, idempotent, isolated and replace only a verified latest revision", { timeout: 180000 }, async () => {
-  const dir = await mkdtemp(join(tmpdir(), "edu-port-submissions-")), dataFile = join(dir, "state.json"), accounts = join(dir, "accounts.sqlite");
+  const dir = await mkdtemp(join(tmpdir(), "edu-port-submissions-")), dataFile = join(dir, "state.json"), accounts = `${dataFile}.accounts.sqlite`;
   let identity = new CampusIdentityProvider(accounts);
   await identity.createAccount("teacher", "成绩教师", "teacher", "teacher-password-123");
   await identity.createAccount("student", "实验学生", "student", "student-password-123");
@@ -60,6 +61,16 @@ test("campus submissions are durable, idempotent, isolated and replace only a ve
     assert.equal((await list(student)).rows[0].results[0].id, id);
     assert.equal((await list(other)).rows[0].results.length, 0);
     assert.equal((await list(teacher)).rows.length, 2, "enrolled students with no submission remain visible");
+    const history=await app.inject({url:`${prefix}/history?page=1`,headers:{cookie:student}});
+    assert.equal(history.statusCode,200);assert.equal(history.json().total,2);
+    assert.equal((await app.inject({url:`${prefix}/history`,headers:{cookie:other}})).json().total,0);
+    for(let n=0;n<25;n++)identity.db.prepare("INSERT INTO campus_accounts SELECT ?,?,?,role,password_hash,salt,enabled FROM campus_accounts WHERE username='other'").run(`pagination-${n}`,`page${n}`,`分页学生${n}`);
+    const paged=await app.inject({url:`${prefix}/courses/${course}/results?page=1`,headers:{cookie:teacher}});
+    assert.equal(paged.json().rows.length,20);assert.equal(paged.json().total,27);
+    assert.equal((await app.inject({url:`${prefix}/courses/${course}/results?page=2`,headers:{cookie:teacher}})).json().rows.length,7);
+    const filtered=await app.inject({url:`${prefix}/courses/${course}/results?page=1&status=verified&unit=arrival`,headers:{cookie:teacher}});
+    assert.equal(filtered.json().total,1);
+    assert.equal((await app.inject({url:`${prefix}/courses/${course}/results?page=1&export=true`,headers:{cookie:teacher}})).json().rows.length,27);
     for (const mutate of [
       (raw: any) => { delete raw.inputLog; },
       (raw: any) => { raw.inputLog = Array.from({ length: 50001 }, () => ({ kind: "pause" })); },
@@ -87,6 +98,17 @@ test("campus submissions are durable, idempotent, isolated and replace only a ve
     const settled = await Promise.all(competing.map(r => wait(r.json().id)));
     assert.deepEqual(settled.map(r => r.status).sort(), ["rejected", "verified"], "concurrent devices cannot both replace the same revision");
     assert.equal((await list(student)).rows[0].results.find((r: any) => r.unit === "arrival").revision, 3);
+    await app.close();
+    const backup=join(dir,'cleanup-backup');await mkdir(backup);
+    for(const file of await readdir(dir))if(file.endsWith('.sqlite'))await copyFile(join(dir,file),join(backup,file));
+    const script=new URL('../../../deploy/linux/cleanup-classrooms.py',import.meta.url).pathname,plan=join(dir,'cleanup-plan.json');
+    for(const extra of [[],['--apply','--backup',backup]]){const cleanup=spawnSync('python3',[script,dir,'--plan',plan,...extra],{encoding:'utf8'});assert.equal(cleanup.status,0,cleanup.stderr);}
+    identity=new CampusIdentityProvider(accounts);
+    app=await buildApp({dataFile,identityProvider:identity,campusMode:true,secureIdentityCookie:false});
+    assert.equal((await app.inject({url:'/api/class-sessions',headers:{cookie:teacher}})).json().length,0);
+    const preservedReplay=await app.inject({url:`${prefix}/submissions/${id}/replay`,headers:{cookie:teacher}});
+    assert.deepEqual(preservedReplay.json(),replay.json(),'classroom deletion preserves original evidence and replay');
+    const late=await post({...input,requestId:randomUUID(),expectedRevision:3});assert.equal(late.statusCode,202,'old classroom association accepts delayed upload via tombstone');assert.equal((await wait(late.json().id)).status,'verified');
     identity.setCourseAccess(studentIdentity.json().actor.actorId, []);
     assert.equal((await post({ ...input, requestId: randomUUID() })).statusCode, 403);
     assert.equal((await app.inject({ url: `${prefix}/submissions/${id}/replay`, headers: { cookie: student } })).statusCode, 403);

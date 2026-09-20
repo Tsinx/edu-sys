@@ -1,10 +1,10 @@
 import type { PortCourseSelection, PortSubmissionPackage, PortSubmissionResult, PortEvidenceNode } from "@edu/port-simulation-core";
 export const PORT_RESULT_COURSE = "course-port-management-intro";
 export interface SubmissionContext { actorId: string; courseId: string; classSessionId?: string }
-export interface SubmissionSummary { id: string; actorId: string; displayName: string; unit: PortCourseSelection; status: "queued" | "verifying" | "verified" | "rejected"; revision: number; createdAt: string; updatedAt: string; error: string | null; result: PortSubmissionResult | null }
+export interface SubmissionSummary { courseId: string; classSessionId: string | null; id: string; actorId: string; displayName: string; unit: PortCourseSelection; status: "queued" | "verifying" | "verified" | "rejected"; revision: number; createdAt: string; updatedAt: string; error: string | null; result: PortSubmissionResult | null }
 export interface SubmissionInput { requestId: string; courseId: string; classSessionId?: string; expectedRevision: number; package: PortSubmissionPackage }
 export interface ResultRow { actorId: string; identifier: string; displayName: string; results: SubmissionSummary[]; pending: SubmissionSummary[] }
-export interface ResultsResponse { teacher: boolean; rows: ResultRow[] }
+export interface ResultsResponse { total?: number; page?: number; teacher: boolean; rows: ResultRow[] }
 export interface TasksResponse { teacher: boolean; tasks: Array<{ unit: PortCourseSelection; publishedAt: string }> }
 export interface ReplayResponse { package: PortSubmissionPackage; result: PortSubmissionResult; nodes: PortEvidenceNode[]; report: unknown }
 export const submissionStatus = { queued: "等待核验", verifying: "核验中", verified: "提交成功", rejected: "核验失败" };

@@ -1089,7 +1089,7 @@ export class JsonStateStore {
   }
 
   listSessions(): ClassSession[] {
-    return [...this.current.classSessions].sort((a, b) => a.startsAt.localeCompare(b.startsAt));
+    return [...this.current.classSessions].sort((a, b) => b.startsAt.localeCompare(a.startsAt));
   }
 
   getSession(id: string): ClassSession | undefined {
@@ -3944,8 +3944,8 @@ export class JsonStateStore {
     };
   }
 
-  async createCourse(input: CreateCourseInput): Promise<Course> {
-    const teacher = this.getTeacher();
+  async createCourse(input: CreateCourseInput, actor?: ClassroomActor): Promise<Course> {
+    const teacher = actor ? {id:actor.actorId,name:actor.displayName} : this.getTeacher();
     return this.mutate((state) => {
       const now = new Date().toISOString();
       const course: Course = {
@@ -3971,6 +3971,7 @@ export class JsonStateStore {
       state.activities.push({
         id: `activity-${randomUUID()}`,
         type: "course_created",
+        courseId: course.id, actorId: actor?.actorId,
         title: "新课程已建立",
         detail: `创建《${course.title}》`,
         occurredAt: now
@@ -3979,36 +3980,70 @@ export class JsonStateStore {
     });
   }
 
-  async startClass(courseId: string): Promise<ClassSession | undefined> {
-    const course = this.getCourse(courseId);
-    if (!course) {
-      return undefined;
-    }
-    return this.mutate((state) => {
-      const now = new Date().toISOString();
-      const session: ClassSession = {
-        id: `session-${randomUUID()}`,
-        courseId: course.id,
-        courseTitle: course.title,
-        lessonTitle: course.currentLesson.title,
-        room: "在线课堂",
-        startsAt: now,
-        status: "live",
-        assistantMode: "classroom_realtime"
-      };
-      state.classSessions.push(session);
-      state.classroomRuntimes[session.id] = createInitialClassroomRuntime(
-        course.id
-      );
-      const activity: Activity = {
-        id: `activity-${randomUUID()}`,
-        type: "class_started",
-        title: "课堂已启动",
-        detail: `${course.title} · ${course.currentLesson.title}`,
-        occurredAt: now
-      };
-      state.activities.push(activity);
-      return session;
+  portalState() {
+    return this.current.portal ?? { preparations: {}, readings: {}, preferences: {}, startRequests: {}, deletedClassrooms: {} };
+  }
+
+  async updatePortal<T>(change: (portal: NonNullable<PlatformState["portal"]>) => T) {
+    return this.mutate(state => {
+      state.portal ??= { preparations: {}, readings: {}, preferences: {}, startRequests: {}, deletedClassrooms: {} };
+      return structuredClone(change(state.portal));
+    });
+  }
+
+  classroomCourse(id: string) { return this.getSession(id)?.courseId ?? this.portalState().deletedClassrooms[id]?.courseId; }
+  classroomDeleted(id: string) { return Boolean(this.portalState().deletedClassrooms[id]); }
+  listActivities(courseIds?: string[]) {
+    return this.current.activities.filter(a => !courseIds || (a.courseId && courseIds.includes(a.courseId)))
+      .slice().sort((a,b) => b.occurredAt.localeCompare(a.occurredAt));
+  }
+  async alignTeacherAccounts(accounts: Array<{id:string;name:string}>) {
+    const matches = accounts.filter(a => ['李行之','韦笑'].includes(a.name) && accounts.filter(b=>b.name===a.name).length===1);
+    if (!matches.some(a => this.current.courses.some(c => c.teacherId === (a.name === '韦笑' ? 'teacher-wei-xiao' : 'teacher-li-xingzhi')))) return;
+    await this.mutate(state => {
+      for (const a of matches) {
+        if (!state.teachers.some(t => t.id === a.id)) state.teachers.push({...state.teachers[0]!,id:a.id,name:a.name});
+        for (const c of state.courses) if(c.teacherId === (a.name === '韦笑' ? 'teacher-wei-xiao' : 'teacher-li-xingzhi')) c.teacherId=a.id;
+      }
+    });
+  }
+
+  async startClass(courseId: string, actor?: ClassroomActor, options: import("@edu/contracts").StartClassOptions = {}): Promise<ClassSession | undefined> {
+    if (!this.getCourse(courseId)) return undefined;
+    return this.mutate(state => {
+      const course=state.courses.find(c=>c.id===courseId)!;
+      const teacherId=actor?.actorId ?? course.teacherId;
+      state.portal ??= { preparations: {}, readings: {}, preferences: {}, startRequests: {}, deletedClassrooms: {} };
+      const fingerprint=JSON.stringify([courseId,options.mode??'resume',options.lesson,options.scheduledSessionId,options.room]);
+      const key=options.requestId ? JSON.stringify([teacherId,options.requestId]) : undefined;
+      if(key && state.portal.startRequests[key]) {
+        const prior=state.portal.startRequests[key]!;
+        if(prior.fingerprint!==fingerprint) throw Object.assign(new Error('开课请求编号已用于其他课堂'),{statusCode:409});
+        const session=state.classSessions.find(s=>s.id===prior.sessionId);
+        if(!session)throw Object.assign(new Error('该课堂已清理，请刷新后重试'),{statusCode:410});
+        return session;
+      }
+      const remember=(session:ClassSession)=>{if(key)state.portal!.startRequests[key]={fingerprint,sessionId:session.id};return session;};
+      // Direct store callers without identity retain their historical create behavior.
+      if(actor && options.mode!=='new' && !options.scheduledSessionId) {
+        const live=state.classSessions.filter(s=>s.courseId===courseId && s.teacherId===teacherId && s.status==='live').sort((a,b)=>b.startsAt.localeCompare(a.startsAt))[0];
+        if(live)return remember(live);
+      }
+      const deck=getCourseDeckByCourseId(courseId);
+      if(!deck)throw Object.assign(new Error('这门课程尚未发布课件'),{statusCode:409});
+      const lesson=options.lesson===undefined ? deck.lessons.find(l=>l.status==='ready') : deck.lessons.find(l=>l.number===options.lesson && l.status==='ready');
+      if(!lesson)throw Object.assign(new Error('该讲次尚未开放'),{statusCode:400});
+      const now=new Date().toISOString();
+      let session=options.scheduledSessionId ? state.classSessions.find(s=>s.id===options.scheduledSessionId) : undefined;
+      if(options.scheduledSessionId && (!session || session.courseId!==courseId || session.status!=='scheduled'))throw Object.assign(new Error('排课状态已改变，请刷新'),{statusCode:409});
+      const next={courseId,courseTitle:course.title,lessonTitle:lesson.title,lessonNumber:lesson.number,room:options.room?.trim()||session?.room||'在线课堂',startsAt:now,status:'live' as const,assistantMode:'classroom_realtime' as const,teacherId,teacherName:actor?.displayName ?? this.getTeacher().name};
+      if(session)Object.assign(session,next);else {session={id:`session-${randomUUID()}`,...next};state.classSessions.push(session);}
+      const runtime=createInitialClassroomRuntime(courseId);
+      const slide=deck.getSlide(lesson.slideStart ?? 1);
+      runtime.slideIndex=slide.index;runtime.slideKey=slide.slideKey;
+      state.classroomRuntimes[session.id]=runtime;
+      state.activities.push({id:`activity-${randomUUID()}`,type:'class_started',courseId,actorId:teacherId,sessionId:session.id,title:'课堂已启动',detail:`${course.title} · ${lesson.title}`,occurredAt:now});
+      return remember(session);
     });
   }
 

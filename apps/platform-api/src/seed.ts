@@ -134,6 +134,13 @@ export interface PortSimulationClassroomRuntimeState {
 }
 
 export interface PlatformState {
+  portal?: {
+    preparations: Record<string, import("@edu/contracts").PreparationNote>;
+    readings: Record<string, import("@edu/contracts").ReadingProgress>;
+    preferences: Record<string, import("@edu/contracts").PortalPreferences>;
+    startRequests: Record<string, {fingerprint: string; sessionId: string}>;
+    deletedClassrooms: Record<string, {courseId: string; deletedAt: string}>;
+  };
   assistantPrompts?: import("@edu/contracts").AssistantPromptSettings;
   teachers: Teacher[];
   courses: Course[];

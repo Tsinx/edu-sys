@@ -1,3 +1,4 @@
+import { registerPortal } from "./portal-routes.js";
 import { randomUUID } from "node:crypto";
 import { PortSubmissionRepository, registerPortSubmissions } from "./port-submissions.js";
 import { withSpeechVisemes } from "./study/visemes.js";
@@ -189,7 +190,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     }
   }
   registerPortSubmissions(app, portSubmissions, { resolve: resolveActor, allowed: allowedCourseIds,
-    classCourse: id => store.getSession(id)?.courseId,
+    classCourse: id => store.classroomCourse(id),
     roster: course => identityProvider instanceof CampusIdentityProvider ? identityProvider.experimentRoster(course) : [] });
   const aiAdmission = campusMode ? new AiAdmission(`${options.dataFile}.ai.sqlite`, {
     concurrency: 6, queue: 30, dailyRequests: 100, timeoutMs: 120_000, ...options.aiLimits
@@ -415,6 +416,9 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     );
     return reply.status(204).send();
   });
+
+  registerPortal(app, store, portSubmissions, resolveActor, allowedCourseIds);
+  if (identityProvider instanceof CampusIdentityProvider) await store.alignTeacherAccounts(identityProvider.db.prepare("SELECT id, display_name AS name FROM campus_accounts WHERE role='teacher' AND enabled=1").all() as Array<{id:string;name:string}>);
 
   app.get("/api/me", async request => {
     const actor=await resolveActor(request);
@@ -772,7 +776,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       if (!snapshot) {
         return reply.status(404).send({
           error: "SESSION_NOT_FOUND",
-          message: "未找到这次课堂或对应课程"
+          message: store.classroomDeleted(request.params.id) ? "这次旧课堂已归档清理，请回到学习首页打开课件；实验成绩仍保留。" : "未找到这次课堂或对应课程"
         });
       }
       const actor=await resolveActor(request);
@@ -788,7 +792,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       if (!snapshot) {
         return reply.status(404).send({
           error: "SESSION_NOT_FOUND",
-          message: "未找到这次课堂或对应课程"
+          message: store.classroomDeleted(request.params.id) ? "这次旧课堂已归档清理，请回到学习首页打开课件；实验成绩仍保留。" : "未找到这次课堂或对应课程"
         });
       }
 
@@ -828,7 +832,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
 
   app.post("/api/courses", async (request, reply) => {
     const input = createCourseInputSchema.parse(request.body);
-    const course = await store.createCourse(input);
+    const course = await store.createCourse(input, await requireActor(request, "teacher"));
     return reply.status(201).send(course);
   });
 
@@ -848,7 +852,8 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
           message: "这门课程尚未发布课堂课件"
         });
       }
-      const session = await store.startClass(request.params.id);
+      const options = z.object({mode:z.enum(["resume","new"]).optional(),requestId:z.string().uuid().optional(),lesson:z.number().int().nonnegative().optional(),scheduledSessionId:z.string().max(200).optional(),room:z.string().trim().min(1).max(120).optional()}).strict().parse(request.body ?? {});
+      const session = await store.startClass(request.params.id, await requireActor(request,"teacher"), options);
       if (!session) {
         return reply.status(404).send({ error: "COURSE_NOT_FOUND", message: "未找到这门课程" });
       }

@@ -67,7 +67,7 @@ function createLocalId(prefix: string) {
 }
 
 export function StudentStudyPage() {
-  const [assistantOpen, setAssistantOpen] = useState(()=>window.innerWidth>=1000);
+  const [assistantOpen, setAssistantOpen] = useState(()=>runtimeConfig.studentAiEnabled !== false && window.innerWidth>=1000);
   const [playbackSlot, setPlaybackSlot] = useState<HTMLDivElement | null>(null);
   const avatarRenderer = useAvatarRenderer();
   const speechMeter = useRef(new SpeechMeter());
@@ -357,7 +357,7 @@ export function StudentStudyPage() {
           <div><strong>{session.courseTitle}</strong><span>课下自主学习</span></div>
         </div>
         <div className="study-header__meta">
-          <button className="study-assistant-toggle" aria-expanded={assistantOpen} onClick={()=>setAssistantOpen(!assistantOpen)}>{assistantOpen?"收起答疑":"打开答疑"}</button>
+          {aiEnabled && <button className="study-assistant-toggle" aria-expanded={assistantOpen} onClick={()=>setAssistantOpen(!assistantOpen)}>{assistantOpen?"收起答疑":"打开答疑"}</button>}
           <span><LockKeyhole size={14} /> 学习进度独立保存</span>
           <span>{session.mode === "teacher_preview" ? "教师预览" : session.actorDisplayName}</span>
           <Link to={session.mode === "teacher_preview" ? `/courses/${session.courseId}` : "/"}>
@@ -366,7 +366,7 @@ export function StudentStudyPage() {
         </div>
       </header>
 
-      <div className={`study-layout ${assistantOpen?"":"study-layout--reading"}`}>
+      <div className={`study-layout ${aiEnabled && assistantOpen?"":"study-layout--reading"}`}>
         <section className="study-deck" aria-label="课程Slides">
           <div className="study-deck__toolbar">
             <label>
@@ -424,7 +424,7 @@ export function StudentStudyPage() {
           </nav>
         </section>
 
-        <aside className="study-assistant">
+        {aiEnabled && <aside className="study-assistant">
           <div className="study-avatar-panel">
           <AvatarSelector onBeforeChange={() => { interruptCurrentTurn(); setAvatarState("idle"); }}/>
           {avatarRenderer === "live2d" ? <Suspense fallback={<p>正在加载数字人…</p>}><Live2DPlayer state={avatarState} subtitle={subtitle} readMouth={speechMeter.current.read} readViseme={speechMeter.current.readViseme}
@@ -473,7 +473,7 @@ export function StudentStudyPage() {
             }}
           />
           <p className="study-privacy">麦克风只在按住时启用，原始录音不保存。</p>
-        </aside>
+        </aside>}
       </div>
     </main>
   );

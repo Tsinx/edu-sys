@@ -32,9 +32,18 @@ backup.chmod(0o700)
 shutil.copy2(runtime / '.env', backup / 'campus.env')
 (backup / 'previous-release.txt').write_text(str(previous) + '\n')
 switched = False
+cleanup_started = False
+cleanup_plan = Path(sys.argv[2]).resolve() if len(sys.argv) > 2 else None
 subprocess.run(['systemctl', '--user', 'stop', 'edu-campus'], check=True)
 try:
     subprocess.run([str(node), 'admin.mjs', 'backup', str(backup / 'data')], cwd=previous, env=env, check=True)
+    if cleanup_plan:
+        cleanup_started = True
+        command = [sys.executable, str(root / 'deploy/linux/cleanup-classrooms.py'), str(data), '--plan', str(cleanup_plan), '--apply', '--backup', str(backup / 'data')]
+        simulation = data / 'port-simulation.sqlite'
+        if simulation.exists():
+            command += ['--simulation', str(simulation)]
+        subprocess.run(command, check=True)
     link = current.with_name('campus-next-' + str(os.getpid()))
     link.symlink_to(release.name, target_is_directory=True)
     os.replace(link, current)
@@ -56,7 +65,7 @@ try:
                 raise
             time.sleep(1)
 except BaseException:
-    if switched:
+    if switched or cleanup_started:
         subprocess.run(['systemctl', '--user', 'stop', 'edu-campus'], check=True)
         # Preserve failed-migration data for diagnosis before restoring the backup.
         shutil.move(str(data), str(backup / 'failed-data'))
