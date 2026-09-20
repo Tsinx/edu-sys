@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {readFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
 import {getCourseDeckByCourseId,getCourseAdjacentIndex,getCourseLessonLabel} from '@edu/course-content/deck-registry';
 import {MANAGEMENT_BUILD,MANAGEMENT_SLIDES as pages,MANAGEMENT_LESSONS as lessons,MANAGEMENT_PLAYBACK_ORDER as playback,getManagementVisibleDemo,getManagementInteractionDefinition,validateManagementInteraction,classifyTaskReadiness,classifyFiedlerSituation,traceCommunicationNetwork,calculateManagementRatio,calculateDpmo} from '@edu/course-content/management-principles';
 import {MANAGEMENT_SOURCE_DISPOSITIONS as dispositions} from '@edu/course-content/management-principles/source-map';
@@ -8,9 +8,10 @@ import {courseSchema,slideFrameSchema,createCourseInputSchema} from '@edu/contra
 import {createSeedState} from '../src/seed.js';
 import {buildPromptWorkspace} from '../src/assistant/prompts.js';
 const deck=getCourseDeckByCourseId('management-principles')!;
-test('phase three append-only baseline, complete dispositions and intro-first navigation',async()=>{
- const old=JSON.parse(await readFile('../../output/management-principles/phase2-baseline/packages/course-content/src/management-principles/pages.json','utf8'));
- assert.deepEqual(pages.slice(0,663),old);assert.equal(pages[663]!.lessonNumber,9);
+test('phase three append-only baseline, complete dispositions and intro-first navigation',()=>{
+ // Canonical JSON of the 663 phase-two pages at 6d9dd44; independent of ignored author-machine output/ files.
+ assert.equal(createHash('sha256').update(JSON.stringify(pages.slice(0,663))).digest('hex'),'49aa13d55251a62035c7fb90eaa0826daad9c12f30a6779409416ff72de4902f');
+ assert.equal(pages[663]!.lessonNumber,9);
  assert.deepEqual(lessons.map(l=>l.number),Array.from({length:17},(_,i)=>i));
  assert.equal(MANAGEMENT_BUILD.lectureCount,16);assert.equal(MANAGEMENT_BUILD.introductionCount,1);assert.equal(MANAGEMENT_BUILD.demoCount,34);
  assert.equal(dispositions.length,1245);assert.equal(dispositions.filter(d=>d.disposition==='omitted').length,2);

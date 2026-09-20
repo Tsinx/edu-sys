@@ -421,7 +421,8 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     return actor && campusMode ? {...store.getTeacher(),id:actor.actorId,name:actor.displayName} : store.getTeacher();
   });
   app.get("/api/dashboard", async request => {
-    const dashboard=store.getDashboard(); const actor=await resolveActor(request);
+    const actor=await resolveActor(request);
+    const dashboard=store.getDashboard(campusMode ? actor?.actorId : undefined);
     return actor && campusMode ? {...dashboard,teacher:{...dashboard.teacher,id:actor.actorId,name:actor.displayName}} : dashboard;
   });
   app.get("/api/courses", async request => {

@@ -740,7 +740,19 @@ export class JsonStateStore {
         } satisfies StudySession;
       });
       const courses = [...(parsed.courses ?? [])];
-      for (const builtin of createSeedState().courses.filter(course =>
+      const seed = createSeedState();
+      const teachers = [...parsed.teachers];
+      const managementTeacher = seed.teachers.find(teacher => teacher.id === 'teacher-wei-xiao')!;
+      if (!teachers.some(teacher => teacher.id === managementTeacher.id)) {
+        teachers.push(managementTeacher);
+        runtimeStateChanged = true;
+      }
+      const managementCourse = courses.find(course => course.id === 'management-principles');
+      if (managementCourse?.teacherId === 'teacher-li-xingzhi') {
+        managementCourse.teacherId = managementTeacher.id;
+        runtimeStateChanged = true;
+      }
+      for (const builtin of seed.courses.filter(course =>
         course.id === ECONOMIC_MATHEMATICS_COURSE_ID || course.id === 'statistical-analysis' || course.id === 'management-principles')) {
         const existing = courses.find(course => course.id === builtin.id);
         if (!existing) {
@@ -754,6 +766,7 @@ export class JsonStateStore {
       }
       this.state = {
         ...parsed,
+        teachers,
         courses,
         classroomRuntimes,
         studySessions
@@ -3901,8 +3914,10 @@ export class JsonStateStore {
     }
   }
 
-  getDashboard(): Dashboard {
+  getDashboard(teacherId?: string): Dashboard {
+    const teacherCourses = teacherId ? this.current.courses.filter(course => course.teacherId === teacherId) : [];
     const featuredCourse =
+      teacherCourses.find(course => course.featured) ?? teacherCourses[0] ??
       this.current.courses.find((course) => course.featured) ?? this.current.courses[0];
     if (!featuredCourse) {
       throw new Error("At least one course is required");

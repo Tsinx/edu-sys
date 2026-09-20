@@ -68,6 +68,39 @@ test("SQLite migration preserves JSON authority, array order and completed class
   } finally {store.close();await rm(dir,{recursive:true,force:true});}
 });
 
+test("management ownership migrates once and the campus dashboard prefers the signed-in teacher's course", async () => {
+  const dir = await temporary();
+  const dataFile = join(dir, "state.json");
+  const seed = createSeedState();
+  seed.teachers = seed.teachers.filter(teacher => teacher.id !== "teacher-wei-xiao");
+  seed.courses.find(course => course.id === "management-principles")!.teacherId = "teacher-li-xingzhi";
+  await writeFile(dataFile, JSON.stringify(seed));
+  const store = new JsonStateStore(dataFile);
+  try {
+    await store.initialize();
+    assert.equal(store.getCourse("management-principles")!.teacherId, "teacher-wei-xiao");
+    assert.equal(store.getDashboard("teacher-wei-xiao").featuredCourse.id, "management-principles");
+    assert.equal(store.getDashboard().featuredCourse.id, "course-port-management-intro");
+  } finally { store.close(); }
+  const identity = new CampusIdentityProvider(join(dir, "accounts.sqlite"));
+  const account = await identity.createAccount("weixiao", "韦笑", "teacher", "test-teacher-password");
+  const persisted = JSON.parse(await readFile(dataFile, "utf8"));
+  persisted.courses.find((course: {id: string}) => course.id === "management-principles").teacherId = account.id;
+  await writeFile(dataFile, JSON.stringify(persisted));
+  const app = await buildApp({dataFile, campusMode: true, identityProvider: identity, secureIdentityCookie: false});
+  try {
+    const login = await app.inject({method: "POST", url: "/api/identity/login", payload: {username: "weixiao", password: "test-teacher-password"}});
+    assert.equal(login.statusCode, 200);
+    const headers = {cookie: cookie(login)};
+    const dashboard = await app.inject({url: "/api/dashboard", headers});
+    assert.equal(dashboard.statusCode, 200);
+    assert.equal(dashboard.json().featuredCourse.id, "management-principles");
+    assert.equal(dashboard.json().featuredCourse.teacherId, account.id);
+    assert.equal(dashboard.json().teacher.name, "韦笑");
+    assert.equal((await app.inject({url: "/api/courses", headers})).json().length, seed.courses.length);
+  } finally { await app.close(); await rm(dir, {recursive: true, force: true}); }
+});
+
 test("failed persistence cannot leak a mutation into memory or a later successful write",async()=>{
   const dir=await temporary();const data=join(dir,"state.json");const store=new JsonStateStore(data);
   try {

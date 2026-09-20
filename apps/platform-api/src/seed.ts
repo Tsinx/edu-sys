@@ -189,6 +189,7 @@ export function createSeedState(): PlatformState {
     title: "教师",
     institution: "重庆交通大学"
   };
+  const managementTeacher: Teacher = { ...teacher, id: "teacher-wei-xiao", name: "韦笑" };
 
   const course: Course = {
     id: "course-port-management-intro",
@@ -232,11 +233,11 @@ export function createSeedState(): PlatformState {
   };
 
   return {
-    teachers: [teacher],
+    teachers: [teacher, managementTeacher],
     courses: [course, economicMathematicsCourse, {
       id: 'management-principles', slug: 'management-principles', code: null,
       title: '管理学', category: '本科课程', discipline: '管理学', totalHours: null,
-      progress: 100, status: 'active', featured: false, teacherId: teacher.id,
+      progress: 100, status: 'active', featured: false, teacherId: managementTeacher.id,
       currentLesson: {chapter: 0, title: '绪论', summary: MANAGEMENT_CONSTRUCTION_SUMMARY},
       createdAt: new Date().toISOString()
     }, {
