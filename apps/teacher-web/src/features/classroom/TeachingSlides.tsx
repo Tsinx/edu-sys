@@ -28,6 +28,8 @@ import { PORT_LBL_SLIDES } from "@edu/course-content";
 import { PORT_LESSON_FOUR_SLIDES } from '@edu/course-content';
 import { PORT_LESSON_FIVE_SLIDES } from '@edu/course-content';
 import { PortLessonFiveStage, type LessonFivePresentation } from '../port-lesson-five/PortLessonFiveStage';
+import {PortExpansionStage} from '../port-expansion/PortExpansionStage';
+import {PORT_EXPANSION_SLIDES,type ExpansionPresentation} from '@edu/course-content';
 import { PortLessonSixStage } from '../port-lesson-six/PortLessonSixStage';
 import { PORT_LESSON_SIX_SLIDES, type LessonSixPresentation } from '@edu/course-content';
 import { PortLessonFourStage } from '../port-lesson-four/PortLessonFourStage';
@@ -815,6 +817,7 @@ export function SlideStage({
   presentationProgress,
   lessonFivePresentation,
   lessonSixPresentation,
+  portExpansionPresentation,
   onInteractionPatch,
   onInteractionReset
 }: {
@@ -824,6 +827,7 @@ export function SlideStage({
   presentationProgress?: number;
   lessonFivePresentation?: LessonFivePresentation;
   lessonSixPresentation?: LessonSixPresentation;
+  portExpansionPresentation?: ExpansionPresentation;
   onInteractionPatch?: (patch: SlideInteractionValues) => void;
   onInteractionReset?: () => void;
 }) {
@@ -856,6 +860,8 @@ export function SlideStage({
   const lessonFourPage = PORT_LESSON_FOUR_SLIDES.find(page=>page.slideKey===spec.slideKey);
   const lessonFivePage=PORT_LESSON_FIVE_SLIDES.find(p=>p.slideKey===spec.slideKey);
   const lessonSixPage=PORT_LESSON_SIX_SLIDES.find(p=>p.slideKey===spec.slideKey);
+  const expansionPage=PORT_EXPANSION_SLIDES.find(p=>p.slideKey===spec.slideKey);
+  if(expansionPage)return <PortExpansionStage page={expansionPage} readOnly={readOnly} state={portExpansionPresentation}/>;
   if(lessonSixPage)return <PortLessonSixStage page={lessonSixPage} readOnly={readOnly} state={lessonSixPresentation}/>;
   if(lessonFivePage)return <PortLessonFiveStage page={lessonFivePage} readOnly={readOnly} state={lessonFivePresentation}/>;
   if(lessonFourPage)return <PortLessonFourStage page={lessonFourPage} readOnly={readOnly} progress={presentationProgress}/>;

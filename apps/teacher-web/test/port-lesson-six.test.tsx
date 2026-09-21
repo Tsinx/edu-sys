@@ -8,7 +8,7 @@ import { PortLessonSixComposition } from '../src/features/port-lesson-six/PortLe
 test('lesson six: 48 authored pages, 45+45 minutes, public copy and explicit source boundaries',()=>{
   assert.equal(pages.length,48);assert.equal(new Set(pages.map(p=>p.slideKey)).size,48);
   assert.equal(timing.slice(0,4).reduce((s,t)=>s+t.minutes,0),45);assert.equal(timing.slice(4).reduce((s,t)=>s+t.minutes,0),45);
-  assert.equal(PORT_MANAGEMENT_SLIDE_TOTAL,293);assert.equal(getPortManagementLesson(6).status,'ready');
+  assert.equal(PORT_MANAGEMENT_SLIDE_TOTAL,389);assert.equal(getPortManagementLesson(6).status,'ready');
   for(const page of pages){
     assert.equal(getPortManagementSlide(245+page.localPage).slideKey,page.slideKey);assert.ok(sources[page.source]);
     assert.ok(page.teachingCue.length>=65,page.slideKey);

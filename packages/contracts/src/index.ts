@@ -878,6 +878,7 @@ export const teacherDemoSchema = z.object({
 });
 export type TeacherDemo = z.infer<typeof teacherDemoSchema>;
 export const lessonFourPresentationSchema = z.object({slideKey:z.string().min(1).max(128),progress:z.number().finite().min(0).max(1)});
+export const portExpansionPresentationSchema=z.object({slideKey:z.string().min(1).max(128),progress:z.number().finite().min(0).max(1),option:z.number().int().min(0).max(2),revealed:z.boolean()}).strict();
 export const lessonFivePresentationSchema = z.object({slideKey:z.string().min(1).max(128),progress:z.number().finite().min(0).max(1),revealed:z.boolean()});
 export const lessonSixPresentationSchema = z.object({slideKey:z.string().min(1).max(128),progress:z.number().finite().min(0).max(1),revealed:z.boolean(),option:z.number().int().min(0).max(2),cinematic:z.object({clipId:z.string().min(1).max(128),status:z.enum(['paused','playing']),elapsedMs:z.number().finite().min(0).max(120000),startedAt:z.number().finite().positive().nullable(),runId:z.string().min(1).max(80)}).strict().optional(),camera:z.object({latitude:z.number().finite().min(-90).max(90),longitude:z.number().finite().min(-180).max(180),distance:z.number().finite().min(1.45).max(4)}).strict().optional()});
 export const simulationNavigationSchema = z.object({
@@ -903,6 +904,7 @@ export const classroomSnapshotSchema = z.object({
   lessonFourPresentation: lessonFourPresentationSchema.nullable().optional(),
   lessonFivePresentation: lessonFivePresentationSchema.nullable().optional(),
   lessonSixPresentation: lessonSixPresentationSchema.nullable().optional(),
+  portExpansionPresentation: portExpansionPresentationSchema.nullable().optional(),
   lessonFiveExperiment: z.object({runId:z.string().uuid(),plan:z.enum(["A","B","C","D","E"]),summary:z.string().max(6000)}).nullable().optional(),
   simulation: portSimulationClassroomSummarySchema.nullable(),
   avatar: classroomAvatarRuntimeSchema
@@ -1494,6 +1496,7 @@ export const classroomEventInputSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("set_simulation_navigation"), navigation: simulationNavigationSchema.nullable() }).strict(),
   z.object({type:z.literal("set_lesson_five_presentation"),...lessonFivePresentationSchema.shape}).strict(),
   z.object({type:z.literal("set_lesson_six_presentation"),...lessonSixPresentationSchema.shape}).strict(),
+  z.object({type:z.literal("set_port_expansion_presentation"),...portExpansionPresentationSchema.shape}).strict(),
   z.object({type:z.literal("set_lesson_five_summary"),runId:z.string().uuid(),plan:z.enum(["A","B","C","D","E"]),summary:z.string().max(6000)}).strict(),
   z.object({type:z.literal("set_lesson_four_progress"),...lessonFourPresentationSchema.shape}).strict(),
   z.object({type:z.literal("set_teacher_demo_summary"),runId:z.string().min(1).max(128),revision:z.number().int().positive(),summary:z.string().max(6000)}).strict(),

@@ -1,5 +1,7 @@
 # 第5讲本地验收报告
 
+> 2026-09-21后续更新：自动播放现统一为进入动画页2秒后启动；以[自动播放验收记录](./port-management-autoplay-qa.md)为准，本文保留原轮次验收结果。
+
 验收日期：2026-09-17。课程版本：release-port-management-capacity-v11。实验版本：port-capacity/1.0；底层规则版本：port-operations/3.1。
 
 ## 交付结论与入口

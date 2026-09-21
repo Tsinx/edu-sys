@@ -1,3 +1,4 @@
+import {PORT_EXPANSION_SLIDES} from './port-expansion.js';
 import { PORT_LESSON_SIX_SLIDES } from './port-lesson-six.js';
 import { PORT_LESSON_FIVE_SLIDES } from './port-lesson-five.js';
 import { PORT_LBL_SLIDES } from "./port-lbl.js";
@@ -2734,7 +2735,8 @@ export const PORT_MANAGEMENT_SLIDES: readonly PortManagementSlideSpec[] = [
   ...PORT_LBL_SLIDES,
   ...PORT_LESSON_FOUR_SLIDES,
   ...PORT_LESSON_FIVE_SLIDES,
-  ...PORT_LESSON_SIX_SLIDES
+  ...PORT_LESSON_SIX_SLIDES,
+  ...PORT_EXPANSION_SLIDES
 ].map((slide, offset) => ({
   ...slide,
   index: offset + 1,

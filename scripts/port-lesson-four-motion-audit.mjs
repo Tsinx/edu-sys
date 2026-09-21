@@ -19,11 +19,11 @@ try {
   await p.waitForTimeout(1100);assert.equal(await p.locator('.l4-playback input').inputValue(),'1000');assert.equal(await p.getByLabel('第4讲课件页').inputValue(),String(n));
   checks.push({page:n,keyProgress:[0,.25,.5,.75,1],distinctFrames:new Set(hashes).size,stoppedAtEnd:true,noAdvance:true});
  }
- // Fresh entry waits one second, then plays once; manual pause remains effective.
+ // Fresh entry waits two seconds, then plays once; manual pause remains effective.
  await p.clock.install({time:new Date('2026-09-15T00:00:00Z')});await p.clock.pauseAt(new Date('2026-09-15T00:01:00Z'));await p.goto(`${base}/port-lesson-four-preview.html?page=3&channel=fresh-${Date.now()}`);await p.locator('.l4-playback input').waitFor();
- await p.clock.runFor(999);assert.equal(await p.locator('.l4-playback input').inputValue(),'0');await p.clock.runFor(2);await p.getByRole('button',{name:'暂停',exact:true}).waitFor();await p.clock.runFor(1800);assert.ok(Number(await p.locator('.l4-playback input').inputValue())>0);
+ await p.clock.runFor(1999);assert.equal(await p.locator('.l4-playback input').inputValue(),'0');await p.clock.runFor(2);await p.getByRole('button',{name:'暂停',exact:true}).waitFor();await p.clock.runFor(1800);assert.ok(Number(await p.locator('.l4-playback input').inputValue())>0);
  await p.getByRole('button',{name:'暂停',exact:true}).click();const paused=await p.locator('.l4-playback input').inputValue();await p.clock.runFor(2000);assert.equal(await p.locator('.l4-playback input').inputValue(),paused);
  await p.getByRole('button',{name:'重播',exact:true}).click();await p.clock.runFor(17500);assert.equal(await p.locator('.l4-playback input').inputValue(),'1000');
  await p.clock.runFor(2000);assert.equal(await p.getByLabel('第4讲课件页').inputValue(),'3');
- await fs.writeFile(`${out}/motion.json`,JSON.stringify({checks,autoplayDelayMs:1000,manualPause:true,oneCycle:true,errors},null,2));assert.deepEqual(errors,[]);console.log(`PASS: ${checks.length} animations × 5 key states; one-cycle autoplay and manual takeover`);
+ await fs.writeFile(`${out}/motion.json`,JSON.stringify({checks,autoplayDelayMs:2000,manualPause:true,oneCycle:true,errors},null,2));assert.deepEqual(errors,[]);console.log(`PASS: ${checks.length} animations × 5 key states; one-cycle autoplay and manual takeover`);
 }finally{await browser.close();}

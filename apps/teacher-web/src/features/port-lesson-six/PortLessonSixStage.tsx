@@ -1,3 +1,4 @@
+import {usePortAutoplay} from '../classroom/usePortAutoplay';
 import {PortLessonSixFilmPlayback} from './PortLessonSixFilmPlayback';
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -29,8 +30,9 @@ function Playback({page,readOnly=false,state:controlled}:{page:PortLessonSixPage
     const tick=(now:number)=>{if(last)update({...current.current,progress:Math.min(1,current.current.progress+(now-last)/12000)});last=now;if(current.current.progress<1)frame=requestAnimationFrame(tick);else setPlaying(false);};
     frame=requestAnimationFrame(tick);return()=>cancelAnimationFrame(frame);
   },[readOnly,playing,update]);
-  const jump=(progress:number)=>{setPlaying(false);update({...current.current,progress});};
-  const play=()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches){jump(1);return;}if(current.current.progress>=1)update({...current.current,progress:0});setPlaying(v=>!v);};
+ const cancel=usePortAutoplay(!readOnly,()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches){update({...current.current,progress:1});return;}if(current.current.progress>=1)update({...current.current,progress:0});setPlaying(true);});
+  const jump=(progress:number)=>{cancel();setPlaying(false);update({...current.current,progress});};
+  const play=()=>{cancel();if(matchMedia('(prefers-reduced-motion: reduce)').matches){jump(1);return;}if(current.current.progress>=1)update({...current.current,progress:0});setPlaying(v=>!v);};
   const stepCount=page.visual==='map'&&page.localPage!==26?4:page.points.length;
   const next=()=>jump(Math.min(1,(Math.floor(current.current.progress*stepCount+1e-6)+1)/stepCount));
   useEffect(()=>{
@@ -42,9 +44,9 @@ function Playback({page,readOnly=false,state:controlled}:{page:PortLessonSixPage
   const controls=!readOnly?<div className="l6-playback" aria-label="第6讲播放与揭示控制">
     <button onClick={play}>{playing?'暂停':'播放'}</button><button onClick={()=>{jump(0);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setPlaying(true);}}>重播</button><button onClick={next}>下一幕</button>
     <input aria-label="动画进度" type="range" min="0" max="1000" value={Math.round(state.progress*1000)} onChange={e=>jump(Number(e.target.value)/1000)}/><output>{Math.round(state.progress*100)}%</output><button onClick={()=>jump(1)}>全景</button>
-    {page.options&&<select aria-label="演示选项" value={state.option} onChange={e=>{setPlaying(false);update({...current.current,option:Number(e.target.value),revealed:false,camera:undefined});}}>{page.options.map((text,index)=><option key={text} value={index}>{text}</option>)}</select>}
+    {page.options&&<select aria-label="演示选项" value={state.option} onChange={e=>{cancel();setPlaying(false);update({...current.current,option:Number(e.target.value),revealed:false,camera:undefined});}}>{page.options.map((text,index)=><option key={text} value={index}>{text}</option>)}</select>}
     {page.visual==='map'&&<><button onClick={()=>update({...current.current,camera:{latitude:30,longitude:110,distance:3.1}})}>地球全貌</button><button onClick={()=>update({...current.current,camera:lessonSixCamera(page.localPage,state.option)})}>回到案例</button><span className="l6-globe-help">拖动旋转 · 滚轮缩放</span></>}
-    {page.reveal&&<button onClick={()=>{setPlaying(false);update({...current.current,progress:1,revealed:!state.revealed});}}>{state.revealed?'收起解析':'揭示解析'}</button>}
+    {page.reveal&&<button onClick={()=>{cancel();setPlaying(false);update({...current.current,progress:1,revealed:!state.revealed});}}>{state.revealed?'收起解析':'揭示解析'}</button>}
   </div>:null;
-  return <LessonSixGlobeControls.Provider value={{readOnly,onCameraChange:camera=>{setPlaying(false);update({...current.current,camera});}}}><section className="l6-stage"><SlideViewport label={`第6讲 · ${page.localPage}/48`}><PortLessonSixComposition page={page} state={shown}/></SlideViewport>{slot&&controls?createPortal(controls,slot):controls}</section></LessonSixGlobeControls.Provider>;
+  return <LessonSixGlobeControls.Provider value={{readOnly,onCameraChange:camera=>{cancel();setPlaying(false);update({...current.current,camera});}}}><section className="l6-stage"><SlideViewport label={`第6讲 · ${page.localPage}/48`}><PortLessonSixComposition page={page} state={shown}/></SlideViewport>{slot&&controls?createPortal(controls,slot):controls}</section></LessonSixGlobeControls.Provider>;
 }

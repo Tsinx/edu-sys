@@ -1,3 +1,4 @@
+import './features/port-expansion/port-expansion.css';
 import "./features/port-simulation/port-results.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";

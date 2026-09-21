@@ -1,3 +1,5 @@
+import {PortExpansionControls} from '../port-expansion/PortExpansionStage';
+import type {ExpansionPresentation} from '@edu/course-content';
 import { PortLessonFiveControls, type LessonFivePresentation } from "../port-lesson-five/PortLessonFiveStage";
 import { PortLessonSixControls } from '../port-lesson-six/PortLessonSixStage';
 import type { LessonSixPresentation } from '@edu/course-content';
@@ -480,6 +482,23 @@ export function ClassroomSubsystem() {
     }
   }
 
+  const portExpansionReportRef=useRef({last:0,key:"",revealed:false,option:0});
+  const portExpansionQueue=useRef(Promise.resolve());
+  const portExpansionTrailing=useRef<ReturnType<typeof setTimeout>|undefined>(undefined);
+  useEffect(()=>()=>clearTimeout(portExpansionTrailing.current),[]);
+  function reportPortExpansion(slideKey:string,value:ExpansionPresentation){
+    if(snapshotRef.current?.slide.slideId!==slideKey)return;
+    const last=portExpansionReportRef.current,now=Date.now();
+    clearTimeout(portExpansionTrailing.current);
+    if(last.key===slideKey&&last.revealed===value.revealed&&last.option===value.option&&now-last.last<300&&value.progress!==0&&value.progress!==1){
+      portExpansionTrailing.current=setTimeout(()=>reportPortExpansion(slideKey,value),300-(now-last.last));return;
+    }
+    portExpansionReportRef.current={last:now,key:slideKey,revealed:value.revealed,option:value.option};
+    portExpansionQueue.current=portExpansionQueue.current.then(async()=>{
+      if(snapshotRef.current?.slide.slideId!==slideKey)return;
+      mergeSnapshot(await api.sendClassroomEvent(sessionId,{type:'set_port_expansion_presentation',slideKey,...value}));
+    }).catch(reason=>{if(!(reason instanceof ApiError&&reason.status===409))setError(`第7—8讲同步未完成：${reason.message}`);});
+  }
   const lessonSixReportRef=useRef({last:0,key:"",revealed:false,option:0});
   const lessonSixQueue=useRef(Promise.resolve());
   const lessonSixTrailing=useRef<ReturnType<typeof setTimeout>|undefined>(undefined);
@@ -1117,7 +1136,7 @@ export function ClassroomSubsystem() {
 
       {isManagement && !isFullscreen && <ManagementSourceLocator index={snapshot.slide.index} onJump={index => void sendEvent({type:"set_slide",index})}/>}
       {isStatisticalAnalysis && !isFullscreen && <Suspense fallback={null}><StatisticalAnalysisTeachingNotes index={snapshot.slide.index}/></Suspense>}
-      <ClassroomPlaybackSlot.Provider value={isFullscreen ? fullscreenPlaybackSlot : playbackSlot}><PortLessonSixControls.Provider value={{scope:sessionId,initial:snapshot.lessonSixPresentation,onChange:reportLessonSix}}><PortLessonFiveControls.Provider value={{scope:sessionId,openExperiment:(plan,personal)=>void openLessonFive(plan,personal),onChange:reportLessonFive}}><PortLessonFourControls.Provider value={{scope:sessionId,openDemo:cueId=>void lessonFourAction(cueId),onProgress:reportLessonFourProgress}}>
+      <ClassroomPlaybackSlot.Provider value={isFullscreen ? fullscreenPlaybackSlot : playbackSlot}><PortExpansionControls.Provider value={{scope:sessionId,initial:snapshot.portExpansionPresentation,onChange:reportPortExpansion}}><PortLessonSixControls.Provider value={{scope:sessionId,initial:snapshot.lessonSixPresentation,onChange:reportLessonSix}}><PortLessonFiveControls.Provider value={{scope:sessionId,openExperiment:(plan,personal)=>void openLessonFive(plan,personal),onChange:reportLessonFive}}><PortLessonFourControls.Provider value={{scope:sessionId,openDemo:cueId=>void lessonFourAction(cueId),onProgress:reportLessonFourProgress}}>
       <div
         ref={fullscreenRef}
         tabIndex={-1}
@@ -1401,6 +1420,7 @@ export function ClassroomSubsystem() {
             </div>
 
             {isSlides && <div className="classroom-playback-slot" ref={setPlaybackSlot} />}
+            {isSlides && snapshot.courseId === 'course-port-management-intro' && [7,8].includes(snapshot.slide.lessonNumber??0) && <a className="port-l4-classroom-link" href={`/port-expansion-preview.html?lesson=${snapshot.slide.lessonNumber}&page=${snapshot.slide.index-(snapshot.slide.lessonNumber===7?293:341)}`} target="_blank" rel="noreferrer">第{snapshot.slide.lessonNumber}讲授课台 ↗</a>}
             {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 6 && <a className="port-l4-classroom-link" href={`/port-lesson-six-preview.html?page=${snapshot.slide.index-245}`} target="_blank" rel="noreferrer">第6讲授课台 ↗</a>}
             {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 5 && <a className="port-l4-classroom-link" href={`/port-lesson-five-preview.html?page=${snapshot.slide.index-197}`} target="_blank" rel="noreferrer">第5讲授课台 ↗</a>}
             {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 4 && <a className="port-l4-classroom-link" href={`/port-lesson-four-preview.html?page=${snapshot.slide.index-153}`} target="_blank" rel="noreferrer">第4讲授课台 ↗</a>}
@@ -1650,7 +1670,7 @@ export function ClassroomSubsystem() {
         )}
       </div>
 
-      </PortLessonFourControls.Provider></PortLessonFiveControls.Provider></PortLessonSixControls.Provider></ClassroomPlaybackSlot.Provider>
+      </PortLessonFourControls.Provider></PortLessonFiveControls.Provider></PortLessonSixControls.Provider></PortExpansionControls.Provider></ClassroomPlaybackSlot.Provider>
       {settingsOpen && (
         <div className="classroom-dialog-backdrop">
           <section className="classroom-dialog" role="dialog" aria-modal="true" aria-labelledby="classroom-settings-title">

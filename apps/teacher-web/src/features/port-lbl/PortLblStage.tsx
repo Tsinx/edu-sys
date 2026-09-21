@@ -1,4 +1,5 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import {usePortAutoplay} from '../classroom/usePortAutoplay';
+import { useContext, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Pause, Play, RotateCcw, SkipForward, Scan } from "lucide-react";
 import { ClassroomPlaybackSlot } from "../classroom/ClassroomPlaybackSlot";
@@ -17,20 +18,12 @@ function PortLblPlaybackStage({page,readOnly,projection}:{page:PortLblPage;readO
   const [progress,setProgress]=useState(readOnly?1:0);
   const [playing,setPlaying]=useState(false);
   const [reducedMotion,setReducedMotion]=useState(false);
-  const autoPlayTimer=useRef<ReturnType<typeof setTimeout> | null>(null);
-  const cancelAutoPlay=useCallback(()=>{
-    if(autoPlayTimer.current!==null){clearTimeout(autoPlayTimer.current);autoPlayTimer.current=null;}
-  },[]);
   const current=useRef(progress);
   current.current=progress;
   const duration=page.lesson===2 && [3,18,24,31,36,43].includes(page.localPage)?24000:16000;
   // Each page entry starts at its initial frame; manual controls take over the timer.
   // Read-only previews and exports retain the complete static composition.
-  useEffect(()=>{
-    if(readOnly)return;
-    autoPlayTimer.current=setTimeout(()=>{autoPlayTimer.current=null;setPlaying(true);},1000);
-    return cancelAutoPlay;
-  },[readOnly,cancelAutoPlay]);
+  const cancelAutoPlay=usePortAutoplay(!readOnly,()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches){setProgress(1);return;}if(current.current>=1)setProgress(0);setPlaying(true);});
   useEffect(()=>{
     const query=window.matchMedia("(prefers-reduced-motion: reduce)");
     const update=()=>setReducedMotion(query.matches);update();

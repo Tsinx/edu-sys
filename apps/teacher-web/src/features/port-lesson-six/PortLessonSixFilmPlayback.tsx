@@ -1,3 +1,4 @@
+import {usePortAutoplay} from '../classroom/usePortAutoplay';
 import {useCallback,useContext,useEffect,useRef,useState} from 'react';
 import {createPortal} from 'react-dom';
 import {getLessonSixFilm,lessonSixFilmDuration,lessonSixFilmElapsed,lessonSixFilmFrame,lessonSixFilmCamera,lessonSixShotDuration,lessonSixStateValid,type LessonSixPresentation,type PortLessonSixPage,type LessonSixCamera} from '@edu/course-content';
@@ -15,22 +16,24 @@ function normalise(page:PortLessonSixPage,value:LessonSixPresentation):LessonSix
 export function PortLessonSixFilmPlayback({page,host,readOnly=false,state:controlled}:{page:PortLessonSixPage;host:Host;readOnly?:boolean;state?:LessonSixPresentation}){
  const storageKey=`port-l6:${host.scope}:${page.slideKey}`,slot=useContext(ClassroomPlaybackSlot),callback=useRef(host.onChange);callback.current=host.onChange;
  const [state,setState]=useState<LessonSixPresentation>(()=>{
-  if(host.initial?.slideKey===page.slideKey&&lessonSixStateValid(page,host.initial))return normalise(page,host.initial);
-  if(!readOnly)try{const saved=JSON.parse(sessionStorage.getItem(storageKey)??'null');if(saved&&lessonSixStateValid(page,saved))return normalise(page,saved);}catch{}
+  const restore=(value:LessonSixPresentation)=>{const next=normalise(page,value);if(readOnly)return next;const f=getLessonSixFilm(page.localPage,next.option,next.revealed)!,elapsed=lessonSixFilmElapsed(f,next.cinematic!);return {...next,progress:elapsed/lessonSixFilmDuration(f),cinematic:{...next.cinematic!,status:'paused' as const,elapsedMs:elapsed,startedAt:null}};};
+  if(host.initial?.slideKey===page.slideKey&&lessonSixStateValid(page,host.initial))return restore(host.initial);
+  if(!readOnly)try{const saved=JSON.parse(sessionStorage.getItem(storageKey)??'null');if(saved&&lessonSixStateValid(page,saved))return restore(saved);}catch{}
   return normalise(page,{progress:/^(reading|study:|browse:|student:)/.test(host.scope)?1:0,revealed:false,option:page.localPage===33?2:page.localPage===29?1:0});
  });
  const shown=normalise(page,controlled??state),film=getLessonSixFilm(page.localPage,shown.option,shown.revealed)!,duration=lessonSixFilmDuration(film),clock=shown.cinematic!;
  const [now,setNow]=useState(Date.now()),[preparing,setPreparing]=useState(false),current=useRef(state),timer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined),alive=useRef(true),intent=useRef(0);current.current=state;
  const elapsed=lessonSixFilmElapsed(film,clock,now),playing=clock.status==='playing'&&elapsed<duration;
  const update=useCallback((next:LessonSixPresentation)=>{current.current=next;setState(next);setNow(Date.now());},[]);
- const pause=useCallback(()=>{if(readOnly)return;intent.current++;clearTimeout(timer.current);const value=current.current,film=getLessonSixFilm(page.localPage,value.option,value.revealed)!,elapsed=lessonSixFilmElapsed(film,value.cinematic!);update({...value,progress:elapsed/lessonSixFilmDuration(film),cinematic:{...value.cinematic!,status:'paused',elapsedMs:elapsed,startedAt:null}});},[readOnly,page.localPage,update]);
+ const cancelAutoPlay=usePortAutoplay(!readOnly,()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches){seek(duration);return;}if(current.current.cinematic?.status!=='playing')void play(true);});
+ const pause=useCallback(()=>{cancelAutoPlay();if(readOnly)return;intent.current++;clearTimeout(timer.current);const value=current.current,film=getLessonSixFilm(page.localPage,value.option,value.revealed)!,elapsed=lessonSixFilmElapsed(film,value.cinematic!);update({...value,progress:elapsed/lessonSixFilmDuration(film),cinematic:{...value.cinematic!,status:'paused',elapsedMs:elapsed,startedAt:null}});},[readOnly,page.localPage,update,cancelAutoPlay]);
  const narration=useLessonSixNarration(film,clock,readOnly||host.audioRole==='projection',pause,host.audioRole==='projection');
  useEffect(()=>{if(readOnly)return;callback.current?.(page.slideKey,state);try{sessionStorage.setItem(storageKey,JSON.stringify(state));}catch{}},[state,readOnly,storageKey,page.slideKey]);
  useEffect(()=>{alive.current=true;return()=>{alive.current=false;intent.current++;clearTimeout(timer.current);};},[]);
  useEffect(()=>{if(clock.status!=='playing')return;const id=setInterval(()=>{const now=Date.now();setNow(now);if(!readOnly&&lessonSixFilmElapsed(film,current.current.cinematic!,now)>=duration)pause();},80);return()=>clearInterval(id);},[clock.status,clock.runId,clock.startedAt,film.id,duration,readOnly,pause]);
  const seek=(ms:number)=>{pause();narration.stop();const value=current.current;update({...value,camera:undefined,progress:ms/duration,cinematic:{...value.cinematic!,elapsedMs:ms,status:'paused',startedAt:null}});};
  const play=async(silent=false)=>{
-  if(readOnly||preparing)return;if(current.current.cinematic?.status==='playing'){pause();return;}const token=++intent.current;setPreparing(true);
+  cancelAutoPlay();if(readOnly||preparing)return;if(current.current.cinematic?.status==='playing'){pause();return;}const token=++intent.current;setPreparing(true);
   const ok=silent||narration.muted||await narration.prepare();if(!alive.current||token!==intent.current){setPreparing(false);return;}setPreparing(false);if(!ok)return;
   let value=current.current,offset=lessonSixFilmElapsed(film,value.cinematic!);if(offset>=duration)offset=0;
   const begin=()=>{if(!alive.current||token!==intent.current)return;const v=current.current;update({...v,camera:undefined,progress:offset/duration,cinematic:{clipId:film.id,status:'playing',elapsedMs:offset,startedAt:Date.now(),runId:crypto.randomUUID()}});};

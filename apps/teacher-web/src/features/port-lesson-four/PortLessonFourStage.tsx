@@ -1,3 +1,4 @@
+import {usePortAutoplay} from '../classroom/usePortAutoplay';
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { PortDemoCueId, PortLessonFourPage } from '@edu/course-content';
@@ -14,17 +15,14 @@ export function PortLessonFourStage({page,readOnly=true,progress,onProgress}:{pa
 function Playback({page,readOnly,progress:controlled,onProgress}:{page:PortLessonFourPage;readOnly:boolean;progress?:number;onProgress?:(p:number)=>void}) {
   const host=useContext(PortLessonFourControls), slot=useContext(ClassroomPlaybackSlot);
   const cacheKey='port-l4:motion:'+host.scope+':'+page.slideKey;
-  const restored=useRef(readProgress(cacheKey)!==undefined);
   const [progress,setProgress]=useState(()=>readOnly?1:page.animationSeconds?(readProgress(cacheKey)??0):1);
   const [playing,setPlaying]=useState(false);
   const [reduced,setReduced]=useState(false);
   const value=useRef(progress);value.current=progress;
   const report=useRef(onProgress??((p:number)=>host.onProgress?.(page.slideKey,p)));report.current=onProgress??((p:number)=>host.onProgress?.(page.slideKey,p));
-  const timer=useRef<ReturnType<typeof setTimeout>|null>(null);
-  const cancel=useCallback(()=>{if(timer.current!==null){clearTimeout(timer.current);timer.current=null;}},[]);
   const write=useCallback((p:number)=>{value.current=p;setProgress(p);remembered.set(cacheKey,p);report.current?.(p);},[cacheKey]);
+  const cancel=usePortAutoplay(!readOnly&&!!page.animationSeconds,()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches){write(1);return;}if(value.current>=1)write(0);setPlaying(true);});
   useEffect(()=>{const q=matchMedia('(prefers-reduced-motion: reduce)');const changed=()=>{setReduced(q.matches);if(q.matches&&!readOnly){cancel();setPlaying(false);write(1);}};changed();q.addEventListener('change',changed);return()=>q.removeEventListener('change',changed);},[readOnly,cancel,write]);
-  useEffect(()=>{if(readOnly||!page.animationSeconds||restored.current)return;timer.current=setTimeout(()=>{timer.current=null;setPlaying(true);},1000);return cancel;},[readOnly,page.animationSeconds,cacheKey,cancel]);
   useEffect(()=>{if(!playing||readOnly||!page.animationSeconds)return;let frame=0,last=0;const tick=(now:number)=>{if(last)write(Math.min(1,value.current+(now-last)/(page.animationSeconds!*1000)));last=now;if(value.current<1)frame=requestAnimationFrame(tick);else setPlaying(false);};frame=requestAnimationFrame(tick);return()=>cancelAnimationFrame(frame);},[playing,readOnly,page.animationSeconds,write]);
   useEffect(()=>{
     const save=()=>{if(!readOnly){remembered.set(cacheKey,value.current);try{sessionStorage.setItem(cacheKey,String(value.current));}catch{}}};

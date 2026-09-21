@@ -1,4 +1,5 @@
 import { createHash, randomUUID } from "node:crypto";
+import {PORT_EXPANSION_SLIDES,expansionStateValid} from '@edu/course-content';
 import { PORT_LESSON_SIX_SLIDES, lessonSixStateValid } from '@edu/course-content';
 import { CampusStateRepository } from "./campus/state-repository.js";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
@@ -1582,6 +1583,7 @@ export class JsonStateStore {
       teacherDemo: runtime.teacherDemo ? structuredClone(runtime.teacherDemo) : null,
       simulationNavigation: runtime.simulationNavigation ? { ...runtime.simulationNavigation } : null,
       lessonFivePresentation: runtime.lessonFivePresentation ? {...runtime.lessonFivePresentation} : null,
+      portExpansionPresentation: runtime.portExpansionPresentation?{...runtime.portExpansionPresentation}:null,
       lessonSixPresentation: runtime.lessonSixPresentation ? {...runtime.lessonSixPresentation} : null,
       lessonFiveExperiment: runtime.simulationNavigation?.experiment === "l5-capacity" && runtime.lessonFiveExperiment ? {...runtime.lessonFiveExperiment} : null,
       lessonFourPresentation: runtime.lessonFourPresentation ? {...runtime.lessonFourPresentation} : null,
@@ -4099,6 +4101,11 @@ export class JsonStateStore {
         runtime.simulationNavigation = input.navigation;
         runtime.activeActivity = "slides";
         completeActiveGlobe();
+      } else if(input.type === "set_port_expansion_presentation") {
+        const page=PORT_EXPANSION_SLIDES.find(p=>p.slideKey===input.slideKey);
+        if(session.courseId!=="course-port-management-intro"||!page||runtime.slideKey!==input.slideKey)throw Object.assign(new Error("第7—8讲页码已变化"),{statusCode:409});
+        if(!expansionStateValid(page,input))throw Object.assign(new Error("呈现选项无效"),{statusCode:400});
+        runtime.portExpansionPresentation={slideKey:input.slideKey,progress:input.progress,option:input.option,revealed:input.revealed};
       } else if(input.type === "set_lesson_six_presentation") {
         const page=PORT_LESSON_SIX_SLIDES.find(p=>p.slideKey===input.slideKey);
         if(session.courseId!=="course-port-management-intro"||!page||runtime.slideKey!==input.slideKey||deck.getSlide(runtime.slideIndex).lessonNumber!==6)throw Object.assign(new Error("第6讲页码已变化"),{statusCode:409});

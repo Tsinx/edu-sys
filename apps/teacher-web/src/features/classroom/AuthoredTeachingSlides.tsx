@@ -4,6 +4,7 @@ import {
   PORT_LESSON_FOUR_SLIDES,
   PORT_LESSON_FIVE_SLIDES,
   PORT_LESSON_SIX_SLIDES,
+  PORT_EXPANSION_SLIDES,
   type PortManagementLessonSlidePosition,
   type PortManagementSlideSpec
 } from "@edu/course-content";
@@ -4936,7 +4937,8 @@ export const AUTHORED_TEACHING_SLIDE_KEYS: readonly string[] = [
   ...PORT_LBL_SLIDES.map(page=>page.slideKey),
   ...PORT_LESSON_FOUR_SLIDES.map(page=>page.slideKey),
   ...PORT_LESSON_FIVE_SLIDES.map(page=>page.slideKey),
-  ...PORT_LESSON_SIX_SLIDES.map(page=>page.slideKey)
+  ...PORT_LESSON_SIX_SLIDES.map(page=>page.slideKey),
+  ...PORT_EXPANSION_SLIDES.map(page=>page.slideKey)
 ];
 
 // Every current slide below has a dedicated, page-specific composition.
