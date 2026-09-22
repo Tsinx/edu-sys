@@ -135,7 +135,7 @@ test("assistant SSE suppresses legacy control acknowledgements and validates act
     assert.equal(provider.requests.length, 2);
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
-      /当前 Slides：第 1\/47 页（内部全局第 1\/389 页）/
+      /当前 Slides：第 1\/47 页（内部全局第 1\/485 页）/
     );
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",

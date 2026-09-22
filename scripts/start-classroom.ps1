@@ -181,6 +181,10 @@ try {
     Write-Host '[3/3] 检查前端代理、语音配置和模型入口…'
     $config = Read-JsonUrl ($WebUrl + 'api/runtime/config')
     if ($null -eq $config) { throw '前端代理未能读取 API 运行配置；请检查代理连接及 API 日志。' }
+    $identityHealth = Read-JsonUrl ($WebUrl + 'api/health')
+    if ($config.profile -ne 'development' -or $config.identity -ne 'development' -or $null -eq $identityHealth -or -not $identityHealth.developmentIdentityEnabled) {
+        throw '当前端口运行的服务未启用本地开发身份，无法使用免密码本地登录。请检查 4300/5173 端口上的服务及部署配置后重新启动。'
+    }
     if (-not $config.speech.asr) {
         throw '运行中的 API 尚未加载语音密钥。请确认该进程继承了 DASHSCOPE_API_KEY，并重启 API；这不表示已保存的密钥被删除。'
     }

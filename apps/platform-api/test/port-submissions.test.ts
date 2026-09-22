@@ -1,4 +1,5 @@
 import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import assert from "node:assert/strict";
 import test from "node:test";
 import { mkdtemp, rm, mkdir, readdir, copyFile } from "node:fs/promises";
@@ -12,7 +13,7 @@ import { CampusIdentityProvider } from "../src/campus/accounts.js";
 import { submissionWorker } from "../src/port-submissions.js";
 const cookie = (r: { headers: Record<string, unknown> }) => String(r.headers["set-cookie"]).split(";")[0]!;
 const course = "course-port-management-intro", prefix = "/api/port-operations";
-test("campus submissions are durable, idempotent, isolated and replace only a verified latest revision", { timeout: 180000 }, async () => {
+test("campus submissions are durable, idempotent, isolated and retain the highest verified result", { timeout: 180000 }, async () => {
   const dir = await mkdtemp(join(tmpdir(), "edu-port-submissions-")), dataFile = join(dir, "state.json"), accounts = `${dataFile}.accounts.sqlite`;
   let identity = new CampusIdentityProvider(accounts);
   await identity.createAccount("teacher", "成绩教师", "teacher", "teacher-password-123");
@@ -87,22 +88,23 @@ test("campus submissions are durable, idempotent, isolated and replace only a ve
     // Simulate shutdown while accepted/working, then recover the persisted queue.
     await app.close(); identity = new CampusIdentityProvider(accounts);
     app = await buildApp({ dataFile, identityProvider: identity, campusMode: true, secureIdentityCookie: false });
-    const updated = await wait(replacing.json().id); assert.equal(updated.status, "verified", JSON.stringify(updated)); assert.equal(updated.revision, 2);
+    const updated = await wait(replacing.json().id); assert.equal(updated.status, "verified", JSON.stringify(updated)); assert.equal(updated.revision, 1);
     assert.equal((await post(replacement)).json().id, updated.id);
-    assert.equal((await post({ ...input, requestId: randomUUID(), expectedRevision: 1 })).statusCode, 409);
+    const stale = await post({ ...input, requestId: randomUUID(), expectedRevision: 0 }); assert.equal(stale.statusCode, 202); assert.equal((await wait(stale.json().id)).status, "verified");
     const second = await post({ ...input, requestId: randomUUID(), package: await makePortSubmission(serializePortCourse(createPortCourse("yard"))) });
     assert.equal((await wait(second.json().id)).status, "verified");
     assert.equal((await list(student)).rows[0].results.length, 2, "separate experiments do not replace each other");
     const competing = await Promise.all([1, 2].map(() => post({ ...input, requestId: randomUUID(), expectedRevision: 2 })));
     assert.ok(competing.every(r => r.statusCode === 202));
     const settled = await Promise.all(competing.map(r => wait(r.json().id)));
-    assert.deepEqual(settled.map(r => r.status).sort(), ["rejected", "verified"], "concurrent devices cannot both replace the same revision");
-    assert.equal((await list(student)).rows[0].results.find((r: any) => r.unit === "arrival").revision, 3);
+    assert.deepEqual(settled.map(r => r.status).sort(), ["verified", "verified"], "concurrent submissions are verified and compared atomically");
+    assert.equal((await list(student)).rows[0].results.find((r: any) => r.unit === "arrival").revision, 1);
     await app.close();
     const backup=join(dir,'cleanup-backup');await mkdir(backup);
     for(const file of await readdir(dir))if(file.endsWith('.sqlite'))await copyFile(join(dir,file),join(backup,file));
-    const script=new URL('../../../deploy/linux/cleanup-classrooms.py',import.meta.url).pathname,plan=join(dir,'cleanup-plan.json');
-    for(const extra of [[],['--apply','--backup',backup]]){const cleanup=spawnSync('python3',[script,dir,'--plan',plan,...extra],{encoding:'utf8'});assert.equal(cleanup.status,0,cleanup.stderr);}
+    const script=fileURLToPath(new URL('../../../deploy/linux/cleanup-classrooms.py',import.meta.url)),plan=join(dir,'cleanup-plan.json');
+    const python=process.env.EDU_TEST_PYTHON ?? (process.platform==='win32'?'python':'python3');
+    for(const extra of [[],['--apply','--backup',backup]]){const cleanup=spawnSync(python,[script,dir,'--plan',plan,...extra],{encoding:'utf8'});assert.equal(cleanup.status,0,cleanup.error?.message ?? cleanup.stderr);}
     identity=new CampusIdentityProvider(accounts);
     app=await buildApp({dataFile,identityProvider:identity,campusMode:true,secureIdentityCookie:false});
     assert.equal((await app.inject({url:'/api/class-sessions',headers:{cookie:teacher}})).json().length,0);

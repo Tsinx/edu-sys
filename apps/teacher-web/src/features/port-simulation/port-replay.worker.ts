@@ -1,12 +1,12 @@
-import { PortSubmissionReplay, type PortSubmissionPackage } from "@edu/port-simulation-core";
+import { PortSubmissionReplay, portSubmissionMatchesResult, type PortSubmissionPackage } from "@edu/port-simulation-core";
 let replay: PortSubmissionReplay | undefined;
-let expected: PortSubmissionPackage["expected"];
+let submitted: PortSubmissionPackage;
 let reference: { unitCost: number } | undefined;
 self.onmessage = async (event: MessageEvent<{ id: number; type: "load" | "seek"; package?: PortSubmissionPackage; position?: number; nodeIndex?: number; trialIndex?: number; referenceUnitCost?: number | null }>) => {
   const m = event.data;
   try {
     if (m.type === "load") {
-      expected = m.package!.expected;
+      submitted = m.package!;
       reference = typeof m.referenceUnitCost === "number" && Number.isFinite(m.referenceUnitCost) ? { unitCost: m.referenceUnitCost } : undefined;
       replay = new PortSubmissionReplay(m.package!.record);
     }
@@ -15,7 +15,7 @@ self.onmessage = async (event: MessageEvent<{ id: number; type: "load" | "seek";
     let verified: boolean | undefined;
     if (m.trialIndex === undefined && replay.position === replay.inputs.length) {
       const result = await replay.result(true, reference);
-      verified = result.stateHash === expected.stateHash && result.score === expected.score;
+      verified = portSubmissionMatchesResult(submitted, result);
       if (!verified) throw new Error("当前回放版本与提交结果不一致，请下载原始记录核查。");
     }
     postMessage({ id: m.id, view, position: m.nodeIndex ?? 0, verified });

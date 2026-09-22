@@ -9,7 +9,7 @@ import { lessonFiveReturnPath, lessonFiveExperimentUrl } from '../src/features/p
 test('48 authored pages have direct projection copy, distinct compositions and no hidden teacher metadata',()=>{
  assert.equal(pages.length,48);assert.equal(new Set(pages.map(p=>p.slideKey)).size,48);
  assert.equal(timing.reduce((sum,t)=>sum+t.minutes,0),90);
- assert.equal(getPortManagementLesson(5).status,'ready');assert.equal(PORT_MANAGEMENT_SLIDE_TOTAL,389);
+ assert.equal(getPortManagementLesson(5).status,'ready');assert.equal(PORT_MANAGEMENT_SLIDE_TOTAL,485);
  assert.equal(getPortManagementSlide(198).slideKey,pages[0]!.slideKey);
  for(const page of pages){
   const html=renderToStaticMarkup(<PortLessonFiveComposition page={page}/>);

@@ -4,9 +4,9 @@ import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {PORT_EXPANSION_SLIDES as pages,PORT_EXPANSION_SOURCES as sources,expansionTiming,expansionStateValid,expansionVisiblePoints,effectiveChainCapacity,planningBalance,getPortManagementGlobalSlideIndex,getPortManagementLesson,PORT_MANAGEMENT_SLIDE_TOTAL} from '@edu/course-content';
 import {PortExpansionComposition} from '../src/features/port-expansion/PortExpansionComposition';
-test('lessons 7 and 8: complete source-backed authored pages, two 45-minute halves and stable indices',()=>{
- assert.equal(pages.length,96);assert.equal(PORT_MANAGEMENT_SLIDE_TOTAL,389);assert.equal(new Set(pages.map(p=>p.slideKey)).size,96);
- for(const lesson of [7,8] as const){const timing=expansionTiming(lesson);assert.equal(getPortManagementLesson(lesson).status,'ready');assert.equal(timing.slice(0,4).reduce((s,t)=>s+t.minutes,0),45);assert.equal(timing.slice(4).reduce((s,t)=>s+t.minutes,0),45);}
+test('lessons 7 to 10: complete source-backed authored pages, two 45-minute halves and stable indices',()=>{
+ assert.equal(pages.length,192);assert.equal(PORT_MANAGEMENT_SLIDE_TOTAL,485);assert.equal(new Set(pages.map(p=>p.slideKey)).size,192);
+ for(const lesson of [7,8,9,10] as const){const timing=expansionTiming(lesson);assert.equal(getPortManagementLesson(lesson).status,'ready');assert.equal(timing.slice(0,4).reduce((s,t)=>s+t.minutes,0),45);assert.equal(timing.slice(4).reduce((s,t)=>s+t.minutes,0),45);}
  for(const p of pages){assert.equal(getPortManagementGlobalSlideIndex(p.lesson,p.localPage),p.index);assert.ok(sources[p.source]);assert.ok(p.teachingCue.length>=65,p.slideKey);assert.equal(expansionVisiblePoints(p,0).length,0);assert.deepEqual(expansionVisiblePoints(p,1),p.points);
   for(const progress of [0,.5,1])for(let option=0;option<(p.options?.length??1);option++){
    const html=renderToStaticMarkup(<PortExpansionComposition page={p} state={{progress,option,revealed:false}}/>);

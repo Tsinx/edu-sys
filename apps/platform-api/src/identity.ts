@@ -24,6 +24,7 @@ export class DevelopmentIdentityProvider implements ClassroomIdentityProvider {
     private readonly options: {
       allowRoleSelection: boolean;
       sessionTtlMs?: number;
+      localTeacher?: { actorId: string; displayName: string };
     }
   ) {}
 
@@ -36,10 +37,14 @@ export class DevelopmentIdentityProvider implements ClassroomIdentityProvider {
     }
     const token = randomUUID();
     const suffix = token.slice(0, 4).toUpperCase();
+    // The passwordless local launcher represents the persisted seed teacher.
+    // Explicitly named development actors remain separate test identities.
+    const localTeacher = input.role === "teacher" && !input.displayName ? this.options.localTeacher : undefined;
     const actor: ClassroomActor = {
-      actorId: `development:${input.role}:${randomUUID()}`,
+      actorId: localTeacher?.actorId ?? `development:${input.role}:${randomUUID()}`,
       displayName:
         input.displayName ??
+        localTeacher?.displayName ??
         (input.role === "teacher" ? "李行之" : `学生 ${suffix}`),
       roles: [input.role],
       identitySource: "development"

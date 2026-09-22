@@ -5,14 +5,14 @@ import {join} from 'node:path';
 import {tmpdir} from 'node:os';
 import {PORT_EXPANSION_SLIDES as pages,expansionOptionSummary} from '@edu/course-content';
 import {buildApp} from '../src/app.js';
-test('lessons 7-8: every classroom context follows disclosed material and validates page-scoped events',async()=>{
+test('lessons 7-10: every classroom context follows disclosed material and validates page-scoped events',async()=>{
  const dir=await mkdtemp(join(tmpdir(),'edu-expansion-')),app=await buildApp({dataFile:join(dir,'state.json'),portSimulationTickMs:0});
  try{
   const session=(await app.inject({method:'POST',url:'/api/courses/course-port-management-intro/class-sessions'})).json(),root=`/api/class-sessions/${session.id}`;
   const event=async(payload:object,status=201)=>{const r=await app.inject({method:'POST',url:root+'/events',payload});assert.equal(r.statusCode,status,r.body);return r;};
   for(const p of pages){
    await event({type:'set_slide',index:p.index});await event({type:'set_port_expansion_presentation',slideKey:p.slideKey,progress:0,option:0,revealed:false});
-   let prompt=(await app.inject(root+'/assistant-prompts')).json();assert.equal(prompt.coverage.coveredSlides,389);assert.match(prompt.compiled,/cargo-planning-teaching/);assert.match(prompt.compiled,new RegExp(`第${p.lesson}讲第${p.localPage}/48页`));assert.ok(!prompt.compiled.includes(p.teachingCue));if(p.reveal){assert.ok(!prompt.compiled.includes(p.reveal));assert.match(prompt.compiled,/答案尚未揭示/);}
+   let prompt=(await app.inject(root+'/assistant-prompts')).json();assert.equal(prompt.coverage.coveredSlides,485);assert.match(prompt.compiled,/cargo-planning-teaching/);assert.match(prompt.compiled,new RegExp(`第${p.lesson}讲第${p.localPage}/48页`));assert.ok(!prompt.compiled.includes(p.teachingCue));if(p.reveal){assert.ok(!prompt.compiled.includes(p.reveal));assert.match(prompt.compiled,/答案尚未揭示/);}
    for(let option=0;option<(p.options?.length??1);option++){
     const state={progress:1,option,revealed:!!p.reveal};await event({type:'set_port_expansion_presentation',slideKey:p.slideKey,...state});
     prompt=(await app.inject(root+'/assistant-prompts')).json();for(const point of p.points)assert.ok(prompt.compiled.includes(point),p.slideKey);if(p.reveal)assert.ok(prompt.compiled.includes(p.reveal),p.slideKey);if(p.options)assert.ok(prompt.compiled.includes(expansionOptionSummary(p,state)));

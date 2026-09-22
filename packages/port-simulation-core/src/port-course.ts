@@ -34,6 +34,7 @@ export interface PortCourseRun {
   simulation: PortSession;
   commands: PortCourseCommand[];
   baselineAttempts: number;
+  studentDeductions?: number;
   baselineCost?: number;
   baselineDistance?: number;
   baselineRehandles?: number;
@@ -54,6 +55,7 @@ export function createPortCourse(unit: PortCourseUnit, schema: PortCourseRun["sc
   if (mode !== "practice" && mode !== "battle") throw new Error("场次模式无效。");
   const s = createPortSession("practice", undefined, undefined, schema === "port-course/1.0" ? "port-operations/3.0" : "port-operations/3.1");
   if (schema !== "port-course/1.2") delete s.scoringVersion;
+  delete s.referenceVersion; // Cost calibration applies only to the full 48-hour challenge.
   s.schedules = s.schedules.slice(0, 1);
   s.calls = { S01: s.calls.S01! };
   s.batches = Object.fromEntries(Object.entries(s.batches).filter(([, b]) => b.callId === "S01"));
@@ -124,7 +126,9 @@ function settleCourse(r: PortCourseRun, pauseAtMilestone: boolean) {
 export type PortTrialObserver = (session: PortSession) => void;
 export function applyPortCourseCommand(r: PortCourseRun, command: PortCourseCommand, demo = false, observeTrial?: PortTrialObserver): PortResult {
   (r.inputLog ??= []).push(copy(command));
-  return applyPortCourseCommandInternal(r, command, demo, observeTrial);
+  const result = applyPortCourseCommandInternal(r, command, demo, observeTrial);
+  r.studentDeductions = (r.studentDeductions ?? 0) + result.deduction;
+  return result;
 }
 function applyPortCourseCommandInternal(r: PortCourseRun, command: PortCourseCommand, demo = false, observeTrial?: PortTrialObserver): PortResult {
   if (r.complete) return response("stale", "本段已完成，重练会建立独立记录。");
@@ -213,7 +217,15 @@ export function portCourseView(r: PortCourseRun) {
   if (r.unit === "arrival" || r.unit === "departure") view.notices = view.notices.filter(n => n.object === "S01");
   if (r.unit === "yard") { view.batches = view.batches.filter(b => b.flow === "import"); view.boxes = view.boxes.filter(b => view.batches.some(batch => batch.id === b.batchId)); }
   const goals = portCourseGoals(r);
-  return { view, lesson: { unit: r.unit, complete: r.complete, goals, performance: portCoursePerformance(r), elapsed: r.simulation.second - r.startSecond, prepared: portCourseDefinition(r.unit).prepared } };
+  return { view, lesson: { unit: r.unit, complete: r.complete, goals, score: portCourseScore(r), performance: portCoursePerformance(r), elapsed: r.simulation.second - r.startSecond, prepared: portCourseDefinition(r.unit).prepared } };
+}
+/** Student penalties only; prepared scenes and automatic planning trials are excluded. */
+export function portCourseScore(r: PortCourseRun) {
+  return portCourseScoreFromEvidence(portCourseGoals(r), r.studentDeductions ?? 0);
+}
+export function portCourseScoreFromEvidence(goals: ReadonlyArray<{ done: boolean }>, deductions: number) {
+  const completion = goals.length ? goals.filter(g => g.done).length / goals.length * 100 : 0;
+  return { completion: Math.round(completion * 100) / 100, deductions, total: Math.round(Math.max(0, completion - deductions) * 100) / 100 };
 }
 /** Completion and management quality remain separate, inspectable evidence. */
 export function portCoursePerformance(r: PortCourseRun) {

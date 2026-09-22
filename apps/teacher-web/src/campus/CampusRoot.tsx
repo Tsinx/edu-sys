@@ -5,6 +5,7 @@ import { localGet, localSet } from "./storage";
 import { setRuntimeConfig, type RuntimeConfig } from "./runtime";
 import { OfflinePanel } from "./OfflinePanel";
 import { applyRequestedRecovery } from "./sync";
+import { ensureLocalIdentity, isLocalDevelopment } from "./local-identity";
 import "./campus.css";
 
 const TeacherApp=lazy(()=>import("../App").then(module=>({default:module.App})));
@@ -24,7 +25,12 @@ export function CampusRoot() {
         try {const response=await fetch("/api/runtime/config",{cache:"no-store",signal:AbortSignal.timeout(5000)});if(!response.ok)throw new Error("平台配置不可用");next=await response.json();await localSet("runtime",next).catch(()=>undefined);}
         catch {const saved=await localGet<RuntimeConfig>("runtime");if(!saved)throw new Error("首次使用需要连接校园服务器。");next=saved;}
         setRuntimeConfig(next);if(active)setConfig(next);
-        if(next.profile==="development" && import.meta.env.DEV)return;
+        if(isLocalDevelopment(next, import.meta.env.DEV)) {
+          if(window.location.pathname === "/signed-out")return;
+          const session=await ensureLocalIdentity(window.location.pathname);
+          if(active){setIdentity(session);setError("");}
+          return;
+        }
         const session=await api.getIdentitySession();await applyRequestedRecovery(session.actor.actorId);if(active)setIdentity(session);
       } catch(reason) {if(active){setIdentity(undefined);if(!(reason instanceof Error) || !/身份|登录/.test(reason.message))setError((reason as Error).message);}}
       finally {if(active)setLoading(false);}
@@ -40,7 +46,15 @@ export function CampusRoot() {
     catch(reason){setError((reason as Error).message);}
   };
   if(loading)return <main className="campus-login" role="status"><p>正在打开教学平台…</p></main>;
-  if(config?.profile==="development" && import.meta.env.DEV)return <Suspense fallback={<p>正在装载课堂…</p>}><TeacherApp/></Suspense>;
+  if(isLocalDevelopment(config, import.meta.env.DEV)) {
+    if(identity)return <Suspense fallback={<p>正在装载课堂…</p>}><TeacherApp/></Suspense>;
+    return <main className="campus-login"><form onSubmit={event=>{event.preventDefault();window.location.pathname === "/signed-out" ? window.location.assign("/") : window.location.reload();}}>
+      <p className="campus-eyebrow">本机教学平台</p><h1>{window.location.pathname === "/signed-out" ? "已退出登录" : "本地登录未完成"}</h1>
+      <p>本机入口无需校园账号密码。点击下方按钮重新连接。</p>
+      {error&&<p role="alert">{error}</p>}
+      <button type="submit">进入本地教学平台</button>
+    </form></main>;
+  }
   if(!identity)return <main className="campus-login"><form onSubmit={event=>void login(event)}>
     <p className="campus-eyebrow">校园教学平台</p><h1>欢迎回到课堂</h1><p>使用教师发放的账号登录，已下载的课程可在断网时继续学习。</p>
     <label>账号<input name="username" autoComplete="username" required maxLength={80}/></label>

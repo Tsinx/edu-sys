@@ -1,14 +1,14 @@
 import { applyPortCommand, createPortSession } from "./port-operations-engine.js";
-import { applyPortCourseCommand, createPortCourse, isPortCourseUnit, portCourseGoals, portCoursePerformance, type PortCourseCommand, type PortCourseRun, type PortCourseSelection } from "./port-course.js";
+import { applyPortCourseCommand, createPortCourse, isPortCourseUnit, portCourseGoals, portCourseScore, portCoursePerformance, type PortCourseCommand, type PortCourseRun, type PortCourseSelection } from "./port-course.js";
 import { portReport, portScore, portReferenceCost } from "./port-operations-review.js";
 import { PORT_HORIZON, PORT_ARRIVAL_GENERATOR, cleanPortConfig, cleanPortPlan, type PortSession, type PortResult } from "./port-operations-model.js";
 import { PORT_NAVIGATION_VERSION } from "./port-navigation.js";
 import { portStudentView } from "./port-operations-view.js";
 
-export const PORT_SUBMISSION_SCHEMA = "port-experiment-submission/1";
-export const PORT_VERIFIER_VERSION = "port-verifier/1";
+export const PORT_SUBMISSION_SCHEMA = "port-experiment-submission/2";
+export const PORT_VERIFIER_VERSION = "port-verifier/2";
 export interface PortSubmissionPackage {
-  schema: typeof PORT_SUBMISSION_SCHEMA;
+  schema: typeof PORT_SUBMISSION_SCHEMA | "port-experiment-submission/1";
   unit: PortCourseSelection;
   ended: "student" | "completed";
   record: string;
@@ -28,6 +28,7 @@ export interface PortEvidenceNode {
 }
 export interface PortSubmissionResult {
   performance?: ReturnType<typeof portCoursePerformance>;
+  courseScore?: ReturnType<typeof portCourseScore>;
   score: number;
   unit: PortCourseSelection;
   mode: "practice" | "battle";
@@ -102,6 +103,8 @@ export class PortSubmissionReplay {
     if (!this.course && (JSON.stringify(cleanPortConfig(d.config)) !== JSON.stringify(d.config) || JSON.stringify(cleanPortPlan(d.initialPlan)) !== JSON.stringify(d.initialPlan))) throw new Error("初始参数或方案不合法。");
     this.session = this.course?.simulation ?? createPortSession(d.mode, d.config, d.initialPlan, d.schema);
     if (!this.course) {
+      if (d.referenceVersion !== undefined && ![1, 2].includes(d.referenceVersion)) throw new Error("成本基准版本无效。");
+      if (d.referenceVersion === undefined) delete this.session.referenceVersion; else this.session.referenceVersion = d.referenceVersion;
       if (d.scoringVersion !== undefined && ![1, 2].includes(d.scoringVersion)) throw new Error("评分版本无效。");
       if (d.scoringVersion === undefined) delete this.session.scoringVersion; else this.session.scoringVersion = d.scoringVersion;
     }
@@ -141,8 +144,9 @@ export class PortSubmissionReplay {
   async result(requireEligible = true, verifiedReference?: { unitCost: number }): Promise<PortSubmissionResult> {
     const s = this.session, goals = this.course ? portCourseGoals(this.course).map(({ id, label, done }) => ({ id, label, done })) : [];
     if (requireEligible && !this.course && !["running", "paused", "completed", "interrupted"].includes(s.status)) throw new Error("请开始实验后提交综合成绩。");
-    const breakdown = this.course ? null : portScore(s, verifiedReference ?? portReferenceCost(s.config, s.schema));
-    return { unit: this.unit, mode: s.mode, ...(this.course ? { performance: portCoursePerformance(this.course) } : {}), score: breakdown?.total ?? Math.round(goals.filter(g => g.done).length / goals.length * 10000) / 100,
+    const breakdown = this.course ? null : portScore(s, verifiedReference ?? portReferenceCost(s.config, s.schema, s.referenceVersion ?? 1));
+    const courseScore = this.course ? portCourseScore(this.course) : undefined;
+    return { unit: this.unit, mode: s.mode, ...(this.course ? { performance: portCoursePerformance(this.course), courseScore } : {}), score: breakdown?.total ?? courseScore!.total,
       second: s.second, elapsed: s.second - (this.course?.startSecond ?? 0), complete: this.course?.complete ?? s.status === "completed",
       traceCoverage: this.coverage, stateHash: await portStateHash(s), verifier: PORT_VERIFIER_VERSION, goals, breakdown, commands: this.inputs.length };
   }
@@ -162,13 +166,19 @@ export async function makePortSubmission(raw: string, actualState?: PortSession)
   return { schema: PORT_SUBMISSION_SCHEMA, unit: replay.unit, ended: result.complete ? "completed" : "student", record: raw, expected: { stateHash: result.stateHash, score: result.score } };
 }
 export async function verifyPortSubmission(pkg: PortSubmissionPackage) {
-  if (pkg.schema !== PORT_SUBMISSION_SCHEMA || !["student", "completed"].includes(pkg.ended)) throw new Error("提交包版本或结束方式无效。");
+  if (![PORT_SUBMISSION_SCHEMA, "port-experiment-submission/1"].includes(pkg.schema) || !["student", "completed"].includes(pkg.ended)) throw new Error("提交包版本或结束方式无效。");
   const replay = new PortSubmissionReplay(pkg.record);
   if (replay.unit !== pkg.unit) throw new Error("提交类型与实验记录不一致。");
   replay.seek(replay.inputs.length, true);
   replay.assertRecord();
   const result = await replay.result();
   if (pkg.ended !== (result.complete ? "completed" : "student")) throw new Error("结束方式与目标完成状态不一致。");
-  if (result.stateHash !== pkg.expected?.stateHash || result.score !== pkg.expected?.score) throw new Error("提交结果与服务端重放不一致。");
+  // Old sealed packages claimed completion only. Validate that legacy claim,
+  // but always return the corrected, independently computed grade.
+  if (!portSubmissionMatchesResult(pkg, result)) throw new Error("提交结果与服务端重放不一致。");
   return { result, nodes: replay.nodes, report: replay.report() };
+}
+export function portSubmissionMatchesResult(pkg: PortSubmissionPackage, result: PortSubmissionResult) {
+  const expectedScore = pkg.schema === "port-experiment-submission/1" && result.courseScore ? result.courseScore.completion : result.score;
+  return result.stateHash === pkg.expected?.stateHash && expectedScore === pkg.expected?.score;
 }

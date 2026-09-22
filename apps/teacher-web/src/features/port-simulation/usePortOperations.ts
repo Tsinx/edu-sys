@@ -176,20 +176,20 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
                         setNotice(m.result.message);
                     }
                 }
-                const configKey = JSON.stringify([v.schema, v.config]);
+                const configKey = JSON.stringify([v.schema, v.referenceVersion, v.config]);
                 if (!course && benchmarkConfig.current !== configKey) {
                     benchmarkConfig.current = configKey;
                     benchmark.current?.terminate();
                     const b = new Worker(new URL("./port-operations.worker.ts", import.meta.url), { type: "module" });
                     benchmark.current = b;
                     b.onmessage = (event: MessageEvent<Message>) => { if (event.data.type === "benchmark" && benchmarkConfig.current === configKey) {
-                        void post({ type: "reference", schema: v.schema, config: v.config, reference: event.data.reference });
+                        void post({ type: "reference", schema: v.schema, referenceVersion: v.referenceVersion, config: v.config, reference: event.data.reference });
                         b.terminate();
                     }
                     else if (event.data.type === "error")
                         setError(`参考成本计算失败：${event.data.message}`); };
                     b.onerror = event => { if(benchmarkConfig.current === configKey) setError(`参考成本工作线程失败：${event.message}`); };
-                    b.postMessage({ id: 1, type: "benchmark", schema: v.schema, config: v.config });
+                    b.postMessage({ id: 1, type: "benchmark", schema: v.schema, referenceVersion: v.referenceVersion, config: v.config });
                 }
             }
             if (m.type === "inspect" && m.box)
@@ -298,8 +298,8 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
         try {
             if (course?.tutorial) throw new Error("操作教学不接受自主练习存档。");
             const envelope = JSON.parse(raw);
-            if (envelope.package?.schema === "port-experiment-submission/1") raw = envelope.package.record;
-            else if (envelope.schema === "port-experiment-submission/1") raw = envelope.record;
+            if (["port-experiment-submission/1", "port-experiment-submission/2"].includes(envelope.package?.schema)) raw = envelope.package.record;
+            else if (["port-experiment-submission/1", "port-experiment-submission/2"].includes(envelope.schema)) raw = envelope.record;
             const data = JSON.parse(raw);
             if (course) {
                 if (!["port-course/1.0", "port-course/1.1", "port-course/1.2"].includes(data.schema) || data.unit !== course.unit || data.demo === true) throw new Error("请导入当前分段的自主练习记录；演示记录与综合场次不能作为本段练习。");

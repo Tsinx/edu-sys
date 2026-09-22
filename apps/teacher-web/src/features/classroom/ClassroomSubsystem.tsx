@@ -1420,7 +1420,7 @@ export function ClassroomSubsystem() {
             </div>
 
             {isSlides && <div className="classroom-playback-slot" ref={setPlaybackSlot} />}
-            {isSlides && snapshot.courseId === 'course-port-management-intro' && [7,8].includes(snapshot.slide.lessonNumber??0) && <a className="port-l4-classroom-link" href={`/port-expansion-preview.html?lesson=${snapshot.slide.lessonNumber}&page=${snapshot.slide.index-(snapshot.slide.lessonNumber===7?293:341)}`} target="_blank" rel="noreferrer">第{snapshot.slide.lessonNumber}讲授课台 ↗</a>}
+            {isSlides && snapshot.courseId === 'course-port-management-intro' && [7,8,9,10].includes(snapshot.slide.lessonNumber??0) && <a className="port-l4-classroom-link" href={`/port-expansion-preview.html?lesson=${snapshot.slide.lessonNumber}&page=${snapshot.slide.index-(293+((snapshot.slide.lessonNumber??7)-7)*48)}`} target="_blank" rel="noreferrer">第{snapshot.slide.lessonNumber}讲授课台 ↗</a>}
             {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 6 && <a className="port-l4-classroom-link" href={`/port-lesson-six-preview.html?page=${snapshot.slide.index-245}`} target="_blank" rel="noreferrer">第6讲授课台 ↗</a>}
             {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 5 && <a className="port-l4-classroom-link" href={`/port-lesson-five-preview.html?page=${snapshot.slide.index-197}`} target="_blank" rel="noreferrer">第5讲授课台 ↗</a>}
             {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 4 && <a className="port-l4-classroom-link" href={`/port-lesson-four-preview.html?page=${snapshot.slide.index-153}`} target="_blank" rel="noreferrer">第4讲授课台 ↗</a>}

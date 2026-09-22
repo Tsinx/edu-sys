@@ -71,7 +71,9 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
       [5, 198, 245],
       [6, 246, 293],
       [7, 294, 341],
-      [8, 342, 389]
+      [8, 342, 389],
+      [9, 390, 437],
+      [10, 438, 485]
     ]
   );
   for (const lesson of readyLessons) {
@@ -85,7 +87,7 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
   const plannedLessons = PORT_MANAGEMENT_LESSONS.filter(
     (lesson) => lesson.status === "planned"
   );
-  assert.equal(plannedLessons.length, 8);
+  assert.equal(plannedLessons.length, 6);
   for (const lesson of plannedLessons) {
     assert.equal(lesson.title, null);
     assert.equal(lesson.slideStart, null);
@@ -93,16 +95,16 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
     assert.equal(lesson.assistantBrief, null);
   }
 
-  assert.equal(PORT_MANAGEMENT_SLIDES.length, 389);
+  assert.equal(PORT_MANAGEMENT_SLIDES.length, 485);
   assert.deepEqual(
     PORT_MANAGEMENT_SLIDES.map((slide) => slide.index),
-    Array.from({ length: 389 }, (_, index) => index + 1)
+    Array.from({ length: 485 }, (_, index) => index + 1)
   );
   assert.equal(
     new Set(PORT_MANAGEMENT_SLIDES.map((slide) => slide.slideKey)).size,
-    389
+    485
   );
-  assert.equal(PORT_MANAGEMENT_DECK_VERSION, "release-port-management-cargo-planning-v13");
+  assert.equal(PORT_MANAGEMENT_DECK_VERSION, "release-port-management-governance-market-v14");
 });
 
 test("lesson-local page numbers map cleanly onto the internal global index", () => {
@@ -135,7 +137,7 @@ test("lesson-local page numbers map cleanly onto the internal global index", () 
   assert.equal(getPortManagementGlobalSlideIndex(2, 53), null);
   assert.equal(getPortManagementGlobalSlideIndex(2, 1.5), null);
   assert.equal(getPortManagementLessonSlidePosition(0), null);
-  assert.equal(getPortManagementLessonSlidePosition(390), null);
+  assert.equal(getPortManagementLessonSlidePosition(486), null);
   assert.equal(getPortManagementGlobalSlideIndex(6,48),293);
 });
 
@@ -156,7 +158,7 @@ test("every slide carries complete narrative and source metadata", () => {
     assert.ok(evidenceStates.has(slide.narrative.evidence));
     assert.ok(storyBeats.has(slide.narrative.storyBeat));
     assert.ok(slide.narrative.progress >= 1);
-    assert.ok(slide.narrative.progress <= 389);
+    assert.ok(slide.narrative.progress <= 485);
     for (const sourceId of slide.sourceIds ?? []) {
       assert.ok(
         PORT_MANAGEMENT_SOURCES[sourceId],
@@ -307,6 +309,9 @@ test("assistant context stays bounded, page-specific and free of authoring notes
       assert.match(context.voyagePrompt, /第一讲历史主线/);
       assert.match(context.voyagePrompt, /现代巨轮从本讲第40页/);
       assert.doesNotMatch(context.voyagePrompt, /教学货物/);
+    } else if(slide.lesson===9||slide.lesson===10) {
+      assert.match(context.voyagePrompt,/独立治理、合同支付、收费和选港/);
+      assert.doesNotMatch(context.voyagePrompt,/OOCL Spain|LL3/);
     } else if(slide.lesson===7||slide.lesson===8) {
       assert.match(context.voyagePrompt,/独立多货种工艺与港口规划/);
       assert.doesNotMatch(context.voyagePrompt,/OOCL Spain|LL3/);

@@ -15,7 +15,7 @@ test('lesson six: registered contexts, reveal protection, page options and stale
       await event({type:'set_slide',index:page.index});
       await event({type:'set_lesson_six_presentation',slideKey:page.slideKey,progress:0,revealed:false,option:0});
       let prompt=(await app.inject(root+'/assistant-prompts')).json();
-      assert.equal(prompt.coverage.coveredSlides,389);assert.equal(prompt.modules.length,5);
+      assert.equal(prompt.coverage.coveredSlides,485);assert.equal(prompt.modules.length,5);
       assert.match(prompt.compiled,new RegExp(`第6讲第${page.localPage}/48页`));assert.match(prompt.compiled,/hinterland-delivery-teaching/);assert.doesNotMatch(prompt.compiled,/oocl-spain-ll3-2023|s01-capacity-teaching/);
       assert.ok(!prompt.compiled.includes(page.teachingCue));
       for(const point of page.points)assert.ok(!prompt.compiled.includes(point),page.slideKey+' unpublished observation');

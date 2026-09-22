@@ -1,4 +1,5 @@
 import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
@@ -158,16 +159,17 @@ test("workspace ownership, independent reading, private notes, concurrency and r
     for (const file of await readdir(dir))
       if (file.endsWith(".sqlite"))
         await copyFile(join(dir, file), join(backup, file));
-    const script = new URL(
+    const script = fileURLToPath(new URL(
         "../../../deploy/linux/cleanup-classrooms.py",
         import.meta.url,
-      ).pathname,
+      )),
       plan = join(dir, "cleanup.json");
     const run = (args: string[]) => {
-      const p = spawnSync("python3", [script, dir, "--plan", plan, ...args], {
+      const python = process.env.EDU_TEST_PYTHON ?? (process.platform === "win32" ? "python" : "python3");
+      const p = spawnSync(python, [script, dir, "--plan", plan, ...args], {
         encoding: "utf8",
       });
-      assert.equal(p.status, 0, p.stderr);
+      assert.equal(p.status, 0, p.error?.message ?? p.stderr);
       return JSON.parse(p.stdout);
     };
     assert.ok(run([]).planned >= 2);

@@ -22,6 +22,7 @@ type Request = {
     plan: PortPlan;
     raw?: string;
     schema?: PortSession["schema"];
+    referenceVersion?: 1 | 2;
     command: PortCommand;
     boxId: string;
     reference: NonNullable<typeof reference>;
@@ -36,7 +37,7 @@ self.onmessage = async (event: MessageEvent<Request>) => {
     const m = event.data;
     try {
         if (m.type === "benchmark") {
-            postMessage({ id: m.id, type: "benchmark", config: m.config, reference: portReferenceCost(m.config, m.schema) });
+            postMessage({ id: m.id, type: "benchmark", config: m.config, reference: portReferenceCost(m.config, m.schema, m.referenceVersion ?? 1) });
             return;
         }
         if (m.type === "init") {
@@ -96,12 +97,12 @@ self.onmessage = async (event: MessageEvent<Request>) => {
             return;
         }
         if (m.type === "reference") {
-            if (m.schema !== session.schema || JSON.stringify(m.config) !== JSON.stringify(session.config)) {
+            if (m.schema !== session.schema || m.referenceVersion !== (session.referenceVersion ?? 1) || JSON.stringify(m.config) !== JSON.stringify(session.config)) {
                 postMessage({ id: m.id, type: "ignored" });
                 return;
             }
             reference = m.reference;
-            rememberPortReference(session.config, reference, session.schema);
+            rememberPortReference(session.config, reference, session.schema, session.referenceVersion ?? 1);
             snapshot(m.id);
             return;
         }

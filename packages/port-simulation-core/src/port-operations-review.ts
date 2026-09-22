@@ -2,7 +2,7 @@ import { PORT_NAVIGATION_VERSION } from "./port-navigation.js";
 import { applyPortCommand, advancePortSession, createPortSession, portCargoDone, portEntryReady, portHandoverItems, portYardUsage, visiblePortCalls } from "./port-operations-engine.js";
 import { PORT_HORIZON, PORT_OPERATIONS_SCHEMA, PORT_ARRIVAL_GENERATOR, cleanPortConfig, cleanPortPlan, defaultPortPlan, type PortConfig, type PortSession, type PortCommand } from "./port-operations-model.js";
 /** Reference policy used for cost comparison and tests; never an automatic student control. */
-export function servicePortReference(s: PortSession) {
+export function servicePortReference(s: PortSession, policy: 1 | 2 = 1) {
     const calls = Object.values(s.calls).filter(c => c.announced);
     for (const c of calls)
         for (const kind of ["entry", "health", "border", "departure"] as const)
@@ -43,22 +43,35 @@ export function servicePortReference(s: PortSession) {
         if (s.channel)
             break;
         const large = s.schedules.find(v => v.id === c.id)!.large;
-        const slots = large ? [1] : [0, 1];
+        // Use only the published forecast; keep the sole large-vessel berth
+        // available when a large call is approaching within two hours.
+        const reserveLarge = policy === 2 && calls.some(other => other.id !== c.id &&
+            ["approach", "outer", "anchored"].includes(other.stage) && other.eta <= s.second + 7200 &&
+            s.schedules.find(v => v.id === other.id)!.large);
+        const slots = large ? [1] : reserveLarge ? [0] : [0, 1];
         const berth = slots.find(i => !s.berths[i]);
         if (berth !== undefined)
             applyPortCommand(s, { kind: "move", callId: c.id, target: "berth", slot: berth });
-        else if (c.stage === "outer") {
+        else if (c.stage === "outer" && policy === 1) {
             const anchor = s.anchors.findIndex(v => !v);
             if (anchor >= 0)
                 applyPortCommand(s, { kind: "move", callId: c.id, target: "anchor", slot: anchor });
         }
     }
 }
-export function runPortReference(config: PortConfig, stepSeconds = 120, schema: PortSession["schema"] = PORT_OPERATIONS_SCHEMA) {
-    const s = createPortSession("battle", config, defaultPortPlan(), schema);
+/** Calibrated teaching comparison, within the same 1,200-point budget. */
+export function calibratedPortPlan() {
+    const plan = defaultPortPlan(), e = plan.equipment;
+    Object.assign(e, { cranes: 6, vehicles: 8, yardMachines: 4, gates: 2, vehicle: "agv", yardMachine: "rmg", gateSystem: "smart" });
+    Object.assign(e.dispatch, { berthCranes: [3, 3], craneOperators: 6, drivers: 2, yardOperators: 4, gateClerks: 1, technicians: 1 });
+    return cleanPortPlan(plan);
+}
+export function runPortReference(config: PortConfig, stepSeconds = 120, schema: PortSession["schema"] = PORT_OPERATIONS_SCHEMA, referenceVersion: 1 | 2 = 1) {
+    const s = createPortSession("battle", config, referenceVersion === 2 ? calibratedPortPlan() : defaultPortPlan(), schema);
+    s.referenceVersion = referenceVersion;
     applyPortCommand(s, { kind: "start" });
     while (s.second < PORT_HORIZON) {
-        servicePortReference(s);
+        servicePortReference(s, referenceVersion);
         advancePortSession(s, Math.min(stepSeconds, PORT_HORIZON - s.second));
     }
     applyPortCommand(s, { kind: "handover", entries: portHandoverItems(s).map(({ object, team, next }) => ({ object, team, next })) });
@@ -73,10 +86,10 @@ export function rememberPortReference(config: PortConfig, value: {
     cost: number;
     completed: number;
     unitCost: number;
-}, schema: PortSession["schema"] = PORT_OPERATIONS_SCHEMA) { if (!Number.isFinite(value.cost) || !Number.isFinite(value.unitCost) || value.completed <= 0)
-    throw new Error("参考成本无效。"); referenceCache.set(JSON.stringify([schema, cleanPortConfig(config)]), value); }
-export function portReferenceCost(config: PortConfig, schema: PortSession["schema"] = PORT_OPERATIONS_SCHEMA) { const key = JSON.stringify([schema, cleanPortConfig(config)]); let r = referenceCache.get(key); if (!r) {
-    const s = runPortReference(config, 120, schema);
+}, schema: PortSession["schema"] = PORT_OPERATIONS_SCHEMA, referenceVersion: 1 | 2 = 1) { if (!Number.isFinite(value.cost) || !Number.isFinite(value.unitCost) || value.completed <= 0)
+    throw new Error("参考成本无效。"); referenceCache.set(JSON.stringify([schema, referenceVersion, cleanPortConfig(config)]), value); }
+export function portReferenceCost(config: PortConfig, schema: PortSession["schema"] = PORT_OPERATIONS_SCHEMA, referenceVersion: 1 | 2 = 1) { const key = JSON.stringify([schema, referenceVersion, cleanPortConfig(config)]); let r = referenceCache.get(key); if (!r) {
+    const s = runPortReference(config, 120, schema, referenceVersion);
     const completed = Object.values(s.boxes).filter(b => b.loadedAt !== null || b.deliveredAt !== null).length;
     r = { cost: s.cost, completed, unitCost: completed ? s.cost / completed : Infinity };
     if (referenceCache.size > 20)
@@ -124,10 +137,10 @@ export function portScore(s: PortSession, reference?: {
     const handover = s.status === "completed" ? 10 * verified / handoverItems.length : 0;
     const deductions = s.attempts.reduce((n, a) => n + a.deduction, 0);
     const total = Math.round(Math.max(0, cargo + process + efficiency + handover - deductions) * 100) / 100;
-    return { total, cargo, process, processCompletion, processTimeliness, onTimeDepartures, dueShips: dueCalls.length, scoringVersion, efficiency, handover, deductions, dueBoxes, onTime, overdue, completed, nodeCount, nodesTotal, unitCost, referenceUnitCost: reference?.unitCost ?? null, referenceReady: !!reference, verifiedHandover: verified, requiredHandover: handoverItems.length, eligible: s.status === "completed" && s.mode === "battle" };
+    return { referenceVersion: s.referenceVersion ?? 1, total, cargo, process, processCompletion, processTimeliness, onTimeDepartures, dueShips: dueCalls.length, scoringVersion, efficiency, handover, deductions, dueBoxes, onTime, overdue, completed, nodeCount, nodesTotal, unitCost, referenceUnitCost: reference?.unitCost ?? null, referenceReady: !!reference, verifiedHandover: verified, requiredHandover: handoverItems.length, eligible: s.status === "completed" && s.mode === "battle" };
 }
 export function portReport(s: PortSession, includeReference = true) {
-    const reference = includeReference ? portReferenceCost(s.config, s.schema) : undefined;
+    const reference = includeReference ? portReferenceCost(s.config, s.schema, s.referenceVersion ?? 1) : undefined;
     const schedules = s.schedules.filter(v => v.eta <= PORT_HORIZON);
     return { score: portScore(s, reference), status: s.status, mode: s.mode, second: s.second, config: s.config, generator: s.generator, statistics: { configuredMeanGap: s.config.meanGapMinutes, referenceMeanService: 240, sampleMeanGap: schedules.length > 1 ? (schedules.at(-1)!.eta - schedules[0]!.eta) / (schedules.length - 1) / 60 : 0, sampleMeanService: schedules.reduce((n, v) => n + v.referenceService, 0) / schedules.length / 60 }, operations: { cost: s.cost, energy: s.energy, distance: s.distance, rehandles: s.rehandles, wait: Object.values(s.calls).reduce((a, c) => { for (const key of Object.keys(a) as (keyof typeof a)[])
                 a[key] += c.wait[key]; return a; }, { berth: 0, anchor: 0, channel: 0, documents: 0, dispatch: 0 }), yard: s.plan.yards.map(y => ({ id: y.id, ...portYardUsage(s, y.id) })) }, calls: visiblePortCalls(s), attempts: s.attempts, timeline: s.notices, containerLedger: Object.values(s.boxes).filter(b => s.calls[s.batches[b.batchId]!.callId]!.announced).map(b => ({ id: b.id, batchId: b.batchId, location: b.location, issue: b.issue, history: b.history })), handover: portHandoverItems(s).map(({ fingerprint, ...item }) => item) };
@@ -137,7 +150,7 @@ export function serializePortSession(s: PortSession, options: {
     suspend?: boolean;
 } = {}) {
     const status = options.suspend && ["running", "paused"].includes(s.status) ? s.mode === "battle" ? "interrupted" : "paused" : s.status;
-    return JSON.stringify({ schema: s.schema, scoringVersion: s.scoringVersion ?? 1, ...(s.schema === "port-operations/3.1" ? { navigationVersion: PORT_NAVIGATION_VERSION } : {}), generator: PORT_ARRIVAL_GENERATOR, config: cleanPortConfig(s.config), mode: s.mode, initialPlan: cleanPortPlan(s.initialPlan), schedule: s.schedules, commands: s.commands, inputLog: s.inputLog ?? [], traceCoverage: s.traceCoverage ?? "complete", status, ...(options.review ? { review: portReport(s) } : {}) });
+    return JSON.stringify({ schema: s.schema, ...(s.referenceVersion === undefined ? {} : { referenceVersion: s.referenceVersion }), scoringVersion: s.scoringVersion ?? 1, ...(s.schema === "port-operations/3.1" ? { navigationVersion: PORT_NAVIGATION_VERSION } : {}), generator: PORT_ARRIVAL_GENERATOR, config: cleanPortConfig(s.config), mode: s.mode, initialPlan: cleanPortPlan(s.initialPlan), schedule: s.schedules, commands: s.commands, inputLog: s.inputLog ?? [], traceCoverage: s.traceCoverage ?? "complete", status, ...(options.review ? { review: portReport(s) } : {}) });
 }
 export function restorePortSession(raw: string, suspend = false): PortSession {
     if (raw.length > 20000000)
@@ -147,6 +160,8 @@ export function restorePortSession(raw: string, suspend = false): PortSession {
         throw new Error("港口综合实训复盘版本或指令记录无效。");
     if (data.schema === "port-operations/3.1" && data.navigationVersion !== PORT_NAVIGATION_VERSION) throw new Error("航行规则版本无效。");
     const s = createPortSession(data.mode, cleanPortConfig(data.config), cleanPortPlan(data.initialPlan), data.schema);
+    if (data.referenceVersion !== undefined && ![1, 2].includes(data.referenceVersion)) throw new Error("成本基准版本无效。");
+    if (data.referenceVersion === undefined) delete s.referenceVersion; else s.referenceVersion = data.referenceVersion;
     if (data.scoringVersion !== undefined && ![1, 2].includes(data.scoringVersion)) throw new Error("评分版本无效。");
     if (data.scoringVersion === undefined) delete s.scoringVersion; else s.scoringVersion = data.scoringVersion;
     if (JSON.stringify(data.schedule) !== JSON.stringify(s.schedules))

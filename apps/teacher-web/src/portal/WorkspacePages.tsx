@@ -32,6 +32,8 @@ import {
 } from "@edu/course-content/deck-registry";
 import { PORT_COURSE_UNITS } from "@edu/port-simulation-core";
 import { api, request } from "../api";
+import { isLocalDevelopment } from "../campus/local-identity";
+import { runtimeConfig } from "../campus/runtime";
 import { SlideStage } from "../features/classroom/TeachingSlides";
 import { PortResultDetail } from "../features/port-simulation/PortResultsPage";
 import {
@@ -165,7 +167,7 @@ export function WorkspaceShell({ onNewCourse }: { onNewCourse: () => void }) {
               onClick={() =>
                 void api
                   .logoutIdentitySession()
-                  .then(() => window.location.assign("/"))
+                  .then(() => window.location.assign(isLocalDevelopment(runtimeConfig, import.meta.env.DEV) ? "/signed-out" : "/"))
               }
             >
               退出
@@ -872,7 +874,7 @@ export function TaskWorkspace({ embedded = false }: { embedded?: boolean }) {
                         ? "教师已收到核验通过的结果"
                         : "尚无有效提交"}
                     {result &&
-                      ` · 上次${u.id === "full" ? "综合成绩" : "完成度"} ${result.result?.score.toFixed(2)}`}
+                      ` · 最高${u.id === "full" ? "综合成绩" : "任务成绩"} ${result.result?.score.toFixed(2)}`}
                   </p>
                 )}
                 <div className="workspace-actions">
@@ -955,7 +957,7 @@ export function SubmissionHistory() {
             </p>
             <p>
               {s.result
-                ? `${s.unit === "full" ? "综合成绩" : "目标完成度"} ${s.result.score.toFixed(2)} · 教师已收到`
+                ? `${s.unit === "full" ? "综合成绩" : "任务成绩"} ${s.result.score.toFixed(2)} · 教师已收到`
                 : (s.error ?? "请稍后查看核验结果")}
             </p>
           </div>

@@ -151,7 +151,8 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   const identityProvider =
     options.identityProvider ??
     (campusMode ? new CampusIdentityProvider(`${options.dataFile}.accounts.sqlite`, undefined, options.accountMinimumPasswordLength) : new DevelopmentIdentityProvider({
-      allowRoleSelection: allowDevelopmentIdentity
+      allowRoleSelection: allowDevelopmentIdentity,
+      localTeacher: { actorId: store.getTeacher().id, displayName: store.getTeacher().name }
     }));
   if (
     (campusMode || process.env.NODE_ENV === "production") &&

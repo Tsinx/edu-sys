@@ -231,6 +231,8 @@ export interface PortHandover {
 }
 export interface PortSession {
     scoringVersion?: 1 | 2;
+    /** Missing in historical records: retain the original cost reference. */
+    referenceVersion?: 1 | 2;
     /** Unmerged top-level input, including rejected actions. Absent in old saves. */
     inputLog?: PortCommand[];
     traceCoverage?: "complete" | "legacy";

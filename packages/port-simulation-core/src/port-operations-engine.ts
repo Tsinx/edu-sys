@@ -47,6 +47,7 @@ export function createPortSession(mode: PortMode = "practice", config = defaultP
     if (config.disruption === "outage")
         event(s, { id: "fault:0", at: 18 * 3600, kind: "fault", object: "equipment", value: 0 });
     s.scoringVersion = 2;
+    if (schema === PORT_OPERATIONS_SCHEMA) s.referenceVersion = 2;
     settle(s);
     return s;
 }

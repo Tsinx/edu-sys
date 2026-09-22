@@ -3,12 +3,12 @@ import { Worker } from "node:worker_threads";
 import { z } from "zod";
 import type { FastifyInstance, FastifyRequest } from "fastify";
 import type { ClassroomActor } from "@edu/contracts";
-import { PORT_SUBMISSION_SCHEMA, type PortSubmissionPackage, type PortSubmissionResult, type verifyPortSubmission } from "@edu/port-simulation-core";
+import { PORT_SUBMISSION_SCHEMA, PORT_VERIFIER_VERSION, portCourseScoreFromEvidence, type PortSubmissionPackage, type PortSubmissionResult, type verifyPortSubmission } from "@edu/port-simulation-core";
 import { campusError, openDatabase, transaction } from "./campus/database.js";
 
 const unit = z.enum(["arrival", "cargo", "yard", "planning", "departure", "full"]);
 const inputSchema = z.object({ requestId: z.string().uuid(), courseId: z.literal("course-port-management-intro"), classSessionId: z.string().max(200).optional(), expectedRevision: z.number().int().min(0),
-  package: z.object({ schema: z.literal(PORT_SUBMISSION_SCHEMA), unit, ended: z.enum(["student", "completed"]), record: z.string().max(20_000_000), expected: z.object({ stateHash: z.string().regex(/^[0-9a-f]{64}$/), score: z.number().finite().min(0).max(100) }).strict() }).strict() }).strict();
+  package: z.object({ schema: z.enum([PORT_SUBMISSION_SCHEMA, "port-experiment-submission/1"]), unit, ended: z.enum(["student", "completed"]), record: z.string().max(20_000_000), expected: z.object({ stateHash: z.string().regex(/^[0-9a-f]{64}$/), score: z.number().finite().min(0).max(100) }).strict() }).strict() }).strict();
 type SubmissionInput = z.infer<typeof inputSchema>;
 type Verified = Awaited<ReturnType<typeof verifyPortSubmission>>;
 type Row = { id: string; actor_id: string; display_name: string; course_id: string; class_session_id: string | null; unit: string; status: string; expected_revision: number; revision: number; created_at: string; updated_at: string; error: string | null; package: string; verified: string | null; result: string | null; digest: string };
@@ -47,7 +47,36 @@ export class PortSubmissionRepository {
     if (!this.db.prepare("PRAGMA table_info(port_submissions)").all().some(row => row.name === "class_session_id")) this.db.exec("ALTER TABLE port_submissions ADD COLUMN class_session_id TEXT");
     this.db.exec("UPDATE port_submissions SET result=json_extract(verified,'$.result') WHERE verified IS NOT NULL AND result IS NULL");
     this.db.exec(`CREATE TABLE IF NOT EXISTS port_tasks(course_id TEXT NOT NULL,unit TEXT NOT NULL,published_by TEXT NOT NULL,published_at TEXT NOT NULL,PRIMARY KEY(course_id,unit))`);
+    this.migrateBestResults();
     this.pump();
+  }
+  private migrateBestResults() {
+    this.db.exec("CREATE TABLE IF NOT EXISTS port_result_rules(version INTEGER PRIMARY KEY)");
+    if (this.db.prepare("SELECT 1 FROM port_result_rules WHERE version=2").get()) return;
+    transaction(this.db, () => {
+      // Saved server evidence is authoritative; never use client-attached scores.
+      const rows = this.db.prepare("SELECT * FROM port_submissions WHERE status='verified'").all() as Row[];
+      for (const row of rows) {
+        if (row.unit === "full" || !row.verified) continue;
+        const verified = JSON.parse(row.verified) as Verified;
+        const deductions = verified.nodes.filter(n => n.source === "student").reduce((sum, n) => sum + n.result.deduction, 0);
+        const courseScore = portCourseScoreFromEvidence(verified.result.goals, deductions);
+        verified.result = { ...verified.result, courseScore, score: courseScore.total, verifier: PORT_VERIFIER_VERSION };
+        this.db.prepare("UPDATE port_submissions SET verified=?,result=? WHERE id=?").run(JSON.stringify(verified), JSON.stringify(verified.result), row.id);
+      }
+      const ordered = this.db.prepare("SELECT * FROM port_submissions WHERE status='verified' AND result IS NOT NULL ORDER BY CAST(json_extract(result,'$.score') AS REAL) DESC,created_at,rowid").all() as Row[];
+      const seen = new Set<string>();
+      for (const row of ordered) {
+        const key = JSON.stringify([row.actor_id, row.course_id, row.unit]);
+        if (seen.has(key)) continue;
+        seen.add(key);
+        const old = this.db.prepare("SELECT submission_id,revision FROM port_latest WHERE actor_id=? AND course_id=? AND unit=?").get(row.actor_id, row.course_id, row.unit);
+        const revision = old?.submission_id === row.id ? Number(old.revision) : Number(old?.revision ?? 0) + 1;
+        this.db.prepare("UPDATE port_submissions SET revision=? WHERE id=?").run(revision, row.id);
+        this.db.prepare("INSERT INTO port_latest VALUES(?,?,?,?,?) ON CONFLICT(actor_id,course_id,unit) DO UPDATE SET submission_id=excluded.submission_id,revision=excluded.revision").run(row.actor_id, row.course_id, row.unit, row.id, revision);
+      }
+      this.db.prepare("INSERT INTO port_result_rules VALUES(2)").run();
+    });
   }
   tasks(course: string) { return this.db.prepare("SELECT unit,published_at AS publishedAt FROM port_tasks WHERE course_id=? ORDER BY published_at").all(course); }
   publishTask(course: string, unit: string, actorId: string) {
@@ -62,7 +91,8 @@ export class PortSubmissionRepository {
     const row = transaction(this.db, () => {
       const prior = this.db.prepare("SELECT * FROM port_submissions WHERE actor_id=? AND request_id=?").get(actor.actorId, input.requestId) as Row | undefined;
       if (prior) { if (prior.digest !== digest) throw campusError(409, "SUBMISSION_ID_REUSED", "提交编号已用于其他内容。"); return prior; }
-      if (this.latestRevision(actor.actorId, input.courseId, input.package.unit) !== input.expectedRevision) throw campusError(409, "RESULT_CONFLICT", "另一台设备已更新成绩，请刷新最近提交后重试。");
+      // expectedRevision remains accepted for older clients. Best-score selection
+      // is atomic after verification, so stale or concurrent uploads are safe.
       if (Number(this.db.prepare("SELECT COUNT(*) AS n FROM port_submissions WHERE actor_id=? AND status IN ('queued','verifying')").get(actor.actorId)?.n) >= 6) throw campusError(429, "SUBMISSION_QUEUE_FULL", "已有实验等待核验，请稍后再提交。");
       const id = randomUUID(), now = new Date().toISOString();
       this.db.prepare("INSERT INTO port_submissions(id,actor_id,display_name,course_id,class_session_id,unit,request_id,digest,expected_revision,status,package,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)")
@@ -100,10 +130,11 @@ export class PortSubmissionRepository {
         const verified = await this.current.promise;
         if (this.closed) return;
         transaction(this.db, () => {
-          if (this.latestRevision(row.actor_id, row.course_id, row.unit) !== row.expected_revision) throw new Error("另一份提交已更新该实验成绩，本次未覆盖，请刷新后重新提交。");
-          const revision = row.expected_revision + 1;
+          const best = this.db.prepare("SELECT s.result FROM port_latest l JOIN port_submissions s ON s.id=l.submission_id WHERE l.actor_id=? AND l.course_id=? AND l.unit=?").get(row.actor_id, row.course_id, row.unit);
+          const improves = !best || verified.result.score > (JSON.parse(String(best.result)) as PortSubmissionResult).score;
+          const revision = this.latestRevision(row.actor_id, row.course_id, row.unit) + (improves ? 1 : 0);
           this.db.prepare("UPDATE port_submissions SET status='verified',revision=?,verified=?,result=?,updated_at=? WHERE id=?").run(revision, JSON.stringify(verified), JSON.stringify(verified.result), new Date().toISOString(), row.id);
-          this.db.prepare("INSERT INTO port_latest VALUES(?,?,?,?,?) ON CONFLICT(actor_id,course_id,unit) DO UPDATE SET submission_id=excluded.submission_id,revision=excluded.revision")
+          if (improves) this.db.prepare("INSERT INTO port_latest VALUES(?,?,?,?,?) ON CONFLICT(actor_id,course_id,unit) DO UPDATE SET submission_id=excluded.submission_id,revision=excluded.revision")
             .run(row.actor_id, row.course_id, row.unit, row.id, revision);
         });
       } catch (error) {

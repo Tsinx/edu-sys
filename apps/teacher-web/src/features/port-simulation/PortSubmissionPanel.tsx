@@ -87,10 +87,11 @@ export function PortSubmissionPanel({ context, storage, unit, runId, eligible, b
   const inFlight = state === "queued" || state === "verifying";
   return <section className="port-submission-card" aria-label="实验成绩提交">
     <h3>提交本次实验</h3>
-    <details><summary>提交说明与上次结果</summary><p>{unit === "full" ? "教学与实战模式均可上传当前成绩。提前结束按当前实际进度计分，并标记为未完成。" : "教学与实战模式均可主动结束后提交；按实际目标占比记录完成度；耗时、成本与错误另列，完成度100不代表效率最优。"} 每个实验显示最近有效成绩，历史提交可在“我的提交”查看。</p>
+    <details><summary>提交说明与最高成绩</summary><p>{unit === "full" ? "教学与实战模式均可上传当前成绩。提前结束按当前实际进度计分，并标记为未完成。" : "本段成绩为目标完成比例得分减去实际判定扣分，最低为零。教学模式解释错误不扣分；实战模式计入违规扣分。耗时与成本另列。"} 同一任务可以反复练习并提交，最终保留最高分及该次操作轨迹；低分或同分不覆盖已有结果，历史提交可在“我的提交”查看。</p>
     {!published && <p>等待教师公布本流程任务，当前练习保存在本机。</p>}
-    {latest?.result && <p className="port-result-success">上一次有效提交：<strong>{latest.result.score.toFixed(2)} 分</strong> · {new Date(latest.updatedAt).toLocaleString("zh-CN")}</p>}
+    {latest?.result && <p className="port-result-success">当前最高成绩：<strong>{latest.result.score.toFixed(2)} 分</strong> · {new Date(latest.updatedAt).toLocaleString("zh-CN")}</p>}
     </details><p role="status">{sameRun ? state ? submissionStatus[state] : "待上传 · 封存记录已保存在本机" : sealed ? "本次已封存，可重试提交或开始新练习" : "当前这次练习尚未提交"}{sameRun && pending?.response?.error ? `：${pending.response.error}` : ""}</p>
+    {sameRun && state === "verified" && pending?.response?.result && <p>本次 {pending.response.result.score.toFixed(2)} 分{latest?.id === pending.response.id ? "，已作为最高成绩保留。" : latest?.result ? `；仍保留最高成绩 ${latest.result.score.toFixed(2)} 分及其操作轨迹。` : "，正在读取最高成绩。"}</p>}
     {error && <p role="alert">{error}</p>}
     <div className="port-actions"><button disabled={busy || sealing || !published || !eligible || inFlight || state === "verified"} onClick={() => void submit()}>{busy || sealing ? "正在封存与上传…" : state === "verified" ? "本次已提交" : sameRun ? "重试提交" : unit === "full" ? "提交教师" : "结束并提交"}</button>
       <a href="/submissions">我的提交</a><button disabled={busy} onClick={() => { void refresh().then(async () => { if (pending?.response?.id && inFlight) await persist({ ...pending, response: await resultRequest<SubmissionSummary>(`submissions/${pending.response.id}`) }); setError(""); }).catch(reason => setError(reason.message)); }}>读取最新状态</button></div>

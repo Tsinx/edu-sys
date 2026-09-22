@@ -85,7 +85,7 @@ test("self-study session persists progress and exposes a zero-GPU Lanzhou presen
     assert.equal(first.mode, "student");
     assert.equal(first.globalIndex, 1);
     assert.equal(first.slideKey, "l1-course-cover");
-    assert.equal(first.slideTotal, 389);
+    assert.equal(first.slideTotal, 485);
     assert.equal(first.presentation.mode, "selfstudy_prerecorded");
     assert.equal(first.presentation.requiresGpu, false);
     assert.equal(first.presentation.characterId, "lanzhou");
