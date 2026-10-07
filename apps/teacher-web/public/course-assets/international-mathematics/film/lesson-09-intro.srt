@@ -1,0 +1,75 @@
+1
+00:00:00,650 --> 00:00:03,915
+A conveyor carries twenty parcels through
+a bright warehouse.
+
+2
+00:00:03,915 --> 00:00:08,993
+One fresh box slides into view, and a new
+question interrupts the rhythm of
+
+3
+00:00:08,993 --> 00:00:09,356
+production.
+
+4
+00:00:15,650 --> 00:00:20,111
+The warehouse bill includes rent, labour,
+and a growing workload.
+
+5
+00:00:20,111 --> 00:00:25,910
+Divide that whole bill among existing
+parcels, and an average cost appears on
+
+6
+00:00:25,910 --> 00:00:26,356
+screen.
+
+7
+00:00:30,650 --> 00:00:33,441
+But the next parcel asks a different
+question.
+
+8
+00:00:33,441 --> 00:00:37,627
+Some costs already exist, while extra
+handling may become harder as the
+
+9
+00:00:37,627 --> 00:00:39,022
+conveyor grows more crowded.
+
+10
+00:00:45,650 --> 00:00:48,969
+A smooth cost curve rises behind the
+boxes.
+
+11
+00:00:48,969 --> 00:00:54,776
+A straight line touches one point, showing
+the nearby rate at which total cost
+
+12
+00:00:54,776 --> 00:00:55,606
+is changing.
+
+13
+00:01:00,650 --> 00:01:05,591
+Move one parcel forward along the curve.
+The tangent gives an estimate, while
+
+14
+00:01:05,591 --> 00:01:09,772
+the curve gives an exact increment,
+leaving a small visible gap.
+
+15
+00:01:15,650 --> 00:01:20,307
+The new parcel waits beside the receipt.
+Can the average cost predict its
+
+16
+00:01:20,307 --> 00:01:24,606
+extra cost, or should we read a different
+number from the curve?

@@ -40,7 +40,9 @@ const EconomicMathematicsSlideStage = lazy(() =>
   )
 );
 
-const ECONOMIC_MATHEMATICS_DECK_ID = "deck-economic-mathematics-2026";
+const ECONOMIC_MATHEMATICS_DECK_ID = "deck-economic-mathematics-2026-v2";
+const INTERNATIONAL_MATHEMATICS_DECK_ID = "deck-international-mathematics-jacques-2026";
+const InternationalMathematicsStage = lazy(() => import("../international-mathematics/InternationalMathematicsStage").then(module => ({default: module.InternationalMathematicsStage})));
 const StatisticalAnalysisSlideStage = lazy(() => import('../statistical-analysis/StatisticalAnalysisSlideStage').then(m => ({default:m.StatisticalAnalysisSlideStage})));
 const ManagementSlideStage = lazy(() => import('../management-principles/ManagementSlideStage').then(m => ({default:m.ManagementSlideStage})));
 
@@ -818,6 +820,9 @@ export function SlideStage({
   lessonFivePresentation,
   lessonSixPresentation,
   portExpansionPresentation,
+  playbackMode = "reader",
+  serverNowMs,
+  onNavigate,
   onInteractionPatch,
   onInteractionReset
 }: {
@@ -828,10 +833,18 @@ export function SlideStage({
   lessonFivePresentation?: LessonFivePresentation;
   lessonSixPresentation?: LessonSixPresentation;
   portExpansionPresentation?: ExpansionPresentation;
+  playbackMode?: "teacher" | "student" | "reader" | "offline";
+  serverNowMs?: number;
+  onNavigate?: (index:number) => void;
   onInteractionPatch?: (patch: SlideInteractionValues) => void;
   onInteractionReset?: () => void;
 }) {
-  if (frame.deckId === ECONOMIC_MATHEMATICS_DECK_ID) {
+  if (frame.deckId === INTERNATIONAL_MATHEMATICS_DECK_ID) {
+    return <Suspense fallback={<SlideViewport label={`Loading mathematics: ${frame.title}`}><div>Loading lecture…</div></SlideViewport>}>
+      <InternationalMathematicsStage frame={frame} interaction={interaction} readOnly={readOnly} playbackMode={playbackMode} serverNowMs={serverNowMs} onNavigate={onNavigate} onInteractionPatch={onInteractionPatch} onInteractionReset={onInteractionReset}/>
+    </Suspense>;
+  }
+  if (frame.deckId === ECONOMIC_MATHEMATICS_DECK_ID || frame.deckId === "deck-economic-mathematics-2026") {
     return (
       <Suspense
         fallback={

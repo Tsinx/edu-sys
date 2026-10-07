@@ -16,25 +16,27 @@ const Live2DPlayer=lazy(()=>import("../features/avatar/Live2DAvatarPlayer").then
 
 const BrowserSurface=forwardRef<LamAvatarController,LamAvatarSurfaceProps>(function BrowserSurface(props,ref){
   const renderer=useAvatarRenderer();
+  const t=(zh:string,en:string)=>props.courseId==="course-international-mathematics"?en:zh;
   const meter=useRef(new SpeechMeter());
   const [cuePack,setCuePack]=useState<AvatarCuePack>();const [state,setState]=useState<AvatarCueState>("idle");const [subtitle,setSubtitle]=useState("");const [notice,setNotice]=useState("");
   const turns=useRef(new Map<string,string>());const active=useRef<AbortController|undefined>(undefined);const context=useRef<AudioContext|undefined>(undefined);const sources=useRef(new Set<AudioBufferSourceNode>());
   const callbacks=useRef(props);callbacks.current=props;
   const realtime=useRef<{id:string;player:StreamingPcmPlayer;text:string}|undefined>(undefined);
   const stop=()=>{realtime.current?.player.stop();realtime.current=undefined;const previous=active.current;active.current=undefined;previous?.abort();for(const source of sources.current){try{source.stop();}catch{}}sources.current.clear();meter.current.reset();};
-  const audio=()=>{context.current??=new AudioContext({sampleRate:24000});void context.current.resume().catch(()=>setNotice("请点击页面后启用声音。"));return context.current;};
+  const audio=()=>{context.current??=new AudioContext({sampleRate:24000});void context.current.resume().catch(()=>setNotice(t("请点击页面后启用声音。", "Click the page to enable sound.")));return context.current;};
   useEffect(()=>{
-    void api.getAvatarCuePack("/avatar/lanzhou/v1/manifest.json").then(setCuePack).catch(()=>setNotice("角色素材未下载，文字讲解仍可使用。"));
+    void api.getAvatarCuePack("/avatar/lanzhou/v1/manifest.json").then(setCuePack).catch(()=>setNotice(t("角色素材未下载，文字讲解仍可使用。", "Avatar assets are unavailable. Text explanations still work.")));
     callbacks.current.onConnectionStateChange("ready");
     return()=>{stop();void context.current?.close();};
   },[]);
   const speak=async(text:string)=>{
     stop();setNotice("");setSubtitle(text);setState("thinking");callbacks.current.onConnectionStateChange("thinking");
-    if(!runtimeConfig.speech.tts){setNotice("当前使用字幕讲解；管理员配置语音后可朗读。");setState("idle");callbacks.current.onConnectionStateChange("ready");return;}
+    const speechConfigured = callbacks.current.courseId === "course-international-mathematics" ? runtimeConfig.speech.ttsEnglish ?? runtimeConfig.speech.tts : runtimeConfig.speech.tts;
+    if(!speechConfigured){setNotice(t("当前使用字幕讲解；管理员配置语音后可朗读。", "Text explanations are active. Speech will resume when configured."));setState("idle");callbacks.current.onConnectionStateChange("ready");return;}
     const controller=new AbortController();active.current=controller;let completed=false;
     try{
-      const response=await fetch("/api/teacher/tts",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text.slice(0,3000), voiceProfile:getAvatarVoice(),lipSync:renderer==="live2d"}),signal:controller.signal});
-      if(!response.ok || !response.body)throw new Error("语音暂不可用，请阅读字幕。");
+      const response=await fetch("/api/teacher/tts",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text.slice(0,3000), voiceProfile:getAvatarVoice(),lipSync:renderer==="live2d",courseId:callbacks.current.courseId}),signal:controller.signal});
+      if(!response.ok || !response.body)throw new Error(t("语音暂不可用，请阅读字幕。", "Speech is unavailable. Please read the text."));
       controller.signal.throwIfAborted();
       const reader=response.body.getReader();const decoder=new TextDecoder();let buffer="";const ctx=audio();let next=ctx.currentTime;const playback:Promise<void>[]=[];
       try{while(true){const chunk=await reader.read();controller.signal.throwIfAborted();buffer+=decoder.decode(chunk.value,{stream:!chunk.done});if(chunk.done)buffer+="\n";const lines=buffer.split("\n");buffer=lines.pop()!;

@@ -1,0 +1,632 @@
+{
+  "createdUtc": "2026-10-02T09:53:30.730157Z",
+  "baseCommit": "60808f6c584c43cb4049c8c52d749495e364cd62",
+  "deckId": "deck-economic-mathematics-2026",
+  "versionId": "release-economic-mathematics-v1",
+  "slideCount": 1460,
+  "entries": [
+    {
+      "original": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/curriculum.ts",
+      "sha256": "b61501c30e8c1619673c13607e6712996832074a696532be576a7f570efbcac7",
+      "bytes": 2819,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/index.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/index.ts",
+      "sha256": "8c3db7680c6e1a7e243ba5a400de90a71ebbaeb8d1b736cc4c1b141e08699a3f",
+      "bytes": 125,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/interactions.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/interactions.ts",
+      "sha256": "ff565d3c431aa1d586bcba051c90f1ab7dd167db050cac048903a1c7d063e4ad",
+      "bytes": 14896,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/slides.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/slides.ts",
+      "sha256": "27eba0b20be9f9397c01a5249a6c555c0c57ae4850e3e9c6c2dd458e680ba3ea",
+      "bytes": 8329,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/types.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/types.ts",
+      "sha256": "69d7190894088453cdbd43d5d8134f835b22d98d3bbdf2eac5e65050a838bf54",
+      "bytes": 2986,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-01.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-01.ts",
+      "sha256": "46078b2b7d08336cc37cc741e66542612cc92c025dd1553c0704dbfd4014cf92",
+      "bytes": 24299,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-02.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-02.ts",
+      "sha256": "b4715ed188012c0f3405a781c0a3c0fc45fa1381768b05cfbe3e361c32e63659",
+      "bytes": 24987,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-03.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-03.ts",
+      "sha256": "76401451894795649a003845a9fd5440efdedf538ec988ef64a0b8a3f3f131ea",
+      "bytes": 23541,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-04.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-04.ts",
+      "sha256": "cb7e30a3bd42617bb3e6ebec536cabd1735046a5f384a753c2840c13bf8d23e5",
+      "bytes": 23814,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-05.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-05.ts",
+      "sha256": "d2f64c3529750f93f6cee527a4481b339d5eaf1847c42dfead2c0701e2c3f2e7",
+      "bytes": 24664,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-06.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-06.ts",
+      "sha256": "3276993e256d1357c6ac6182c780d7d0e38bb7661c3b985c37240ce778472bd7",
+      "bytes": 24741,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-07.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-07.ts",
+      "sha256": "227cabc0032c4a3420db7a2608dc832ac05c41c544566b51e4c8033d21707bfa",
+      "bytes": 24642,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-08.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-08.ts",
+      "sha256": "355cff784d33633e3333ab5063e243da344b78198cdbacfb70ee6e0356d31e89",
+      "bytes": 21570,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-09.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-09.ts",
+      "sha256": "cb262aa43119e8ce2956835d786d6579395dfcc486b0b325f49d09792e3ec83c",
+      "bytes": 23239,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-10.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-10.ts",
+      "sha256": "bfc1eea2d82da6d4aaa01b4bd3fa15f8dabc175a843915f3bf71df4fd21d283c",
+      "bytes": 22680,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-11.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-11.ts",
+      "sha256": "69b9fa17e055a5ad09cdb0e7c15cd2f4677d4b99435cd9612479b31849c25f66",
+      "bytes": 36162,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-12.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-12.ts",
+      "sha256": "1212efea5a510746f39d37bc7b660086c0b2db577b15023d8ef79e7c15ef73c1",
+      "bytes": 32387,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-13.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-13.ts",
+      "sha256": "06288e32abace5d0e10e0b88ab94c59597626111a58fb2362948faf108a03a6e",
+      "bytes": 31896,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-14.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-14.ts",
+      "sha256": "65a8990229d8ac77414655d394b732a39fc7701b6df060de256a0ce367d4fab1",
+      "bytes": 33888,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-15.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-15.ts",
+      "sha256": "cc8a59a5ac6ab0f51ad2b5039e9ac33c68db0d3800e07e6c1671ea606173a587",
+      "bytes": 32519,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-16.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-16.ts",
+      "sha256": "a46a35ed2807aa3124dfd8e48fe2bb81ed26783d7918f43cabbea31c421c4764",
+      "bytes": 33810,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-17.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-17.ts",
+      "sha256": "e30b784f1e9b6dcaca7fbd5fb22cc5201edf3cf9e08a52db13cba162c28b73f1",
+      "bytes": 28881,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-18.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-18.ts",
+      "sha256": "53f007c62159849dee3aee27cef77da2bd3c0d6da989be9239a9e72d0bb14511",
+      "bytes": 28282,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-19.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-19.ts",
+      "sha256": "ea712ca87ca34bd7ed88ee1c75fb4dc09337c5cd7e6c427d32f891df55d37347",
+      "bytes": 28570,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-20.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-20.ts",
+      "sha256": "bde0526b5dd7f64a1a01593f91b8091912218b305114f1a99c331dfbee0e0140",
+      "bytes": 27708,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-21.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-21.ts",
+      "sha256": "94cf5f079067d37787a8fbe3fc0a903a5e9a7b8e990613a6dca1b54f760b11a5",
+      "bytes": 33336,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-22.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-22.ts",
+      "sha256": "47842ae1e912b8d6d218b9a1a2fed5d5f1a0151909392da2ea7d804e8ceb9870",
+      "bytes": 29408,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-23.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-23.ts",
+      "sha256": "6ee98812c23349fbd3b0880e88669b38439bcab55d323c20269752d597b07adf",
+      "bytes": 23424,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-24.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-24.ts",
+      "sha256": "e330829c6cff49ac2f5602b101525aaaefcd74f124b60047105443ffec39496a",
+      "bytes": 24499,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-25.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-25.ts",
+      "sha256": "869e47b2991d9d6d1d25067ce7da774010aa19c0c3f0c63d12b5c0f7c4605bb3",
+      "bytes": 25883,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-26.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-26.ts",
+      "sha256": "e9e89ee171fbee15a524a78775dbd86d0df4d63a8940ae6863d42767538a0039",
+      "bytes": 25101,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-27.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-27.ts",
+      "sha256": "174dc36f3b385655d29455a8d202558216b992789c5226fb6784dc390fac77a0",
+      "bytes": 24311,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-28.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-28.ts",
+      "sha256": "9524eb1921139616659b3064392c799d2360204af5069b1cec96eb9e3c01e4f4",
+      "bytes": 25177,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-29.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-29.ts",
+      "sha256": "43a58c33103ebed527db3e5a2af86b67e98ada84c147e91e5bfff06a33a09016",
+      "bytes": 23894,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-30.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-30.ts",
+      "sha256": "ac11586169203f444d424a8567d6d1f27fc37245c3edd252aac4d3eab6de2474",
+      "bytes": 24929,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-31.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-31.ts",
+      "sha256": "d5614590fe65e64f7895299b7993765a270d6fa0957fa0aaa3a67db73b25bf4f",
+      "bytes": 25299,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/economic-mathematics/lessons/lesson-32.ts",
+      "archived": "snapshot/packages/course-content/src/economic-mathematics/lessons/lesson-32.ts",
+      "sha256": "03b2a14de7fe3591f601cd7964c8bbe3740e21dce32a11f830489ea693709c33",
+      "bytes": 24656,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/src/features/economic-mathematics/economic-mathematics.css",
+      "archived": "snapshot/apps/teacher-web/src/features/economic-mathematics/economic-mathematics.css",
+      "sha256": "f4b741d2a9c03c21901e62df47c2412180019bb5b4ac22d7481ee5bc26f5bd4a",
+      "bytes": 20528,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsSlideStage.tsx",
+      "archived": "snapshot/apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsSlideStage.tsx",
+      "sha256": "1730505d38d9802d1904c634b9d075e2e61ac26a88eb58bc9ddbf9c26376f3ff",
+      "bytes": 1470,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
+      "archived": "snapshot/apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
+      "sha256": "4502fe39eb0413eb1745202c6d542bf2c45fc793aec6d85b12c77ddac8b0585d",
+      "bytes": 83402,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/src/features/economic-mathematics/art-directed/lesson-01-art.css",
+      "archived": "snapshot/apps/teacher-web/src/features/economic-mathematics/art-directed/lesson-01-art.css",
+      "sha256": "38e4371548cc6aa6a78d9636aa1198da96bd93f17075d649edde7c1807e2d0bb",
+      "bytes": 51840,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/src/features/economic-mathematics/art-directed/lesson-02-art.css",
+      "archived": "snapshot/apps/teacher-web/src/features/economic-mathematics/art-directed/lesson-02-art.css",
+      "sha256": "9294a1c814077ee2fbf6f7961f101590fa426b3e4d5acc1dd21b4067f4111598",
+      "bytes": 74451,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/src/features/economic-mathematics/art-directed/lesson-03-art.css",
+      "archived": "snapshot/apps/teacher-web/src/features/economic-mathematics/art-directed/lesson-03-art.css",
+      "sha256": "afdbf3072c3e2c3432d280af5e33c9da8afbae559e9028fabcbdca0c7fea5121",
+      "bytes": 38499,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/src/features/economic-mathematics/art-directed/lesson-04-art.css",
+      "archived": "snapshot/apps/teacher-web/src/features/economic-mathematics/art-directed/lesson-04-art.css",
+      "sha256": "50e1812c5fc39c255aea77493f430162925985c3f5b44c454add48b4ea30f557",
+      "bytes": 35547,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/src/features/economic-mathematics/art-directed/Lesson01ArtSlides.tsx",
+      "archived": "snapshot/apps/teacher-web/src/features/economic-mathematics/art-directed/Lesson01ArtSlides.tsx",
+      "sha256": "c5f88be3d5ce917eb9d576546a9ea1ef0f18ba90c5f84fab6c4b95a775e004bc",
+      "bytes": 41847,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/src/features/economic-mathematics/art-directed/Lesson02ArtSlides.tsx",
+      "archived": "snapshot/apps/teacher-web/src/features/economic-mathematics/art-directed/Lesson02ArtSlides.tsx",
+      "sha256": "301610dc1fbcd9498452d821d8aaa69ea16f58e949a8804c7d97eaa3d5319dc0",
+      "bytes": 52907,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/src/features/economic-mathematics/art-directed/Lesson03ArtSlides.tsx",
+      "archived": "snapshot/apps/teacher-web/src/features/economic-mathematics/art-directed/Lesson03ArtSlides.tsx",
+      "sha256": "cd690300bdf1d60cfce466cee9901b511af3354cd9ac9a25072a9d3de749179e",
+      "bytes": 35730,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/src/features/economic-mathematics/art-directed/Lesson04ArtSlides.tsx",
+      "archived": "snapshot/apps/teacher-web/src/features/economic-mathematics/art-directed/Lesson04ArtSlides.tsx",
+      "sha256": "b7b97c4b5c5725e926b6c36f2ba51d6fb6d6fea2f0649e0e7b15c3278575892c",
+      "bytes": 35951,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/unit-01-functions-hero.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/unit-01-functions-hero.webp",
+      "sha256": "c2812c0d7a26d5bc8e6b40cfb3e63902fb0feefe22f0c8e594ec36898d6fd872",
+      "bytes": 241082,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/unit-02-limits-hero.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/unit-02-limits-hero.webp",
+      "sha256": "e96195c9ee11abda20424348cc40653bc7d60f9e2191baaadb6b6c7c9f0dd2aa",
+      "bytes": 229508,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/unit-03-derivatives-hero.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/unit-03-derivatives-hero.webp",
+      "sha256": "b2d6f8358d7c2a224637dffa0c83460aae3e61a186684ebe401a5507fd7ee786",
+      "bytes": 253084,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/unit-04-applications-hero.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/unit-04-applications-hero.webp",
+      "sha256": "fbd741304faec47ed9bbb16f184033fc7c67a50fe43197e2b654d721e6145aef",
+      "bytes": 264760,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/unit-05-antiderivatives-hero.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/unit-05-antiderivatives-hero.webp",
+      "sha256": "5abe423e4fbc72808f1097a4efd8e69766a3d62c1a4cbef1d7d2a2a54c01df61",
+      "bytes": 286798,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/unit-06-integrals-hero.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/unit-06-integrals-hero.webp",
+      "sha256": "0513ddeb00141d2ef02d646660800166346b8ea4649f8d7d82217b3639c3b468",
+      "bytes": 298760,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/unit-07-multivariable-hero.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/unit-07-multivariable-hero.webp",
+      "sha256": "8009a35bf2b3804bdad415a98b29365e2c9e7e87dec03f8d3d4b56e2b2c688ed",
+      "bytes": 300054,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/unit-08-optimization-hero.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/unit-08-optimization-hero.webp",
+      "sha256": "3c7aebfdf2b9ce9340b4f9162f497cece81c1ba632789e1359c9730f790bc97c",
+      "bytes": 325926,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/art/l01-function-receipt.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/art/l01-function-receipt.webp",
+      "sha256": "4fb342cde777b78fe289e04ef28a52221aebf50392cbd29e89972b6df9a6452e",
+      "bytes": 100748,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/art/l01-market-observation.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/art/l01-market-observation.webp",
+      "sha256": "bbb7732207463c7f61beac549fb762746e39c2eabb28d40d5c5dc85899970d24",
+      "bytes": 242380,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/art/l01-variable-flow.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/art/l01-variable-flow.webp",
+      "sha256": "f5f17e39b2e4cba4c100b65259d0ea54042e11b12d98fd907831adf30e7a4a53",
+      "bytes": 270862,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/art/l02-pricing-counter.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/art/l02-pricing-counter.webp",
+      "sha256": "b664b778f71bdae0069c7aeee6e1051814236b42f41594fe4aba60c23401ab48",
+      "bytes": 224576,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/art/l02-profit-ledger.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/art/l02-profit-ledger.webp",
+      "sha256": "0a3d8509911f68cb0b9530c442a13a8af0c7aadcdeeaca960dbf68c8e2d0fdf7",
+      "bytes": 314196,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/art/l02-two-segments.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/art/l02-two-segments.webp",
+      "sha256": "edea288338f6cd16ca259ec1f047cec0987ceb2712f2fc3e51b3caca2c6fc8f2",
+      "bytes": 312288,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/art/l03-exposure-rhythm.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/art/l03-exposure-rhythm.webp",
+      "sha256": "11e101dcdcfa94c22b2f656d14c4518a56a0954a96262122730dbf2ae2006479",
+      "bytes": 172576,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/art/l03-plateau-citylights.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/art/l03-plateau-citylights.webp",
+      "sha256": "e0b279fa675c4c202c897a8bbde48919dfda2f1e6ee4c67b9b3dacb21e917e28",
+      "bytes": 207126,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/art/l03-sequence-notebook.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/art/l03-sequence-notebook.webp",
+      "sha256": "00228ecc4dc4039c4697a50d2547981defa7a827d8c933f822d28f19145a7977",
+      "bytes": 219748,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/art/l04-limit-algebra.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/art/l04-limit-algebra.webp",
+      "sha256": "86d29ad35444860a93f4bb2afed34fc161e150df8bd08da57708716da0cd6729",
+      "bytes": 205068,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/art/l04-missing-point.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/art/l04-missing-point.webp",
+      "sha256": "f4183a8fdd2d42ce8d06883db2eb915315e525a797a1c8367e8f72e0fdd75078",
+      "bytes": 430192,
+      "referenceOnly": false
+    },
+    {
+      "original": "apps/teacher-web/public/course-assets/economic-mathematics/art/l04-two-sided-approach.webp",
+      "archived": "snapshot/apps/teacher-web/public/course-assets/economic-mathematics/art/l04-two-sided-approach.webp",
+      "sha256": "3a0beffd79005bb20d5a2cd71e87e037b70ae26e3c1af1aa2310c3bd34872a27",
+      "bytes": 284544,
+      "referenceOnly": false
+    },
+    {
+      "original": "docs/course/economic-mathematics-course-design-v1.md",
+      "archived": "snapshot/docs/course/economic-mathematics-course-design-v1.md",
+      "sha256": "b35cb0e6c6f42e41baaf349a8d99528a174045bb8794903f8429d26066444b6c",
+      "bytes": 7301,
+      "referenceOnly": false
+    },
+    {
+      "original": "docs/course/economic-mathematics-assets-v1.md",
+      "archived": "snapshot/docs/course/economic-mathematics-assets-v1.md",
+      "sha256": "4ebf783c8ec547bddc2cf6c37cb119ea23d6dbc349f67583e9333705fa1bd74a",
+      "bytes": 4413,
+      "referenceOnly": false
+    },
+    {
+      "original": "scripts/export-economic-mathematics-pdf.mjs",
+      "archived": "snapshot/scripts/export-economic-mathematics-pdf.mjs",
+      "sha256": "e0f6b74d99d9b54c7dd8201562b0839ba90b95932d0f67c36522e8353c43fd86",
+      "bytes": 27656,
+      "referenceOnly": false
+    },
+    {
+      "original": "scripts/economic-mathematics-pdf/compress_pdf.py",
+      "archived": "snapshot/scripts/economic-mathematics-pdf/compress_pdf.py",
+      "sha256": "ee74818b03fd81206534509c2ec1b0d26fdc76f1e79e6e2555a7f6d9a54f12fd",
+      "bytes": 612,
+      "referenceOnly": false
+    },
+    {
+      "original": "scripts/economic-mathematics-pdf/entry.tsx",
+      "archived": "snapshot/scripts/economic-mathematics-pdf/entry.tsx",
+      "sha256": "d826dbbe3df224d4f338087074ec7004505d62b3a3dca388bdff679c92ae248c",
+      "bytes": 4874,
+      "referenceOnly": false
+    },
+    {
+      "original": "scripts/economic-mathematics-pdf/finalize_pdf.py",
+      "archived": "snapshot/scripts/economic-mathematics-pdf/finalize_pdf.py",
+      "sha256": "1db66a3a3841e9dd3e00b9e1416ea9e01ce724a905087dd4fe2f1423c34a7a39",
+      "bytes": 7069,
+      "referenceOnly": false
+    },
+    {
+      "original": "scripts/economic-mathematics-pdf/index.html",
+      "archived": "snapshot/scripts/economic-mathematics-pdf/index.html",
+      "sha256": "fe09c1693cdbeacd8a273e0ecbcd605356ad0656ac6f774df3323fe9995a6c7c",
+      "bytes": 322,
+      "referenceOnly": false
+    },
+    {
+      "original": "scripts/economic-mathematics-pdf/print.css",
+      "archived": "snapshot/scripts/economic-mathematics-pdf/print.css",
+      "sha256": "68c5c772f13b0c1e0ac3877070a1518d7edf1cfe6b93fd2303b5c47b7d66aa07",
+      "bytes": 777,
+      "referenceOnly": false
+    },
+    {
+      "original": "scripts/economic-mathematics-pdf/vite.config.mjs",
+      "archived": "snapshot/scripts/economic-mathematics-pdf/vite.config.mjs",
+      "sha256": "e67ea67d6dd298e82c6fcc2369603c4c95d88828a32a147802ae51b231971b3a",
+      "bytes": 1181,
+      "referenceOnly": false
+    },
+    {
+      "original": "output/pdf/economic-mathematics-complete-slides-2026.pdf",
+      "archived": "snapshot/output/pdf/economic-mathematics-complete-slides-2026.pdf",
+      "sha256": "8bbef32718caafb91e15ccff98bfae1ccb2db990a714eca399e890dc554bc5c0",
+      "bytes": 56194513,
+      "referenceOnly": false
+    },
+    {
+      "original": "output/pdf/economic-mathematics-lessons-01-04-art-directed-2026.pdf",
+      "archived": "snapshot/output/pdf/economic-mathematics-lessons-01-04-art-directed-2026.pdf",
+      "sha256": "a9c98e0ff52ad76bff28e294d6f83bffcdce6b567372ab9a013f153711d34310",
+      "bytes": 54302192,
+      "referenceOnly": false
+    },
+    {
+      "original": "output/pdf/economic-mathematics-lessons-01-04-neutral-palette-v2-2026.pdf",
+      "archived": "snapshot/output/pdf/economic-mathematics-lessons-01-04-neutral-palette-v2-2026.pdf",
+      "sha256": "4c1bedb23db7c0e341b6be018f0e57ab0356b258e62cc7017d683109cf41cf99",
+      "bytes": 54688196,
+      "referenceOnly": false
+    },
+    {
+      "original": "packages/course-content/src/deck-registry.ts",
+      "archived": "integration-reference/packages/course-content/src/deck-registry.ts",
+      "sha256": "8378a6880afe1d04de3fcae0646051a47782a3a6882edc4322de7ec451d4666e",
+      "bytes": 19008,
+      "referenceOnly": true
+    },
+    {
+      "original": "apps/teacher-web/src/features/classroom/TeachingSlides.tsx",
+      "archived": "integration-reference/apps/teacher-web/src/features/classroom/TeachingSlides.tsx",
+      "sha256": "250449bfc4b7cb01fa4f6ebf95ca6cf28476e2439e089791fc5a7bc3d14c56e2",
+      "bytes": 37309,
+      "referenceOnly": true
+    },
+    {
+      "original": "apps/platform-api/src/store.ts",
+      "archived": "integration-reference/apps/platform-api/src/store.ts",
+      "sha256": "28dcc458e7fee9ffb44f1022e99ef523810f5ba7d56fc56f46e9cda21580833f",
+      "bytes": 186662,
+      "referenceOnly": true
+    },
+    {
+      "original": "apps/platform-api/src/assistant/prompts.ts",
+      "archived": "integration-reference/apps/platform-api/src/assistant/prompts.ts",
+      "sha256": "5ac819743c4b164fec86254dfe273aae0892c6d5f5d58909545038750d91791e",
+      "bytes": 36389,
+      "referenceOnly": true
+    },
+    {
+      "original": "apps/platform-api/src/seed.ts",
+      "archived": "integration-reference/apps/platform-api/src/seed.ts",
+      "sha256": "395d380114f48c5b714535e43adb0a667bc2eaf7542351a5028315976ccc4c71",
+      "bytes": 11391,
+      "referenceOnly": true
+    },
+    {
+      "original": "apps/platform-api/src/app.ts",
+      "archived": "integration-reference/apps/platform-api/src/app.ts",
+      "sha256": "0c786c95d4cf4f24f735c544e8bc8e1605aff02124c682761f991f81599f8e92",
+      "bytes": 77550,
+      "referenceOnly": true
+    },
+    {
+      "referenceOnly": false,
+      "bytes": 23204,
+      "original": "apps/platform-api/test/economic-mathematics.test.ts",
+      "archived": "tests/apps/platform-api/test/economic-mathematics.test.ts",
+      "sha256": "16e53f7669fca9cc6c8d932f497152e382f6cffc3202f8a2041bb4b809763ec5"
+    },
+    {
+      "referenceOnly": false,
+      "bytes": 22467,
+      "original": "apps/teacher-web/test/economic-mathematics-slides.test.tsx",
+      "archived": "tests/apps/teacher-web/test/economic-mathematics-slides.test.tsx",
+      "sha256": "f0b07fec08bdcef9dd17dd73405aa13de824940b090c7bbce4ace163bba48bee"
+    },
+    {
+      "original": "apps/platform-api/src/assistant/slide-prompts.ts",
+      "archived": "snapshot/apps/platform-api/src/assistant/slide-prompts.ts",
+      "sha256": "7b740d900efc777b93146e926532a85ce5e173602f4ff83d5d989af7bc9fe6bc",
+      "bytes": 16025,
+      "referenceOnly": true
+    }
+  ]
+}

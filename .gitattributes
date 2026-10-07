@@ -1,2 +1,6 @@
 # Preserve the frozen dataset bytes used by regression provenance checks.
 packages/course-content/src/statistical-analysis/data.json text eol=lf
+
+# Archived snapshots and verified media must retain their recorded file bytes.
+archive/** -text whitespace=-blank-at-eof,cr-at-eol
+apps/teacher-web/public/course-assets/international-mathematics/** -text

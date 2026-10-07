@@ -27,6 +27,7 @@ import {
   ECONOMIC_MATHEMATICS_COURSE_SLUG
 } from "@edu/course-content/economic-mathematics";
 import { getCourseDeckByCourseId } from "@edu/course-content/deck-registry";
+import { INTERNATIONAL_MATHEMATICS_COURSE_ID } from "@edu/course-content/international-mathematics";
 import {MANAGEMENT_CONSTRUCTION_SUMMARY} from '@edu/course-content/management-principles';
 
 export interface AvatarControlReceipt {
@@ -182,7 +183,7 @@ export function createInitialClassroomRuntime(
       latencyMs: null,
       currentTask: null,
       lastMessage:
-        courseId !== 'course-port-management-intro'
+        deck.locale === "en" ? "Math Guide is connected to this course and ready for your questions." : courseId !== 'course-port-management-intro'
           ? "小麦老师已连接课程上下文，等待课堂指令。"
           : "等待课堂前端连接 OpenAvatarChat LAM 服务。"
     }
@@ -243,6 +244,12 @@ export function createSeedState(): PlatformState {
   return {
     teachers: [teacher, managementTeacher],
     courses: [course, economicMathematicsCourse, {
+      id: INTERNATIONAL_MATHEMATICS_COURSE_ID, slug: "international-mathematics", code: null,
+      title: "Higher Mathematics: Calculus for Economics and Business", category: "International programme", discipline: "Economics and Business", totalHours: 32,
+      progress: 0, status: "active", featured: false, teacherId: teacher.id,
+      currentLesson: {chapter: 1, title: "Quantities, units and equations", summary: "English medium calculus: 16 lectures, 32 teaching hours, based on Ian Jacques, ninth edition."},
+      createdAt: "2026-10-02T00:00:00.000Z"
+    }, {
       id: 'management-principles', slug: 'management-principles', code: null,
       title: '管理学', category: '本科课程', discipline: '管理学', totalHours: null,
       progress: 100, status: 'active', featured: false, teacherId: managementTeacher.id,

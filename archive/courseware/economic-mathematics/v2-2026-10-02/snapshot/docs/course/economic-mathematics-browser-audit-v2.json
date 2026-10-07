@@ -1,0 +1,6765 @@
+{
+  "date": "2026-10-02",
+  "canvas": [
+    1600,
+    1000
+  ],
+  "desktopViewport": [
+    1280,
+    720
+  ],
+  "narrowViewport": [
+    390,
+    844
+  ],
+  "desktop": [
+    {
+      "controlsInCanvas": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 1,
+      "title": "经济数学"
+    },
+    {
+      "controlsInCanvas": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 2,
+      "title": "函数与营销定量模型"
+    },
+    {
+      "controlsInCanvas": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 3,
+      "title": "三次定价记录"
+    },
+    {
+      "controlsInCanvas": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 4,
+      "title": "输入、输出与参数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "5",
+      "title": "函数的三个组成部分"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "6",
+      "title": "价格模型的定义域"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "7",
+      "title": "定义域先于代入"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "8",
+      "title": "同一关系的三种表示"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "9",
+      "title": "价格与需求的图形"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "10",
+      "title": "记录、模型与预测"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "11",
+      "title": "配送费的分段规则"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "12",
+      "title": "连续计费与进位计费"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "13",
+      "title": "独立建模：打印费用"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "14",
+      "title": "一个关系，两项检查"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "15",
+      "title": "销量增加与利润增加"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "16",
+      "title": "补货日的选择"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "17",
+      "title": "同一业务的四个量"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "18",
+      "title": "收入按销量计算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "19",
+      "title": "固定成本与变动成本"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "20",
+      "title": "把三条关系连起来"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "21",
+      "title": "销量少了，利润增加了"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "22",
+      "title": "价格实验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "23",
+      "title": "盈亏平衡不等于最优"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "24",
+      "title": "独立练习：订阅服务"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "25",
+      "title": "两个假设会改变结论"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "26",
+      "title": "变量选择决定下一步"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": false,
+      "overflow": false,
+      "page": "27",
+      "title": "极限与连续"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "28",
+      "title": "广告的逐轮改进"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "29",
+      "title": "轮次与数值"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "30",
+      "title": "接近与达到"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "31",
+      "title": "误差能直接计算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "32",
+      "title": "数列极限的实验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "33",
+      "title": "极限的运算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "34",
+      "title": "有界不等于收敛"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "35",
+      "title": "单调有界的意义"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "36",
+      "title": "独立练习：库存回补"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "37",
+      "title": "预测需要说明时间范围"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "38",
+      "title": "一个空缺的位置"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "39",
+      "title": "附近的数值"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "40",
+      "title": "空点与极限"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "41",
+      "title": "两条接近路径"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "42",
+      "title": "分段规则的左右极限"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "43",
+      "title": "约分先核对范围"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "44",
+      "title": "有理化处理根式"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "45",
+      "title": "无穷远的主导项"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "46",
+      "title": "不能把零分母都叫无穷大"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "47",
+      "title": "独立计算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "48",
+      "title": "函数值能否补上？"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "49",
+      "title": "微小转角的测量"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "50",
+      "title": "数值只是线索"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "51",
+      "title": "零附近的比值"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "52",
+      "title": "三个面积的比较"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "53",
+      "title": "把比值夹在两端之间"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "54",
+      "title": "负侧与角度单位"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": false,
+      "overflow": false,
+      "page": "55",
+      "title": "局部近似的含义"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "56",
+      "title": "正弦极限的变式"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "57",
+      "title": "复利与第二重要极限"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "58",
+      "title": "指数结构的换形"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "59",
+      "title": "常用等价关系"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "images": true,
+      "overflow": false,
+      "page": "60",
+      "title": "相减后的一阶项抵消"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 61,
+      "pending": 0,
+      "title": "独立计算"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 62,
+      "pending": 0,
+      "title": "估计微小转角误差"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 63,
+      "pending": 0,
+      "title": "连续还要检查函数值"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 64,
+      "pending": 0,
+      "title": "差一分钱的订单"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 65,
+      "pending": 0,
+      "title": "总支付函数"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 66,
+      "pending": 0,
+      "title": "门槛实验"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 67,
+      "pending": 0,
+      "title": "连续的三个条件"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 68,
+      "pending": 0,
+      "title": "门槛处的检查"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 69,
+      "pending": 0,
+      "title": "三种断开方式"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 70,
+      "pending": 0,
+      "title": "用参数连接两段"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 71,
+      "pending": 0,
+      "title": "区间上的连续"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 72,
+      "pending": 0,
+      "title": "介值定理的运营解释"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 73,
+      "pending": 0,
+      "title": "独立练习：阶梯优惠"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 74,
+      "pending": 0,
+      "title": "连续性属于哪一个量？"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 75,
+      "pending": 0,
+      "title": "导数与微分"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 76,
+      "pending": 0,
+      "title": "配送车经过的距离"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 77,
+      "pending": 0,
+      "title": "平均变化率"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 78,
+      "pending": 1,
+      "title": "导数定义"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 79,
+      "pending": 0,
+      "title": "利润的平均调价效应"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 80,
+      "pending": 0,
+      "title": "割线向切线靠近"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 81,
+      "pending": 0,
+      "title": "切线是局部模型"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 82,
+      "pending": 0,
+      "title": "连续不保证可导"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 83,
+      "pending": 0,
+      "title": "可导一定连续"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 84,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 85,
+      "pending": 0,
+      "title": "变化率的说明书"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 86,
+      "pending": 0,
+      "title": "生产线中的两种变化"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 87,
+      "pending": 0,
+      "title": "基本函数的变化规则"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 88,
+      "pending": 1,
+      "title": "从部件构成整体"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 89,
+      "pending": 0,
+      "title": "乘积法则"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 90,
+      "pending": 0,
+      "title": "错误的乘积规则"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 91,
+      "pending": 0,
+      "title": "商法则"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 92,
+      "pending": 0,
+      "title": "三角与指数函数"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 93,
+      "pending": 0,
+      "title": "完整例题"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 94,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 95,
+      "pending": 0,
+      "title": "先整理，再核验"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 96,
+      "pending": 0,
+      "title": "从曝光到收入"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 97,
+      "pending": 0,
+      "title": "变化经过中间变量"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 98,
+      "pending": 0,
+      "title": "订阅模型的完整计算"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 99,
+      "pending": 0,
+      "title": "一般链式法则"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 100,
+      "pending": 0,
+      "title": "根式与对数"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 101,
+      "pending": 0,
+      "title": "漏掉内层会怎样？"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 102,
+      "pending": 0,
+      "title": "隐函数也可沿链计算"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 103,
+      "pending": 0,
+      "title": "对数求导简化乘积"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 104,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 105,
+      "pending": 0,
+      "title": "迁移：获客成本"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 106,
+      "pending": 0,
+      "title": "骑手的速度记录"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 107,
+      "pending": 1,
+      "title": "位置、速度、加速度"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 108,
+      "pending": 0,
+      "title": "完整求导与解释"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 109,
+      "pending": 0,
+      "title": "二阶导数与图形"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 110,
+      "pending": 0,
+      "title": "二阶导数不等于函数值"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 111,
+      "pending": 0,
+      "title": "更高阶导数"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 112,
+      "pending": 0,
+      "title": "累计销售与销售速率"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 113,
+      "pending": 0,
+      "title": "两项业务陈述"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 114,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 115,
+      "pending": 0,
+      "title": "迁移：增长率报告"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 116,
+      "pending": 0,
+      "title": "定价旋钮转动一点"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 117,
+      "pending": 0,
+      "title": "切线替代附近曲线"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 118,
+      "pending": 0,
+      "title": "一次调价的完整核算"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 119,
+      "pending": 0,
+      "title": "误差实验"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 120,
+      "pending": 0,
+      "title": "一般线性近似"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 121,
+      "pending": 0,
+      "title": "绝对误差与相对误差"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 122,
+      "pending": 0,
+      "title": "微分的运算法则"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 123,
+      "pending": 0,
+      "title": "误差不能省略"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 124,
+      "pending": 0,
+      "title": "独立练习：平方根"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 125,
+      "pending": 0,
+      "title": "迁移：相对变化"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 126,
+      "pending": 0,
+      "title": "导数应用、边际与弹性"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 127,
+      "pending": 1,
+      "title": "一段行程的平均速度"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 128,
+      "pending": 1,
+      "title": "平均与瞬时的桥梁"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 129,
+      "pending": 0,
+      "title": "罗尔定理的水平桥梁"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 130,
+      "pending": 0,
+      "title": "拉格朗日定理的几何关系"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 131,
+      "pending": 0,
+      "title": "完整例题：平方函数"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 132,
+      "pending": 0,
+      "title": "变化幅度的上界"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 133,
+      "pending": 0,
+      "title": "不等式例题"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 134,
+      "pending": 0,
+      "title": "条件缺失的反例"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 135,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 136,
+      "pending": 0,
+      "title": "业务解释的边界"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 137,
+      "pending": 1,
+      "title": "两个变化同时趋零"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 138,
+      "pending": 0,
+      "title": "未定式需要比较速度"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 139,
+      "pending": 0,
+      "title": "洛必达法则的条件"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 140,
+      "pending": 0,
+      "title": "完整例题：对数"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 141,
+      "pending": 0,
+      "title": "重复使用要重复核验"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 142,
+      "pending": 0,
+      "title": "乘积转换为商"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 143,
+      "pending": 0,
+      "title": "幂形式先取对数"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 144,
+      "pending": 0,
+      "title": "不能任意求导数商"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 145,
+      "pending": 0,
+      "title": "代数方法仍有优势"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 146,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 147,
+      "pending": 0,
+      "title": "迁移：相对增量"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 148,
+      "pending": 1,
+      "title": "货架上的价格候选"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 149,
+      "pending": 0,
+      "title": "斜率决定升降"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 150,
+      "pending": 0,
+      "title": "利润函数的符号表"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 151,
+      "pending": 0,
+      "title": "曲线证据"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 152,
+      "pending": 0,
+      "title": "闭区间最值的路线"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 153,
+      "pending": 0,
+      "title": "二阶判别的条件"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 154,
+      "pending": 0,
+      "title": "驻点不一定是极值"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 155,
+      "pending": 0,
+      "title": "拐点看凹凸是否改变"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 156,
+      "pending": 0,
+      "title": "独立练习：可行区间"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 157,
+      "pending": 0,
+      "title": "迁移：产能约束"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 158,
+      "pending": 0,
+      "title": "追加一件的订单"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 159,
+      "pending": 1,
+      "title": "边际量以销量为自变量"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 160,
+      "pending": 0,
+      "title": "把价格写成销量函数"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 161,
+      "pending": 0,
+      "title": "降价销售影响全部销量"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 162,
+      "pending": 0,
+      "title": "价格导数不是边际收入"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 163,
+      "pending": 0,
+      "title": "利润的完整最优推导"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 164,
+      "pending": 0,
+      "title": "平均成本与边际成本"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 165,
+      "pending": 0,
+      "title": "离散一件的核验"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 166,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 167,
+      "pending": 0,
+      "title": "边际判断需要可行性"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 168,
+      "pending": 0,
+      "title": "两种服装消费群体"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 169,
+      "pending": 1,
+      "title": "比较相对变化"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 170,
+      "pending": 0,
+      "title": "同一价格的比较"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 171,
+      "pending": 0,
+      "title": "收入与弹性的连接"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 172,
+      "pending": 0,
+      "title": "收入驻点的价格"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 173,
+      "pending": 0,
+      "title": "收入最优与利润最优"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 174,
+      "pending": 0,
+      "title": "弹性与利润实验"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 175,
+      "pending": 0,
+      "title": "边际收入的另一种表达"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 176,
+      "pending": 0,
+      "title": "独立练习：订阅量"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 177,
+      "pending": 0,
+      "title": "迁移：调价建议"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 178,
+      "pending": 1,
+      "title": "不定积分"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 179,
+      "pending": 1,
+      "title": "储液罐的流入"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 180,
+      "pending": 0,
+      "title": "一个导数，多条原函数"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 181,
+      "pending": 0,
+      "title": "不定积分的记号"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 182,
+      "pending": 0,
+      "title": "初始条件确定常数"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 183,
+      "pending": 0,
+      "title": "线性法则"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 184,
+      "pending": 0,
+      "title": "变化率积分的单位"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 185,
+      "pending": 0,
+      "title": "常数不能随意省略"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 186,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 187,
+      "pending": 0,
+      "title": "迁移：成本函数"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 188,
+      "pending": 0,
+      "title": "仓库的速率清单"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 189,
+      "pending": 0,
+      "title": "反向匹配"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 190,
+      "pending": 0,
+      "title": "幂函数公式"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 191,
+      "pending": 0,
+      "title": "特殊的负一次幂"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 192,
+      "pending": 0,
+      "title": "指数与三角"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 193,
+      "pending": 0,
+      "title": "展开后逐项积分"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 194,
+      "pending": 0,
+      "title": "除法整理"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 195,
+      "pending": 0,
+      "title": "积分不是乘积法则的反写"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 196,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 197,
+      "pending": 0,
+      "title": "迁移：边际成本"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 198,
+      "pending": 0,
+      "title": "经过容器的流动"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 199,
+      "pending": 1,
+      "title": "把内层变成新变量"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 200,
+      "pending": 0,
+      "title": "完整例题"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 201,
+      "pending": 0,
+      "title": "对数结构"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 202,
+      "pending": 0,
+      "title": "常数因子需要补齐"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 203,
+      "pending": 0,
+      "title": "第二类换元"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 204,
+      "pending": 0,
+      "title": "三角换元的范围"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 205,
+      "pending": 0,
+      "title": "只换字母会漏掉系数"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 206,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 207,
+      "pending": 0,
+      "title": "迁移：衰减速率"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 208,
+      "pending": 0,
+      "title": "随时间变化的工作量"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 209,
+      "pending": 1,
+      "title": "从乘积法则反推"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 210,
+      "pending": 0,
+      "title": "分部积分公式"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 211,
+      "pending": 0,
+      "title": "对数函数的积分"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 212,
+      "pending": 0,
+      "title": "重复分部积分"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 213,
+      "pending": 0,
+      "title": "循环出现的积分"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 214,
+      "pending": 0,
+      "title": "选择影响工作量"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 215,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 216,
+      "pending": 0,
+      "title": "综合练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 217,
+      "pending": 0,
+      "title": "方法选择的三次检查"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 218,
+      "pending": 1,
+      "title": "定积分与累计量"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 219,
+      "pending": 0,
+      "title": "配送高峰的一天"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 220,
+      "pending": 1,
+      "title": "每一小段的贡献"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 221,
+      "pending": 0,
+      "title": "先做四段估算"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 222,
+      "pending": 0,
+      "title": "黎曼和实验"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 223,
+      "pending": 0,
+      "title": "定积分的定义"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 224,
+      "pending": 0,
+      "title": "面积包含方向"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 225,
+      "pending": 0,
+      "title": "定积分的基本性质"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 226,
+      "pending": 0,
+      "title": "独立练习：恒定速率"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 227,
+      "pending": 0,
+      "title": "模型与记录的边界"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 228,
+      "pending": 1,
+      "title": "水位与流入速率"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 229,
+      "pending": 1,
+      "title": "累计与局部互相连接"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 230,
+      "pending": 0,
+      "title": "基本定理的两部分"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 231,
+      "pending": 0,
+      "title": "8小时累计销售"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 232,
+      "pending": 0,
+      "title": "移动积分上限"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 233,
+      "pending": 0,
+      "title": "上限也是函数"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 234,
+      "pending": 0,
+      "title": "上下限都改变"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 235,
+      "pending": 0,
+      "title": "积分常数会消去"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 236,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 237,
+      "pending": 0,
+      "title": "迁移：流入减去流出"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 238,
+      "pending": 1,
+      "title": "换一个刻度观察"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 239,
+      "pending": 1,
+      "title": "边界与微分一起变"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 240,
+      "pending": 0,
+      "title": "完整换元计算"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 241,
+      "pending": 0,
+      "title": "上限发生变化"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 242,
+      "pending": 0,
+      "title": "错误的边界组合"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 243,
+      "pending": 0,
+      "title": "定积分的分部公式"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 244,
+      "pending": 0,
+      "title": "对称性减少计算"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 245,
+      "pending": 0,
+      "title": "独立练习：換元"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 246,
+      "pending": 0,
+      "title": "独立练习：分部"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 247,
+      "pending": 0,
+      "title": "综合检查"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 248,
+      "pending": 1,
+      "title": "安排一天的配送"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 249,
+      "pending": 1,
+      "title": "速率与累计的两个视角"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 250,
+      "pending": 0,
+      "title": "分段累计"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 251,
+      "pending": 0,
+      "title": "累计曲线"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 252,
+      "pending": 0,
+      "title": "连续函数的平均值"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 253,
+      "pending": 0,
+      "title": "面积中的正负"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 254,
+      "pending": 0,
+      "title": "两条曲线之间"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 255,
+      "pending": 0,
+      "title": "独立练习：累计销售"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 256,
+      "pending": 0,
+      "title": "独立练习：总变化"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 257,
+      "pending": 0,
+      "title": "迁移：排班依据"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 258,
+      "pending": 1,
+      "title": "农产品市场的统一价格"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 259,
+      "pending": 1,
+      "title": "愿付与实际支付"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 260,
+      "pending": 0,
+      "title": "价格60元的完整计算"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 261,
+      "pending": 0,
+      "title": "需求曲线与面积"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 262,
+      "pending": 0,
+      "title": "消费者剩余实验"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 263,
+      "pending": 0,
+      "title": "生产者剩余"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 264,
+      "pending": 0,
+      "title": "同一均衡的两块面积"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 265,
+      "pending": 0,
+      "title": "生产者剩余与利润"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 266,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 267,
+      "pending": 0,
+      "title": "迁移：有数量上限"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 268,
+      "pending": 1,
+      "title": "多元函数微分"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 269,
+      "pending": 1,
+      "title": "价格与广告一起调整"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 270,
+      "pending": 1,
+      "title": "两个输入，一个输出"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 271,
+      "pending": 0,
+      "title": "一个经营点"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 272,
+      "pending": 0,
+      "title": "共同允许的输入"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 273,
+      "pending": 0,
+      "title": "图形是一张面"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 274,
+      "pending": 0,
+      "title": "固定广告的截线"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 275,
+      "pending": 0,
+      "title": "固定价格的截线"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 276,
+      "pending": 0,
+      "title": "相同响应的等高线"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 277,
+      "pending": 0,
+      "title": "价格与广告实验"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 278,
+      "pending": 0,
+      "title": "两条调整路径"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 279,
+      "pending": 0,
+      "title": "独立练习：定义域"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 280,
+      "pending": 0,
+      "title": "独立练习：广告补偿"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 281,
+      "pending": 0,
+      "title": "多输入模型的边界"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 282,
+      "pending": 0,
+      "title": "只改变一项决策"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 283,
+      "pending": 1,
+      "title": "偏导沿一个方向"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 284,
+      "pending": 0,
+      "title": "两个偏导数"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 285,
+      "pending": 0,
+      "title": "单位使解释明确"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 286,
+      "pending": 0,
+      "title": "截线验证方向"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 287,
+      "pending": 0,
+      "title": "二阶与混合偏导"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 288,
+      "pending": 0,
+      "title": "交互项改变局部效应"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 289,
+      "pending": 1,
+      "title": "边界处不能随意求导"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 290,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 291,
+      "pending": 0,
+      "title": "迁移：联动决策"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 292,
+      "pending": 0,
+      "title": "同时调整价格与广告"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 293,
+      "pending": 1,
+      "title": "局部平面"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 294,
+      "pending": 0,
+      "title": "完整估算"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 295,
+      "pending": 0,
+      "title": "切平面的方程"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 296,
+      "pending": 0,
+      "title": "切平面实验"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 297,
+      "pending": 0,
+      "title": "误差来源"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 298,
+      "pending": 0,
+      "title": "偏导存在不够"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 299,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 300,
+      "pending": 0,
+      "title": "迁移：测量误差"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 301,
+      "pending": 0,
+      "title": "估算报告应包含误差"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 302,
+      "pending": 1,
+      "title": "决策随着时间联动"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 303,
+      "pending": 0,
+      "title": "沿路径合并贡献"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 304,
+      "pending": 0,
+      "title": "完整联动计算"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 305,
+      "pending": 0,
+      "title": "直接代入核验"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 306,
+      "pending": 0,
+      "title": "多个自变量的链式"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 307,
+      "pending": 0,
+      "title": "隐函数的局部斜率"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 308,
+      "pending": 0,
+      "title": "保持销量不变的补偿"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 309,
+      "pending": 0,
+      "title": "三变量隐函数"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 310,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 311,
+      "pending": 0,
+      "title": "迁移：等目标曲线"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 312,
+      "pending": 1,
+      "title": "优化与营销决策"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 313,
+      "pending": 0,
+      "title": "工作室的两项投入"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 314,
+      "pending": 0,
+      "title": "各方向同时停止上升"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 315,
+      "pending": 0,
+      "title": "完整驻点计算"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 316,
+      "pending": 0,
+      "title": "二阶判别"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 317,
+      "pending": 0,
+      "title": "本例的全局证据"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 318,
+      "pending": 0,
+      "title": "双投入实验"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 319,
+      "pending": 0,
+      "title": "驻点也可能是鞍点"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 320,
+      "pending": 0,
+      "title": "边界最优需要另行比较"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 321,
+      "pending": 0,
+      "title": "独立练习"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 322,
+      "pending": 0,
+      "title": "迁移：预算带来的改变"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 323,
+      "pending": 1,
+      "title": "两个渠道，一笔预算"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 324,
+      "pending": 1,
+      "title": "约束改变可行选择"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 325,
+      "pending": 0,
+      "title": "消元成为一元问题"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 326,
+      "pending": 0,
+      "title": "最大值还需要证据"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 327,
+      "pending": 0,
+      "title": "可行线上观察最优"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 328,
+      "pending": 0,
+      "title": "拉格朗日函数"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 329,
+      "pending": 0,
+      "title": "切线条件的含义"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 330,
+      "pending": 0,
+      "title": "预算约束实验"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 331,
+      "pending": 0,
+      "title": "任意预算的最优规则"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 332,
+      "pending": 0,
+      "title": "预算的影子价格"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 333,
+      "pending": 0,
+      "title": "最优比例的来源"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 334,
+      "pending": 0,
+      "title": "独立求解新模型"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 335,
+      "pending": 0,
+      "title": "资源单价不同"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 336,
+      "pending": 0,
+      "title": "向陌生情境迁移"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 337,
+      "pending": 1,
+      "title": "展览的资源安排"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 338,
+      "pending": 1,
+      "title": "一份可以审查的方案"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 339,
+      "pending": 0,
+      "title": "先把资源条件写清楚"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 340,
+      "pending": 0,
+      "title": "把问题化成一个变量"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 341,
+      "pending": 0,
+      "title": "驻点、端点与证据"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 342,
+      "pending": 0,
+      "title": "拉格朗日法的交叉核验"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 343,
+      "pending": 0,
+      "title": "资源价格改变了配比"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 344,
+      "pending": 0,
+      "title": "预算增加到14"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 345,
+      "pending": 0,
+      "title": "长期使用要检查边界"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 346,
+      "pending": 0,
+      "title": "独立迁移：不同目标"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 347,
+      "pending": 0,
+      "title": "累计效果也能进入报告"
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 348,
+      "pending": 0,
+      "title": "一页决策报告"
+    }
+  ],
+  "narrow": [
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 1,
+      "title": "经济数学"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 2,
+      "title": "函数与营销定量模型"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 3,
+      "title": "三次定价记录"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 4,
+      "title": "输入、输出与参数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 5,
+      "title": "函数的三个组成部分"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 6,
+      "title": "价格模型的定义域"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 7,
+      "title": "定义域先于代入"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 8,
+      "title": "同一关系的三种表示"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 9,
+      "title": "价格与需求的图形"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 10,
+      "title": "记录、模型与预测"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 11,
+      "title": "配送费的分段规则"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 12,
+      "title": "连续计费与进位计费"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 13,
+      "title": "独立建模：打印费用"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 14,
+      "title": "一个关系，两项检查"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 15,
+      "title": "销量增加与利润增加"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 16,
+      "title": "补货日的选择"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 17,
+      "title": "同一业务的四个量"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 18,
+      "title": "收入按销量计算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 19,
+      "title": "固定成本与变动成本"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 20,
+      "title": "把三条关系连起来"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 21,
+      "title": "销量少了，利润增加了"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 22,
+      "title": "价格实验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 23,
+      "title": "盈亏平衡不等于最优"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 24,
+      "title": "独立练习：订阅服务"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 25,
+      "title": "两个假设会改变结论"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 26,
+      "title": "变量选择决定下一步"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 27,
+      "title": "极限与连续"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 28,
+      "title": "广告的逐轮改进"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 29,
+      "title": "轮次与数值"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 30,
+      "title": "接近与达到"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 31,
+      "title": "误差能直接计算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 32,
+      "title": "数列极限的实验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 33,
+      "title": "极限的运算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 34,
+      "title": "有界不等于收敛"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 35,
+      "title": "单调有界的意义"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 36,
+      "title": "独立练习：库存回补"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 37,
+      "title": "预测需要说明时间范围"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 38,
+      "title": "一个空缺的位置"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 39,
+      "title": "附近的数值"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 40,
+      "title": "空点与极限"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 41,
+      "title": "两条接近路径"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 42,
+      "title": "分段规则的左右极限"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 43,
+      "title": "约分先核对范围"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 44,
+      "title": "有理化处理根式"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 45,
+      "title": "无穷远的主导项"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 46,
+      "title": "不能把零分母都叫无穷大"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 47,
+      "title": "独立计算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 48,
+      "title": "函数值能否补上？"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 49,
+      "title": "微小转角的测量"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 50,
+      "title": "数值只是线索"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 51,
+      "title": "零附近的比值"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 52,
+      "title": "三个面积的比较"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 53,
+      "title": "把比值夹在两端之间"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 54,
+      "title": "负侧与角度单位"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 55,
+      "title": "局部近似的含义"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 56,
+      "title": "正弦极限的变式"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 57,
+      "title": "复利与第二重要极限"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 58,
+      "title": "指数结构的换形"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 59,
+      "title": "常用等价关系"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 60,
+      "title": "相减后的一阶项抵消"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 61,
+      "title": "独立计算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 62,
+      "title": "估计微小转角误差"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 63,
+      "title": "连续还要检查函数值"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 64,
+      "title": "差一分钱的订单"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 65,
+      "title": "总支付函数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 66,
+      "title": "门槛实验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 67,
+      "title": "连续的三个条件"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 68,
+      "title": "门槛处的检查"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 69,
+      "title": "三种断开方式"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 70,
+      "title": "用参数连接两段"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 71,
+      "title": "区间上的连续"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 72,
+      "title": "介值定理的运营解释"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 73,
+      "title": "独立练习：阶梯优惠"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 74,
+      "title": "连续性属于哪一个量？"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 75,
+      "title": "导数与微分"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 76,
+      "title": "配送车经过的距离"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 77,
+      "title": "平均变化率"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 78,
+      "title": "导数定义"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 79,
+      "title": "利润的平均调价效应"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 80,
+      "title": "割线向切线靠近"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 81,
+      "title": "切线是局部模型"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 82,
+      "title": "连续不保证可导"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 83,
+      "title": "可导一定连续"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 84,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 85,
+      "title": "变化率的说明书"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 86,
+      "title": "生产线中的两种变化"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 87,
+      "title": "基本函数的变化规则"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 88,
+      "title": "从部件构成整体"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 89,
+      "title": "乘积法则"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 90,
+      "title": "错误的乘积规则"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 91,
+      "title": "商法则"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 92,
+      "title": "三角与指数函数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 93,
+      "title": "完整例题"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 94,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 95,
+      "title": "先整理，再核验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 96,
+      "title": "从曝光到收入"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 97,
+      "title": "变化经过中间变量"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 98,
+      "title": "订阅模型的完整计算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 99,
+      "title": "一般链式法则"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 100,
+      "title": "根式与对数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 101,
+      "title": "漏掉内层会怎样？"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 102,
+      "title": "隐函数也可沿链计算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 103,
+      "title": "对数求导简化乘积"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 104,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 105,
+      "title": "迁移：获客成本"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 106,
+      "title": "骑手的速度记录"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 107,
+      "title": "位置、速度、加速度"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 108,
+      "title": "完整求导与解释"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 109,
+      "title": "二阶导数与图形"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 110,
+      "title": "二阶导数不等于函数值"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 111,
+      "title": "更高阶导数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 112,
+      "title": "累计销售与销售速率"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 113,
+      "title": "两项业务陈述"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 114,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 115,
+      "title": "迁移：增长率报告"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 116,
+      "title": "定价旋钮转动一点"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 117,
+      "title": "切线替代附近曲线"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 118,
+      "title": "一次调价的完整核算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 119,
+      "title": "误差实验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 120,
+      "title": "一般线性近似"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 121,
+      "title": "绝对误差与相对误差"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 122,
+      "title": "微分的运算法则"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 123,
+      "title": "误差不能省略"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 124,
+      "title": "独立练习：平方根"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 125,
+      "title": "迁移：相对变化"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 126,
+      "title": "导数应用、边际与弹性"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 127,
+      "title": "一段行程的平均速度"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 128,
+      "title": "平均与瞬时的桥梁"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 129,
+      "title": "罗尔定理的水平桥梁"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 130,
+      "title": "拉格朗日定理的几何关系"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 131,
+      "title": "完整例题：平方函数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 132,
+      "title": "变化幅度的上界"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 133,
+      "title": "不等式例题"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 134,
+      "title": "条件缺失的反例"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 135,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 136,
+      "title": "业务解释的边界"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 137,
+      "title": "两个变化同时趋零"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 138,
+      "title": "未定式需要比较速度"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 139,
+      "title": "洛必达法则的条件"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 140,
+      "title": "完整例题：对数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 141,
+      "title": "重复使用要重复核验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 142,
+      "title": "乘积转换为商"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 143,
+      "title": "幂形式先取对数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 144,
+      "title": "不能任意求导数商"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 145,
+      "title": "代数方法仍有优势"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 146,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 147,
+      "title": "迁移：相对增量"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 148,
+      "title": "货架上的价格候选"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 149,
+      "title": "斜率决定升降"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 150,
+      "title": "利润函数的符号表"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 151,
+      "title": "曲线证据"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 152,
+      "title": "闭区间最值的路线"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 153,
+      "title": "二阶判别的条件"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 154,
+      "title": "驻点不一定是极值"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 155,
+      "title": "拐点看凹凸是否改变"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 156,
+      "title": "独立练习：可行区间"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 157,
+      "title": "迁移：产能约束"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 158,
+      "title": "追加一件的订单"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 159,
+      "title": "边际量以销量为自变量"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 160,
+      "title": "把价格写成销量函数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 161,
+      "title": "降价销售影响全部销量"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 162,
+      "title": "价格导数不是边际收入"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 163,
+      "title": "利润的完整最优推导"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 164,
+      "title": "平均成本与边际成本"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 165,
+      "title": "离散一件的核验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 166,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 167,
+      "title": "边际判断需要可行性"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 168,
+      "title": "两种服装消费群体"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 169,
+      "title": "比较相对变化"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 170,
+      "title": "同一价格的比较"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 171,
+      "title": "收入与弹性的连接"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 172,
+      "title": "收入驻点的价格"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 173,
+      "title": "收入最优与利润最优"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 174,
+      "title": "弹性与利润实验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 175,
+      "title": "边际收入的另一种表达"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 176,
+      "title": "独立练习：订阅量"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 177,
+      "title": "迁移：调价建议"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 178,
+      "title": "不定积分"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 179,
+      "title": "储液罐的流入"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 180,
+      "title": "一个导数，多条原函数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 181,
+      "title": "不定积分的记号"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 182,
+      "title": "初始条件确定常数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 183,
+      "title": "线性法则"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 184,
+      "title": "变化率积分的单位"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 185,
+      "title": "常数不能随意省略"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 186,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 187,
+      "title": "迁移：成本函数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 188,
+      "title": "仓库的速率清单"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 189,
+      "title": "反向匹配"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 190,
+      "title": "幂函数公式"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 191,
+      "title": "特殊的负一次幂"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 192,
+      "title": "指数与三角"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 193,
+      "title": "展开后逐项积分"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 194,
+      "title": "除法整理"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 195,
+      "title": "积分不是乘积法则的反写"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 196,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 197,
+      "title": "迁移：边际成本"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 198,
+      "title": "经过容器的流动"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 199,
+      "title": "把内层变成新变量"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 200,
+      "title": "完整例题"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 201,
+      "title": "对数结构"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 202,
+      "title": "常数因子需要补齐"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 203,
+      "title": "第二类换元"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 204,
+      "title": "三角换元的范围"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 205,
+      "title": "只换字母会漏掉系数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 206,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 207,
+      "title": "迁移：衰减速率"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 208,
+      "title": "随时间变化的工作量"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 209,
+      "title": "从乘积法则反推"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 210,
+      "title": "分部积分公式"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 211,
+      "title": "对数函数的积分"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 212,
+      "title": "重复分部积分"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 213,
+      "title": "循环出现的积分"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 214,
+      "title": "选择影响工作量"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 215,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 216,
+      "title": "综合练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 217,
+      "title": "方法选择的三次检查"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 218,
+      "title": "定积分与累计量"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 219,
+      "title": "配送高峰的一天"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 220,
+      "title": "每一小段的贡献"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 221,
+      "title": "先做四段估算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 222,
+      "title": "黎曼和实验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 223,
+      "title": "定积分的定义"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 224,
+      "title": "面积包含方向"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 225,
+      "title": "定积分的基本性质"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 226,
+      "title": "独立练习：恒定速率"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 227,
+      "title": "模型与记录的边界"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 228,
+      "title": "水位与流入速率"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 229,
+      "title": "累计与局部互相连接"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 230,
+      "title": "基本定理的两部分"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 231,
+      "title": "8小时累计销售"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 232,
+      "title": "移动积分上限"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 233,
+      "title": "上限也是函数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 234,
+      "title": "上下限都改变"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 235,
+      "title": "积分常数会消去"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 236,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 237,
+      "title": "迁移：流入减去流出"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 238,
+      "title": "换一个刻度观察"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 239,
+      "title": "边界与微分一起变"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 240,
+      "title": "完整换元计算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 241,
+      "title": "上限发生变化"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 242,
+      "title": "错误的边界组合"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 243,
+      "title": "定积分的分部公式"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 244,
+      "title": "对称性减少计算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 245,
+      "title": "独立练习：換元"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 246,
+      "title": "独立练习：分部"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 247,
+      "title": "综合检查"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 248,
+      "title": "安排一天的配送"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 249,
+      "title": "速率与累计的两个视角"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 250,
+      "title": "分段累计"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 251,
+      "title": "累计曲线"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 252,
+      "title": "连续函数的平均值"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 253,
+      "title": "面积中的正负"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 254,
+      "title": "两条曲线之间"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 255,
+      "title": "独立练习：累计销售"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 256,
+      "title": "独立练习：总变化"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 257,
+      "title": "迁移：排班依据"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 258,
+      "title": "农产品市场的统一价格"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 259,
+      "title": "愿付与实际支付"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 260,
+      "title": "价格60元的完整计算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 261,
+      "title": "需求曲线与面积"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 262,
+      "title": "消费者剩余实验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 263,
+      "title": "生产者剩余"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 264,
+      "title": "同一均衡的两块面积"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 265,
+      "title": "生产者剩余与利润"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 266,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 267,
+      "title": "迁移：有数量上限"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 268,
+      "title": "多元函数微分"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 269,
+      "title": "价格与广告一起调整"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 270,
+      "title": "两个输入，一个输出"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 271,
+      "title": "一个经营点"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 272,
+      "title": "共同允许的输入"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 273,
+      "title": "图形是一张面"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 274,
+      "title": "固定广告的截线"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 275,
+      "title": "固定价格的截线"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 276,
+      "title": "相同响应的等高线"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 277,
+      "title": "价格与广告实验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 278,
+      "title": "两条调整路径"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 279,
+      "title": "独立练习：定义域"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 280,
+      "title": "独立练习：广告补偿"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 281,
+      "title": "多输入模型的边界"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 282,
+      "title": "只改变一项决策"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 283,
+      "title": "偏导沿一个方向"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 284,
+      "title": "两个偏导数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 285,
+      "title": "单位使解释明确"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 286,
+      "title": "截线验证方向"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 287,
+      "title": "二阶与混合偏导"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 288,
+      "title": "交互项改变局部效应"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 289,
+      "title": "边界处不能随意求导"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 290,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 291,
+      "title": "迁移：联动决策"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 292,
+      "title": "同时调整价格与广告"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 293,
+      "title": "局部平面"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 294,
+      "title": "完整估算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 295,
+      "title": "切平面的方程"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 296,
+      "title": "切平面实验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 297,
+      "title": "误差来源"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 298,
+      "title": "偏导存在不够"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 299,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 300,
+      "title": "迁移：测量误差"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 301,
+      "title": "估算报告应包含误差"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 302,
+      "title": "决策随着时间联动"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 303,
+      "title": "沿路径合并贡献"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 304,
+      "title": "完整联动计算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 305,
+      "title": "直接代入核验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 306,
+      "title": "多个自变量的链式"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 307,
+      "title": "隐函数的局部斜率"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 308,
+      "title": "保持销量不变的补偿"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 309,
+      "title": "三变量隐函数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 310,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 311,
+      "title": "迁移：等目标曲线"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 312,
+      "title": "优化与营销决策"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 313,
+      "title": "工作室的两项投入"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 314,
+      "title": "各方向同时停止上升"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 315,
+      "title": "完整驻点计算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 316,
+      "title": "二阶判别"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 317,
+      "title": "本例的全局证据"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 318,
+      "title": "双投入实验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 319,
+      "title": "驻点也可能是鞍点"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 320,
+      "title": "边界最优需要另行比较"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 321,
+      "title": "独立练习"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 322,
+      "title": "迁移：预算带来的改变"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 323,
+      "title": "两个渠道，一笔预算"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 324,
+      "title": "约束改变可行选择"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 325,
+      "title": "消元成为一元问题"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 326,
+      "title": "最大值还需要证据"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 327,
+      "title": "可行线上观察最优"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 328,
+      "title": "拉格朗日函数"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 329,
+      "title": "切线条件的含义"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 330,
+      "title": "预算约束实验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 331,
+      "title": "任意预算的最优规则"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 332,
+      "title": "预算的影子价格"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 333,
+      "title": "最优比例的来源"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 334,
+      "title": "独立求解新模型"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 335,
+      "title": "资源单价不同"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 336,
+      "title": "向陌生情境迁移"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 337,
+      "title": "展览的资源安排"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 338,
+      "title": "一份可以审查的方案"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 339,
+      "title": "先把资源条件写清楚"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 340,
+      "title": "把问题化成一个变量"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 341,
+      "title": "驻点、端点与证据"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 342,
+      "title": "拉格朗日法的交叉核验"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 343,
+      "title": "资源价格改变了配比"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 344,
+      "title": "预算增加到14"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 345,
+      "title": "长期使用要检查边界"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 346,
+      "title": "独立迁移：不同目标"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 347,
+      "title": "累计效果也能进入报告"
+    },
+    {
+      "controls": 0,
+      "errors": 0,
+      "failed": 0,
+      "overflow": false,
+      "page": 348,
+      "title": "一页决策报告"
+    }
+  ],
+  "laboratories": [
+    {
+      "lab": "price-profit",
+      "result": "单价\n51元/件\n日销量\n594件\n日收入\n30,294元\n日利润\n16,414元"
+    },
+    {
+      "lab": "sequence",
+      "result": "轮次\n400\n触达指数\n119.85\n距120的误差\n0.15\n容许误差\n0.2"
+    },
+    {
+      "lab": "threshold-right",
+      "result": "订单额\n99.01元\n总支付额\n99.01元"
+    },
+    {
+      "lab": "secant",
+      "result": "基准价格\n50元/件\n价格间隔\n-20元/件\n割线斜率\n600\n切线斜率\n400"
+    },
+    {
+      "lab": "linear-error",
+      "result": "价格变化\n15元/件\n实际利润增量\n3,750元/日\n线性估算\n6,000元/日\n实际−估算\n-2,250元/日"
+    },
+    {
+      "lab": "elasticity",
+      "result": "日销量\n600件\n需求弹性\n0.5\n日收入\n30,000元\n日利润\n16,000元\n利润最优价格\n85元/件"
+    },
+    {
+      "lab": "riemann-midpoint",
+      "result": "分段数\n4\n矩形估算\n1,224件\n精确累计\n1,216件\n估算−精确\n8件"
+    },
+    {
+      "lab": "riemann-refinement",
+      "result": "分段数\n64\n矩形估算\n1,216.031件\n精确累计\n1,216件\n估算−精确\n0.031件"
+    },
+    {
+      "lab": "accumulation",
+      "result": "上限时间\n8小时\n累计销售\n1,216件\n末端速率\n120件/小时"
+    },
+    {
+      "lab": "surplus",
+      "result": "市场价格\n20元/件\n成交量\n1,000件\n实际支付\n20,000元\n消费者剩余\n50,000元"
+    },
+    {
+      "lab": "surface",
+      "lockDisabled": true,
+      "result": "价格\n60元/件\n广告\n26百元/日\n日销量\n842.376件\n固定条件\n价格固定"
+    },
+    {
+      "lab": "tangent-plane",
+      "result": "实际销量\n889.706件/日\n平面估算\n900件/日\n实际−估算\n-10.294件/日"
+    },
+    {
+      "lab": "unconstrained",
+      "result": "投入 x\n35\n投入 y\n10\n利润指数\n275\n全局最优\n(20, 15)；525"
+    },
+    {
+      "lab": "budget",
+      "result": "总预算\n25百元\n渠道 x\n25百元\n渠道 y\n0百元\n响应指数\n200\n最优配置\n16 / 9"
+    }
+  ],
+  "svgFigures": [
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 29.26207033533022
+        }
+      ],
+      "page": 9
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 31.961209750328756
+        }
+      ],
+      "page": 21
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 22
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 32
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 31.02327597622005
+        }
+      ],
+      "page": 40
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.76465585732028
+        }
+      ],
+      "page": 51
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.825001826417303
+        }
+      ],
+      "page": 52
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 66
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 80
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 25.84397031158679
+        }
+      ],
+      "page": 109
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 119
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 31.961209750328756
+        }
+      ],
+      "page": 151
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 174
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 222
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 232
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 31.961209750328756
+        }
+      ],
+      "page": 251
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 31.961209750328756
+        }
+      ],
+      "page": 261
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 262
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 28.3793114863384
+        }
+      ],
+      "page": 273
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 28.3793114863384
+        }
+      ],
+      "page": 274
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 31.386205070134427
+        }
+      ],
+      "page": 275
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 277
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 29.317245260447105
+        }
+      ],
+      "page": 286
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 296
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 318
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 29.30345010227937
+        }
+      ],
+      "page": 327
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 330
+    }
+  ],
+  "finalFormulaBounds": {
+    "imageFailures": 0,
+    "issues": [],
+    "katexErrors": 0,
+    "pages": 348
+  },
+  "finalEditedPages": [
+    {
+      "copyFits": true,
+      "formulaOverflow": 0,
+      "katexErrors": 0,
+      "page": "41",
+      "title": "两条接近路径"
+    },
+    {
+      "copyFits": true,
+      "formulaOverflow": 0,
+      "katexErrors": 0,
+      "page": "117",
+      "title": "切线替代附近曲线"
+    },
+    {
+      "copyFits": true,
+      "formulaOverflow": 0,
+      "katexErrors": 0,
+      "page": "148",
+      "title": "货架上的价格候选"
+    },
+    {
+      "copyFits": true,
+      "formulaOverflow": 0,
+      "katexErrors": 0,
+      "page": "316",
+      "title": "二阶判别"
+    }
+  ],
+  "finalEditedPagesNarrow": [
+    {
+      "failedImages": 0,
+      "formulaOverflow": 0,
+      "katexErrors": 0,
+      "page": "41",
+      "title": "两条接近路径",
+      "viewportOverflow": false
+    },
+    {
+      "failedImages": 0,
+      "formulaOverflow": 0,
+      "katexErrors": 0,
+      "page": "117",
+      "title": "切线替代附近曲线",
+      "viewportOverflow": false
+    },
+    {
+      "failedImages": 0,
+      "formulaOverflow": 0,
+      "katexErrors": 0,
+      "page": "148",
+      "title": "货架上的价格候选",
+      "viewportOverflow": false
+    },
+    {
+      "failedImages": 0,
+      "formulaOverflow": 0,
+      "katexErrors": 0,
+      "page": "316",
+      "title": "二阶判别",
+      "viewportOverflow": false
+    }
+  ],
+  "finalSvgFigures": [
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 29.317245260447105
+        }
+      ],
+      "page": 9
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 31.961209750328756
+        }
+      ],
+      "page": 21
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 22
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 32
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 31.02327597622005
+        }
+      ],
+      "page": 40
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.76465585732028
+        }
+      ],
+      "page": 51
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.825001826417303
+        }
+      ],
+      "page": 52
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 66
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 80
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 25.84397031158679
+        }
+      ],
+      "page": 109
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 119
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 31.961209750328756
+        }
+      ],
+      "page": 151
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 174
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 222
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 232
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 31.961209750328756
+        }
+      ],
+      "page": 251
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 31.961209750328756
+        }
+      ],
+      "page": 261
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 262
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 28.3793114863384
+        }
+      ],
+      "page": 273
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 28.3793114863384
+        }
+      ],
+      "page": 274
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 31.386205070134427
+        }
+      ],
+      "page": 275
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 277
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 29.317245260447105
+        }
+      ],
+      "page": 286
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 296
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 318
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 29.30345010227937
+        }
+      ],
+      "page": 327
+    },
+    {
+      "figures": [
+        {
+          "clipped": [],
+          "minFont": 26.000859557641732
+        }
+      ],
+      "page": 330
+    }
+  ],
+  "finalBoundaryOperations": [
+    {
+      "katexErrors": 0,
+      "page": "80",
+      "points": [
+        {
+          "x": 965.4545454545456,
+          "y": 249.5
+        },
+        {
+          "x": 1140,
+          "y": 333.5
+        }
+      ],
+      "result": "基准价格\n95元/件\n价格间隔\n20元/件\n割线斜率\n-700件/日\n切线斜率\n-500件/日"
+    },
+    {
+      "katexErrors": 0,
+      "page": "80",
+      "points": [
+        {
+          "x": 354.5454545454545,
+          "y": 333.5
+        },
+        {
+          "x": 180,
+          "y": 465.5
+        }
+      ],
+      "result": "基准价格\n25元/件\n价格间隔\n-20元/件\n割线斜率\n1,100件/日\n切线斜率\n900件/日"
+    },
+    {
+      "katexErrors": 0,
+      "page": "119",
+      "points": [
+        {
+          "x": 914.1176470588236,
+          "y": 182
+        },
+        {
+          "x": 1083.529411764706,
+          "y": 229.25
+        }
+      ],
+      "result": "价格变化\n15元/件\n实际利润增量\n-5,250元/日\n线性估算\n-3,000元/日\n实际−估算\n-2,250元/日"
+    },
+    {
+      "katexErrors": 0,
+      "page": "119",
+      "points": [
+        {
+          "x": 349.4117647058823,
+          "y": 317
+        },
+        {
+          "x": 180,
+          "y": 445.25
+        }
+      ],
+      "result": "价格变化\n-15元/件\n实际利润增量\n-14,250元/日\n线性估算\n-12,000元/日\n实际−估算\n-2,250元/日"
+    },
+    {
+      "katexErrors": 0,
+      "page": "296",
+      "points": [
+        {
+          "x": 980,
+          "y": 120
+        }
+      ],
+      "result": "实际销量\n588.328件/日\n平面估算\n590件/日\n实际−估算\n-1.672件/日"
+    },
+    {
+      "katexErrors": 0,
+      "page": "296",
+      "points": [
+        {
+          "x": 130,
+          "y": 467.2
+        }
+      ],
+      "result": "实际销量\n1,064件/日\n平面估算\n1,102.4件/日\n实际−估算\n-38.4件/日"
+    }
+  ],
+  "finalNarrowSvgPages": [
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 9
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 21
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 22
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 32
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 40
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 51
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 52
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 66
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 80
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 109
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 119
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 151
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 174
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 222
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 232
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 251
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 261
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 262
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 273
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 274
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 275
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 277
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 286
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 296
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 318
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 327
+    },
+    {
+      "controlsInCanvas": 0,
+      "errors": 0,
+      "failedImages": 0,
+      "overflow": false,
+      "page": 330
+    }
+  ]
+}

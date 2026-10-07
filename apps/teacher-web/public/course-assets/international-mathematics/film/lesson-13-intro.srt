@@ -1,0 +1,75 @@
+1
+00:00:00,650 --> 00:00:05,264
+A paper receipt unfolds on a bright desk,
+but its total has vanished.
+
+2
+00:00:05,264 --> 00:00:09,522
+Beside it, a curve still shows how cost
+changes with each unit.
+
+3
+00:00:15,650 --> 00:00:19,466
+An arrow once pointed from total cost
+toward marginal cost.
+
+4
+00:00:19,466 --> 00:00:24,426
+It turns around now, asking which whole
+function could have produced the rate
+
+5
+00:00:24,426 --> 00:00:25,189
+we see.
+
+6
+00:00:30,650 --> 00:00:35,336
+One possible cost curve rises into view.
+Then another appears above it,
+
+7
+00:00:35,336 --> 00:00:39,632
+following exactly the same slopes while
+keeping a constant vertical gap
+
+8
+00:00:39,632 --> 00:00:40,022
+everywhere.
+
+9
+00:00:45,650 --> 00:00:49,208
+The gap becomes a movable block labelled
+with a constant.
+
+10
+00:00:49,208 --> 00:00:53,477
+Differentiation removes that block, so the
+marginal curve cannot tell us its
+
+11
+00:00:53,477 --> 00:00:54,189
+original height.
+
+12
+00:01:00,650 --> 00:01:04,509
+A single known cost value drops onto the
+screen like an anchor.
+
+13
+00:01:04,509 --> 00:01:08,689
+It selects one curve from the family and
+fixes the previously missing level.
+
+14
+00:01:15,650 --> 00:01:19,737
+The receipt waits beside the marginal
+curve and the possible totals.
+
+15
+00:01:19,737 --> 00:01:24,567
+What information must we find before we
+can recover one complete and reliable
+
+16
+00:01:24,567 --> 00:01:24,939
+bill?

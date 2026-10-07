@@ -1,0 +1,9 @@
+import fs from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';
+import {INTERNATIONAL_MATHEMATICS_DEFINITIONS as lessons,INTERNATIONAL_MATHEMATICS_LESSONS as summaries,INTERNATIONAL_MATHEMATICS_SLIDES as slides,INTERNATIONAL_MATHEMATICS_V1_PAGE_MAP as migration,INTERNATIONAL_MATHEMATICS_VERSION_ID as version,INTERNATIONAL_MATHEMATICS_TITLE as title} from '../packages/course-content/src/international-mathematics/index.js';
+const output=path.resolve(process.env.IM_OUTPUT_ROOT||'output/international-mathematics/v2');fs.mkdirSync(path.join(output,'qa'),{recursive:true});
+const write=(name:string,data:unknown)=>fs.writeFileSync(path.join(output,name),JSON.stringify(data,null,2));
+write('course-definitions.json',{title,version,locale:'en',hours:32,lessons,summaries});write('v1-page-mapping.json',migration.map(p=>({...p,conceptAnchor:p.slideKey,conceptTitle:slides[p.v2Index-1]!.title})));
+write('course-metadata.json',{version,lessons:summaries,totalSlides:slides.length,coreSlides:slides.filter(s=>!s.optionalChallenge).length,optionalSlides:slides.filter(s=>s.optionalChallenge).length});
+const receipt=path.join(output,'qa/preserved-v1-and-media.json');
+if(!fs.existsSync(receipt)){const files=[path.resolve('output/international-mathematics/International-Mathematics-32h-offline-v1.zip'),...fs.readdirSync('apps/teacher-web/public/course-assets/international-mathematics/film').filter(n=>n.endsWith('-intro.mp4')).map(n=>path.resolve('apps/teacher-web/public/course-assets/international-mathematics/film',n))];write('qa/preserved-v1-and-media.json',files.map(file=>({file,sha256:crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')})));}
+console.log(JSON.stringify({output,pages:slides.length,pilotLessons:[1,5,14].map(n=>({number:n,pages:lessons.find(l=>l.number===n)!.slides.length}))}));

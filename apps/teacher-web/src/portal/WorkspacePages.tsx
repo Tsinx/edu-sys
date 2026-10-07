@@ -35,6 +35,8 @@ import { api, request } from "../api";
 import { isLocalDevelopment } from "../campus/local-identity";
 import { runtimeConfig } from "../campus/runtime";
 import { SlideStage } from "../features/classroom/TeachingSlides";
+import {EnglishReadingAssistant} from "../features/study/EnglishReadingAssistant";
+import "../features/study/english-reading-assistant.css";
 import { PortResultDetail } from "../features/port-simulation/PortResultsPage";
 import {
   resultRequest,
@@ -397,7 +399,7 @@ function CourseCards({
               <p>{p?.description ?? c.currentLesson.summary}</p>
               {student ? (
                 deck ? (
-                  <Link to={`/study/${c.id}`}>继续阅读课件 →</Link>
+                  <Link to={`/study/${c.id}`}>{deck.locale === "en" ? "Continue reading →" : "继续阅读课件 →"}</Link>
                 ) : (
                   <span>课件尚未发布</span>
                 )
@@ -407,7 +409,7 @@ function CourseCards({
               <div className="workspace-course-tools">
                 {student ? (
                   <Link to={`/courses/${c.id}/activity-history`}>
-                    课堂活动记录 →
+                    {deck?.locale === "en" ? "Class activity history →" : "课堂活动记录 →"}
                   </Link>
                 ) : (
                   <Link to={`/courses/${c.id}/activities`}>
@@ -1118,6 +1120,8 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
     [index, setIndex] = useState(1),
     [ready, setReady] = useState(false),
     [status, setStatus] = useState("");
+  const t = (zh: string, en: string) => deck?.locale === "en" ? en : zh;
+  const [interactions, setInteractions] = useState<Record<string, import("@edu/contracts").SlideInteractionValues>>({});
   const revision = useRef(0),
     queue = useRef(Promise.resolve());
   useEffect(() => {
@@ -1125,7 +1129,7 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
       const detail = (event as CustomEvent).detail;
       if (detail.path === `/api/courses/${courseId}/reading`) {
         revision.current = detail.value.revision;
-        setStatus("阅读位置已同步");
+        setStatus(t("阅读位置已同步", "Reading position synchronized"));
       }
     };
     const conflict = (event: Event) => {
@@ -1134,7 +1138,7 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
         `/api/courses/${courseId}/reading`
       )
         setStatus(
-          "其他设备已更新进度，当前页仍保留。请选择重新加载服务器位置，或将当前页保存为最新位置。",
+          t("其他设备已更新进度，当前页仍保留。请选择重新加载服务器位置，或将当前页保存为最新位置。", "Another device updated your progress. Reload the server position or save this page as the latest position."),
         );
     };
     window.addEventListener("reading-synced", synced);
@@ -1151,7 +1155,7 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
     const load = async () => {
       await api.getCourses().then((c) => {
         if (!c.some((c) => c.id === courseId))
-          throw new Error("无法访问这门课程");
+          throw new Error(t("无法访问这门课程", "This course is not accessible"));
       });
       let saved: ReadingProgress | null = null;
       if (!preview) saved = await request(`/api/courses/${courseId}/reading`);
@@ -1176,7 +1180,7 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
     if (!deck) return;
     setIndex(next);
     if (preview) return;
-    setStatus("正在保存阅读位置…");
+    setStatus(t("正在保存阅读位置…", "Saving reading position\u2026"));
     queue.current = queue.current
       .then(async () => {
         const value = await request<
@@ -1192,8 +1196,8 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
         revision.current = value.revision;
         setStatus(
           value.pendingSync
-            ? "阅读位置已保存到本机，联网后同步"
-            : "阅读位置已保存",
+            ? t("阅读位置已保存到本机，联网后同步", "Position saved on this device; synchronization will resume online")
+            : t("阅读位置已保存", "Reading position saved"),
         );
       })
       .catch((e) => {
@@ -1205,7 +1209,7 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
       const response = await fetch(`/api/courses/${courseId}/reading`, {
         credentials: "same-origin",
       });
-      if (!response.ok) throw new Error("请联网后再处理阅读进度");
+      if (!response.ok) throw new Error(t("请联网后再处理阅读进度", "Connect to the network to resolve reading progress"));
       const remote = (await response.json()) as ReadingProgress | null;
       const { localDelete, localGet } = await import("../campus/storage");
       const identity = await api.getIdentitySession();
@@ -1216,7 +1220,7 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
       if (useCurrent) go(index);
       else {
         setIndex((remote && deck?.getSlideByKey(remote.slideKey)?.index) || 1);
-        setStatus("已读取服务器位置");
+        setStatus(t("已读取服务器位置", "Server position loaded"));
       }
     } catch (e) {
       setStatus((e as Error).message);
@@ -1250,22 +1254,22 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
         ? index + 1
         : null;
   return (
-    <main className="workspace-reader">
+    <main lang={deck.locale ?? "zh-CN"} className="workspace-reader">
       <header>
         <Link to={preview ? `/courses/${courseId}` : "/"}>
-          ← {preview ? "返回课程" : "返回学习"}
+          ← {preview ? t("返回课程", "Back to course") : t("返回学习", "Back to learning")}
         </Link>
         <strong>
-          {deck.title} · {preview ? "课件预览" : "独立阅读"}
+          {deck.title} · {preview ? t("课件预览", "Slide preview") : t("独立阅读", "Independent reading")}
         </strong>
         <span role="status">{status}</span>
-        {!preview && status.includes("其他") && (
+        {!preview && status.includes(t("其他", "Another device")) && (
           <>
             <button onClick={() => void resolveReading(false)}>
-              重新加载服务器位置
+              {t("重新加载服务器位置", "Reload server position")}
             </button>
             <button onClick={() => void resolveReading(true)}>
-              将当前页保存为最新位置
+              {t("将当前页保存为最新位置", "Save current position")}
             </button>
           </>
         )}
@@ -1274,7 +1278,7 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
         <>
           <nav>
             <label>
-              讲次
+              {t("讲次", "Lesson")}
               <select
                 value={slide.lessonNumber}
                 onChange={(e) =>
@@ -1285,7 +1289,7 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
                   .filter((l) => l.status === "ready")
                   .map((l) => (
                     <option key={l.number} value={l.number}>
-                      {l.displayLabel ?? `第 ${l.number} 讲`} · {l.title}
+                      {l.displayLabel ?? t(`第 ${l.number} 讲`, `Lecture ${l.number}`)} · {l.title}
                     </option>
                   ))}
               </select>
@@ -1294,7 +1298,7 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
               disabled={prev === null}
               onClick={() => prev !== null && go(prev)}
             >
-              上一页
+              {t("上一页", "Previous")}
             </button>
             <span>
               {index} / {deck.slideTotal}
@@ -1303,15 +1307,19 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
               disabled={next === null}
               onClick={() => next !== null && go(next)}
             >
-              下一页
+              {t("下一页", "Next")}
             </button>
           </nav>
           <div className="workspace-reader-stage">
-            <SlideStage frame={frame} readOnly />
+            <SlideStage frame={frame} readOnly={deck.locale !== "en"} playbackMode="reader" onNavigate={go}
+              interaction={deck.locale === "en" && deck.getInteractionDefaults(slide.slideKey) ? {deckId: deck.deckId, slideId: slide.slideKey, revision: 1, values: interactions[slide.slideKey] ?? {...deck.getInteractionDefaults(slide.slideKey)}} : null}
+              onInteractionPatch={patch => setInteractions(old => {const current = old[slide.slideKey] ?? {...deck.getInteractionDefaults(slide.slideKey)}; return deck.validateInteractionPatch(slide.slideKey, patch, current) ? {...old, [slide.slideKey]: {...current, ...patch}} : old;})}
+              onInteractionReset={() => setInteractions(old => ({...old, [slide.slideKey]: {...deck.getInteractionDefaults(slide.slideKey)}}))}/>
           </div>
+          {deck.locale === "en" && deck.presentation.supportsStudy && !preview && <EnglishReadingAssistant key={courseId} courseId={courseId} globalIndex={index} onNavigate={go}/>}
         </>
       )}
-      {!ready && <p role="status">{status || "正在读取课件…"}</p>}
+      {!ready && <p role="status">{status || t("正在读取课件…", "Loading slides\u2026")}</p>}
     </main>
   );
 }

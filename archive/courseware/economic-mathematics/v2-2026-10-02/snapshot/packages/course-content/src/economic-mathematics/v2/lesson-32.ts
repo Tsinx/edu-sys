@@ -1,0 +1,15 @@
+import { authoredLesson } from "../authoring.js";
+export const lesson32=authoredLesson(32,"综合决策：从情境到可解释的方案","新行业、新成本下，你能独立完成建模吗？",["函数、微分、积分与约束优化"],["独立识别变量和约束","完整求解并比较边界","解释敏感性与模型限制"],[{minutes:10,activity:"任务与变量"},{minutes:20,activity:"独立建模"},{minutes:25,activity:"推导与核验"},{minutes:20,activity:"敏感性与小组报告"},{minutes:15,activity:"个人迁移与复盘"}],[
+ {title:"展览的资源安排",layout:"story",image:"l32-scene.png",imageAlt:"展览空间与资源规划",lead:"展览团队分配体验活动$x$与传播活动$y$。每单位资源费用分别为2和1，预算12。",formula:"U(x,y)=12x+10y-x^2-y^2",prompt:"给出可行方案，并证明它在这个模型下最好。",sourceLabel:"教学情境"},
+ {title:"一份可以审查的方案",layout:"essay",image:"l32-concept.png",imageAlt:"模型与决策的综合插画",body:["变量、单位和允许范围。","目标函数、约束与假设。","推导、边界核验与结果解释。"],teachingCue:"独立建模后再累计公开后续推导，避免提前展示答案。"},
+ {title:"先把资源条件写清楚",layout:"exercise",kind:"exercise",prompt:"写出约束、可行区间和目标函数。说明预算是否必须全部使用。",steps:[{title:"本任务条件",formula:"2x+y=12,\\quad x,y\\ge0"},{title:"消去变量",formula:"y=12-2x,\\quad0\\le x\\le6"},{title:"使用边界",text:"本任务规定预算全部分配；允许闲置时应改用不等式并重新检验。"}]},
+ {title:"把问题化成一个变量",layout:"proof",formula:"U(x,12-2x)",steps:[{title:"整理",formula:"U=-24+40x-5x^2"},{title:"导数",formula:"U'=40-10x"},{title:"候选",formula:"x^*=4,\\quad y^*=4"}]},
+ {title:"驻点、端点与证据",layout:"proof",formula:"0\\le x\\le6",steps:[{title:"端点",formula:"U(0,12)=-24,\\quad U(6,0)=36"},{title:"候选值",formula:"U(4,4)=56"},{title:"全局核验",formula:"U=56-5(x-4)^2\\le56"}]},
+ {title:"拉格朗日法的交叉核验",layout:"proof",formula:"L=U+\\lambda(12-2x-y)",steps:[{title:"条件",formula:"12-2x=2\\lambda,\\quad10-2y=\\lambda,\\quad2x+y=12"},{title:"解",formula:"x=4,y=4,\\lambda=2"},{title:"解释",text:"资源价格不同，不能直接令两个原始边际效应相等。"}]},
+ {title:"资源价格改变了配比",layout:"compare",style:"constructivist",formula:"\\frac{U_x}{2}=\\frac{U_y}{1}",body:["比较每一单位预算产生的边际效果。","上一讲的64%与36%来自另一个函数和等资源价格。"],prompt:"为何不能把旧配比直接搬到本任务？"},
+ {title:"预算增加到14",layout:"exercise",kind:"exercise",prompt:"重新求最优方案与目标值；与线性影子价格估算比较。",steps:[{title:"消元一般式",formula:"x^*(B)=0.4B-0.8,\\quad y^*(B)=0.2B+1.6"},{title:"新结果",formula:"B=14:\\ x^*=4.8,y^*=4.4,U^*=59.2"},{title:"近似比较",formula:"56+2\\cdot2=60\\quad\\text{高估 }0.8"}]},
+ {title:"长期使用要检查边界",layout:"proof",formula:"x^*(B)=0.4B-0.8",steps:[{title:"内部解范围",formula:"B>2\\Rightarrow x^*>0,y^*>0"},{title:"小预算",formula:"0\\le B\\le2\\Rightarrow x^*=0,y^*=B"},{title:"大预算解释",text:"模型中的平方惩罚可能使效果下降；扩展预算前应复核业务假设。"}]},
+ {title:"独立迁移：不同目标",layout:"exercise",kind:"exercise",formula:"F(x,y)=8x+6y-x^2-y^2,\\quad x+y=6,\\quad x,y\\ge0",prompt:"独立求解，比较端点，并解释最优比例为何改变。",steps:[{title:"消元",formula:"F(x,6-x)=14x-2x^2"},{title:"最优",formula:"x^*=3.5,y^*=2.5,F^*=24.5"},{title:"端点",formula:"F(0,6)=0,\\quad F(6,0)=12"}]},
+ {title:"累计效果也能进入报告",layout:"exercise",kind:"exercise",lead:"活动期间参与速率$r(t)=20+4t$人/小时，持续3小时。",prompt:"求累计参与人数和平均速率；说明与投入目标指数的区别。",steps:[{title:"累计与平均",formula:"A=\\int_0^3(20+4t)dt=78,\\quad\\bar r=26"},{title:"口径",text:"参与人数与模型目标指数不是同一种量，不能直接相加。"}],sourceLabel:"教学情境"},
+ {title:"一页决策报告",layout:"essay",body:["我选择什么方案，结果以什么单位表达？","有哪些计算证据，哪些假设还待验证？","预算、参数或规则改变后，哪些结论需要重算？"],prompt:"提交模型、完整推导、核验和一项限制，完成课程综合任务。"}
+]);

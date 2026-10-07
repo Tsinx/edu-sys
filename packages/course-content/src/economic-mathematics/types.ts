@@ -81,6 +81,37 @@ export interface EconomicMathematicsAuthoredSlide {
   interactionId?: EconomicMathematicsInteractionId;
   teachingCue: string;
   assistantCue: string;
+  layout?: "cover" | "story" | "essay" | "split" | "proof" | "plot" | "table" | "exercise" | "lab" | "compare";
+  style?: "editorial" | "constructivist" | "cover";
+  image?: string;
+  imageAlt?: string;
+  steps?: readonly EconomicMathematicsRevealStep[];
+  plot?: EconomicMathematicsPlot;
+  table?: { columns: readonly string[]; rows: readonly (readonly string[])[] };
+  interactionDefaults?: Readonly<Record<string, number | string | boolean>>;
+  /** Teacher-only pacing metadata; never project or attach to student DOM. */
+  classHour?: 1 | 2;
+  routeRole?: "core" | "optional";
+  teachingSeconds?: number;
+  moduleId?: string;
+}
+
+export interface EconomicMathematicsRevealStep {
+  title: string;
+  text?: string;
+  formula?: string;
+  plot?: EconomicMathematicsPlot;
+  highlightRows?: readonly number[];
+}
+
+export type EconomicMathematicsCurveModel = "demand" | "profit" | "sequence" | "hole" | "sinc" | "threshold" | "secant" | "linear-error" | "elasticity" | "power" | "log" | "exponential" | "cubic" | "riemann" | "accumulation" | "surplus" | "surface" | "plane" | "profit-contours" | "budget" | "unit-circle" | "exhibition-budget";
+
+export interface EconomicMathematicsPlot {
+  model: EconomicMathematicsCurveModel;
+  xLabel: string;
+  yLabel: string;
+  domain?: readonly [number, number];
+  params?: Readonly<Record<string, number>>;
 }
 
 export interface EconomicMathematicsSlideSpec
@@ -104,6 +135,10 @@ export interface EconomicMathematicsLessonDefinition {
   coreQuestion: string;
   exerciseCapability: string;
   slides: readonly EconomicMathematicsAuthoredSlide[];
+  prerequisites?: readonly string[];
+  outcomes?: readonly string[];
+  route?: readonly { minutes: number; activity: string }[];
+  classHours?: readonly { hour: 1 | 2; minutes: 45; slideStart: number; slideEnd: number; activity: string }[];
 }
 
 export interface EconomicMathematicsLessonSpec

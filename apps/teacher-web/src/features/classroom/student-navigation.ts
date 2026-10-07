@@ -1,6 +1,7 @@
 import { portSimulationChallengeIdSchema, type ClassroomSnapshot, type SlideFrame, type PortSimulationChallengeId } from "@edu/contracts";
 import type { CourseDeckDescriptor } from "@edu/course-content/deck-registry";
 import type { PortCourseSelection } from "@edu/port-simulation-core";
+import { INTERNATIONAL_MATHEMATICS_COURSE_ID, resolveInternationalMathematicsSavedPosition } from "@edu/course-content/international-mathematics";
 
 export interface StudentLocation {
   activity: ClassroomSnapshot["activeActivity"];
@@ -8,7 +9,7 @@ export interface StudentLocation {
   unit?: PortCourseSelection;
   challenge?: { id: PortSimulationChallengeId; trainingMode: "practice" | "battle" };
 }
-export interface StudentNavigation { following: boolean; location: StudentLocation }
+export interface StudentNavigation { following: boolean; location: StudentLocation; deckVersion?:string; slideKey?:string }
 export const simulationUnitLabels: Record<PortCourseSelection, string> = {
   arrival: "入港作业", cargo: "装卸作业", yard: "堆场作业", planning: "港区规划", departure: "离港作业", full: "完整流程"
 };
@@ -31,7 +32,14 @@ export function restoreStudentNavigation(raw: string | null, deck: CourseDeckDes
   try {
     const value = JSON.parse(raw ?? "null") as StudentNavigation | null;
     if (!value || typeof value.following !== "boolean" || !value.location) return null;
-    const { index, activity, unit, challenge } = value.location;
+    const { activity, unit, challenge } = value.location;
+    let index=value.location.index;
+    if(deck.courseId===INTERNATIONAL_MATHEMATICS_COURSE_ID){
+      // Before v2, browser navigation persisted only an index. New saves carry an anchor and version.
+      const restored=resolveInternationalMathematicsSavedPosition(value.deckVersion??'release-international-mathematics-jacques-v1',index,value.slideKey);
+      if(!restored)return null;
+      index=restored.index;value.location={...value.location,index};value.slideKey=restored.slideKey;value.deckVersion=deck.versionId;
+    }
     if (!Number.isInteger(index) || index < 1 || index > deck.slideTotal || !deck.allowedActivities.includes(activity)) return null;
     if (activity === "simulation" && (!unit || !Object.hasOwn(simulationUnitLabels, unit))) return null;
     if (challenge && (!portSimulationChallengeIdSchema.safeParse(challenge.id).success || !["practice","battle"].includes(challenge.trainingMode))) return null;

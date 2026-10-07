@@ -9,21 +9,23 @@ import { ClassroomGroups } from "./ClassroomGroups";
 import { activityRequestId } from "./participation-id";
 
 const statusLabel = { open: "进行中", closed: "已结束", revealed: "已公布" };
-function QuestionResults({ active }: { active: NonNullable<ClassroomParticipationView["active"]> }) {
+function QuestionResults({ active, locale }: { active: NonNullable<ClassroomParticipationView["active"]>; locale?: "zh-CN" | "en" }) {
+  const t = (zh: string, en: string) => locale === "en" ? en : zh;
   if (!active.counts) return null;
-  return <div className="participation-results" aria-label="答题统计">
-    <p>{active.responseCount} 人已提交{active.mode === "multiple" ? " · 多选题按选项分别计数" : ""}</p>
+  return <div className="participation-results" aria-label={t("答题统计", "Response statistics")}>
+    <p>{active.responseCount} {t("人已提交", "responses submitted")}{active.mode === "multiple" ? t(" · 多选题按选项分别计数", " \u00b7 Options are counted separately") : ""}</p>
     {active.options.map(option => <div className="participation-result" key={option.id}>
-      <span>{option.id} · {option.text}{active.correctOptionIds?.includes(option.id) && <Check size={16} aria-label="正确选项" />}</span>
+      <span>{option.id} · {option.text}{active.correctOptionIds?.includes(option.id) && <Check size={16} aria-label={t("正确选项", "Correct option")} />}</span>
       <meter min={0} max={Math.max(1, active.responseCount ?? 0)} value={active.counts?.[option.id] ?? 0} />
       <b>{active.counts?.[option.id] ?? 0}</b>
     </div>)}
-    {active.correctOptionIds?.length ? <p>参考答案：{active.correctOptionIds.join("、")}</p> : <p>本题为观点投票，无标准答案。</p>}
+    {active.correctOptionIds?.length ? <p>{t("参考答案：", "Reference answer: ")}{active.correctOptionIds.join(locale === "en" ? ", " : "、")}</p> : <p>{t("本题为观点投票，无标准答案。", "Opinion poll: no standard answer.")}</p>}
     {active.explanation && <p className="participation-explanation">{active.explanation}</p>}
   </div>;
 }
 
-export function StudentParticipation({ sessionId, actor }: { sessionId: string; actor: ClassroomActor }) {
+export function StudentParticipation({ sessionId, actor, locale }: { sessionId: string; actor: ClassroomActor; locale?: "zh-CN" | "en" }) {
+  const t = (zh: string, en: string) => locale === "en" ? en : zh;
   const { view, busy, error, connected, mutate } = useParticipation(sessionId);
   const [name, setName] = useState(actor.identitySource === "development" ? "" : actor.displayName);
   const [selected, setSelected] = useState<string[]>([]);
@@ -34,37 +36,37 @@ export function StudentParticipation({ sessionId, actor }: { sessionId: string; 
   useEffect(()=>{if(!preview&&actor.identitySource!=="development"&&view?.isLive&&!view.joined&&!joining.current){joining.current=true;void mutate('/join',{displayName:actor.displayName}).finally(()=>{joining.current=false;});}},[view?.isLive,view?.joined,preview,actor.actorId]);
   useEffect(()=>{if(active?.id){const details=root.current?.closest('details');if(details)details.open=true;}},[active?.id]);
 
-  return <section ref={root} className="participation student-participation" aria-label="课堂活动">
-    <header className="participation-heading"><div><span className="participation-eyebrow">CLASSROOM LIVE</span><h2><UsersRound size={20} />课堂活动</h2></div>
-      <span className="participation-connection"><Radio size={14} />{connected ? "实时同步" : "正在重连"}</span></header>
+  return <section ref={root} className="participation student-participation" aria-label={t("课堂活动", "Class activities")}>
+    <header className="participation-heading"><div><span className="participation-eyebrow">CLASSROOM LIVE</span><h2><UsersRound size={20} />{t("课堂活动", "Class activities")}</h2></div>
+      <span className="participation-connection"><Radio size={14} />{connected ? t("实时同步", "Live updates") : t("正在重连", "Reconnecting")}</span></header>
     {error && <p role="alert" className="participation-error">{error}</p>}
-    {!view ? <p>正在连接课堂活动…</p> : preview ? <p>教师预览 · 学生可在这里加入、答题和回应点名。</p> : <>
-      {!view.isLive && <p role="status">课堂已结束，活动记录已保留。</p>}
+    {!view ? <p>{t("正在连接课堂活动…", "Connecting to class activities\u2026")}</p> : preview ? <p>{t("教师预览 · 学生可在这里加入、答题和回应点名。", "Teacher preview: students can join and answer here.")}</p> : <>
+      {!view.isLive && <p role="status">{t("课堂已结束，活动记录已保留。", "Class ended. Activity records are saved.")}</p>}
       {!view.joined ? view.isLive && <form className="participation-join" onSubmit={event => { event.preventDefault(); void mutate("/join", { displayName: name }); }}>
-        <label>课堂账号<input autoComplete="name" value={name} maxLength={40} required readOnly={actor.identitySource !== "development"} placeholder="填写老师能认出的姓名" onChange={event => setName(event.target.value)} /></label>
-        <button className="participation-primary" disabled={busy || !name.trim()}>加入活动</button>
-        <small>在当前浏览器加入后，刷新页面会保留提交记录。</small>
+        <label>{t("课堂账号", "Classroom name")}<input autoComplete="name" value={name} maxLength={40} required readOnly={actor.identitySource !== "development"} placeholder={t("填写老师能认出的姓名", "Enter a name your teacher recognizes")} onChange={event => setName(event.target.value)} /></label>
+        <button className="participation-primary" disabled={busy || !name.trim()}>{t("加入活动", "Join activities")}</button>
+        <small>{t("在当前浏览器加入后，刷新页面会保留提交记录。", "Your responses are kept when you refresh this browser.")}</small>
       </form> : <>
-        <p className="participation-identity">{view.displayName}，{active ? "请参与本次课堂活动" : "已就位，等待老师发起活动。"}</p>
-        {view.group && <p className="participation-tag">我的小组：{view.group} · 讨论后各自提交</p>}
+        <p className="participation-identity">{view.displayName}，{active ? t("请参与本次课堂活动", "please answer the current activity") : t("已就位，等待老师发起活动。", "ready. Waiting for the teacher.")}</p>
+        {view.group && <p className="participation-tag">{t("我的小组：", "My group: ")}{view.group} · {t("讨论后各自提交", "Submit individually after discussion")}</p>}
         {active && <article className="participation-card" aria-live="polite">
-          <span className="participation-tag">{active.kind === "roll_call" ? "课堂点名" : active.mode === "single" ? "单选题" : "多选题"} · {statusLabel[active.status]}</span>
+          <span className="participation-tag">{active.kind === "roll_call" ? t("课堂点名", "Called to respond") : active.mode === "single" ? t("单选题", "Single choice") : t("多选题", "Multiple choice")} · {locale === "en" ? ({open:"Open",closed:"Closed",revealed:"Released"} as const)[active.status] : statusLabel[active.status]}</span>
           {active.kind === "roll_call" ? <>
-            <h3>{active.calledStudent?.displayName}</h3><p>{active.calledStudent?.isYou ? "老师邀请你回答，请先确认已收到点名。" : "请听这位同学的回答。"}</p>
-            {active.ownAnswer || active.responseCount ? <p className="participation-success">已确认回应</p> : active.calledStudent?.isYou && <button className="participation-primary" disabled={busy || !view.isLive || active.status !== "open"} onClick={() => void mutate(`/activities/${active.id}/answer`, { optionIds: [] })}>我在，准备回答</button>}
+            <h3>{active.calledStudent?.displayName}</h3><p>{active.calledStudent?.isYou ? t("老师邀请你回答，请先确认已收到点名。", "The teacher invites you to respond. Confirm that you are ready.") : t("请听这位同学的回答。", "Listen to your classmate.")}</p>
+            {active.ownAnswer || active.responseCount ? <p className="participation-success">{t("已确认回应", "Confirmed")}</p> : active.calledStudent?.isYou && <button className="participation-primary" disabled={busy || !view.isLive || active.status !== "open"} onClick={() => void mutate(`/activities/${active.id}/answer`, { optionIds: [] })}>{t("我在，准备回答", "Ready to respond")}</button>}
           </> : <>
             <h3>{active.question}</h3>
             <fieldset disabled={busy || !view.isLive || active.status !== "open" || Boolean(active.ownAnswer)} className="participation-options">
-              <legend>{active.mode === "single" ? "请选择一项" : "请选择所有符合的选项"}</legend>
+              <legend>{active.mode === "single" ? t("请选择一项", "Select one option") : t("请选择所有符合的选项", "Select all suitable options")}</legend>
               {active.options.map(option => <label key={option.id} className={selected.includes(option.id) ? "is-selected" : ""}>
                 <input type={active.mode === "single" ? "radio" : "checkbox"} name={`answer-${active.id}`} checked={selected.includes(option.id)} onChange={() => setSelected(values => active.mode === "single" ? [option.id] : values.includes(option.id) ? values.filter(id => id !== option.id) : [...values, option.id])} />
                 <b>{option.id}</b><span>{option.text}</span>
               </label>)}
             </fieldset>
-            {active.ownAnswer ? <p className="participation-success">已提交：{active.ownAnswer.optionIds.join("、")} · {active.status === "revealed" ? "结果已公布" : "等待老师公布结果"}</p> : active.status === "open" ? <>
-              <button className="participation-primary" disabled={busy || !selected.length || !view.isLive} onClick={() => void mutate(`/activities/${active.id}/answer`, { optionIds: selected })}>{busy ? "提交中…" : "确认提交"}</button><small>提交后不可修改，请确认选择。</small>
-            </> : <p>本题已收题，你未提交答案。</p>}
-            <QuestionResults active={active} />
+            {active.ownAnswer ? <p className="participation-success">{t("已提交：", "Submitted: ")}{active.ownAnswer.optionIds.join(locale === "en" ? ", " : "、")} · {active.status === "revealed" ? t("结果已公布", "Results released") : t("等待老师公布结果", "Waiting for results")}</p> : active.status === "open" ? <>
+              <button className="participation-primary" disabled={busy || !selected.length || !view.isLive} onClick={() => void mutate(`/activities/${active.id}/answer`, { optionIds: selected })}>{busy ? t("提交中…", "Submitting\u2026") : t("确认提交", "Submit response")}</button><small>{t("提交后不可修改，请确认选择。", "Check your choices. Responses cannot be changed after submission.")}</small>
+            </> : <p>{t("本题已收题，你未提交答案。", "This question is closed. You did not submit a response.")}</p>}
+            <QuestionResults active={active} locale={locale} />
           </>}
         </article>}
       </>}

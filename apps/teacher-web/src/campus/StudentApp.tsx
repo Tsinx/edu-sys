@@ -7,7 +7,7 @@ import {
   PreferencesPage,
   NotFound,
 } from "../portal/WorkspacePages";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import {
   BrowserRouter,
   Link,
@@ -43,13 +43,21 @@ const Study = lazy(() =>
 );
 function StudentRoutes({ identity }: { identity: ClassroomIdentitySession }) {
   const location = useLocation();
+  const [classroomLocale, setClassroomLocale] = useState("zh-CN");
+  useEffect(() => {
+    const update = (event: Event) => setClassroomLocale((event as CustomEvent<string>).detail);
+    window.addEventListener("student-course-locale", update);
+    return () => window.removeEventListener("student-course-locale", update);
+  }, []);
+  const english = location.pathname.includes("/course-international-mathematics") || (location.pathname.startsWith("/join/") && classroomLocale === "en");
+  const t = (zh: string, en: string) => english ? en : zh;
   return (
     <>
       <header className="campus-student-header">
-        <nav aria-label="学生主导航">
-          <Link to="/">学习</Link>
-          <Link to="/tasks">实验任务</Link>
-          <Link to="/submissions">我的提交</Link>
+        <nav aria-label={t("学生主导航", "Student navigation")}>
+          <Link to="/">{t("学习", "Learning")}</Link>
+          <Link to="/tasks">{t("实验任务", "Tasks")}</Link>
+          <Link to="/submissions">{t("我的提交", "My submissions")}</Link>
         </nav>
         <Link to="/settings">{identity.actor.displayName}</Link>
         <button
@@ -59,10 +67,10 @@ function StudentRoutes({ identity }: { identity: ClassroomIdentitySession }) {
               .then(() => window.location.assign("/"))
           }
         >
-          退出登录
+          {t("退出登录", "Sign out")}
         </button>
       </header>
-      <Suspense fallback={<p>正在加载课程…</p>}>
+      <Suspense fallback={<p>{t("正在加载课程…", "Loading course…")}</p>}>
         <Routes>
           <Route path="/" element={<WorkspaceHome student />} />
           <Route path="/student.html" element={<WorkspaceHome student />} />

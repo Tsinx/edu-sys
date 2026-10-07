@@ -7,6 +7,7 @@
     ".": "./src/index.ts",
     "./deck-registry": "./src/deck-registry.ts",
     "./economic-mathematics": "./src/economic-mathematics/index.ts",
+    "./international-mathematics": "./src/international-mathematics/index.ts",
     "./statistical-analysis": "./src/statistical-analysis/index.ts",
     "./management-principles": "./src/management-principles/index.ts",
     "./management-principles/source-map": "./src/management-principles/source-map.ts"

@@ -1,5 +1,6 @@
 import { buildPromptWorkspace } from "../assistant/prompts.js";
 import type { AssistantPromptSettings } from "@edu/contracts";
+import {getCourseDeckByCourseId} from "@edu/course-content/deck-registry";
 import {
   StreamingJsonDialogueError,
   StreamingJsonDialogueExtractor,
@@ -33,6 +34,21 @@ interface ConversationTurn {
 }
 
 function buildSystemPrompt(session: StudySession, settings: AssistantPromptSettings): string {
+  const deck = getCourseDeckByCourseId(session.courseId);
+  if (deck?.locale === "en") {
+    const position = deck.getLessonPosition(session.globalIndex)!;
+    const tools = [
+      "Return one JSON object only, without Markdown or surrounding text. Output keys in this order: dialogue, actions, schema, version.",
+      "dialogue must be clear spoken English, usually 60 to 150 words. Explain one useful step and the meaning of its units.",
+      "Only produce personal navigation actions when the student explicitly asks to move. Ordinary mathematical questions require actions: [].",
+      'Allowed actions: {"type":"study.slides.next"}, {"type":"study.slides.previous"}, {"type":"study.slides.go_to","lesson":integer,"slide":local page integer}, {"type":"study.lesson.go_to","lesson":integer}.',
+      `Published lessons: ${deck.lessons.filter(l=>l.status === "ready").map(l=>`${l.number}: ${l.title}, pages 1–${l.slideTotal}`).join("; ")}.`,
+      `Current lesson ${position.lessonNumber}, local page ${position.localIndex}/${position.localTotal}. An unqualified page number refers to the current lesson.`,
+      "Navigation executes after full schema validation. Do not say an action already happened. Do not narrate private cues, JSON keys or global page indices.",
+      'schema is "edu.study.assistant.response"; version is "1.0".',
+    ].join("\n");
+    return buildPromptWorkspace(session.courseId, session.courseTitle, settings, session.globalIndex, "slides", undefined, tools).compiled;
+  }
   const position = getPortManagementLessonSlidePosition(
     session.globalIndex
   )!;

@@ -890,6 +890,7 @@ export const simulationNavigationSchema = z.object({
 });
 export const classroomSnapshotSchema = z.object({
   session: classSessionSchema,
+  serverNowMs: z.number().int().nonnegative().optional(),
   courseId: z.string(),
   courseTitle: z.string(),
   chapterTitle: z.string(),

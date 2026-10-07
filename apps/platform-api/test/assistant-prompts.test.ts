@@ -36,12 +36,26 @@ test("every registered slide and experiment resolves five nonempty, correctly sc
       assert.equal(workspace.modules[3]!.key, `${deck.courseId}:${slide.slideKey}`);
       assert.ok(workspace.compiled.includes(`key="${slide.slideKey}"`));
       const page = workspace.modules[3]!;
-      for (const heading of ["本页定位", "问题从何而来", "本页材料与概念联系", "后续如何使用", "综合回答方式", "本页专属约束"]) {
-        assert.ok(page.defaultText.includes(`【${heading}】`), `${slide.slideKey}/${heading}`);
+      if (deck.locale === "en") {
+        for (const heading of ["Current lecture:", "Current page:", "Public material:", "Source:"]) {
+          assert.ok(page.defaultText.includes(heading), `${slide.slideKey}/${heading}`);
+        }
+        assert.ok(page.defaultText.includes(slide.title), `${slide.slideKey}: current page title`);
+        assert.ok(page.defaultText.includes(slide.lessonTitle), `${slide.slideKey}: current lecture title`);
+        assert.match(page.defaultText, /teaching models, not observations of real businesses/);
+        assert.match(page.defaultText, /check units and domains/);
+        assert.match(page.defaultText, /Respond in clear, concise English/);
+        assert.ok(workspace.compiled.includes("Current lecture:"), `${slide.slideKey}: English context reaches provider even when withheld`);
+        assert.match(workspace.modules[0]!.defaultText, /Respond in clear, concise English/);
+        assert.doesNotMatch(workspace.modules[0]!.defaultText, /中文回答/);
+      } else {
+        for (const heading of ["本页定位", "问题从何而来", "本页材料与概念联系", "后续如何使用", "综合回答方式", "本页专属约束"]) {
+          assert.ok(page.defaultText.includes(`【${heading}】`), `${slide.slideKey}/${heading}`);
+        }
+        assert.ok(workspace.compiled.includes("【问题从何而来】"), `${slide.slideKey}: contextual material reaches provider even when withheld`);
+        assert.match(workspace.compiled, /小麦老师/);
       }
       assert.ok(page.defaultText.length >= 500 && page.defaultText.length < 7000, `${slide.slideKey}: ${page.defaultText.length}`);
-      assert.ok(workspace.compiled.includes("【问题从何而来】"), `${slide.slideKey}: contextual material reaches provider even when withheld`);
-      assert.match(workspace.compiled, /小麦老师/);
       assert.doesNotMatch(workspace.compiled, /你是.*(?:澜舟|经数助教|港航教学助手)/);
       checked++;
     }

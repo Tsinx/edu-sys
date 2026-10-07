@@ -1,0 +1,79 @@
+1
+00:00:00,650 --> 00:00:03,790
+Two bright shop windows display the same
+percentage increase.
+
+2
+00:00:03,790 --> 00:00:08,673
+Both price tags rise by ten percent, but
+the waiting crowds begin to move
+
+3
+00:00:08,673 --> 00:00:09,022
+differently.
+
+4
+00:00:15,650 --> 00:00:18,757
+One window starts with many buyers and a
+low price.
+
+5
+00:00:18,757 --> 00:00:22,795
+The other begins with fewer buyers and a
+higher price, changing the comparison
+
+6
+00:00:22,795 --> 00:00:23,106
+base.
+
+7
+00:00:30,650 --> 00:00:33,663
+A single straight demand line connects
+both windows.
+
+8
+00:00:33,663 --> 00:00:38,559
+Its slope stays constant, yet price and
+quantity ratios change as the marker
+
+9
+00:00:38,559 --> 00:00:39,689
+moves along it.
+
+10
+00:00:45,650 --> 00:00:52,742
+A small loss of buyers can be a tiny share
+of one crowd and a large share of
+
+11
+00:00:52,742 --> 00:00:55,106
+another. Elasticity compares these
+proportional responses.
+
+12
+00:01:00,650 --> 00:01:03,885
+Price and quantity now form rectangles of
+revenue.
+
+13
+00:01:03,885 --> 00:01:08,738
+One rectangle grows after the increase,
+while the other shrinks, despite the
+
+14
+00:01:08,738 --> 00:01:10,356
+matching percentage price changes.
+
+15
+00:01:15,650 --> 00:01:18,516
+The two windows pause beside the demand
+line.
+
+16
+00:01:18,516 --> 00:01:23,173
+Why does the same ten percent increase
+cause a different shock, and which
+
+17
+00:01:23,173 --> 00:01:24,606
+measure explains the difference?

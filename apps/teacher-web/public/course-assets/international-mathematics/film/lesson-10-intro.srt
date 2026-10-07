@@ -1,0 +1,78 @@
+1
+00:00:00,650 --> 00:00:03,169
+A paper ribbon climbs across a bright
+landscape.
+
+2
+00:00:03,169 --> 00:00:07,263
+Its slope becomes gentler until the path
+appears flat, and a small marker
+
+3
+00:00:07,263 --> 00:00:08,522
+pauses at that point.
+
+4
+00:00:15,650 --> 00:00:18,228
+The ribbon bends downward after the pause.
+
+5
+00:00:18,228 --> 00:00:23,383
+Now the flat point looks like a summit,
+because nearby values rise before it
+
+6
+00:00:23,383 --> 00:00:24,856
+and fall after it.
+
+7
+00:00:30,650 --> 00:00:34,347
+Another ribbon falls into a bowl and then
+rises again.
+
+8
+00:00:34,347 --> 00:00:39,153
+Its lowest point also has zero slope, but
+it tells a completely different
+
+9
+00:00:39,153 --> 00:00:39,522
+story.
+
+10
+00:00:45,650 --> 00:00:48,276
+A third path flattens briefly and
+continues climbing.
+
+11
+00:00:48,276 --> 00:00:52,543
+The marker never reaches a summit or
+valley, even though the tangent is
+
+12
+00:00:52,543 --> 00:00:53,856
+horizontal at the pause.
+
+13
+00:01:00,650 --> 00:01:03,665
+A frame cuts the landscape into an allowed
+interval.
+
+14
+00:01:03,665 --> 00:01:08,354
+Its edges now matter, because the best
+available point may sit directly on a
+
+15
+00:01:08,354 --> 00:01:08,689
+boundary.
+
+16
+00:01:15,650 --> 00:01:21,398
+Three flat points remain side by side.
+Which one is a maximum, which one is a
+
+17
+00:01:21,398 --> 00:01:24,272
+minimum, and which one simply continues
+its journey?

@@ -40,6 +40,7 @@ export interface LamAvatarController {
 
 export interface LamAvatarSurfaceProps {
   runtime: LamRuntimeStatus | undefined;
+  courseId?: string;
   concealed?: boolean;
   onConnectionStateChange: (state: LamConnectionState) => void;
   onRetry: () => void;

@@ -1,0 +1,67 @@
+1
+00:00:00,650 --> 00:00:04,997
+A tap opens above a bright water tank. The
+meter begins to rise, but its
+
+2
+00:00:04,997 --> 00:00:07,606
+number describes a flow rate, not the
+water collected.
+
+3
+00:00:15,650 --> 00:00:20,695
+Freeze the flow for one short minute. A
+rectangle appears, with time along its
+
+4
+00:00:20,695 --> 00:00:23,939
+base and litres per minute standing along
+its height.
+
+5
+00:00:30,650 --> 00:00:34,714
+Now the flow changes. Four readings build
+four steps across the screen.
+
+6
+00:00:34,714 --> 00:00:38,439
+Their heights differ, and thin empty
+wedges remain above each step.
+
+7
+00:00:45,650 --> 00:00:50,236
+Split each minute into smaller pieces. The
+staircase becomes finer, and the
+
+8
+00:00:50,236 --> 00:00:54,439
+empty gaps shrink. The tank itself has not
+changed at all.
+
+9
+00:01:00,650 --> 00:01:03,939
+The tiny contributions gather into one
+shaded shape.
+
+10
+00:01:03,939 --> 00:01:08,872
+Its area represents accumulated water,
+because a rate multiplied by time gives
+
+11
+00:01:08,872 --> 00:01:10,106
+a volume again.
+
+12
+00:01:15,650 --> 00:01:18,508
+The meter still moves, and the tank still
+fills.
+
+13
+00:01:18,508 --> 00:01:21,049
+How much water arrives during these four
+minutes?
+
+14
+00:01:21,049 --> 00:01:23,272
+Find a total from a changing rate.

@@ -1,0 +1,67 @@
+1
+00:00:00,650 --> 00:00:03,939
+Three parcels slide across a bright paper
+counter.
+
+2
+00:00:03,939 --> 00:00:09,283
+Each follows a different charging rule.
+Their cost tags begin to move as
+
+3
+00:00:09,283 --> 00:00:10,106
+quantities increase.
+
+4
+00:00:15,650 --> 00:00:20,987
+The first tag stays at one height. More
+parcels arrive, but the fixed fee does
+
+5
+00:00:20,987 --> 00:00:24,189
+not move. Its graph becomes a perfectly
+horizontal ribbon.
+
+6
+00:00:30,650 --> 00:00:36,368
+The second tag climbs by equal amounts for
+equal quantity steps.
+
+7
+00:00:36,368 --> 00:00:42,606
+A straight ribbon appears, carrying the
+same slope all along its path.
+
+8
+00:00:45,650 --> 00:00:49,187
+The third tag rises faster as more parcels
+join.
+
+9
+00:00:49,187 --> 00:00:54,296
+Equal quantity steps now add different
+amounts of cost, and the ribbon bends
+
+10
+00:00:54,296 --> 00:00:54,689
+upward.
+
+11
+00:01:00,650 --> 00:01:05,848
+A new receipt combines a fixed fee, a
+per-item charge, and a curved charge.
+
+12
+00:01:05,848 --> 00:01:09,189
+Can we find its local rate without
+starting again?
+
+13
+00:01:15,650 --> 00:01:20,848
+Choose a quantity on the receipt. What
+happens to cost after a tiny increase?
+
+14
+00:01:20,848 --> 00:01:24,189
+Find a rule that describes this changing
+slope clearly.

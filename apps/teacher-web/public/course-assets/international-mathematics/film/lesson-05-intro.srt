@@ -1,0 +1,79 @@
+1
+00:00:00,650 --> 00:00:03,655
+A delivery vehicle leaves a paper
+warehouse.
+
+2
+00:00:03,655 --> 00:00:06,659
+Every second, a new position mark appears.
+
+3
+00:00:06,659 --> 00:00:10,522
+The marks are becoming farther apart along
+the route.
+
+4
+00:00:15,650 --> 00:00:19,480
+The positions lift from the road onto a
+graph.
+
+5
+00:00:19,480 --> 00:00:25,013
+Time runs across the bottom. Distance
+rises up the side, forming a smooth
+
+6
+00:00:25,013 --> 00:00:25,439
+curve.
+
+7
+00:00:30,650 --> 00:00:33,097
+Choose two times and connect their
+positions.
+
+8
+00:00:33,097 --> 00:00:37,640
+The line measures an average speed across
+that interval, but the vehicle is
+
+9
+00:00:37,640 --> 00:00:38,689
+changing its speed.
+
+10
+00:00:45,650 --> 00:00:49,834
+Hold the two-second position fixed. Move
+the other time closer.
+
+11
+00:00:49,834 --> 00:00:54,854
+Each new line turns slightly, as the
+measurement interval becomes shorter and
+
+12
+00:00:54,854 --> 00:00:55,272
+shorter.
+
+13
+00:01:00,650 --> 00:01:03,883
+The moving line seems to settle into one
+direction.
+
+14
+00:01:03,883 --> 00:01:08,913
+Its slope offers a way to describe speed
+at the target, without measuring zero
+
+15
+00:01:08,913 --> 00:01:09,272
+time.
+
+16
+00:01:15,650 --> 00:01:20,817
+The delivery reaches exactly two seconds.
+What is its speed at this moment?
+
+17
+00:01:20,817 --> 00:01:25,189
+Use the nearby position changes to find a
+convincing mathematical answer.

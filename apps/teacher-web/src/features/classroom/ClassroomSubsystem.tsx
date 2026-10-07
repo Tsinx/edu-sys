@@ -142,6 +142,10 @@ const lamConnectionLabels: Record<LamConnectionState, string> = {
   speaking: "讲解中",
   error: "会话异常"
 };
+const lamConnectionLabelsEn: Record<LamConnectionState, string> = {
+  offline: "Offline", warming: "Warming up", loading: "Loading avatar", connecting: "Connecting",
+  ready: "Ready", listening: "Listening", thinking: "Thinking", speaking: "Speaking", error: "Connection error"
+};
 
 function isLamConnected(state: LamConnectionState) {
   return ["ready", "listening", "thinking", "speaking"].includes(state);
@@ -157,6 +161,7 @@ export function ClassroomSubsystem() {
   sessionIdRef.current = sessionId;
   const navigate = useNavigate();
   const [snapshot, setSnapshot] = useState<ClassroomSnapshot>();
+  const t = (zh: string, en: string) => snapshot?.courseId === "course-international-mathematics" ? en : zh;
   const [courseDeck, setCourseDeck] = useState<CourseDeckDescriptor | null>(null);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
@@ -265,7 +270,7 @@ export function ClassroomSubsystem() {
 
   useEffect(() => {
     let active = true;
-    if (!snapshot?.courseId || ![ECONOMIC_MATHEMATICS_COURSE_ID, "statistical-analysis", "management-principles"].includes(snapshot.courseId)) {
+    if (!snapshot?.courseId || ![ECONOMIC_MATHEMATICS_COURSE_ID, "statistical-analysis", "management-principles", "course-international-mathematics"].includes(snapshot.courseId)) {
       setCourseDeck(null);
       return () => {
         active = false;
@@ -440,7 +445,7 @@ export function ClassroomSubsystem() {
 
   useEffect(() => {
     if (!snapshot) return;
-    if ([ECONOMIC_MATHEMATICS_COURSE_ID, "statistical-analysis", "management-principles"].includes(snapshot.courseId)) {
+    if ([ECONOMIC_MATHEMATICS_COURSE_ID, "statistical-analysis", "management-principles", "course-international-mathematics"].includes(snapshot.courseId)) {
       const position = courseDeck?.getLessonPosition(snapshot.slide.index);
       if (position) setSlidePageDraft(String(position.localIndex));
       return;
@@ -881,7 +886,7 @@ export function ClassroomSubsystem() {
     }
 
     if (snapshotRef.current?.session.id !== current.session.id || snapshotRef.current.session.status !== "live") return;
-    setNotice("教师文字已进入平台课堂助手。");
+    setNotice(t("教师文字已进入平台课堂助手。", "Your message has been sent to Math Guide."));
     await runAssistantTurn(text, "text", response.id);
   }
 
@@ -898,7 +903,7 @@ export function ClassroomSubsystem() {
     const inviteUrl = new URL(`/join/${snapshot?.session.id ?? sessionId}`, window.location.origin).toString();
     try {
       await navigator.clipboard.writeText(inviteUrl);
-      setNotice("学生课堂链接已复制；学生打开后才会计入在线人数。");
+      setNotice(t("学生课堂链接已复制；学生打开后才会计入在线人数。", "Student classroom link copied. Students appear online after joining."));
     } catch {
       if (snapshot?.courseId === 'statistical-analysis') setNotice(`学生加入链接：${inviteUrl}`);
       else {
@@ -970,7 +975,8 @@ export function ClassroomSubsystem() {
     snapshot.courseId === ECONOMIC_MATHEMATICS_COURSE_ID;
   const isStatisticalAnalysis = snapshot.courseId === "statistical-analysis";
   const isManagement = snapshot.courseId === "management-principles";
-  const isRegisteredCourse = isEconomicMathematics || isStatisticalAnalysis || isManagement;
+  const isInternationalMathematics = snapshot.courseId === "course-international-mathematics";
+  const isRegisteredCourse = isEconomicMathematics || isStatisticalAnalysis || isManagement || isInternationalMathematics;
   if (isRegisteredCourse && !courseDeck) {
     return (
       <main className="classroom-subsystem classroom-subsystem--centered">
@@ -1001,7 +1007,7 @@ export function ClassroomSubsystem() {
   const lessonOptions = isRegisteredCourse
     ? courseDeck!.lessons.map((lesson) => ({
         number: lesson.number,
-        label: getCourseLessonLabel(lesson),
+        label: getCourseLessonLabel(lesson, courseDeck?.locale),
         title: lesson.title,
         slideStart: lesson.slideStart,
         status: lesson.status
@@ -1065,10 +1071,10 @@ export function ClassroomSubsystem() {
   }
 
   return (
-    <main className={`classroom-subsystem${isStatisticalAnalysis ? ' classroom-subsystem--statistics' : ''}${isManagement ? ' classroom-subsystem--management' : ''}`}>
+    <main lang={isInternationalMathematics ? "en" : "zh-CN"} className={`classroom-subsystem${isStatisticalAnalysis ? ' classroom-subsystem--statistics' : ''}${isManagement ? ' classroom-subsystem--management' : ''}`}>
       <header className="classroom-commandbar">
         <div className="classroom-commandbar__course">
-          <Link className="classroom-brand-mark" to="/" aria-label="返回教学中枢">
+          <Link className="classroom-brand-mark" to="/" aria-label={t("返回教学中枢", "Back to teaching workspace")}>
             {isRegisteredCourse ? <Sparkles size={23} /> : <ShipWheel size={23} />}
           </Link>
           <div>
@@ -1079,40 +1085,40 @@ export function ClassroomSubsystem() {
 
         <div className="classroom-commandbar__status">
           <span className={isLive ? "class-live-status" : "class-live-status class-live-status--idle"}>
-            <i /> {isLive ? "课堂进行中" : "课堂已结束"}
+            <i /> {isLive ? t("课堂进行中", "Class is live") : t("课堂已结束", "Class ended")}
           </span>
           <span><Radio size={17} /> {elapsed}</span>
-          <span title="按学生端最近 45 秒的有效心跳统计">
+          <span title={t("按学生端最近 45 秒的有效心跳统计", "Active students in the past 45 seconds")}>
             <UsersRound size={18} />
             {snapshot.participantsOnline > 0
-              ? `${snapshot.participantsOnline} 人在线`
-              : "暂无学生在线"}
+              ? t(`${snapshot.participantsOnline} 人在线`, `${snapshot.participantsOnline} students online`)
+              : t("暂无学生在线", "No students online")}
           </span>
         </div>
 
         <div className="classroom-commandbar__actions">
           <button
             type="button"
-            aria-label="邀请学生"
+            aria-label={t("邀请学生", "Invite students")}
             onClick={() => void copyInviteLink()}
           >
-            <UserPlus size={18} /> <span>邀请</span>
+            <UserPlus size={18} /> <span>{t("邀请", "Invite")}</span>
           </button>
           <button
             type="button"
-            aria-label="课堂显示信息"
+            aria-label={t("课堂显示信息", "Classroom display settings")}
             onClick={() => setSettingsOpen(true)}
           >
-            <Settings size={18} /> <span>显示信息</span>
+            <Settings size={18} /> <span>{t("显示信息", "Display")}</span>
           </button>
           <button
             className="end-class-button"
             type="button"
-            aria-label="结束课堂"
+            aria-label={t("结束课堂", "End class")}
             disabled={!isLive || busy}
             onClick={() => setEndDialogOpen(true)}
           >
-            <Square size={16} /> <span>结束课堂</span>
+            <Square size={16} /> <span>{t("结束课堂", "End class")}</span>
           </button>
         </div>
       </header>
@@ -1123,7 +1129,7 @@ export function ClassroomSubsystem() {
           <span>{error || notice}</span>
           <button
             type="button"
-            aria-label="关闭提示"
+            aria-label={t("关闭提示", "Dismiss notice")}
             onClick={() => {
               setError("");
               setNotice("");
@@ -1168,7 +1174,7 @@ export function ClassroomSubsystem() {
                     tab.id === "interaction" ? setParticipationOpen(true) : void sendEvent({ type: "set_activity", activity: tab.id })
                   }
                 >
-                  <Icon size={18} /> {tab.label}
+                  <Icon size={18} /> {isInternationalMathematics && tab.id === "slides" ? "Slides" : tab.label}
                 </button>
               );
             })}
@@ -1219,6 +1225,9 @@ export function ClassroomSubsystem() {
             ) : isSlides ? (
               <SlideStage
                 frame={snapshot.slide}
+                playbackMode="teacher"
+                onNavigate={index => void sendEvent({type:"set_slide",index})}
+                serverNowMs={snapshot.serverNowMs}
                 interaction={snapshot.slideInteraction}
                 onInteractionPatch={previewSlideInteraction}
                 onInteractionReset={() => void resetSlideInteraction()}
@@ -1331,7 +1340,7 @@ export function ClassroomSubsystem() {
                   </button>
                   <button
                     type="button"
-                    aria-label="全屏"
+                    aria-label={t("全屏", "Fullscreen")}
                     onClick={() => void toggleFullscreen()}
                   >
                     <Maximize2 size={17} /> 全屏
@@ -1342,7 +1351,7 @@ export function ClassroomSubsystem() {
               <div className="simulation-classroom-footer">
                 <span><FlaskConical size={17} /> 登录后本地单机</span>
                 <span>每名学生独立体验四岗位 · 运行时无长连接</span>
-                <button type="button" aria-label="全屏" onClick={() => void toggleFullscreen()}>
+                <button type="button" aria-label={t("全屏", "Fullscreen")} onClick={() => void toggleFullscreen()}>
                   <Maximize2 size={17} /> 全屏
                 </button>
               </div>
@@ -1354,12 +1363,12 @@ export function ClassroomSubsystem() {
                 disabled={!isSlides || busy || (courseDeck ? getCourseAdjacentIndex(courseDeck, snapshot.slide.index, -1) === null : snapshot.slide.index <= 1)}
                 onClick={() => void sendEvent({ type: "previous_slide" })}
               >
-                <ChevronLeft size={18} /> <span>上一页</span>
+                <ChevronLeft size={18} /> <span>{t("上一页", "Previous")}</span>
               </button>
               <label className="slide-page-input-control">
-                <span>当前页</span>
+                <span>{t("当前页", "Page")}</span>
                 <input
-                  aria-label={`当前讲页码，1到${slidePosition.localTotal}`}
+                  aria-label={t(`当前讲页码，1到${slidePosition.localTotal}`, `Lecture page, 1 to ${slidePosition.localTotal}`)}
                   disabled={!isSlides || busy}
                   inputMode="numeric"
                   max={slidePosition.localTotal}
@@ -1400,7 +1409,7 @@ export function ClassroomSubsystem() {
                 disabled={!isSlides || busy || (courseDeck ? getCourseAdjacentIndex(courseDeck, snapshot.slide.index, 1) === null : snapshot.slide.index >= snapshot.slide.total)}
                 onClick={() => void sendEvent({ type: "next_slide" })}
               >
-                <span>下一页</span> <ChevronRight size={18} />
+                <span>{t("下一页", "Next")}</span> <ChevronRight size={18} />
               </button>
               {isOpeningLaunchSlide && (
                 <button
@@ -1426,9 +1435,9 @@ export function ClassroomSubsystem() {
             {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 4 && <a className="port-l4-classroom-link" href={`/port-lesson-four-preview.html?page=${snapshot.slide.index-153}`} target="_blank" rel="noreferrer">第4讲授课台 ↗</a>}
             {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 4 && <button className="stage-tool-button" disabled={busy} onClick={()=>void openFullLessonFourSimulation()}><FlaskConical size={17}/>仿真系统</button>}
             <label className="lesson-select-control">
-              <span className="sr-only">选择课次</span>
+              <span className="sr-only">{t("选择课次", "Select lecture")}</span>
               <select
-                aria-label="选择课次"
+                aria-label={t("选择课次", "Select lecture")}
                 disabled={busy}
                 value={snapshot.slide.lessonNumber}
                 onChange={(event) => {
@@ -1490,17 +1499,17 @@ export function ClassroomSubsystem() {
                       setParticipationOpen(true)
                     }
                   >
-                    <UsersRound size={17} /> <span>学生互动</span>
+                    <UsersRound size={17} /> <span>{t("学生互动", "Class activities")}</span>
                   </button>
                 </>
               )}
               <button
                 type="button"
                 className="stage-tool-button"
-                aria-label="全屏"
+                aria-label={t("全屏", "Fullscreen")}
                 onClick={() => void toggleFullscreen()}
               >
-                <Maximize2 size={17} /> <span>全屏</span>
+                <Maximize2 size={17} /> <span>{t("全屏", "Fullscreen")}</span>
               </button>
             </div>
               </>
@@ -1522,7 +1531,7 @@ export function ClassroomSubsystem() {
             <div className="collapsed-avatar-controls">
               <button
                 type="button"
-                aria-label="展开小麦老师"
+                aria-label={t("展开小麦老师", "Show Math Guide")}
                 onClick={() => setAvatarConcealed(false)}
               >
                 <ChevronLeft size={19} />
@@ -1531,7 +1540,7 @@ export function ClassroomSubsystem() {
               <i className={lamConnected ? "avatar-state-dot" : "avatar-state-dot avatar-state-dot--error"} />
               <button
                 type="button"
-                aria-label="展开语音输入"
+                aria-label={t("展开语音输入", "Show voice input")}
                 onClick={() => setAvatarConcealed(false)}
               >
                 <Mic size={19} />
@@ -1540,25 +1549,26 @@ export function ClassroomSubsystem() {
           ) : (
             <header className="avatar-dock-header">
               <div>
-                <strong>小麦老师</strong>
+                <strong>{t("小麦老师", "Math Guide")}</strong>
                 <span>
                   <i className={lamConnected ? "" : "avatar-state-dot--error"} />
                   <AvatarSelector compact allowLam={runtimeConfig.profile !== "campus"} onBeforeChange={interruptAssistant}/>
                 </span>
-                <Link target="_blank" rel="noopener noreferrer" to={`/courses/${snapshot.courseId}/assistant-prompts?index=${snapshot.slide.index}&activity=${snapshot.teacherDemo?.active?`demo:${snapshot.teacherDemo.cueId}`:snapshot.activeActivity}&session=${sessionId}`}>提示词设置</Link>
+                <Link target="_blank" rel="noopener noreferrer" to={`/courses/${snapshot.courseId}/assistant-prompts?index=${snapshot.slide.index}&activity=${snapshot.teacherDemo?.active?`demo:${snapshot.teacherDemo.cueId}`:snapshot.activeActivity}&session=${sessionId}`}>{t("提示词设置", "Assistant settings")}</Link>
 
               </div>
               <button
                 type="button"
-                aria-label={isFullscreen ? "收起数字人浮窗" : "收起数字人"}
+                aria-label={isFullscreen ? t("收起数字人浮窗", "Collapse assistant window") : t("收起数字人", "Collapse assistant")}
                 onClick={() => setAvatarConcealed(true)}
               >
-                收起 <ChevronRight size={16} />
+                {t("收起", "Collapse")} <ChevronRight size={16} />
               </button>
             </header>
           )}
 
           <LamAvatarSurface
+            courseId={snapshot.courseId}
             ref={lamAvatarRef}
             runtime={lamRuntime}
             concealed={avatarConcealed}
@@ -1575,15 +1585,15 @@ export function ClassroomSubsystem() {
                 <header className="avatar-subtitle-header">
                   <span>
                     <MessageSquareText size={15} />
-                    数字人回答
+                    {t("数字人回答", "Assistant response")}
                   </span>
                   <strong>
                     <i className={lamConnected ? "" : "avatar-state-dot--error"} />
                     {assistantPhase === "thinking"
-                      ? "模型组织回答"
+                      ? t("模型组织回答", "Preparing response")
                       : assistantPhase === "streaming"
-                        ? "对白流式生成中"
-                        : lamConnectionLabels[lamConnection]}
+                        ? t("对白流式生成中", "Streaming response")
+                        : isInternationalMathematics ? lamConnectionLabelsEn[lamConnection] : lamConnectionLabels[lamConnection]}
                   </strong>
                 </header>
                 <div
@@ -1596,27 +1606,28 @@ export function ClassroomSubsystem() {
                   <p>
                     {lamTranscript ||
                       (assistantPhase === "thinking"
-                        ? "数字人正在组织回答…"
+                        ? t("数字人正在组织回答…", "Preparing response\u2026")
                         : assistantPhase === "streaming"
-                          ? "正在实时提取 dialogue 并送往 TTS…"
+                          ? t("正在实时提取 dialogue 并送往 TTS…", "Streaming response and speech\u2026")
                           : lamConnection === "speaking"
-                          ? "正在接收数字人回答…"
+                          ? t("正在接收数字人回答…", "Receiving response\u2026")
                           : lamConnected
-                            ? "等待数字人回答"
-                            : "可使用文字助手；LAM 连接后将同步语音和数字人。")}
+                            ? t("等待数字人回答", "Waiting for a response")
+                            : t("可使用文字助手；LAM 连接后将同步语音和数字人。", "Text assistance is available. Speech resumes when the avatar connects."))}
                   </p>
                 </div>
               </section>}
 
               <VoiceCommandComposer
                 key={sessionId}
+                locale={courseDeck?.locale}
                 concealed={avatarConcealed}
                 compact={isFullscreen || isGlobe}
                 collapsible={isFullscreen}
                 onExpand={() => setAvatarConcealed(false)}
                 disabled={!isLive}
                 realtime={realtimeVoice.sink}
-                voiceUnavailableReason={!realtimeSupported ? "当前3D形象暂不支持实时语音，请切换 Live2D 或视频形象，或使用文字输入。" : "实时语音服务尚未配置，请使用文字输入。"}
+                voiceUnavailableReason={!realtimeSupported ? t("当前3D形象暂不支持实时语音，请切换 Live2D 或视频形象，或使用文字输入。", "Realtime speech is unavailable for this avatar. Switch avatar or use text input.") : t("实时语音服务尚未配置，请使用文字输入。", "Realtime speech is not configured. Use text input.")}
                 assistantBusy={assistantPhase !== "idle" || lamConnection === "speaking" || lamConnection === "thinking" || (isGlobe && snapshot.globePlayback.status === "playing")}
                 onCommand={sendTeacherCommand}
               />
@@ -1624,7 +1635,7 @@ export function ClassroomSubsystem() {
               {!avatarConcealed && <footer className="avatar-runtime-footer">
                 <span>
                   <MonitorPlay size={15} />
-                  {audioBackend === "browser" ? "数字人在本机播放 · 语音与问答由平台提供" : lamConnected
+                  {audioBackend === "browser" ? t("数字人在本机播放 · 语音与问答由平台提供", "Avatar plays on this device \u00b7 Speech and answers use the platform") : lamConnected
                     ? `OpenAvatarChat 已连接${lamRuntime?.version ? ` · ${lamRuntime.version}` : ""}`
                     : lamRuntime?.message ?? "OpenAvatarChat 未连接"}
                 </span>
@@ -1638,7 +1649,7 @@ export function ClassroomSubsystem() {
                   onClick={interruptAssistant}
                 >
                   <Square size={13} />
-                  中断讲解
+                  {t("中断讲解", "Interrupt response")}
                 </button>
               </footer>}
           </>
@@ -1683,7 +1694,7 @@ export function ClassroomSubsystem() {
               <X size={18} />
             </button>
             <span className="classroom-dialog__icon"><Settings size={23} /></span>
-            <h2 id="classroom-settings-title">课堂显示信息</h2>
+            <h2 id="classroom-settings-title">{t("课堂显示信息", "Classroom display settings")}</h2>
             <p>Slides 使用固定逻辑画布，设备尺寸只改变统一缩放比例。</p>
             <dl className="display-contract-list">
               <div><dt>逻辑分辨率</dt><dd>1600 × 1000</dd></div>
@@ -1715,7 +1726,7 @@ export function ClassroomSubsystem() {
             </button>
             <span className="classroom-dialog__icon classroom-dialog__icon--danger"><Square size={22} /></span>
             <h2 id="end-class-title">结束本次课堂？</h2>
-            <p>系统会保存当前活动、页码和课堂事件，并释放实时数字人资源。</p>
+            <p>{t("系统会保存当前活动、页码和课堂事件，并释放实时数字人资源。", "The current activity, page and classroom records will be saved.")}</p>
             <div className="classroom-dialog__actions">
               <button
                 className="classroom-secondary-button"

@@ -1,0 +1,6 @@
+import {defineConfig} from '../../apps/teacher-web/node_modules/vite/dist/node/index.js';
+import {fileURLToPath} from 'node:url';
+import {resolve} from 'node:path';
+const root=fileURLToPath(new URL('.',import.meta.url)),repo=resolve(root,'../..'),web=resolve(repo,'apps/teacher-web');
+// Resolve KaTeX's ESM entry explicitly: directory/CJS resolution corrupts lexer surrogate escapes in this Vite optimizer.
+export default defineConfig(({command})=>({root,base:'./',publicDir:command==='serve'?resolve(web,'public'):false,resolve:{alias:[{find:'@edu/course-content/international-mathematics',replacement:resolve(repo,'packages/course-content/src/international-mathematics/index.ts')},{find:'@edu/contracts',replacement:resolve(repo,'packages/contracts/src/index.ts')},{find:'react-dom',replacement:resolve(web,'node_modules/react-dom')},{find:'react',replacement:resolve(web,'node_modules/react')},{find:/^katex$/,replacement:resolve(web,'node_modules/katex/dist/katex.mjs')},{find:'katex',replacement:resolve(web,'node_modules/katex')}]},server:{host:'127.0.0.1',port:Number(process.env.IM_PREVIEW_PORT||5188),strictPort:true,fs:{allow:[repo]}},build:{outDir:resolve(repo,process.env.IM_OUTPUT_ROOT||'output/international-mathematics/v2','offline'),emptyOutDir:false}}));

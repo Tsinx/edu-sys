@@ -1,0 +1,325 @@
+{
+  "tool": "built-in image_gen",
+  "assets": [
+    {
+      "lesson": 1,
+      "id": "l01-transfer",
+      "file": "v3/l01-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: photorealistic-natural. Asset type: economic mathematics lecture 01 transfer scenario, editorial courseware illustration. A Chinese urban neighborhood parcel pickup point with a worker weighing two differently sized plain cardboard parcels on a digital scale whose display is blank, simple shelves and bicycle courier in background. Natural late afternoon light, understated warm ivory, deep teal-gray and muted rust palette, authentic candid editorial photography, landscape 3:2 composition, clean focal subject with room around it. No text, no numerals, no logo, no formulas, no chart axes, no watermark. This is a fictional teaching scenario.",
+      "source": "C:/Users/Administrator/.codex/generated_images/01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea/exec-f0469b11-7bbf-4c18-8c1c-9c8df920dc6d.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 2,
+      "id": "l02-transfer",
+      "file": "v3/l02-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 2. Subject: A neighborhood coffee subscription counter, a barista comparing two plain unmarked reusable coffee cups and a small tray of receipts turned face down. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-692addaf-12c3-4a0f-980d-a0e9550683c8.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 3,
+      "id": "l03-transfer",
+      "file": "v3/l03-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: stylized-concept. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 3. Subject: A stack of successively smaller paper waves approaching a calm horizontal horizon, editorial metaphor for repeated inventory adjustments. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-7da60c62-dcb2-438b-9e16-85ead269825c.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 4,
+      "id": "l04-transfer",
+      "file": "v3/l04-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: illustration-story. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 4. Subject: A pedestrian approaching a small gap in a stone footpath from both sides, clean conceptual editorial illustration. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-7530e1d7-fb72-452b-914a-26eb8e06f06d.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 5,
+      "id": "l05-transfer",
+      "file": "v3/l05-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: stylized-concept. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 5. Subject: An optical measuring instrument with a tiny rotated mirror and a narrow warm beam of light in a quiet laboratory, no numeric displays. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-ac8d429e-2f03-4b8b-b08e-3ccaf2c004f0.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 6,
+      "id": "l06-transfer",
+      "file": "v3/l06-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 6. Subject: A grocery checkout with a basket on either side of a simple shipping parcel threshold, receipt blank and signage absent. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-592e4315-3cb7-4742-b7f6-b2c946cc76ed.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 7,
+      "id": "l07-transfer",
+      "file": "v3/l07-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 7. Subject: A delivery bicycle accelerating gently along a city lane, photographic motion in the background with the bicycle sharply visible. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-776a49c0-a9e9-4c09-9111-93def4c9cc7c.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 8,
+      "id": "l08-transfer",
+      "file": "v3/l08-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: illustration-story. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 8. Subject: A small manufacturing workbench assembling a product from two compatible parts, editorial illustration of combining contributions. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-634935b2-e415-4269-81fa-5221f2564b9a.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 9,
+      "id": "l09-transfer",
+      "file": "v3/l09-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: stylized-concept. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 9. Subject: Three connected mechanical wheels of different sizes transmitting motion, elegant mid-century editorial collage. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-419a40df-fdda-49dc-bba2-f7735a18efcb.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 10,
+      "id": "l10-transfer",
+      "file": "v3/l10-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 10. Subject: A warehouse conveyor carrying a gradually thinning stream of plain parcels, texture-rich editorial photography. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-2ef65bf7-fa96-457b-b2ab-59305ea23587.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 11,
+      "id": "l11-transfer",
+      "file": "v3/l11-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: stylized-concept. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 11. Subject: A curved piece of folded paper touched by a straight wooden ruler, elegant editorial metaphor for local approximation. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-e78a5b23-5bd4-454f-832f-060cbc87f61a.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 12,
+      "id": "l12-transfer",
+      "file": "v3/l12-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 12. Subject: A cyclist seen midway along a gently climbing road between two buildings, natural editorial photography. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-e57607ae-b5fc-4eb3-a126-b67651727ec8.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 13,
+      "id": "l13-transfer",
+      "file": "v3/l13-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: illustration-story. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 13. Subject: Two botanical shoots with different growth patterns on an ivory background, precise botanical editorial collage without charts. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-bd055d64-f559-4692-b2f6-c9045bd6cc3b.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 14,
+      "id": "l14-transfer",
+      "file": "v3/l14-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 14. Subject: A small business owner arranging a product display on shelves of limited capacity, candid editorial photography. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-fc2762de-6a4b-4753-9c1b-18fb15639eaa.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 15,
+      "id": "l15-transfer",
+      "file": "v3/l15-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 15. Subject: A bakery preparing one additional plain loaf beside a row of finished bread, authentic editorial photography. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-5e0c2f99-2b4d-4fe1-888f-3b7c7df3f339.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 16,
+      "id": "l16-transfer",
+      "file": "v3/l16-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: stylized-concept. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 16. Subject: Two contrasting shopping baskets with identical unmarked products and differently sized paper shopping bags, editorial collage. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-c2a60125-2b1a-43b0-a329-d1fc4286ff35.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 17,
+      "id": "l17-transfer",
+      "file": "v3/l17-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 17. Subject: A warehouse inventory clerk looking at crates being added and removed, all records and labels blank. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-407b8543-185e-499b-a906-07c06fa992d7.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 18,
+      "id": "l18-transfer",
+      "file": "v3/l18-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: stylized-concept. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 18. Subject: Layers of paper strips accumulating into a single broad sheet, tactile editorial metaphor for integration. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-ab24d66c-7685-409f-8298-2b92559ce96f.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 19,
+      "id": "l19-transfer",
+      "file": "v3/l19-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: illustration-story. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 19. Subject: An artisan pouring liquid through a simple funnel into a vessel of different shape, conceptual editorial illustration. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-0cd7dce8-fdc1-413f-8558-dfb3a56c7555.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 20,
+      "id": "l20-transfer",
+      "file": "v3/l20-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: illustration-story. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 20. Subject: Two people exchanging portions of a complicated paper sculpture to simplify construction, elegant editorial illustration. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-063f7a31-dbfb-433a-9a72-a4327f09ede0.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 21,
+      "id": "l21-transfer",
+      "file": "v3/l21-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 21. Subject: A delivery dock with parcels accumulating over the day and a trolley ready for dispatch, candid editorial photography. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-dbeef51a-b666-4c65-8437-d0457b5ba5d2.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 22,
+      "id": "l22-transfer",
+      "file": "v3/l22-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: stylized-concept. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 22. Subject: A narrow stream filling a transparent vessel, natural materials and paper-cut overlay suggesting accumulation. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-94c3b7f6-7435-43d1-a0a6-0b5f055fe759.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 23,
+      "id": "l23-transfer",
+      "file": "v3/l23-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 23. Subject: A craftsperson transferring measured liquid between differently shaped unmarked containers, editorial photography. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-408c0012-2dd6-4d0a-94e0-49637f342fab.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 24,
+      "id": "l24-transfer",
+      "file": "v3/l24-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 24. Subject: An urban delivery distribution point at the end of a working day, crates and bicycles arranged naturally. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-23ecc1a0-ee22-4633-9240-782de4a50018.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 25,
+      "id": "l25-transfer",
+      "file": "v3/l25-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 25. Subject: A farmers market exchange of vegetables between a buyer and seller, no visible prices, signs or numerals. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-718ec2d1-4a96-4e13-9a4a-a923b8f5cf38.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 26,
+      "id": "l26-transfer",
+      "file": "v3/l26-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: stylized-concept. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 26. Subject: A merchant considering a product arrangement and an unmarked advertising poster at the same time, quiet editorial collage. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-0d850e17-c911-4fe7-9233-fcda43b48d91.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 27,
+      "id": "l27-transfer",
+      "file": "v3/l27-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: illustration-story. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 27. Subject: Two simple control knobs, one held steady by a hand while another is adjusted, conceptual editorial illustration. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-1108809e-7435-44a2-8a4d-2d84631bdb73.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 28,
+      "id": "l28-transfer",
+      "file": "v3/l28-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: stylized-concept. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 28. Subject: A small flat wooden board gently resting on a smoothly curved sculpture, tactile metaphor for a tangent plane. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-5b65faa2-da3b-4b21-b6e0-185734707a4e.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 29,
+      "id": "l29-transfer",
+      "file": "v3/l29-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: illustration-story. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 29. Subject: A branching irrigation network feeding two patches of plants that recombine into one harvest basket, editorial illustration. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-cc57bf77-275b-410c-a1a2-27a0b1dd9286.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 30,
+      "id": "l30-transfer",
+      "file": "v3/l30-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: stylized-concept. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 30. Subject: A shallow bowl and a saddle-shaped fabric sculpture shown as separate objects on a warm ivory studio table. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-c2c1bae8-52af-4f07-89ee-784c488177ca.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 31,
+      "id": "l31-transfer",
+      "file": "v3/l31-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 31. Subject: A small business team dividing a tray of plain wooden tokens between two distinct outreach displays, no symbols or written labels. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-cc255e2c-c515-4707-abd3-d032b35cd3d9.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    },
+    {
+      "lesson": 32,
+      "id": "l32-transfer",
+      "file": "v3/l32-transfer.png",
+      "role": "transfer",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone transfer scenario artwork for Chinese economic mathematics lecture 32. Subject: An exhibition planning table with a miniature booth, plain tickets, unmarked flyers and two distinct outreach areas, candid editorial photography. Sophisticated contemporary editorial art direction, warm ivory, charcoal, muted teal-gray and terracotta, tactile paper and natural materials, restrained mid-century visual metaphor. Landscape 3:2 composition with clear focal subject and generous space. Absolutely no text, letters, digits, mathematical symbols, formulas, graphs, axes, branding or watermarks. Fictional teaching scenario, not documentary evidence.",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0fbd0-b16f-7320-bb1f-d7ee24aad8ea\\exec-00cf5386-e439-46b6-85d7-197ab4e6fe50.png",
+      "status": "generated",
+      "publicLabel": "教学情境"
+    }
+  ]
+}

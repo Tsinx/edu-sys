@@ -1,0 +1,71 @@
+1
+00:00:00,650 --> 00:00:03,736
+One bright ticket unfolds into a small
+event.
+
+2
+00:00:03,736 --> 00:00:09,137
+A high price stands beside a short queue,
+while empty seats wait beyond the
+
+3
+00:00:09,137 --> 00:00:09,522
+entrance.
+
+4
+00:00:15,650 --> 00:00:19,616
+The ticket price slides downward and the
+queue becomes longer.
+
+5
+00:00:19,616 --> 00:00:24,772
+More people enter, but every ticket now
+brings in less money than before.
+
+6
+00:00:30,650 --> 00:00:34,635
+Price and quantity multiply into a revenue
+ribbon.
+
+7
+00:00:34,635 --> 00:00:41,110
+It rises, bends, and eventually falls,
+showing that extra sales do not always
+
+8
+00:00:41,110 --> 00:00:42,106
+increase receipts.
+
+9
+00:00:45,650 --> 00:00:50,335
+A second ribbon arrives for costs: the
+venue, each extra visitor, and growing
+
+10
+00:00:50,335 --> 00:00:53,939
+service demands. Money received is only
+part of the decision.
+
+11
+00:01:00,650 --> 00:01:04,252
+Watch the gap between the revenue and cost
+ribbons.
+
+12
+00:01:04,252 --> 00:01:09,856
+It can widen, then narrow, even while the
+number of tickets sold keeps rising.
+
+13
+00:01:15,650 --> 00:01:18,946
+Before opening the doors, the event needs
+a price.
+
+14
+00:01:18,946 --> 00:01:21,876
+Does selling more always mean earning more
+profit?
+
+15
+00:01:21,876 --> 00:01:24,439
+Build the functions and test that claim.

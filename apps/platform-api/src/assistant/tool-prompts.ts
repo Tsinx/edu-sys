@@ -23,6 +23,7 @@ export function buildClassroomToolPrompt(snapshot: { courseId: string; slide: { 
       )
       .join("；");
     return [
+      ...(deck.locale === "en" ? ["All dialogue must be clear English suitable for classroom speech. Do not read JSON, action names or internal parameters aloud. The teacher controls videos through the page controls; these tools cannot start a video."] : []),
       (legacy ? "你必须只返回一个 JSON 对象，禁止 Markdown、代码围栏、前后缀或额外说明。" : ""),
       ...(legacy ? responseInstructions : []),
       'actions 只能使用 slides.next、slides.previous、slides.go_to、lesson.go_to 或 activity.switch 到 slides。',

@@ -5,7 +5,7 @@ import { resolve, relative } from "node:path";
 import ts from "typescript-api";
 import type { Plugin } from "vite";
 
-const privateFields=new Set(["teachingCue","assistantCue","storyBeat","voyageStage","openQuestion"]);
+const privateFields=new Set(["teachingCue","assistantCue","teacherGuide","storyBeat","voyageStage","openQuestion"]);
 export function stripAuthoringMetadata(source:string,filename:string) {
   const ast=ts.createSourceFile(filename,source,ts.ScriptTarget.Latest,true,ts.ScriptKind.TS);
   const result=ts.transform(ast,[context=>root=>{
@@ -49,10 +49,10 @@ export function campusBuild(releaseId:string):Plugin {
         const bytes=(await stat(path)).size;
         const sha256=createHash("sha256").update(await readFile(path)).digest("hex");
         const shell=/\.(js|css|woff2?|ttf)$/.test(name) || ["index.html","student.html","app.webmanifest","icon.svg"].includes(name);
-        const group=name.startsWith("vendor/local-kws/")?"shell":name.startsWith("avatar/live2d/")?"avatar":shell?"shell":name.startsWith("avatar/lanzhou/")?"avatar":name.startsWith("course-assets/economic-mathematics/")?"economic":name.startsWith("course-assets/management-principles/")?"management":name.startsWith("course-assets/statistical-analysis/")?"statistics":"port";
+        const group=name.startsWith("vendor/local-kws/")?"shell":name.startsWith("avatar/live2d/")?"avatar":shell?"shell":name.startsWith("avatar/lanzhou/")?"avatar":name.startsWith("course-assets/international-mathematics/")?"international-mathematics":name.startsWith("course-assets/economic-mathematics/")?"economic":name.startsWith("course-assets/management-principles/")?"management":name.startsWith("course-assets/statistical-analysis/")?"statistics":"port";
         entries.push({url:`/${name}`,bytes,sha256,group});
       }
-      await writeFile(resolve(outDir,"offline-manifest.json"),JSON.stringify({version:1,releaseId,groups:[{id:"shell",label:"基础程序"},{id:"port",label:"港口管理课程与仿真"},{id:"economic",label:"经济数学课程"},{id:"management",label:`管理学前${managementManifest.lessons.length}讲`},{id:"statistics",label:"统计分析方法"},{id:"avatar",label:"数字人动作素材"}],files:entries}));
+      await writeFile(resolve(outDir,"offline-manifest.json"),JSON.stringify({version:1,releaseId,groups:[{id:"shell",label:"基础程序"},{id:"port",label:"港口管理课程与仿真"},{id:"economic",label:"经济数学课程"},{id:"international-mathematics",label:"Higher Mathematics · English"},{id:"management",label:`管理学前${managementManifest.lessons.length}讲`},{id:"statistics",label:"统计分析方法"},{id:"avatar",label:"数字人动作素材"}],files:entries}));
       const sw=await readFile(resolve(projectRoot,"src/campus/service-worker.js"),"utf8");
       await writeFile(resolve(outDir,"service-worker.js"),sw.replaceAll("__EDU_RELEASE_ID__",releaseId));
     }

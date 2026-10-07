@@ -1,4 +1,18 @@
 import { PORT_MANAGEMENT_SLIDES } from "./slides.js";
+import {
+  INTERNATIONAL_MATHEMATICS_COURSE_ID,
+  INTERNATIONAL_MATHEMATICS_DECK_ID,
+  INTERNATIONAL_MATHEMATICS_VERSION_ID,
+  INTERNATIONAL_MATHEMATICS_TOTAL_HOURS,
+  INTERNATIONAL_MATHEMATICS_LESSONS,
+  INTERNATIONAL_MATHEMATICS_SLIDES,
+  getInternationalMathematicsSlide,
+  getInternationalMathematicsSlideByKey,
+  getInternationalMathematicsLessonPosition,
+  getInternationalMathematicsGlobalIndex,
+  getInternationalMathematicsInteractionDefaults,
+  validateInternationalMathematicsInteractionPatch
+} from "./international-mathematics/index.js";
 import { MANAGEMENT_SCOPE_LABEL, getManagementAdjacentIndex, MANAGEMENT_BUILD, MANAGEMENT_COURSE_ID, MANAGEMENT_DECK_ID, MANAGEMENT_VERSION_ID, MANAGEMENT_SLIDES, MANAGEMENT_LESSONS, getManagementSlide, getManagementSlideByKey, getManagementLessonPosition, getManagementGlobalIndex, getManagementInteractionDefinition, validateManagementInteraction } from './management-principles/index.js';
 import { STATISTICAL_ANALYSIS_SLIDES, STATISTICAL_ANALYSIS_LESSONS, STATISTICAL_ANALYSIS_COURSE_ID, STATISTICAL_ANALYSIS_DECK_ID, STATISTICAL_ANALYSIS_VERSION_ID, getStatisticalAnalysisSlide, getStatisticalAnalysisSlideByKey, getStatisticalAnalysisLessonPosition, getStatisticalAnalysisGlobalIndex } from './statistical-analysis/index.js';
 import { PORT_LBL_LEGACY_KEYS } from "./port-lbl-migration.js";
@@ -45,6 +59,16 @@ export interface CourseDeckLessonSummary {
   slideEnd: number | null;
   slideTotal: number;
   status: "ready" | "planned";
+  /** Authored curriculum metadata; learner completion is stored separately. */
+  sources?: readonly {section: string; printedPages: readonly [number, number]; pdfPages: readonly [number, number]; supplement?: string}[];
+  textbookSections?: readonly string[];
+  printedPages?: readonly (readonly [number, number])[];
+  pdfPages?: readonly (readonly [number, number])[];
+  outcomes?: readonly string[];
+  completionStatus?: "complete" | "in-progress" | "planned";
+  coreSlideTotal?: number;
+  optionalSlideTotal?: number;
+  hourRanges?: readonly {number:1|2;title:string;durationMinutes:45;coreSlides:number;localStart:number;localEnd:number;slideStart:number;slideEnd:number}[];
 }
 
 export interface CourseDeckPosition {
@@ -61,7 +85,7 @@ export interface CoursePresentationProfile {
   categoryLabel: string;
   description: string;
   heroImage: string;
-  accent: "port" | "economic-mathematics" | "statistical-analysis" | "management-principles";
+  accent: "port" | "economic-mathematics" | "international-mathematics" | "statistical-analysis" | "management-principles";
   assistantName: string;
   supportsStudy: boolean;
   resources: readonly {
@@ -74,6 +98,8 @@ export interface CoursePresentationProfile {
 
 export interface CourseDeckDescriptor {
   courseId: string;
+  /** Existing courses use Chinese unless explicitly configured. */
+  locale?: "zh-CN" | "en";
   slug: string;
   code: string | null;
   deckId: string;
@@ -249,9 +275,9 @@ const economicMathematicsDescriptor: CourseDeckDescriptor = {
     shortTitle: "经济数学",
     categoryLabel: "商科基础",
     description:
-      "从重庆消费情境出发，用函数、微积分与优化支持定价、客群和预算决策。",
+      "从零售、订阅、库存、配送和预算情境出发，用函数、微积分与优化解释数量关系。",
     heroImage:
-      "/course-assets/economic-mathematics/unit-01-functions-hero.webp",
+      "/course-assets/economic-mathematics/v2/course-cover.png",
     accent: "economic-mathematics",
     assistantName: "小麦老师",
     supportsStudy: false,
@@ -325,11 +351,66 @@ const managementDescriptor: CourseDeckDescriptor = {
   validateInteractionPatch(key,patch,current){const p=getManagementSlideByKey(key);return p?.demo?validateManagementInteraction(p.demo,patch,current):false;}
 };
 
+function summarizeInternationalMathematicsSlide(index: number): CourseDeckSlideSummary {
+  const slide = getInternationalMathematicsSlide(index);
+  const publicCopy = slide.elements.flatMap(element => {
+    if (element.kind === "text") return [element.text];
+    if (element.kind === "math") return [element.tex];
+    if (element.kind === "table") return [element.columns.join(" / "), ...element.rows.map(row => row.join(" / "))];
+    if (element.kind === "diagram") return [...element.labels, ...(element.values ?? [])];
+    if (element.kind === "plot") return [element.plot.xLabel, element.plot.yLabel, ...(element.plot.curves.map(curve => curve.label).filter((value): value is string => Boolean(value))), ...(element.plot.annotations ?? []).map(annotation => annotation.text)];
+    return [];
+  });
+  return {
+    index: slide.index,
+    slideKey: slide.slideKey,
+    lessonNumber: slide.lesson,
+    lessonTitle: slide.lessonTitle,
+    section: slide.kicker,
+    title: slide.title,
+    summary: [slide.title, ...publicCopy, slide.question].filter(Boolean).join(". ")
+  };
+}
+
+const internationalMathematicsDescriptor: CourseDeckDescriptor = {
+  courseId: INTERNATIONAL_MATHEMATICS_COURSE_ID,
+  locale: "en",
+  slug: "international-mathematics",
+  code: null,
+  deckId: INTERNATIONAL_MATHEMATICS_DECK_ID,
+  versionId: INTERNATIONAL_MATHEMATICS_VERSION_ID,
+  title: "Higher Mathematics: Calculus for Economics and Business",
+  totalHours: INTERNATIONAL_MATHEMATICS_TOTAL_HOURS,
+  slideTotal: INTERNATIONAL_MATHEMATICS_SLIDES.length,
+  lessons: INTERNATIONAL_MATHEMATICS_LESSONS,
+  allowedActivities: ["slides"],
+  presentation: {
+    shortTitle: "Higher Mathematics",
+    categoryLabel: "International programme · English",
+    description: "16 lectures, 32 teaching hours. Build functions, understand derivatives and integrals, and explain economic decisions using Ian Jacques, 9th edition.",
+    heroImage: "/course-assets/international-mathematics/art/module-1.png",
+    accent: "international-mathematics",
+    assistantName: "Math Guide",
+    supportsStudy: true,
+    resources: [{role: "Core textbook", title: "Mathematics for Economics and Business, 9th edition", detail: "Ian Jacques · Pearson · 2018 · Chapters 1, 2, 4 and 6"}]
+  },
+  getSlide: summarizeInternationalMathematicsSlide,
+  getSlideByKey(key) {
+    const slide = getInternationalMathematicsSlideByKey(key);
+    return slide ? summarizeInternationalMathematicsSlide(slide.index) : undefined;
+  },
+  getLessonPosition: getInternationalMathematicsLessonPosition,
+  getGlobalIndex: getInternationalMathematicsGlobalIndex,
+  getInteractionDefaults: getInternationalMathematicsInteractionDefaults,
+  validateInteractionPatch: validateInternationalMathematicsInteractionPatch
+};
+
 export const COURSE_DECKS: readonly CourseDeckDescriptor[] = [
   portDescriptor,
   economicMathematicsDescriptor,
   statisticalAnalysisDescriptor,
-  managementDescriptor
+  managementDescriptor,
+  internationalMathematicsDescriptor
 ];
 
 export function getCourseDeckByCourseId(
@@ -361,6 +442,6 @@ export function getCourseAdjacentIndex(deck: CourseDeckDescriptor, index: number
   return next >= 1 && next <= deck.slideTotal ? next : null;
 }
 
-export function getCourseLessonLabel(lesson: Pick<CourseDeckLessonSummary, 'number' | 'kind' | 'displayLabel'>): string {
-  return lesson.displayLabel ?? (lesson.kind === 'introduction' ? '绪论' : `第${lesson.number}讲`);
+export function getCourseLessonLabel(lesson: Pick<CourseDeckLessonSummary, 'number' | 'kind' | 'displayLabel'>, locale: "zh-CN" | "en" = "zh-CN"): string {
+  return lesson.displayLabel ?? (locale === "en" ? (lesson.kind === "introduction" ? "Introduction" : `Lecture ${lesson.number}`) : lesson.kind === 'introduction' ? '绪论' : `第${lesson.number}讲`);
 }

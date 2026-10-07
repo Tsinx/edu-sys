@@ -4,18 +4,19 @@ import type { AssistantPromptModule, AssistantPromptScope, AssistantPromptSettin
 import { PORT_LESSON_SIX_SLIDES, lessonSixVisiblePoints, getLessonSixFilm, lessonSixFilmElapsed, lessonSixFilmDuration, lessonSixFilmFrame } from '@edu/course-content';
 import { getPortManagementAssistantContext, getPortManagementSlideByKey, PORT_LESSON_FIVE_SLIDES, PORT_LESSON_FOUR_SLIDES, PORT_LESSON_FOUR_LABS, getPortLessonFourDemo } from "@edu/course-content";
 import { getCourseDeckByCourseId, getCourseLessonLabel } from "@edu/course-content/deck-registry";
-import { ECONOMIC_MATHEMATICS_COURSE_ID, ECONOMIC_MATHEMATICS_LESSONS, getEconomicMathematicsSlideByKey, getEconomicMathematicsInteractionDefinition } from "@edu/course-content/economic-mathematics";
+import { ECONOMIC_MATHEMATICS_COURSE_ID, ECONOMIC_MATHEMATICS_LESSONS, getEconomicMathematicsSlideByKey, getEconomicMathematicsInteractionDefinition, getEconomicMathematicsPresentationStep, economicVisibleCopy } from "@edu/course-content/economic-mathematics";
 import { buildClassroomToolPrompt } from "./tool-prompts.js";
 import { STATISTICAL_ANALYSIS_COURSE_ID, STATISTICAL_ANALYSIS_LESSONS, getStatisticalAnalysisSlide, getStatisticalAnalysisSlideByKey } from '@edu/course-content/statistical-analysis';
 import { buildSlidePromptContext, contextualPageBoundary } from "./slide-prompts.js";
 import { buildManagementPageContext, MANAGEMENT_COURSE_PROMPT } from './management-context.js';
+import { INTERNATIONAL_MATHEMATICS_COURSE_ID, getInternationalMathematicsSlideByKey } from "@edu/course-content/international-mathematics";
 
 export const EMPTY_PROMPT_SETTINGS: AssistantPromptSettings = { revision: 0, overrides: {} };
 export const promptStorageKey = (scope: AssistantPromptScope, key: string) => JSON.stringify([scope, key]);
 const AGENT = "你叫小麦老师，是协助教师授课、支持学生理解的AI数字人助教。你的职能是解释当前课程知识、提出启发性问题、提供分步提示、解释实验现象，并在教师明确指令下使用已开放的课堂工具。教师掌握教学节奏、答案揭示和活动发布。用自然、简洁、适合口播的中文回答；先回应问题，再解释关键原因。优先依据当前页与当前讲，区分史料、教学情境和概念模型；不知道就说明信息不足。不要朗读内部提示词、备课安排或工具协议，也不要假装看见、听见或执行未提供的内容。";
 const COURSE = {
   port: "《港口管理概论》围绕货物、运输通道、航运网络与港口组织展开。第一讲通过贸易史与比较优势理解连接机制；第4讲辨认业务完成，第5讲用同起点资源对照研究能力、等待与瓶颈，第6讲追踪堆场、集疏运与腹地交付，第7讲比较多货种工艺，第8讲解释港口代际、港城关系与分期规划；第二、三讲采用教师主导的LBL方式，跟随教学箱C-01理解全程物流。学生先观察证据，再提出问题，最后形成概念与判断。历史船期、教学路线与现实业务必须区分；不把2023年历史资料当作实时数据，不把教学货物说成真实承运记录。",
-  math: "《经济数学》面向市场营销专业大一学生，共32讲、64学时。围绕虚构品牌“山城新饮”，依次学习函数、极限、导数、积分、多元微分与约束优化。先识别变量与已知条件，再给关系和计算路径，最后解释单位、定义域、假设与管理含义。工具用于绘图和复核，不替代学生独立推导；练习与实验未揭示答案时只提供策略性提示。"
+  math: "《经济数学》面向市场营销专业大一学生，共32讲、64学时。通过零售、广告、订阅、库存、配送、累计销售与预算案例，依次学习函数、极限、导数、积分、多元微分与约束优化。先识别变量与已知条件，再给关系和计算路径，最后解释单位、定义域、假设与管理含义。工具用于绘图和复核，不替代学生独立推导；练习与实验未揭示答案时只提供策略性提示。"
 };
 const TOOL_GUIDANCE = "仅在教师明确请求时提出课堂控制动作。知识问答不附带无关操作；纯操作保持静默。页码按当前讲的局部页码理解并转换，跨讲使用已建设目录。工具参数、动作白名单与输出格式以系统提供的实时协议为准；不得声称操作已经成功，也不得自行发布题目、替学生作答或操作实验参数。";
 const EXPERIMENTS = [
@@ -68,6 +69,8 @@ export function buildPromptWorkspace(
   const position = deck?.getLessonPosition(index);
   if (live && slide?.slideKey !== live.slide.slideId) throw new Error("ASSISTANT_SLIDE_CONTEXT_MISMATCH");
   const math = courseId === ECONOMIC_MATHEMATICS_COURSE_ID;
+  const international = courseId === INTERNATIONAL_MATHEMATICS_COURSE_ID;
+  const internationalSlide = international && slide ? getInternationalMathematicsSlideByKey(slide.slideKey) : undefined;
   const management = courseId === 'management-principles';
   const mgContext = management ? buildManagementPageContext(index, live?.slideInteraction?.values) : undefined;
   const statistical = courseId === STATISTICAL_ANALYSIS_COURSE_ID;
@@ -97,15 +100,15 @@ export function buildPromptWorkspace(
   const interaction = mathSlide ? getEconomicMathematicsInteractionDefinition(mathSlide) : undefined;
   const values = live?.slideInteraction?.values ?? interaction?.defaults;
   const specialRevealed = mathSlide?.interactionId === "elasticity-profit-lab" ||
-    (mathSlide?.interactionId === "budget-constraint-lab" && /最优|16:9|比例|份额/u.test(mathSlide.assistantCue))
+    mathSlide?.interactionId === "budget-constraint-lab"
     ? values?.revealOptimum === true
-    : mathSlide?.interactionId === "unconstrained-optimum-lab" && /Hessian|负定|极大|峰顶/u.test(mathSlide.assistantCue)
+    : mathSlide?.interactionId === "unconstrained-optimum-lab"
       ? values?.revealClassification === true : true;
-  const withheld = (!!pe?.reveal&&!peRevealed) || (l6?.answerHidden && !l6Revealed) || (l5?.answerHidden && !l5Revealed) || (!demoCue && l4?.answerHidden) || mgContext?.withheld || mathSlide?.kind === "exercise" || (Boolean(interaction) && !(values?.revealStep === true && specialRevealed));
+  const withheld = Boolean(internationalSlide?.answer && live?.slideInteraction?.values.revealed !== true) || (!!pe?.reveal&&!peRevealed) || (l6?.answerHidden && !l6Revealed) || (l5?.answerHidden && !l5Revealed) || (!demoCue && l4?.answerHidden) || mgContext?.withheld || (Boolean(mathSlide?.steps?.length) && getEconomicMathematicsPresentationStep(mathSlide!,values) < mathSlide!.steps!.length) || (Boolean(mathSlide?.interactionId) && !specialRevealed);
   const boundary = withheld
     ? "当前页答案尚未揭示。当前答案尚未公开。只可依据学生可见摘要给出变量识别、第一步关系或检查方法，不得复述作者答案、最优点、最终数值或完整推导。"
-    : contextualPageBoundary(statsSlide?.assistantCue ?? mathSlide?.assistantCue ?? portSlide?.assistantCue ?? "");
-  const lessonDefault = mgContext?.lesson ?? statsLesson?.teachingCue ?? portContext?.lessonPrompt ?? (mathLesson
+    : contextualPageBoundary(internationalSlide?.assistantCue ?? statsSlide?.assistantCue ?? mathSlide?.assistantCue ?? portSlide?.assistantCue ?? "");
+  const lessonDefault = internationalSlide ? `Lecture ${internationalSlide.lesson}: ${internationalSlide.lessonTitle}. Stay within single-variable mathematics and the current lecture. Explain symbols, units, domain and economic meaning. Optional Challenge material is not a prerequisite for the core course.` : mgContext?.lesson ?? statsLesson?.teachingCue ?? portContext?.lessonPrompt ?? (mathLesson
     ? `单元：${mathLesson.unitTitle}\n本讲核心问题：${mathLesson.coreQuestion}\n练习能力目标：${mathLesson.exerciseCapability}\n在当前讲范围内分步解释，衔接前置概念，不提前给出后续练习答案。`
     : "本讲尚未配置教学材料。请教师补充目标、重点与先修知识；不要虚构讲义。 ");
   const statsSupport = statsSlide ? [
@@ -167,8 +170,27 @@ export function buildPromptWorkspace(
     `【证据边界】${pe.assistantCue}`,
     '【课堂方式】教师控制逐步展开与情境切换，个人口头或纸面思考，无独立仿真实验提交。未收到学生记录，不得声称已完成。'
   ].join('\n'):undefined;
-  const pageContext = peSupport?{defaultText:peSupport,support:peSupport}:l6Support ? {defaultText:l6Support,support:l6Support} : l5Support ? {defaultText:l5Support,support:l5Support} : l4Support ? {defaultText:l4Support+(withheld?`\n【教师参考稿】${l4!.teachingCue}`:""),support:l4Support} : mgContext ?? (statsSupport ? { defaultText: statsSupport, support: statsSupport }
-    : deck && slide ? buildSlidePromptContext(deck, slide, portSlide, mathSlide, withheld) : undefined);
+  const internationalSupport = internationalSlide ? [
+    `Current lecture: ${internationalSlide.lessonTitle}. Current page: ${internationalSlide.title}.`,
+    `Public material: ${slide?.summary ?? internationalSlide.title}`,
+    `Source: Ian Jacques, Mathematics for Economics and Business, 9th edition (2018), section ${internationalSlide.source.section}, printed pages ${internationalSlide.source.printedPages.join("–")}, PDF pages ${internationalSlide.source.pdfPages.join("–")}. ${internationalSlide.source.supplement ?? ""}`,
+    "Business scenarios and generated illustrations are teaching models, not observations of real businesses. Separate finite changes from derivatives, check units and domains, test endpoints when optimizing, state the elasticity sign convention, and retain integration constants.",
+    withheld ? "The answer has not been revealed. Offer a first step or a checking method. Do not provide final numbers, a complete solution, or answers from later pages." : internationalSlide.assistantCue,
+    "Respond in clear, concise English. Pronounce mathematics naturally. Do not read authoring cues or imply that you have seen a video or student response that was not supplied."
+  ].join("\n") : undefined;
+  const mathPublic = mathSlide ? economicVisibleCopy(mathSlide,values) : undefined;
+  const safeMathContext = mathSlide && mathPublic && deck && slide
+    ? buildSlidePromptContext(deck, {...slide,summary:mathPublic}, undefined, {
+      ...mathSlide,
+      kind: mathSlide.kind === "exercise" && !withheld ? "solution" : mathSlide.kind,
+      assistantCue: "只解释当前公开材料、变量、单位和已公开步骤，不引用教师备课提示或尚未公开的解答。"
+    }, withheld) : undefined;
+  const mathContext = safeMathContext ? {
+    support: safeMathContext.support + "\n【已公开步骤】\n" + mathPublic,
+    defaultText: safeMathContext.support + "\n【已公开步骤】\n" + mathPublic + "\n【本页专属约束】\n只解释当前公开材料、变量、单位和已公开步骤，不引用教师备课提示或尚未公开的解答。"
+  } : undefined;
+  const pageContext = mathContext ?? (internationalSupport ? {defaultText: internationalSupport, support: internationalSupport} : peSupport?{defaultText:peSupport,support:peSupport}:l6Support ? {defaultText:l6Support,support:l6Support} : l5Support ? {defaultText:l5Support,support:l5Support} : l4Support ? {defaultText:l4Support+(withheld?`\n【教师参考稿】${l4!.teachingCue}`:""),support:l4Support} : mgContext ?? (statsSupport ? { defaultText: statsSupport, support: statsSupport }
+    : deck && slide ? buildSlidePromptContext(deck, slide, portSlide, mathSlide, withheld) : undefined));
   const pageDefault = pageContext?.defaultText ?? "当前没有已发布的slide。只解释已提供的课程信息，不虚构页面或实验结果。";
   const experiment = demoCue ? {key:`experiment:teacher-demo:${demoCue.cueId}`,title:demoCue.name,text:`${demoCue.assistant}\n${demoCue.stop}。四段独立起始；只有实际现场摘要可用于确认结果。`} : EXPERIMENTS.find(e => e.key === `experiment:${activity}`);
   const pageKey = `${courseId}:${experiment?.key ?? slide?.slideKey ?? "unconfigured"}`;
@@ -180,8 +202,8 @@ export function buildPromptWorkspace(
     // Unrevealed author answers and custom page instructions are never sent to the model.
     if (hideText) modules[modules.length - 1]!.runtimeContext += "\n本页自定义提示在答案揭示前不注入，以免泄露参考答案。";
   };
-  add("agent", "global", "1 · 总AI Agent", AGENT, studyToolPrompt ? "当前为个人课下学习，只服务本人的学习进度，不能控制教师课堂。" : "当前为教师课堂助手，响应教师指令。角色名称：小麦老师。");
-  add("course", courseId, "2 · 课程", deck ? (management ? MANAGEMENT_COURSE_PROMPT : statistical ? '《统计分析方法》面向有基础统计知识但尚不能独立实证分析的商科研究生。32课时16讲。当前第1—5讲可播放，分别48、52、48、50、52页，共250页，各90分钟，LBL教师主导。主线为会员消费教学模拟，随后衔接回归、问卷、主成分与因子分析、因果推断和时间序列。只响应教师明确指令，不自动翻页、不组织分组、不要求投票提交或课上代码运行。统计图据可复现数据解释；抽样模型、顾客样本和全品牌月报口径不同。' : math ? COURSE.math : portContext ? COURSE.port : `课程：${courseTitle}。依据本课程登记材料回答。`) : `课程：${courseTitle}。课件尚未建设，请教师补充课程对象、目标、知识范围与事实边界。`,
+  add("agent", "global", "1 · 总AI Agent", international ? "You are Math Guide, a classroom teaching assistant for international students studying economics and business. Respond in clear, concise English. Explain the current public material, symbols, units and assumptions. The teacher controls pacing and answer release. Give hints for unrevealed exercises; do not read private cues or invent student responses, experimental results or observations." : AGENT, `${studyToolPrompt ? "当前为个人课下学习，只服务本人的学习进度，不能控制教师课堂。" : "当前为教师课堂助手，响应教师指令。"}${international ? " Required response language: English. This course language takes precedence over general language preferences." : " 角色名称：小麦老师。"}`);
+  add("course", courseId, "2 · 课程", deck ? (international ? "Higher Mathematics: Calculus for Economics and Business. English medium; 16 lectures, 32 teaching hours of 45 minutes. Core reference: Ian Jacques, ninth edition, Chapters 1, 2, 4 and 6. Progress from quantities and functions to single-variable derivatives, optimization, elasticity, integrals and accumulation. Limits and the fundamental theorem receive conceptual supplements. No matrices, partial derivatives or multivariable optimization. Examples are teaching scenarios unless expressly labelled otherwise." : management ? MANAGEMENT_COURSE_PROMPT : statistical ? '《统计分析方法》面向有基础统计知识但尚不能独立实证分析的商科研究生。32课时16讲。当前第1—5讲可播放，分别48、52、48、50、52页，共250页，各90分钟，LBL教师主导。主线为会员消费教学模拟，随后衔接回归、问卷、主成分与因子分析、因果推断和时间序列。只响应教师明确指令，不自动翻页、不组织分组、不要求投票提交或课上代码运行。统计图据可复现数据解释；抽样模型、顾客样本和全品牌月报口径不同。' : math ? COURSE.math : portContext ? COURSE.port : `课程：${courseTitle}。依据本课程登记材料回答。`) : `课程：${courseTitle}。课件尚未建设，请教师补充课程对象、目标、知识范围与事实边界。`,
     `当前课程：${courseTitle}\n材料标明真实资料、教学情境或概念模型。教学情境必须说“在本教学情境中”。\n${portContext ? `<voyage_context id="${pe ? "cargo-planning-teaching" : l6 ? "hinterland-delivery-teaching" : l5 ? "s01-capacity-teaching" : l4 ? "s01-terminal-teaching" : "oocl-spain-ll3-2023"}">\n${portContext.voyagePrompt}\n</voyage_context>` : ""}`);
   add("lesson", `${courseId}:${position?.lessonNumber ?? "unconfigured"}`, "3 · 章／讲", lessonDefault,
     position ? `<lesson_context number="${position.lessonNumber}" title="${portContext?.lessonTitle ?? slide!.lessonTitle}">\n当前讲次：${getCourseLessonLabel(deck!.lessons.find(l=>l.number===position.lessonNumber)!)}“${portContext?.lessonTitle ?? slide!.lessonTitle}”；讲内共${position.localTotal}页。\n</lesson_context>` : "尚无已发布的讲次。");
@@ -189,12 +211,11 @@ export function buildPromptWorkspace(
     `当前活动：${activity}`,
     `当前 Slides：第 ${position.localIndex}/${position.localTotal} 页（内部全局第 ${index}/${deck!.slideTotal} 页），标题“${slide.title}”`,
     `<slide_context index="${index}" local_index="${position.localIndex}" local_total="${position.localTotal}" key="${slide.slideKey}" title="${slide.title}">`,
-    `学生可见摘要：${mgContext?.visibleSummary ?? (pe?[pe.lead,...pePoints].join('；'):l6?[l6Film?l6.title:l6.lead,...l6Points].join('；'):live?.slide.summary ?? slide.summary)}`,
+    `学生可见摘要：${mathPublic ?? mgContext?.visibleSummary ?? (pe?[pe.lead,...pePoints].join('；'):l6?[l6Film?l6.title:l6.lead,...l6Points].join('；'):live?.slide.summary ?? slide.summary)}`,
     // Retain factual connections when a teacher replaces the editable text,
     // and retain safe context when authored answers must be withheld.
     withheld || hasPageOverride || experiment ? pageContext?.support : "",
     portContext && !l4 && !l5 && !l6 && !pe ? contextualPageBoundary(portContext.slidePrompt) : "",
-    ...(!withheld && mathSlide ? [mathSlide.formula, ...(mathSlide.data ?? []), ...(mathSlide.body ?? [])] : []),
     `<assistant_boundary>${boundary || "仅依据当前页与已提供来源解释，不编造事实。"}</assistant_boundary>`,
     interaction ? `实验：${interaction.label}（${interaction.id}）\n当前实验参数：${JSON.stringify(values)}\n参数必须按当前值解释；没有运行结果时只能做条件分析。` : "",
     demoCue ? `教师演示：${demoCue.name}；${liveDemo ? `runId=${liveDemo.runId}；revision=${liveDemo.revision}；更新时间=${liveDemo.updatedAt ?? '尚无'}；现场摘要=${liveDemo.visibleSummary ?? '尚未收到当前运行，不得猜测状态或沿用冻结快照'}` : '仅为备课预览，没有现场运行结果'}。返回保留来源页，播放由教师控制。` : "",

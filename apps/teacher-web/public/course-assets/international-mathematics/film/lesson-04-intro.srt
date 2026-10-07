@@ -1,0 +1,70 @@
+1
+00:00:00,650 --> 00:00:03,719
+A single paper user token splits into two.
+
+2
+00:00:03,719 --> 00:00:09,089
+Two become four, and four become eight.
+The pattern feels simple, but its size
+
+3
+00:00:09,089 --> 00:00:09,856
+changes quickly.
+
+4
+00:00:15,650 --> 00:00:19,652
+Another row grows by adding the same
+number each time.
+
+5
+00:00:19,652 --> 00:00:24,455
+At first the rows match, then repeated
+multiplication pulls one row farther
+
+6
+00:00:24,455 --> 00:00:24,856
+ahead.
+
+7
+00:00:30,650 --> 00:00:35,543
+Now growth is twenty percent per week. The
+new users depend on the group
+
+8
+00:00:35,543 --> 00:00:38,689
+already present, so each week adds a
+different number.
+
+9
+00:00:45,650 --> 00:00:48,665
+A target of two hundred appears above the
+path.
+
+10
+00:00:48,665 --> 00:00:53,354
+Counting one week at a time works, but the
+crossing may happen between weekly
+
+11
+00:00:53,354 --> 00:00:53,689
+reports.
+
+12
+00:01:00,650 --> 00:01:04,779
+The time hides inside an exponent. We know
+the starting group, the multiplier,
+
+13
+00:01:04,779 --> 00:01:08,272
+and the target, but we need an operation
+that uncovers time.
+
+14
+00:01:15,650 --> 00:01:19,688
+When will this model reach the target?
+Find the continuous crossing time, then
+
+15
+00:01:19,688 --> 00:01:23,106
+decide which whole-week report first shows
+the target has been reached.

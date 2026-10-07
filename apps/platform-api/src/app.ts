@@ -356,6 +356,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     synchronization: "checkpoints-v1",
     studentAiEnabled: options.studentAiEnabled ?? true,
     speech: { asr: studySpeechProvider.asrConfigured, tts: studySpeechProvider.ttsConfigured,
+      ttsEnglish: studySpeechProvider.canSynthesize?.({language: "English"}) ?? studySpeechProvider.ttsConfigured,
       realtime: { available: realtimeAvailable(realtime) } }
   }));
   app.post("/api/identity/login", async (request,reply) => {
@@ -468,18 +469,20 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     return reply.code(410).send({ error: "CLASSROOM_REALTIME_REQUIRED", message: "课堂语音已统一使用实时连接，请刷新课堂页面；文字输入仍可使用。" });
   });
   app.post("/api/teacher/tts", async (request,reply) => {
-    const {text,voiceProfile,lipSync}=z.object({text:z.string().min(1).max(3000),voiceProfile:avatarVoiceProfileSchema.optional(),lipSync:z.boolean().optional()}).parse(request.body);
-    if(!studySpeechProvider.ttsConfigured) return reply.code(503).send({message:"尚未配置课堂语音，文字回答可正常使用。"});
+    const {text,voiceProfile,lipSync,courseId}=z.object({text:z.string().min(1).max(3000),voiceProfile:avatarVoiceProfileSchema.optional(),lipSync:z.boolean().optional(),courseId:z.string().max(128).optional()}).parse(request.body);
+    const speechOptions = courseId && getCourseDeckByCourseId(courseId)?.locale === "en" ? {language: "English" as const} : undefined;
+    const speechConfigured = speechOptions ? studySpeechProvider.canSynthesize?.(speechOptions) ?? studySpeechProvider.ttsConfigured : studySpeechProvider.ttsConfigured;
+    if(!speechConfigured) return reply.code(503).send({message:speechOptions?.language === "English" ? "Classroom speech is not configured. Text responses remain available." : "尚未配置课堂语音，文字回答可正常使用。"});
     reply.hijack();
     reply.raw.writeHead(200,{"Content-Type":"text/event-stream","Cache-Control":"no-store","X-Accel-Buffering":"no"});
     const controller=new AbortController(); reply.raw.once("close",()=>controller.abort());
     try {
-      for await(const chunk of withSpeechVisemes(studySpeechProvider.synthesize(text,aiSignal(request,controller.signal),voiceProfile),lipSync,controller.signal)) {
+      for await(const chunk of withSpeechVisemes(studySpeechProvider.synthesize(text,aiSignal(request,controller.signal),voiceProfile,speechOptions),lipSync,controller.signal)) {
         if(reply.raw.destroyed || reply.raw.writableEnded) break;
         if(reply.raw.writableLength>512*1024) {controller.abort(); break;}
         reply.raw.write(`data: ${JSON.stringify(chunk)}\n\n`);
       }
-    } catch { if(!reply.raw.destroyed) reply.raw.write(`data: ${JSON.stringify({error:"语音暂时不可用，请阅读字幕。"})}\n\n`); }
+    } catch { if(!reply.raw.destroyed) reply.raw.write(`data: ${JSON.stringify({error:speechOptions?.language === "English" ? "Speech is unavailable. Please read the captions." : "语音暂时不可用，请阅读字幕。"})}\n\n`); }
     finally {reply.raw.end();}
   });
 
@@ -500,7 +503,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
         message: "未找到这门课程"
       });
     }
-    if (input.courseId !== PORT_MANAGEMENT_STUDY_COURSE_ID) {
+    if (input.courseId !== PORT_MANAGEMENT_STUDY_COURSE_ID && getCourseDeckByCourseId(input.courseId)?.locale !== "en") {
       return reply.status(409).send({
         error: "STUDY_DECK_NOT_READY",
         message: "这门课程尚未发布课下学习课件"
@@ -561,15 +564,14 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
         });
       }
       const input = studyAsrInputSchema.parse(request.body);
-      const assistantContext = getPortManagementAssistantContext(
-        session.globalIndex
-      );
+      const englishDeck = getCourseDeckByCourseId(session.courseId)?.locale === "en" ? getCourseDeckByCourseId(session.courseId) : undefined;
+      const assistantContext = englishDeck ? {lessonTitle: englishDeck.getSlide(session.globalIndex).lessonTitle, slideTitle: englishDeck.getSlide(session.globalIndex).title} : getPortManagementAssistantContext(session.globalIndex);
       try {
         const text = await studySpeechProvider.transcribe({
           audioBase64: input.audioBase64,
           mimeType: input.mimeType,
           signal: aiSignal(request),
-          context: [
+          context: englishDeck ? ["Transcribe the student's English mathematics question faithfully.", `Course: ${session.courseTitle}`, `Lesson: ${assistantContext.lessonTitle}`, `Page: ${assistantContext.slideTitle}`, "Terms: function, derivative, integral, marginal cost, marginal revenue, elasticity, consumer surplus, producer surplus."].join("\n") : [
             "请准确识别学生关于港口管理课程的提问。",
             `课程：${session.courseTitle}`,
             `本讲：${assistantContext.lessonTitle}`,
@@ -644,7 +646,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       void stream.result.catch(() => undefined);
       let speechBuffer = "";
       let speechSequence = 0;
-      let speechEnabled = studySpeechProvider.ttsConfigured;
+      let speechEnabled = getCourseDeckByCourseId(session.courseId)?.locale === "en" ? studySpeechProvider.canSynthesize?.({language: "English"}) ?? studySpeechProvider.ttsConfigured : studySpeechProvider.ttsConfigured;
       let speechStatus: "streamed" | "unavailable" | "disabled" =
         speechEnabled ? "unavailable" : "disabled";
 
@@ -654,7 +656,8 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
           for await (const chunk of withSpeechVisemes(studySpeechProvider.synthesize(
             text,
             aiSignal(request, controller.signal),
-            input.voiceProfile
+            input.voiceProfile,
+            getCourseDeckByCourseId(session.courseId)?.locale === "en" ? {language: "English"} : undefined
           ), input.lipSync, controller.signal)) {
             speechStatus = "streamed";
             writeEvent({

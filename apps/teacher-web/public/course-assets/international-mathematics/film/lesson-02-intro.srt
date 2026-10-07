@@ -1,0 +1,75 @@
+1
+00:00:00,650 --> 00:00:03,436
+A paper market opens between two coloured
+platforms.
+
+2
+00:00:03,436 --> 00:00:08,311
+Buyers gather on one side, sellers on the
+other, while a single price tag
+
+3
+00:00:08,311 --> 00:00:09,356
+floats between them.
+
+4
+00:00:15,650 --> 00:00:19,122
+The price tag rises. Some buyer tokens
+step away.
+
+5
+00:00:19,122 --> 00:00:24,137
+In this simple model, a higher price means
+fewer items demanded during the
+
+6
+00:00:24,137 --> 00:00:24,522
+week.
+
+7
+00:00:30,650 --> 00:00:34,220
+At the same higher price, more seller
+tokens enter.
+
+8
+00:00:34,220 --> 00:00:39,772
+The number of items offered increases, but
+the two sides still do not match.
+
+9
+00:00:45,650 --> 00:00:49,486
+The tokens turn into two moving lines on a
+graph.
+
+10
+00:00:49,486 --> 00:00:54,472
+Each line connects a price to a quantity,
+following its own clearly stated
+
+11
+00:00:54,472 --> 00:00:54,856
+rule.
+
+12
+00:01:00,650 --> 00:01:05,540
+Slide the price between the two extremes.
+Sometimes buyers want more than
+
+13
+00:01:05,540 --> 00:01:10,022
+sellers offer. Sometimes sellers offer
+more than buyers want to purchase.
+
+14
+00:01:15,650 --> 00:01:18,664
+There may be a price where both quantities
+match.
+
+15
+00:01:18,664 --> 00:01:23,018
+Can you find that price, calculate the
+shared quantity, and check both sides
+
+16
+00:01:23,018 --> 00:01:24,022
+of the market?

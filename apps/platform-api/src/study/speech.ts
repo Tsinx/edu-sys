@@ -22,12 +22,20 @@ export interface StudySpeechProvider {
   readonly name: string;
   readonly asrConfigured: boolean;
   readonly ttsConfigured: boolean;
+  canSynthesize?(options?: StudySpeechOptions): boolean;
   transcribe(request: StudyAsrRequest): Promise<string>;
   synthesize(
     text: string,
     signal?: AbortSignal,
-    voiceProfile?: AvatarVoiceProfile
+    voiceProfile?: AvatarVoiceProfile,
+    options?: StudySpeechOptions
   ): AsyncIterable<StudyTtsChunk>;
+}
+
+export interface StudySpeechOptions {
+  language?: "Chinese" | "English";
+  voice?: string;
+  model?: string;
 }
 
 export class StudySpeechProviderError extends Error {
@@ -161,6 +169,10 @@ export class DashScopeStudySpeechProvider implements StudySpeechProvider {
     return Boolean(this.apiKey && this.ttsVoiceId);
   }
 
+  canSynthesize(options: StudySpeechOptions = {}): boolean {
+    return Boolean(this.apiKey && (options.language === "English" || options.voice || this.ttsVoiceId));
+  }
+
   async transcribe(request: StudyAsrRequest): Promise<string> {
     if (!this.apiKey) {
       throw new StudySpeechProviderError(
@@ -225,11 +237,13 @@ export class DashScopeStudySpeechProvider implements StudySpeechProvider {
   async *synthesize(
     text: string,
     signal?: AbortSignal,
-    voiceProfile: AvatarVoiceProfile = "default"
+    voiceProfile: AvatarVoiceProfile = "default",
+    options: StudySpeechOptions = {}
   ): AsyncGenerator<StudyTtsChunk> {
     const preset = voiceProfile === "natori" ? "Ethan" : voiceProfile === "hiyori" ? "Serena" : undefined;
-    const voice = preset ?? this.ttsVoiceId;
-    const model = preset ? "qwen3-tts-flash-realtime-2025-11-27" : this.ttsModel;
+    const english = options.language === "English";
+    const voice = options.voice ?? (english ? "Ethan" : preset ?? this.ttsVoiceId);
+    const model = options.model ?? (preset || english ? "qwen3-tts-flash-realtime-2025-11-27" : this.ttsModel);
     if (!this.apiKey || !voice) {
       throw new StudySpeechProviderError(
         "澜舟专属音色尚未配置；当前保留字幕并跳过语音。"
@@ -283,7 +297,7 @@ export class DashScopeStudySpeechProvider implements StudySpeechProvider {
             session: {
               voice,
               mode: "commit",
-              language_type: "Chinese",
+              language_type: options.language ?? "Chinese",
               response_format: "pcm",
               sample_rate: 24_000,
               speech_rate: 0.96,

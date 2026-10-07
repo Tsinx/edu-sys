@@ -72,7 +72,8 @@ import {
   PORT_MANAGEMENT_DECK_VERSION,
   PORT_MANAGEMENT_SLIDE_TOTAL
 } from "@edu/course-content";
-import { ECONOMIC_MATHEMATICS_COURSE_ID } from "@edu/course-content/economic-mathematics";
+import { ECONOMIC_MATHEMATICS_COURSE_ID, ECONOMIC_MATHEMATICS_DECK_ID, ECONOMIC_MATHEMATICS_VERSION_ID } from "@edu/course-content/economic-mathematics";
+import { INTERNATIONAL_MATHEMATICS_COURSE_ID, resolveInternationalMathematicsSavedPosition } from "@edu/course-content/international-mathematics";
 import { getCourseDeckByCourseId, getCourseAdjacentIndex, getCourseLessonLabel } from "@edu/course-content/deck-registry";
 import {
   DEFAULT_PORT_SIMULATION_CHALLENGE_ID,
@@ -263,6 +264,10 @@ export class JsonStateStore {
           continue;
         }
         const runtimeCourseId = classroomSession?.courseId;
+        if (runtimeCourseId === ECONOMIC_MATHEMATICS_COURSE_ID && (sanitizedRuntime.deckId !== ECONOMIC_MATHEMATICS_DECK_ID || sanitizedRuntime.deckVersion !== ECONOMIC_MATHEMATICS_VERSION_ID)) {
+          classroomRuntimes[sessionId] = {...sanitizedRuntime,avatarControlHistory} as ClassroomRuntimeState;
+          continue;
+        }
         const runtimeDeck = runtimeCourseId
           ? getCourseDeckByCourseId(runtimeCourseId)
           : undefined;
@@ -287,6 +292,10 @@ export class JsonStateStore {
           typeof sanitizedRuntime.slideKey === "string"
             ? runtimeDeck.getSlideByKey(sanitizedRuntime.slideKey)
             : undefined;
+        if (!slideSpec && runtimeCourseId === INTERNATIONAL_MATHEMATICS_COURSE_ID) {
+          const restored = resolveInternationalMathematicsSavedPosition(sanitizedRuntime.deckVersion, rawSlideIndex, sanitizedRuntime.slideKey);
+          if (restored) slideSpec = runtimeDeck.getSlide(restored.index);
+        }
 
         if (runtimeCourseId === "course-port-management-intro") {
           if (!slideSpec && ["release-port-management-lab-v9","release-port-management-authored-v9"].includes(sanitizedRuntime.deckVersion ?? "") && rawSlideIndex >= 1 && rawSlideIndex <= 181) {
@@ -712,6 +721,13 @@ export class JsonStateStore {
         runtimeStateChanged = true;
       }
       const studySessions = parsedStudySessions.map((session) => {
+        if (session.courseId === INTERNATIONAL_MATHEMATICS_COURSE_ID) {
+          const deck = getCourseDeckByCourseId(session.courseId)!;
+          const restored = resolveInternationalMathematicsSavedPosition(session.deckVersion, session.globalIndex ?? 1, session.slideKey);
+          const slide = restored ? deck.getSlide(restored.index) : deck.getSlide(1);
+          if (session.deckVersion !== deck.versionId || session.slideKey !== slide.slideKey || session.globalIndex !== slide.index || session.slideTotal !== deck.slideTotal) runtimeStateChanged = true;
+          return {...session, deckVersion: deck.versionId, slideKey: slide.slideKey, globalIndex: slide.index, slideTotal: deck.slideTotal, presentation: studyAvatarPresentation(session.id)} satisfies StudySession;
+        }
         const slide =
           getPortManagementSlideByKey(session.slideKey) ??
           getPortManagementSlide(
@@ -740,6 +756,19 @@ export class JsonStateStore {
           presentation
         } satisfies StudySession;
       });
+      for (const [identity, progress] of Object.entries(parsed.portal?.readings ?? {})) {
+        let courseId: unknown;
+        try { courseId = JSON.parse(identity)[1]; } catch { continue; }
+        if (courseId !== INTERNATIONAL_MATHEMATICS_COURSE_ID) continue;
+        const legacy = progress as typeof progress & {slideIndex?: number; globalIndex?: number};
+        const restored = resolveInternationalMathematicsSavedPosition(progress.deckVersion, legacy.globalIndex ?? legacy.slideIndex ?? 1, progress.slideKey);
+        const deck = getCourseDeckByCourseId(INTERNATIONAL_MATHEMATICS_COURSE_ID)!;
+        if (restored && (progress.deckVersion !== deck.versionId || progress.slideKey !== restored.slideKey)) {
+          // Keep revision, timestamps and learning history; only relocate the reading anchor.
+          parsed.portal!.readings[identity] = {...progress, deckVersion: deck.versionId, slideKey: restored.slideKey};
+          runtimeStateChanged = true;
+        }
+      }
       const courses = [...(parsed.courses ?? [])];
       const seed = createSeedState();
       const teachers = [...parsed.teachers];
@@ -754,7 +783,7 @@ export class JsonStateStore {
         runtimeStateChanged = true;
       }
       for (const builtin of seed.courses.filter(course =>
-        course.id === ECONOMIC_MATHEMATICS_COURSE_ID || course.id === 'statistical-analysis' || course.id === 'management-principles')) {
+        course.id === ECONOMIC_MATHEMATICS_COURSE_ID || course.id === INTERNATIONAL_MATHEMATICS_COURSE_ID || course.id === 'statistical-analysis' || course.id === 'management-principles')) {
         const existing = courses.find(course => course.id === builtin.id);
         if (!existing) {
           courses.push(builtin);
@@ -933,7 +962,7 @@ export class JsonStateStore {
     actor: ClassroomActor
   ): Promise<StudySession | undefined> {
     const course = this.getCourse(courseId);
-    if (!course || course.id !== PORT_MANAGEMENT_STUDY_COURSE_ID) {
+    if (!course || (course.id !== PORT_MANAGEMENT_STUDY_COURSE_ID && course.id !== INTERNATIONAL_MATHEMATICS_COURSE_ID)) {
       return undefined;
     }
 
@@ -948,7 +977,8 @@ export class JsonStateStore {
       }
 
       const now = new Date().toISOString();
-      const firstSlide = getPortManagementSlide(1);
+      const deck = getCourseDeckByCourseId(courseId)!;
+      const firstSlide = deck.getSlide(1);
       const id = `study-session-${randomUUID()}`;
       const session: StudySession = {
         id,
@@ -961,10 +991,10 @@ export class JsonStateStore {
           !actor.roles.includes("teacher")
             ? "student"
             : "teacher_preview",
-        deckVersion: PORT_MANAGEMENT_DECK_VERSION,
+        deckVersion: deck.versionId,
         slideKey: firstSlide.slideKey,
         globalIndex: firstSlide.index,
-        slideTotal: PORT_MANAGEMENT_SLIDE_TOTAL,
+        slideTotal: deck.slideTotal,
         createdAt: now,
         updatedAt: now,
         presentation: studyAvatarPresentation(id)
@@ -999,6 +1029,13 @@ export class JsonStateStore {
         );
         if (!session) return undefined;
 
+        if (session.courseId === INTERNATIONAL_MATHEMATICS_COURSE_ID) {
+          const deck = getCourseDeckByCourseId(session.courseId)!;
+          const slide = deck.getSlideByKey(input.slideKey) ?? (input.deckVersion === deck.versionId && input.globalIndex <= deck.slideTotal ? deck.getSlide(input.globalIndex) : undefined);
+          if (!slide) return undefined;
+          Object.assign(session, {deckVersion: deck.versionId, slideKey: slide.slideKey, globalIndex: slide.index, slideTotal: deck.slideTotal, updatedAt: new Date().toISOString(), presentation: studyAvatarPresentation(session.id)});
+          return structuredClone(session);
+        }
         const byKey = getPortManagementSlideByKey(input.slideKey);
         const byIndex =
           input.deckVersion === PORT_MANAGEMENT_DECK_VERSION &&
@@ -1034,6 +1071,14 @@ export class JsonStateStore {
         );
         if (!session) return undefined;
 
+        if (session.courseId === INTERNATIONAL_MATHEMATICS_COURSE_ID) {
+          const deck = getCourseDeckByCourseId(session.courseId)!;
+          const target = action.type === "study.slides.next" ? Math.min(deck.slideTotal, session.globalIndex + 1) : action.type === "study.slides.previous" ? Math.max(1, session.globalIndex - 1) : deck.getGlobalIndex(action.lesson, action.type === "study.slides.go_to" ? action.slide : 1);
+          if (target === null || target === session.globalIndex) return {action, status: "noop" as const, message: target === null ? "This lesson or page is outside the published course." : "You are already on this page.", session: structuredClone(session)};
+          const slide = deck.getSlide(target), position = deck.getLessonPosition(target)!;
+          Object.assign(session, {deckVersion: deck.versionId, slideKey: slide.slideKey, globalIndex: slide.index, slideTotal: deck.slideTotal, updatedAt: new Date().toISOString(), presentation: studyAvatarPresentation(session.id)});
+          return {action, status: "applied" as const, message: `Lesson ${position.lessonNumber}, page ${position.localIndex}.`, session: structuredClone(session)};
+        }
         let targetIndex: number | null = null;
         if (action.type === "study.slides.next") {
           targetIndex = Math.min(
@@ -1529,10 +1574,14 @@ export class JsonStateStore {
     }
     const deck = getCourseDeckByCourseId(course.id);
     if (!deck) return undefined;
+    const archivedMath = course.id === ECONOMIC_MATHEMATICS_COURSE_ID && (runtime.deckId !== deck.deckId || runtime.deckVersion !== deck.versionId);
+    const archivedCounts = [44,47,45,45,47,46,47,44,46,43,46,44,45,47,45,47,43,44,46,45,47,46,45,46,47,47,45,47,46,47,47,44];
+    let archivedLesson=1, archivedOffset=0;
+    while(archivedLesson<32 && runtime.slideIndex>archivedOffset+archivedCounts[archivedLesson-1]!) archivedOffset+=archivedCounts[archivedLesson++-1]!;
     const slideSpec =
-      deck.getSlideByKey(runtime.slideKey) ?? deck.getSlide(runtime.slideIndex);
+      archivedMath ? {slideKey:runtime.slideKey,index:runtime.slideIndex,lessonNumber:archivedLesson,lessonTitle:"旧版课件已归档",section:"历史课堂",title:"经济数学旧版课件已归档",summary:"此课堂保留原版本、页码与实验状态。请新建课堂使用新版课件。"} : deck.getSlideByKey(runtime.slideKey) ?? deck.getSlide(runtime.slideIndex);
     const savedInteraction = runtime.slideInteractions[slideSpec.slideKey];
-    const interactionDefaults = deck.getInteractionDefaults(slideSpec.slideKey);
+    const interactionDefaults = archivedMath ? null : deck.getInteractionDefaults(slideSpec.slideKey);
     const savedInteractionIsValid = Boolean(
       interactionDefaults &&
       savedInteraction &&
@@ -1551,10 +1600,11 @@ export class JsonStateStore {
             savedInteractionIsValid ? savedInteraction!.values : interactionDefaults
           )
         }
-      : null;
+      : archivedMath && savedInteraction ? {deckId:runtime.deckId,slideId:runtime.slideKey,revision:savedInteraction.revision,values:structuredClone(savedInteraction.values)} : null;
 
     return {
       session,
+      serverNowMs: Date.now(),
       courseId: course.id,
       courseTitle: course.title,
       chapterTitle: slideSpec.lessonTitle,
@@ -1562,11 +1612,11 @@ export class JsonStateStore {
         ? runtime.activeActivity
         : "slides",
       slide: {
-        deckId: deck.deckId,
-        versionId: deck.versionId,
+        deckId: archivedMath ? runtime.deckId : deck.deckId,
+        versionId: archivedMath ? runtime.deckVersion : deck.versionId,
         slideId: slideSpec.slideKey,
         index: slideSpec.index,
-        total: deck.slideTotal,
+        total: archivedMath ? 1460 : deck.slideTotal,
         logicalWidth: SLIDE_LOGICAL_WIDTH,
         logicalHeight: SLIDE_LOGICAL_HEIGHT,
         aspectRatio: SLIDE_ASPECT_RATIO,
@@ -4063,6 +4113,9 @@ export class JsonStateStore {
         state.classroomRuntimes[sessionId] ??
         createInitialClassroomRuntime(session.courseId);
       const deck = getCourseDeckByCourseId(session.courseId);
+      if (deck && session.courseId === ECONOMIC_MATHEMATICS_COURSE_ID && (runtime.deckId !== deck.deckId || runtime.deckVersion !== deck.versionId)) {
+        throw Object.assign(new Error("这次课堂使用的经济数学课件已归档，原状态保留。请新建课堂使用新版。"),{statusCode:409,code:"COURSE_DECK_ARCHIVED"});
+      }
       if (!deck) {
         throw Object.assign(new Error("这门课程尚未发布课堂课件"), {
           statusCode: 409,
@@ -4182,7 +4235,8 @@ export class JsonStateStore {
           revision: currentRevision + 1,
           values: {
             ...(currentState?.values ?? defaults),
-            ...input.patch
+            ...input.patch,
+            ...(session.courseId === INTERNATIONAL_MATHEMATICS_COURSE_ID && Object.hasOwn(input.patch, "anchorMs") ? {anchorMs: Date.now()} : {})
           }
         };
       } else if (input.type === "reset_slide_interaction") {

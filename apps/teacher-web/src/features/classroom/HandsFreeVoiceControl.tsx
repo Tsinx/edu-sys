@@ -8,6 +8,7 @@ import { voiceStartupLabels, type VoiceStartupStage } from "./voice-startup";
 
 
 interface HandsFreeVoiceControlProps {
+  locale?: "zh-CN" | "en";
   mode?: "manual" | "handsfree";
   disabled: boolean;
   assistantBusy: boolean;
@@ -15,7 +16,8 @@ interface HandsFreeVoiceControlProps {
   unavailableReason?: string;
 }
 
-export function HandsFreeVoiceControl({ mode = "handsfree", disabled, assistantBusy, realtime, unavailableReason }: HandsFreeVoiceControlProps) {
+export function HandsFreeVoiceControl({ locale, mode = "handsfree", disabled, assistantBusy, realtime, unavailableReason }: HandsFreeVoiceControlProps) {
+  const t = (zh: string, en: string) => locale === "en" ? en : zh;
   const configured = Boolean(realtime);
   const handsfree = mode === "handsfree";
   const [keywordModel, setKeywordModel] = useState<LocalKeywordModel>(readKeywordModel);
@@ -126,8 +128,8 @@ export function HandsFreeVoiceControl({ mode = "handsfree", disabled, assistantB
             commit: async () => {
               setSubmitting(true); setReady(false); setTranscribing(false);
               if (!handsfree) setEnabled(false);
-              setNotice("本轮已提交，正在生成实时回答。");
-              try { await realtime.commit(); setNotice("本轮回答已生成。"); }
+              setNotice(t("本轮已提交，正在生成实时回答。", "Submitted. Preparing realtime response."));
+              try { await realtime.commit(); setNotice(t("本轮回答已生成。", "Response complete.")); }
               catch (error) { setNotice((error as Error).message); }
               finally { setSubmitting(false); setCycle(value => value + 1); }
             }
@@ -138,7 +140,7 @@ export function HandsFreeVoiceControl({ mode = "handsfree", disabled, assistantB
             setCollecting(state === "recording" || state === "ending-pending");
             setEndingPending(state === "ending-pending");
             setTranscribing(state === "transcribing");
-            setNotice(state === "ending-pending" ? "听到“谢谢”，正在确认是否说完；继续说话即可继续本轮。" : state === "recording" ? (handsfree ? "正在收音。说“非常感谢”发送，或说“谢谢”后停顿约1秒。" : "已开始录音，请说出指令。") : state === "cancelled" ? "本轮已取消。" : state === "timeout" ? "本轮已超时并取消。" : (handsfree ? "已确认结束，录音已结束，正在提交实时语音…" : "录音结束，正在提交实时语音…"));
+            setNotice(state === "ending-pending" ? "听到“谢谢”，正在确认是否说完；继续说话即可继续本轮。" : state === "recording" ? (handsfree ? "正在收音。说“非常感谢”发送，或说“谢谢”后停顿约1秒。" : t("已开始录音，请说出指令。", "Recording. Ask your question.")) : state === "cancelled" ? t("本轮已取消。", "Recording cancelled.") : state === "timeout" ? t("本轮已超时并取消。", "Recording timed out and was cancelled.") : (handsfree ? "已确认结束，录音已结束，正在提交实时语音…" : t("录音结束，正在提交实时语音…", "Recording complete. Sending speech\u2026")));
             if (!handsfree && (state === "cancelled" || state === "timeout")) close();
           }
         });
@@ -146,7 +148,7 @@ export function HandsFreeVoiceControl({ mode = "handsfree", disabled, assistantB
           captureRef.current = capture;
           setReady(true);
           setStartupStage(undefined);
-          setNotice(previous => previous || (handsfree ? "本地模型已就绪，等待“小麦老师”。" : "已开始录音，请说出指令。"));
+          setNotice(previous => previous || (handsfree ? "本地模型已就绪，等待“小麦老师”。" : t("已开始录音，请说出指令。", "Recording. Ask your question.")));
         }
       } catch (error) { fail(error as Error); }
     };
@@ -160,26 +162,26 @@ export function HandsFreeVoiceControl({ mode = "handsfree", disabled, assistantB
   useEffect(() => { if (!handsfree && blocked) close(); }, [handsfree, blocked]);
 
   if (!handsfree) return (
-    <section className="hands-free-control" aria-label="按键输入">
+    <section className="hands-free-control" aria-label={t("按键输入", "Record speech")}>
       <button type="button" className={`hold-to-talk ${collecting ? "hold-to-talk--recording" : ""}`}
-        aria-label={collecting ? "结束并发送" : "开始录音"}
+        aria-label={collecting ? t("结束并发送", "Stop and send") : t("开始录音", "Start recording")}
         disabled={blocked || (enabled && !collecting)}
         onClick={() => {
           if (collecting) captureRef.current?.finish();
           else { setNotice(""); setEnabled(true); }
         }}>
         <Mic size={23} />
-        <strong>{submitting ? "正在发送" : transcribing ? "正在提交实时语音" : collecting ? `结束并发送 · 00:${String(elapsed).padStart(2, "0")}` : enabled ? (startupStage ? voiceStartupLabels[startupStage] : "正在准备录音…") : "开始录音"}</strong>
+        <strong>{submitting ? t("正在发送", "Sending") : transcribing ? t("正在提交实时语音", "Sending speech") : collecting ? t(`结束并发送 · 00:${String(elapsed).padStart(2, "0")}`, `Stop and send · 00:${String(elapsed).padStart(2, "0")}`) : enabled ? (startupStage ? t(voiceStartupLabels[startupStage], "Preparing microphone…") : t("正在准备录音…", "Preparing microphone\u2026")) : t("开始录音", "Start recording")}</strong>
       </button>
-      {enabled && <button type="button" aria-label="取消本轮" onClick={() => { close(); setNotice("本轮已取消。"); }}><X size={16} /><span>取消本轮</span></button>}
-      <p>按一次开始，再按一次结束并发送。60秒未结束会取消本轮。</p>
-      {assistantBusy && <p role="status">助手回答中，收音暂停</p>}
+      {enabled && <button type="button" aria-label={t("取消本轮", "Cancel recording")} onClick={() => { close(); setNotice(t("本轮已取消。", "Recording cancelled.")); }}><X size={16} /><span>{t("取消本轮", "Cancel recording")}</span></button>}
+      <p>{t("按一次开始，再按一次结束并发送。60秒未结束会取消本轮。", "Press once to record and again to stop and send. Recording cancels after 60 seconds.")}</p>
+      {assistantBusy && <p role="status">{t("助手回答中，收音暂停", "Microphone pauses during the assistant response")}</p>}
       {notice && <p className="hands-free-control__notice" role="status">{notice}</p>}
-      {!configured && <p>{unavailableReason || "实时语音暂不可用，请检查服务配置或使用文字输入。"}</p>}
+      {!configured && <p>{unavailableReason || t("实时语音暂不可用，请检查服务配置或使用文字输入。", "Realtime speech is unavailable. Use text input.")}</p>}
     </section>
   );
 
-  const status = !enabled ? "监听已关闭" : blocked ? "助手回答中，收音暂停" : !ready ? (startupStage ? voiceStartupLabels[startupStage] : modelReady ? "正在恢复收音…" : "正在加载本地唤醒模型…") : transcribing ? "正在提交实时语音" : endingPending ? "正在确认是否说完" : collecting ? "正在接收指令" : "等待唤醒";
+  const status = !enabled ? "监听已关闭" : blocked ? t("助手回答中，收音暂停", "Microphone pauses during the assistant response") : !ready ? (startupStage ? t(voiceStartupLabels[startupStage], "Preparing microphone…") : modelReady ? "正在恢复收音…" : "正在加载本地唤醒模型…") : transcribing ? t("正在提交实时语音", "Sending speech") : endingPending ? "正在确认是否说完" : collecting ? "正在接收指令" : "等待唤醒";
   return (
     <section className="hands-free-control" aria-label="助教语音唤醒">
       <label className="hands-free-control__model">
@@ -208,7 +210,7 @@ export function HandsFreeVoiceControl({ mode = "handsfree", disabled, assistantB
       <p>开启后，切换窗口仍保持监听；可随时点击“关闭语音唤醒”。</p>
       {collecting && <p className="hands-free-control__draft" aria-label="待发送指令">请说出你的问题或操作指令…</p>}
       {notice && <p className="hands-free-control__notice" role="status">{notice}</p>}
-      {!configured && <p>{unavailableReason || "实时语音暂不可用，请检查服务配置或使用文字输入。"}</p>}
+      {!configured && <p>{unavailableReason || t("实时语音暂不可用，请检查服务配置或使用文字输入。", "Realtime speech is unavailable. Use text input.")}</p>}
       <small>唤醒、结束、取消均在本机检测。唤醒后本轮音频边录边上传，结束词触发回答；待机音频留在本机。60秒未结束会取消本轮。</small>
     </section>
   );
