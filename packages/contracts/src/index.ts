@@ -1885,3 +1885,4 @@ export * from "./classroom-realtime.js";
 export type { PreparationNote, ReadingProgress, PortalPreferences, StartClassOptions } from "./portal.js";
 
 export * from "./activity-plans.js";
+export * from "./ranked-practice.js";

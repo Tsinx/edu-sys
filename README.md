@@ -21,7 +21,7 @@ pnpm build:campus
 - `apps/teacher-web/src/features/classroom`：独立课堂教学子系统，包含固定 16:10 Slides 运行时、真实心跳在线人数、课堂活动切换、手动语音/文字指令和 OpenAvatarChat LAM/Barbara 渲染。
 - `apps/platform-api`：教师、课程、课堂运行状态、账号和 AI 代理；校园模式使用 SQLite，开发模式保留 JSON 适配器。
 - `packages/contracts`：前后端共享的 Zod 运行时契约与 TypeScript 类型。
-- 国际生英文高等数学：16讲、32学时、1,312页v2课件，复用课程工作区、师生课堂同步、英文独立阅读与离线缓存；入口与使用说明见 [课程接入说明](docs/international-mathematics-system.md)。
+- 国际生英文高等数学：16讲、32学时、1,312页v2课件，复用课程工作区、师生课堂同步、英文独立阅读与离线缓存；入口与使用说明见 [课程接入说明](docs/international-mathematics-system.md)。每讲另有20分钟、10道分级教材单选题，支持整套发布、自动保存、锁定与答案揭示，见 [Ranked Practice](docs/international-mathematics-ranked-practice.md)。
 - 平台课堂助手：模型返回结构化 JSON 流，服务端实时只提取 `dialogue`，完整校验后才执行 `edu.classroom.control/1.0` 白名单动作。
 - `components/openavatarchat`：官方 OpenAvatarChat Git 子模块，包含 WebUI、LAM、LiteAvatar 及其递归依赖。
 - Python 3.11 隔离环境：`components/openavatarchat/.venv`。

@@ -8,6 +8,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useParams } from "react-router-dom";
 import { StudentParticipation } from "./ClassroomParticipation";
+import { ClassroomRankedPractice } from "../ranked-practice/RankedPractice";
 import { ActivityStage, SlideStage } from "./TeachingSlides";
 import { ClassroomPlaybackSlot } from "./ClassroomPlaybackSlot";
 import { useStudentClassroom } from "./useStudentClassroom";
@@ -149,6 +150,7 @@ function StudentWorkspace({sessionId, deck, actor, snapshot, connected, error}: 
         <p className="student-reader__hint">{syncOnly?t("教师控制翻页与演示，当前画面同步显示", "The teacher controls slides and demonstrations."):following?t("手动翻页或操作实验即可自由浏览", "Navigate to browse independently."):t("你正在自由浏览，可以随时跟上教师", "You are browsing independently. Follow the teacher at any time.")}{notice&&` · ${notice}`}</p>
       </section>
     </div>
+    {snapshot.courseId==='course-international-mathematics'&&<ClassroomRankedPractice sessionId={sessionId} actor={actor}/>}
     <details id="student-activities" className="student-participation"><summary>{t("课堂互动", "Class activities")}</summary><StudentParticipation sessionId={sessionId} actor={actor} locale={deck.locale}/></details>
   </main>;
 }

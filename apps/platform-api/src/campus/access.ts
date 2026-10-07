@@ -4,6 +4,8 @@ import type { ServerResponse } from "node:http";
 import { campusError } from "./database.js";
 
 export function studentRouteAllowed(method: string, path: string) {
+  if (["GET","HEAD"].includes(method) && /^\/api\/courses\/[^/]+\/practice-packs\/\d+$/.test(path)) return true;
+  if (/^\/api\/class-sessions\/[^/]+\/practice(?:\/|$)/.test(path)) return true; // authenticated membership and role checks in the practice service
   if (["GET","HEAD"].includes(method) && /^\/api\/courses\/[^/]+\/activity-history$/.test(path)) return true;
   if (/^\/api\/(workspace|preferences)$/.test(path)) return ["GET","HEAD","PATCH"].includes(method);
   if (/^\/api\/courses\/[^/]+\/reading$/.test(path)) return ["GET","HEAD","PUT"].includes(method);

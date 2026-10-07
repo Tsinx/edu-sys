@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "questions": 160,
+  "rankTotals": [
+    48,
+    48,
+    48,
+    16
+  ],
+  "slidesPreserved": 1312,
+  "sourcePagesVisuallyReviewed": 34,
+  "mathematics": "Independent SymPy recomputation and distractor equivalence: 160 passed",
+  "regressionTests": {
+    "portCore": 97,
+    "platformAPI": 117,
+    "teacherWeb": 152
+  },
+  "regressionTotal": 366,
+  "typecheck": "passed",
+  "productionBuild": "passed",
+  "diffCheck": "passed",
+  "buildWarning": "Existing and offline content chunks exceed 500 kB; builds succeeded.",
+  "questionWidthChecks": 480,
+  "widths": [
+    1600,
+    820,
+    390
+  ],
+  "finalRevisionChecks": 60,
+  "pdfs": 19,
+  "pdfPages": 336,
+  "snapshotAuthorizationAndClosure": "service and authenticated API tests passed",
+  "refreshAndReconnection": "real blocked PUT retained through refresh and saved on reconnect",
+  "offlineMedia": {
+    "durationSeconds": 90,
+    "readyState": 4,
+    "decoderError": null,
+    "pauseAndSeek": "passed",
+    "knownIllustration": "Lesson 2 page 43 loaded without broken images"
+  },
+  "publicAnswerKeys": false,
+  "preservedV2": "97f84650c3339aae15c4c4d241eca63c3c9631641459043675ceb98ac586065a",
+  "limits": [
+    "Actual classroom pacing/projection requires a teaching trial.",
+    "No campus-server deployment.",
+    "Existing v2 human-listening limitations unchanged."
+  ],
+  "offlineZip": {
+    "status": "passed",
+    "publicFiles": 300,
+    "zipMembers": 301,
+    "zipBytes": 557445101,
+    "zipSHA256": "41d1a0d5218f62cd2dc039cc822907c45082dd8736761735c998557c337c35a3",
+    "crc": "passed",
+    "allMemberHashes": "passed",
+    "teacherMaterialsInPublicRoot": false
+  }
+}

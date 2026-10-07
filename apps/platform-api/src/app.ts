@@ -1,4 +1,5 @@
 import { registerActivityPlans } from "./activity-plan-routes.js";
+import { registerRankedPractice } from "./ranked-practice-routes.js";
 import { registerPortal } from "./portal-routes.js";
 import { randomUUID } from "node:crypto";
 import { PortSubmissionRepository, registerPortSubmissions } from "./port-submissions.js";
@@ -337,6 +338,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   });
 
   registerActivityPlans(app,store,participation,resolveActor);
+  const rankedPractice = registerRankedPractice(app,store,participation,resolveActor,allowedCourseIds);
   registerParticipationRoutes(app, participation, id => store.getSession(id)?.courseId, resolveActor, id => Boolean(store.getCourse(id)));
   registerAssistantPromptRoutes(app, store, request => requireActor(request, "teacher"));
 
@@ -1973,7 +1975,12 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   app.post<{ Params: { id: string } }>(
     "/api/class-sessions/:id/end",
     async (request, reply) => {
-      await requireActor(request, "teacher");
+      const actor = await requireActor(request, "teacher");
+      const current = store.getSession(request.params.id);
+      // A practice run must retain the same teacher ownership as its close/reveal routes.
+      if (current && rankedPractice.latest(current.id) && current.teacherId !== actor.actorId) {
+        return reply.status(403).send({error:"SESSION_FORBIDDEN",message:"This classroom belongs to another teacher."});
+      }
       activeAssistantTurns.get(request.params.id)?.abort("classroom-ended");
       const session = await store.endClass(request.params.id);
       if (!session) {
@@ -1983,6 +1990,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
         });
       }
       participation.end(request.params.id);
+      rankedPractice.end(request.params.id);
       return reply.send(session);
     }
   );

@@ -35,6 +35,7 @@ export function CourseLessonDirectory({
               ) : <span>{t("尚未发布", "Not published yet")}</span>}
               <Link to={`/courses/${deck.courseId}/activities?lesson=${lesson.number}`}>{t("教学活动 →", "Teaching activities →")}</Link>
               <button onClick={() => onPrepare(lesson.number)}>{t("备课笔记", "Preparation notes")}</button>
+              {lesson.practiceQuestionTotal!==undefined&&<Link to={`/courses/${deck.courseId}/activities?view=practice&lesson=${lesson.number}`}>Ranked Practice · {lesson.practiceQuestionTotal} questions · {lesson.practiceDurationMinutes} min →</Link>}
             </div>
             {lesson.hourRanges?.length && lesson.status === "ready" ? (
               <nav className="workspace-hour-links" aria-label={t(`第 ${lesson.number} 讲分学时课件`, `Lecture ${lesson.number} teaching hours`)}>
@@ -43,6 +44,7 @@ export function CourseLessonDirectory({
                     <strong>{t(`第 ${hour.number} 学时`, `Hour ${hour.number}`)} · {hour.durationMinutes} min</strong>
                     <span>{hour.title}</span>
                     <small>{t("页", "Pages")} {hour.localStart}–{hour.localEnd} · {hour.coreSlides} {t("页核心", "core slides")}</small>
+                    {lesson.practiceDurationMinutes!==undefined&&hour.number===2&&<small>25 min teaching + {lesson.practiceDurationMinutes} min practice</small>}
                   </Link>
                 ))}
                 {lesson.optionalSlideTotal !== undefined && <small>{lesson.optionalSlideTotal} {t("页 Optional Challenge，不计入授课时间", "Optional Challenge slides outside the scheduled teaching hours")}</small>}

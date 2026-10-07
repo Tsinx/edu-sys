@@ -68,6 +68,9 @@ export interface CourseDeckLessonSummary {
   completionStatus?: "complete" | "in-progress" | "planned";
   coreSlideTotal?: number;
   optionalSlideTotal?: number;
+  practiceQuestionTotal?: number;
+  practiceDurationMinutes?: number;
+  teachingSchedule?: readonly {kind:'teaching'|'practice';durationMinutes:number;hour:1|2}[];
   hourRanges?: readonly {number:1|2;title:string;durationMinutes:45;coreSlides:number;localStart:number;localEnd:number;slideStart:number;slideEnd:number}[];
 }
 

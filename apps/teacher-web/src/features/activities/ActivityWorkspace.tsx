@@ -1,4 +1,5 @@
 import { QuestionPreview } from "./QuestionPreview";
+import { CoursePracticePreview } from "../ranked-practice/RankedPractice";
 import { useEffect, useRef, useState } from "react";
 import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
 import {
@@ -90,6 +91,7 @@ export function ActivityWorkspace({
     setDirty(false);
     setPicker(false);
     setPreviewOpen(false);
+    if(view==='practice') return ()=>{live=false;};
     void Promise.all([
       request<ActivityPlan>(path),
       request<ClassroomExercise[]>(`/api/courses/${courseId}/exercises`),
@@ -250,6 +252,7 @@ export function ActivityWorkspace({
           ["plan", "本讲活动单", ClipboardList],
           ["library", "课程题库", Layers],
           ["history", "课堂复盘", History],
+          ...(courseId==='course-international-mathematics'?[["practice","Ranked Practice",ClipboardList]]:[]),
         ].map(([key, title, Icon]) => {
           const I = Icon as typeof ClipboardList;
           return (
@@ -302,7 +305,7 @@ export function ActivityWorkspace({
           </aside>
           <div className="activity-main">
             <ErrorMessage message={error} />
-            {view === "library" ? (
+            {view === "practice" ? <CoursePracticePreview courseId={courseId} lesson={lesson}/> : view === "library" ? (
               <ExerciseLibrary
                 key={`${courseId}:${lesson}`}
                 base={`/api/courses/${courseId}/exercises`}

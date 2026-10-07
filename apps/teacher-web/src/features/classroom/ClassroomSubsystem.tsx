@@ -80,6 +80,7 @@ import { useRealtimeClassroom } from "./useRealtimeClassroom";
 import { ClassroomFullscreenControls } from "./ClassroomFullscreenControls";
 import { ClassroomPlaybackSlot } from "./ClassroomPlaybackSlot";
 import { TeacherParticipation } from "./ClassroomParticipation";
+import { TeacherRankedPractice } from "../ranked-practice/RankedPractice";
 import { useClassroomFullscreen } from "./useClassroomFullscreen";
 import "./classroom.css";
 import "./classroom-fullscreen.css";
@@ -182,6 +183,7 @@ export function ClassroomSubsystem() {
   const [playbackSlot, setPlaybackSlot] = useState<HTMLDivElement | null>(null);
   const [fullscreenPlaybackSlot, setFullscreenPlaybackSlot] = useState<HTMLDivElement | null>(null);
   const [participationOpen, setParticipationOpen] = useState(false);
+  const [practiceOpen, setPracticeOpen] = useState(false);
   const closeParticipation = useCallback(() => setParticipationOpen(false), []);
   const [pointerActive, setPointerActive] = useState(false);
   const [annotationActive, setAnnotationActive] = useState(false);
@@ -916,7 +918,7 @@ export function ClassroomSubsystem() {
   const { containerRef: fullscreenRef, isFullscreen, toggleFullscreen, exitFullscreen } =
     useClassroomFullscreen({
       canTurnPages: snapshot?.activeActivity === "slides" &&
-        snapshot.session.status === "live" && !busy && !settingsOpen && !endDialogOpen && !participationOpen,
+        snapshot.session.status === "live" && !busy && !settingsOpen && !endDialogOpen && !participationOpen && !practiceOpen,
       pageIndex: snapshot?.slide.index ?? 1,
       pageTotal: snapshot?.slide.total ?? 1,
       onPageTurn: (direction) => sendEvent({ type: direction }),
@@ -1179,6 +1181,7 @@ export function ClassroomSubsystem() {
               );
             })}
             {isRegisteredCourse && <button type="button" className="classroom-activity-tab" onClick={() => setParticipationOpen(true)}><UsersRound size={18} />课堂活动</button>}
+            {snapshot.courseId==='course-international-mathematics'&&<button type="button" className="classroom-activity-tab" onClick={()=>setPracticeOpen(true)}>Ranked Practice</button>}
             <span className="runtime-version">课堂状态 v{snapshot.runtimeVersion}</span>
           </nav>
 
@@ -1655,6 +1658,7 @@ export function ClassroomSubsystem() {
           </>
         </aside>
         <TeacherParticipation key={sessionId} sessionId={sessionId} courseId={snapshot.courseId} lesson={snapshot.slide.lessonNumber} open={participationOpen} onClose={closeParticipation} />
+        {snapshot.courseId==='course-international-mathematics'&&<TeacherRankedPractice sessionId={sessionId} lesson={snapshot.slide.lessonNumber} open={practiceOpen} onClose={()=>setPracticeOpen(false)}/>}
         {isFullscreen && (
           <>
             <ClassroomFullscreenControls
