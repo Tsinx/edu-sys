@@ -46,6 +46,8 @@ import {
   type ResultsResponse,
 } from "../features/port-simulation/submission-api";
 import "./workspace.css";
+import { CourseLessonDirectory } from "./CourseLessonDirectory";
+import { resolveCourseReaderIndex } from "./course-reader-navigation";
 const PORT = "course-port-management-intro";
 type Workspace = {
   actor: ClassroomActor;
@@ -404,7 +406,7 @@ function CourseCards({
                   <span>课件尚未发布</span>
                 )
               ) : (
-                <Link to={`/courses/${c.id}`}>打开课程工作区 →</Link>
+                <Link to={`/courses/${c.id}`}>{deck?.locale === "en" ? "Open course workspace →" : "打开课程工作区 →"}</Link>
               )}
               <div className="workspace-course-tools">
                 {student ? (
@@ -484,6 +486,7 @@ export function CourseWorkspace() {
   }, [courseId, tab]);
   const deck = getCourseDeckByCourseId(courseId),
     profile = getCoursePresentation(courseId);
+  const t = (zh: string, en: string) => deck?.locale === "en" ? en : zh;
   useEffect(() => {
     setCourse(undefined);
     void Promise.all([api.getCourses(), api.getSessions()])
@@ -524,13 +527,14 @@ export function CourseWorkspace() {
     }
   }
   return (
-    <main className="workspace">
-      <Link to="/courses">← 课程</Link>
+    <main className="workspace" lang={deck?.locale ?? "zh-CN"}>
+      <Link to="/courses">← {t("课程", "Courses")}</Link>
       <header className="workspace-heading workspace-course-heading">
         {profile && <img src={profile.heroImage} alt="" />}
         <div>
-          <h1>{course?.title ?? "课程工作区"}</h1>
+          <h1>{course?.title ?? t("课程工作区", "Course workspace")}</h1>
           <p>{profile?.description}</p>
+          {profile?.supportsStudy && <Link to={`/study/${courseId}`}>{t("独立阅读课件 →", "Independent reading →")}</Link>}
         </div>
         {deck && (
           <button
@@ -538,18 +542,18 @@ export function CourseWorkspace() {
             disabled={busy}
             onClick={() => void start("resume")}
           >
-            开始 / 继续课堂
+            {t("开始 / 继续课堂", "Start / resume class")}
           </button>
         )}
       </header>
       <ErrorText text={error} />
-      <nav className="workspace-tabs" aria-label="课程工作区">
+      <nav className="workspace-tabs" aria-label={t("课程工作区", "Course workspace")}>
         {[
-          ["slides", "课件"],
-          ["activities", "教学活动"],
-          ["classrooms", "课堂记录"],
+          ["slides", t("课件", "Slides")],
+          ["activities", t("教学活动", "Teaching activities")],
+          ["classrooms", t("课堂记录", "Class records")],
           ...(courseId === PORT ? [["experiments", "实验与成绩"]] : []),
-          ["settings", "课程设置"],
+          ["settings", t("课程设置", "Course settings")],
         ].map(([id, label]) => (
           <button
             key={id}
@@ -565,52 +569,18 @@ export function CourseWorkspace() {
           {deck ? (
             <>
               <p>
-                查看课件不会开启课堂。开始上课会优先恢复您最近的进行中课堂。
+                {t("查看课件不会开启课堂。开始上课会优先恢复您最近的进行中课堂。", "Preview slides without starting a class. Start / resume class restores your latest active class.")}
               </p>
-              <div className="workspace-lesson-list">
-                {deck.lessons.map((l) => (
-                  <article className="workspace-lesson-row" key={l.number}>
-                    <div>
-                      <span>
-                        {l.displayLabel ?? `第 ${l.number} 讲`} · {l.slideTotal}{" "}
-                        页
-                      </span>
-                      <h2>{l.title}</h2>
-                      <small>
-                        {activityCounts.find((c) => c.lesson === l.number)
-                          ?.count ?? 0}{" "}
-                        项已编排活动
-                      </small>
-                      {l.status === "ready" ? (
-                        <Link to={`/preview/${courseId}?lesson=${l.number}`}>
-                          查看课件 →
-                        </Link>
-                      ) : (
-                        <span>尚未发布</span>
-                      )}
-                      <Link
-                        to={`/courses/${courseId}/activities?lesson=${l.number}`}
-                      >
-                        教学活动 →
-                      </Link>
-                      <button
-                        onClick={() => {
-                          setLesson(l.number);
-                          setQuery({ tab: "settings" });
-                        }}
-                      >
-                        备课笔记
-                      </button>
-                    </div>
-                  </article>
-                ))}
-              </div>
+              <CourseLessonDirectory deck={deck} activityCounts={activityCounts} onPrepare={number => {
+                setLesson(number);
+                setQuery({ tab: "settings" });
+              }}/>
             </>
           ) : (
             <p>这门课程尚未发布课件。</p>
           )}
           <details className="workspace-section">
-            <summary>课程资料与离线下载</summary>
+            <summary>{t("课程资料与离线下载", "Course resources and offline access")}</summary>
             {profile?.resources.map((r) => (
               <p key={r.title}>
                 {r.url ? (
@@ -628,7 +598,7 @@ export function CourseWorkspace() {
                 window.dispatchEvent(new Event("open-offline-panel"))
               }
             >
-              管理离线课件
+              {t("管理离线课件", "Manage offline slides")}
             </button>
           </details>
         </>
@@ -1116,6 +1086,8 @@ export function ClassroomRecords() {
 export function CourseReader({ preview = false }: { preview?: boolean }) {
   const { courseId = "" } = useParams(),
     [query] = useSearchParams();
+  const requestedLesson = query.get("lesson"),
+    requestedHour = query.get("hour");
   const deck = getCourseDeckByCourseId(courseId),
     [index, setIndex] = useState(1),
     [ready, setReady] = useState(false),
@@ -1161,12 +1133,10 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
       if (!preview) saved = await request(`/api/courses/${courseId}/reading`);
       if (!live) return;
       revision.current = saved?.revision ?? 0;
-      const lesson = query.get("lesson");
-      setIndex(
-        lesson !== null
-          ? (deck.getGlobalIndex(Number(lesson)) ?? 1)
-          : (saved && deck.getSlideByKey(saved.slideKey)?.index) || 1,
-      );
+      setIndex(resolveCourseReaderIndex(deck, {
+        lesson: requestedLesson,
+        hour: requestedHour,
+      }, saved?.slideKey));
       setReady(true);
     };
     void load().catch((e) => {
@@ -1175,7 +1145,7 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
     return () => {
       live = false;
     };
-  }, [courseId, preview]);
+  }, [courseId, preview, requestedLesson, requestedHour]);
   function go(next: number) {
     if (!deck) return;
     setIndex(next);
@@ -1228,6 +1198,8 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
   }
   if (!deck) return <NotFound />;
   const slide = deck.getSlide(index);
+  const lessonHours = deck.lessons.find(lesson => lesson.number === slide.lessonNumber)?.hourRanges;
+  const currentHour = lessonHours?.find(hour => index >= hour.slideStart && index <= hour.slideEnd);
   const frame: SlideFrame = {
     deckId: deck.deckId,
     versionId: deck.versionId,
@@ -1294,6 +1266,18 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
                   ))}
               </select>
             </label>
+            {lessonHours?.length ? <label>
+              {t("学时", "Teaching hour")}
+              <select value={currentHour?.number ?? ""} onChange={event => {
+                const hour = lessonHours.find(value => value.number === Number(event.target.value));
+                if (hour) go(hour.slideStart);
+              }}>
+                {!currentHour && <option value="" disabled>Optional Challenge</option>}
+                {lessonHours.map(hour => <option key={hour.number} value={hour.number}>
+                  {t(`第 ${hour.number} 学时`, `Hour ${hour.number}`)} · {hour.durationMinutes} min · {hour.title}
+                </option>)}
+              </select>
+            </label> : null}
             <button
               disabled={prev === null}
               onClick={() => prev !== null && go(prev)}

@@ -608,6 +608,45 @@ body:has(.workspace-reader, .port-ops, .student-learning, .classroom-shell)
   display: grid;
   gap: 10px;
 }
+.workspace-course-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin: 18px 0;
+  color: #34596f;
+  font-size: 14px;
+}
+.workspace-hour-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+.workspace-hour-links a {
+  display: grid;
+  gap: 5px;
+  padding: 12px 14px;
+  border: 1px solid #dce7ee;
+  border-radius: 9px;
+  background: #f6f9fb;
+  overflow-wrap: anywhere;
+}
+.workspace-hour-links > small {
+  grid-column: 1 / -1;
+}
+.workspace-reader > nav label,
+.workspace-reader > nav select {
+  max-width: 100%;
+  min-width: 0;
+}
+@media (max-width: 600px) {
+  .workspace-hour-links {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .workspace-course-heading {
+    flex-wrap: wrap;
+  }
+}
 .workspace-lesson-row {
   background: #fff;
   border: 1px solid #dce7ee;
