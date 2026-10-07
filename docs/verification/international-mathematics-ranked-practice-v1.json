@@ -45,12 +45,19 @@
     "No campus-server deployment.",
     "Existing v2 human-listening limitations unchanged."
   ],
+  "offlineRestart": {
+    "status": "passed",
+    "savedPortReused": true,
+    "savedChoicesRestored": true,
+    "launchShell": "Windows PowerShell 5.1.26100.9444",
+    "duplicatePortRejected": true
+  },
   "offlineZip": {
     "status": "passed",
     "publicFiles": 300,
     "zipMembers": 301,
-    "zipBytes": 557445101,
-    "zipSHA256": "41d1a0d5218f62cd2dc039cc822907c45082dd8736761735c998557c337c35a3",
+    "zipBytes": 557445512,
+    "zipSHA256": "29e180127ed090df8c2a899a30ec7bc649e3ae5c0143c47a0823f19eece87b1b",
     "crc": "passed",
     "allMemberHashes": "passed",
     "teacherMaterialsInPublicRoot": false

@@ -82,6 +82,12 @@ Outputs are separate from the preserved v2 course archive:
   folder outside public server roots. It is excluded from the offline ZIP.
 - `qa` and `SHA256SUMS.txt`: source index, browser/PDF/integrity checks and hashes.
 
+The launcher reuses its saved port (5195 on first launch), preserving the browser
+origin through server restarts. An occupied port produces a clear error rather than
+silently changing the origin. `IM_OFFLINE_PORT` can explicitly select another port;
+that origin has separate browser storage. `start.ps1 -NoBrowser` is available for
+local launch checks.
+
 Offline choices use local storage keyed by pack ID and version. They never submit
 to a live classroom. The viewer can export a personal JSON receipt, but it does
 not contain an answer key or calculate correctness. Reading restoration still
