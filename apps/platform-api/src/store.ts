@@ -3966,18 +3966,19 @@ export class JsonStateStore {
     }
   }
 
-  getDashboard(teacherId?: string): Dashboard {
-    const teacherCourses = teacherId ? this.current.courses.filter(course => course.teacherId === teacherId) : [];
+  getDashboard(teacherId?: string, courseIds?: string[] | null): Dashboard {
+    const courses = this.current.courses.filter(course => !courseIds || courseIds.includes(course.id));
+    const teacherCourses = teacherId ? courses.filter(course => course.teacherId === teacherId || courseIds?.includes(course.id)) : [];
     const featuredCourse =
       teacherCourses.find(course => course.featured) ?? teacherCourses[0] ??
-      this.current.courses.find((course) => course.featured) ?? this.current.courses[0];
+      courses.find((course) => course.featured) ?? courses[0];
     if (!featuredCourse) {
       throw new Error("At least one course is required");
     }
 
-    const activeCourses = this.current.courses.filter((course) => course.status === "active").length;
+    const activeCourses = courses.filter((course) => course.status === "active").length;
     const upcomingClasses = this.current.classSessions.filter(
-      (session) => session.status === "scheduled"
+      (session) => session.status === "scheduled" && (!courseIds || courseIds.includes(session.courseId))
     );
 
     return {
@@ -3990,7 +3991,7 @@ export class JsonStateStore {
         simulationResources: 0
       },
       upcomingClasses: upcomingClasses.slice(0, 3),
-      recentActivities: [...this.current.activities]
+      recentActivities: this.listActivities(courseIds ?? undefined)
         .sort((a, b) => b.occurredAt.localeCompare(a.occurredAt))
         .slice(0, 6)
     };

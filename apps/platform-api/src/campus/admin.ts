@@ -23,18 +23,25 @@ if(action==="backup") {
     } else if(item.endsWith(".json"))await copyFile(source,destination);
   }
   console.log("备份完成，SQLite 完整性检查通过。");
-} else if(["create","reset-password","list"].includes(action)) {
+} else if(["create","reset-password","assign-courses","list"].includes(action)) {
   const identity=new CampusIdentityProvider(`${dataFile}.accounts.sqlite`, undefined, Number(process.env.EDU_ACCOUNT_MIN_PASSWORD_LENGTH ?? 12));
   try {
     if(action==="list")console.log(JSON.stringify(identity.listAccounts(),null,2));
     else {
       let input="";for await(const chunk of process.stdin){input+=chunk;if(input.length>4000)throw new Error("账号输入过长。");}
-      const data=JSON.parse(input) as {username:string;displayName:string;role:"teacher"|"student";password:string};
-      if(typeof data.username!=="string" || typeof data.password!=="string")throw new Error("账号参数格式不正确。");
-      if(action==="create") {
+      const data=JSON.parse(input) as {username:string;displayName:string;role:"teacher"|"student";password:string;courseIds:string[]};
+      if(typeof data.username!=="string")throw new Error("账号参数格式不正确。");
+      if(action==="assign-courses") {
+        if(!Array.isArray(data.courseIds))throw new Error("请提供课程编号数组。");
+        const account=identity.db.prepare("SELECT id FROM campus_accounts WHERE username=?").get(data.username.trim().toLowerCase());
+        if(!account)throw new Error("账号不存在。");
+        identity.setCourseAccess(String(account.id),data.courseIds);
+        console.log(JSON.stringify({username:data.username,courseIds:identity.allowedCourseIds(String(account.id))}));
+      } else if(typeof data.password!=="string")throw new Error("账号参数格式不正确。");
+      else if(action==="create") {
         if(!["teacher","student"].includes(data.role)||typeof data.displayName!=="string")throw new Error("账号角色或姓名不正确。");
         console.log(JSON.stringify(await identity.createAccount(data.username,data.displayName,data.role,data.password)));
       } else {await identity.resetPassword(data.username,data.password);console.log("密码已重置，该账号的旧会话已失效。");}
     }
   } finally {identity.close();}
-} else console.log("用法：node admin.mjs create | reset-password | list | backup <新目录>。create/reset-password 从标准输入读取 JSON，密码不会写入命令参数。");
+} else console.log("用法：node admin.mjs create | reset-password | assign-courses | list | backup <新目录>。create/reset-password/assign-courses 从标准输入读取 JSON，密码不会写入命令参数。");

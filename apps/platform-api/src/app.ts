@@ -174,8 +174,11 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       authorization: request.headers.authorization ?? null
     });
   };
-  const allowedCourseIds = (actor: ClassroomActor) => actor.roles.includes("teacher") ? null
-    : identityProvider instanceof CampusIdentityProvider ? identityProvider.allowedCourseIds(actor.actorId) : null;
+  const allowedCourseIds = (actor: ClassroomActor) => {
+    const assigned = identityProvider instanceof CampusIdentityProvider ? identityProvider.allowedCourseIds(actor.actorId) : null;
+    if (!assigned || !actor.roles.includes("teacher")) return assigned;
+    return [...new Set([...assigned, ...store.listCourses().filter(course => course.teacherId === actor.actorId).map(course => course.id)])];
+  };
   registerCampusAccess(app, resolveActor, {
     enforce: !allowLegacyDevelopmentIdentity, publicOrigin: options.publicOrigin, campusMode,
     studentAiEnabled: options.studentAiEnabled, allowedCourseIds,
@@ -432,7 +435,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   });
   app.get("/api/dashboard", async request => {
     const actor=await resolveActor(request);
-    const dashboard=store.getDashboard(campusMode ? actor?.actorId : undefined);
+    const dashboard=store.getDashboard(campusMode ? actor?.actorId : undefined, actor ? allowedCourseIds(actor) : null);
     return actor && campusMode ? {...dashboard,teacher:{...dashboard.teacher,id:actor.actorId,name:actor.displayName}} : dashboard;
   });
   app.get("/api/courses", async request => {

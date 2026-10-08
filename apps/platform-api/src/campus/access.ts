@@ -51,7 +51,7 @@ export function registerCampusAccess(app: FastifyInstance, resolve: (request: Fa
   app.addHook("preHandler", async request => {
     if (!options.enforce || !request.url.startsWith("/api/")) return;
     const actor = await resolve(request);
-    if (!actor || actor.roles.includes("teacher")) return;
+    if (!actor) return;
     const allowed = options.allowedCourseIds?.(actor);
     if (!allowed) return;
     const path = request.routeOptions.url ?? request.url.split("?")[0]!;

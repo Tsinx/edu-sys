@@ -14,7 +14,7 @@ export function registerRankedPractice(app:FastifyInstance,store:JsonStateStore,
   const a=await resolve(r);if(!a)throw practiceError(401,'Sign in to access practice.');
   const c=store.getCourse(courseId);if(!c)throw practiceError(404,'Course not found.');
   const ids=allowed(a);if(ids&&!ids.includes(courseId))throw practiceError(403,'You are not enrolled in this course.');
-  if(teacher&&(!a.roles.includes('teacher')||c.teacherId!==a.actorId))throw practiceError(403,'Only the course teacher can manage practice.');
+  if(teacher&&(!a.roles.includes('teacher')||(c.teacherId!==a.actorId&&!ids?.includes(courseId))))throw practiceError(403,'Only the course teacher can manage practice.');
   if(!a.roles.includes('teacher')&&!a.roles.includes('student'))throw practiceError(403,'Course access is required.');
   return a;
  };

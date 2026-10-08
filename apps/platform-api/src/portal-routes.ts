@@ -39,7 +39,7 @@ export function registerPortal(
     const courses = store
         .listCourses()
         .filter((c) => !ids || ids.includes(c.id)),
-      own = courses.filter((c) => c.teacherId === a.actorId);
+      own = courses.filter((c) => c.teacherId === a.actorId || (teacher && ids?.includes(c.id)));
     const preferences = {
       ...defaults,
       ...store.portalState().preferences[a.actorId],
@@ -96,7 +96,7 @@ export function registerPortal(
     const q = z
       .object({ page: z.coerce.number().int().min(1).default(1) })
       .parse(r.query);
-    const rows = store.listActivities();
+    const rows = store.listActivities(allowed(a) ?? undefined);
     return {
       rows: rows.slice((q.page - 1) * 20, q.page * 20),
       total: rows.length,
