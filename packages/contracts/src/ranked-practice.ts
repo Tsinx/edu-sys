@@ -45,13 +45,25 @@ export interface PracticeResponse {
   schemaVersion: 1; questionId: string; selectedOptionId: PracticeOptionId;
   revision: number; savedAt: string;
 }
+export interface PracticeSubmission {
+  submittedAt: string | null;
+  mode: "manual" | "automatic" | null;
+  /** Revisions remain allowed after manual submission until the run closes. */
+  hasUnsubmittedChanges: boolean;
+  finalizedAt: string | null;
+  finalizationReason: "deadline" | "teacher" | "class-ended" | null;
+}
 export interface PracticeRunView {
   schemaVersion: 1; id: string; sessionId: string; pack: PracticePack;
   status: "open" | "closed" | "revealed"; openedAt: string; closedAt: string | null;
   revealedAt: string | null; responses: PracticeResponse[];
   answered: number; correct: number | null; results: PracticeResult[] | null;
-  summary?: { students: { actorId: string; displayName: string; answered: number; correct: number | null }[];
+  /** Optional for persisted pre-timer runs and independently used viewers. */
+  serverNow?: string; durationSeconds?: number | null; deadlineAt?: string | null;
+  closeReason?: "deadline" | "teacher" | "class-ended" | null;
+  submission?: PracticeSubmission;
+  summary?: { students: { actorId: string; displayName: string; answered: number; correct: number | null; submission?: PracticeSubmission }[];
     questions: { questionId: string; attempted: number; correct: number | null; choices: Record<PracticeOptionId, number> }[] };
 }
-export const practiceOpenSchema = z.object({ requestId: z.uuid(), lesson: z.number().int().min(1).max(16) }).strict();
+export const practiceOpenSchema = z.object({ requestId: z.uuid(), lesson: z.number().int().min(1).max(16), durationSeconds: z.number().int().min(10).max(7200).default(1200) }).strict();
 export const practiceAnswerSchema = z.object({ selectedOptionId: practiceOptionIdSchema, expectedRevision: z.number().int().nonnegative() }).strict();

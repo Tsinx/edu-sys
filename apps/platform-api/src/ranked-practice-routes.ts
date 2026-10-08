@@ -1,4 +1,5 @@
 import type {FastifyInstance,FastifyRequest} from 'fastify';
+import type {ServerResponse} from 'node:http';
 import {practiceOpenSchema,practiceAnswerSchema,type ClassroomActor} from '@edu/contracts';
 import {z} from 'zod';
 import type {JsonStateStore} from './store.js';
@@ -7,6 +8,8 @@ import {RankedPractice,practiceError} from './ranked-practice.js';
 import {getRankedPracticePack,publicPack} from './practice-content/index.js';
 export function registerRankedPractice(app:FastifyInstance,store:JsonStateStore,participation:ClassroomParticipation,resolve:(r:FastifyRequest)=>Promise<ClassroomActor|null>,allowed:(a:ClassroomActor)=>string[]|null){
  const service=new RankedPractice(participation,id=>store.getSession(id)?.status==='live');
+ const streams=new Set<ServerResponse>();
+ app.addHook('preClose',async()=>{service.close();for(const stream of streams)stream.end();});
  const access=async(r:FastifyRequest,courseId:string,teacher=false)=>{
   const a=await resolve(r);if(!a)throw practiceError(401,'Sign in to access practice.');
   const c=store.getCourse(courseId);if(!c)throw practiceError(404,'Course not found.');
@@ -41,9 +44,25 @@ export function registerRankedPractice(app:FastifyInstance,store:JsonStateStore,
   const {a,sessionId}=await classroom(r);const joined=a.roles.includes('teacher')||service.joined(sessionId,a.actorId),id=service.latest(sessionId);
   return {joined,run:joined&&id?service.view(sessionId,id,a):null,...(a.roles.includes('teacher')?{history:service.history(sessionId)}:{})};
  });
+ // The stream only signals changes. Each authenticated client fetches its own view.
+ app.get('/api/class-sessions/:sessionId/practice/stream',async(r,reply)=>{
+  const {a,sessionId}=await classroom(r);
+  if(!a.roles.includes('teacher')&&!service.joined(sessionId,a.actorId))throw practiceError(403,'Join this classroom before receiving practice.');
+  reply.hijack();const response=reply.raw;
+  response.writeHead(200,{'Content-Type':'text/event-stream','Cache-Control':'no-cache, no-transform',Connection:'keep-alive','X-Accel-Buffering':'no'});
+  streams.add(response);
+  const send=()=>{if(response.destroyed||response.writableEnded)return;if(response.writableLength>256*1024){response.end();return;}response.write('event: practice\ndata: {"changed":true}\n\n');};
+  const unsubscribe=service.subscribe(sessionId,send);
+  const timer=setInterval(()=>{void classroom(r).then(({a:current})=>{if(response.destroyed||response.writableEnded)return;if(current.actorId!==a.actorId||current.roles.join()!==a.roles.join())response.end();else response.write(': keepalive\n\n');}).catch(()=>response.end());},15000);timer.unref();
+  response.on('close',()=>{clearInterval(timer);unsubscribe();streams.delete(response);});send();
+ });
  app.post('/api/class-sessions/:sessionId/practice/runs',async r=>{
   const {a,sessionId,session}=await classroom(r,true);const input=practiceOpenSchema.parse(r.body),p=getRankedPracticePack(session.courseId,input.lesson);
-  if(!p)throw practiceError(404,'Practice pack not found.');const id=service.open(sessionId,input.requestId,p);return service.view(sessionId,id,a);
+  if(!p)throw practiceError(404,'Practice pack not found.');const id=service.open(sessionId,input.requestId,p,input.durationSeconds);return service.view(sessionId,id,a);
+ });
+ app.post('/api/class-sessions/:sessionId/practice/runs/:runId/submit',async r=>{
+  const {a,sessionId}=await classroom(r);z.object({}).strict().parse(r.body??{});
+  const {runId}=r.params as {runId:string};service.submit(sessionId,runId,a);return service.view(sessionId,runId,a);
  });
  app.get('/api/class-sessions/:sessionId/practice/runs/:runId',async r=>{const {a,sessionId}=await classroom(r);return service.view(sessionId,(r.params as {runId:string}).runId,a);});
  app.put('/api/class-sessions/:sessionId/practice/runs/:runId/questions/:questionId/answer',async r=>{

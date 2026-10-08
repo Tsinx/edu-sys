@@ -37,9 +37,25 @@ components or the offline build. Practice graphs use SVG and formulas use KaTeX.
   worksheet. The teacher can request a private answer preview.
 - The teacher classroom's **Ranked Practice** panel opens a shared set, summarizes
   completion and question results, closes responses and reveals explanations.
+- Set **Minutes** and **Seconds** before **Open shared set**. The default is 20
+  minutes; the allowed range is 10 seconds to 120 minutes. One deadline covers
+  all ten questions. Duplicate opening, refresh and reconnection retain that
+  deadline. The limit cannot change while the set is open.
+  For the scheduled two-minute introduction, fourteen-minute individual work
+  and four-minute feedback block, open a fourteen-minute timer after instructions
+  and reveal answers during feedback.
 - Student classrooms display the entire frozen set. Choices autosave and can be
   revised while open. A local pending draft survives refresh and retries after
   reconnection. A closed run locks responses; reveal publishes feedback.
+- A realtime notification announces the set and offers **Start answering**.
+  Students see a server-synchronized countdown and can **Submit answers**, revise
+  choices, and **Resubmit answers** before closure. Saving and submitting are
+  separate states; a revision after submission is marked for resubmission.
+- At the deadline the server finalizes the latest saved choices for every joined
+  student, including partial and empty attempts. This works with the student
+  browser closed and recovers after a server restart. Late answers are rejected;
+  closure does not reveal solutions. Teacher closure also finalizes saved choices.
+  The completion summary distinguishes manual and automatic submissions.
 - **Answered n/10** measures completion. After reveal, correctness is reported
   against attempted questions. Unanswered questions remain **Not attempted**.
 
@@ -49,6 +65,12 @@ immutable snapshot in the existing participation SQLite/WAL database. Editing
 the bank affects future runs. One run can be open per classroom; request receipts
 make duplicate opening idempotent. Answer revisions prevent stale overwrites.
 Class end locks any open run without revealing it.
+Timer fields are optional on the public contract for backward compatibility.
+Previously opened untimed records retain their responses and closure behaviour;
+new runs store their duration, deadline and per-student submission in SQLite.
+The countdown uses server time and elapsed browser monotonic time, avoiding
+student clock or timezone differences. SSE carries only a change notification;
+each client separately retrieves its authenticated, private-to-that-student view.
 
 Authenticated endpoints:
 
@@ -58,9 +80,11 @@ Authenticated endpoints:
 | GET | Same path plus `/teacher` | Course owner, private answers |
 | POST | `class-sessions/:sessionId/practice/join` | Enrolled student; existing membership |
 | GET | `class-sessions/:sessionId/practice` | Owner or joined student; latest run |
-| POST | Same path plus `/runs` | Classroom/course owner; request UUID and lesson |
+| GET | Same path plus `/stream` | Owner or joined student; authenticated SSE notification |
+| POST | Same path plus `/runs` | Classroom/course owner; request UUID, lesson and optional `durationSeconds` |
 | GET | Same path plus `/runs/:runId` | Owner or joined student |
 | PUT | Same path plus `/runs/:runId/questions/:questionId/answer` | Student's own answer |
+| POST | Same path plus `/runs/:runId/submit` | Student's own saved choices; can resubmit before closure |
 | POST | Same path plus `/runs/:runId/action` | Owner; `close` or `reveal` |
 
 Students cannot open/reveal sets, obtain the private pack, inspect another
@@ -92,6 +116,10 @@ Offline choices use local storage keyed by pack ID and version. They never submi
 to a live classroom. The viewer can export a personal JSON receipt, but it does
 not contain an answer key or calculate correctness. Reading restoration still
 uses slide keys, with the existing v1 index migration for legacy records.
+Live deadline submission covers choices received by the server before closure.
+An offline or failed upload remains a local draft while the run is open; it cannot
+be backdated after the deadline. The standalone offline viewer remains untimed
+personal practice and does not join or submit to a classroom run.
 
 From the repository root:
 
@@ -121,6 +149,9 @@ Independent recomputation covers all 160 keys and option equivalence. Content
 checks cover counts, ranks, exact reference fields, KaTeX, English copy and public
 serialization. API regressions cover frozen snapshots, duplicate opening, partial
 completion, revision, persistence, isolation, owner checks, closure and reveal.
+Timer regressions additionally cover the exact deadline, server-side background
+finalization without reads, early submission and resubmission, unchanged duplicate
+deadlines, restart recovery, migration of untimed records and authenticated SSE.
 Browser checks cover all 160 questions at 1600, 820 and 390 pixels, teacher/student
 delivery, save/revision/refresh, a blocked save followed by recovery, closure and
 reveal. PDFs are reopened with count/bookmark/text-bound checks and rendered for

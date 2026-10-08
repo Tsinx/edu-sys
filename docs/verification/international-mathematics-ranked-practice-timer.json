@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "feature": "Ranked Practice classroom deadlines and submission",
+  "generatedAt": "2026-10-08T02:14:49.4755272Z",
+  "courseId": "course-international-mathematics",
+  "content": {
+    "slides": 1312,
+    "questions": 160,
+    "unchanged": true
+  },
+  "timer": {
+    "defaultSeconds": 1200,
+    "minimumSeconds": 10,
+    "maximumSeconds": 7200,
+    "deadlineSource": "server",
+    "wholeSet": true,
+    "manualSubmissionRevisable": true,
+    "automaticFinalization": "latest server-saved choices",
+    "automaticSubmissionWithoutClient": true,
+    "restartRecovery": true,
+    "legacyUntimedRunsPreserved": true
+  },
+  "automated": {
+    "regressions": {
+      "core": 97,
+      "failures": 0,
+      "web": 154,
+      "api": 121,
+      "total": 372
+    },
+    "focusedTimerApiTests": 6,
+    "focusedClockTests": 2,
+    "contentAuditPassed": true,
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "diffCheck": "passed"
+  },
+  "browser": {
+    "isolatedPorts": [
+      4302,
+      5174
+    ],
+    "lessons": [
+      1,
+      5,
+      14
+    ],
+    "widths": [
+      1600,
+      820,
+      390
+    ],
+    "realtimeRelease": true,
+    "manualSubmitReviseResubmit": true,
+    "refreshPreservesChoicesAndDeadline": true,
+    "disconnectedClientAutomaticSubmission": true,
+    "oneSavedAndOneBlockedUploadFinalizesOnlySavedChoice": true,
+    "closedInputsDisabled": true,
+    "noKeysBeforeReveal": true,
+    "unansweredRemainNotAttempted": true,
+    "teacherCompletionSummary": true,
+    "timerControlsNoOverflow": true,
+    "proofImages": [
+      "output/international-mathematics/practice-v1/qa/timed-practice-teacher.png",
+      "output/international-mathematics/practice-v1/qa/timed-practice-teacher-desktop.png",
+      "output/international-mathematics/practice-v1/qa/timed-practice-student-phone.png"
+    ]
+  },
+  "localSystem": {
+    "apiPort": 4300,
+    "webPort": 5173,
+    "healthy": true,
+    "liveSessionPreserved": true,
+    "liveSlideIndex": 39,
+    "liveRuntimeVersion": 15
+  },
+  "offline": "Existing untimed personal viewer and release packages preserved",
+  "limits": [
+    "Unsent local drafts cannot be accepted after the server deadline.",
+    "No campus-server deployment.",
+    "Real classroom teaching trial remains separate."
+  ]
+}
