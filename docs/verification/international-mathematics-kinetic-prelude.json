@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "courseId": "course-international-mathematics",
+  "release": "kinetic-prelude-v1",
+  "media": {
+    "film": {
+      "file": "one-more.mp4",
+      "codec": "h264",
+      "width": 1920,
+      "height": 1200,
+      "fps": "30/1",
+      "frames": 1080,
+      "durationSeconds": 36,
+      "audioCodec": "aac",
+      "channels": 2,
+      "sampleRate": 48000,
+      "sha256": "ee44ecd9aec5d35fadc622fcf5940f8f34dcebfb3fc043fe061068ac00232cd1"
+    },
+    "fullDecode": "pass",
+    "bounds": {
+      "frames": 1080,
+      "essentialTextBoxes": 11023,
+      "overflow": 0,
+      "shots": [
+        "one",
+        "more",
+        "business",
+        "curve",
+        "rate",
+        "total",
+        "calculus",
+        "question"
+      ]
+    },
+    "score": {
+      "durationSeconds": 36,
+      "sampleRate": 48000,
+      "channels": 2,
+      "tempoBpm": 120,
+      "peak": 0.82,
+      "peakDb": -1.7237229523256667,
+      "rmsDb": -20.224873363384038,
+      "normalizationGain": 2.2677953079993958,
+      "provenance": "Original deterministic additive synthesis and seeded percussion; no external music or samples.",
+      "sha256": "d89cc96d975d6f8b594b0187e69689c34a49f071fd3c8e77402906e23a332577"
+    },
+    "actualProjectionAndHumanListening": "Separate acceptance; not established by automated checks."
+  },
+  "browser": {
+    "generatedAt": "2026-10-08T04:28:37.968Z",
+    "url": "http://127.0.0.1:5173/course-assets/international-mathematics/prelude/index.html",
+    "playback": {
+      "currentTime": 36,
+      "duration": 36,
+      "ended": true,
+      "error": null,
+      "height": 1200,
+      "stalls": 0,
+      "started": 10596.5,
+      "wallSeconds": 36.7925,
+      "width": 1920
+    },
+    "seek": {
+      "error": null,
+      "paused": true,
+      "ready": 4,
+      "seeked": 13.1
+    },
+    "captions": {
+      "cues": 11,
+      "error": null,
+      "language": "en",
+      "last": {
+        "end": 36,
+        "start": 28,
+        "text": "Higher Mathematics: Calculus for Economics and Business.\nWhen does one more stop being worth it?"
+      }
+    },
+    "widths": [
+      {
+        "aspect": 1.6,
+        "csp": "default-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'",
+        "duration": 36,
+        "fonts": true,
+        "privateMetadata": false,
+        "ready": 4,
+        "scrollWidth": 1585,
+        "videoBounds": {
+          "height": 840,
+          "width": 1344,
+          "x": 120.5,
+          "y": 78
+        },
+        "width": 1600
+      },
+      {
+        "aspect": 1.6,
+        "csp": "default-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'",
+        "duration": 36,
+        "fonts": true,
+        "privateMetadata": false,
+        "ready": 4,
+        "scrollWidth": 820,
+        "videoBounds": {
+          "height": 452.5,
+          "width": 724,
+          "x": 48,
+          "y": 216
+        },
+        "width": 820
+      },
+      {
+        "aspect": 1.6,
+        "csp": "default-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'",
+        "duration": 36,
+        "fonts": true,
+        "privateMetadata": false,
+        "ready": 4,
+        "scrollWidth": 390,
+        "videoBounds": {
+          "height": 222.5,
+          "width": 356,
+          "x": 17,
+          "y": 183
+        },
+        "width": 390
+      }
+    ],
+    "sourceControls": {
+      "play": true,
+      "pause": true,
+      "replay": true,
+      "seekToEnd": {
+        "clock": "00:36 / 00:36",
+        "ready": true,
+        "status": "Paused at 00:36. Play or drag the timeline to continue."
+      }
+    },
+    "externalNetworking": "Own-origin CSP for scripts/fonts/images/media/connections; zero external resources observed.",
+    "localFilesProtocol": "Not separately exercised in the in-app browser; standalone assets tested over loopback.",
+    "consoleErrorsAfterFinalLoad": [],
+    "classroomRuntime": "slideIndex 39, slideKey im-l01-13, runtimeVersion 15 preserved."
+  },
+  "validation": {
+    "courseAndMathematicsTests": 26,
+    "contextTests": 9,
+    "typecheck": "pass",
+    "productionBuild": "pass (existing large-chunk warning)",
+    "javascriptSyntax": "pass",
+    "zipIntegrity": "pass",
+    "allManifestHashes": "pass"
+  },
+  "archive": {
+    "file": "ONE-MORE-kinetic-prelude-v1.zip",
+    "bytes": 9982706,
+    "sha256": "db6648aba3ae38076363902ec2f73e2267cdd3d469976d9272acba443217eab4",
+    "manifestFiles": 20
+  },
+  "classroomAndProjectionAcceptance": "Actual teaching/projection and human listening are separate from automated verification."
+}

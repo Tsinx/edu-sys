@@ -395,7 +395,10 @@ const internationalMathematicsDescriptor: CourseDeckDescriptor = {
     accent: "international-mathematics",
     assistantName: "Math Guide",
     supportsStudy: true,
-    resources: [{role: "Core textbook", title: "Mathematics for Economics and Business, 9th edition", detail: "Ian Jacques · Pearson · 2018 · Chapters 1, 2, 4 and 6"}]
+    resources: [
+      {role: "Course prelude", title: "ONE MORE — kinetic typography prelude", detail: "36 seconds · original music · English captions · downloadable MP4 and editable animation", url: "/course-assets/international-mathematics/prelude/index.html"},
+      {role: "Core textbook", title: "Mathematics for Economics and Business, 9th edition", detail: "Ian Jacques · Pearson · 2018 · Chapters 1, 2, 4 and 6"}
+    ]
   },
   getSlide: summarizeInternationalMathematicsSlide,
   getSlideByKey(key) {

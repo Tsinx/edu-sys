@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'">
+  <title>ONE MORE — Higher Mathematics Prelude</title>
+  <link rel="stylesheet" href="player.css">
+</head>
+<body>
+  <main>
+    <header><p class="eyebrow">HIGHER MATHEMATICS / COURSE PRELUDE</p><h1>ONE MORE<span>→</span></h1>
+      <p>Calculus for Economics and Business</p></header>
+    <video id="film" controls playsinline preload="metadata" poster="poster.png" aria-label="ONE MORE, a 36-second mathematics course prelude">
+      <source src="one-more.mp4" type="video/mp4"><track src="one-more.vtt" kind="captions" srclang="en" label="English">
+      Your browser does not support this video. <a href="one-more.mp4">Download the film.</a>
+    </video>
+    <div class="downloads"><a href="one-more.mp4" download>Download MP4</a><a href="one-more.srt" download>English captions</a><a href="score.wav" download>Original soundtrack</a><a href="README.md">Storyboard & source notes</a></div>
+    <details id="source-preview"><summary>Explore the editable animation</summary>
+      <div class="canvas-wrap"><canvas id="preview" width="1600" height="1000" role="img" aria-label="Animated English words and mathematical graphs"></canvas></div>
+      <audio id="music" src="score.wav" preload="metadata"></audio>
+      <div class="controls"><button id="play" type="button">Play animation</button><button id="replay" type="button">Replay</button><label><input type="checkbox" id="sound" checked> Music</label><output id="clock">00:00 / 00:36</output></div>
+      <label class="seek-label" for="seek">Animation position</label><input id="seek" type="range" min="0" max="36" step="0.033333333" value="0">
+      <p id="status" role="status">Press Play to start. Nothing plays automatically.</p>
+      <button id="export" hidden type="button">Render 1,080 video frames</button>
+    </details>
+    <details><summary>Read the film transcript</summary><p>One. More. Price. Cost. Profit. Every decision has a curve. How fast? Rate of change. Derivative. How much? Accumulated total. Integral. Calculus: change and accumulation. Higher Mathematics: Calculus for Economics and Business. When does one more stop being worth it?</p></details>
+    <footer>Original motion design and synthesized music. Illustrative mathematical models. Course textbook: Ian Jacques, 9th edition.</footer>
+  </main>
+  <script src="animation.js"></script><script src="player.js"></script>
+</body>
+</html>

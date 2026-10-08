@@ -1,0 +1,132 @@
+{
+  "title": "ONE MORE",
+  "durationSeconds": 36,
+  "width": 1920,
+  "height": 1200,
+  "fps": 30,
+  "tempoBpm": 120,
+  "language": "en",
+  "music": "score.wav",
+  "narration": null,
+  "shots": [
+    {
+      "id": "one",
+      "from": 0,
+      "to": 2,
+      "text": "ONE",
+      "description": "A single circle opens into a huge, elastic ONE."
+    },
+    {
+      "id": "more",
+      "from": 2,
+      "to": 4,
+      "text": "MORE",
+      "description": "The circle becomes a plus; MORE expands across cobalt."
+    },
+    {
+      "id": "business",
+      "from": 4,
+      "to": 8,
+      "text": "PRICE. COST. PROFIT.",
+      "description": "Three economic quantities enter as distinct typographic compositions."
+    },
+    {
+      "id": "curve",
+      "from": 8,
+      "to": 12,
+      "text": "EVERY DECISION HAS A CURVE.",
+      "description": "A typographic line resolves into an illustrative profit curve."
+    },
+    {
+      "id": "rate",
+      "from": 12,
+      "to": 18,
+      "text": "HOW FAST? RATE OF CHANGE. DERIVATIVE.",
+      "description": "A secant approaches a tangent. Finite and local rates are labelled separately."
+    },
+    {
+      "id": "total",
+      "from": 18,
+      "to": 24,
+      "text": "HOW MUCH? ACCUMULATED TOTAL. INTEGRAL.",
+      "description": "Cash-flow rectangles refine into a shaded accumulation area."
+    },
+    {
+      "id": "calculus",
+      "from": 24,
+      "to": 28,
+      "text": "CALCULUS. CHANGE + ACCUMULATION.",
+      "description": "Type assembles from two directions; a moving plus connects the ideas."
+    },
+    {
+      "id": "question",
+      "from": 28,
+      "to": 36,
+      "text": "Higher Mathematics: Calculus for Economics and Business. When does one more stop being worth it?",
+      "description": "An eight-second, calmer course-title and question hold."
+    }
+  ],
+  "captions": [
+    {
+      "from": 0,
+      "to": 2,
+      "text": "ONE."
+    },
+    {
+      "from": 2,
+      "to": 4,
+      "text": "MORE."
+    },
+    {
+      "from": 4,
+      "to": 5.25,
+      "text": "PRICE."
+    },
+    {
+      "from": 5.25,
+      "to": 6.5,
+      "text": "COST."
+    },
+    {
+      "from": 6.5,
+      "to": 8,
+      "text": "PROFIT."
+    },
+    {
+      "from": 8,
+      "to": 12,
+      "text": "Every decision has a curve."
+    },
+    {
+      "from": 12,
+      "to": 16.5,
+      "text": "How fast? Average rate of change."
+    },
+    {
+      "from": 16.5,
+      "to": 18,
+      "text": "The local rate: derivative."
+    },
+    {
+      "from": 18,
+      "to": 24,
+      "text": "How much? Accumulated total: integral."
+    },
+    {
+      "from": 24,
+      "to": 28,
+      "text": "Calculus: change + accumulation."
+    },
+    {
+      "from": 28,
+      "to": 36,
+      "text": "Higher Mathematics: Calculus for Economics and Business.\nWhen does one more stop being worth it?"
+    }
+  ],
+  "models": {
+    "profit": "P(q) = 40q − q² USD, 0 ≤ q ≤ 40 items",
+    "finiteRate": "[P(10+h) − P(10)] / h, h > 0; limit P′(10) = 20 USD/item",
+    "cashFlow": "r(t) = 10 + 2t USD/hour, 0 ≤ t ≤ 6 hours",
+    "accumulatedTotal": "Integral from 0 to 6 of r(t) dt, measured in USD; no result revealed in the film."
+  }
+}
