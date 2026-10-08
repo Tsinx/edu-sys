@@ -1,6 +1,7 @@
 import { createHash, randomBytes, randomUUID, scrypt, timingSafeEqual } from "node:crypto";
 import { promisify } from "node:util";
 import type { ClassroomActor, ClassroomIdentityCredential, ClassroomIdentityProvider } from "@edu/contracts";
+import { ACTOR_DISPLAY_NAME_MAX_LENGTH } from "@edu/contracts";
 import { openDatabase, transaction, campusError } from "./database.js";
 
 const derive = promisify(scrypt);
@@ -33,8 +34,8 @@ export class CampusIdentityProvider implements ClassroomIdentityProvider {
   }
 
   async createAccount(username: string, displayName: string, role: "teacher" | "student", password: string) {
-    if (!/^[a-zA-Z0-9_.@-]{2,80}$/.test(username) || displayName.trim().length < 1 || displayName.length > 40 || password.length < this.minimumPasswordLength || password.length > 256) {
-      throw campusError(400, "ACCOUNT_INVALID", `账号需为2–80位字母数字或_.@-，姓名1–40字，密码至少${this.minimumPasswordLength}位。`);
+    if (!/^[a-zA-Z0-9_.@-]{2,80}$/.test(username) || displayName.trim().length < 1 || displayName.length > ACTOR_DISPLAY_NAME_MAX_LENGTH || password.length < this.minimumPasswordLength || password.length > 256) {
+      throw campusError(400, "ACCOUNT_INVALID", `账号需为2–80位字母数字或_.@-，姓名1–${ACTOR_DISPLAY_NAME_MAX_LENGTH}字，密码至少${this.minimumPasswordLength}位。`);
     }
     const salt = randomBytes(16).toString("hex");
     const hash = (await derive(password, salt, 64)) as Buffer;

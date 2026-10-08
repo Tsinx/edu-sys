@@ -1,5 +1,6 @@
 import {ClassroomActivityPlan} from "../activities/ActivityWorkspace";
 import type { ClassroomActor, ClassroomParticipationCreate, ClassroomParticipationView } from "@edu/contracts";
+import { ACTOR_DISPLAY_NAME_MAX_LENGTH } from "@edu/contracts";
 import { useEffect, useRef, useState } from "react";
 import { Check, Radio, UsersRound, X } from "lucide-react";
 import { useParticipation } from "./useParticipation";
@@ -43,7 +44,7 @@ export function StudentParticipation({ sessionId, actor, locale }: { sessionId: 
     {!view ? <p>{t("正在连接课堂活动…", "Connecting to class activities\u2026")}</p> : preview ? <p>{t("教师预览 · 学生可在这里加入、答题和回应点名。", "Teacher preview: students can join and answer here.")}</p> : <>
       {!view.isLive && <p role="status">{t("课堂已结束，活动记录已保留。", "Class ended. Activity records are saved.")}</p>}
       {!view.joined ? view.isLive && <form className="participation-join" onSubmit={event => { event.preventDefault(); void mutate("/join", { displayName: name }); }}>
-        <label>{t("课堂账号", "Classroom name")}<input autoComplete="name" value={name} maxLength={40} required readOnly={actor.identitySource !== "development"} placeholder={t("填写老师能认出的姓名", "Enter a name your teacher recognizes")} onChange={event => setName(event.target.value)} /></label>
+        <label>{t("课堂账号", "Classroom name")}<input autoComplete="name" value={name} maxLength={ACTOR_DISPLAY_NAME_MAX_LENGTH} required readOnly={actor.identitySource !== "development"} placeholder={t("填写老师能认出的姓名", "Enter a name your teacher recognizes")} onChange={event => setName(event.target.value)} /></label>
         <button className="participation-primary" disabled={busy || !name.trim()}>{t("加入活动", "Join activities")}</button>
         <small>{t("在当前浏览器加入后，刷新页面会保留提交记录。", "Your responses are kept when you refresh this browser.")}</small>
       </form> : <>

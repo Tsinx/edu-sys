@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { ACTOR_DISPLAY_NAME_MAX_LENGTH } from "./classroom-participation.js";
 export * from "./assistant-prompts.js";
 
 export const classroomActorRoleSchema = z.enum(["teacher", "student"]);
@@ -31,7 +32,7 @@ export type ClassroomIdentitySession = z.infer<
 
 export const developmentIdentitySessionInputSchema = z.object({
   role: classroomActorRoleSchema,
-  displayName: z.string().trim().min(1).max(40).optional()
+  displayName: z.string().trim().min(1).max(ACTOR_DISPLAY_NAME_MAX_LENGTH).optional()
 });
 export type DevelopmentIdentitySessionInput = z.infer<
   typeof developmentIdentitySessionInputSchema

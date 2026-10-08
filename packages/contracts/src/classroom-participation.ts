@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+export const ACTOR_DISPLAY_NAME_MAX_LENGTH = 80;
+
 const optionSchema = z.object({ id: z.string().regex(/^[A-F]$/), text: z.string().trim().min(1).max(200) }).strict();
 export const classroomQuestionInputSchema = z.object({
   kind: z.literal("question"),
@@ -24,7 +26,7 @@ export const classroomRollCallInputSchema = z.object({
 export const classroomParticipationCreateSchema = z.union([classroomQuestionInputSchema, classroomRollCallInputSchema]);
 export type ClassroomParticipationCreate = z.infer<typeof classroomParticipationCreateSchema>;
 export const classroomAnswerInputSchema = z.object({ optionIds: z.array(z.string().regex(/^[A-F]$/)).max(6) }).strict();
-export const classroomJoinInputSchema = z.object({ displayName: z.string().trim().min(1).max(40) }).strict();
+export const classroomJoinInputSchema = z.object({ displayName: z.string().trim().min(1).max(ACTOR_DISPLAY_NAME_MAX_LENGTH) }).strict();
 export const classroomParticipationActionSchema = z.object({ action: z.enum(["close", "reveal", "dismiss"]) }).strict();
 
 export const classroomExerciseInputSchema = z.object({
