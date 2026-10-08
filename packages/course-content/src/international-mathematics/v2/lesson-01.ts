@@ -1,8 +1,8 @@
 import {author,type Insertion} from './authoring.js';
-import {lesson01} from '../lessons/lesson-01.js';
+import {lesson01,coffeeOpeningSlide} from '../lessons/lesson-01.js';
 const {m,c,q,e,t,d}=author(1,lesson01.sources[0]!);
 export const additions01:readonly Insertion[]=[
- c('02','a','Three numbers, three meanings','A cup price, a cup count and a payment measure different things.','Attach a unit before multiplying.'),
+ {before:'02',slide:coffeeOpeningSlide},
  m('02','b','Write the unit beside the number',String.raw`8\,\frac{\$}{\mathrm{cup}}\times3\,\mathrm{cups}`,'The number 3 counts cups. It does not measure dollars.',{sequence:'receipt-units'}),
  q('03','a','A cheaper label?','Pack A costs $12. Pack B costs $9. Can the lower label alone prove better value?','No. Compare equal volumes or unit prices.'),
  t('03','b','Put both quantities on the receipt',['Pack','Volume','Price'],[['A','750 mL','$12'],['B','500 mL','$9']],'We need one common unit before comparing.',{sequence:'unit-drinks'}),
@@ -51,4 +51,4 @@ export const additions01:readonly Insertion[]=[
  m('23','a','Solve for the boundary',String.raw`0.25p=1.50\quad\Longrightarrow\quad p=6`,'At a six-dollar menu price the offers tie.',{sequence:'offer-boundary'}),
  t('23','b','Check either side of the tie',['p','A = 0.75p','B = p − 1.50'],[['$4','$3','$2.50'],['$6','$4.50','$4.50'],['$8','$6','$6.50']],'The better deal changes at the verified boundary.',{sequence:'offer-boundary'})
 ];
-export const guides01=['0–7分钟观察咖啡与单位；7–19分钟逐步统一体积和单价；19–31分钟解释百分比的基数并算两种优惠；31–40分钟用新价格复查规则；40–45分钟即时检查。话术：“Which amount is the whole?” “What unit remains?”','0–8分钟从收费句子建立等式；8–22分钟逐步逆运算、单位和代回；22–33分钟逆百分比与连续折扣；33–40分钟求优惠切换边界；40–45分钟出口题。话术：“Do the same to both sides.” “Check it in the receipt.”'] as const;
+export const guides01=['0–7分钟先播放36秒ONE MORE课程序曲，再观察咖啡选择与单位；7–19分钟逐步统一体积和单价；19–31分钟解释百分比的基数并算两种优惠；31–40分钟用新价格复查规则；40–45分钟即时检查。话术：“Which amount is the whole?” “What unit remains?”','0–8分钟从收费句子建立等式；8–22分钟逐步逆运算、单位和代回；22–33分钟逆百分比与连续折扣；33–40分钟求优惠切换边界；40–45分钟出口题。话术：“Do the same to both sides.” “Check it in the receipt.”'] as const;

@@ -1,7 +1,7 @@
 import {useEffect,useLayoutEffect,useMemo,useRef,useState} from 'react';
 import katex from 'katex';
 import type {SlideFrame,SlideInteractionState,SlideInteractionValues} from '@edu/contracts';
-import {getInternationalMathematicsSlide,getInternationalMathematicsInteractionDefaults,INTERNATIONAL_MATHEMATICS_FILMS,INTERNATIONAL_MATHEMATICS_LESSONS,derivativeCurve,evaluateCurve,secantSlope,type MathematicsSlide,type SlideElement,type PlotSpec,type Ink} from '@edu/course-content/international-mathematics';
+import {getInternationalMathematicsSlide,getInternationalMathematicsInteractionDefaults,getInternationalMathematicsOpeningFilm,INTERNATIONAL_MATHEMATICS_LESSONS,derivativeCurve,evaluateCurve,secantSlope,type MathematicsSlide,type SlideElement,type PlotSpec,type Ink} from '@edu/course-content/international-mathematics';
 import {SlideViewport} from '../classroom/SlideViewport';
 import 'katex/dist/katex.min.css';
 import './international-mathematics.css';
@@ -51,6 +51,13 @@ function Formula({e,style}:{e:Extract<SlideElement,{kind:'math'}>;style:React.CS
  return <div className="im-math" style={{...style,fontSize:e.size??46,color:IM_COLORS[e.color??'blue']}}><div ref={ref} className="im-formula" dangerouslySetInnerHTML={{__html:katex.renderToString(e.tex,{displayMode:true,throwOnError:true,strict:'ignore'})}}/></div>;
 }
 export function MathematicsCanvas({spec,values={},openingMedia}:{spec:MathematicsSlide;values?:SlideInteractionValues;openingMedia?:React.ReactNode}){
+ if(spec.openingPrelude){
+  const film=getInternationalMathematicsOpeningFilm(spec.slideKey)!;
+  return <article className="im-slide im-slide--prelude" lang="en" aria-label={`${spec.title}: ${spec.question}`} data-slide-composition={spec.compositionId} data-im-slide={spec.slideKey}>
+   <div className="im-prelude-film">{openingMedia??<img src={film.poster} alt={`${spec.title}. ${spec.question}`}/>}</div>
+   <footer><span>Original teaching scenario · Course opening · 36 seconds</span><span>LESSON 01 / 01</span></footer>
+  </article>;
+ }
  return <article className="im-slide" lang="en" data-slide-composition={spec.compositionId} data-im-slide={spec.slideKey}>
   <div className="im-ruling"/><p className="im-kicker">{spec.optionalChallenge&&!/optional challenge/i.test(spec.kicker)?'OPTIONAL CHALLENGE · ':''}{spec.kicker}</p><h1>{spec.title}</h1>
   {spec.elements.map((e,i)=>{
@@ -79,18 +86,18 @@ export function InternationalMathematicsStage({frame,interaction,readOnly,onInte
  useEffect(()=>{setLocalValues(defaults);setMediaError('');setSound(false);setDisplayPosition(0);},[defaults]);
  useEffect(()=>{if(serverNowMs)offset.current=serverNowMs-Date.now();},[serverNowMs]);
  const patch=(p:SlideInteractionValues)=>{if(local||!onInteractionPatch)setLocalValues(v=>({...v,...p}));else onInteractionPatch(p);};
- const target=()=>Math.min(90,Math.max(0,(Number(latest.current.positionMs??0)+(latest.current.playing?Math.max(0,Date.now()+offset.current-Number(latest.current.anchorMs??0)):0))/1000));
+ const film=getInternationalMathematicsOpeningFilm(spec.slideKey),durationMs=film?.durationMs??0;
+ const target=()=>Math.min(durationMs/1000,Math.max(0,(Number(latest.current.positionMs??0)+(latest.current.playing?Math.max(0,Date.now()+offset.current-Number(latest.current.anchorMs??0)):0))/1000));
  useEffect(()=>{
   const v=video.current;if(!v||!spec.openingFilm)return;
-  const sync=()=>{const t=target();if(Number.isFinite(v.duration)&&Math.abs(v.currentTime-t)>.25)v.currentTime=t;if(latest.current.playing&&t<90){void v.play().catch(()=>setMediaError('Select Enable sound or Play to start playback.'));}else v.pause();};
+  const sync=()=>{const t=target();if(Number.isFinite(v.duration)&&Math.abs(v.currentTime-t)>.25)v.currentTime=t;if(latest.current.playing&&t<durationMs/1000){void v.play().catch(()=>setMediaError('Select Enable sound or Play to start playback.'));}else v.pause();};
   sync();const timer=setInterval(sync,500);return()=>{clearInterval(timer);v.pause();};
- },[spec.slideKey,values.playing,values.positionMs,values.anchorMs,values.runId,spec.openingFilm]);
- const film=INTERNATIONAL_MATHEMATICS_FILMS[spec.lesson-1]!;
- const media=spec.openingFilm?<video ref={video} className="im-video" poster={film.poster} src={film.src} muted={!sound} playsInline preload="metadata" onTimeUpdate={e=>setDisplayPosition(Math.round(e.currentTarget.currentTime*1000))} onLoadedMetadata={()=>{if(video.current)video.current.currentTime=target();}} onError={()=>setMediaError('Video unavailable. Use the illustrated opening question.')}><track kind="captions" src={film.captions} srcLang="en" label="English" default/></video>:undefined;
+ },[spec.slideKey,values.playing,values.positionMs,values.anchorMs,values.runId,spec.openingFilm,durationMs]);
+ const media=spec.openingFilm?<video ref={video} className="im-video" aria-label={film!.title} poster={film!.poster} src={film!.src} muted={!sound} playsInline preload="metadata" onTimeUpdate={e=>setDisplayPosition(Math.round(e.currentTarget.currentTime*1000))} onLoadedMetadata={()=>{if(video.current&&target()>0)video.current.currentTime=target();}} onError={()=>setMediaError('Video unavailable. Use the illustrated opening question.')}><track kind="captions" src={film!.captions} srcLang="en" label="English" default/></video>:undefined;
  return <div className="im-stage" lang="en"><SlideViewport label={`English mathematics, lesson ${spec.lesson}, page ${spec.localIndex} of ${spec.localTotal}`}><MathematicsCanvas spec={spec} values={values} openingMedia={media}/></SlideViewport>
   <div className="im-controls">
    {control&&onNavigate&&INTERNATIONAL_MATHEMATICS_LESSONS.find(l=>l.number===spec.lesson)?.hourRanges?.map(h=><button key={h.number} onClick={()=>onNavigate(h.slideStart)}>Hour {h.number}</button>)}
-   {spec.openingFilm&&<>{control&&<><button onClick={()=>patch({playing:!values.playing,positionMs:Math.round(target()*1000),anchorMs:Date.now()+offset.current,runId:String(values.runId??'initial')})}>{values.playing?'Pause':'Play introduction'}</button><button onClick={()=>patch({playing:true,positionMs:0,anchorMs:Date.now()+offset.current,runId:`replay-${Date.now()}`})}>Replay</button><input aria-label="Video position" type="range" min="0" max="90000" step="1000" value={displayPosition} onChange={e=>{setDisplayPosition(Number(e.target.value));patch({positionMs:Number(e.target.value),anchorMs:Date.now()+offset.current,playing:Boolean(values.playing)});}}/></>}
+   {spec.openingFilm&&<>{control&&<><button onClick={()=>patch({playing:!values.playing,positionMs:Math.round(target()*1000),anchorMs:Date.now()+offset.current,runId:String(values.runId??'initial')})}>{values.playing?'Pause':spec.openingPrelude?'Play ONE MORE':'Play introduction'}</button><button onClick={()=>patch({playing:true,positionMs:0,anchorMs:Date.now()+offset.current,runId:`replay-${Date.now()}`})}>Replay</button><input aria-label="Video position" type="range" min="0" max={durationMs} step="1000" value={displayPosition} onChange={e=>{setDisplayPosition(Number(e.target.value));patch({positionMs:Number(e.target.value),anchorMs:Date.now()+offset.current,playing:Boolean(values.playing)});}}/></>}
    <button data-im-audio-control onClick={()=>{setSound(v=>!v);if(video.current){video.current.muted=sound;if(latest.current.playing)void video.current.play().catch(()=>{});}setMediaError('');}}>{sound?'Mute':'Enable sound'}</button></>}
    {spec.interaction&&control&&<label>{spec.interaction.label}<input type="range" aria-label={spec.interaction.label} min={spec.interaction.min} max={spec.interaction.max} step={spec.interaction.step} value={Number(values[spec.interaction.key]??spec.interaction.initial)} onChange={e=>patch({[spec.interaction!.key]:Number(e.target.value)})}/><output>{fmt(Number(values[spec.interaction.key]??spec.interaction.initial))}</output></label>}
    {spec.answer&&control&&<button onClick={()=>patch({revealed:!values.revealed})}>{values.revealed?'Hide reasoning':'Reveal reasoning'}</button>}

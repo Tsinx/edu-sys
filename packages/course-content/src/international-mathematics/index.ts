@@ -34,6 +34,11 @@ export function resolveInternationalMathematicsSavedPosition(version:string|unde
  return Number.isInteger(index)&&index>=1&&index<=INTERNATIONAL_MATHEMATICS_SLIDES.length?INTERNATIONAL_MATHEMATICS_SLIDES[index-1]:undefined;
 }
 export const INTERNATIONAL_MATHEMATICS_FILMS:readonly OpeningFilm[]=INTERNATIONAL_MATHEMATICS_DEFINITIONS.map(l=>({id:`im-film-${String(l.number).padStart(2,'0')}`,lesson:l.number,title:l.filmTitle,question:l.openingQuestion,durationMs:90000,src:`/course-assets/international-mathematics/film/lesson-${String(l.number).padStart(2,'0')}-intro.mp4`,poster:`/course-assets/international-mathematics/art/lesson-${String(l.number).padStart(2,'0')}-opening.png`,captions:`/course-assets/international-mathematics/film/lesson-${String(l.number).padStart(2,'0')}-intro.vtt`,shots:l.film}));
+export const INTERNATIONAL_MATHEMATICS_PRELUDE:Omit<OpeningFilm,'shots'>={id:'im-course-prelude',lesson:1,title:'ONE MORE',question:'When does one more stop being worth it?',durationMs:36000,src:'/course-assets/international-mathematics/prelude/one-more.mp4',poster:'/course-assets/international-mathematics/prelude/poster.png',captions:'/course-assets/international-mathematics/prelude/one-more.vtt'};
+export function getInternationalMathematicsOpeningFilm(key:string):Omit<OpeningFilm,'shots'>|null {
+ const s=getInternationalMathematicsSlideByKey(key);
+ return s?.openingFilm?(s.openingPrelude?INTERNATIONAL_MATHEMATICS_PRELUDE:INTERNATIONAL_MATHEMATICS_FILMS[s.lesson-1]!):null;
+}
 export function getInternationalMathematicsSlide(index:number):MathematicsSlide {const safe=Math.max(1,Math.min(INTERNATIONAL_MATHEMATICS_SLIDES.length,Math.round(index)||1));return INTERNATIONAL_MATHEMATICS_SLIDES[safe-1]!;}
 export const getInternationalMathematicsSlideByKey=(key:string)=>INTERNATIONAL_MATHEMATICS_SLIDES.find(s=>s.slideKey===key);
 export function getInternationalMathematicsLessonPosition(index:number){const s=INTERNATIONAL_MATHEMATICS_SLIDES[index-1];if(!s)return null;const l=INTERNATIONAL_MATHEMATICS_LESSONS[s.lesson-1]!;return {globalIndex:index,lessonNumber:s.lesson,lessonStart:l.slideStart,lessonEnd:l.slideEnd,localIndex:s.localIndex,localTotal:s.localTotal};}
@@ -54,6 +59,6 @@ export function validateInternationalMathematicsInteractionPatch(key:string,patc
   else if(typeof v!=='number'||!Number.isFinite(v))return false;
  }
  if(s.interaction){const p=s.interaction,v=values[p.key];if(typeof v!=='number'||v<p.min||v>p.max||(p.key==='n'&&!Number.isInteger(v)))return false;}
- if(s.openingFilm&&(Number(values.positionMs)<0||Number(values.positionMs)>90000||Number(values.anchorMs)<0))return false;
+ if(s.openingFilm&&(Number(values.positionMs)<0||Number(values.positionMs)>getInternationalMathematicsOpeningFilm(key)!.durationMs||Number(values.anchorMs)<0))return false;
  return true;
 }

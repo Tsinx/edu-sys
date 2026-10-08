@@ -6,7 +6,7 @@ import {
  INTERNATIONAL_MATHEMATICS_SLIDES, INTERNATIONAL_MATHEMATICS_LESSONS,
  INTERNATIONAL_MATHEMATICS_FILMS, INTERNATIONAL_MATHEMATICS_TOTAL_HOURS,
  getInternationalMathematicsGlobalIndex, getInternationalMathematicsLessonPosition,
- getInternationalMathematicsSlideByKey, getInternationalMathematicsInteractionDefaults,
+ getInternationalMathematicsSlideByKey, getInternationalMathematicsInteractionDefaults, getInternationalMathematicsOpeningFilm,
  validateInternationalMathematicsInteractionPatch, evaluateCurve, derivativeCurve,
  primitiveCurve, definiteIntegral, secantSlope, leftRiemannSum, business,
  demandQuantity, priceElasticity, INTERNATIONAL_MATHEMATICS_V1_PAGE_MAP, resolveInternationalMathematicsSavedPosition, type Curve, type SlideElement
@@ -39,7 +39,7 @@ test('international mathematics contains sixteen bounded single-variable lecture
   assert.equal(lesson.slides.filter(s=>!s.optionalChallenge).length,target,lesson.title);
   assert.deepEqual(lesson.slides.slice(target).map(s=>s.optionalChallenge),[true,true],lesson.title);
   assert.equal(lesson.slides[0]?.openingFilm,true,lesson.title);
-  assert.equal(lesson.slides.filter(s=>s.openingFilm).length,1,lesson.title);
+  assert.equal(lesson.slides.filter(s=>s.openingFilm).length,lesson.number===1?2:1,lesson.title);
   assert.equal(lesson.outcomes.length,3,lesson.title);
   assert.ok(lesson.vocabulary.length>=5&&lesson.vocabulary.length<=8,lesson.title);
   assert.equal(lesson.exercises.length,7,lesson.title);
@@ -126,8 +126,9 @@ test('answer and film defaults are hidden and stationary, and controls reject un
   if(slide.openingFilm){
    assert.equal(defaults.playing,false);
    assert.equal(defaults.positionMs,0);
-   assert.equal(validateInternationalMathematicsInteractionPatch(slide.slideKey,{positionMs:90000}),true);
-   assert.equal(validateInternationalMathematicsInteractionPatch(slide.slideKey,{positionMs:90001}),false);
+   const durationMs=getInternationalMathematicsOpeningFilm(slide.slideKey)!.durationMs;
+   assert.equal(validateInternationalMathematicsInteractionPatch(slide.slideKey,{positionMs:durationMs}),true);
+   assert.equal(validateInternationalMathematicsInteractionPatch(slide.slideKey,{positionMs:durationMs+1}),false);
    assert.equal(validateInternationalMathematicsInteractionPatch(slide.slideKey,{playing:'true'}),false);
   }
   if(slide.interaction){

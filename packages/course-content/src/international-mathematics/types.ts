@@ -26,6 +26,7 @@ export interface LessonSlide {
   teachingCue: string; assistantCue: string;
   interaction?: {kind:'parameter';key:'x'|'h'|'n'|'price'|'quantity';label:string;min:number;max:number;step:number;initial:number};
   openingFilm?: boolean;
+  openingPrelude?: boolean;
   /** Teacher planning only; never serialized into student DOM attributes. */
   pedagogy?: {role:'scene'|'concept'|'worked-step'|'checkpoint'|'misconception'|'exit';sequence?:string;seconds?:number;hour?:1|2};
 }

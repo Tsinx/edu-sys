@@ -4,7 +4,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { definiteIntegral, derivativeCurve, evaluateCurve, secantSlope } from '@edu/course-content/international-mathematics';
+import { definiteIntegral, derivativeCurve, evaluateCurve, secantSlope, getInternationalMathematicsOpeningFilm } from '@edu/course-content/international-mathematics';
 import { getCourseDeckByCourseId, getCoursePresentation } from '@edu/course-content/deck-registry';
 
 const assetRoot = fileURLToPath(new URL('../public/course-assets/international-mathematics/prelude/', import.meta.url));
@@ -74,4 +74,17 @@ test('the prelude is a course resource and preserves existing deck and progress 
   assert.equal(deck.totalHours, 32);
   assert.equal(deck.versionId, 'release-international-mathematics-jacques-v2');
   assert.equal(deck.getSlideByKey('im-l01-13')?.slideKey, 'im-l01-13');
+});
+
+test('Lesson 1 opens with ONE MORE before the coffee decision, with the correct media duration', () => {
+  const deck = getCourseDeckByCourseId('course-international-mathematics')!;
+  const first = deck.getSlide(1), second = deck.getSlide(2);
+  assert.equal(first.title, 'ONE MORE');
+  assert.equal(first.slideKey, 'im-l01-01');
+  assert.equal(getInternationalMathematicsOpeningFilm(first.slideKey)!.src, '/course-assets/international-mathematics/prelude/one-more.mp4');
+  assert.equal(getInternationalMathematicsOpeningFilm(first.slideKey)!.durationMs, film.DURATION * 1000);
+  assert.equal(second.title, 'ONE COFFEE. TWO OFFERS.');
+  assert.equal(second.slideKey, 'im-l01-02-a');
+  assert.equal(getInternationalMathematicsOpeningFilm(second.slideKey)!.durationMs, 90000);
+  assert.match(getInternationalMathematicsOpeningFilm(second.slideKey)!.src, /lesson-01-intro\.mp4$/);
 });
