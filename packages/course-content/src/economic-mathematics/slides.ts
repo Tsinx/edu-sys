@@ -33,6 +33,8 @@ import { lesson29 } from "./v2/lesson-29.js";
 import { lesson30 } from "./v2/lesson-30.js";
 import { lesson31 } from "./v2/lesson-31.js";
 import { lesson32 } from "./v2/lesson-32.js";
+import { refinedLesson02 } from './lesson-02-refined.js';
+import { preludeLesson } from './prelude-lesson.js';
 import type {
   EconomicMathematicsLessonDefinition,
   EconomicMathematicsLessonSpec,
@@ -40,7 +42,7 @@ import type {
   EconomicMathematicsSlideSpec
 } from "./types.js";
 
-export const ECONOMIC_MATHEMATICS_LESSON_DEFINITIONS: readonly EconomicMathematicsLessonDefinition[] = [
+export const ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS: readonly EconomicMathematicsLessonDefinition[] = [
   lesson01,
   lesson02,
   lesson03,
@@ -74,6 +76,34 @@ export const ECONOMIC_MATHEMATICS_LESSON_DEFINITIONS: readonly EconomicMathemati
   lesson31,
   lesson32
 ] as const;
+
+const combinedLesson: EconomicMathematicsLessonDefinition = {
+  ...lesson01, number: 2, title: '函数与营销定量模型', hours: 3,
+  expectedSlides: lesson01.slides.length + lesson02.slides.length,
+  coreQuestion: '如何从交易记录建立函数，并用收入、成本和利润解释定价？',
+  outcomes: [...(lesson01.outcomes ?? []), ...(lesson02.outcomes ?? [])],
+  route: [{minutes: 20, activity: '交易记录、变量与函数'}, {minutes: 25, activity: '定义域与分段计费'}, {minutes: 15, activity: '建模练习与反馈'}, {minutes: 25, activity: '收入、成本与利润'}, {minutes: 30, activity: '完整例题与定价实验'}, {minutes: 20, activity: '独立练习与迁移'}],
+  slides: [lesson01, lesson02].flatMap(source => source.slides.map((slide, i) => ({
+    ...slide, sourceLesson: source.number, sourceLocalIndex: i + 1,
+    kicker: slide.kicker.replace(/第0?1讲|第0?2讲/g, '第2讲'),
+    ...(source.number === 1 && i === 0 ? {title: '函数与营销定量模型', lead: '从交易记录到定价判断'} : {}),
+    ...(source.number === 1 && i === 1 ? {body: ['第一单元 / 第2讲']} : {}),
+    ...(source.number === 1 && i === lesson01.slides.length - 1 ? {body: ['接下来把价格、销量与成本连接起来。']} : {})
+  })))
+};
+export const ECONOMIC_MATHEMATICS_LESSON_DEFINITIONS: readonly EconomicMathematicsLessonDefinition[] = [
+  preludeLesson, refinedLesson02, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(2)
+];
+
+/** Historical classroom indices must be interpreted using their own release. */
+export function getEconomicMathematicsHistoricalCounts(version: string): readonly number[] | undefined {
+  if (version === 'release-economic-mathematics-v1') return [44,47,45,45,47,46,47,44,46,43,46,44,45,47,45,47,43,44,46,45,47,46,45,46,47,47,45,47,46,47,47,44];
+  if (version === 'release-economic-mathematics-editorial-v2') return ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.map(l => l.slides.length);
+  if (version === 'release-economic-mathematics-editorial-v2-reordered-2026-10-09') return [40, combinedLesson.slides.length, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(2).map(l => l.slides.length)];
+  if (version === 'release-economic-mathematics-lesson02-refined-2026-10-09') return [40, 50, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(2).map(l => l.slides.length)];
+  if (version === 'release-economic-mathematics-lesson02-flow-2026-10-09') return [40, 60, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(2).map(l => l.slides.length)];
+  return undefined;
+}
 
 export const ECONOMIC_MATHEMATICS_EXPECTED_SLIDES = ECONOMIC_MATHEMATICS_LESSON_DEFINITIONS.reduce((sum, lesson) => sum + lesson.slides.length, 0);
 
@@ -166,6 +196,7 @@ export const ECONOMIC_MATHEMATICS_LESSONS: readonly EconomicMathematicsLessonSpe
       prerequisites: lesson.prerequisites,
       outcomes: lesson.outcomes,
       route: lesson.route,
+      classHours: lesson.classHours,
       slideTotal: lesson.slides.length
     };
   });

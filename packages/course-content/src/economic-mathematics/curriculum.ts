@@ -3,12 +3,14 @@ import type { EconomicMathematicsUnitNumber } from "./types.js";
 export const ECONOMIC_MATHEMATICS_COURSE_ID = "course-economic-mathematics";
 export const ECONOMIC_MATHEMATICS_COURSE_SLUG = "economic-mathematics";
 export const ECONOMIC_MATHEMATICS_COURSE_CODE = "14210850";
-export const ECONOMIC_MATHEMATICS_DECK_ID = "deck-economic-mathematics-2026-v2";
+export const ECONOMIC_MATHEMATICS_DECK_ID = "deck-economic-mathematics-2026-lesson02-mapping";
 export const ECONOMIC_MATHEMATICS_VERSION_ID =
-  "release-economic-mathematics-editorial-v2";
+  "release-economic-mathematics-lesson02-mapping-2026-10-09";
 export const ECONOMIC_MATHEMATICS_CANVAS_WIDTH = 1600;
 export const ECONOMIC_MATHEMATICS_CANVAS_HEIGHT = 1000;
 export const ECONOMIC_MATHEMATICS_TOTAL_HOURS = 64;
+/** One hour remains for course-level practice scheduling after the 90-minute Lesson 2 redesign. */
+export const ECONOMIC_MATHEMATICS_UNALLOCATED_HOURS = 1;
 export const ECONOMIC_MATHEMATICS_TOTAL_LESSONS = 32;
 export const ECONOMIC_MATHEMATICS_ARCHIVED_DECK_ID = "deck-economic-mathematics-2026";
 export const ECONOMIC_MATHEMATICS_ARCHIVED_VERSION_ID = "release-economic-mathematics-v1";

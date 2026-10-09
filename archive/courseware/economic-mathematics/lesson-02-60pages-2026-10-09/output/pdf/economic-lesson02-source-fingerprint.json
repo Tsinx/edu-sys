@@ -1,0 +1,43 @@
+{
+  "version": "release-economic-mathematics-lesson02-flow-2026-10-09",
+  "slides": 60,
+  "classMinutes": [
+    45,
+    45
+  ],
+  "exerciseMinutes": 20,
+  "files": [
+    {
+      "file": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "sha256": "9c004505ed5f3326f36c45601f2bb6e24501bc3617682858e35c79febf32befa"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/types.ts",
+      "sha256": "d8ceedbd17b38ae4384918cd3781264c6668a7ba6623fd0316bd4fb20a410238"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/lesson-02-refined.ts",
+      "sha256": "dbbec8346c572c3236b6fd80acad9fb43383ad40052ba34005df2bd547f0fe3f"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/merchant-model.ts",
+      "sha256": "c63e4c6169806f733261ba971fe5cea9ca14d3ba289f63859b2fc9635693f12b"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
+      "sha256": "171e8bf0a83a2db2a4018a6ae57a90fbff3d1e744c960955fca24975dffd349e"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/MerchantFigure.tsx",
+      "sha256": "57c23839ca97aba1131cea631275c40960df894b4ecbec297318f7bda3cdaa46"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/economic-mathematics.css",
+      "sha256": "ea6c3167d8ed567237d3a828feb7f3f97ee9fe02992ad83a70b6260d72c152c2"
+    },
+    {
+      "file": "apps/teacher-web/scripts/export-economic-refined.tsx",
+      "sha256": "8a97bfc4207f0ce13b334e3a841a2a7ca7c270c5f79beb37735d923796a75d6d"
+    }
+  ]
+}

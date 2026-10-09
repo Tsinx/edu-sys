@@ -4,16 +4,16 @@ import {mkdtemp,readFile,writeFile,rm} from "node:fs/promises";
 import {tmpdir} from "node:os";
 import {join} from "node:path";
 import {classroomSnapshotSchema} from "@edu/contracts";
-import {ECONOMIC_MATHEMATICS_COURSE_ID as courseId,ECONOMIC_MATHEMATICS_DECK_ID as deckId,ECONOMIC_MATHEMATICS_VERSION_ID as version,ECONOMIC_MATHEMATICS_SLIDES as slides,ECONOMIC_MATHEMATICS_LESSONS as lessons,ECONOMIC_MATHEMATICS_INTERACTIONS as labs,economicModels as M,economicCurve,getEconomicMathematicsInteractionDefinition as definition,validateEconomicMathematicsInteractionState as valid} from "@edu/course-content/economic-mathematics";
+import {ECONOMIC_MATHEMATICS_UNALLOCATED_HOURS,ECONOMIC_MATHEMATICS_COURSE_ID as courseId,ECONOMIC_MATHEMATICS_DECK_ID as deckId,ECONOMIC_MATHEMATICS_VERSION_ID as version,ECONOMIC_MATHEMATICS_SLIDES as slides,ECONOMIC_MATHEMATICS_LESSONS as lessons,ECONOMIC_MATHEMATICS_INTERACTIONS as labs,economicModels as M,economicCurve,getEconomicMathematicsInteractionDefinition as definition,validateEconomicMathematicsInteractionState as valid} from "@edu/course-content/economic-mathematics";
 import {buildApp} from "../src/app.js";
 import {buildPromptWorkspace} from "../src/assistant/prompts.js";
 import {getCourseDeckByCourseId} from "@edu/course-content/deck-registry";
 test("V2 curriculum, models, geometric evidence and interaction domains",()=>{
- assert.equal(lessons.length,32);assert.equal(lessons.reduce((s,l)=>s+l.hours,0),64);
+ assert.equal(lessons.length,32);assert.equal(lessons.reduce((s,l)=>s+l.hours,0)+ECONOMIC_MATHEMATICS_UNALLOCATED_HOURS,64);
  assert.equal(slides.length,lessons.reduce((s,l)=>s+l.slideTotal,0));assert.ok(slides.length<600);
  assert.equal(new Set(slides.map(s=>s.slideKey)).size,slides.length);assert.equal(Object.keys(labs).length,13);
  assert.ok(slides.filter(s=>s.style==="constructivist").length/slides.length<=.15);
- for(const lesson of lessons){assert.equal(lesson.route?.reduce((s,r)=>s+r.minutes,0),90);assert.ok(lesson.prerequisites?.length);assert.ok(lesson.outcomes?.length);}
+ for(const lesson of lessons){assert.equal(lesson.route?.reduce((s,r)=>s+r.minutes,0),lesson.hours*45);assert.ok(lesson.prerequisites?.length);assert.ok(lesson.outcomes?.length);}
  for(const s of slides){const d=definition(s);if(d){assert.ok(valid(d,d.defaults),s.slideKey);assert.equal(valid(d,{...d.defaults,presentationStep:.5}),false);assert.equal(valid(d,{...d.defaults,presentationStep:(s.steps?.length??0)+1}),false);}}
  assert.equal(M.demand(50),700);assert.equal(M.profit(70),23000);assert.equal(M.accumulated(8),1216);assert.equal(M.rate(4),168);
  assert.equal(M.response(60,25),840);assert.equal(M.response(55,36),904);
@@ -38,7 +38,7 @@ test("SSE sends public steps to both viewers and restores the authoritative step
   const teacherHeaders=await login("teacher"),studentHeaders=await login("student");
   const started=await app.inject({method:"POST",url:"/api/courses/"+courseId+"/class-sessions",headers:teacherHeaders});
   const url="/api/class-sessions/"+started.json().id;
-  const s=slides.find(s=>s.lesson===1&&s.title==="价格模型的定义域")!;
+  const s=slides.find(s=>s.lesson===2&&s.title==='算出16,000，不等于原复合有定义')!;
   await app.inject({method:"POST",url:url+"/events",headers:teacherHeaders,payload:{type:"set_slide",index:s.index}});
   assert.equal((await app.inject({method:"POST",url:url+"/events",headers:studentHeaders,payload:{type:"set_slide_interaction",slideId:s.slideKey,expectedRevision:1,patch:{presentationStep:2}}})).statusCode,403);
   const open=async(headers:{cookie:string})=>{
@@ -88,7 +88,7 @@ test("classroom steps synchronize, reject conflicts, restore on return and resta
  try{
  const start=await app.inject({method:"POST",url:"/api/courses/"+courseId+"/class-sessions"});assert.equal(start.statusCode,201);const id=start.json().id as string,url="/api/class-sessions/"+id;
  const initial=classroomSnapshotSchema.parse((await app.inject({method:"GET",url:url+"/snapshot"})).json());assert.equal(initial.slide.deckId,deckId);assert.equal(initial.slide.total,slides.length);
- const s=slides.find(s=>s.lesson===1&&s.title==="价格模型的定义域")!;
+ const s=slides.find(s=>s.lesson===2&&s.title==='算出16,000，不等于原复合有定义')!;
  const control=(payload:Record<string,unknown>)=>app.inject({method:"POST",url:url+"/events",payload});
  assert.equal((await control({type:"set_slide",index:s.index})).statusCode,201);
  assert.equal((await control({type:"set_slide_interaction",slideId:s.slideKey,expectedRevision:1,patch:{presentationStep:.5}})).statusCode,400);
@@ -101,6 +101,38 @@ test("classroom steps synchronize, reject conflicts, restore on return and resta
  app=await buildApp({dataFile,portSimulationTickMs:0});const old=classroomSnapshotSchema.parse((await app.inject({method:"GET",url:url+"/snapshot"})).json());
  assert.equal(old.slide.versionId,"release-economic-mathematics-v1");assert.equal(old.slide.index,1390);assert.match(old.slide.title,/已归档/);assert.equal(old.slideInteraction?.revision,7);
  const rejected=await control({type:"next_slide"});assert.equal(rejected.statusCode,409);assert.equal(rejected.json().error,"COURSE_DECK_ARCHIVED");
+ await app.close();
+ const savedV2=JSON.parse(await readFile(dataFile,"utf8"));
+ Object.assign(savedV2.classroomRuntimes[id],{deckId:'deck-economic-mathematics-2026-v2',deckVersion:'release-economic-mathematics-editorial-v2',slideIndex:16,slideKey:'em-v2-l02-p001'});
+ savedV2.classroomRuntimes[id].slideInteractions['em-v2-l02-p001']={revision:4,values:{presentationStep:0}};
+ await writeFile(dataFile,JSON.stringify(savedV2));app=await buildApp({dataFile,portSimulationTickMs:0});
+ const oldV2=classroomSnapshotSchema.parse((await app.inject({method:'GET',url:url+'/snapshot'})).json());
+ assert.equal(oldV2.slide.total,348);assert.equal(oldV2.slide.index,16);assert.equal(oldV2.slide.lessonNumber,2);assert.equal(oldV2.slideInteraction?.revision,4);
+ assert.equal((await control({type:'next_slide'})).statusCode,409);
+ await app.close();
+ const savedReordered=JSON.parse(await readFile(dataFile,'utf8'));
+ Object.assign(savedReordered.classroomRuntimes[id],{deckId:'deck-economic-mathematics-2026-v2-reordered',deckVersion:'release-economic-mathematics-editorial-v2-reordered-2026-10-09',slideIndex:66,slideKey:'em-v2-l02-p011'});
+ savedReordered.classroomRuntimes[id].slideInteractions['em-v2-l02-p011']={revision:5,values:{presentationStep:1}};
+ await writeFile(dataFile,JSON.stringify(savedReordered));app=await buildApp({dataFile,portSimulationTickMs:0});
+ const oldReordered=classroomSnapshotSchema.parse((await app.inject({method:'GET',url:url+'/snapshot'})).json());
+ assert.equal(oldReordered.slide.total,388);assert.equal(oldReordered.slide.index,66);assert.equal(oldReordered.slide.lessonNumber,2);assert.equal(oldReordered.slideInteraction?.revision,5);
+ assert.equal((await control({type:'next_slide'})).statusCode,409);
+ await app.close();
+ const saved50=JSON.parse(await readFile(dataFile,'utf8'));
+ Object.assign(saved50.classroomRuntimes[id],{deckId:'deck-economic-mathematics-2026-lesson02-refined',deckVersion:'release-economic-mathematics-lesson02-refined-2026-10-09',slideIndex:90,slideKey:'em-l02-refined-p050'});
+ saved50.classroomRuntimes[id].slideInteractions['em-l02-refined-p050']={revision:6,values:{presentationStep:0}};
+ await writeFile(dataFile,JSON.stringify(saved50));app=await buildApp({dataFile,portSimulationTickMs:0});
+ const old50=classroomSnapshotSchema.parse((await app.inject({method:'GET',url:url+'/snapshot'})).json());
+ assert.equal(old50.slide.total,412);assert.equal(old50.slide.index,90);assert.equal(old50.slide.lessonNumber,2);assert.equal(old50.slide.slideId,'em-l02-refined-p050');assert.equal(old50.slideInteraction?.revision,6);
+ assert.equal((await control({type:'next_slide'})).statusCode,409);
+ await app.close();
+ const saved60=JSON.parse(await readFile(dataFile,'utf8'));
+ Object.assign(saved60.classroomRuntimes[id],{deckId:'deck-economic-mathematics-2026-lesson02-flow',deckVersion:'release-economic-mathematics-lesson02-flow-2026-10-09',slideIndex:100,slideKey:'em-l02-refined-flow-p060'});
+ saved60.classroomRuntimes[id].slideInteractions['em-l02-refined-flow-p060']={revision:7,values:{presentationStep:0}};
+ await writeFile(dataFile,JSON.stringify(saved60));app=await buildApp({dataFile,portSimulationTickMs:0});
+ const old60=classroomSnapshotSchema.parse((await app.inject({method:'GET',url:url+'/snapshot'})).json());
+ assert.equal(old60.slide.total,422);assert.equal(old60.slide.index,100);assert.equal(old60.slide.lessonNumber,2);assert.equal(old60.slide.slideId,'em-l02-refined-flow-p060');assert.equal(old60.slideInteraction?.revision,7);
+ assert.equal((await control({type:'next_slide'})).statusCode,409);
  const fresh=await app.inject({method:"POST",url:"/api/courses/"+courseId+"/class-sessions",payload:{mode:"new"}});assert.equal(fresh.statusCode,201);
  const freshFrame=(await app.inject({method:"GET",url:"/api/class-sessions/"+fresh.json().id+"/snapshot"})).json().slide;assert.equal(freshFrame.versionId,version);
  }finally{await app.close();await rm(dir,{recursive:true,force:true});}

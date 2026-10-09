@@ -1,0 +1,1 @@
+Snapshot the prior 388-page reordered release. Restore listed files from this directory only after backing up the current workspace. Old classrooms keep their own version and slide indices; never migrate indices to the 50-page lesson. Original V2 assets remain in public/course-assets/economic-mathematics/v2 and earlier V1/V2 archives are preserved.

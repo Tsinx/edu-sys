@@ -571,6 +571,12 @@ export function CourseWorkspace() {
               <p>
                 {t("查看课件不会开启课堂。开始上课会优先恢复您最近的进行中课堂。", "Preview slides without starting a class. Start / resume class restores your latest active class.")}
               </p>
+              {profile?.resources.filter(resource => resource.role === "课程序章" && resource.url).map(resource => (
+                <p key={resource.url} className="workspace-section">
+                  <a href={resource.url} target="_blank" rel="noreferrer">{resource.title}</a>
+                  {" · "}{resource.detail}
+                </p>
+              ))}
               <CourseLessonDirectory deck={deck} activityCounts={activityCounts} onPrepare={number => {
                 setLesson(number);
                 setQuery({ tab: "settings" });

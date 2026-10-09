@@ -72,7 +72,7 @@ import {
   PORT_MANAGEMENT_DECK_VERSION,
   PORT_MANAGEMENT_SLIDE_TOTAL
 } from "@edu/course-content";
-import { ECONOMIC_MATHEMATICS_COURSE_ID, ECONOMIC_MATHEMATICS_DECK_ID, ECONOMIC_MATHEMATICS_VERSION_ID } from "@edu/course-content/economic-mathematics";
+import { getEconomicMathematicsHistoricalCounts, ECONOMIC_MATHEMATICS_COURSE_ID, ECONOMIC_MATHEMATICS_DECK_ID, ECONOMIC_MATHEMATICS_VERSION_ID } from "@edu/course-content/economic-mathematics";
 import { INTERNATIONAL_MATHEMATICS_COURSE_ID, resolveInternationalMathematicsSavedPosition } from "@edu/course-content/international-mathematics";
 import { getCourseDeckByCourseId, getCourseAdjacentIndex, getCourseLessonLabel } from "@edu/course-content/deck-registry";
 import {
@@ -1575,9 +1575,9 @@ export class JsonStateStore {
     const deck = getCourseDeckByCourseId(course.id);
     if (!deck) return undefined;
     const archivedMath = course.id === ECONOMIC_MATHEMATICS_COURSE_ID && (runtime.deckId !== deck.deckId || runtime.deckVersion !== deck.versionId);
-    const archivedCounts = [44,47,45,45,47,46,47,44,46,43,46,44,45,47,45,47,43,44,46,45,47,46,45,46,47,47,45,47,46,47,47,44];
+    const archivedCounts = getEconomicMathematicsHistoricalCounts(runtime.deckVersion) ?? [Math.max(1, runtime.slideIndex)];
     let archivedLesson=1, archivedOffset=0;
-    while(archivedLesson<32 && runtime.slideIndex>archivedOffset+archivedCounts[archivedLesson-1]!) archivedOffset+=archivedCounts[archivedLesson++-1]!;
+    while(archivedLesson<archivedCounts.length && runtime.slideIndex>archivedOffset+archivedCounts[archivedLesson-1]!) archivedOffset+=archivedCounts[archivedLesson++-1]!;
     const slideSpec =
       archivedMath ? {slideKey:runtime.slideKey,index:runtime.slideIndex,lessonNumber:archivedLesson,lessonTitle:"旧版课件已归档",section:"历史课堂",title:"经济数学旧版课件已归档",summary:"此课堂保留原版本、页码与实验状态。请新建课堂使用新版课件。"} : deck.getSlideByKey(runtime.slideKey) ?? deck.getSlide(runtime.slideIndex);
     const savedInteraction = runtime.slideInteractions[slideSpec.slideKey];
@@ -1616,7 +1616,7 @@ export class JsonStateStore {
         versionId: archivedMath ? runtime.deckVersion : deck.versionId,
         slideId: slideSpec.slideKey,
         index: slideSpec.index,
-        total: archivedMath ? 1460 : deck.slideTotal,
+        total: archivedMath ? archivedCounts.reduce((sum, n) => sum + n, 0) : deck.slideTotal,
         logicalWidth: SLIDE_LOGICAL_WIDTH,
         logicalHeight: SLIDE_LOGICAL_HEIGHT,
         aspectRatio: SLIDE_ASPECT_RATIO,

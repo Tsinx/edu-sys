@@ -40,7 +40,7 @@ const EconomicMathematicsSlideStage = lazy(() =>
   )
 );
 
-const ECONOMIC_MATHEMATICS_DECK_ID = "deck-economic-mathematics-2026-v2";
+import { ECONOMIC_MATHEMATICS_DECK_ID } from '@edu/course-content/economic-mathematics';
 const INTERNATIONAL_MATHEMATICS_DECK_ID = "deck-international-mathematics-jacques-2026";
 const InternationalMathematicsStage = lazy(() => import("../international-mathematics/InternationalMathematicsStage").then(module => ({default: module.InternationalMathematicsStage})));
 const StatisticalAnalysisSlideStage = lazy(() => import('../statistical-analysis/StatisticalAnalysisSlideStage').then(m => ({default:m.StatisticalAnalysisSlideStage})));
@@ -844,7 +844,7 @@ export function SlideStage({
       <InternationalMathematicsStage frame={frame} interaction={interaction} readOnly={readOnly} playbackMode={playbackMode} serverNowMs={serverNowMs} onNavigate={onNavigate} onInteractionPatch={onInteractionPatch} onInteractionReset={onInteractionReset}/>
     </Suspense>;
   }
-  if (frame.deckId === ECONOMIC_MATHEMATICS_DECK_ID || frame.deckId === "deck-economic-mathematics-2026") {
+  if (frame.deckId === "deck-economic-mathematics-2026-lesson02-flow" || frame.deckId === "deck-economic-mathematics-2026-lesson02-refined" || frame.deckId === "deck-economic-mathematics-2026-v2-reordered" || frame.deckId === ECONOMIC_MATHEMATICS_DECK_ID || frame.deckId === "deck-economic-mathematics-2026-v2" || frame.deckId === "deck-economic-mathematics-2026") {
     return (
       <Suspense
         fallback={

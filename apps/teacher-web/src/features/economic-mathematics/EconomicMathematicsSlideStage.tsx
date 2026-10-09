@@ -8,6 +8,7 @@ import { SlideViewport } from "../classroom/SlideViewport";
 import { EconomicMathematicsTeachingSlides, EconomicMathematicsControls } from "./EconomicMathematicsTeachingSlides";
 import "katex/dist/katex.min.css";
 import "./economic-mathematics.css";
+import { EconomicPageNarrator } from './EconomicPageNarrator';
 
 interface EconomicMathematicsSlideStageProps {
   frame: SlideFrame;
@@ -40,6 +41,7 @@ export function EconomicMathematicsSlideStage({
       />
     </SlideViewport>
     {!readOnly&&<EconomicMathematicsControls spec={spec} interaction={interaction} onInteractionPatch={onInteractionPatch} onInteractionReset={onInteractionReset}/>}
+    {!readOnly&&<EconomicPageNarrator spec={spec} interaction={interaction} onInteractionPatch={onInteractionPatch}/>}
     </>
   );
 }

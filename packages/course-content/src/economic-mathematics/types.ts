@@ -62,6 +62,14 @@ export type EconomicMathematicsInteractionId =
   | "budget-constraint-lab";
 
 export interface EconomicMathematicsAuthoredSlide {
+  merchantFigure?: 'mapping' | 'mapping-types' | 'many-one' | 'demand' | 'sales' | 'inverse' | 'profit' | 'grid' | 'composition' | 'expansion';
+  merchantLab?: boolean;
+  exerciseMinutes?: number;
+  /** Original public prelude page ID; rendered with the existing geometric artwork. */
+  preludeId?: string;
+  /** Original source coordinates keep assets and narration stable after regrouping. */
+  sourceLesson?: number;
+  sourceLocalIndex?: number;
   slideKey: string;
   compositionId: string;
   section: string;
@@ -130,7 +138,7 @@ export interface EconomicMathematicsLessonDefinition {
   unit: EconomicMathematicsUnitNumber;
   unitTitle: string;
   title: string;
-  hours: 2;
+  hours: 1 | 2 | 3;
   expectedSlides: number;
   coreQuestion: string;
   exerciseCapability: string;

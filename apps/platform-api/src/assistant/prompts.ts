@@ -104,7 +104,7 @@ export function buildPromptWorkspace(
     ? values?.revealOptimum === true
     : mathSlide?.interactionId === "unconstrained-optimum-lab"
       ? values?.revealClassification === true : true;
-  const withheld = Boolean(internationalSlide?.answer && live?.slideInteraction?.values.revealed !== true) || (!!pe?.reveal&&!peRevealed) || (l6?.answerHidden && !l6Revealed) || (l5?.answerHidden && !l5Revealed) || (!demoCue && l4?.answerHidden) || mgContext?.withheld || (Boolean(mathSlide?.steps?.length) && getEconomicMathematicsPresentationStep(mathSlide!,values) < mathSlide!.steps!.length) || (Boolean(mathSlide?.interactionId) && !specialRevealed);
+  const withheld = Boolean(mathSlide?.exerciseMinutes) || Boolean(internationalSlide?.answer && live?.slideInteraction?.values.revealed !== true) || (!!pe?.reveal&&!peRevealed) || (l6?.answerHidden && !l6Revealed) || (l5?.answerHidden && !l5Revealed) || (!demoCue && l4?.answerHidden) || mgContext?.withheld || (Boolean(mathSlide?.steps?.length) && getEconomicMathematicsPresentationStep(mathSlide!,values) < mathSlide!.steps!.length) || (Boolean(mathSlide?.interactionId) && !specialRevealed);
   const boundary = withheld
     ? "当前页答案尚未揭示。当前答案尚未公开。只可依据学生可见摘要给出变量识别、第一步关系或检查方法，不得复述作者答案、最优点、最终数值或完整推导。"
     : contextualPageBoundary(internationalSlide?.assistantCue ?? statsSlide?.assistantCue ?? mathSlide?.assistantCue ?? portSlide?.assistantCue ?? "");

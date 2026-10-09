@@ -1,0 +1,58 @@
+{
+  "verifiedOn": "2026-10-09",
+  "originalBackup": "output/economic-mathematics/prelude-v1/history/economic-mathematics-prelude-before-git-delivery.mp4",
+  "originalSha256": "db544e014f08e1fe22bfecad74bf7c2fb34bb1151cb804ccab914898e1c8b21a",
+  "originalBytes": 106990263,
+  "releaseFile": "apps/teacher-web/public/course-assets/economic-mathematics/prelude/economic-mathematics-prelude.mp4",
+  "releaseSha256": "736f86e4ef1ed2434d5d97a8a83d7b323a3ae8ef8eb4ba20942f335fdd225f59",
+  "releaseBytes": 62475687,
+  "dimensions": [
+    1920,
+    1200
+  ],
+  "fps": 60,
+  "durationSeconds": 90,
+  "decodedFrames": 5400,
+  "fullDecode": "pass",
+  "audioPacketsIdentical": true,
+  "audioStreamHash": "SHA256=5d5ca90890aec91949322014f86f6920bd6f37e5678527037c14736ee48a6df2",
+  "encoding": {
+    "codec": "libx264",
+    "preset": "slow",
+    "crf": 19,
+    "maxrate": "8000k",
+    "bufsize": "16000k",
+    "audio": "copy"
+  },
+  "sampleFrameComparisons": [
+    {
+      "timeSeconds": 2,
+      "ssim": 0.995664
+    },
+    {
+      "timeSeconds": 12,
+      "ssim": 0.994548
+    },
+    {
+      "timeSeconds": 28,
+      "ssim": 0.993891
+    },
+    {
+      "timeSeconds": 43,
+      "ssim": 0.998073
+    },
+    {
+      "timeSeconds": 57,
+      "ssim": 0.99687
+    },
+    {
+      "timeSeconds": 73,
+      "ssim": 0.999087
+    },
+    {
+      "timeSeconds": 87,
+      "ssim": 0.99963
+    }
+  ],
+  "visualAndClassroomBoundary": "Compression changes pixels; the timeline, frame count, dimensions and audio packets are preserved. Classroom projection and listening still require trial teaching."
+}

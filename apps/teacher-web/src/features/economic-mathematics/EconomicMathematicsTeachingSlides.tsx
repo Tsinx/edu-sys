@@ -1,3 +1,7 @@
+import { MerchantFigure } from './MerchantFigure';
+import { ExerciseTimer } from './ExerciseTimer';
+import { merchantReadout } from '@edu/course-content/economic-mathematics';
+import { EconomicPreludeSlide } from './EconomicPreludeSlide';
 import katex from "katex";
 import { economicModels as M, getEconomicMathematicsInteractionDefinition, getEconomicMathematicsPresentationStep, validateEconomicMathematicsInteractionState, type EconomicMathematicsSlideSpec as Slide, type EconomicMathematicsPlot } from "@edu/course-content/economic-mathematics";
 import type { SlideInteractionState, SlideInteractionValues } from "@edu/contracts";
@@ -48,12 +52,13 @@ export function EconomicMathematicsTeachingSlides({spec,interaction}:Props){
  const def=getEconomicMathematicsInteractionDefinition(spec);
  const values=interaction?.slideId===spec.slideKey?{...def?.defaults,...interaction.values}:{...def?.defaults};
  const step=getEconomicMathematicsPresentationStep(spec,values),cover=spec.layout==="cover",hasImage=Boolean(spec.image);
+ if (spec.preludeId) return <EconomicPreludeSlide page={spec.localIndex} step={step}/>;
  const visibleSteps=(spec.steps??[]).slice(0,step);
  const visiblePlot=[...visibleSteps].reverse().find(s=>s.plot)?.plot??spec.plot;
  const highlighted=[...visibleSteps].reverse().find(s=>s.highlightRows)?.highlightRows??[];
- return <article className={"em-slide em-"+(spec.layout??"essay")+" em-style-"+(spec.style??"editorial")+(hasImage?" em-with-image":"")} aria-label={spec.title}>
+ return <article className={"em-slide em-"+(spec.layout??"essay")+" em-style-"+(spec.style??"editorial")+(hasImage?" em-with-image":"")+(spec.slideKey.startsWith("em-l02-refined")?" em-refined":"")+(spec.merchantFigure?" em-has-merchant-figure":"")+(spec.merchantFigure==="mapping-types"?" em-mapping-types":"")} aria-label={spec.title}>
  {cover&&<img className="em-cover-art" src={assetUrl(spec.image!)} alt={spec.imageAlt??""}/>}
- {spec.style==="constructivist"&&<img className="em-conflict-art" src={"/course-assets/economic-mathematics/v2/l"+String(spec.lesson).padStart(2,"0")+"-scene.png"} alt=""/>}
+ {spec.style==="constructivist"&&<img className="em-conflict-art" src={"/course-assets/economic-mathematics/v2/l"+String(spec.sourceLesson ?? spec.lesson).padStart(2,"0")+"-scene.png"} alt=""/>}
  <header className="em-header"><div className="em-kicker">{spec.kicker||"经济数学 / 第"+String(spec.lesson).padStart(2,"0")+"讲"}</div><h1>{spec.title}</h1></header>
  <main className="em-content">
  {!cover&&hasImage&&<figure className="em-art"><img src={assetUrl(spec.image!)} alt={spec.imageAlt??""}/></figure>}
@@ -64,14 +69,15 @@ export function EconomicMathematicsTeachingSlides({spec,interaction}:Props){
  {spec.table&&<table className="em-table"><thead><tr>{spec.table.columns.map((c,i)=><th key={i}><MathText text={c}/></th>)}</tr></thead><tbody>{spec.table.rows.map((row,i)=><tr key={i} className={highlighted.includes(i)?"em-table-highlight":undefined}>{row.map((c,j)=><td key={j}><MathText text={c}/></td>)}</tr>)}</tbody></table>}
  {(spec.steps??[]).slice(0,step).map((s,i)=><section className="em-reveal" key={i}><span className="em-step-number">{String(i+1).padStart(2,"0")}</span><div><h2>{s.title}</h2>{s.text&&<p><MathText text={s.text}/></p>}{s.formula&&<MathText text={s.formula} display/>}</div></section>)}
  </div>
+ {spec.merchantFigure&&<MerchantFigure kind={spec.merchantFigure} values={values}/>}
  {visiblePlot&&!spec.interactionId&&<EconomicPlot config={visiblePlot} values={values}/>}
- {spec.interactionId&&<div className="em-lab-projection"><EconomicPlot config={{...labPlots[spec.interactionId]!,...(spec.interactionId==="sequence-limit-lab"?{domain:[1,Math.max(40,Number(values.n))] as const}:{})}} values={values} lab={spec.interactionId}/><dl className="em-readout">{economicLabReadout(spec.interactionId,values).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl></div>}
+ {spec.interactionId&&<div className="em-lab-projection">{spec.merchantLab?<MerchantFigure kind="profit" values={values}/>:<EconomicPlot config={{...labPlots[spec.interactionId]!,...(spec.interactionId==="sequence-limit-lab"?{domain:[1,Math.max(40,Number(values.n))] as const}:{})}} values={values} lab={spec.interactionId}/>}<dl className="em-readout">{(spec.merchantLab?merchantReadout(values):economicLabReadout(spec.interactionId,values)).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl></div>}
  </main>
  {spec.prompt&&<aside className="em-prompt"><MathText text={spec.prompt}/></aside>}
  <footer className="em-footer"><span>{spec.sourceLabel}{spec.sourceNote?" · "+spec.sourceNote:""}</span><span>{spec.localIndex+" / "+spec.localTotal+" · "+spec.unitTitle}</span></footer>
  </article>;
 }
-const labels:Record<string,string>={price:"价格（元/件）",segment:"细分市场",n:"轮次",epsilon:"容许误差",orderAmount:"订单额（元）",approach:"接近方向",basePrice:"基准价格（元/件）",h:"价格间隔（元/件）",deltaPrice:"价格变化（元/件）",partitions:"分段数",sample:"取样位置",upperBound:"时间上限（小时）",advertising:"广告（百元/日）",lockedAxis:"固定变量",baseAdvertising:"基准广告（百元/日）",deltaAdvertising:"广告变化（百元/日）",x:"投入 x",y:"投入 y",budget:"预算（百元）",channelX:"渠道 x（百元）",revealStep:"公开分析",revealOptimum:"公开最优结果",revealClassification:"公开极值判别"};
+const labels:Record<string,string>={capacity:"履约能力（件/日）",commission:"抽成比例",fixedCost:"固定成本（元/日）",price:"价格（元/件）",segment:"细分市场",n:"轮次",epsilon:"容许误差",orderAmount:"订单额（元）",approach:"接近方向",basePrice:"基准价格（元/件）",h:"价格间隔（元/件）",deltaPrice:"价格变化（元/件）",partitions:"分段数",sample:"取样位置",upperBound:"时间上限（小时）",advertising:"广告（百元/日）",lockedAxis:"固定变量",baseAdvertising:"基准广告（百元/日）",deltaAdvertising:"广告变化（百元/日）",x:"投入 x",y:"投入 y",budget:"预算（百元）",channelX:"渠道 x（百元）",revealStep:"公开分析",revealOptimum:"公开最优结果",revealClassification:"公开极值判别"};
 const optionLabels:Record<string,string>={left:"左侧",right:"右侧",free:"自由",midpoint:"中点",none:"均不固定",price:"价格",advertising:"广告",A:"市场A",B:"市场B"};
 export function isEconomicMathematicsControlDisabled(key:string,v:SlideInteractionValues){return v.lockedAxis===key;}
 export function buildEconomicMathematicsControlPatch(key:string,value:number|string|boolean,v:SlideInteractionValues):SlideInteractionValues{
@@ -83,7 +89,7 @@ export function buildEconomicMathematicsControlPatch(key:string,value:number|str
  return patch;
 }
 export function EconomicMathematicsControls({spec,interaction,onInteractionPatch,onInteractionReset}:Omit<Props,"readOnly">){
- const def=getEconomicMathematicsInteractionDefinition(spec);if(!def)return null;
+ const def=getEconomicMathematicsInteractionDefinition(spec);if(!def)return spec.exerciseMinutes?<ExerciseTimer key={spec.slideKey} minutes={spec.exerciseMinutes}/>:null;
  const values={...def.defaults,...(interaction?.slideId===spec.slideKey?interaction.values:{})},step=getEconomicMathematicsPresentationStep(spec,values);
  const patch=(key:string,value:number|string|boolean)=>{const update=buildEconomicMathematicsControlPatch(key,value,values);if(validateEconomicMathematicsInteractionState(def,{...values,...update}))onInteractionPatch?.(update);};
  return <section className="em-teacher-controls" aria-label="经济数学教师控制"><b>{def.label}</b>

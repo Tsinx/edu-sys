@@ -1,0 +1,24 @@
+{
+  "created": "2026-10-09",
+  "assets": [
+    {
+      "path": "apps/teacher-web/public/course-assets/economic-mathematics/refined/merchant-cover.png",
+      "source": "OpenAI imagegen; generated for this lesson",
+      "purpose": "Lesson 2 cover; atmospheric merchant and fulfillment illustration, not quantitative evidence",
+      "prompt": "Landscape 16:10 editorial collage illustration for a Chinese university economics mathematics lecture. Warm ivory paper, deep ink teal, muted blue gray and terracotta orange. Sophisticated mid-century modern geometric composition with tactile paper grain, isometric small merchant fulfillment workshop, neatly organized limited shelves of parcels, a few parcels waiting outside capacity, translucent flowing ribbons evoking a demand curve, a small orange sphere linking market and workshop. Composition concentrated in right 55 percent, left 45 percent broad quiet ivory negative space for editable title. Precise elegant architectural collage, strong hierarchy, soft shadows, restrained realistic material fragments, no kitsch. Absolutely no text, letters, numbers, axes, charts, equations, logos or watermarks. This is atmospheric metaphor not mathematical evidence."
+    }
+  ],
+  "nativeFigures": [
+    "mapping",
+    "mapping-types",
+    "many-one",
+    "grid",
+    "composition",
+    "sales",
+    "profit",
+    "inverse",
+    "expansion"
+  ],
+  "modelSource": "packages/course-content/src/economic-mathematics/merchant-model.ts",
+  "reuse": "Existing v2/l02-scene.png remains a low-opacity collage background on five challenge pages."
+}

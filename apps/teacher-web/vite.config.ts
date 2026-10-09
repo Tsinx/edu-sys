@@ -25,6 +25,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(teacherWebRoot, "index.html"),
+        economicNarration: resolve(teacherWebRoot, "economic-narration.html"),
         statisticalAnalysisPreview: resolve(teacherWebRoot, "statistical-analysis-preview.html"),
         managementPreview: resolve(teacherWebRoot, "management-preview.html"),
         globePreview: resolve(teacherWebRoot, "globe-preview.html"),

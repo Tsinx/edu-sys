@@ -1,4 +1,5 @@
 import {PortExpansionControls} from '../port-expansion/PortExpansionStage';
+import { NARRATION_PRESENTATION_EVENT, type NarrationPresentation } from '../economic-mathematics/narration-events';
 import type {ExpansionPresentation} from '@edu/course-content';
 import { PortLessonFiveControls, type LessonFivePresentation } from "../port-lesson-five/PortLessonFiveStage";
 import { PortLessonSixControls } from '../port-lesson-six/PortLessonSixStage';
@@ -259,6 +260,13 @@ export function ClassroomSubsystem() {
     avatar: lamAvatarRef, phase: setAssistantPhase, transcript: setLamTranscript,
     notice: setNotice, error: setError, snapshot: mergeSnapshot
   });
+  const cancelRealtimeForNarration = useRef(realtimeVoice.cancel); cancelRealtimeForNarration.current = realtimeVoice.cancel;
+  useEffect(() => {
+    const caption = (event: Event) => { const detail = (event as CustomEvent<NarrationPresentation>).detail; if (['loading', 'playing', 'paused'].includes(detail.status)) setLamTranscript(detail.subtitle); };
+    const exclusive = (event: Event) => { if ((event as CustomEvent).detail?.meter) { assistantAbortRef.current?.abort(); assistantAbortRef.current = undefined; cancelRealtimeForNarration.current(); setAssistantPhase('idle'); } };
+    window.addEventListener(NARRATION_PRESENTATION_EVENT, caption); window.addEventListener('edu:exclusive-audio', exclusive);
+    return () => { window.removeEventListener(NARRATION_PRESENTATION_EVENT, caption); window.removeEventListener('edu:exclusive-audio', exclusive); };
+  }, []);
 
   useEffect(() => {
     snapshotRef.current = undefined;

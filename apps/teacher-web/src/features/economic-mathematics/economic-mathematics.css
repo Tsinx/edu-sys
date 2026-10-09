@@ -69,3 +69,32 @@
 .em-teacher-controls button{width:max-content}
 @media(max-width:600px){.em-variable-controls{flex-direction:column}.em-reveal-controls{gap:8px;flex-wrap:wrap}}
 .em-table-highlight { background: #dce6df; box-shadow: inset 5px 0 #466d6e; }
+.em-refined .em-header h1{font-size:66px;line-height:1.22}
+.em-refined .em-kicker{font-size:24px;letter-spacing:2px}
+.em-refined .em-body,.em-refined .em-lead{font-size:32px;line-height:1.55;margin-bottom:18px}
+.em-refined .em-math{font-size:38px;margin:18px 0}
+.em-refined .em-reveal{padding:14px 0;gap:14px}
+.em-refined .em-reveal h2{font-size:30px}
+.em-refined .em-reveal p{font-size:30px;line-height:1.5}
+.em-refined .em-reveal .em-math{font-size:36px;margin:8px 0}
+.em-refined .em-table{font-size:30px}
+.em-refined .em-table td,.em-refined .em-table th{padding:16px 16px}
+.em-refined .em-prompt{font-size:30px}
+.em-refined.em-has-merchant-figure .em-content{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,1fr);gap:38px;align-items:center}
+.em-refined.em-has-merchant-figure .em-math{font-size:36px}
+.em-refined.em-has-merchant-figure .em-copy{align-self:center}
+.em-merchant-figure{width:100%;height:auto;max-height:520px;display:block;align-self:center}
+.em-merchant-figure text{font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;font-size:27px;fill:#202c2d}
+.em-merchant-figure .em-chart-tick{font-size:24px}
+.em-refined.em-lab .em-merchant-figure{height:405px;max-height:405px}
+.em-refined.em-lab .em-lab-projection{height:auto}
+.em-refined.em-lab .em-readout{gap:14px}
+.em-refined.em-lab .em-readout dd{font-size:26px}
+.em-refined.em-cover .em-header h1{font-size:80px}
+.em-refined.em-cover .em-header{max-width:780px}
+.em-refined.em-cover .em-lead{max-width:640px;font-size:36px}
+.em-refined.em-mapping-types .em-content{display:flex;gap:12px}
+.em-refined.em-mapping-types .em-merchant-figure{height:auto;max-height:none;flex-shrink:0}
+.em-refined.em-mapping-types .em-merchant-figure text{font-size:30px}
+.em-refined.em-mapping-types .em-table{table-layout:fixed}
+.em-refined.em-mapping-types .em-table th,.em-refined.em-mapping-types .em-table td{padding:12px 16px}

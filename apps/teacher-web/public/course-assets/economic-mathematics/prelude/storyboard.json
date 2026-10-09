@@ -1,0 +1,234 @@
+{
+  "title": "从一个点开始 · 经济数学",
+  "durationSeconds": 90,
+  "logicalCanvas": [
+    1600,
+    1000
+  ],
+  "video": {
+    "width": 1920,
+    "height": 1200,
+    "fps": 60,
+    "frames": 5400
+  },
+  "palette": {
+    "blue": "#1645ff",
+    "yellow": "#ffe229",
+    "green": "#21e779",
+    "ink": "#081b57",
+    "paper": "#fff9e8",
+    "orange": "#ff633c"
+  },
+  "music": {
+    "file": "score.wav",
+    "tempoBpm": 120,
+    "narration": null,
+    "source": "原创加法合成与固定种子打击音",
+    "actionAccentsSeconds": [
+      2,
+      3.18,
+      6,
+      7.58,
+      14,
+      18,
+      20.38,
+      27,
+      27.18,
+      31.18,
+      41.18,
+      42,
+      46.18,
+      54.18,
+      56,
+      57.18,
+      60,
+      63.18,
+      71.18,
+      75,
+      75.18,
+      78.18,
+      85.18
+    ],
+    "sample": "sample-score.wav 与四段样片的源时间严格对应"
+  },
+  "shots": [
+    {
+      "from": 0,
+      "to": 10,
+      "shape": "单点脉冲、点场聚散、球形分布与平面阵列",
+      "meaning": "个体选择汇成市场",
+      "camera": "球形点场推进、旋转和拉出；阵列落位"
+    },
+    {
+      "from": 10,
+      "to": 24,
+      "shape": "二维阵列获得厚度；方块错相升降",
+      "meaning": "价格变化与需求响应",
+      "camera": "顶视俯冲至低机位，左右环绕，再快速拉升"
+    },
+    {
+      "from": 24,
+      "to": 38,
+      "shape": "流动线束舒展，赭橙色点沿曲线穿行",
+      "meaning": "变化率与局部观察",
+      "camera": "粗细线束对冲，旋转推近，横向跟随主点"
+    },
+    {
+      "from": 38,
+      "to": 52,
+      "shape": "8列块体逐步细分到64列，空隙收拢",
+      "meaning": "从微小增量到累计",
+      "model": "v(t)=120+24t−3t², 0≤t≤8小时，v单位件/小时",
+      "camera": "低角度掠过累计块体，再拉升展现完整面积"
+    },
+    {
+      "from": 52,
+      "to": 68,
+      "shape": "曲面抬升、水平切片、同一三维模型中的等高线",
+      "meaning": "多因素共同作用",
+      "model": "G(x,y)=40√x+30√y；x、y为百元投入，G为教学响应指数",
+      "camera": "大幅环绕与高低机位变化；水平切片保持真实等高关系"
+    },
+    {
+      "from": 68,
+      "to": 82,
+      "shape": "100个资源块错相迁移为64与36的两组",
+      "meaning": "有限资源约束下的配置",
+      "model": "x+y=100, x,y≥0；G在(64,36)取最大值500",
+      "camera": "跟随资源块抛物线迁移；上升俯视64/36的稳定配置"
+    },
+    {
+      "from": 82,
+      "to": 90,
+      "shape": "点场收束为单点，课程名出现并停留",
+      "meaning": "经济数学",
+      "camera": "点场旋转收拢；黑体课程名碰撞落位，静止停留"
+    }
+  ],
+  "continuity": "单一赭橙色主点在各段真实投影之间连续插值；几何碰撞使用短促压缩、回弹和碎散，配乐由同一重音时间表生成。",
+  "text": [
+    {
+      "from": 3,
+      "to": 4.2,
+      "text": "变量"
+    },
+    {
+      "from": 7.4,
+      "to": 8.6,
+      "text": "函数"
+    },
+    {
+      "from": 20.2,
+      "to": 21.6,
+      "text": "极限"
+    },
+    {
+      "from": 27,
+      "to": 28.3,
+      "text": "导数"
+    },
+    {
+      "from": 31,
+      "to": 32.5,
+      "text": "变化率"
+    },
+    {
+      "from": 41,
+      "to": 42.4,
+      "text": "积分"
+    },
+    {
+      "from": 46,
+      "to": 47.5,
+      "text": "累积"
+    },
+    {
+      "from": 54,
+      "to": 55.4,
+      "text": "多元函数"
+    },
+    {
+      "from": 57,
+      "to": 58.4,
+      "text": "偏导数"
+    },
+    {
+      "from": 63,
+      "to": 64.4,
+      "text": "等高线"
+    },
+    {
+      "from": 71,
+      "to": 72.5,
+      "text": "约束"
+    },
+    {
+      "from": 75,
+      "to": 76.4,
+      "text": "选择"
+    },
+    {
+      "from": 78,
+      "to": 79.6,
+      "text": "最优解"
+    },
+    {
+      "from": 85,
+      "to": 90,
+      "text": "经济数学"
+    }
+  ],
+  "textSeconds": 23.2,
+  "references": [
+    {
+      "url": "https://jasonzhu.ai/en/prompts/claude-opus-5-5/2103315922098470926",
+      "credit": "Stephan Livera，创作者标注模型归属",
+      "use": "圆方变形、点阵与弧线组织，仅作为风格参考，未使用其素材"
+    },
+    {
+      "url": "https://jasonzhu.ai/en/prompts/claude-opus-5-5/2103151003272962130",
+      "credit": "shneural，创作者标注Skia与Blender制作",
+      "use": "平面到立体、块体波动与光影，仅作为风格参考，未使用其素材"
+    }
+  ],
+  "assets": [
+    {
+      "file": "film-source.js",
+      "source": "本项目原创程序化几何、摄像机、时间轴",
+      "prompt": "钴蓝底、亮黄与鲜绿点阵及块体；强运镜、短促碰撞；数学术语使用900字重黑体，在相关几何段落快速入场回弹。",
+      "imagegen": false
+    },
+    {
+      "file": "score.wav",
+      "source": "本项目原创音符编排与合成器",
+      "externalSamples": false
+    },
+    {
+      "file": "fonts/sans.woff",
+      "source": "Noto Sans CJK SC，Google / Noto，SIL OFL 1.1；按本文案子集化",
+      "url": "https://github.com/notofonts/noto-cjk/tree/main/Sans"
+    },
+    {
+      "file": "fonts/serif.woff",
+      "source": "Noto Serif CJK SC，Google / Noto，SIL OFL 1.1；按本文案子集化",
+      "url": "https://github.com/notofonts/noto-cjk/tree/main/Serif"
+    },
+    {
+      "file": "film.js",
+      "source": "原创代码与Three.js 0.185.1（MIT）",
+      "license": "THREE-LICENSE.txt"
+    },
+    {
+      "file": "poster.png",
+      "source": "本片第87秒原生渲染帧"
+    },
+    {
+      "file": "fonts/display.woff",
+      "source": "Noto Sans SC，Google Fonts，wght=900，SIL OFL 1.1，本地子集",
+      "url": "https://github.com/google/fonts/tree/main/ofl/notosanssc"
+    }
+  ],
+  "revision": "chromatic-motion-v2-2026-10-08",
+  "artDirection": "现代动态图形；钴蓝、亮黄、鲜绿撞色；黑体大字与短促碰撞；俯冲、低角度掠过和大幅环绕。",
+  "textPolicy": "按用户追加要求增加数学术语；13组短促词语与课程名，累计23.2秒。大字与几何运动共用时间轴。"
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "path": "packages/course-content/src/economic-mathematics/slides.ts",
+    "sha256": "97F65CEE57FED531086BF40CC6A8372FEA99498A279EE65163C5ED904A23A070"
+  },
+  {
+    "path": "packages/course-content/src/economic-mathematics/curriculum.ts",
+    "sha256": "384B5255958E36BCFB0CE1C379E28FA9D4BBC36A2CF1D933AA4401071873EAAE"
+  },
+  {
+    "path": "packages/course-content/src/economic-mathematics/v2/lesson-01.ts",
+    "sha256": "FB3A7AF53CA349EB8A8E9031C07739765ABAA7AA386C9153A09C9ECC314799B8"
+  },
+  {
+    "path": "packages/course-content/src/economic-mathematics/v2/lesson-02.ts",
+    "sha256": "F32C60D28FB4ED2B5E190CCBD485AC15B09DEFEB0403A135DF2F47458A67AAD4"
+  },
+  {
+    "path": "apps/teacher-web/src/features/economic-mathematics/narration-scripts.ts",
+    "sha256": "FED280B93C35A1FFFA4AF79A4EB9145DBD018069D928DE671E3F3DD4918869C8"
+  },
+  {
+    "path": "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
+    "sha256": "2566F7173A653124FA2943C49DF36E56F8F35473743D40C16FCC86F1B0140E52"
+  },
+  {
+    "path": "apps/teacher-web/src/features/economic-mathematics/EconomicPageNarrator.tsx",
+    "sha256": "8F65588DD13C7C8F38CD77EA2F2420B4C9B9D641121A70D59A0B9C1464B05DB0"
+  },
+  {
+    "path": "apps/teacher-web/src/economic-narration.tsx",
+    "sha256": "70163278408AF188F0896BD1005703E5D9AEA612FE74CD20A6F888D592F177F8"
+  },
+  {
+    "path": "docs/course/economic-mathematics-course-order.md",
+    "sha256": "3F37539FC8D97258D51C437D35D08D212AEDBB2D7086AC384214093CCF4FDE3D"
+  }
+]

@@ -284,12 +284,17 @@ const economicMathematicsDescriptor: CourseDeckDescriptor = {
     accent: "economic-mathematics",
     assistantName: "小麦老师",
     supportsStudy: false,
-    resources: ECONOMIC_MATHEMATICS_TEXTBOOKS.map((book) => ({
+    resources: [{
+      role: "第1讲",
+      title: "课程引入 · 从一个点开始",
+      detail: "90秒几何动态艺术短片与40页课程导览 · 45分钟",
+      url: "/course-assets/economic-mathematics/prelude/index.html"
+    }, { role: "第2讲", title: "函数与营销定量模型", detail: `从销量记录到函数、定价与扩容决策 · ${ECONOMIC_MATHEMATICS_LESSONS[1]!.slideTotal}页 / 90分钟`, url: "/economic-narration.html?lesson=2" }, ...ECONOMIC_MATHEMATICS_TEXTBOOKS.map((book) => ({
       role: book.role,
       title: book.title,
       detail: `${book.editor} · ${book.publisher} · ${book.year} · ISBN ${book.isbn}`,
       ...("url" in book && book.url ? { url: book.url } : {})
-    }))
+    }))]
   },
   getSlide: summarizeEconomicMathematicsSlide,
   getSlideByKey(slideKey) {

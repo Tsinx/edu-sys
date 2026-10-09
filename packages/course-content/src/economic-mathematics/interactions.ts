@@ -176,10 +176,14 @@ export const ECONOMIC_MATHEMATICS_INTERACTIONS: Readonly<
 };
 
 export function getEconomicMathematicsInteractionDefinition(
-  slide: Pick<EconomicMathematicsSlideSpec, "interactionId" | "slideKey" | "steps" | "interactionDefaults">
+  slide: Pick<EconomicMathematicsSlideSpec, "interactionId" | "slideKey" | "steps" | "interactionDefaults" | "merchantLab">
 ): EconomicMathematicsInteractionDefinition | null {
   if (!slide.interactionId && !slide.steps?.length) return null;
-  const definition = slide.interactionId ? ECONOMIC_MATHEMATICS_INTERACTIONS[slide.interactionId] : {id: "presentation" as const, label: "分步展示", defaults: {}, rules: {}};
+  const definition: EconomicMathematicsInteractionDefinition = slide.merchantLab ? {
+    id: 'price-profit-lab', label: '有限履约能力下的定价实验',
+    defaults: { price: 80, capacity: 400, commission: .1, fixedCost: 2000 },
+    rules: { price: numberRule(30,100,.5), capacity: numberRule(200,600,10), commission: numberRule(0,.6,.05), fixedCost: numberRule(0,24000,500) }
+  } : slide.interactionId ? ECONOMIC_MATHEMATICS_INTERACTIONS[slide.interactionId] : {id: "presentation" as const, label: "分步展示", defaults: {}, rules: {}};
   return {...definition, defaults: {...definition.defaults, ...slide.interactionDefaults, presentationStep: 0}, rules: {...definition.rules, presentationStep: numberRule(0, slide.steps?.length ?? 0, 1, true)}};
 }
 export function validateEconomicMathematicsInteractionValues(
