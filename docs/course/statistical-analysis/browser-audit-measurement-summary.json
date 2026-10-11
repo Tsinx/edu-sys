@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-11",
+  "kind": "verification-summary-not-raw-per-page-capture",
+  "tool": "CUA browser DOM inspection and visual screenshots",
+  "scope": "final local production preview of the student slide canvas",
+  "productionOriginDuringAudit": "http://127.0.0.1:5181",
+  "logicalCanvas": [1600, 1000],
+  "pages": 350,
+  "newPages": 100,
+  "uniqueNewSlideKeys": 100,
+  "viewports": [
+    { "actualWidth": 1600, "actualHeight": 1000, "pageChecks": 350 },
+    { "actualWidth": 390, "actualHeight": 844, "pageChecks": 350 }
+  ],
+  "totalPageChecks": 700,
+  "pageFailures": 0,
+  "checks": [
+    "1600x1000 logical canvas and 16:10 rendered ratio",
+    "document horizontal bounds",
+    "text, table and figure bounds",
+    "header, body and caption separation",
+    "SVG text overlap",
+    "formula parsing and reserved-height bounds",
+    "complete images with positive natural dimensions",
+    "student copy authoring-language audit",
+    "teacher and assistant metadata leakage",
+    "local course fonts loaded"
+  ],
+  "consoleErrors": 0,
+  "consoleWarnings": 0,
+  "representativeVisualPages": [251, 259, 265, 284, 287, 288, 299, 308, 317, 329, 334, 338],
+  "generatedImageOriginalHashMatches": 8,
+  "sourceAndProductionAssetHashMatches": 10,
+  "tests": {
+    "statisticalAnalysis": { "passed": 15, "failed": 0 },
+    "teacherWebFullSuite": { "passed": 186, "failed": 0 },
+    "platformApiFullSuite": {
+      "passed": 137,
+      "failed": 2,
+      "failuresOutsideCourse": ["api-key-config.test.ts: ASR mock format", "teacher-asr.test.ts: ASR mock format"]
+    }
+  },
+  "workspaceTypecheck": "passed",
+  "teacherWebProductionBuild": "passed with nonfatal chunk-size and plugin-timing warnings",
+  "gitDiffCheck": "passed",
+  "isolatedApiControlAndSharedSnapshotTests": "passed",
+  "liveTeacherStudentBrowserSynchronization": "not exercised in this pass",
+  "campusDeployment": "not performed",
+  "cloudAssistantAcceptance": "not exercised",
+  "classroomTeachingAcceptance": "not exercised"
+}

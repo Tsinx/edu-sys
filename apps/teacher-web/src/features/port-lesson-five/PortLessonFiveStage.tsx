@@ -1,16 +1,16 @@
 import {usePortAutoplay} from '../classroom/usePortAutoplay';
 import { createContext, useContext, useEffect, useRef, useState, useCallback } from 'react';
-import { createPortal } from 'react-dom';
 import type { PortLessonFivePage, LessonFivePlan } from '@edu/course-content';
 import { SlideViewport } from '../classroom/SlideViewport';
-import { ClassroomPlaybackSlot } from '../classroom/ClassroomPlaybackSlot';
+import { PageToolsContribution } from '../classroom/PageTools';
+import { Pause, Play } from 'lucide-react';
 import { PortLessonFiveComposition } from './PortLessonFiveComposition';
 export interface LessonFivePresentation {progress:number;revealed:boolean}
 export const PortLessonFiveControls=createContext<{scope:string;openExperiment?:(id:LessonFivePlan,personal?:boolean)=>void;onChange?:(key:string,state:LessonFivePresentation)=>void}>({scope:'preview'});
 function load(key:string):LessonFivePresentation|undefined {try{const v=JSON.parse(sessionStorage.getItem(key)??'null');if(v&&Number.isFinite(v.progress)&&v.progress>=0&&v.progress<=1&&typeof v.revealed==='boolean')return v;}catch{}return undefined;}
 export function PortLessonFiveStage(props:{page:PortLessonFivePage;readOnly?:boolean;state?:LessonFivePresentation;onChange?:(key:string,state:LessonFivePresentation)=>void}) {return <Playback key={props.page.slideKey+':'+!!props.readOnly} {...props}/>;}
 function Playback({page,readOnly=true,state:controlled,onChange}:{page:PortLessonFivePage;readOnly?:boolean;state?:LessonFivePresentation;onChange?:(key:string,state:LessonFivePresentation)=>void}) {
- const host=useContext(PortLessonFiveControls),slot=useContext(ClassroomPlaybackSlot),key=`port-l5:presentation:${host.scope}:${page.slideKey}`;
+ const host=useContext(PortLessonFiveControls),key=`port-l5:presentation:${host.scope}:${page.slideKey}`;
  const [saved]=useState(()=>readOnly?undefined:load(key));
  const [state,setState]=useState<LessonFivePresentation>(()=>saved??{progress:page.animationSeconds?0:1,revealed:false});
  const [playing,setPlaying]=useState(false),[reduced,setReduced]=useState(false);
@@ -27,5 +27,5 @@ function Playback({page,readOnly=true,state:controlled,onChange}:{page:PortLesso
  useEffect(()=>{if(readOnly)return;const keydown=(e:KeyboardEvent)=>{if((e.target as HTMLElement).closest('input,select,textarea,button,a')||e.ctrlKey||e.metaKey||e.altKey)return;if(e.code==='Space'&&page.animationSeconds){e.preventDefault();toggle();}if(e.key==='r'&&page.animationSeconds){cancel();update({...current.current,progress:0});setPlaying(true);}if(e.key==='f')jump(1);if(e.key==='.'&&page.animationSeconds)jump(Math.min(1,(Math.floor(current.current.progress*4)+1)/4));};addEventListener('keydown',keydown);return()=>removeEventListener('keydown',keydown);});
  const shown=controlled??(readOnly?{progress:1,revealed:false}:state);
  const controls=!readOnly&&(page.animationSeconds||page.reveal)?<div className="l5-playback" aria-label="第5讲播放与揭示控制">{page.animationSeconds&&<><button onClick={toggle}>{playing?'暂停':'播放'}</button><button onClick={()=>{cancel();update({...current.current,progress:0});setPlaying(true);}}>重播</button><button onClick={()=>jump(Math.min(1,(Math.floor(state.progress*4)+1)/4))}>下一幕</button><input aria-label="动画进度" type="range" min="0" max="1000" value={Math.round(state.progress*1000)} onChange={e=>jump(Number(e.target.value)/1000)}/><output>{Math.round(state.progress*100)}%</output><button onClick={()=>jump(1)}>全景</button></>}{page.reveal&&<button onClick={()=>{cancel();setPlaying(false);update({...current.current,revealed:!state.revealed});}}>{state.revealed?'收起解析':'揭示解析'}</button>}</div>:null;
- return <section className="l5-stage"><SlideViewport label={`第5讲 · ${page.localPage}/48`}><PortLessonFiveComposition page={page} p={reduced?1:shown.progress} revealed={shown.revealed} readOnly={readOnly} onOpen={host.openExperiment}/></SlideViewport>{slot&&controls?createPortal(controls,slot):controls}</section>;
+ return <section className="l5-stage"><SlideViewport label={`第5讲 · ${page.localPage}/48`}><PortLessonFiveComposition page={page} p={reduced?1:shown.progress} revealed={shown.revealed} readOnly={readOnly} onOpen={host.openExperiment}/></SlideViewport>{controls&&<PageToolsContribution pageKey={page.slideKey} title="播放与解析" actions={page.animationSeconds ? [{id:'play',label:playing?'暂停':'播放',icon:playing?<Pause size={18}/>:<Play size={18}/>,onInvoke:toggle}] : []}>{controls}</PageToolsContribution>}</section>;
 }

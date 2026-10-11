@@ -1,3 +1,5 @@
+import { PageToolsContribution } from '../classroom/PageTools';
+import { Play, Pause } from 'lucide-react';
 import {useEffect,useLayoutEffect,useMemo,useRef,useState} from 'react';
 import katex from 'katex';
 import type {SlideFrame,SlideInteractionState,SlideInteractionValues} from '@edu/contracts';
@@ -87,8 +89,7 @@ export function InternationalMathematicsStage({frame,interaction,readOnly,onInte
  },[spec.slideKey,values.playing,values.positionMs,values.anchorMs,values.runId,spec.openingFilm]);
  const film=INTERNATIONAL_MATHEMATICS_FILMS[spec.lesson-1]!;
  const media=spec.openingFilm?<video ref={video} className="im-video" poster={film.poster} src={film.src} muted={!sound} playsInline preload="metadata" onTimeUpdate={e=>setDisplayPosition(Math.round(e.currentTarget.currentTime*1000))} onLoadedMetadata={()=>{if(video.current)video.current.currentTime=target();}} onError={()=>setMediaError('Video unavailable. Use the illustrated opening question.')}><track kind="captions" src={film.captions} srcLang="en" label="English" default/></video>:undefined;
- return <div className="im-stage" lang="en"><SlideViewport label={`English mathematics, lesson ${spec.lesson}, page ${spec.localIndex} of ${spec.localTotal}`}><MathematicsCanvas spec={spec} values={values} openingMedia={media}/></SlideViewport>
-  <div className="im-controls">
+ const controls = <div className="im-controls">
    {control&&onNavigate&&INTERNATIONAL_MATHEMATICS_LESSONS.find(l=>l.number===spec.lesson)?.hourRanges?.map(h=><button key={h.number} onClick={()=>onNavigate(h.slideStart)}>Hour {h.number}</button>)}
    {spec.openingFilm&&<>{control&&<><button onClick={()=>patch({playing:!values.playing,positionMs:Math.round(target()*1000),anchorMs:Date.now()+offset.current,runId:String(values.runId??'initial')})}>{values.playing?'Pause':'Play introduction'}</button><button onClick={()=>patch({playing:true,positionMs:0,anchorMs:Date.now()+offset.current,runId:`replay-${Date.now()}`})}>Replay</button><input aria-label="Video position" type="range" min="0" max="90000" step="1000" value={displayPosition} onChange={e=>{setDisplayPosition(Number(e.target.value));patch({positionMs:Number(e.target.value),anchorMs:Date.now()+offset.current,playing:Boolean(values.playing)});}}/></>}
    <button data-im-audio-control onClick={()=>{setSound(v=>!v);if(video.current){video.current.muted=sound;if(latest.current.playing)void video.current.play().catch(()=>{});}setMediaError('');}}>{sound?'Mute':'Enable sound'}</button></>}
@@ -96,6 +97,10 @@ export function InternationalMathematicsStage({frame,interaction,readOnly,onInte
    {spec.answer&&control&&<button onClick={()=>patch({revealed:!values.revealed})}>{values.revealed?'Hide reasoning':'Reveal reasoning'}</button>}
    {control&&Object.keys(defaults).length>0&&<button onClick={()=>{if(local||!onInteractionReset)setLocalValues(defaults);else onInteractionReset();}}>Reset</button>}
    {mediaError&&<span className="im-media-error">{mediaError}</span>}
-  </div>
+  </div>;
+ return <div className="im-stage" lang="en"><SlideViewport label={`English mathematics, lesson ${spec.lesson}, page ${spec.localIndex} of ${spec.localTotal}`}><MathematicsCanvas spec={spec} values={values} openingMedia={media}/></SlideViewport>
+  {(spec.openingFilm || (control && (spec.answer || spec.interaction || onNavigate || Object.keys(defaults).length>0))) && <PageToolsContribution pageKey={spec.slideKey} title={control?'Page tools':'Local sound'} audience={control?'teacher':'local'} actions={spec.openingFilm&&control?[
+    {id:'film',label:values.playing?'Pause':'Play introduction',icon:values.playing?<Pause size={18}/>:<Play size={18}/>,onInvoke:()=>patch({playing:!values.playing,positionMs:Math.round(target()*1000),anchorMs:Date.now()+offset.current,runId:String(values.runId??'initial')})}
+  ]:[]}>{controls}</PageToolsContribution>}
  </div>;
 }

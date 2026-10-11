@@ -6,3 +6,7 @@ export * from "./models.js";
 export * from "./authoring.js";
 export * from "./merchant-model.js";
 export { refinedNarration } from "./lesson-02-refined.js";
+export * from './limits-model.js';
+export { lesson03Narration } from './lesson-03-refined.js';
+export { lesson04Narration } from './lesson-04-refined.js';
+export * from './limit-exercises.js';

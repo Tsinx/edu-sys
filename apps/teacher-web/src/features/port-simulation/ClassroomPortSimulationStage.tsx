@@ -31,6 +31,7 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { api } from "../../api";
+import { PageToolsContribution, usePageToolsScope } from '../classroom/PageTools';
 import {
   PORT_SIMULATION_RUN_STATUS_LABELS,
   PortSimulationWorkspace
@@ -61,6 +62,7 @@ export function ClassroomPortSimulationStage({
   classroomSnapshot,
   onClassroomSnapshot
 }: ClassroomPortSimulationStageProps) {
+  const toolsHost = usePageToolsScope();
   const [expectedStudentCount, setExpectedStudentCount] = useState(30);
   const [selectedChallengeId, setSelectedChallengeId] =
     useState<PortSimulationChallengeId>("joint-watch");
@@ -577,6 +579,7 @@ export function ClassroomPortSimulationStage({
         </section>
       ) : null}
 
+      <PageToolsContribution pageKey={toolsHost?.pageKey ?? 'activity:simulation'} title="仿真控制">
       <header className="port-teacher-controls">
         <div>
           <span>全局课堂控制</span>
@@ -627,6 +630,7 @@ export function ClassroomPortSimulationStage({
           </button>
         </div>
       </header>
+      </PageToolsContribution>
 
       <section className="port-leaderboard" aria-label="港口挑战排行榜">
         <header>

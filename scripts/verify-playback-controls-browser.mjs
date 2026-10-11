@@ -12,21 +12,24 @@ const page = await browser.newPage({ viewport: { width: 1600, height: 1000 } });
 const errors = [], checks = [];
 page.on('pageerror', error => errors.push(error.message));
 await page.route(`${origin}/playback-controls-qa`, route => route.fulfill({ contentType: 'text/html', body: `<html><head><meta name="viewport" content="width=device-width,initial-scale=1"><script type="module">import RefreshRuntime from '/@react-refresh';RefreshRuntime.injectIntoGlobalHook(window);window.$RefreshReg$=()=>{};window.$RefreshSig$=()=>type=>type;window.__vite_plugin_react_preamble_installed__=true;</script><script type="module" src="/@vite/client"></script></head><body style="margin:0"><div id="root"></div><script type="module" src="/@fs/${resolve('apps/teacher-web/test/browser/playback-controls-harness.tsx').replaceAll('\\', '/')}"></script></body></html>` }));
-const button = name => page.getByRole('button', { name, exact: true });
-const enter = async () => { await button('全屏').click(); await page.waitForFunction(() => !!document.fullscreenElement); await page.locator('.classroom-fullscreen-controls .lbl-controls').waitFor(); };
-const exit = async () => { await button('退出全屏').click(); await page.waitForFunction(() => !document.fullscreenElement); await page.locator('.teaching-controlbar .lbl-controls').waitFor(); };
+const button = name => page.getByRole('button', { name, exact: true }).first();
+const openTools = async () => { if (!await page.getByRole('dialog', {name:'动画工具',exact:true}).isVisible()) await button('动画工具').click(); };
+const selectPage = async index => { await button('更多工具').click(); await page.getByLabel('选择课件页').selectOption(index); await openTools(); };
+const enter = async () => { await button('屏幕全屏').click(); await page.waitForFunction(() => !!document.fullscreenElement); await page.locator('.presentation-toolbar .lbl-controls').waitFor(); };
+const exit = async () => { await button('退出屏幕全屏').click(); await page.waitForFunction(() => !document.fullscreenElement); await page.locator('.presentation-toolbar .lbl-controls').waitFor(); };
 async function layout(name) {
   await page.waitForTimeout(150);
   const result = await page.evaluate(() => {
     const rect = element => { const r = element.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height, right: r.right, bottom: r.bottom }; };
-    const toolbar = document.querySelector(document.fullscreenElement ? '.classroom-fullscreen-controls' : '.teaching-controlbar');
+    const toolbar = document.querySelector('.presentation-toolbar');
     const canvas = rect(document.querySelector('.slide-logical-canvas'));
     return {
+      toolbarCount: document.querySelectorAll('.presentation-toolbar').length,
       controlCount: document.querySelectorAll('.lbl-controls').length,
       insideStage: !!document.querySelector('.lbl-stage .lbl-controls'),
       toolbar: rect(toolbar), canvas,
       overflow: document.documentElement.scrollWidth > innerWidth,
-      outside: [...toolbar.querySelectorAll('button,input')].filter(element => {
+      outside: [...toolbar.querySelectorAll('.presentation-toolbar__navigation button,.presentation-toolbar__navigation input,.presentation-toolbar__more,.presentation-toolbar__end button')].filter(element => {
         const r = rect(element), t = rect(toolbar);
         return r.width && (r.x < t.x - 1 || r.right > t.right + 1 || r.bottom > innerHeight + 1);
       }).map(element => element.getAttribute('aria-label') || element.textContent),
@@ -35,6 +38,7 @@ async function layout(name) {
   });
   console.log(name, JSON.stringify(result));
   await page.screenshot({ path: resolve(output, `${name}.png`) });
+  assert.equal(result.toolbarCount, 1, name);
   assert.equal(result.controlCount, 1, name);
   assert.equal(result.insideStage, false, name);
   assert.equal(result.reservedRow, false, name);
@@ -46,8 +50,8 @@ async function layout(name) {
 }
 try {
   await page.goto(`${origin}/playback-controls-qa`);
-  await page.locator('.teaching-controlbar .lbl-controls').waitFor();
-  await page.getByLabel('选择课件页').selectOption('14');
+  await page.locator('.presentation-toolbar').waitFor();
+  await selectPage('14');
   await page.locator('.lbl-process-scene[data-render-state="ready"]').waitFor();
   await layout('normal-desktop');
   await page.getByLabel('动画进度').focus(); await page.keyboard.press('Home');
@@ -62,7 +66,7 @@ try {
   assert.ok(Number(await page.getByLabel('动画进度').inputValue()) > 250);
   await button('全景').click(); assert.equal(await page.getByLabel('动画进度').inputValue(), '1000');
   await button('重播').click(); await page.waitForTimeout(200); await button('暂停').click();
-  await button('下一页').click(); await button('上一页').click();
+  await button('下一页').click(); await button('上一页').click(); await openTools();
   assert.equal(await page.getByLabel('动画进度').inputValue(), '0');
   await exit();
   assert.equal(await page.getByLabel('动画进度').inputValue(), '0');
@@ -71,12 +75,12 @@ try {
     await layout(`normal-${width}`); await enter(); await layout(`fullscreen-${width}`); await exit();
   }
   await page.setViewportSize({ width: 1600, height: 1000 });
-  await page.getByLabel('选择课件页').selectOption('54');
+  await selectPage('54');
   await enter(); await layout('lesson-three-fullscreen'); await exit();
   await page.goto(`${origin}/port-lbl-preview.html?page=0`);
-  await page.locator('.lbl-stage > .lbl-controls').waitFor();
+  await openTools(); await page.locator('.presentation-toolbar .lbl-controls').waitFor();
   assert.equal(await page.locator('.lbl-controls').count(), 1);
-  await button('投影').click(); assert.equal(await page.locator('.lbl-controls').count(), 0);
+  await button('本屏投影').click(); assert.equal(await page.locator('.lbl-controls').count(), 0);
   assert.deepEqual(errors, []);
   await writeFile(resolve(output, 'browser-report.json'), JSON.stringify({ checks, errors, playback: 'play/pause/replay/step/seek/fullscreen persistence/page entry reset passed', standalone: 'controls present; projection hides controls' }, null, 2));
   console.log(JSON.stringify({ layouts: checks.length, errors, playback: 'passed', standalone: 'passed' }));

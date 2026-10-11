@@ -1,0 +1,118 @@
+{
+  "date": "2026-10-11",
+  "visualDirection": "warm paper, deep ink blue, amber and teal; adult retail interview or wholesale context; negative space on left; no readable text or charts",
+  "assets": [
+    {
+      "id": "l6-01-service-interview",
+      "sourcePath": "C:\\Users\\Administrator\\.codex\\generated_images\\01a129cd-9154-7573-b035-bc962419248d\\exec-fdd5b6dd-5a48-4424-9af9-053a443ff756.png",
+      "path": "apps/teacher-web/public/course-assets/statistical-analysis/images/l6-01-service-interview.png",
+      "sha256": "2c77ada8b6ada4d72b47d902b307f1401bed135b7c6b1c71d840e3e0b013bb79",
+      "pixels": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "tool": "built-in image_gen",
+      "originalBytesPreserved": true,
+      "use": "AI teaching context photograph; no factual or quantitative evidence rendered inside the image"
+    },
+    {
+      "id": "l6-02-questionnaire-desk",
+      "sourcePath": "C:\\Users\\Administrator\\.codex\\generated_images\\01a129cd-9154-7573-b035-bc962419248d\\exec-a8812c77-fe0b-4691-a6e5-86bac63b4efc.png",
+      "path": "apps/teacher-web/public/course-assets/statistical-analysis/images/l6-02-questionnaire-desk.png",
+      "sha256": "fda3e224267b9033b7346f373ad464d4e3b81db170cf1b65dae00b496ad7edf8",
+      "pixels": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "tool": "built-in image_gen",
+      "originalBytesPreserved": true,
+      "use": "AI teaching context photograph; no factual or quantitative evidence rendered inside the image"
+    },
+    {
+      "id": "l6-03-measurement-instrument",
+      "sourcePath": "C:\\Users\\Administrator\\.codex\\generated_images\\01a129cd-9154-7573-b035-bc962419248d\\exec-8a887870-e1fa-4e26-8771-1aad68c33b11.png",
+      "path": "apps/teacher-web/public/course-assets/statistical-analysis/images/l6-03-measurement-instrument.png",
+      "sha256": "7372470f9741cd06ab80ca23a655e21dc8a7e8b11f59dd5f00db0d9ce791bb0d",
+      "pixels": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "tool": "built-in image_gen",
+      "originalBytesPreserved": true,
+      "use": "AI teaching context photograph; no factual or quantitative evidence rendered inside the image"
+    },
+    {
+      "id": "l6-04-cognitive-interview",
+      "sourcePath": "C:\\Users\\Administrator\\.codex\\generated_images\\01a129cd-9154-7573-b035-bc962419248d\\exec-ab89f722-51e4-492a-b7c0-b39ce0dc8615.png",
+      "path": "apps/teacher-web/public/course-assets/statistical-analysis/images/l6-04-cognitive-interview.png",
+      "sha256": "d4e895d2bc7954c1dd87211e48a12463e3682956cb564c391d510d144ca7de06",
+      "pixels": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "tool": "built-in image_gen",
+      "originalBytesPreserved": true,
+      "use": "AI teaching context photograph; no factual or quantitative evidence rendered inside the image"
+    },
+    {
+      "id": "l7-01-wholesale-hall",
+      "sourcePath": "C:\\Users\\Administrator\\.codex\\generated_images\\01a129cd-9154-7573-b035-bc962419248d\\exec-ed7c02de-cb20-4c3f-9bf5-983e1e8a6d90.png",
+      "path": "apps/teacher-web/public/course-assets/statistical-analysis/images/l7-01-wholesale-hall.png",
+      "sha256": "ea1ee0f4b3c7ccb3329ba496204ed25faf9b9d2cd71e0d61bb08c0adce4927da",
+      "pixels": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "tool": "built-in image_gen",
+      "originalBytesPreserved": true,
+      "use": "AI teaching context photograph; no factual or quantitative evidence rendered inside the image"
+    },
+    {
+      "id": "l7-02-produce-ledgers",
+      "sourcePath": "C:\\Users\\Administrator\\.codex\\generated_images\\01a129cd-9154-7573-b035-bc962419248d\\exec-265d7571-6f40-4508-bf07-8343d0ee255a.png",
+      "path": "apps/teacher-web/public/course-assets/statistical-analysis/images/l7-02-produce-ledgers.png",
+      "sha256": "36578b2b2f93a3375d366a9e1bfa54dd151d06232dcd4b1cb0e957893cd8a223",
+      "pixels": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "tool": "built-in image_gen",
+      "originalBytesPreserved": true,
+      "use": "AI teaching context photograph; no factual or quantitative evidence rendered inside the image"
+    },
+    {
+      "id": "l7-03-prism-directions",
+      "sourcePath": "C:\\Users\\Administrator\\.codex\\generated_images\\01a129cd-9154-7573-b035-bc962419248d\\exec-05321060-addc-4276-8baf-2f6a92120f57.png",
+      "path": "apps/teacher-web/public/course-assets/statistical-analysis/images/l7-03-prism-directions.png",
+      "sha256": "34947d9332cec55d733896de4752b5d265a3bc64f0e11de7fb87b632b213d3f6",
+      "pixels": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "tool": "built-in image_gen",
+      "originalBytesPreserved": true,
+      "use": "AI teaching context photograph; no factual or quantitative evidence rendered inside the image"
+    },
+    {
+      "id": "l7-04-warehouse-observer",
+      "sourcePath": "C:\\Users\\Administrator\\.codex\\generated_images\\01a129cd-9154-7573-b035-bc962419248d\\exec-8436601f-2a8b-4058-9d4a-b3160e19be7f.png",
+      "path": "apps/teacher-web/public/course-assets/statistical-analysis/images/l7-04-warehouse-observer.png",
+      "sha256": "93932e7a951cce4cb0b2dd8302c994f1567ac097b73841e80f4cafaed7be4392",
+      "pixels": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "tool": "built-in image_gen",
+      "originalBytesPreserved": true,
+      "use": "AI teaching context photograph; no factual or quantitative evidence rendered inside the image"
+    }
+  ]
+}

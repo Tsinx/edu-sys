@@ -35,6 +35,8 @@ import { lesson31 } from "./v2/lesson-31.js";
 import { lesson32 } from "./v2/lesson-32.js";
 import { refinedLesson02 } from './lesson-02-refined.js';
 import { preludeLesson } from './prelude-lesson.js';
+import { refinedLesson03 } from './lesson-03-refined.js';
+import { refinedLesson04 } from './lesson-04-refined.js';
 import type {
   EconomicMathematicsLessonDefinition,
   EconomicMathematicsLessonSpec,
@@ -92,7 +94,7 @@ const combinedLesson: EconomicMathematicsLessonDefinition = {
   })))
 };
 export const ECONOMIC_MATHEMATICS_LESSON_DEFINITIONS: readonly EconomicMathematicsLessonDefinition[] = [
-  preludeLesson, refinedLesson02, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(2)
+  preludeLesson, refinedLesson02, refinedLesson03, refinedLesson04, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(4)
 ];
 
 /** Historical classroom indices must be interpreted using their own release. */
@@ -102,6 +104,8 @@ export function getEconomicMathematicsHistoricalCounts(version: string): readonl
   if (version === 'release-economic-mathematics-editorial-v2-reordered-2026-10-09') return [40, combinedLesson.slides.length, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(2).map(l => l.slides.length)];
   if (version === 'release-economic-mathematics-lesson02-refined-2026-10-09') return [40, 50, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(2).map(l => l.slides.length)];
   if (version === 'release-economic-mathematics-lesson02-flow-2026-10-09') return [40, 60, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(2).map(l => l.slides.length)];
+  if (version === 'release-economic-mathematics-lesson02-mapping-2026-10-09') return [40, 59, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(2).map(l => l.slides.length)];
+  if (version === 'release-economic-mathematics-limits-refined-2026-10-10') return [40, 59, 58, 56, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(4).map(l => l.slides.length)];
   return undefined;
 }
 

@@ -37,8 +37,8 @@ const notes = require('../../../docs/course/economic-mathematics-prelude-notes.c
 
 test('prelude is lesson one, former lessons one and two combine without changing later numbering', () => {
   const deck = getCourseDeckByCourseId('course-economic-mathematics')!;
-  assert.equal(deck.slideTotal, 421); assert.equal(deck.lessons.length, 32); assert.equal(deck.totalHours, 64);
-  assert.equal(deck.versionId, 'release-economic-mathematics-lesson02-mapping-2026-10-09');
+  assert.equal(deck.slideTotal, 529); assert.equal(deck.lessons.length, 32); assert.equal(deck.totalHours, 64);
+  assert.equal(deck.versionId, 'release-economic-mathematics-limits-sequence-2026-10-11');
   assert.equal(deck.lessons[0]!.slideTotal, 40); assert.equal(deck.lessons[1]!.slideTotal, 59);
   assert.equal(deck.lessons[2]!.number, 3); assert.equal(deck.lessons[2]!.slideStart, 100);
   const resource = getCoursePresentation(deck.courseId)!.resources.find(r => r.role === '第1讲');

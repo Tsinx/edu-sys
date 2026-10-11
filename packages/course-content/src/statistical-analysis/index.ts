@@ -1,8 +1,14 @@
 import data from './data.json' with { type: 'json' };
 import regressionData from './regression-data.json' with { type: 'json' };
 import {regressionLessons,regressionBlocks} from './regression-lessons.js';
+import measurementData from './measurement-data.json' with {type:'json'};
+import {measurementLessons,measurementBlocks} from './measurement-lessons.js';
+import {measurementTeachingTables,measurementWording,measurementEvidenceText} from './measurement-visuals.js';
 export {regressionLessons, type RegressionPage} from './regression-lessons.js';
+export {measurementLessons, type MeasurementPage} from './measurement-lessons.js';
+export {measurementTeachingTables,measurementWording,measurementEvidenceText} from './measurement-visuals.js';
 export const REGRESSION_DATA=regressionData;
+export const MEASUREMENT_DATA=measurementData;
 
 export const STATISTICAL_ANALYSIS_COURSE_ID = 'statistical-analysis';
 export const STATISTICAL_ANALYSIS_DECK_ID = 'deck-statistical-analysis';
@@ -21,15 +27,17 @@ const titles = [
   '因果推断基础与匹配、加权方法','面板数据与固定效应模型','双重差分与事件研究',
   '工具变量与两阶段最小二乘','断点回归与阈值政策评估','时间序列结构与动态建模基础','时间序列预测与模型评价'
 ];
+const authoredTotals=[48,52,...regressionLessons.map(l=>l.length),...measurementLessons.map(l=>l.length)];
+const authoredStarts=authoredTotals.map((_,i)=>1+authoredTotals.slice(0,i).reduce((a,b)=>a+b,0));
 export const STATISTICAL_ANALYSIS_LESSONS = titles.map((title, i) => ({
-  number: i + 1, title, status: i < 5 ? 'ready' as const : 'planned' as const,
-  slideStart: [1,49,101,149,199][i]??null,
-  slideEnd: [48,100,148,198,250][i]??null,
-  slideTotal: [48,52,48,50,52][i]??0,
+  number: i + 1, title, status: i < authoredTotals.length ? 'ready' as const : 'planned' as const,
+  slideStart: authoredStarts[i]??null,
+  slideEnd: authoredStarts[i]!==undefined?authoredStarts[i]!+authoredTotals[i]!-1:null,
+  slideTotal: authoredTotals[i]??0,
   totalHours: 2,
   teachingCue: i === 0
     ? '90分钟，LBL讲解。以会员消费结论为主线，依次核查问题、记录、抽样和解释。每次揭示由教师翻页触发。'
-    : i === 1 ? '90分钟，LBL讲解。先揭示Anscombe四重奏，再用同一零售案例贯穿六类图形任务。修图段落逐页比较；不组织分组、提交或代码运行。' : i<5 ? '90分钟，LBL讲解。逐页观察证据、解释模型并核查边界；教师控制翻页与揭示。' : '待建设，不进入课堂播放。'
+    : i === 1 ? '90分钟，LBL讲解。先揭示Anscombe四重奏，再用同一零售案例贯穿六类图形任务。修图段落逐页比较；不组织分组、提交或代码运行。' : i<authoredTotals.length ? '90分钟，LBL讲解。逐页观察证据、解释模型并核查边界；教师控制翻页与揭示。' : '待建设，不进入课堂播放。'
 }));
 
 // Each row is individually authored: title, visible takeaway, teaching focus,
@@ -179,7 +187,32 @@ const regressionSlides:StatisticalAnalysisSlide[]=regressionLessons.flatMap((row
  teachingCue:`讲解重点：${p.note}\n停顿位置：${p.question}\n证据口径：${source}。\n投影说明：${p.caption}`,
  assistantCue:`当前页：${p.title}。公开要点：${p.lead}；${p.text.join('；')}。图注：${p.caption}。本页证据：${evidence}。解释边界：${p.note}。来源：${source}。LBL教师控制翻页；只回应当前页，不自动进入后页或待建设讲次，不组织分组、投票或代码操作。模拟不得称为真实企业数据；观察性关联不自动识别因果。银行案例禁用duration进行事前预测，不将测试集用于调参；未显示的数值不得编造。`};
 }));
-export const STATISTICAL_ANALYSIS_SLIDES=[...originalSlides,...regressionSlides];
+const measurementSlides:StatisticalAnalysisSlide[]=measurementLessons.flatMap((rows,li)=>rows.map((p,i)=>{
+ const lesson=li+6,blocks=measurementBlocks[li]!,bi=blocks.findIndex(b=>i+1<=b[0]),block=blocks[bi]!,previous=bi===0?0:blocks[bi-1]![0];
+ const source=p.source??(li===0?'教学模拟 · 自编问卷240份 · seed 20261011':'UCI Wholesale customers · Cardoso (2013) · CC BY 4.0');
+ const evidence=[p.visual,p.second].filter((id):id is string=>Boolean(id)).map(id=>{
+  const table=({...measurementData.tables,...measurementTeachingTables} as Record<string,{headers:string[];rows:(string|number)[][]}>)[id];
+  if(table)return `${id}：${table.headers.join(' / ')}；${table.rows.map(row=>row.join(' / ')).join('；')}`;
+  const chart=(measurementData.plots as Record<string,{xlabel:string;ylabel:string;series:{label:string;values:number[][]}[]}>)[id];
+  if(chart)return `${id}：横轴${chart.xlabel}，纵轴${chart.ylabel}；${chart.series.map(s=>`${s.label}，${s.values.length}个坐标${s.values.length<=8?'：'+JSON.stringify(s.values):''}`).join('；')}`;
+  if(measurementWording[id])return JSON.stringify(measurementWording[id]);
+  if(id.startsWith('geometry-')){
+   const g=measurementData.geometry,mode=id.slice(9),points=mode==='original'?g.points.map(v=>[v[0]!+10,v[1]!+8]):g.points;
+   const shown=mode==='first'?`本页第一方向系数${JSON.stringify(g.model.weights.map(v=>v[0]))}`:mode==='projection'?`G09第一得分${g.model.scores[8]![0]}；投影点${JSON.stringify(g.projection[8])}`:mode==='both'?'本页两条轴正交；两维均保留':mode==='loss'?'本页虚线连接观测点与第一方向上的投影点；不添加未显示的逐条得分':'';
+   return `独立九点概念图；${mode==='original'?'原值':'中心化'}坐标${JSON.stringify(points)}；${shown}。两轴等比例；中心化非标准化。不提前给出后页的方向系数、得分或方差表。`;
+  }
+  if(id==='survey-correlation')return `六题完整n=221，Pearson r矩阵${JSON.stringify(measurementData.survey.correlation)}。不是因子载荷或验证模型。`;
+  if(id==='survey-distribution')return JSON.stringify(measurementData.survey.distribution);
+  if(id==='wholesale-correlation')return JSON.stringify(measurementData.wholesale.correlation);
+  if(id==='wholesale-score-example')return `${measurementEvidenceText[id]}；W001 PC1/PC2：${JSON.stringify(measurementData.wholesale.model.scores[0]!.slice(0,2))}`;
+  return measurementEvidenceText[id]??'';
+ }).join('\n');
+ const measurementBoundary=li===0?'调查方式与抽样方法分开解释；名单随机抽取不自动修复覆盖和未回应。六题问卷为独立教学模拟，不能称为真实调查或已验证量表；邀请400的流程另为假设示意，不是模拟答卷的真实来源。成熟量表只在构念、对象、语言、用途和使用条件合适时采用；翻译删改不自动继承原证据。原始回答、反向编码、领域均分与α的完整样本分别说明；NA不当成3分。高α不证明单维性、效度或代表性。当前页练习不主动透露后页答案；第7讲采购数据独立，渠道与地区不进入拟合，不提前透露后页计算结果。未显示数值不得编造；第8讲仍待建设。':'六题问卷为独立教学模拟，不能称为真实调查或已验证量表；高α不证明单维性与效度，不适用与NA不当成3分。PCA主案例仅六列公开年采购额，log(1+x)后用样本SD标准化；渠道与地区不进入拟合；本页所示保留比例属于该输入尺度上的总方差，不是利润解释率、预测精度或客户价值；未展示的后页数值不提前给出。系数与得分不同；相关载荷为变量与成分的相关，不混用因子载荷；零相关不等于独立，符号可整体翻转。未显示数值不得编造；第8讲仍待建设。';
+ return {index:authoredStarts[lesson-1]!+i,slideKey:`stats-l${lesson}-${String(i+1).padStart(2,'0')}`,lesson,lessonNumber:lesson,localIndex:i+1,localTotal:rows.length,lessonTitle:titles[lesson-1]!,title:p.title,lead:p.lead,summary:p.lead,section:block[2],minutes:p.durationMinutes??block[1]/(block[0]-previous),source,
+ teachingCue:`讲解重点：${p.note}\n停顿位置：${p.question}\n证据口径：${source}。\n投影说明：${p.caption}`,
+ assistantCue:`当前页：${p.title}。公开要点：${p.lead}；${p.text.join('；')}。图注：${p.caption}。本页证据：${evidence}。解释边界：${p.note}。来源：${source}。LBL由教师控制翻页；只回应当前页，不自动进入后页或待建设讲次，不组织分组、投票、提交或代码运行。${measurementBoundary}`};
+}));
+export const STATISTICAL_ANALYSIS_SLIDES=[...originalSlides,...regressionSlides,...measurementSlides];
 export function getStatisticalAnalysisSlide(index: number) {
   return STATISTICAL_ANALYSIS_SLIDES[Math.max(1,Math.min(STATISTICAL_ANALYSIS_SLIDES.length,Math.trunc(index)||1))-1]!;
 }

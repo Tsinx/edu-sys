@@ -473,7 +473,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   app.post("/api/teacher/tts", async (request,reply) => {
     const {text,voiceProfile,lipSync,courseId}=z.object({text:z.string().min(1).max(3000),voiceProfile:avatarVoiceProfileSchema.optional(),lipSync:z.boolean().optional(),courseId:z.string().max(128).optional()}).parse(request.body);
     const speechOptions = courseId && getCourseDeckByCourseId(courseId)?.locale === "en" ? {language: "English" as const} : undefined;
-    const speechConfigured = speechOptions ? studySpeechProvider.canSynthesize?.(speechOptions) ?? studySpeechProvider.ttsConfigured : studySpeechProvider.ttsConfigured;
+    const speechConfigured = studySpeechProvider.canSynthesize?.(speechOptions,voiceProfile) ?? studySpeechProvider.ttsConfigured;
     if(!speechConfigured) return reply.code(503).send({message:speechOptions?.language === "English" ? "Classroom speech is not configured. Text responses remain available." : "尚未配置课堂语音，文字回答可正常使用。"});
     reply.hijack();
     reply.raw.writeHead(200,{"Content-Type":"text/event-stream","Cache-Control":"no-store","X-Accel-Buffering":"no"});
@@ -484,7 +484,10 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
         if(reply.raw.writableLength>512*1024) {controller.abort(); break;}
         reply.raw.write(`data: ${JSON.stringify(chunk)}\n\n`);
       }
-    } catch { if(!reply.raw.destroyed) reply.raw.write(`data: ${JSON.stringify({error:speechOptions?.language === "English" ? "Speech is unavailable. Please read the captions." : "语音暂时不可用，请阅读字幕。"})}\n\n`); }
+    } catch(error) {
+      if(!controller.signal.aborted) request.log.warn({err:error,speechProvider:studySpeechProvider.name},"Teacher TTS failed");
+      if(!reply.raw.destroyed) reply.raw.write(`data: ${JSON.stringify({error:speechOptions?.language === "English" ? "Speech is unavailable. Please read the captions." : "语音暂时不可用，请阅读字幕。"})}\n\n`);
+    }
     finally {reply.raw.end();}
   });
 

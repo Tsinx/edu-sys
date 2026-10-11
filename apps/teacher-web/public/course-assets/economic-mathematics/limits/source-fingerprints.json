@@ -1,0 +1,77 @@
+{
+  "version": "release-economic-mathematics-limits-sequence-2026-10-11",
+  "files": [
+    {
+      "file": "packages/course-content/src/economic-mathematics/lesson-03-refined.ts",
+      "sha256": "622fa6c821953db4d80b49f415ad6bf7ca84f134846d68bbd9d02d1ac2047ed4"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/lesson-04-refined.ts",
+      "sha256": "81d12765083c8f26b2d633ad5393523aba55b652b1ba0f4387df0f0a525258d6"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/limit-exercises.ts",
+      "sha256": "5341e7ff986fa302dc13953f92990237b281614b6a5d8be1bcda108a9062d41f"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/limits-authoring.ts",
+      "sha256": "7f45d7624cb46ee4fc7b890bcfc3fff0f927b491d43331890e257a57188ff55c"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/limits-model.ts",
+      "sha256": "090070f3e4da69ff7987e8a72216d942e4e18759e25db64aa393b2ff838727a0"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/LimitFigure.tsx",
+      "sha256": "a5a4525b101f923d7b2d41860fe0bf5bccd6196a85271ea0f7b75e8a07a1c8be"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/LessonHistoryFilm.tsx",
+      "sha256": "18ece02874ec11683568646f680e879fc33ec54c70ee2a2805693b58dfbc495e"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/limits.css",
+      "sha256": "34ac1e557ccac60f66f1fb671a02fcbc55ea5be43958f222fbcc5ac85b6d59bb"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/merchant-model.ts",
+      "sha256": "b5747284b856f81d28c931b0593ffd853401bb532c4962fe71ef41a9e076d3a0"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "sha256": "05b04b1ec65fd7d2b78551f8cac801697ad0972a6a37f03afed062df7ab0d3f5"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/slides.ts",
+      "sha256": "e54f8c4a649d9cb36596730cd8485dc030bac5d8f3ef95ea13dc52d66bc9297b"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/interactions.ts",
+      "sha256": "ec5cb0bfe427c38168a3a3db0f0e4e122831281cd18469a840c26a5c3744a66e"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
+      "sha256": "da7f0d90ccd4c062550e17a5238dbb16a99d0df9ba673bf3036449bd6b0fd29b"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/economic-mathematics.css",
+      "sha256": "67026477cd31009fc17c88abba553e6bd0508d0edf56dc3fd226cfabf20c726a"
+    },
+    {
+      "file": "scripts/economic-mathematics-pdf/entry.tsx",
+      "sha256": "ff5e810633de7641ad30630cfed5ac045abb13673a85f3e1d48ee3d5667b7458"
+    },
+    {
+      "file": "scripts/economic-mathematics-pdf/print.css",
+      "sha256": "d651432129cf88d4a6f6398a204d8723c8eacebd4ecb0aa59dc33b84d3d7a39a"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/calculus-history/poster.png",
+      "sha256": "654a9f35441e2c908fb60fc0a47048ab2b8de00881ddbefba24def44325284bb"
+    },
+    {
+      "file": "scripts/prepare-economic-limits.mjs",
+      "sha256": "0c45b73b1c4b3a7dd52e6853c7be08b8e69be9641e904aae3837f72aa135eeeb"
+    }
+  ]
+}

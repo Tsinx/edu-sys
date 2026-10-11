@@ -176,10 +176,24 @@ export const ECONOMIC_MATHEMATICS_INTERACTIONS: Readonly<
 };
 
 export function getEconomicMathematicsInteractionDefinition(
-  slide: Pick<EconomicMathematicsSlideSpec, "interactionId" | "slideKey" | "steps" | "interactionDefaults" | "merchantLab">
+  slide: Pick<EconomicMathematicsSlideSpec, "interactionId" | "slideKey" | "steps" | "interactionDefaults" | "merchantLab" | "limitLab" | "historyFilm">
 ): EconomicMathematicsInteractionDefinition | null {
-  if (!slide.interactionId && !slide.steps?.length) return null;
-  const definition: EconomicMathematicsInteractionDefinition = slide.merchantLab ? {
+  if (!slide.interactionId && !slide.steps?.length && !slide.limitLab && !slide.historyFilm) return null;
+  const definition: EconomicMathematicsInteractionDefinition = slide.historyFilm ? {
+    id: 'presentation', label: '微积分历史短片',
+    defaults: { filmTime: 0, filmPlaying: false, filmVolume: 100, filmMuted: false },
+    rules: { filmTime: numberRule(0,180,1,true), filmPlaying: {type:'boolean'}, filmVolume: numberRule(0,100,1,true), filmMuted: {type:'boolean'} }
+  } : slide.limitLab === 'error-band' ? {
+    id: 'presentation', label: '输出精度与输入范围',
+    defaults: {epsilon:.2,delta:.2,zoom:0}, rules: {epsilon:numberRule(.05,1,.05),delta:numberRule(.05,1,.05),zoom:numberRule(0,15,1,true)}
+  } : slide.limitLab === 'sequence-zoom' ? {
+    id: 'sequence-limit-lab', label: '数列误差与尾部放大',
+    defaults: {candidate:'2',precision:2,epsilonFactor:'1',tailPower:2},
+    rules: {candidate:{type:'enum',values:['2','2.001']},precision:numberRule(0,15,1,true),epsilonFactor:{type:'enum',values:['1','5']},tailPower:numberRule(0,15,1,true)}
+  } : slide.limitLab === 'capacity' ? {
+    id: 'sequence-limit-lab', label: '逐周扩容与精度门槛',
+    defaults: {n:8,epsilon:10}, rules: {n:numberRule(0,30,1,true),epsilon:numberRule(1,20,1,true)}
+  } : slide.merchantLab ? {
     id: 'price-profit-lab', label: '有限履约能力下的定价实验',
     defaults: { price: 80, capacity: 400, commission: .1, fixedCost: 2000 },
     rules: { price: numberRule(30,100,.5), capacity: numberRule(200,600,10), commission: numberRule(0,.6,.05), fixedCost: numberRule(0,24000,500) }

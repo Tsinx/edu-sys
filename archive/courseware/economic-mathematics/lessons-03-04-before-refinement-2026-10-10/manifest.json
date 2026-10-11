@@ -1,0 +1,42 @@
+[
+  {
+    "path": "packages/course-content/src/economic-mathematics/v2/lesson-03.ts",
+    "sha256": "ffeabfb48cf1c0f41bfef191d291604f3d83af0d1e7c1ae1fc91fefcedd47496",
+    "bytes": 3280
+  },
+  {
+    "path": "packages/course-content/src/economic-mathematics/v2/lesson-04.ts",
+    "sha256": "fdb8eec4a5474889862a2489fa3d313f80debe8177006ac6c068b8a580acf8ab",
+    "bytes": 3444
+  },
+  {
+    "path": "packages/course-content/src/economic-mathematics/curriculum.ts",
+    "sha256": "60bdcb9ceccbead316d0cce8b21f08c75b3162eaabe02c0782a0b8ee5192096f",
+    "bytes": 3009
+  },
+  {
+    "path": "packages/course-content/src/economic-mathematics/slides.ts",
+    "sha256": "701f373f6905dc720176cb6a64609573551eba4374fde77db9ba4fa25f415883",
+    "bytes": 10127
+  },
+  {
+    "path": "packages/course-content/src/economic-mathematics/types.ts",
+    "sha256": "c908225475f07c9126005d71dd2bada7466edcf605158b7dbb91331bbef1ac10",
+    "bytes": 5026
+  },
+  {
+    "path": "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
+    "sha256": "0527553f24ad6c4b174d56f7a080b8b026b40229d74f26b488af60ea9ad7ad69",
+    "bytes": 14473
+  },
+  {
+    "path": "apps/teacher-web/src/features/economic-mathematics/economic-mathematics.css",
+    "sha256": "67026477cd31009fc17c88abba553e6bd0508d0edf56dc3fd226cfabf20c726a",
+    "bytes": 7528
+  },
+  {
+    "path": "docs/course/economic-mathematics-deck-v2.json",
+    "sha256": "eabbe6352cd39991d6a29a7724488be1f02234a921f6a25f9c028d37dac37a7c",
+    "bytes": 126797
+  }
+]

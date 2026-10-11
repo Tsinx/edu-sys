@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { usePresentationFullscreen } from './usePresentationFullscreen';
 
 interface FullscreenOptions {
   canTurnPages: boolean;
@@ -6,42 +7,23 @@ interface FullscreenOptions {
   pageTotal: number;
   onPageTurn: (direction: "previous_slide" | "next_slide") => Promise<unknown>;
   onError: (message: string) => void;
+  locale?: 'zh-CN' | 'en';
 }
 
 /** Keep the stage and its existing avatar session in the same fullscreen tree. */
 export function useClassroomFullscreen(options: FullscreenOptions) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const fullscreen = usePresentationFullscreen({ onError: options.onError, locale: options.locale });
   const optionsRef = useRef(options);
   optionsRef.current = options;
-  const previousFocusRef = useRef<HTMLElement | null>(null);
   const pageTurnPendingRef = useRef(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-
-  useEffect(() => {
-    const onFullscreenChange = () => {
-      const active = document.fullscreenElement === containerRef.current;
-      setIsFullscreen(active);
-      if (active) {
-        containerRef.current?.focus({ preventScroll: true });
-      } else if (previousFocusRef.current?.isConnected) {
-        previousFocusRef.current.focus({ preventScroll: true });
-        previousFocusRef.current = null;
-      }
-    };
-    document.addEventListener("fullscreenchange", onFullscreenChange);
-    return () => document.removeEventListener("fullscreenchange", onFullscreenChange);
-  }, []);
+  const fullscreenRef = useRef(false);
+  fullscreenRef.current = fullscreen.isFullscreen;
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       const current = optionsRef.current;
-      if (containerRef.current && document.fullscreenElement === containerRef.current &&
-        event.key === "Escape" && !event.defaultPrevented && !event.isComposing) {
-        void document.exitFullscreen().catch(() => current.onError("未能退出全屏，请使用浏览器的全屏控制。"));
-        return;
-      }
       if (
-        !containerRef.current || document.fullscreenElement !== containerRef.current ||
+        !fullscreenRef.current ||
         !current.canTurnPages || event.defaultPrevented || event.isComposing ||
         event.altKey || event.ctrlKey || event.metaKey || event.shiftKey ||
         (event.key !== "ArrowLeft" && event.key !== "ArrowRight")
@@ -67,25 +49,5 @@ export function useClassroomFullscreen(options: FullscreenOptions) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  const exitFullscreen = useCallback(async () => {
-    if (containerRef.current && document.fullscreenElement === containerRef.current) {
-      await document.exitFullscreen();
-    }
-  }, []);
-
-  const toggleFullscreen = useCallback(async () => {
-    try {
-      if (document.fullscreenElement) {
-        await document.exitFullscreen();
-      } else if (containerRef.current) {
-        previousFocusRef.current = document.activeElement instanceof HTMLElement
-          ? document.activeElement : null;
-        await containerRef.current.requestFullscreen();
-      }
-    } catch {
-      optionsRef.current.onError("当前浏览器未允许全屏显示。");
-    }
-  }, []);
-
-  return { containerRef, isFullscreen, toggleFullscreen, exitFullscreen };
+  return { ...fullscreen, toggleFullscreen: fullscreen.toggleScreenFullscreen };
 }

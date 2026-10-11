@@ -1,9 +1,9 @@
 import {usePortAutoplay} from '../classroom/usePortAutoplay';
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
 import type { PortDemoCueId, PortLessonFourPage } from '@edu/course-content';
 import { SlideViewport } from '../classroom/SlideViewport';
-import { ClassroomPlaybackSlot } from '../classroom/ClassroomPlaybackSlot';
+import { PageToolsContribution } from '../classroom/PageTools';
+import { Pause, Play } from 'lucide-react';
 import { PortLessonFourComposition } from './PortLessonFourComposition';
 
 export const PortLessonFourControls = createContext<{scope:string;openDemo?:(cueId:PortDemoCueId)=>void;onProgress?:(key:string,p:number)=>void}>({scope:'preview'});
@@ -13,7 +13,7 @@ export function PortLessonFourStage({page,readOnly=true,progress,onProgress}:{pa
   return <Playback key={page.slideKey+':'+readOnly} page={page} readOnly={readOnly} progress={progress} onProgress={onProgress}/>;
 }
 function Playback({page,readOnly,progress:controlled,onProgress}:{page:PortLessonFourPage;readOnly:boolean;progress?:number;onProgress?:(p:number)=>void}) {
-  const host=useContext(PortLessonFourControls), slot=useContext(ClassroomPlaybackSlot);
+  const host=useContext(PortLessonFourControls);
   const cacheKey='port-l4:motion:'+host.scope+':'+page.slideKey;
   const [progress,setProgress]=useState(()=>readOnly?1:page.animationSeconds?(readProgress(cacheKey)??0):1);
   const [playing,setPlaying]=useState(false);
@@ -35,5 +35,5 @@ function Playback({page,readOnly,progress:controlled,onProgress}:{page:PortLesso
   const start=()=>{cancel();if(value.current>=1)write(0);setPlaying(v=>!v);};
   useEffect(()=>{if(readOnly||!page.animationSeconds)return;const key=(e:KeyboardEvent)=>{if((e.target as HTMLElement).closest('input,textarea,select,button,a')||e.ctrlKey||e.metaKey||e.altKey)return;if(e.code==='Space'){e.preventDefault();cancel();if(value.current>=1)write(0);setPlaying(v=>!v);}if(e.key==='r'){cancel();write(0);setPlaying(true);}if(e.key==='f'){cancel();setPlaying(false);write(1);}if(e.key==='.'){cancel();setPlaying(false);write(Math.min(1,(Math.floor(value.current*4)+1)/4));}};addEventListener('keydown',key);return()=>removeEventListener('keydown',key);},[readOnly,page.animationSeconds,cancel,write]);
   const controls=!readOnly&&page.animationSeconds?<div className="l4-playback" aria-label="动画播放控制"><button onClick={start}>{playing?'暂停':'播放'}</button><button onClick={()=>{cancel();write(0);setPlaying(true);}}>重播</button><button onClick={()=>jump(Math.min(1,(Math.floor(value.current*4)+1)/4))}>下一幕</button><input aria-label="动画进度" type="range" min="0" max="1000" value={Math.round(progress*1000)} onPointerDown={()=>{cancel();setPlaying(false);}} onChange={e=>jump(Number(e.target.value)/1000)}/><output>{Math.round(progress*100)}%</output><button onClick={()=>jump(1)}>全景</button></div>:null;
-  return <section className="l4-stage"><SlideViewport label={'第4讲 · '+page.localPage+'/44 · '+page.title}><PortLessonFourComposition page={page} p={reduced?1:controlled??(readOnly?1:progress)} readOnly={readOnly} onOpen={host.openDemo}/></SlideViewport>{slot&&controls?createPortal(controls,slot):controls}</section>;
+  return <section className="l4-stage"><SlideViewport label={'第4讲 · '+page.localPage+'/44 · '+page.title}><PortLessonFourComposition page={page} p={reduced?1:controlled??(readOnly?1:progress)} readOnly={readOnly} onOpen={host.openDemo}/></SlideViewport>{controls&&<PageToolsContribution pageKey={page.slideKey} title="动画工具" actions={page.animationSeconds ? [{id:'play',label:playing?'暂停':'播放',icon:playing?<Pause size={18}/>:<Play size={18}/>,onInvoke:start}] : []}>{controls}</PageToolsContribution>}</section>;
 }

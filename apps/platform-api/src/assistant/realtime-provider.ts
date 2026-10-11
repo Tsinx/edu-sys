@@ -4,11 +4,12 @@ import { dashScopeApiKey } from "../runtime-env.js";
 
 export interface RealtimeConfig { enabled: boolean; url: string; model: string; voice: string; apiKey: string }
 export function realtimeConfig(env = process.env): RealtimeConfig {
+  const model = env.EDU_REALTIME_MODEL?.trim() || "qwen-audio-3.1-realtime-plus";
   const config = {
     enabled: env.EDU_REALTIME_ENABLED === "true",
     url: env.EDU_REALTIME_URL?.trim() ?? "",
-    model: env.EDU_REALTIME_MODEL?.trim() || "qwen-audio-3.0-realtime-plus",
-    voice: env.EDU_REALTIME_VOICE?.trim() || "longanqian",
+    model,
+    voice: env.EDU_REALTIME_VOICE?.trim() || (model === "qwen-audio-3.1-realtime-plus" ? "longanqian_v3.1" : "longanqian"),
     apiKey: env.EDU_REALTIME_API_KEY?.trim() || dashScopeApiKey(env) || ""
   };
   if (config.url && !config.url.startsWith("wss://")) throw new Error("EDU_REALTIME_URL 必须使用 wss://");

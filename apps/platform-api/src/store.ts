@@ -4138,6 +4138,14 @@ export class JsonStateStore {
         }
       };
 
+      if (session.courseId === ECONOMIC_MATHEMATICS_COURSE_ID && ["next_slide", "previous_slide", "set_slide", "set_activity"].includes(input.type)) {
+        const key = deck.getSlide(runtime.slideIndex).slideKey;
+        const saved = runtime.slideInteractions[key];
+        if (saved?.values.filmPlaying === true && Object.hasOwn(deck.getInteractionDefaults(key) ?? {}, "filmTime")) {
+          runtime.slideInteractions[key] = { revision: saved.revision + 1, values: { ...saved.values, filmPlaying: false } };
+        }
+      }
+
       if (["next_slide", "previous_slide", "set_slide", "set_activity"].includes(input.type) && runtime.teacherDemo) runtime.teacherDemo.active = false;
       if (["next_slide", "previous_slide", "set_slide", "set_activity", "globe_play_cue"].includes(input.type)) runtime.simulationNavigation = null;
       if (input.type === "set_simulation_navigation") {

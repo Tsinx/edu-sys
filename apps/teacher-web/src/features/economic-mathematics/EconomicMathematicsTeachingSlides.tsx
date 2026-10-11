@@ -1,6 +1,8 @@
 import { MerchantFigure } from './MerchantFigure';
 import { ExerciseTimer } from './ExerciseTimer';
-import { merchantReadout } from '@edu/course-content/economic-mathematics';
+import { merchantReadout, limitLabReadout } from '@edu/course-content/economic-mathematics';
+import { LimitFigure } from './LimitFigure';
+import { LessonHistoryFilm } from './LessonHistoryFilm';
 import { EconomicPreludeSlide } from './EconomicPreludeSlide';
 import katex from "katex";
 import { economicModels as M, getEconomicMathematicsInteractionDefinition, getEconomicMathematicsPresentationStep, validateEconomicMathematicsInteractionState, type EconomicMathematicsSlideSpec as Slide, type EconomicMathematicsPlot } from "@edu/course-content/economic-mathematics";
@@ -48,15 +50,17 @@ export function economicLabReadout(id:string,v:SlideInteractionValues):readonly 
 }
 interface Props {spec:Slide;interaction:SlideInteractionState|null;readOnly:boolean;onInteractionPatch?:(patch:SlideInteractionValues)=>void;onInteractionReset?:()=>void;}
 const assetUrl=(file:string)=>file.startsWith("/")?file:"/course-assets/economic-mathematics/"+(file.includes("/")?file:"v2/"+file);
-export function EconomicMathematicsTeachingSlides({spec,interaction}:Props){
+export function EconomicMathematicsTeachingSlides({spec,interaction,readOnly,onInteractionPatch}:Props){
  const def=getEconomicMathematicsInteractionDefinition(spec);
  const values=interaction?.slideId===spec.slideKey?{...def?.defaults,...interaction.values}:{...def?.defaults};
  const step=getEconomicMathematicsPresentationStep(spec,values),cover=spec.layout==="cover",hasImage=Boolean(spec.image);
  if (spec.preludeId) return <EconomicPreludeSlide page={spec.localIndex} step={step}/>;
+ if (spec.historyFilm) return <article className="em-slide em-history-slide" aria-label={spec.title}><LessonHistoryFilm pageKey={spec.slideKey} values={values} readOnly={readOnly} onPatch={onInteractionPatch}/></article>;
  const visibleSteps=(spec.steps??[]).slice(0,step);
  const visiblePlot=[...visibleSteps].reverse().find(s=>s.plot)?.plot??spec.plot;
  const highlighted=[...visibleSteps].reverse().find(s=>s.highlightRows)?.highlightRows??[];
- return <article className={"em-slide em-"+(spec.layout??"essay")+" em-style-"+(spec.style??"editorial")+(hasImage?" em-with-image":"")+(spec.slideKey.startsWith("em-l02-refined")?" em-refined":"")+(spec.merchantFigure?" em-has-merchant-figure":"")+(spec.merchantFigure==="mapping-types"?" em-mapping-types":"")} aria-label={spec.title}>
+ const limitFigure=[...visibleSteps].reverse().find(s=>s.limitFigure)?.limitFigure??spec.limitFigure;
+ return <article className={"em-slide em-"+(spec.layout??"essay")+" em-style-"+(spec.style??"editorial")+(hasImage?" em-with-image":"")+(spec.slideKey.startsWith("em-l02-refined")?" em-refined":"")+(spec.slideKey.includes("-limits-")?" em-limits":"")+(limitFigure?" em-has-limit-figure":"")+(spec.limitLab==='sequence-zoom'?' em-sequence-lab':'')+(spec.merchantFigure?" em-has-merchant-figure":"")+(spec.merchantFigure==="mapping-types"?" em-mapping-types":"")} aria-label={spec.title}>
  {cover&&<img className="em-cover-art" src={assetUrl(spec.image!)} alt={spec.imageAlt??""}/>}
  {spec.style==="constructivist"&&<img className="em-conflict-art" src={"/course-assets/economic-mathematics/v2/l"+String(spec.sourceLesson ?? spec.lesson).padStart(2,"0")+"-scene.png"} alt=""/>}
  <header className="em-header"><div className="em-kicker">{spec.kicker||"经济数学 / 第"+String(spec.lesson).padStart(2,"0")+"讲"}</div><h1>{spec.title}</h1></header>
@@ -70,14 +74,22 @@ export function EconomicMathematicsTeachingSlides({spec,interaction}:Props){
  {(spec.steps??[]).slice(0,step).map((s,i)=><section className="em-reveal" key={i}><span className="em-step-number">{String(i+1).padStart(2,"0")}</span><div><h2>{s.title}</h2>{s.text&&<p><MathText text={s.text}/></p>}{s.formula&&<MathText text={s.formula} display/>}</div></section>)}
  </div>
  {spec.merchantFigure&&<MerchantFigure kind={spec.merchantFigure} values={values}/>}
+ {limitFigure&&<div className="em-limit-evidence"><LimitFigure config={limitFigure} values={values}/>{spec.limitLab&&<dl className="em-limit-readout">{limitLabReadout(spec.limitLab,values).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl>}</div>}
  {visiblePlot&&!spec.interactionId&&<EconomicPlot config={visiblePlot} values={values}/>}
- {spec.interactionId&&<div className="em-lab-projection">{spec.merchantLab?<MerchantFigure kind="profit" values={values}/>:<EconomicPlot config={{...labPlots[spec.interactionId]!,...(spec.interactionId==="sequence-limit-lab"?{domain:[1,Math.max(40,Number(values.n))] as const}:{})}} values={values} lab={spec.interactionId}/>}<dl className="em-readout">{(spec.merchantLab?merchantReadout(values):economicLabReadout(spec.interactionId,values)).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl></div>}
+ {spec.interactionId&&!spec.limitLab&&<div className="em-lab-projection">{spec.merchantLab?<MerchantFigure kind="profit" values={values}/>:<EconomicPlot config={{...labPlots[spec.interactionId]!,...(spec.interactionId==="sequence-limit-lab"?{domain:[1,Math.max(40,Number(values.n))] as const}:{})}} values={values} lab={spec.interactionId}/>}<dl className="em-readout">{(spec.merchantLab?merchantReadout(values):economicLabReadout(spec.interactionId,values)).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl></div>}
  </main>
  {spec.prompt&&<aside className="em-prompt"><MathText text={spec.prompt}/></aside>}
  <footer className="em-footer"><span>{spec.sourceLabel}{spec.sourceNote?" · "+spec.sourceNote:""}</span><span>{spec.localIndex+" / "+spec.localTotal+" · "+spec.unitTitle}</span></footer>
  </article>;
 }
 const labels:Record<string,string>={capacity:"履约能力（件/日）",commission:"抽成比例",fixedCost:"固定成本（元/日）",price:"价格（元/件）",segment:"细分市场",n:"轮次",epsilon:"容许误差",orderAmount:"订单额（元）",approach:"接近方向",basePrice:"基准价格（元/件）",h:"价格间隔（元/件）",deltaPrice:"价格变化（元/件）",partitions:"分段数",sample:"取样位置",upperBound:"时间上限（小时）",advertising:"广告（百元/日）",lockedAxis:"固定变量",baseAdvertising:"基准广告（百元/日）",deltaAdvertising:"广告变化（百元/日）",x:"投入 x",y:"投入 y",budget:"预算（百元）",channelX:"渠道 x（百元）",revealStep:"公开分析",revealOptimum:"公开最优结果",revealClassification:"公开极值判别"};
+labels.delta='输入距离范围δ';
+labels.n='编号n / 实施周数';
+labels.precision='误差指数k（ε=系数×10⁻ᵏ）';
+labels.epsilonFactor='误差系数';
+labels.tailPower='编号指数t（N=10ᵗ）';
+labels.candidate='被检验目标A';
+labels.zoom='精度级别（每级缩小十倍）';
 const optionLabels:Record<string,string>={left:"左侧",right:"右侧",free:"自由",midpoint:"中点",none:"均不固定",price:"价格",advertising:"广告",A:"市场A",B:"市场B"};
 export function isEconomicMathematicsControlDisabled(key:string,v:SlideInteractionValues){return v.lockedAxis===key;}
 export function buildEconomicMathematicsControlPatch(key:string,value:number|string|boolean,v:SlideInteractionValues):SlideInteractionValues{
@@ -88,13 +100,15 @@ export function buildEconomicMathematicsControlPatch(key:string,value:number|str
  if(key==="orderAmount"&&((v.approach==="left"&&Number(value)>=99)||(v.approach==="right"&&Number(value)<=99)))patch.approach="free";
  return patch;
 }
-export function EconomicMathematicsControls({spec,interaction,onInteractionPatch,onInteractionReset}:Omit<Props,"readOnly">){
+export function EconomicMathematicsControls({spec,interaction,onInteractionPatch,onInteractionReset,includeSteps=true}:Omit<Props,"readOnly"> & {includeSteps?:boolean}){
  const def=getEconomicMathematicsInteractionDefinition(spec);if(!def)return spec.exerciseMinutes?<ExerciseTimer key={spec.slideKey} minutes={spec.exerciseMinutes}/>:null;
  const values={...def.defaults,...(interaction?.slideId===spec.slideKey?interaction.values:{})},step=getEconomicMathematicsPresentationStep(spec,values);
+ const variables=Object.entries(def.rules).filter(([key])=>key!=="presentationStep"&&key!=="revealStep");
+ if(!includeSteps&&!variables.length)return spec.exerciseMinutes?<ExerciseTimer key={spec.slideKey} minutes={spec.exerciseMinutes}/>:null;
  const patch=(key:string,value:number|string|boolean)=>{const update=buildEconomicMathematicsControlPatch(key,value,values);if(validateEconomicMathematicsInteractionState(def,{...values,...update}))onInteractionPatch?.(update);};
- return <section className="em-teacher-controls" aria-label="经济数学教师控制"><b>{def.label}</b>
+ return <><section className="em-teacher-controls" aria-label="经济数学教师控制">{includeSteps&&<><b>{def.label}</b>
  {spec.classHour&&<p>{"第"+spec.classHour+"课时 · "+spec.section+" · 预计"+spec.teachingSeconds+"秒 · "+(spec.routeRole==="optional"?"备用":"课堂主线")}</p>}
- {!!spec.steps?.length&&<div className="em-reveal-controls"><button disabled={step===0} onClick={()=>patch("presentationStep",step-1)}>收起一步</button><span>{"已公开 "+step+" / "+spec.steps.length+" 步"}</span><button disabled={step===spec.steps.length} onClick={()=>patch("presentationStep",step+1)}>公开下一步</button></div>}
- <div className="em-variable-controls">{Object.entries(def.rules).filter(([key])=>key!=="presentationStep"&&key!=="revealStep").map(([key,rule])=><label key={key}>{labels[key]??key}{rule.type==="boolean"?<input type="checkbox" checked={Boolean(values[key])} onChange={e=>patch(key,e.target.checked)}/>:rule.type==="enum"?<select value={String(values[key])} onChange={e=>patch(key,e.target.value)}>{rule.values.map(v=><option key={v} value={v}>{optionLabels[v]??v}</option>)}</select>:<input type="range" min={rule.min} max={key==="channelX"?Number(values.budget):rule.max} step={rule.step??1} value={Number(values[key])} disabled={isEconomicMathematicsControlDisabled(key,values)} onChange={e=>patch(key,Number(e.target.value))}/>}<output>{rule.type==="boolean"?(values[key]?"已公开":"未公开"):optionLabels[String(values[key])]??String(values[key])}</output></label>)}</div>
- <button onClick={onInteractionReset}>恢复本页初始状态</button></section>;
+ {!!spec.steps?.length&&<div className="em-reveal-controls"><button disabled={step===0} onClick={()=>patch("presentationStep",step-1)}>收起一步</button><span>{"已公开 "+step+" / "+spec.steps.length+" 步"}</span><button disabled={step===spec.steps.length} onClick={()=>patch("presentationStep",step+1)}>公开下一步</button></div>}</>}
+ {!!variables.length&&<div className="em-variable-controls">{variables.map(([key,rule])=><label key={key}>{labels[key]??key}{rule.type==="boolean"?<input type="checkbox" checked={Boolean(values[key])} onChange={e=>patch(key,e.target.checked)}/>:rule.type==="enum"?<select value={String(values[key])} onChange={e=>patch(key,e.target.value)}>{rule.values.map(v=><option key={v} value={v}>{optionLabels[v]??v}</option>)}</select>:<input type="range" min={rule.min} max={key==="channelX"?Number(values.budget):rule.max} step={rule.step??1} value={Number(values[key])} disabled={isEconomicMathematicsControlDisabled(key,values)} onChange={e=>patch(key,Number(e.target.value))}/>}<output>{rule.type==="boolean"?(values[key]?"已公开":"未公开"):optionLabels[String(values[key])]??String(values[key])}</output></label>)}</div>}
+ {onInteractionReset&&<button onClick={onInteractionReset}>恢复本页初始状态</button>}</section>{!includeSteps&&spec.exerciseMinutes&&<ExerciseTimer key={spec.slideKey} minutes={spec.exerciseMinutes}/>}</>;
 }

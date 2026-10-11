@@ -1,8 +1,7 @@
 import {usePortAutoplay} from '../classroom/usePortAutoplay';
-import { useContext, useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useRef, useState } from "react";
 import { Pause, Play, RotateCcw, SkipForward, Scan } from "lucide-react";
-import { ClassroomPlaybackSlot } from "../classroom/ClassroomPlaybackSlot";
+import { PageToolsContribution, usePageToolsScope } from "../classroom/PageTools";
 import type { PortLblPage } from "../../../../../packages/course-content/src/port-lbl";
 import { SlideViewport } from "../classroom/SlideViewport";
 import { LblPlayback } from "./PortLblPrimitives";
@@ -14,7 +13,7 @@ export function PortLblStage({page,readOnly=true,projection=false}:{page:PortLbl
 }
 
 function PortLblPlaybackStage({page,readOnly,projection}:{page:PortLblPage;readOnly:boolean;projection:boolean}) {
-  const controlsTarget=useContext(ClassroomPlaybackSlot);
+  const controlsTarget=usePageToolsScope();
   const [progress,setProgress]=useState(readOnly?1:0);
   const [playing,setPlaying]=useState(false);
   const [reducedMotion,setReducedMotion]=useState(false);
@@ -63,6 +62,8 @@ function PortLblPlaybackStage({page,readOnly,projection}:{page:PortLblPage;readO
     <LblPlayback.Provider value={{progress:readOnly?1:progress,playing:!readOnly&&playing,reducedMotion}}>
       <SlideViewport label={page.title}>{page.lesson===2?<PortLblLessonTwo page={page}/>:<PortLblLessonThree page={page}/>}</SlideViewport>
     </LblPlayback.Provider>
-    {controlsTarget&&controls?createPortal(controls,controlsTarget):controls}
+    {controls&&<PageToolsContribution pageKey={page.slideKey} title="动画工具" actions={[
+      {id:'play',label:playing?'暂停':'播放',icon:playing?<Pause size={18}/>:<Play size={18}/>,onInvoke:()=>{cancelAutoPlay();if(progress>=1)setProgress(0);setPlaying(!playing);}}
+    ]}>{controls}</PageToolsContribution>}
   </section>;
 }

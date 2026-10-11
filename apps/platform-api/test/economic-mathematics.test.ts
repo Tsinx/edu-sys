@@ -4,11 +4,11 @@ import {mkdtemp,readFile,writeFile,rm} from "node:fs/promises";
 import {tmpdir} from "node:os";
 import {join} from "node:path";
 import {classroomSnapshotSchema} from "@edu/contracts";
-import {ECONOMIC_MATHEMATICS_UNALLOCATED_HOURS,ECONOMIC_MATHEMATICS_COURSE_ID as courseId,ECONOMIC_MATHEMATICS_DECK_ID as deckId,ECONOMIC_MATHEMATICS_VERSION_ID as version,ECONOMIC_MATHEMATICS_SLIDES as slides,ECONOMIC_MATHEMATICS_LESSONS as lessons,ECONOMIC_MATHEMATICS_INTERACTIONS as labs,economicModels as M,economicCurve,getEconomicMathematicsInteractionDefinition as definition,validateEconomicMathematicsInteractionState as valid} from "@edu/course-content/economic-mathematics";
+import {ECONOMIC_MATHEMATICS_UNALLOCATED_HOURS,ECONOMIC_MATHEMATICS_COURSE_ID as courseId,ECONOMIC_MATHEMATICS_DECK_ID as deckId,ECONOMIC_MATHEMATICS_VERSION_ID as version,ECONOMIC_MATHEMATICS_SLIDES as slides,ECONOMIC_MATHEMATICS_LESSONS as lessons,ECONOMIC_MATHEMATICS_INTERACTIONS as labs,economicModels as M,economicCurve,getEconomicMathematicsInteractionDefinition as definition,validateEconomicMathematicsInteractionState as valid,getEconomicMathematicsHistoricalCounts as historicalCounts} from "@edu/course-content/economic-mathematics";
 import {buildApp} from "../src/app.js";
 import {buildPromptWorkspace} from "../src/assistant/prompts.js";
 import {getCourseDeckByCourseId} from "@edu/course-content/deck-registry";
-test("V2 curriculum, models, geometric evidence and interaction domains",()=>{
+test("current curriculum, models, geometric evidence and interaction domains",()=>{
  assert.equal(lessons.length,32);assert.equal(lessons.reduce((s,l)=>s+l.hours,0)+ECONOMIC_MATHEMATICS_UNALLOCATED_HOURS,64);
  assert.equal(slides.length,lessons.reduce((s,l)=>s+l.slideTotal,0));assert.ok(slides.length<600);
  assert.equal(new Set(slides.map(s=>s.slideKey)).size,slides.length);assert.equal(Object.keys(labs).length,13);
@@ -22,8 +22,46 @@ test("V2 curriculum, models, geometric evidence and interaction domains",()=>{
  for(const x of [.01,.2,.65,1.2]){assert.ok(.5*Math.sin(x)*Math.cos(x)<.5*x);assert.ok(.5*x<.5*Math.tan(x));}
  assert.equal(M.twoInputProfit(20,15),525);assert.deepEqual(M.budgetOptimum(100),{x:64,y:36,value:500});
  assert.equal(M.consumerSurplus(60),18000);
- const seq=definition(slides.find(s=>s.interactionId==="sequence-limit-lab")!)!;assert.equal(valid(seq,{...seq.defaults,n:0}),false);
+ const seq=definition(slides.find(s=>s.limitLab==='capacity')!)!;assert.equal(valid(seq,{...seq.defaults,n:0}),true);assert.equal(valid(seq,{...seq.defaults,n:.5}),false);
  const budget=definition(slides.find(s=>s.interactionId==="budget-constraint-lab")!)!;assert.equal(valid(budget,{...budget.defaults,budget:"25",channelX:26}),false);
+});
+test("embedded history film uses bounded teacher controls and persists its paused position",async()=>{
+ const dir=await mkdtemp(join(tmpdir(),"econ-limits-film-")),dataFile=join(dir,"state.json");
+ let app=await buildApp({dataFile,portSimulationTickMs:0,allowLegacyDevelopmentIdentity:false});
+ try{
+  const login=async(role:string)=>{
+   const response=await app.inject({method:"POST",url:"/api/identity/development/session",payload:{role,participantId:"limits-film-"+role,displayName:"测试"}});
+   assert.equal(response.statusCode,201);return {cookie:String(response.headers["set-cookie"]).split(";")[0]!};
+  };
+  const teacher=await login("teacher"),student=await login("student");
+  const start=await app.inject({method:"POST",url:"/api/courses/"+courseId+"/class-sessions",headers:teacher});
+  assert.equal(start.statusCode,201);
+  const url="/api/class-sessions/"+start.json().id,film=slides.find(s=>s.historyFilm)!;
+  const control=(headers:{cookie:string},payload:Record<string,unknown>)=>app.inject({method:"POST",url:url+"/events",headers,payload});
+  assert.equal((await control(teacher,{type:"set_slide",index:film.index})).statusCode,201);
+  for(const patch of [{filmTime:97.5},{filmTime:181},{filmVolume:101}]){
+   assert.equal((await control(teacher,{type:"set_slide_interaction",slideId:film.slideKey,expectedRevision:1,patch})).statusCode,400);
+  }
+  assert.equal((await control(student,{type:"set_slide_interaction",slideId:film.slideKey,expectedRevision:1,patch:{filmPlaying:true}})).statusCode,403);
+  const update=await control(teacher,{type:"set_slide_interaction",slideId:film.slideKey,expectedRevision:1,patch:{filmTime:97,filmPlaying:true,filmVolume:70,filmMuted:true}});
+  assert.equal(update.statusCode,201);
+  assert.equal((await control(teacher,{type:"set_slide_interaction",slideId:film.slideKey,expectedRevision:1,patch:{filmTime:98}})).statusCode,409);
+  await control(teacher,{type:"next_slide"});
+  const returned=await control(teacher,{type:"previous_slide"});
+  assert.equal(returned.json().slideInteraction.values.filmTime,97);
+  assert.equal(returned.json().slideInteraction.values.filmPlaying,false);
+  const visible=classroomSnapshotSchema.parse((await app.inject({method:"GET",url:url+"/snapshot",headers:student})).json());
+  assert.deepEqual(visible.slideInteraction?.values,returned.json().slideInteraction.values);
+  await app.close();app=await buildApp({dataFile,portSimulationTickMs:0,allowLegacyDevelopmentIdentity:false});
+  const restartedTeacher=await login("teacher");
+  const reconnect=await app.inject({method:"GET",url:url+"/snapshot",headers:restartedTeacher});
+  assert.equal(reconnect.statusCode,200);
+  const restored=classroomSnapshotSchema.parse(reconnect.json());
+  assert.equal(restored.slideInteraction?.values.filmTime,97);
+  assert.equal(restored.slideInteraction?.values.filmVolume,70);
+  assert.equal(restored.slideInteraction?.values.filmMuted,true);
+  assert.equal(restored.slideInteraction?.values.filmPlaying,false);
+ }finally{await app.close();await rm(dir,{recursive:true,force:true});}
 });
 test("SSE sends public steps to both viewers and restores the authoritative step after disconnect",async()=>{
  const dir=await mkdtemp(join(tmpdir(),"econ-v2-sse-"));
@@ -82,6 +120,38 @@ test("assistant receives only the cumulative public steps, including override pr
  assert.ok(!unrevealedLab.includes("525"),"prior-page optimum must not leak into a hidden laboratory answer");
  assert.ok(!unrevealedLab.includes("PRIVATE_OVERRIDE_SECRET"));
 });
+test('sequence zoom restores exact precision parameters, rejects students and hides unpublished feedback',async()=>{
+ const dir=await mkdtemp(join(tmpdir(),'econ-sequence-')),dataFile=join(dir,'state.json');
+ let app=await buildApp({dataFile,portSimulationTickMs:0,allowLegacyDevelopmentIdentity:false});
+ try{
+  const login=async(role:string)=>{const r=await app.inject({method:'POST',url:'/api/identity/development/session',payload:{role,participantId:'sequence-'+role,displayName:'测试'}});assert.equal(r.statusCode,201);return{cookie:String(r.headers['set-cookie']).split(';')[0]!};};
+  const teacher=await login('teacher'),student=await login('student');
+  const started=await app.inject({method:'POST',url:'/api/courses/'+courseId+'/class-sessions',headers:teacher});
+  const url='/api/class-sessions/'+started.json().id;
+  const lab=slides.find(s=>s.limitLab==='sequence-zoom')!;
+  const control=(payload:Record<string,unknown>,headers=teacher)=>app.inject({method:'POST',url:url+'/events',headers,payload});
+  assert.equal((await control({type:'set_slide',index:lab.index})).statusCode,201);
+  const event={type:'set_slide_interaction',slideId:lab.slideKey,expectedRevision:1,patch:{precision:15,tailPower:15,candidate:'2.001',epsilonFactor:'5'}};
+  assert.equal((await control(event,student)).statusCode,403);
+  assert.equal((await control({...event,patch:{precision:16}})).statusCode,400);
+  assert.equal((await control({...event,patch:{tailPower:2.5}})).statusCode,400);
+  assert.equal((await control(event)).statusCode,201);
+  assert.equal((await control(event)).statusCode,409);
+  await control({type:'next_slide'});const restored=await control({type:'previous_slide'});
+  assert.equal(restored.json().slideInteraction.values.precision,15);
+  const shared=classroomSnapshotSchema.parse((await app.inject({method:'GET',url:url+'/snapshot',headers:student})).json());
+  assert.deepEqual(shared.slideInteraction?.values,restored.json().slideInteraction.values);
+  const proof=slides.find(s=>s.lesson===3&&s.title==='反馈：门槛不是答案猜测，而是覆盖规则')!;
+  const frame=getCourseDeckByCourseId(courseId)!.getSlide(proof.index),d=definition(proof)!;
+  const ctx={courseId,courseTitle:'经济数学',activeActivity:'slides' as const,slide:{...frame,slideId:proof.slideKey,deckId,versionId:version,total:slides.length,logicalWidth:1600 as const,logicalHeight:1000 as const,aspectRatio:'16:10' as const},slideInteraction:{deckId,slideId:proof.slideKey,revision:1,values:{...d.defaults,presentationStep:0}},simulation:null,globePlayback:{cueId:null,runId:null,stepIndex:0,status:'idle' as const,stepStartedAt:null,stepElapsedMs:0}};
+  const prompt=buildPromptWorkspace(courseId,'经济数学',undefined,proof.index,'slides',ctx).compiled;
+  assert.ok(!prompt.includes('最早第301项'));assert.ok(!prompt.includes('ceil'));assert.ok(!prompt.includes('exerciseActivityId'));assert.ok(!prompt.includes('teachingCue'));
+  await app.close();app=await buildApp({dataFile,portSimulationTickMs:0,allowLegacyDevelopmentIdentity:false});
+  const restoredTeacher=await login('teacher');
+  const restart=classroomSnapshotSchema.parse((await app.inject({method:'GET',url:url+'/snapshot',headers:restoredTeacher})).json());
+  assert.equal(restart.slideInteraction?.values.precision,15);assert.equal(restart.slideInteraction?.values.candidate,'2.001');
+ }finally{await app.close();await rm(dir,{recursive:true,force:true});}
+});
 test("classroom steps synchronize, reject conflicts, restore on return and restart; archived identities never migrate",async()=>{
  const dir=await mkdtemp(join(tmpdir(),"econ-v2-")),dataFile=join(dir,"state.json");
  let app=await buildApp({dataFile,portSimulationTickMs:0});
@@ -132,6 +202,27 @@ test("classroom steps synchronize, reject conflicts, restore on return and resta
  await writeFile(dataFile,JSON.stringify(saved60));app=await buildApp({dataFile,portSimulationTickMs:0});
  const old60=classroomSnapshotSchema.parse((await app.inject({method:'GET',url:url+'/snapshot'})).json());
  assert.equal(old60.slide.total,422);assert.equal(old60.slide.index,100);assert.equal(old60.slide.lessonNumber,2);assert.equal(old60.slide.slideId,'em-l02-refined-flow-p060');assert.equal(old60.slideInteraction?.revision,7);
+ assert.equal((await control({type:'next_slide'})).statusCode,409);
+ await app.close();
+ const mappingVersion='release-economic-mathematics-lesson02-mapping-2026-10-09';
+ const savedMapping=JSON.parse(await readFile(dataFile,'utf8'));
+ const counts=historicalCounts(mappingVersion)!;
+ Object.assign(savedMapping.classroomRuntimes[id],{deckId:'deck-economic-mathematics-2026-lesson02-mapping',deckVersion:mappingVersion,slideIndex:counts[0]!+counts[1]!+counts[2]!+1,slideKey:'em-v2-l04-p001'});
+ savedMapping.classroomRuntimes[id].slideInteractions['em-v2-l04-p001']={revision:8,values:{presentationStep:0}};
+ await writeFile(dataFile,JSON.stringify(savedMapping));app=await buildApp({dataFile,portSimulationTickMs:0});
+ const oldMapping=classroomSnapshotSchema.parse((await app.inject({method:'GET',url:url+'/snapshot'})).json());
+ assert.equal(oldMapping.slide.total,421);assert.equal(oldMapping.slide.lessonNumber,4);
+ assert.equal(oldMapping.slide.versionId,mappingVersion);assert.equal(oldMapping.slideInteraction?.revision,8);
+ assert.equal((await control({type:'next_slide'})).statusCode,409);
+ await app.close();
+ const oldLimitsVersion='release-economic-mathematics-limits-refined-2026-10-10';
+ const savedLimits=JSON.parse(await readFile(dataFile,'utf8'));
+ Object.assign(savedLimits.classroomRuntimes[id],{deckId:'deck-economic-mathematics-2026-limits-refined',deckVersion:oldLimitsVersion,slideIndex:113,slideKey:'em-l03-limits-20261010-p014'});
+ savedLimits.classroomRuntimes[id].slideInteractions['em-l03-limits-20261010-p014']={revision:9,values:{presentationStep:0,filmTime:97,filmPlaying:false,filmVolume:70,filmMuted:true}};
+ await writeFile(dataFile,JSON.stringify(savedLimits));app=await buildApp({dataFile,portSimulationTickMs:0});
+ const oldLimits=classroomSnapshotSchema.parse((await app.inject({method:'GET',url:url+'/snapshot'})).json());
+ assert.equal(oldLimits.slide.total,513);assert.equal(oldLimits.slide.lessonNumber,3);assert.equal(oldLimits.slide.versionId,oldLimitsVersion);
+ assert.equal(oldLimits.slide.slideId,'em-l03-limits-20261010-p014');assert.equal(oldLimits.slideInteraction?.values.filmTime,97);
  assert.equal((await control({type:'next_slide'})).statusCode,409);
  const fresh=await app.inject({method:"POST",url:"/api/courses/"+courseId+"/class-sessions",payload:{mode:"new"}});assert.equal(fresh.statusCode,201);
  const freshFrame=(await app.inject({method:"GET",url:"/api/class-sessions/"+fresh.json().id+"/snapshot"})).json().slide;assert.equal(freshFrame.versionId,version);

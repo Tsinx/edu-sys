@@ -7,6 +7,7 @@ import katex from 'katex';
 import 'katex/dist/katex.min.css';
 import './statistical-analysis.css';
 import {RegressionPageView,regressionPageSpec} from './RegressionPages';
+import {MeasurementPageView,measurementPageSpec} from './MeasurementPages';
 
 const ROOT='/course-assets/statistical-analysis/images/';
 function Art({id,style,mode='window'}:{id:string;style?:CSSProperties;mode?:string}) {return <img className={`sa-art sa-art--${mode}`} src={`${ROOT}${id}.png`} alt="教学情境原创配图" draggable={false} style={style}/>;}
@@ -18,6 +19,7 @@ function Table({headers,rows}:{headers:string[];rows:(string|number)[][]}) {retu
 function Means() {return <div className="sa-means"><div><span>会员</span><strong>650</strong><small>元/人/月 · n=240</small></div><i>vs.</i><div><span>非会员</span><strong>500</strong><small>元/人/月 · n=240</small></div></div>;}
 function Receipt() {return <><Art id="l1-05-receipts" mode="cutout" style={{left:-120,top:90,width:770,height:500,opacity:.7}}/><div className="sa-receipt-records"><span>聚合演示 · C示例01 · 同一观察月</span><p>订单 A <b>120</b></p><p>订单 B <b>180</b></p><p>订单 C <b>200</b></p></div><div className="sa-sum"><span>顾客月消费</span><strong>500<small>元</small></strong><p>一位顾客，仅贡献一行</p></div><svg className="sa-arrow" viewBox="0 0 420 150" aria-hidden="true"><path d="M10 75H370m-30-25 30 25-30 25" fill="none" stroke={amber} strokeWidth="3"/></svg></>;}
 function MainContent({s}:{s:SlideSpec}):ReactNode {
+ if(s.lesson>=6)return <MeasurementPageView lesson={s.lesson} page={s.localIndex}/>;
  if(s.lesson>=3)return <RegressionPageView lesson={s.lesson} page={s.localIndex}/>;
  const p=s.localIndex;
  if(s.lesson===1) switch(p) {
@@ -146,7 +148,7 @@ function SortedMeans(){return <Plot label="按均值排序的四组点图"><Axis
 function CityMeans({compact=false}:{compact?:boolean}) {return <Plot label="相同横轴下两座城市的会员与非会员均值"><Axis max={1000} step={200}/>{['甲','乙'].map((city,i)=>{const a=D.cells[i*2]!,b=D.cells[i*2+1]!,cy=140+i*190;return <g key={city}><text x="90" y={cy-68} fontSize="29">{city}城　会员 n={a.n} ／ 非会员 n={b.n}</text><path d={`M${90+a.mean/1000*990} ${cy}H${90+b.mean/1000*990}`} stroke={mutedColor} strokeWidth="3"/><circle cx={90+a.mean/1000*990} cy={cy} r="10" fill={amber}/><path d={`M${90+b.mean/1000*990} ${cy-10}l10 20h-20Z`} fill={teal}/><text x={75+a.mean/1000*990} y={cy+43} textAnchor="end" fill={amber}>{fmt(a.mean,0)}</text><text x={105+b.mean/1000*990} y={cy+43} fill={teal}>{fmt(b.mean,0)}</text>{!compact?<text x="1020" y={cy+8} fill={ink}>Δ = −50</text>:null}</g>;})}<text x="1050" y="38" textAnchor="end" fontSize="21">琥珀圆点：会员　蓝绿三角：非会员</text></Plot>;}
 export function StatisticalAnalysisSlide({index}:{index:number}) {
  const s=getStatisticalAnalysisSlide(index),cover=s.localIndex===1;
- const hasArt=s.lesson>=3?Boolean(regressionPageSpec(s.lesson,s.localIndex)?.image):(s.lesson===1?[1,2,3,4,5,6,7,9,10,11,13,14,17,18,19,20,26,36,39,45,46,48]:[1,2,6,14,17,21,30,32,33,38,44,52]).includes(s.localIndex);
+ const hasArt=s.lesson>=6?Boolean(measurementPageSpec(s.lesson,s.localIndex)?.image):s.lesson>=3?Boolean(regressionPageSpec(s.lesson,s.localIndex)?.image):(s.lesson===1?[1,2,3,4,5,6,7,9,10,11,13,14,17,18,19,20,26,36,39,45,46,48]:[1,2,6,14,17,21,30,32,33,38,44,52]).includes(s.localIndex);
  return <article className={`sa-slide ${cover?'sa-slide--cover':''} sa-slide--${s.slideKey}`} data-slide-key={s.slideKey}>
   {!cover&&<header className="sa-header"><span>{String(s.lesson).padStart(2,'0')} / {s.section}</span><h1>{s.title}</h1><p>{s.lead}</p></header>}
   <div className={cover?'sa-cover':'sa-body'}><MainContent s={s}/></div>

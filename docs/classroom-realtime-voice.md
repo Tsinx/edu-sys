@@ -9,8 +9,8 @@
 ```dotenv
 EDU_REALTIME_ENABLED=true
 EDU_REALTIME_URL=wss://YOUR_WORKSPACE.cn-beijing.maas.aliyuncs.com/api-ws/v1/realtime
-EDU_REALTIME_MODEL=qwen-audio-3.0-realtime-plus
-EDU_REALTIME_VOICE=longanqian
+EDU_REALTIME_MODEL=qwen-audio-3.1-realtime-plus
+EDU_REALTIME_VOICE=longanqian_v3.1
 # 可选独立密钥；留空时使用已有 DASHSCOPE_API_KEY。
 EDU_REALTIME_API_KEY=
 ```
@@ -18,6 +18,26 @@ EDU_REALTIME_API_KEY=
 地址和密钥须属于可调用该模型的业务空间、地域。密钥只在平台 API 中使用。`/api/runtime/config` 仅暴露 `speech.realtime.available`。开关、地址或密钥缺失时，录音入口不可用并提示使用文字，不回退到独立 ASR。实时语音支持 Live2D 和浏览器视频形象；开发环境的 LAM 3D 形象暂不支持实时音频输入，需切换到上述形象后录音，也可继续文字输入。
 
 旧 `/api/teacher/asr`、课堂 `/avatar/commands` 的 `inputMode=voice`、课堂 `/assistant/turns` 的 `source=voice_asr` 请求返回 HTTP 410 和 `CLASSROOM_REALTIME_REQUIRED`，不调用旧模型或执行动作。`/api/teacher/tts` 仍供文字回答和预置讲解朗读使用，自学语音接口保持不变。
+
+## 2026-10-10 Qwen-Audio 3.1 迁移
+
+| 用途 | 当前模型 | 协议与音色 |
+| --- | --- | --- |
+| 逐页讲解、教师打字发言、课下朗读 | `qwen-audio-3.1-tts-flash` | `/api-ws/v1/inference`；默认 `longanhuan_v3.1` |
+| 课下独立语音识别 | `qwen-audio-3.1-asr-flash` | 原生 multimodal-generation HTTP；显式音频格式 |
+| 课堂实时问答及语音指令 | `qwen-audio-3.1-realtime-plus` | 原有 `/api-ws/v1/realtime`；`longanqian_v3.1` |
+
+TTS 不是只替换名称：新版采用 `run-task → task-started → continue-task → finish-task`，返回二进制24kHz PCM。平台转换为原有课堂音频块，保留音量、暂停、取消和嘴型处理。上游失败的诊断仅记录在服务端日志；学生仍看到简短的语音不可用提示。ASR 改用原生 `input.messages` 和 `output`，课程词汇以 `user/input_text` 提供；压缩音频由服务识别采样率，WAV读取真实头信息。
+
+在 `.env` 配置 `EDU_SELFSTUDY_TTS_MODEL=qwen-audio-3.1-tts-flash`、`EDU_SELFSTUDY_TTS_VOICE_ID=longanhuan_v3.1`、`EDU_SELFSTUDY_TTS_PRESET_MODEL=qwen-audio-3.1-tts-flash` 与 `EDU_SELFSTUDY_ASR_MODEL=qwen-audio-3.1-asr-flash`。原生端点默认由已有业务空间 `EDU_REALTIME_URL` 推导，也可分别设置 `EDU_SELFSTUDY_TTS_TASK_WS_URL` 与 `EDU_SELFSTUDY_ASR_NATIVE_URL`；密钥仍留在服务端。配置修改后重启API。
+
+当前小麦老师使用 `default` 音色配置，与澜舟视频共用。旧专属模型实际返回 `Model not exist`，故本地配置已改为新版配套系统女声；旧声音设计回执和预览保留。旧专属音色需要为目标模型重新创建后才能启用，不可将旧ID直接交给3.1。仍显式配置旧模型与匹配音色的部署保留原协议；此兼容路径不代表旧模型仍在线。
+
+真实云端检查通过：默认TTS返回PCM，48kHz WebM/Opus被识别为“你好，请看屏幕。”，实时模型完成一轮文字输入并返回语音和字幕。用户当前 Edge 课堂中，第三讲首屏讲解完成，暂停与继续正常，教师打字发言也完成；500%音量设置与当前页保留。未为检查请求麦克风权限，本次实时检查不覆盖用户麦克风采集或现场音响。证据见 `output/economic-mathematics/qwen-voice-2026-10-10/`。
+
+29项相关测试通过，覆盖原生任务协议、音色选择、上游错误、空音频、取消、完成后缓冲播放、原生ASR、课堂权限及上下文隔离；全工作区类型检查、生产构建与 `git diff --check` 通过。复现命令：`pnpm --filter @edu/platform-api exec tsx --test test/qwen-audio-speech.test.ts test/speech-language.test.ts test/runtime-env.test.ts test/realtime.test.ts`。
+
+协议与迁移依据：[3.1 TTS](https://help.aliyun.com/zh/model-studio/qwen-audio-3-1-tts-flash)、[TTS客户端事件](https://help.aliyun.com/zh/model-studio/qwen-audio-tts-client-events)、[音色列表](https://help.aliyun.com/zh/model-studio/qwen-audio-tts-voice-list)、[ASR HTTP](https://help.aliyun.com/zh/model-studio/fun-asr-flash-recorded-speech-recognition-http-api)、[实时模型迁移指南](https://help.aliyun.com/zh/model-studio/qwen-audio-realtime-user-guides)。
 
 ## 数据流与行为
 

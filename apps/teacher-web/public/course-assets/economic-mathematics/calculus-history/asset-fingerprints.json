@@ -1,0 +1,57 @@
+[
+  {
+    "file": "assets/berkeley.jpg",
+    "bytes": 498525,
+    "sha256": "7f91e771a456cfcd26c503048f43b3143d84efdaba1a389fd2cba0e43adb0f52"
+  },
+  {
+    "file": "assets/leibniz.jpg",
+    "bytes": 632478,
+    "sha256": "ad636a944b8e3cf7850a5b4f8cc73af4a2fe7d4d8d3d662da5796f6d3c7e3290"
+  },
+  {
+    "file": "assets/newton.jpg",
+    "bytes": 775222,
+    "sha256": "0c6e67faf4fce4abaf0c236d33395aa99f2bbfa11f05975e8c593f6c132fa65e"
+  },
+  {
+    "file": "assets/nova-methodus.jpg",
+    "bytes": 214837,
+    "sha256": "e07acae17dd80c51fcf73e966f234bc89c2b8535e2fa294e25168a49d34d1037"
+  },
+  {
+    "file": "assets/press.png",
+    "bytes": 2382431,
+    "sha256": "ec18f1752d0391d9682b8cbdff9a78a99f5c4b0ae3bcf82f192d77690eab4885"
+  },
+  {
+    "file": "assets/study.png",
+    "bytes": 2629781,
+    "sha256": "8099d5824be83f08304e51323315e6d895bb242b669fff333878db3cf87ba2ad"
+  },
+  {
+    "file": "fonts/display.woff",
+    "bytes": 144800,
+    "sha256": "4b8eeb930d5006effadbd5ed3fce12f8b759d66c8f6bae3acee52076d3653a33"
+  },
+  {
+    "file": "fonts/OFL-sans.txt",
+    "bytes": 4387,
+    "sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded"
+  },
+  {
+    "file": "fonts/OFL-serif.txt",
+    "bytes": 4350,
+    "sha256": "5e0da210fb04058a8c0087985d2d456b931c2579811a49655721d3cf0c36b6d6"
+  },
+  {
+    "file": "fonts/sans.woff",
+    "bytes": 241200,
+    "sha256": "27f2e9a1dbd9c0d0cb8bf42ae6f200a716343e337dae9eef5f2bfda0143b8f4e"
+  },
+  {
+    "file": "fonts/serif.woff",
+    "bytes": 334340,
+    "sha256": "529ac6b6e4171bbc7dc3797031ca5c5d03bf0334922ef250ec7f29b7d5276741"
+  }
+]

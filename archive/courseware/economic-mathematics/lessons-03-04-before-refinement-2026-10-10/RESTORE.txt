@@ -1,0 +1,1 @@
+Preserved before the lecture 3/4 refinement. Original release: release-economic-mathematics-lesson02-mapping-2026-10-09. Restore only listed paths after reviewing unrelated local changes; retained original v2 definitions remain available for historical counts. Do not map historical indices to the new release.

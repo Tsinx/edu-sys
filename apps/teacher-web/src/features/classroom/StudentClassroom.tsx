@@ -1,16 +1,19 @@
+import './page-tools.css';
 import type { ClassroomActor, ClassroomSnapshot, SlideInteractionState, SlideInteractionValues } from "@edu/contracts";
 import { lessonFiveExperimentUrl } from "../port-lesson-five/navigation";
 import { PortLessonSixControls } from '../port-lesson-six/PortLessonSixStage';
 import { getPortLessonFourDemo } from "@edu/course-content";
 import { getCourseAdjacentIndex, getCourseLessonLabel, type CourseDeckDescriptor } from "@edu/course-content/deck-registry";
-import { BookOpen, ChevronLeft, ChevronRight, CircleAlert, FlaskConical, Focus, List, LoaderCircle, Maximize2, Radio, X } from "lucide-react";
+import { BookOpen, ChevronLeft, ChevronRight, CircleAlert, FlaskConical, Focus, List, LoaderCircle, Radio, X } from "lucide-react";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useParams } from "react-router-dom";
 import { StudentParticipation } from "./ClassroomParticipation";
 import { ClassroomRankedPractice } from "../ranked-practice/RankedPractice";
 import { ActivityStage, SlideStage } from "./TeachingSlides";
-import { ClassroomPlaybackSlot } from "./ClassroomPlaybackSlot";
+import { PageToolsProvider, PresentationToolbar } from "./PageTools";
+import { FullscreenButtons } from './FullscreenButtons';
+import { usePresentationFullscreen } from './usePresentationFullscreen';
 import { useStudentClassroom } from "./useStudentClassroom";
 import { restoreStudentNavigation, simulationUnitLabels, studentFrame, teacherLocation, type StudentLocation, type StudentNavigation } from "./student-navigation";
 import { PortLessonFourControls } from "../port-lesson-four/PortLessonFourStage";
@@ -61,13 +64,8 @@ function StudentWorkspace({sessionId, deck, actor, snapshot, connected, error}: 
   const [directory, setDirectory] = useState(false);
   const [pageDraft, setPageDraft] = useState("");
   const [notice, setNotice] = useState("");
-  const [playbackSlot, setPlaybackSlot] = useState<HTMLDivElement | null>(null);
-  const [fullscreen, setFullscreen] = useState<Element | null>(null);
-  useEffect(() => {
-    const update = () => setFullscreen(document.fullscreenElement);
-    document.addEventListener("fullscreenchange", update);
-    return () => document.removeEventListener("fullscreenchange", update);
-  }, []);
+  const fullscreen = usePresentationFullscreen<HTMLElement>({ onError: setNotice, locale: deck.locale });
+  const fullscreenTarget = fullscreen.isFullscreen ? fullscreen.containerRef.current : null;
   const [interactions, setInteractions] = useState<Record<string, SlideInteractionValues>>({});
   const frozen = useRef(snapshot);
   const live = snapshot.session.status === "live";
@@ -103,7 +101,7 @@ function StudentWorkspace({sessionId, deck, actor, snapshot, connected, error}: 
   function editInteraction(patch: SlideInteractionValues) { if(syncOnly)return; browse(); setInteractions(old => ({...old, [frame.slideId]:{...(interaction?.values ?? defaults), ...patch}})); }
   const detachOnControl = (target: EventTarget) => { if (following && target instanceof Element && !target.closest("[data-l6-audio-control],[data-im-audio-control]") && target.closest("button,input,select,canvas,[role=button]")) browse(); };
   return <main lang={deck.locale ?? "zh-CN"} className={`student-learning ${directory ? "student-learning--directory" : ""}`} data-following={following}>
-    {fullscreen && createPortal(<div className="student-fullscreen-position"><span>{teacherLabel}</span><button disabled={!live || Boolean(error)} onClick={follow}><Focus size={16}/>{following?t("正在跟随教师", "Following teacher"):t("一键跟上教师", "Follow teacher")}</button></div>, fullscreen)}
+    {fullscreenTarget && createPortal(<div className="student-fullscreen-position"><span>{teacherLabel}</span><button disabled={!live || Boolean(error)} onClick={follow}><Focus size={16}/>{following?t("正在跟随教师", "Following teacher"):t("一键跟上教师", "Follow teacher")}</button></div>, fullscreenTarget)}
     <header className="student-learning__heading"><a className="student-activity-link" href="#student-activities" onClick={()=>{const panel=document.getElementById("student-activities");if(panel instanceof HTMLDetailsElement)panel.open=true;}}>{t("课堂活动", "Class activities")}</a>
       <Link to="/" className="student-learning__brand" aria-label={t("返回学习首页", "Return to learning home")}><BookOpen size={23}/></Link>
       <div><p className="student-eyebrow">{t("我的课堂", "My classroom")}</p><h1>{snapshot.courseTitle}</h1></div>
@@ -120,10 +118,10 @@ function StudentWorkspace({sessionId, deck, actor, snapshot, connected, error}: 
         <label>{t("选择课次", "Select lecture")}<select aria-label={t("目录课次", "Lecture in contents")} value={position.lessonNumber} onChange={e=>{const index=deck.getGlobalIndex(Number(e.target.value));if(index)go(index);}}>{deck.lessons.map(lesson=><option key={lesson.number} value={lesson.number} disabled={lesson.status!=="ready"}>{getCourseLessonLabel(lesson, deck.locale)} · {lesson.title}</option>)}</select></label>
         <nav>{pageList.map((slide,i)=><button key={slide.slideKey} aria-current={frame.index===slide.index?"page":undefined} onClick={()=>{go(slide.index);if(window.innerWidth<800)setDirectory(false);}}><span>{String(i+1).padStart(2,"0")}</span><div>{slide.title}{teacher.index===slide.index&&<small>{t("教师所在页", "Teacher is here")}</small>}</div></button>)}</nav>
       </aside></>}
-      <section className="student-reader" aria-label={t("学生课堂画面", "Classroom view")}>
+      <PageToolsProvider pageKey={current.activity === 'slides' ? frame.slideId : `activity:${current.activity}`} role={following?'student':'reader'}><section ref={fullscreen.containerRef} tabIndex={-1} className={`student-reader ${fullscreen.fullscreenClassName}`} aria-label={t("学生课堂画面", "Classroom view")}>
         <div className="student-reader__heading">{!syncOnly&&<button onClick={()=>setDirectory(!directory)} aria-expanded={directory}><List size={18}/>{t("目录", "Contents")}</button>}<span className="student-mode">{following ? t("跟随教师", "Following teacher") : t("自由浏览", "Independent browsing")}</span><span className="student-reader__title">{simulation ? simulationUnitLabels[current.unit ?? "arrival"] : frame.title}</span>{following && !syncOnly && <button onClick={()=>browse()}>{t("自主浏览", "Browse independently")}</button>}</div>
         <div className={`student-reader__stage ${simulation ? "student-reader__stage--simulation" : ""}`} onPointerDownCapture={e=>detachOnControl(e.target)} onKeyDownCapture={e=>{if(e.key==="Enter"||e.key===" ")detachOnControl(e.target);}}>
-          <ClassroomPlaybackSlot.Provider value={playbackSlot}><Suspense fallback={<div className="student-loading"><LoaderCircle className="spin"/>{t("正在装载内容…", "Loading content\u2026")}</div>}>
+          <Suspense fallback={<div className="student-loading"><LoaderCircle className="spin"/>{t("正在装载内容…", "Loading content\u2026")}</div>}>
             {simulation ? !current.unit ? <div className="student-loading">{t("等待教师发布课堂实验；也可以通过目录自由浏览课件。", "Waiting for the teacher. You can browse slides using the contents.")}</div> : <Simulation courseId={snapshot.courseId} classSessionId={sessionId} actorId={actor.actorId} actorDisplayName={actor.displayName} storageScope={`${snapshot.courseId}:${actor.actorId}`} initialChallengeId={current.challenge?.id ?? "joint-watch"}
               initialTrainingMode={current.challenge?.trainingMode} challengeLocked={Boolean(current.challenge)}
               initialLearningStage={current.unit} navigationUnit={current.unit} onModuleChange={unit=>browse({...current,unit})} sourceLabel={current.challenge?"课堂实验 · 个人进度独立保存":"个人实验 · 进度独立保存"}/>
@@ -134,21 +132,24 @@ function StudentWorkspace({sessionId, deck, actor, snapshot, connected, error}: 
                   lessonSixPresentation={following?(snapshot.lessonSixPresentation?.slideKey===frame.slideId?snapshot.lessonSixPresentation:{progress:0,revealed:false,option:0}):undefined}
                   presentationProgress={following && snapshot.lessonFourPresentation?.slideKey===frame.slideId?snapshot.lessonFourPresentation.progress:undefined}/>
               </PortLessonFourControls.Provider></PortLessonSixControls.Provider> : <ActivityStage activity={current.activity} frame={frame}/>}
-          </Suspense></ClassroomPlaybackSlot.Provider>
+          </Suspense>
         </div>
         {snapshot.courseId==="course-port-management-intro"&&position.lessonNumber===5&&<div className="l5-live-note">{following&&snapshot.simulationNavigation?.experiment==="l5-capacity"?`教师正在演示方案${snapshot.simulationNavigation.plan}；个人实验独立保存。`:"第5讲个人任务：从同一起点只增加运输岗位。"}<a className="l5-personal-link" href={lessonFiveExperimentUrl('C',`/join/${sessionId}`,sessionId,true)}>进入个人C实验</a></div>}
-        <div className="student-playback-slot" ref={setPlaybackSlot}/>
-        <nav className="student-reader__navigation" aria-label={t("课件导航", "Slide navigation")}>
+        <PresentationToolbar label={t('学习工具栏','Learning toolbar')} moreLabel={t('更多工具','More tools')}
+          navigation={<nav className="presentation-slide-navigation" aria-label={t("课件导航", "Slide navigation")}>
           <button aria-label={t("上一页", "Previous")} disabled={syncOnly || getCourseAdjacentIndex(deck,frame.index,-1)===null} onClick={()=>go(getCourseAdjacentIndex(deck,frame.index,-1)??frame.index)}><ChevronLeft size={18}/><span>{t("上一页", "Previous")}</span></button>
-          <label><span className="sr-only">{t("选择课次", "Select lecture")}</span><select disabled={syncOnly} aria-label={t("选择课次", "Select lecture")} value={position.lessonNumber} onChange={e=>{const index=deck.getGlobalIndex(Number(e.target.value));if(index)go(index);}}>{deck.lessons.map(lesson=><option key={lesson.number} value={lesson.number} disabled={lesson.status!=="ready"}>{getCourseLessonLabel(lesson, deck.locale)}</option>)}</select></label>
+
           <label className="student-page-input"><input readOnly={syncOnly} aria-label={t("当前讲页码", "Page in this lecture")} inputMode="numeric" value={pageDraft} onChange={e=>setPageDraft(e.target.value)} onBlur={jump} onKeyDown={e=>{if(e.key==="Enter")jump();if(e.key==="Escape")setPageDraft(String(position.localIndex));}}/><span>/ {position.localTotal}</span></label>
           <button aria-label={t("下一页", "Next")} disabled={syncOnly || getCourseAdjacentIndex(deck,frame.index,1)===null} onClick={()=>go(getCourseAdjacentIndex(deck,frame.index,1)??frame.index)}><span>{t("下一页", "Next")}</span><ChevronRight size={18}/></button>
+</nav>} more={<>
+          <label><span className="sr-only">{t("选择课次", "Select lecture")}</span><select disabled={syncOnly} aria-label={t("选择课次", "Select lecture")} value={position.lessonNumber} onChange={e=>{const index=deck.getGlobalIndex(Number(e.target.value));if(index)go(index);}}>{deck.lessons.map(lesson=><option key={lesson.number} value={lesson.number} disabled={lesson.status!=="ready"}>{getCourseLessonLabel(lesson, deck.locale)}</option>)}</select></label>
           {snapshot.courseId==="course-port-management-intro"&&position.lessonNumber===4&&<button className="student-simulation-entry" onClick={()=>openSimulation()}><FlaskConical size={18}/>仿真系统</button>}
           {simulation&&<button onClick={()=>go(frame.index)}>{t("返回课件", "Back to slides")}</button>}
-          <button aria-label={t("全屏学习", "Fullscreen")} onClick={()=>{const el=document.querySelector('.student-reader');const result=document.fullscreenElement?document.exitFullscreen():el?.requestFullscreen?.();if(!result)setNotice(t("当前浏览器暂不支持全屏，请横屏阅读。", "Fullscreen is unavailable. Rotate your device to landscape."));void result?.catch(()=>setNotice(t("当前浏览器暂不支持全屏，请横屏阅读。", "Fullscreen is unavailable. Rotate your device to landscape.")));}}><Maximize2 size={18}/></button>
-        </nav>
+
+          </>} end={<FullscreenButtons controls={fullscreen} locale={deck.locale}/>}/>
+
         <p className="student-reader__hint">{syncOnly?t("教师控制翻页与演示，当前画面同步显示", "The teacher controls slides and demonstrations."):following?t("手动翻页或操作实验即可自由浏览", "Navigate to browse independently."):t("你正在自由浏览，可以随时跟上教师", "You are browsing independently. Follow the teacher at any time.")}{notice&&` · ${notice}`}</p>
-      </section>
+      </section></PageToolsProvider>
     </div>
     {snapshot.courseId==='course-international-mathematics'&&<ClassroomRankedPractice sessionId={sessionId} actor={actor}/>}
     <details id="student-activities" className="student-participation"><summary>{t("课堂互动", "Class activities")}</summary><StudentParticipation sessionId={sessionId} actor={actor} locale={deck.locale}/></details>

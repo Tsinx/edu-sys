@@ -4,17 +4,49 @@ import { getAvatarVoice } from '../avatar/avatar-preference';
 
 export type NarrationStatus = 'idle' | 'loading' | 'playing' | 'paused' | 'error';
 export type NarrationVoice = 'course' | 'device';
+export const NARRATION_VOLUME_STORAGE = 'economic-narration-volume';
+export function readNarrationVolume() {
+  try {
+    const saved = localStorage.getItem(NARRATION_VOLUME_STORAGE);
+    const value = saved === null ? 200 : Number(saved);
+    return Number.isFinite(value) ? Math.max(0, Math.min(500, value)) : 200;
+  } catch { return 200; }
+}
 /** One owned playback queue. It never opens a microphone or an LLM conversation. */
 export class NarrationSpeech {
   readonly meter = new SpeechMeter();
   private context?: AudioContext;
+  private output?: GainNode;
+  private limiter?: DynamicsCompressorNode;
+  private volume = 2;
   private controller?: AbortController;
   private sources = new Map<AudioBufferSourceNode, () => void>();
   private utterance?: SpeechSynthesisUtterance;
   private status: NarrationStatus = 'idle';
   private paused = false;
   private pauseWaiters: Array<() => void> = [];
-  constructor(private update: (status: NarrationStatus, message?: string) => void) {}
+  constructor(private update: (status: NarrationStatus, message?: string) => void, private readonly courseId = 'course-economic-mathematics') {}
+  setVolume(volume: number) {
+    this.volume = Number.isFinite(volume) ? Math.max(0, Math.min(5, volume)) : 2;
+    if (this.output && this.context) this.output.gain.setTargetAtTime(this.volume, this.context.currentTime, .015);
+    if (this.utterance) this.utterance.volume = Math.min(1, this.volume);
+  }
+  private audioOutput() {
+    if (!this.output) {
+      const context = this.context!;
+      this.output = context.createGain();
+      this.output.gain.value = this.volume;
+      this.limiter = context.createDynamicsCompressor();
+      this.limiter.threshold.value = -3;
+      this.limiter.knee.value = 0;
+      this.limiter.ratio.value = 20;
+      this.limiter.attack.value = .003;
+      this.limiter.release.value = .12;
+      this.output.connect(this.limiter);
+      this.limiter.connect(context.destination);
+    }
+    return this.output;
+  }
   private set(status: NarrationStatus, message?: string) { this.status = status; this.update(status, message); }
   private async awaitResume(signal: AbortSignal) {
     if (!this.paused) return;
@@ -43,7 +75,7 @@ export class NarrationSpeech {
     this.paused = false; this.pauseWaiters.splice(0).forEach(resolve => resolve());
     if (this.controller) this.set('playing');
   }
-  async play(paragraphs: readonly string[], voice: NarrationVoice, rate: number, onParagraph: (text: string) => void) {
+  async play(paragraphs: readonly string[], voice: NarrationVoice, rate: number, onParagraph: (text: string) => void, completionMessage = '本页已公开内容讲解完毕。') {
     this.stop();
     window.dispatchEvent(new CustomEvent('edu:exclusive-audio', { detail: this }));
     const controller = new AbortController(); this.controller = controller;
@@ -58,7 +90,7 @@ export class NarrationSpeech {
         else await this.cloud(text, rate, signal);
       }
       signal.throwIfAborted();
-      if (this.controller === controller) { this.controller = undefined; this.meter.reset(); this.set('idle', '本页已公开内容讲解完毕。'); }
+      if (this.controller === controller) { this.controller = undefined; this.meter.reset(); this.set('idle', completionMessage); }
     } catch (error) {
       if (signal.aborted || this.controller !== controller) return;
       this.stop(); this.set('error', error instanceof Error ? error.message : '讲解失败，请重试。');
@@ -71,6 +103,7 @@ export class NarrationSpeech {
     return new Promise<void>((resolve, reject) => {
       const utterance = new SpeechSynthesisUtterance(text); this.utterance = utterance;
       utterance.lang = 'zh-CN'; utterance.voice = voice; utterance.rate = rate;
+      utterance.volume = Math.min(1, this.volume);
       const cleanup = () => { signal.removeEventListener('abort', abort); if (this.utterance === utterance) this.utterance = undefined; };
       const abort = () => { speechSynthesis.cancel(); cleanup(); reject(new DOMException('Stopped', 'AbortError')); };
       utterance.onstart = () => { if (!signal.aborted && !this.paused) this.set('playing'); };
@@ -85,7 +118,7 @@ export class NarrationSpeech {
     let timer = setTimeout(() => timeout.abort(), 25000);
     const requestSignal = AbortSignal.any([signal, timeout.signal]);
     try {
-      const response = await fetch('/api/teacher/tts', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text, courseId: 'course-economic-mathematics', voiceProfile: getAvatarVoice(), lipSync: true }), signal: requestSignal });
+      const response = await fetch('/api/teacher/tts', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text, courseId: this.courseId, voiceProfile: getAvatarVoice(), lipSync: true }), signal: requestSignal });
       if (!response.ok || !response.body) throw new Error(response.status === 401 || response.status === 403 ? '请先登录教师账号，再使用课程语音；也可选择本机中文语音。' : '课程语音暂不可用。请确认平台服务已启动，或选择本机中文语音后重试。');
       const reader = response.body.getReader(), decoder = new TextDecoder();
       let buffer = '', next = this.context!.currentTime, count = 0;
@@ -106,7 +139,7 @@ export class NarrationSpeech {
             const ctx = this.context!, block = ctx.createBuffer(1, samples.length, event.sampleRate);
             block.getChannelData(0).set(samples);
             const source = ctx.createBufferSource(); source.buffer = block; source.playbackRate.value = rate;
-            this.meter.connect(source); next = Math.max(next, ctx.currentTime + .035);
+            this.meter.connect(source, this.audioOutput()); next = Math.max(next, ctx.currentTime + .035);
             const cues = event.mouthCues?.map((cue: { start: number; end: number; value: string }) => ({ ...cue, start: cue.start / rate, end: cue.end / rate }));
             this.meter.schedule(source, next, cues);
             played.push(new Promise<void>(resolve => { this.sources.set(source, resolve); source.onended = () => { this.sources.delete(source); source.disconnect(); resolve(); }; }));
@@ -124,5 +157,5 @@ export class NarrationSpeech {
       throw error;
     } finally { clearTimeout(timer); }
   }
-  dispose() { this.stop(); void this.context?.close(); }
+  dispose() { this.stop(); this.output?.disconnect(); this.limiter?.disconnect(); void this.context?.close(); }
 }

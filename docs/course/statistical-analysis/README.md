@@ -1,12 +1,12 @@
 # 统计分析方法 · 原生课件
 
-课程内部标识 `statistical-analysis`。32课时、16讲，面向学过基础统计但尚不能独立实证分析的商科研究生。第1—5讲分别48、52、48、50、52页，共250页，各90分钟；第6—16讲保留正式标题与“待建设”，没有空白播放入口。
+课程内部标识 `statistical-analysis`。32课时、16讲，面向学过基础统计但尚不能独立实证分析的商科研究生。第1—7讲分别48、52、48、50、52、48、52页，共350页，各90分钟；第8—16讲保留正式标题与“待建设”，没有空白播放入口。
 
 ## 打开与授课
 
-本机平台运行时，打开 [课程工作区](http://127.0.0.1:5173/courses/statistical-analysis)，在讲次目录中选择第1—5讲。教师可使用上一页、下一页、讲内页码与讲次选择器；学生从该课堂的加入链接同步观看。刷新保留进度。已结束的课堂不能继续控制。
+本机平台运行时，打开 [课程工作区](http://127.0.0.1:5173/courses/statistical-analysis)，在讲次目录中选择第1—7讲。教师可使用上一页、下一页、讲内页码与讲次选择器；学生从该课堂的加入链接同步观看。刷新保留进度。已结束的课堂不能继续控制。
 
-[独立课件预览](http://127.0.0.1:5173/statistical-analysis-preview.html?page=1) 用于备课；`page` 是1—250的全局页码；各讲从1、49、101、149、199开始。该预览不发布课堂状态。每张投影为1600×1000，在窄屏按比例缩放。方向键与页面按钮可翻页。
+[独立课件预览](http://127.0.0.1:5173/statistical-analysis-preview.html?page=1) 用于备课；`page` 是1—350的全局页码；各讲从1、49、101、149、199、251、299开始。该预览不发布课堂状态。每张投影为1600×1000，在窄屏按比例缩放。方向键与页面按钮可翻页。
 
 LBL由教师讲解、翻页和揭示证据；个人思考只作短暂停顿。教师备注在课堂侧的折叠区域，与学生画布分离。每页提供讲解重点、停顿位置和证据口径；五层助手提示保持当前课程、讲次与页面范围。
 
@@ -14,13 +14,13 @@ LBL由教师讲解、翻页和揭示证据；个人思考只作短暂停顿。�
 
 | 内容 | 项目路径 |
 |---|---|
-| 16讲目录、250页文案与备注 | `packages/course-content/src/statistical-analysis/index.ts` |
+| 16讲目录、350页文案与备注 | `packages/course-content/src/statistical-analysis/index.ts` |
 | 可复现原始数据和预计算结果 | `packages/course-content/src/statistical-analysis/data.json` |
-| 250页逐页原生构图 | `apps/teacher-web/src/features/statistical-analysis/StatisticalAnalysisSlideStage.tsx` |
+| 350页逐页原生构图 | `apps/teacher-web/src/features/statistical-analysis/StatisticalAnalysisSlideStage.tsx` |
 | 原生SVG图形与公式渲染 | 同目录 `charts.tsx`，及Stage中的KaTeX |
 | 摄影、蒙版、色彩、字体与画布 | 同目录 `statistical-analysis.css` |
 | 课程注册 | `packages/course-content/src/deck-registry.ts` |
-| 60张正式配图与本地字体 | `apps/teacher-web/public/course-assets/statistical-analysis/` |
+| 68张正式配图与本地字体 | `apps/teacher-web/public/course-assets/statistical-analysis/` |
 | 逐页设计和教师讲解说明 | [page-design-and-notes.md](page-design-and-notes.md)、[JSON](page-design-and-notes.json) |
 | 配图生成提示与使用清单 | [image-prompts.json](image-prompts.json)、[asset-manifest.json](asset-manifest.json) |
 | 实测记录 | [前两讲验收](acceptance.md)、[第3—5讲验收](acceptance-regression.md) |
@@ -89,3 +89,16 @@ node scripts/statistical-analysis-runtime-audit.mjs
 参见[数据与复现说明](data/README.md)、[新增配图提示](image-prompts-regression.json)、[生成与校验清单](image-generation-regression.json)。36张新图使用内置ImageGen生成，原始PNG保存在课程assets目录。新内容在`regression-lessons.ts`中逐页编写，`RegressionPages.tsx`渲染原生表、SVG和KaTeX。新增44组计算图形、25张证据表，按教学问题逐页展开。
 
 原有480行与前100页的稳定键保持不变。第1讲24页修正标准差标签重叠；第2讲43页明确为独立区间示意。教师备注和助手边界只进入相应教师/助手上下文，不进入学生画布DOM。
+
+## 第6—7讲新增材料
+
+第6讲48页，以一次购买贯穿调查对象、抽样、实施方式、变量测量、成熟量表选择、完整问卷、预测试与逐步计分，再进入信度和效度；第7讲52页，从九点几何到UCI六指标的预处理、方向、得分、重构损失与方法边界。各90分钟，教师控制证据揭示，延续原生表、SVG、KaTeX与深墨蓝/纸白/琥珀/蓝绿。第6讲逐页时长按理解、演算和个人练习分配，复杂计算与应用保留更长停顿。
+
+- [第6讲预览](http://127.0.0.1:5173/statistical-analysis-preview.html?page=251) / [第7讲预览](http://127.0.0.1:5173/statistical-analysis-preview.html?page=299)
+- 新源文件：`measurement-lessons.ts`、`measurement-visuals.ts`、`measurement-data.json`；新渲染：`MeasurementPages.tsx`、`measurement-pages.css`、`measurement-survey.css`。
+- [第6讲教学设计修订](lecture-six-teaching-revision.md)、[数据与计算口径](data/measurement-README.md)、[来源](sources-measurement.json)、[8张配图清单](image-generation-measurement.json)、[初版第6—7讲验收](acceptance-measurement.md)、[本次第6讲修订验收](acceptance-lecture-six-revision.md)。
+- 复算：`python -X utf8 scripts/build-statistical-analysis-measurement.py`；先保留仓库内UCI原ZIP，离线复算无需再次下载。修改文案后重建字体并导出逐页备注。
+
+新增内容未改写前250页或旧数据。自编问卷240份、九点几何、UCI 440条记录彼此独立；不把模拟说成已开展的预测试或量表验证。
+
+第6讲17—22页专门区分成熟量表的采用、适配与不适用情形：匹配构念、对象、语言、用途且使用条件适合时，优先评估已有工具；事实用记录，未知内容先探索；翻译、删改和跨群使用不能自动继承原证据。原作者UWES手册提供具体工具规格，本课不复制原题、不为未指定译本背书。“同一个均分，两种体验”移到36页，位于题项、反向与领域计分之后。

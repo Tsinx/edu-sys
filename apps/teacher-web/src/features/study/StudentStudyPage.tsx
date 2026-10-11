@@ -1,3 +1,4 @@
+import '../classroom/page-tools.css';
 import type { SpeechVisemeCue } from "@edu/contracts";
 import { PortLessonSixControls } from '../port-lesson-six/PortLessonSixStage';
 import {
@@ -38,7 +39,7 @@ import { api } from "../../api";
 import { runtimeConfig } from "../../campus/runtime";
 import { lessonFiveExperimentUrl } from "../port-lesson-five/navigation";
 import { SlideStage } from "../classroom/TeachingSlides";
-import { ClassroomPlaybackSlot } from "../classroom/ClassroomPlaybackSlot";
+import { PageToolsProvider, PresentationToolbar } from "../classroom/PageTools";
 import "../classroom/classroom.css";
 import { LanzhouAvatarPlayer } from "./LanzhouAvatarPlayer";
 import { useAvatarRenderer, getAvatarVoice } from "../avatar/avatar-preference";
@@ -68,7 +69,6 @@ function createLocalId(prefix: string) {
 
 export function StudentStudyPage() {
   const [assistantOpen, setAssistantOpen] = useState(()=>runtimeConfig.studentAiEnabled !== false && window.innerWidth>=1000);
-  const [playbackSlot, setPlaybackSlot] = useState<HTMLDivElement | null>(null);
   const avatarRenderer = useAvatarRenderer();
   const speechMeter = useRef(new SpeechMeter());
   const { courseId = "" } = useParams();
@@ -367,7 +367,7 @@ export function StudentStudyPage() {
       </header>
 
       <div className={`study-layout ${aiEnabled && assistantOpen?"":"study-layout--reading"}`}>
-        <section className="study-deck" aria-label="课程Slides">
+        <PageToolsProvider pageKey={frame.slideId} role="reader"><section className="study-deck" aria-label="课程Slides">
           <div className="study-deck__toolbar">
             <label>
               <span className="sr-only">选择课次</span>
@@ -392,10 +392,9 @@ export function StudentStudyPage() {
           </div>
 
           {courseId==="course-port-management-intro"&&frame.lessonNumber===5&&<a className="l5-personal-link" href={lessonFiveExperimentUrl("C",`/study/${courseId}`,session.id,true)}>第5讲个人C实验</a>}
-          <div className="study-deck__stage"><ClassroomPlaybackSlot.Provider value={playbackSlot}><PortLessonSixControls.Provider value={{scope:`study:${session.actorId}:${courseId}`}}><PortLessonFourControls.Provider value={{scope:`study:${session.actorId}:${courseId}`,openDemo:cueId=>window.location.assign(lessonFourExperimentUrl(cueId,`/study/${courseId}`,session.id))}}><SlideStage frame={frame} readOnly={courseId==="course-port-management-intro"&&[5,7,8,9,10].includes(frame.lessonNumber??0)}/></PortLessonFourControls.Provider></PortLessonSixControls.Provider></ClassroomPlaybackSlot.Provider></div>
-          <div className="study-playback-slot" ref={setPlaybackSlot}/>
+          <div className="study-deck__stage"><PortLessonSixControls.Provider value={{scope:`study:${session.actorId}:${courseId}`}}><PortLessonFourControls.Provider value={{scope:`study:${session.actorId}:${courseId}`,openDemo:cueId=>window.location.assign(lessonFourExperimentUrl(cueId,`/study/${courseId}`,session.id))}}><SlideStage frame={frame} readOnly={courseId==="course-port-management-intro"&&[5,7,8,9,10].includes(frame.lessonNumber??0)}/></PortLessonFourControls.Provider></PortLessonSixControls.Provider></div>
 
-          <nav className="study-deck__navigation" aria-label="Slides翻页">
+          <PresentationToolbar label="学习工具栏" navigation={<nav className="presentation-slide-navigation" aria-label="Slides翻页">
             {position.lessonNumber===4&&<a className="study-simulation-link" href={`/simulations?${new URLSearchParams({course:"arrival",returnTo:`/study/${courseId}`})}`}>仿真系统</a>}
             <button disabled={navigationBusy || session.globalIndex <= 1} onClick={() => void goToGlobalIndex(session.globalIndex - 1)}>
               <ChevronLeft size={18} /> 上一页
@@ -421,8 +420,9 @@ export function StudentStudyPage() {
             <button disabled={navigationBusy || session.globalIndex >= session.slideTotal} onClick={() => void goToGlobalIndex(session.globalIndex + 1)}>
               下一页 <ChevronRight size={18} />
             </button>
-          </nav>
-        </section>
+          </nav>}/>
+
+        </section></PageToolsProvider>
 
         {aiEnabled && <aside className="study-assistant">
           <div className="study-avatar-panel">

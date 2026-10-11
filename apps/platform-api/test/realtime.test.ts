@@ -230,6 +230,9 @@ test("legacy voice turns are rejected without invoking the text model or executi
 });
 
 test("realtime config is opt-in, needs an endpoint, and supports a dedicated key", () => {
+  assert.equal(realtimeConfig({}).model, "qwen-audio-3.1-realtime-plus");
+  assert.equal(realtimeConfig({}).voice, "longanqian_v3.1");
+  assert.equal(realtimeConfig({EDU_REALTIME_MODEL:"qwen-audio-3.0-realtime-plus"}).voice, "longanqian");
   assert.equal(realtimeAvailable(realtimeConfig({ DASHSCOPE_API_KEY: "synthetic" })), false);
   assert.equal(realtimeAvailable(realtimeConfig({ EDU_REALTIME_ENABLED:"true", DASHSCOPE_API_KEY: "synthetic" })), false);
   const config = realtimeConfig({ EDU_REALTIME_ENABLED:"true", EDU_REALTIME_URL:"wss://example.test/realtime", DASHSCOPE_API_KEY:"fallback",EDU_REALTIME_API_KEY:"dedicated" });

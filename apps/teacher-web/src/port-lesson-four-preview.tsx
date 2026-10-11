@@ -1,3 +1,5 @@
+import { PageToolsProvider } from './features/classroom/PageTools';
+import { CoursePreviewToolbar } from './features/classroom/CoursePreviewToolbar';
 import { StrictMode, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { PORT_LESSON_FOUR_SLIDES, type PortDemoCueId } from '@edu/course-content';
@@ -45,9 +47,9 @@ function Preview(){
   const page=PORT_LESSON_FOUR_SLIDES[localPage-1]!;
   const open=(cueId:PortDemoCueId)=>{window.location.assign(lessonFourExperimentUrl(cueId,location.pathname+location.search,channelId));};
   const motion=(p:number)=>{setProgress(p);if(!follower)send({type:'progress',progress:p});};
-  return <PortLessonFourControls.Provider value={{scope:channelId,openDemo:open}}><main className={'port-l4-preview'+(projection?' port-l4-preview--projection':'')}>
-    {!projection&&<nav className="port-l4-preview-bar" aria-label="教师翻页控制"><strong>第4讲 · 港口物流实验课</strong><button disabled={localPage===1} onClick={()=>go(localPage-1)}>上一页</button><select aria-label="第4讲课件页" value={localPage} onChange={e=>go(Number(e.target.value))}>{PORT_LESSON_FOUR_SLIDES.map(p=><option key={p.slideKey} value={p.localPage}>{p.localPage} / 44 · {p.title.replaceAll('\n','')}</option>)}</select><button disabled={localPage===44} onClick={()=>go(localPage+1)}>下一页</button><button onClick={()=>setProjection(true)}>本屏投影</button><a target="_blank" rel="noreferrer" href={'/port-lesson-four-preview.html?page='+localPage+'&projection=1&channel='+encodeURIComponent(channelId)}>另开同步投影 ↗</a></nav>}
+  return <PageToolsProvider pageKey={page.slideKey} role={projection?'projection':'teacher'}><PortLessonFourControls.Provider value={{scope:channelId,openDemo:open}}><main className={'port-l4-preview'+(projection?' port-l4-preview--projection':'')}>
+
     <div className="port-l4-preview-body"><PortLessonFourStage page={page} readOnly={projection} progress={projection?progress:undefined} onProgress={motion}/>{!projection&&<PortLessonFourTeacherGuide page={page} onPage={go} onOpen={open}/>}</div>
-  </main></PortLessonFourControls.Provider>;
+  {!projection&&<CoursePreviewToolbar title="第4讲" page={localPage} titles={PORT_LESSON_FOUR_SLIDES.map(p=>p.title)} onPage={go} onProjection={()=>setProjection(true)}><a target="_blank" rel="noreferrer" href={'/port-lesson-four-preview.html?page='+localPage+'&projection=1&channel='+encodeURIComponent(channelId)}>另开同步投影 ↗</a></CoursePreviewToolbar>}</main></PortLessonFourControls.Provider></PageToolsProvider>;
 }
 createRoot(document.getElementById('root')!).render(<StrictMode><Preview/></StrictMode>);

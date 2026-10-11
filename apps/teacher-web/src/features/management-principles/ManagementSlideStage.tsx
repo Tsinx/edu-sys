@@ -1,3 +1,5 @@
+import { PageToolsContribution } from '../classroom/PageTools';
+import { SkipForward } from 'lucide-react';
 import type {SlideFrame,SlideInteractionState,SlideInteractionValues} from '@edu/contracts';
 import {getManagementSlide, getManagementVisibleDemo, type ManagementDiagram, type ManagementTable, type ManagementSlide} from '@edu/course-content/management-principles';
 import {SlideViewport} from '../classroom/SlideViewport';
@@ -28,7 +30,11 @@ export function ManagementSlideStage({frame,slide,interaction=null,readOnly=true
   const cover=s.layout==='cover'||s.layout==='opener';
   const structured=Boolean(s.table||s.diagram||d);
   const spread=!cover&&!structured&&Boolean(s.image);
-  return <SlideViewport label={`管理学，${s.lessonNumber===0?'绪论':`第${s.lessonNumber}讲`}第${s.localIndex}页：${s.title}`}><article className={`mg-slide mg-slide--${s.layout}${cover?' mg-slide--cover':''}${spread?' mg-slide--spread':''}${structured?' mg-slide--structured':''}${structured&&s.image?' mg-slide--head-art':''}${s.lessonNumber>=5&&s.sources.length>2?' mg-slide--many-sources':''}`} data-management-page={s.slideKey}>
+  const controls = d ? <div className="mg-demo-controls">{d.controls.map(c=><label key={c.key}><span>{c.label}</span>{c.options?<select disabled={readOnly} value={String(d.values[c.key])} onChange={e=>onInteractionPatch?.({[c.key]:e.target.value})}>{c.options.map(o=><option value={o.value} key={o.value}>{o.label}</option>)}</select>:<><input type="range" aria-label={c.label} min={c.min} max={c.max} step={c.step} value={Number(d.values[c.key])} disabled={readOnly} onChange={e=>onInteractionPatch?.({[c.key]:Number(e.target.value)})}/><output>{String(d.values[c.key])}</output></>}</label>)}
+          {!readOnly&&<div className="mg-step-buttons"><button disabled={d.step===0} onClick={()=>onInteractionPatch?.({step:d.step-1})}>上一步</button><button disabled={d.step===d.maxStep} onClick={()=>onInteractionPatch?.({step:d.step+1})}>下一步</button><button onClick={onInteractionReset}>重置</button></div>}
+          {readOnly&&<span className="mg-sync-label">课堂同步 · 当前步骤</span>}
+        </div> : null;
+  return <><SlideViewport label={`管理学，${s.lessonNumber===0?'绪论':`第${s.lessonNumber}讲`}第${s.localIndex}页：${s.title}`}><article className={`mg-slide mg-slide--${s.layout}${cover?' mg-slide--cover':''}${spread?' mg-slide--spread':''}${structured?' mg-slide--structured':''}${structured&&s.image?' mg-slide--head-art':''}${s.lessonNumber>=5&&s.sources.length>2?' mg-slide--many-sources':''}`} data-management-page={s.slideKey}>
     {cover&&<Art slide={s}/>}
     <header className="mg-header"><div className="mg-kicker"><span>PRINCIPLES OF MANAGEMENT</span><span>{s.lessonNumber===0?'绪论':String(s.lessonNumber).padStart(2,'0')} / {s.section}</span></div><h1>{s.title}</h1>{s.partTotal>1&&<span className="mg-continuation">{s.part} / {s.partTotal}</span>}</header>
     {structured&&<Art slide={s} compact/>}
@@ -39,15 +45,14 @@ export function ManagementSlideStage({frame,slide,interaction=null,readOnly=true
           {(d.table||d.diagram)&&<div className="mg-demo-figure">{d.table&&<NativeTable value={d.table}/>} {d.diagram&&<Diagram value={d.diagram} extended={s.lessonNumber===0||s.lessonNumber>=5}/>}</div>}
           <div className="mg-demo-explanation"><Paragraphs lines={d.body}/>{d.metrics&&<div className="mg-metrics">{d.metrics.map(m=><div key={m.label}><span>{m.label}</span><strong>{m.value}</strong>{m.detail&&<small>{m.detail}</small>}</div>)}</div>}</div>
         </div>
-        <div className="mg-demo-controls">{d.controls.map(c=><label key={c.key}><span>{c.label}</span>{c.options?<select disabled={readOnly} value={String(d.values[c.key])} onChange={e=>onInteractionPatch?.({[c.key]:e.target.value})}>{c.options.map(o=><option value={o.value} key={o.value}>{o.label}</option>)}</select>:<><input type="range" aria-label={c.label} min={c.min} max={c.max} step={c.step} value={Number(d.values[c.key])} disabled={readOnly} onChange={e=>onInteractionPatch?.({[c.key]:Number(e.target.value)})}/><output>{String(d.values[c.key])}</output></>}</label>)}
-          {!readOnly&&<div className="mg-step-buttons"><button disabled={d.step===0} onClick={()=>onInteractionPatch?.({step:d.step-1})}>上一步</button><button disabled={d.step===d.maxStep} onClick={()=>onInteractionPatch?.({step:d.step+1})}>下一步</button><button onClick={onInteractionReset}>重置</button></div>}
-          {readOnly&&<span className="mg-sync-label">课堂同步 · 当前步骤</span>}
-        </div>
+        {readOnly && controls}
       </div>:<>
         <div className="mg-prose"><Paragraphs lines={s.body}/>{s.diagram&&<Diagram value={s.diagram} extended={s.lessonNumber===0||s.lessonNumber>=5}/>} {s.table&&<NativeTable value={s.table}/>}</div>
         {spread&&<Art slide={s}/>}
       </>}
     </section>
     <footer className="mg-footer"><div><span className="mg-public-label">{s.label||'管理学课程组 · 韦笑'}</span>{s.note&&<span>{s.note}</span>}{s.sources.length>0&&<span className="mg-sources">{s.sources.map(ref=><a href={ref.url} key={ref.id} target="_blank" rel="noreferrer">{ref.title} · {ref.period}</a>)}</span>}</div><b>{String(s.localIndex).padStart(2,'0')}<i> / {s.localTotal}</i></b></footer>
-  </article></SlideViewport>;
+  </article></SlideViewport>{!readOnly && d && <PageToolsContribution pageKey={s.slideKey} title="演示参数" actions={[
+    {id:'next',label:'下一步',icon:<SkipForward size={18}/>,disabled:d.step===d.maxStep,onInvoke:()=>onInteractionPatch?.({step:d.step+1})}
+  ]}>{controls}</PageToolsContribution>}</>;
 }
