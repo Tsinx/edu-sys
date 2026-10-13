@@ -75,7 +75,7 @@ async function rangeResponse(response,range) {
 }
 self.addEventListener("fetch",event=>{
   const request=event.request;const url=new URL(request.url);
-  if(request.method!=="GET" || url.origin!==self.location.origin || url.pathname.startsWith("/api/") || url.pathname.startsWith("/openavatarchat-runtime"))return;
+  if(request.method!=="GET" || url.origin!==self.location.origin || url.pathname.startsWith("/api/") || url.pathname.startsWith("/openavatarchat-runtime") || url.pathname.startsWith("/course-exports/"))return;
   event.respondWith((async()=>{
     if(request.mode==="navigate") {
       const shell=await findCached("/index.html");

@@ -45,7 +45,7 @@ export function campusBuild(releaseId:string):Plugin {
       const entries=[];
       for(const path of await filesUnder(outDir)) {
         const name=relative(outDir,path).replaceAll("\\","/");
-        if(["service-worker.js","offline-manifest.json"].includes(name))continue;
+        if(["service-worker.js","offline-manifest.json"].includes(name) || name.startsWith('course-exports/'))continue;
         const bytes=(await stat(path)).size;
         const sha256=createHash("sha256").update(await readFile(path)).digest("hex");
         const shell=/\.(js|css|woff2?|ttf)$/.test(name) || ["index.html","student.html","app.webmanifest","icon.svg"].includes(name);

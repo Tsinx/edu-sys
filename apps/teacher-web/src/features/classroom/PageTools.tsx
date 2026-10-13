@@ -2,7 +2,8 @@ import {
   createContext, useCallback, useContext, useEffect, useId, useLayoutEffect,
   useMemo, useRef, useState, type PropsWithChildren, type ReactNode
 } from 'react';
-import { Ellipsis, SlidersHorizontal, X } from 'lucide-react';
+import { Ellipsis, FileDown, SlidersHorizontal, X } from 'lucide-react';
+import { CoursePdfExportPanel } from '../course-export/CoursePdfExportPanel';
 import { pageToolsAllowed, type PageToolsRole } from './page-tools-policy';
 export { pageToolsAllowed, type PageToolsRole } from './page-tools-policy';
 
@@ -34,6 +35,7 @@ export interface PageToolsDefinition {
 }
 interface PageToolsRegistration {
   pageKey: string;
+  courseId?: string;
   role: PageToolsRole;
   classroomSpeech: boolean;
   update: (owner: string, definition: PageToolsDefinition | null) => void;
@@ -49,8 +51,8 @@ const RegistrationContext = createContext<PageToolsRegistration | null>(null);
 const StateContext = createContext<PageToolsState | null>(null);
 
 /** Controllers stay mounted; only their declarative control definitions change. */
-export function PageToolsProvider({ pageKey, role = 'teacher', classroomSpeech = false, children }:
-  PropsWithChildren<{ pageKey: string; role?: PageToolsRole; classroomSpeech?: boolean }>) {
+export function PageToolsProvider({ pageKey, courseId, role = 'teacher', classroomSpeech = false, children }:
+  PropsWithChildren<{ pageKey: string; courseId?: string; role?: PageToolsRole; classroomSpeech?: boolean }>) {
   const [definitions, setDefinitions] = useState<ReadonlyMap<string, PageToolsDefinition>>(new Map());
   const [selected, select] = useState<string | null>(null);
   const closePanel = useCallback(() => select(null), []);
@@ -64,8 +66,8 @@ export function PageToolsProvider({ pageKey, role = 'teacher', classroomSpeech =
   }, []);
   const remove = useCallback((owner: string) => update(owner, null), [update]);
   useEffect(closePanel, [pageKey, role, closePanel]);
-  const registration = useMemo(() => ({ pageKey, role, classroomSpeech, update, remove, closePanel }),
-    [pageKey, role, classroomSpeech, update, remove, closePanel]);
+  const registration = useMemo(() => ({ pageKey, courseId, role, classroomSpeech, update, remove, closePanel }),
+    [pageKey, courseId, role, classroomSpeech, update, remove, closePanel]);
   const state = useMemo(() => ({ definitions, selected, select }), [definitions, selected]);
   return <RegistrationContext.Provider value={registration}><StateContext.Provider value={state}>
     {children}
@@ -105,6 +107,14 @@ interface ToolbarProps {
 export function PresentationToolbar({ navigation, utilities, more, end, label = '课堂工具栏',
   moreLabel = '更多工具', className = '' }: ToolbarProps) {
   const host = usePageToolsScope(), state = useContext(StateContext);
+  const english = host?.courseId === 'course-international-mathematics';
+  const pdfTools = useMemo<PageToolsDefinition | null>(() => host?.courseId ? {
+    pageKey: host.pageKey, audience: 'local',
+    actions: [{ id: 'pdf-export', label: english ? 'Export PDF' : '导出PDF', icon: <FileDown size={18}/>, area: 'utility', panelId: 'pdf-export' }],
+    panels: [{ id: 'pdf-export', title: english ? 'Export slides' : '导出课件',
+      content: <CoursePdfExportPanel courseId={host.courseId} pageKey={host.pageKey}/> }]
+  } : null, [host?.courseId, host?.pageKey, english]);
+  usePageTools(pdfTools);
   const root = useRef<HTMLElement>(null), panelRef = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement | null>(null), panelId = useId();
   const definitions = state && host ? [...state.definitions].filter(([, definition]) =>

@@ -52,7 +52,7 @@ function Viewer() {
     };
     addEventListener('keydown', key); return () => removeEventListener('keydown', key);
   }, []);
-  return <PageToolsProvider pageKey={spec.slideKey} role="teacher"><main className="em-narration-viewer">
+  return <PageToolsProvider courseId="course-economic-mathematics" pageKey={spec.slideKey} role="teacher"><main className="em-narration-viewer">
     <CourseHeader lesson={selectedLesson} duration={`2 × 45分钟 · ${pages.length}页`} onRestart={() => setIndex(0)}/>
     <EconomicMathematicsSlideStage frame={{ index: spec.index, deckId: ECONOMIC_MATHEMATICS_DECK_ID, versionId: ECONOMIC_MATHEMATICS_VERSION_ID, slideId: spec.slideKey, total: ECONOMIC_MATHEMATICS_SLIDES.length, title: spec.title, summary: spec.title, lessonNumber: spec.lesson, lessonTitle: spec.lessonTitle, section: spec.section, logicalWidth: 1600, logicalHeight: 1000, aspectRatio: '16:10' }} interaction={def ? { deckId: ECONOMIC_MATHEMATICS_DECK_ID, slideId: spec.slideKey, revision: 1, values } : null} readOnly={false} onInteractionPatch={patch} onInteractionReset={() => setAllValues(old => ({ ...old, [spec.slideKey]: { ...def?.defaults } }))}/>
     <PresentationToolbar label="课件工具栏" navigation={<CoursePageNavigation index={index} titles={pages.map(page => page.title)} onChange={setIndex}/>}

@@ -1,3 +1,8 @@
+import {PORT_LESSON_ELEVEN_SLIDES} from './port-lesson-eleven.js';
+import {PORT_LESSON_TWELVE_SLIDES} from './port-lesson-twelve.js';
+export * from './port-lesson-eleven.js';
+export * from './port-lesson-twelve.js';
+export * from './port-performance-safety-models.js';
 import {PORT_LESSON_NINE_SLIDES} from './port-lesson-nine.js';
 import {PORT_LESSON_TEN_SLIDES} from './port-lesson-ten.js';
 export * from './port-lesson-nine.js';
@@ -8,4 +13,4 @@ import {PORT_LESSON_EIGHT_SLIDES} from './port-lesson-eight.js';
 export * from './port-expansion-shared.js';
 export * from './port-lesson-seven.js';
 export * from './port-lesson-eight.js';
-export const PORT_EXPANSION_SLIDES=[...PORT_LESSON_SEVEN_SLIDES,...PORT_LESSON_EIGHT_SLIDES,...PORT_LESSON_NINE_SLIDES,...PORT_LESSON_TEN_SLIDES];
+export const PORT_EXPANSION_SLIDES=[...PORT_LESSON_SEVEN_SLIDES,...PORT_LESSON_EIGHT_SLIDES,...PORT_LESSON_NINE_SLIDES,...PORT_LESSON_TEN_SLIDES,...PORT_LESSON_ELEVEN_SLIDES,...PORT_LESSON_TWELVE_SLIDES];

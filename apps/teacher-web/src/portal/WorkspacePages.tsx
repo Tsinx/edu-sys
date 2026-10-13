@@ -1255,7 +1255,7 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
         )}
       </header>
       {ready && (
-        <PageToolsProvider pageKey={slide.slideKey} role="reader">
+        <PageToolsProvider courseId={courseId} pageKey={slide.slideKey} role="reader">
 
           <div className="workspace-reader-stage">
             <SlideStage frame={frame} readOnly={deck.locale !== "en"} playbackMode="reader" onNavigate={go}

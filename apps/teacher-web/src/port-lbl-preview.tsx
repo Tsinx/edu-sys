@@ -23,7 +23,7 @@ function Preview(){
       if(e.key==="Escape")setProjection(false);
     };window.addEventListener("keydown",key);return()=>window.removeEventListener("keydown",key);
   },[index]);
-  return <PageToolsProvider pageKey={page.slideKey} role={projection?'projection':'teacher'}><main className="lbl-preview" style={projection?{gridTemplateRows:"minmax(0,1fr)"}:undefined}>
+  return <PageToolsProvider courseId="course-port-management-intro" pageKey={page.slideKey} role={projection?'projection':'teacher'}><main className="lbl-preview" style={projection?{gridTemplateRows:"minmax(0,1fr)"}:undefined}>
 
     <PortLblStage key={page.slideKey} page={page} readOnly={false} projection={projection}/>
     {!projection&&<CoursePreviewToolbar title={`第${page.lesson}讲`} page={index+1} titles={PORT_LBL_SLIDES.map(p=>`${p.lesson} · ${p.localPage} ${p.title}`)} onPage={n=>setIndex(n-1)} onProjection={()=>setProjection(true)}/>}

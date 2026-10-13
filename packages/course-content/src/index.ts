@@ -258,7 +258,7 @@ export interface PortManagementGlobeCue {
 }
 
 export const PORT_MANAGEMENT_DECK_VERSION =
-  "release-port-management-governance-market-v14";
+  "release-port-management-performance-safety-v15";
 
 export const PORT_MANAGEMENT_GLOBE_CUES: readonly PortManagementGlobeCue[] = [
   {
@@ -808,8 +808,7 @@ export const PORT_MANAGEMENT_LESSONS: readonly PortManagementLessonSpec[] = [
   {number:6,label:'第6讲',title:PORT_LESSON_SIX_TITLE,status:'ready',slideStart:246,slideEnd:293,timing:PORT_LESSON_SIX_TIMING,assistantBrief:{objective:'解释堆场、集疏运与腹地，辨认典型港口及通道，并按同口径条件比较货物全程交付方案。',coreClaims:['在场箱量与进入离开流量须区分，稳定情境下平均在场量约为日均流量乘平均停留。','腹地是货源与市场的运输联系，可延伸也可重叠；不同货种与服务条件需要分别核查。','港内时间与货物交付时间的终点不同，减少局部等待不一定缩短全程。'],guardrails:['48页、90分钟，课件内演示，无个人仿真实验或成绩提交。','所有箱量和费用为教学设定，港口资料标明时间与来源，不提供真实报价和提箱指令。','路线为地理联系示意，不是导航、实时班次或独占腹地界线。','未揭示解析不输出答案或后续页结果。'],responsePolicy:'先回应问题，再引用已公开的地图节点、图层或演算条件；分清事实、概念与教学模型。'}},
   ...([7,8] as const).map(number=>({number,label:`第${number}讲`,title:EXPANSION_TITLES[number],status:'ready' as const,slideStart:number===7?294:342,slideEnd:number===7?341:389,timing:expansionTiming(number),assistantBrief:{objective:number===7?'识别多货种工艺，解释货物、接口、暂存与交付的适配条件。':'解释港口代际与港城演变，比较区位、需求和分期规划。',coreClaims:number===7?['运输形态和货物属性共同决定工艺与配套。','局部能力增加不保证全程交付改善。']:['港口代际是功能与组织的分析框架，可叠加共存。','第五代采用客户与社区导向研究视角，不是统一认证。','区位硬约束、需求情境和建设提前期应联合判断。'],guardrails:['48页90分钟，教师主导演示与个人口头或纸面判断，无个人仿真提交。','示意地图不按比例；数字为独立教学设定，非实港工程参数。','不提供现场安全操作许可或实际投资结论。','未揭示解析、教师稿和未展开图层不进入回答。'],responsePolicy:'先回应当前问题，用当前选项和已展开材料解释，明确单位、假设和证据缺口。'}})),
   ...([9,10] as const).map(number=>({number,label:`第${number}讲`,title:EXPANSION_TITLES[number],status:'ready' as const,slideStart:390+(number-9)*48,slideEnd:437+(number-9)*48,timing:expansionTiming(number),assistantBrief:{objective:number===9?'比较港口治理职能、合同义务与风险监督。':'以同口径成本、时间和可靠性解释客户选港与竞争。',coreClaims:number===9?['所有权、经营与公共监管分别核查。','模式不是效率排行，风险不能因转移而消失。']:['港内收费与全程成本不同。','可行性、时间与可靠性共同限定选择。'],guardrails:['各48页90分钟，教师主导演示和个人判断，无独立仿真提交。','所有金额和数量算例为独立教学设定，不是报价或投资预测。','通用治理概念不构成现行法律或真实合同责任意见。','未揭示解析和教师稿不进入回答。'],responsePolicy:'先回应当前问题，用已公开证据与输入解释，并保留条件和缺项。'}})),
-  plannedLesson(11),
-  plannedLesson(12),
+  ...([11,12] as const).map(number=>({number,label:`第${number}讲`,title:EXPANSION_TITLES[number],status:'ready' as const,slideStart:486+(number-11)*48,slideEnd:533+(number-11)*48,timing:expansionTiming(number),assistantBrief:{objective:number===11?'按可比口径、分布与多目标证据评价港口结果。':'区分风险、屏障、责任、信息与授权的管理边界。',coreClaims:number===11?['规模、效率与用户结果分别核查。','排名、均值与综合分不能替代全部目标或因果证据。']:['效率收益不能补齐必要确认与权限。','确认齐备仍待有权角色审查，不等于现场批准。'],guardrails:['各48页90分钟，教师主导与个人判断，无新增独立仿真或成绩提交。','教学数字与事件为独立设定，非真实统计、事故或操作指令。','公开指南不替代现行法律、现场制度、专业判断与正式授权。','未揭示解析、未展开材料与教师稿不进入回答。'],responsePolicy:'只按当前公开材料回应，说明对象、单位、期间与证据缺项；不作现场指令或授权判断。'}})),
   plannedLesson(13),
   plannedLesson(14),
   plannedLesson(15),
@@ -937,6 +936,7 @@ function appendContextLine(
 }
 
 function formatVoyagePrompt(slide: PortManagementSlideSpec): string {
+  if(slide.lesson===11||slide.lesson===12)return '第11—12讲采用独立绩效记录、评分与安全确认教学事件，非OOCL历史航次或实港运行。公开资料按其对象和时期解释；不提供真实排名、因果认定、危险货物操作、应急步骤、攻击实施或现场授权。只解释已展开材料与已揭示解析。';
   if(slide.lesson===9||slide.lesson===10)return '第9—10讲使用独立治理、合同支付、收费和选港教学情境。不是OOCL历史航次、现实合同、报价或个人实训记录。按当前公开条件解释，不推断法律责任、真实盈利或市场份额，不输出未揭示答案。';
   if(slide.lesson===7||slide.lesson===8)return '第7—8讲使用独立多货种工艺与港口规划教学情境，不对应OOCL历史航次或个人实训记录。港方资料、研究框架、教学复原图和虚构演算分别标注。只解释当前页已展开材料和当前选项，不提供现场授权或最优投资保证。';
   if(slide.lesson===6)return '第6讲以新设进口教学箱I-01观察堆场、提箱与腹地交付。箱量收支和两路线费用属于独立教学情境；公开港口案例只证明相应日期的连接。教师控制地图、演算和解析；不对应前讲真实航次或个人仿真记录。';

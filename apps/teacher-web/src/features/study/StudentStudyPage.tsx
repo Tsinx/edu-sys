@@ -367,7 +367,7 @@ export function StudentStudyPage() {
       </header>
 
       <div className={`study-layout ${aiEnabled && assistantOpen?"":"study-layout--reading"}`}>
-        <PageToolsProvider pageKey={frame.slideId} role="reader"><section className="study-deck" aria-label="课程Slides">
+        <PageToolsProvider courseId={courseId} pageKey={frame.slideId} role="reader"><section className="study-deck" aria-label="课程Slides">
           <div className="study-deck__toolbar">
             <label>
               <span className="sr-only">选择课次</span>
@@ -392,7 +392,7 @@ export function StudentStudyPage() {
           </div>
 
           {courseId==="course-port-management-intro"&&frame.lessonNumber===5&&<a className="l5-personal-link" href={lessonFiveExperimentUrl("C",`/study/${courseId}`,session.id,true)}>第5讲个人C实验</a>}
-          <div className="study-deck__stage"><PortLessonSixControls.Provider value={{scope:`study:${session.actorId}:${courseId}`}}><PortLessonFourControls.Provider value={{scope:`study:${session.actorId}:${courseId}`,openDemo:cueId=>window.location.assign(lessonFourExperimentUrl(cueId,`/study/${courseId}`,session.id))}}><SlideStage frame={frame} readOnly={courseId==="course-port-management-intro"&&[5,7,8,9,10].includes(frame.lessonNumber??0)}/></PortLessonFourControls.Provider></PortLessonSixControls.Provider></div>
+          <div className="study-deck__stage"><PortLessonSixControls.Provider value={{scope:`study:${session.actorId}:${courseId}`}}><PortLessonFourControls.Provider value={{scope:`study:${session.actorId}:${courseId}`,openDemo:cueId=>window.location.assign(lessonFourExperimentUrl(cueId,`/study/${courseId}`,session.id))}}><SlideStage frame={frame} readOnly={courseId==="course-port-management-intro"&&[5,7,8,9,10,11,12].includes(frame.lessonNumber??0)}/></PortLessonFourControls.Provider></PortLessonSixControls.Provider></div>
 
           <PresentationToolbar label="学习工具栏" navigation={<nav className="presentation-slide-navigation" aria-label="Slides翻页">
             {position.lessonNumber===4&&<a className="study-simulation-link" href={`/simulations?${new URLSearchParams({course:"arrival",returnTo:`/study/${courseId}`})}`}>仿真系统</a>}
