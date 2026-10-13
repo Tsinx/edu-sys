@@ -62,6 +62,19 @@ export type EconomicMathematicsInteractionId =
   | "budget-constraint-lab";
 
 export interface EconomicMathematicsAuthoredSlide {
+  limitFigure?: EconomicMathematicsLimitFigure;
+  limitLab?: 'error-band' | 'capacity' | 'sequence-zoom';
+  /** Links the teacher exercise bank; never rendered in the shared canvas. */
+  exerciseActivityId?: string;
+  historyFilm?: boolean;
+  merchantFigure?: 'mapping' | 'mapping-types' | 'many-one' | 'demand' | 'sales' | 'inverse' | 'profit' | 'grid' | 'composition' | 'expansion';
+  merchantLab?: boolean;
+  exerciseMinutes?: number;
+  /** Original public prelude page ID; rendered with the existing geometric artwork. */
+  preludeId?: string;
+  /** Original source coordinates keep assets and narration stable after regrouping. */
+  sourceLesson?: number;
+  sourceLocalIndex?: number;
   slideKey: string;
   compositionId: string;
   section: string;
@@ -102,6 +115,13 @@ export interface EconomicMathematicsRevealStep {
   formula?: string;
   plot?: EconomicMathematicsPlot;
   highlightRows?: readonly number[];
+  limitFigure?: EconomicMathematicsLimitFigure;
+}
+
+/** Explicit mathematical evidence; no title/keyword selects a curve. */
+export interface EconomicMathematicsLimitFigure {
+  kind: 'profit' | 'quotient' | 'square-area' | 'hole' | 'error-band' | 'sign' | 'oscillation-samples' | 'sequence' | 'sequence-comparison' | 'sequence-zoom' | 'capacity' | 'counter-sequences' | 'contract' | 'average-cost' | 'reciprocal' | 'squeeze' | 'unit-circle';
+  params?: Readonly<Record<string, number>>;
 }
 
 export type EconomicMathematicsCurveModel = "demand" | "profit" | "sequence" | "hole" | "sinc" | "threshold" | "secant" | "linear-error" | "elasticity" | "power" | "log" | "exponential" | "cubic" | "riemann" | "accumulation" | "surplus" | "surface" | "plane" | "profit-contours" | "budget" | "unit-circle" | "exhibition-budget";
@@ -130,7 +150,7 @@ export interface EconomicMathematicsLessonDefinition {
   unit: EconomicMathematicsUnitNumber;
   unitTitle: string;
   title: string;
-  hours: 2;
+  hours: 1 | 2 | 3;
   expectedSlides: number;
   coreQuestion: string;
   exerciseCapability: string;

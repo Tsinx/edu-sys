@@ -43,7 +43,7 @@ test("retired classroom ASR retains access control and never invokes the ASR pro
 test("self-study ASR still distinguishes empty audio, words, malformed responses, and outages", async () => {
   const dir = await mkdtemp(join(tmpdir(), "edu-empty-asr-"));
   let mode: "empty" | "words" | "malformed" | "offline" = "empty";
-  const speech = new DashScopeStudySpeechProvider({ apiKey: "test-only", fetchImplementation: async () => {
+  const speech = new DashScopeStudySpeechProvider({ apiKey: "test-only", asrModel: "qwen3-asr-flash", fetchImplementation: async () => {
     if (mode === "offline") return new Response("unavailable", { status: 503 });
     return Response.json(mode === "malformed" ? { choices: [] } : { choices: [{ message: { content: mode === "empty" ? " \n " : "谢谢助教" } }] });
   } });

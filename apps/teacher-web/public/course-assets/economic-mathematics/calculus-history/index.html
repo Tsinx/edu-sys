@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101b32">
+  <title>消失的增量 · 经济数学</title>
+  <link rel="stylesheet" href="player.css">
+</head>
+<body>
+  <header class="topbar"><a class="course" href="/economic-narration.html?lesson=2">经济数学</a><span>第三讲 · 微积分之争与数学危机</span><a class="download" href="calculus-history.mp4" download>下载 MP4 ↗</a></header>
+  <main>
+    <section class="cinema" aria-label="消失的增量短片">
+      <div class="stage" id="stage">
+        <video id="movie" width="1600" height="1000" preload="metadata" poster="poster.png" playsinline src="calculus-history.mp4" aria-label="消失的增量：180秒中文短片"></video>
+        <canvas id="picture" width="1600" height="1000" hidden aria-label="可编辑几何动画预览"></canvas>
+        <button id="start" class="start" aria-label="播放短片"><span class="playmark">▶</span><span>消失的增量</span><small>微积分之争与数学的自我重建 · 03:00</small></button>
+      </div>
+      <div class="controls">
+        <button id="play" aria-label="播放">▶</button>
+        <button id="replay" aria-label="从头重播">↺</button>
+        <output id="clock">00:00 / 03:00</output>
+        <input id="seek" type="range" min="0" max="180" value="0" step="0.05" aria-label="短片进度">
+        <button id="mute" aria-label="静音">声音</button>
+        <input id="volume" type="range" min="0" max="1" value="0.85" step="0.05" aria-label="短片音量">
+        <button id="full" aria-label="全屏播放">全屏</button>
+      </div>
+      <nav id="chapters" class="chapters" aria-label="短片章节"></nav>
+    </section>
+    <div class="extras"><span id="status" role="status">中文旁白 · 原创配乐 · 字幕已内嵌</span><button id="mode">动画源预览</button><a href="sources.json" download>素材来源</a></div>
+    <section class="exporter" id="exporter" hidden><p>本地动画导出</p><button id="export">导出全部动画帧</button><output id="exportStatus" role="status"></output></section>
+  </main>
+  <audio id="soundtrack" preload="none" src="soundtrack.m4a"></audio>
+  <script src="data.js"></script>
+  <script src="animation.js"></script>
+  <script src="player.js"></script>
+</body>
+</html>

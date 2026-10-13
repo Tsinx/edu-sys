@@ -1,0 +1,4210 @@
+{
+  "version": "release-economic-mathematics-limits-refined-2026-10-10",
+  "counts": [
+    40,
+    59,
+    58,
+    56,
+    15,
+    11,
+    11,
+    10,
+    10,
+    10,
+    10,
+    11,
+    11,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    14,
+    10,
+    10,
+    10,
+    11,
+    14,
+    12
+  ],
+  "lessons": [
+    {
+      "number": 3,
+      "title": "从导数疑问到极限的严格定义",
+      "unit": 2,
+      "unitTitle": "极限与连续",
+      "hours": 2,
+      "expectedSlides": 58,
+      "coreQuestion": "非零增量怎样给出确定的变化率，有限步又怎样支持经营承诺？",
+      "exerciseCapability": "用ε-δ陈述并验证函数极限；区分目标点取值与趋近保证，构造采样反例；用ε-N验证数列极限，区分上界与极限；在给定扩容规则下判断有限周的能力承诺",
+      "prerequisites": [
+        "第二讲商家模型、可行集和报价网格",
+        "高中导数符号、代数恒等式、绝对值与指数"
+      ],
+      "outcomes": [
+        "用ε-δ陈述并验证函数极限",
+        "区分目标点取值与趋近保证，构造采样反例",
+        "用ε-N验证数列极限，区分上界与极限",
+        "在给定扩容规则下判断有限周的能力承诺"
+      ],
+      "route": [
+        {
+          "minutes": 45,
+          "activity": "利润增量、微积分基础之争与误差保证；独立作答及同桌练习8分钟"
+        },
+        {
+          "minutes": 45,
+          "activity": "抽样反例、数列定义与扩容决策；课堂练习7.5分钟"
+        }
+      ],
+      "classHours": [
+        {
+          "hour": 1,
+          "minutes": 45,
+          "slideStart": 1,
+          "slideEnd": 29,
+          "activity": "利润增量、微积分基础之争与误差保证；独立作答及同桌练习8分钟"
+        },
+        {
+          "hour": 2,
+          "minutes": 45,
+          "slideStart": 30,
+          "slideEnd": 58,
+          "activity": "抽样反例、数列定义与扩容决策；课堂练习7.5分钟"
+        }
+      ],
+      "slides": [
+        {
+          "slideKey": "em-l03-limits-20261010-p001",
+          "compositionId": "em-l03-limits-composition-1",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "沿用第二讲给定模型",
+          "accent": "ink",
+          "layout": "cover",
+          "style": "cover",
+          "teachingCue": "预计0.5分钟。接住上一讲80元最优结论；高中符号只是已见过，严格定义从本讲建立。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 30,
+          "moduleId": "limits-l3-hour1",
+          "title": "分母不能是零，导数怎样得到？",
+          "image": "v2/l03-scene.png",
+          "imageAlt": "商家情境的编辑插画",
+          "lead": "从80元附近的一次调价，到极限的严格定义。",
+          "body": [
+            "增量 increment：新值减去原值；价格增量记作 $h=\\Delta p$。"
+          ]
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p002",
+          "compositionId": "em-l03-limits-composition-2",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "价格范围[30,100]；给定日模型",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。先让原结论遇到新的具体操作，不直接跳到定义。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l3-hour1",
+          "title": "80元最优，左右各动一次呢？",
+          "lead": "仍取日履约能力400件，抽成10%，单位成本20元，固定成本2000元/日。",
+          "formula": "\\Pi(p)=(0.9p-20)\\min(1200-10p,400)-2000",
+          "table": {
+            "columns": [
+              "售价（元/件）",
+              "操作",
+              "利润变化（元/日）"
+            ],
+            "rows": [
+              [
+                "79.5",
+                "降价0.5元",
+                "待计算"
+              ],
+              [
+                "80",
+                "原报价",
+                "0"
+              ],
+              [
+                "80.5",
+                "涨价0.5元",
+                "待计算"
+              ]
+            ]
+          },
+          "prompt": "最优已经确定，为什么还值得分别计算两侧？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p003",
+          "compositionId": "em-l03-limits-composition-3",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "原模型；连续曲线仅作近似",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。把“损失不一样”变成同一尺度的变化率问题。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour1",
+          "title": "同样五角，两边的损失并不相同",
+          "table": {
+            "columns": [
+              "售价（元/件）",
+              "日利润（元）",
+              "相对80元的增量"
+            ],
+            "rows": [
+              [
+                "79.5",
+                "18 620",
+                "−180元/日"
+              ],
+              [
+                "80",
+                "18 800",
+                "0"
+              ],
+              [
+                "80.5",
+                "18 717.75",
+                "−82.25元/日"
+              ]
+            ]
+          },
+          "limitFigure": {
+            "kind": "profit",
+            "params": {
+              "min": 78,
+              "max": 82
+            }
+          },
+          "prompt": "价格变化的大小相同，如何比较利润对价格的反应？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p004",
+          "compositionId": "em-l03-limits-composition-4",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。定义平均变化率后再计算；数值的符号来自两个增量的符号。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour1",
+          "title": "用增量之比比较两次变化",
+          "lead": "平均变化率 average rate of change，也称差商 difference quotient。",
+          "formula": "Q_{80}(h)=\\frac{\\Pi(80+h)-\\Pi(80)}{h},\\qquad h\\ne0",
+          "body": [
+            "图上连接两点的直线称割线 secant；它的斜率等于这个差商。",
+            "本题差商单位：$(\\text{元/日})/(\\text{元/件})$，表示利润对价格的反应。"
+          ],
+          "steps": [
+            {
+              "title": "两个方向，两个比值",
+              "formula": "Q_{80}(-0.5)=360,\\qquad Q_{80}(0.5)=-164.5"
+            }
+          ],
+          "prompt": "降价导致利润减少，为什么左侧差商反而为正？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p005",
+          "compositionId": "em-l03-limits-composition-5",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "离散执行与连续近似",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。先补上模型范围，否则导数应用会把报价网格偷换成连续输入。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l3-hour1",
+          "title": "五角报价，能研究一分钱的变化吗？",
+          "body": [
+            "实际报价网格：$30,30.5,31,\\ldots,100$元/件。",
+            "网格里不存在无限接近80元的一串不同报价。",
+            "连续近似：允许区间内任意实数价格，用来研究附近的变化规律。"
+          ],
+          "prompt": "连续近似给出建议后，还要回到哪些合法报价比较？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p006",
+          "compositionId": "em-l03-limits-composition-6",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。从已见符号进入未掌握的含义，不假设高中已学严格极限。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour1",
+          "title": "高中导数公式里，究竟在做什么？",
+          "formula": "f\\prime(x_0)=\\lim_{h\\to0}\\frac{f(x_0+h)-f(x_0)}{h}",
+          "body": [
+            "$x_0$是固定的基准输入，$h=\\Delta x$是输入增量。",
+            "$\\lim$是极限 limit 的符号；本讲将给出它的严格含义。",
+            "每一次计算差商时，仍须保持 $h\\ne0$。"
+          ],
+          "prompt": "“$h\\to0$”是否意味着最后把 $h=0$ 代进分母？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p007",
+          "compositionId": "em-l03-limits-composition-7",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。把模糊的小与可任意提高的精度区分。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour1",
+          "title": "一个固定的小数，够小了吗？",
+          "formula": "h=10^{-6}\\quad\\ne\\quad h\\to0",
+          "body": [
+            "固定小数只能保证某一有限精度；更严格的要求仍可能击穿它。",
+            "“很小”还依赖单位：$10^{-6}$元与$10^{-6}$万元相差一万倍。",
+            "趋近过程需要回答：误差要求继续缩小时，还能怎样选择输入？"
+          ],
+          "prompt": "你能给出一个要求，让“足够小的固定数”不再足够吗？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p008",
+          "compositionId": "em-l03-limits-composition-8",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "exercise",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "exercise",
+          "style": "editorial",
+          "teachingCue": "预计2分钟。一分独立书写、一分交流；不要求此时写出正式定义。留足独立作答时间，计时不自动公开答案。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 120,
+          "moduleId": "limits-l3-hour1",
+          "title": "两种解释，哪一步有缺口？",
+          "exerciseMinutes": 1,
+          "body": [
+            "甲：“先约去 $h$，再在原分式里令 $h=0$。”",
+            "乙：“取 $h=10^{-6}$，算出的值就等于导数。”"
+          ],
+          "prompt": "独立写出两句的具体问题，再与同桌比较。保留自己的修订。"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p009",
+          "compositionId": "em-l03-limits-composition-9",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。暂离商家数值只为看清逻辑；待严格定义建立后回到原问题。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l3-hour1",
+          "title": "把疑问放进一个能算清的函数",
+          "lead": "取 $f(x)=x^2$，固定 $x_0=1$，令 $h=x-1$。",
+          "formula": "Q(h)=\\frac{(1+h)^2-1}{h},\\qquad h\\ne0",
+          "body": [
+            "此处是数学例题，$x,h$均为实数，不附带货币或实物单位。"
+          ],
+          "prompt": "先保持 $h$ 非零，把分子精确展开。"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p010",
+          "compositionId": "em-l03-limits-composition-10",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。几何图只服务正增量直观，代数结论明确覆盖负增量。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour1",
+          "title": "新增面积里，多出的那一块",
+          "formula": "(1+h)^2-1=2h+h^2",
+          "limitFigure": {
+            "kind": "square-area",
+            "params": {
+              "h": 0.25
+            }
+          },
+          "body": [
+            "右图只画 $h>0$：两条宽为 $h$ 的边带与一块 $h^2$。",
+            "代数恒等式对正、负 $h$ 都成立；负增量不画成负边长。"
+          ],
+          "prompt": "除以 $h$ 以后，哪部分仍记录着增量的大小？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p011",
+          "compositionId": "em-l03-limits-composition-11",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。分开精确化简与极限判断，防止把约分说成忽略高阶项。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l3-hour1",
+          "title": "约去非零增量，等式没有近似",
+          "formula": "\\frac{2h+h^2}{h}=2+h,\\qquad h\\ne0",
+          "body": [
+            "对每一个非零 $h$，化简前后完全相等。",
+            "结果与2的距离恰好是 $|h|$；现在还没有把 $h$ 取成零。"
+          ],
+          "prompt": "“化简式在0可算”能否说明原分式在0也有定义？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p012",
+          "compositionId": "em-l03-limits-composition-12",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。空点持续存在，给历史争论和现代误差保证留下问题。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l3-hour1",
+          "title": "同一条线，输入0处的身份不同",
+          "limitFigure": {
+            "kind": "hole",
+            "params": {
+              "point": 2,
+              "fill": 0
+            }
+          },
+          "formula": "Q(h)=2+h\\ (h\\ne0),\\qquad g(h)=2+h\\ (h\\in\\mathbb R)",
+          "body": [
+            "原差商在0处是空点；另定义的 $g$ 在0处取值2。",
+            "图形相似不是证明，定义域的差别不能擦去。"
+          ],
+          "prompt": "若只观察所有非零且足够接近0的输入，两者有什么不同？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p013",
+          "compositionId": "em-l03-limits-composition-13",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "公开资料",
+          "sourceNote": "历史问题；现代平方函数为课堂复述",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计0.5分钟。影片前只立问题；3分钟影片包含三次数学危机的前因后果。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 30,
+          "moduleId": "limits-l3-hour1",
+          "title": "这道除法，曾经牵动微积分的基础",
+          "lead": "历史中的无穷小 infinitesimal：讨论无限微小增量及其运算依据的术语。",
+          "body": [
+            "早期方法取得了巨大成果，关于这些量的含义与推理依据也产生争论。",
+            "观看时保留一个问题：怎样在增量不为零的前提下，得到确定结果？"
+          ]
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p014",
+          "compositionId": "em-l03-limits-composition-14",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "evidence",
+          "visual": "formula-board",
+          "sourceLabel": "公开资料",
+          "sourceNote": "三分钟历史短片；数学关系为原生动画",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计3分钟。播放完整180秒；停止数字人口播，影片结束后留在本页再进入讨论。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 180,
+          "moduleId": "limits-l3-hour1",
+          "title": "微积分基础之争",
+          "historyFilm": true,
+          "body": [
+            "从增量的疑问，到误差保证的建立。"
+          ],
+          "prompt": "片后判断：受到质疑的是计算结果、运算对象，还是推理依据？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p015",
+          "compositionId": "em-l03-limits-composition-15",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "公开资料",
+          "sourceNote": "Berkeley，The Analyst，§13–16；摘意",
+          "accent": "ink",
+          "layout": "compare",
+          "style": "constructivist",
+          "teachingCue": "预计1分钟。影片后的第一个讨论；区别结果有效与论证有效，不伪造作者对白。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l3-hour1",
+          "title": "贝克莱追问：同一个增量，换了身份吗？",
+          "body": [
+            "1734年《分析学家》质疑：推理若先依赖非零增量，再依赖增量消失，前后依据是否一致？",
+            "课堂复述：$h\\ne0$时可以约分；原分式在 $h=0$ 时不能计算。"
+          ],
+          "prompt": "答案为2可能正确，是否就能反过来证明每一步推理正确？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p016",
+          "compositionId": "em-l03-limits-composition-16",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "公开资料",
+          "sourceNote": "Newton，Principia，Book I，Section I，Scholium；摘意",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。不是牛顿读到贝克莱后回应，不能制作虚构对话；用区分承接现代问题。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l3-hour1",
+          "title": "牛顿的区分：比值的极限，还是最终量的比值？",
+          "body": [
+            "《原理》有关“最终比”的附注区分：比值所趋向的结果，与最终量直接组成的比值。",
+            "这里对读1726年第三版、1729年英译；两者都早于1734年。"
+          ],
+          "prompt": "如果不把最终零量相除，应当怎样检验“比值趋向2”？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p017",
+          "compositionId": "em-l03-limits-composition-17",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计0.5分钟。历史讨论不替代现代定义；从可算误差进入精度挑战。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 30,
+          "moduleId": "limits-l3-hour1",
+          "title": "把“接近”改写成一个可核对的误差",
+          "lead": "绝对误差 absolute error：结果与固定目标值之差的绝对值。",
+          "formula": "|Q(h)-2|=|(2+h)-2|=|h|,\\qquad h\\ne0",
+          "prompt": "若允许误差继续缩小，输入范围应该怎样跟着变化？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p018",
+          "compositionId": "em-l03-limits-composition-18",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。精度挑战不止列举数值，准备任意误差符号。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour1",
+          "title": "精度提高，输入范围也要收紧",
+          "table": {
+            "columns": [
+              "要求",
+              "足以保证的输入范围",
+              "输出结果"
+            ],
+            "rows": [
+              [
+                "误差<0.01",
+                "$0<|h|<0.01$",
+                "$|Q(h)-2|<0.01$"
+              ],
+              [
+                "误差<0.001",
+                "$0<|h|<0.001$",
+                "$|Q(h)-2|<0.001$"
+              ]
+            ]
+          },
+          "body": [
+            "区间内每一个非零输入都要成立，不能只挑两个好看的小数。"
+          ],
+          "prompt": "把0.001再缩小一千倍，原有方法还能用吗？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p019",
+          "compositionId": "em-l03-limits-composition-19",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。先解释误差容许值，再引入输入范围。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour1",
+          "title": "ε：由要求决定的输出精度",
+          "lead": "$\\varepsilon$读作epsilon，是任意给定的正数，表示输出允许误差。",
+          "formula": "|Q(h)-2|<\\varepsilon,\\qquad \\varepsilon>0",
+          "limitFigure": {
+            "kind": "error-band",
+            "params": {
+              "epsilon": 0.2,
+              "delta": 0.2
+            }
+          },
+          "body": [
+            "目标固定为2；误差带在 $2-\\varepsilon$ 与 $2+\\varepsilon$ 之间。",
+            "ε的单位跟输出相同，不能与输入单位混用。"
+          ]
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p020",
+          "compositionId": "em-l03-limits-composition-20",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。先固定ε再选δ；范围不是某个单独测试点。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l3-hour1",
+          "title": "δ：为这项要求选择输入范围",
+          "lead": "$\\delta$读作delta，是正的输入距离范围。",
+          "formula": "0<|h|<\\delta",
+          "limitFigure": {
+            "kind": "error-band",
+            "params": {
+              "epsilon": 0.2,
+              "delta": 0.15
+            }
+          },
+          "body": [
+            "$0<|h|$排除不能计算差商的输入0处。",
+            "δ的单位与输入相同；选定范围之后，其中所有非零输入都要接受检验。"
+          ]
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p021",
+          "compositionId": "em-l03-limits-composition-21",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "interaction",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "lab",
+          "style": "editorial",
+          "teachingCue": "预计2分钟。教师演示ε和δ滑块；学生先口头给范围，再观察全区间图形。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 120,
+          "moduleId": "limits-l3-hour1",
+          "title": "先提精度要求，再给范围保证",
+          "limitLab": "error-band",
+          "limitFigure": {
+            "kind": "error-band"
+          },
+          "formula": "Q(h)=2+h\\quad(h\\ne0)",
+          "body": [
+            "给定ε → 选择δ → 检查范围内全部非零输入。"
+          ],
+          "prompt": "同桌指定ε，你能给出一个有效的δ吗？有效答案是否唯一？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p022",
+          "compositionId": "em-l03-limits-composition-22",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "constructivist",
+          "teachingCue": "预计1.5分钟。解释量词次序的实际后果，再写正式定义。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour1",
+          "title": "先看测试点，再选范围：还能算保证吗？",
+          "body": [
+            "错误次序：先取一个 $h$，再选 $\\delta=|h|/2$。",
+            "这个 $h$ 已经不在 $0<|h|<\\delta$ 内，检验被绕开了。",
+            "有效次序：给定ε后确定δ，再接受范围内所有输入的检验。"
+          ],
+          "prompt": "“没有测试点失败”与“所有应测点都通过”差在哪里？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p023",
+          "compositionId": "em-l03-limits-composition-23",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计3分钟。先用完整中文定义，下一页才定义量词符号；开区间含义属高中先修。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 180,
+          "moduleId": "limits-l3-hour1",
+          "title": "函数极限：对所有足够近的输入作保证",
+          "lead": "固定输入目标 $a$ 与候选实数 $L$；$f$ 在 $a$ 两侧某个开区间内除 $a$ 外均有定义。",
+          "body": [
+            "若对任意ε>0，都存在δ>0，使所有满足 $0<|x-a|<\\delta$ 的输入都有 $|f(x)-L|<\\varepsilon$，就称 $f(x)$ 在 $x\\to a$ 时以 $L$ 为极限。"
+          ],
+          "formula": "\\lim_{x\\to a}f(x)=L",
+          "prompt": "定义要求 $f(a)$ 存在吗？要求 $f(x)$ 永远不等于 $L$ 吗？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p024",
+          "compositionId": "em-l03-limits-composition-24",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计2分钟。符号说明在前再读公式；逐个指出δ允许与不允许的依赖关系。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 120,
+          "moduleId": "limits-l3-hour1",
+          "title": "“任意—存在—所有”的次序不能交换",
+          "lead": "量词 quantifier：说明范围；$\\forall$表示“对所有”，$\\exists$表示“存在”。",
+          "formula": "\\forall\\varepsilon>0\\quad\\exists\\delta>0\\quad\\forall x:\\quad 0<|x-a|<\\delta\\Rightarrow|f(x)-L|<\\varepsilon",
+          "body": [
+            "先固定 $a,L$；ε是外部要求，δ可以依赖ε。",
+            "δ确定后，要对整个范围负责，不能随正在检验的 $x$ 改变。"
+          ],
+          "prompt": "谁提出要求？谁给出保证？谁接受检验？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p025",
+          "compositionId": "em-l03-limits-composition-25",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "proof",
+          "style": "editorial",
+          "teachingCue": "预计2分钟。第一次完整ε-δ证明，题设、范围、误差链累积保留。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 120,
+          "moduleId": "limits-l3-hour1",
+          "title": "完整证明：平方函数差商的极限是2",
+          "formula": "Q(h)=2+h\\quad(h\\ne0)",
+          "body": [
+            "任取 $\\varepsilon>0$，选择 $\\delta=\\varepsilon$。"
+          ],
+          "steps": [
+            {
+              "title": "对范围内所有输入检验",
+              "formula": "0<|h|<\\delta\\ \\Rightarrow\\ |Q(h)-2|=|h|<\\delta=\\varepsilon"
+            },
+            {
+              "title": "结论保留原分式的条件",
+              "formula": "\\lim_{h\\to0}\\frac{(1+h)^2-1}{h}=2",
+              "text": "原分式始终用非零增量计算；结果来自误差保证。"
+            }
+          ]
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p026",
+          "compositionId": "em-l03-limits-composition-26",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "proof",
+          "style": "editorial",
+          "teachingCue": "预计2分钟。练习否定任意保证；不用尚未介绍的三角不等式名称。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 120,
+          "moduleId": "limits-l3-hour1",
+          "title": "如果有人坚持说极限是3呢？",
+          "body": [
+            "取一次明确挑战：$\\varepsilon=0.1$。",
+            "对方无论给出多小的δ，都要接受所有输入检验。"
+          ],
+          "steps": [
+            {
+              "title": "在对方范围里选一个反例",
+              "formula": "h=\\min(\\delta/2,0.1)>0,\\qquad h<\\delta"
+            },
+            {
+              "title": "这个输入必然击穿精度",
+              "formula": "|Q(h)-3|=|h-1|\\ge0.9>0.1"
+            }
+          ],
+          "prompt": "否定一个极限候选值，为何一次固定精度挑战就足够？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p027",
+          "compositionId": "em-l03-limits-composition-27",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "exercise",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "exercise",
+          "style": "editorial",
+          "teachingCue": "预计4分钟。四分钟完整独立作答；不在起始口播或助教上下文里泄漏下一页答案。留足独立作答时间，计时不自动公开答案。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 240,
+          "moduleId": "limits-l3-hour1",
+          "title": "三个δ，哪些真的有效？",
+          "exerciseMinutes": 4,
+          "formula": "g(h)=3+2h,\\qquad h\\ne0,\\qquad \\text{目标极限为 }3",
+          "table": {
+            "columns": [
+              "候选选择",
+              "是否对任意ε>0有效？",
+              "依据或反例"
+            ],
+            "rows": [
+              [
+                "$\\delta=\\varepsilon/2$",
+                "待判断",
+                "待填写"
+              ],
+              [
+                "$\\delta=\\varepsilon/4$",
+                "待判断",
+                "待填写"
+              ],
+              [
+                "$\\delta=\\varepsilon$",
+                "待判断",
+                "待填写"
+              ]
+            ]
+          },
+          "prompt": "独立写出误差式；有效的写完整保证，无效的给出范围内失败输入。"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p028",
+          "compositionId": "em-l03-limits-composition-28",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "proof",
+          "style": "editorial",
+          "teachingCue": "预计2分钟。反馈解释δ非唯一及反例必须在范围内，再给学生重判机会。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 120,
+          "moduleId": "limits-l3-hour1",
+          "title": "有效范围可以更小，不能只靠感觉更大",
+          "formula": "|g(h)-3|=2|h|",
+          "steps": [
+            {
+              "title": "前两个选择都能作出保证",
+              "formula": "|h|<\\varepsilon/2\\Rightarrow2|h|<\\varepsilon;\\qquad |h|<\\varepsilon/4\\Rightarrow2|h|<\\varepsilon/2"
+            },
+            {
+              "title": "δ=ε被一个范围内输入击穿",
+              "formula": "h=3\\varepsilon/4<\\delta,\\qquad 2|h|=3\\varepsilon/2>\\varepsilon"
+            }
+          ],
+          "prompt": "保留你原来的判断，用“所有输入”重新检查一次。"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p029",
+          "compositionId": "em-l03-limits-composition-29",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。第一课时收束，并以目标点取值问题开第二课时。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour1",
+          "title": "不是“最后取零”，而是任意精度都能兑现",
+          "body": [
+            "非零增量下精确化简。",
+            "先给输出精度，再选输入范围。",
+            "范围内所有输入通过，原式在目标点有没有值另说。"
+          ],
+          "formula": "\\lim_{h\\to0}Q(h)=2\\qquad\\text{与}\\qquad Q(0)\\text{不存在}\\quad\\text{并不冲突}"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p030",
+          "compositionId": "em-l03-limits-composition-30",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计0.5分钟。第二课时用一句完整证明复接第一课时，不另起故事。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 30,
+          "moduleId": "limits-l3-hour2",
+          "title": "同一个差商，继续接受更严格的追问",
+          "formula": "Q(h)=2+h\\quad(h\\ne0),\\qquad |Q(h)-2|=|h|",
+          "body": [
+            "任取ε>0，δ=ε保证所有 $0<|h|<\\delta$。"
+          ],
+          "prompt": "若在输入0处补一个值，刚才的保证还会成立吗？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p031",
+          "compositionId": "em-l03-limits-composition-31",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。补值图允许断轴必须标出99；避免错误几何证据。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l3-hour2",
+          "title": "输入0处填2、填99，或不填",
+          "table": {
+            "columns": [
+              "输入0处处理",
+              "所有非零h的表达式",
+              "被测试的误差"
+            ],
+            "rows": [
+              [
+                "不定义",
+                "$2+h$",
+                "$|h|$"
+              ],
+              [
+                "定义为2",
+                "$2+h$",
+                "$|h|$"
+              ],
+              [
+                "定义为99",
+                "$2+h$",
+                "$|h|$"
+              ]
+            ]
+          },
+          "limitFigure": {
+            "kind": "hole",
+            "params": {
+              "point": 99,
+              "fill": 1
+            }
+          },
+          "body": [
+            "三种处理在非零输入处完全相同，故在0处的极限都为2。",
+            "值99单列在图上方，不按该纵轴比例绘制。"
+          ],
+          "prompt": "函数值与极限，分别回答哪一个输入问题？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p032",
+          "compositionId": "em-l03-limits-composition-32",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。正例反驳永不达到的口号；极限定义不禁止等于目标。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour2",
+          "title": "极限可以一直等于函数值",
+          "formula": "c(h)=2\\quad(h\\in\\mathbb R)",
+          "body": [
+            "对每一个输入，$|c(h)-2|=0$。",
+            "任意ε>0都满足误差要求，取任意δ>0即可。"
+          ],
+          "prompt": "“极限永远达不到”这句话，错在把什么当成了条件？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p033",
+          "compositionId": "em-l03-limits-composition-33",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。先用两侧矛盾直观，正式左右极限名称留第四讲；不提前用未定义术语。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour2",
+          "title": "都在靠近零，结果却分成两边",
+          "formula": "s(h)=\\frac{|h|}{h}\\quad(h\\ne0)",
+          "steps": [
+            {
+              "title": "两侧的结果",
+              "limitFigure": {
+                "kind": "sign"
+              },
+              "formula": "\\begin{aligned}h>0&\\Rightarrow s(h)=1,\\\\h<0&\\Rightarrow s(h)=-1.\\end{aligned}"
+            }
+          ],
+          "prompt": "误差要求取0.5，有没有一个目标值能同时容纳两边？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p034",
+          "compositionId": "em-l03-limits-composition-34",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。精确样点而非低分辨率振荡曲线，先呈现诱人的证据。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour2",
+          "title": "算出一长串零，就证明极限是零了吗？",
+          "formula": "w(h)=\\sin(\\pi/h),\\qquad h\\ne0",
+          "limitFigure": {
+            "kind": "oscillation-samples",
+            "params": {
+              "family": 0
+            }
+          },
+          "body": [
+            "取 $h=1/n$，正整数 $n=1,2,\\ldots$，则 $w(h)=\\sin(n\\pi)=0$。",
+            "这些输入可以任意接近0；图只画解析核对过的采样点。"
+          ],
+          "prompt": "这组数据遗漏了哪些仍须接受检验的输入？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p035",
+          "compositionId": "em-l03-limits-composition-35",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计2分钟。用同侧两组解析反例防止学生误判仅是左右差异。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 120,
+          "moduleId": "limits-l3-hour2",
+          "title": "换一组同样靠近零的输入",
+          "formula": "h=\\frac1{2n+1/2}\\quad\\Rightarrow\\quad w(h)=\\sin(2n\\pi+\\pi/2)=1",
+          "limitFigure": {
+            "kind": "oscillation-samples",
+            "params": {
+              "family": 1
+            }
+          },
+          "body": [
+            "两组输入都为正，都任意接近0；一组恒为0，另一组恒为1。",
+            "不能用采样遗漏解释成函数本身没有波动。"
+          ],
+          "prompt": "若有人把输入范围继续缩小，第二组样点会消失吗？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p036",
+          "compositionId": "em-l03-limits-composition-36",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "exercise",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "exercise",
+          "style": "editorial",
+          "teachingCue": "预计3.5分钟。3.5分钟独立与短交流；评价反例是否适用于任意δ，而非只再选一个小数。留足独立作答时间，计时不自动公开答案。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 210,
+          "moduleId": "limits-l3-hour2",
+          "title": "给“更多采样”找出一个逻辑缺口",
+          "exerciseMinutes": 3.5,
+          "formula": "w(h)=\\sin(\\pi/h)\\quad(h\\ne0)",
+          "body": [
+            "甲：“我已经算到 $n=10^6$，$h=1/n$ 时全为0。”",
+            "乙：“将δ再缩小，总能避开那组输出为1的输入。”"
+          ],
+          "prompt": "先独立指出两句话的缺口，再写一个能进入任意δ范围的输出为1的输入。"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p037",
+          "compositionId": "em-l03-limits-composition-37",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "proof",
+          "style": "editorial",
+          "teachingCue": "预计2分钟。此页“必要检验”用常见文字，不提前介绍必要条件的形式定义；可把“必要”读作必须通过。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 120,
+          "moduleId": "limits-l3-hour2",
+          "title": "长名单仍不能代替全部输入",
+          "steps": [
+            {
+              "title": "把输出为1的点放入任何范围",
+              "formula": "n>\\frac1{2\\delta}\\quad\\Rightarrow\\quad 0<\\frac1{2n+1/2}<\\delta"
+            },
+            {
+              "title": "一次误差挑战足以否定目标0",
+              "text": "取ε=1/2；这组输入输出为1，误差为1，始终不通过。"
+            }
+          ],
+          "body": [
+            "有极限时，任意一组趋近输入都必须得到相同结果。",
+            "检验若干组输入通过，只是必须通过的检验，尚未覆盖定义中的全部输入。"
+          ],
+          "prompt": "重新判断：失败的一组足以推翻；成功的有限组是否足以建立？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p038",
+          "compositionId": "em-l03-limits-composition-38",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。从函数输入样点自然引入数列；此页先说一串数，下页命名。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l3-hour2",
+          "title": "选定一组输入，问题变成一串数",
+          "formula": "h=1/n\\quad\\Rightarrow\\quad a_n=Q(1/n)=2+1/n",
+          "table": {
+            "columns": [
+              "编号n",
+              "输入h",
+              "输出"
+            ],
+            "rows": [
+              [
+                "1",
+                "1",
+                "3"
+              ],
+              [
+                "2",
+                "1/2",
+                "2.5"
+              ],
+              [
+                "10",
+                "1/10",
+                "2.1"
+              ],
+              [
+                "100",
+                "1/100",
+                "2.01"
+              ]
+            ]
+          },
+          "prompt": "这串输出本身的趋近，可以怎样严格描述？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p039",
+          "compositionId": "em-l03-limits-composition-39",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。数列与第n项同页定义，不提前用收敛等术语。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l3-hour2",
+          "title": "数列：用整数编号的一串实数",
+          "lead": "数列 sequence：从正整数，或从0开始的非负整数编号，到实数的对应。",
+          "formula": "a_n=2+\\frac1n,\\qquad n=1,2,3,\\ldots",
+          "body": [
+            "$a_n$称第n项；本例从1开始，不能取 $n=0$。",
+            "数列图只画整数编号的点，不把点间连线当作新的项。"
+          ],
+          "limitFigure": {
+            "kind": "sequence"
+          }
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p040",
+          "compositionId": "em-l03-limits-composition-40",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。先区分过程再引入N；∞在本页是编号无界增大的记号，不当实数值。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour2",
+          "title": "编号走向无穷，距离走向零",
+          "table": {
+            "columns": [
+              "原函数问题",
+              "这一个数列问题"
+            ],
+            "rows": [
+              [
+                "$h\\to0$，输入为非零实数",
+                "$n\\to\\infty$，输入为正整数"
+              ],
+              [
+                "控制与0的距离",
+                "控制开始保证的编号门槛"
+              ],
+              [
+                "所有足够近输入",
+                "所有足够后面的项"
+              ]
+            ]
+          },
+          "formula": "|a_n-2|=1/n",
+          "prompt": "在这两个过程里，谁才是正在改变的自变量？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p041",
+          "compositionId": "em-l03-limits-composition-41",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。检查严格不等号与最早项，铺垫数列正式定义。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour2",
+          "title": "误差严格小于0.02，从第几项开始？",
+          "formula": "|a_n-2|=1/n<0.02\\quad\\Longleftrightarrow\\quad n>50",
+          "body": [
+            "第50项误差恰为0.02，不能通过严格小于的要求。",
+            "第51项及以后全部通过。"
+          ],
+          "limitFigure": {
+            "kind": "sequence",
+            "params": {
+              "epsilon": 0.02,
+              "minN": 40,
+              "maxN": 65
+            }
+          },
+          "prompt": "如果定义写成“n>N”，可以选择哪个整数N？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p042",
+          "compositionId": "em-l03-limits-composition-42",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计2分钟。N按n>N约定，过大门槛仍有效；存在足够大整数属高中实数性质。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 120,
+          "moduleId": "limits-l3-hour2",
+          "title": "数列极限：门槛之后，所有项满足要求",
+          "lead": "收敛 convergence：数列存在一个实数极限L；也称数列收敛于L。",
+          "body": [
+            "若对任意ε>0，都存在整数N，使所有 $n>N$ 都有 $|a_n-L|<\\varepsilon$，就记为："
+          ],
+          "formula": "\\lim_{n\\to\\infty}a_n=L",
+          "steps": [
+            {
+              "title": "对本例的完整保证",
+              "text": "任取ε>0，选一个整数N>1/ε。",
+              "formula": "n>N\\Rightarrow |a_n-2|=1/n<1/N<\\varepsilon"
+            }
+          ],
+          "prompt": "N可以依赖ε，能不能随正在测试的n改变？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p043",
+          "compositionId": "em-l03-limits-composition-43",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。让学生用定义解释局部与后段，承接从第0周开始的扩容数列。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour2",
+          "title": "δ与N各管什么？",
+          "table": {
+            "columns": [
+              "函数极限",
+              "数列极限"
+            ],
+            "rows": [
+              [
+                "选δ>0，控制输入距离",
+                "选整数N，控制编号门槛"
+              ],
+              [
+                "$0<|x-a|<\\delta$",
+                "全部 $n>N$"
+              ],
+              [
+                "目标点的补值不影响保证",
+                "有限个开头项不影响后段保证"
+              ]
+            ]
+          },
+          "prompt": "把前三项改成很大的数，为什么不改变数列极限？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p044",
+          "compositionId": "em-l03-limits-composition-44",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "新增给定规则；日能力作连续近似",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。保留商家而换到实施过程；先定义新符号与假设，避免预测、投资结论偷换。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour2",
+          "title": "商家扩容，每周只补上剩余差距的一部分",
+          "lead": "现有日能力400件，目标500件。每周改善“尚缺能力”的20%。",
+          "body": [
+            "$K_n$：实施n周后的日履约能力，单位件/日；$n=0,1,2,\\ldots$。",
+            "$K_0=400$；本节先分析能力路径，不计算扩容投资净收益。"
+          ],
+          "prompt": "每周都增加20件，和每周补差距的20%，是同一件事吗？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p045",
+          "compositionId": "em-l03-limits-composition-45",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "给定规则；件/日",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。用最初两步解释递推 relation，但不额外引入未定义名词。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour2",
+          "title": "“剩余差距的20%”怎样写成递推？",
+          "formula": "K_{n+1}=K_n+0.2(500-K_n),\\qquad K_0=400",
+          "table": {
+            "columns": [
+              "实施周数",
+              "日能力",
+              "下一周增加"
+            ],
+            "rows": [
+              [
+                "0",
+                "400",
+                "20"
+              ],
+              [
+                "1",
+                "420",
+                "16"
+              ],
+              [
+                "2",
+                "436",
+                "12.8"
+              ]
+            ]
+          },
+          "prompt": "为什么下一周的改善量越来越小？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p046",
+          "compositionId": "em-l03-limits-composition-46",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "给定规则的精确代数结果",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。先定义e_n再用通项，残差是实物能力不是统计误差。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour2",
+          "title": "盯住剩余差距，比盯住能力更简单",
+          "lead": "记 $e_n=500-K_n$，表示尚缺的日能力，单位件/日。",
+          "formula": "e_{n+1}=500-K_{n+1}=0.8(500-K_n)=0.8e_n",
+          "body": [
+            "$e_0=100$；每周剩余差距保留80%。"
+          ],
+          "prompt": "从第0周开始，$e_1,e_2,e_3$分别是多少？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p047",
+          "compositionId": "em-l03-limits-composition-47",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "日能力（件/日）；n为非负整数",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。验证而非直接扔通项；差距与能力曲线来自同一计算。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour2",
+          "title": "通项与递推，必须描述同一个过程",
+          "formula": "e_n=100(0.8)^n,\\qquad K_n=500-100(0.8)^n",
+          "steps": [
+            {
+              "title": "核对初值和下一步",
+              "formula": "e_0=100,\\qquad e_{n+1}=100(0.8)^{n+1}=0.8e_n"
+            },
+            {
+              "title": "每一步仍有改善",
+              "formula": "K_{n+1}-K_n=20(0.8)^n>0"
+            }
+          ]
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p048",
+          "compositionId": "em-l03-limits-composition-48",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。先解释名称，再用两个上界击破上界即极限；图保持500未达空隙。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour2",
+          "title": "一直增加，却始终低于500",
+          "lead": "单调不减 non-decreasing：$K_{n+1}\\ge K_n$；严格递增 strictly increasing：每一步都严格大于。",
+          "body": [
+            "有上界 bounded above：所有项不超过同一个固定实数。",
+            "$K_n<500$，所以500是上界；600也同样是上界。"
+          ],
+          "limitFigure": {
+            "kind": "capacity",
+            "params": {
+              "n": 12
+            }
+          },
+          "prompt": "500和600都是上界，为什么不能把任意上界当作极限？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p049",
+          "compositionId": "em-l03-limits-composition-49",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。对指数趋零给出高中几何数列依据，用高中对数不等式说明N；不把定理当极限值公式。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour2",
+          "title": "有上界且单调，能保证什么？",
+          "body": [
+            "单调不增 non-increasing：$a_{n+1}\\le a_n$；有下界 bounded below：所有项不低于同一个固定实数。",
+            "定理：单调不减且有上界的实数列有实数极限；单调不增且有下界也成立。"
+          ],
+          "steps": [
+            {
+              "title": "本题再用差距辨认极限",
+              "formula": "|K_n-500|=100(0.8)^n\\to0",
+              "text": "对任意ε>0，取整数 $N>\\max\\{0,\\log_{0.8}(ε/100)\\}$；对全部n>N，差距均小于ε。"
+            }
+          ],
+          "prompt": "定理保证极限存在；具体极限为何是500，而不是600？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p050",
+          "compositionId": "em-l03-limits-composition-50",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "constructivist",
+          "teachingCue": "预计1.5分钟。反例各撤一个条件，偶奇两组点精确绘制，不叫极限为∞且仍收敛。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour2",
+          "title": "只保留一个条件，会发生什么？",
+          "lead": "有界 bounded：存在固定正数B，使所有项都满足 $|a_n|\\le B$。",
+          "table": {
+            "columns": [
+              "数列",
+              "具有的条件",
+              "缺少的结果"
+            ],
+            "rows": [
+              [
+                "$a_n=(-1)^n$",
+                "有界，均为−1或1",
+                "不靠近同一个实数"
+              ],
+              [
+                "$b_n=n$",
+                "严格递增",
+                "没有实数极限"
+              ]
+            ]
+          },
+          "limitFigure": {
+            "kind": "counter-sequences"
+          },
+          "prompt": "分别指出：不是哪个数算错，而是哪个定理条件不满足？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p051",
+          "compositionId": "em-l03-limits-composition-51",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "exercise",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "给定连续能力模型；件/日",
+          "accent": "ink",
+          "layout": "exercise",
+          "style": "editorial",
+          "teachingCue": "预计4分钟。4分钟独立作答；默认图和读数不能泄漏K8或最早周数。留足独立作答时间，计时不自动公开答案。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 240,
+          "moduleId": "limits-l3-hour2",
+          "title": "八周后，能承诺每天履约490件吗？",
+          "exerciseMinutes": 4,
+          "formula": "K_n=500-100(0.8)^n,\\qquad n=0,1,2,\\ldots",
+          "body": [
+            "① 第8周是否已有 $K_8\\ge490$？",
+            "② 至少实施几周，才有 $500-K_n<10$？",
+            "③ 是否存在有限周数，使 $K_n\\ge500$？"
+          ],
+          "prompt": "独立计算；写明整数周数、严格不等号，以及承诺的适用条件。"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p052",
+          "compositionId": "em-l03-limits-composition-52",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "给定规则的推导；自然对数为高中先修回顾",
+          "accent": "ink",
+          "layout": "proof",
+          "style": "editorial",
+          "teachingCue": "预计2分钟。原题隐含严格界线，反馈保留ln负号依据，再让学生修订承诺。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 120,
+          "moduleId": "limits-l3-hour2",
+          "title": "第11周过线，有限周仍达不到500",
+          "steps": [
+            {
+              "title": "核对三个关键周数",
+              "text": "第8周约483.22；第10周约489.26；第11周约491.41件/日。"
+            },
+            {
+              "title": "不等式方向与整数周数",
+              "formula": "100(0.8)^n<10\\iff n>\\frac{\\ln0.1}{\\ln0.8}\\approx10.319",
+              "text": "ln0.8<0，除以它时不等号改变方向；最早是第11周。"
+            },
+            {
+              "title": "有限周仍留下正差距",
+              "formula": "100(0.8)^n>0\\quad\\Rightarrow\\quad K_n<500"
+            }
+          ]
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p053",
+          "compositionId": "em-l03-limits-composition-53",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "interaction",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "给定日能力模型；非负整数周数",
+          "accent": "ink",
+          "layout": "lab",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。题目反馈以后才开放读数；可演示ε10和1对应11和21周，学生先算后看。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour2",
+          "title": "观察门槛，别把目标线当成已达能力",
+          "limitLab": "capacity",
+          "interactionId": "sequence-limit-lab",
+          "limitFigure": {
+            "kind": "capacity"
+          },
+          "formula": "K_n=500-100(0.8)^n",
+          "body": [
+            "每个点表示一周后的日能力；500件/日是目标线。"
+          ],
+          "prompt": "要求从差10件改成差1件，门槛会怎样移动？所有后续周数是否仍满足？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p054",
+          "compositionId": "em-l03-limits-composition-54",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "模型推理与经营条件",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。经济深问回到遗漏变量，不制造统计外推争议或冒充利润结论。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l3-hour2",
+          "title": "能力路径成立，经营承诺仍需要别的条件",
+          "body": [
+            "规则只描述：按给定改善比例，能力逐周接近500件/日。",
+            "实际承诺还须检验：改善能否实施、排班是否稳定、每天需求多少、整数订单如何安排。",
+            "扩容是否划算，还需要收益、投资与运营成本；本数列尚未给出这些量。"
+          ],
+          "prompt": "“极限为500，所以扩容一定值得做”中，遗漏了什么？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p055",
+          "compositionId": "em-l03-limits-composition-55",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "给定执行制度",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。接回开头网格约束，不把微积分论证误读为实际报价无限可分。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l3-hour2",
+          "title": "连续分析之后，回到可执行的网格",
+          "body": [
+            "报价只能五角一档；周数只能取整数；订单通常逐件执行。",
+            "连续函数帮助分析附近变化，数列负责逐周实施。",
+            "近似模型的结论要回到对应的合法输入与执行条件中解释。"
+          ],
+          "prompt": "若连续分析给出79.8元，实际建议应怎样形成？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p056",
+          "compositionId": "em-l03-limits-composition-56",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "恢复原参数；连续价格近似",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。明确场景切回K400，把函数与差商两对象分开，为第四讲铺路。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l3-hour2",
+          "title": "回到原有400件能力，80元的两侧仍有分歧",
+          "formula": "\\Pi(p)=\\begin{cases}360p-10000,&30\\le p\\le80,\\\\-9p^2+1280p-26000,&80<p\\le100.\\end{cases}",
+          "body": [
+            "现在恢复第二讲原情境 $K=400$，不把扩容后的能力混入。",
+            "80元左边受履约能力限制；右边按需求量成交。"
+          ],
+          "limitFigure": {
+            "kind": "profit",
+            "params": {
+              "min": 75,
+              "max": 85
+            }
+          },
+          "prompt": "利润两边都靠近18 800，是否意味着变化率两边也相同？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p057",
+          "compositionId": "em-l03-limits-composition-57",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "原400件模型；连续近似",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。不给出下一讲差商公式，要求从本讲定义提出方法。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l3-hour2",
+          "title": "五角试算提供线索，不能替代趋近证明",
+          "formula": "Q_{80}(-0.5)=360,\\qquad Q_{80}(0.5)=-164.5",
+          "body": [
+            "这只是两个固定增量的结果。",
+            "真正的趋近判断，要处理两侧任意足够小的非零增量。"
+          ],
+          "prompt": "你会怎样把利润分段式变成能检验全部增量的表达式？"
+        },
+        {
+          "slideKey": "em-l03-limits-20261010-p058",
+          "compositionId": "em-l03-limits-composition-58",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第三讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计0.5分钟。留下可算悬念；第三讲习题答案与第四讲起始证明衔接。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 30,
+          "moduleId": "limits-l3-hour2",
+          "title": "最优价格，导数一定等于零吗？",
+          "lead": "80元是原模型的最优价格。关于导数的判断，仍欠一个条件。",
+          "body": [
+            "下讲：把利润的趋近与差商的趋近分开，再进入采购门槛与规模决策。"
+          ],
+          "prompt": "课后写出：一个采样失败反例；数列门槛的完整保证；80元两侧差商的化简。"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "左右极限、极限运算与规模边界",
+      "unit": 2,
+      "unitTitle": "极限与连续",
+      "hours": 2,
+      "expectedSlides": 56,
+      "coreQuestion": "何时可以合并、化简并应用一个极限结论，何时必须保留方向和实际约束？",
+      "exerciseCapability": "用左右极限解释最优点是否可导；核对四则法则条件并完成因式分解与有理化；区分有限实际合同与无界理想延伸；证明无穷极限与夹逼结果，比较同批量合同并说明决策边界",
+      "prerequisites": [
+        "第二讲商家模型、可行集和报价网格",
+        "高中导数符号、代数恒等式、绝对值与指数"
+      ],
+      "outcomes": [
+        "用左右极限解释最优点是否可导",
+        "核对四则法则条件并完成因式分解与有理化",
+        "区分有限实际合同与无界理想延伸",
+        "证明无穷极限与夹逼结果，比较同批量合同并说明决策边界"
+      ],
+      "route": [
+        {
+          "minutes": 45,
+          "activity": "左右极限、合同门槛与极限运算；课堂练习8分钟"
+        },
+        {
+          "minutes": 45,
+          "activity": "规模边界、无穷极限、夹逼与合同比较；决策练习及出口书写7分钟"
+        }
+      ],
+      "classHours": [
+        {
+          "hour": 1,
+          "minutes": 45,
+          "slideStart": 1,
+          "slideEnd": 28,
+          "activity": "左右极限、合同门槛与极限运算；课堂练习8分钟"
+        },
+        {
+          "hour": 2,
+          "minutes": 45,
+          "slideStart": 29,
+          "slideEnd": 56,
+          "activity": "规模边界、无穷极限、夹逼与合同比较；决策练习及出口书写7分钟"
+        }
+      ],
+      "slides": [
+        {
+          "slideKey": "em-l04-limits-20261010-p001",
+          "compositionId": "em-l04-limits-composition-1",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "接续第三讲；恢复日能力400件",
+          "accent": "ink",
+          "layout": "cover",
+          "style": "cover",
+          "teachingCue": "预计0.5分钟。直接接住上一讲悬念，不重复一般课程目标页。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 30,
+          "moduleId": "limits-l4-hour1",
+          "title": "同一个最优点，两种极限问题",
+          "image": "v2/l04-scene.png",
+          "imageAlt": "采购与商家情境的编辑插画",
+          "lead": "80元两侧的利润靠近同一个值，差商呢？",
+          "body": [
+            "从左右趋近，到采购门槛与规模决策。"
+          ]
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p002",
+          "compositionId": "em-l04-limits-composition-2",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。先分对象和单位再看曲线，防止用利润连续的图证明导数。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "利润与差商，是不同的数学对象",
+          "table": {
+            "columns": [
+              "对象",
+              "表达式",
+              "单位"
+            ],
+            "rows": [
+              [
+                "日利润",
+                "$\\Pi(80+h)$",
+                "元/日"
+              ],
+              [
+                "平均变化率",
+                "$Q_{80}(h)=[\\Pi(80+h)-\\Pi(80)]/h$",
+                "（元/日）/（元/件）"
+              ]
+            ]
+          },
+          "body": [
+            "两者都用 $h\\to0$，但考察的输出不同。差商仍须 $h\\ne0$。"
+          ],
+          "prompt": "一个对象两侧靠近同值，能否直接推出另一个也一样？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p003",
+          "compositionId": "em-l04-limits-composition-3",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "原日利润模型；价格连续近似",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。题设范围先可见；用±h接入左右极限定义。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "固定80元，让新价格从两边靠近",
+          "formula": "\\Pi(p)=\\begin{cases}360p-10000,&30\\le p\\le80,\\\\-9p^2+1280p-26000,&80<p\\le100.\\end{cases}",
+          "limitFigure": {
+            "kind": "profit",
+            "params": {
+              "min": 78,
+              "max": 82
+            }
+          },
+          "body": [
+            "$h<0$：新价格低于80；$h>0$：新价格高于80。",
+            "限定 $0<|h|<1$，两侧都在原价格定义域内。"
+          ],
+          "prompt": "哪一个分段式分别控制左边与右边？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p004",
+          "compositionId": "em-l04-limits-composition-4",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。完整定义只改变输入范围，其余量词沿用第三讲。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "只从一侧靠近：左右极限",
+          "lead": "右极限 right-hand limit：只保证右侧所有足够近的输入；左极限 left-hand limit同理。",
+          "formula": "\\begin{aligned}x\\to a^+:&\\quad0<x-a<\\delta,\\\\x\\to a^-:&\\quad0<a-x<\\delta.\\end{aligned}",
+          "body": [
+            "固定实数L。对任意ε>0，存在δ>0，使对应一侧范围内的所有输入满足 $|f(x)-L|<\\varepsilon$。",
+            "分别记作 $\\lim_{x\\to a^+}f(x)=L$ 与 $\\lim_{x\\to a^-}f(x)=L$。"
+          ],
+          "prompt": "改动的是输出精度要求，还是接受检验的输入范围？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p005",
+          "compositionId": "em-l04-limits-composition-5",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "原模型；差商单位（元/日）/（元/件）",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计2分钟。完整左侧证明保留分段范围，不用两个取值代替证明。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 120,
+          "moduleId": "limits-l4-hour1",
+          "title": "80元左侧：利润在升，差商固定为360",
+          "formula": "\\Pi(80+h)=18800+360h,\\qquad -1<h<0",
+          "steps": [
+            {
+              "title": "差商是精确常数",
+              "formula": "Q_{80}(h)=\\frac{360h}{h}=360\\quad(-1<h<0)"
+            },
+            {
+              "title": "左侧误差保证",
+              "text": "任取ε>0，取δ=1；所有−δ<h<0都有 |Q₈₀(h)−360|=0<ε。"
+            }
+          ]
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p006",
+          "compositionId": "em-l04-limits-composition-6",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "原模型；差商单位（元/日）/（元/件）",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计2分钟。δ包含局部公式合法性与误差保证两个任务。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 120,
+          "moduleId": "limits-l4-hour1",
+          "title": "80元右侧：差商靠近−160",
+          "formula": "\\Pi(80+h)=18800-160h-9h^2,\\qquad 0<h<1",
+          "steps": [
+            {
+              "title": "右侧差商与误差",
+              "formula": "Q_{80}(h)=-160-9h,\\qquad |Q_{80}(h)+160|=9h"
+            },
+            {
+              "title": "一项δ同时保住分段与精度",
+              "formula": "\\delta=\\min(1,\\varepsilon/9)\\quad\\Rightarrow\\quad0<h<\\delta\\Rightarrow9h<\\varepsilon"
+            }
+          ]
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p007",
+          "compositionId": "em-l04-limits-composition-7",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "解析差商；输入0处均保持空点",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。两条差商方向与利润曲线严格分开；下一页解释一般判据。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "左右极限都存在，却不相等",
+          "formula": "\\lim_{h\\to0^-}Q_{80}(h)=360,\\qquad\\lim_{h\\to0^+}Q_{80}(h)=-160",
+          "limitFigure": {
+            "kind": "quotient",
+            "params": {
+              "base": 80
+            }
+          },
+          "body": [
+            "范围缩得再小，两侧输出也不能靠近同一个实数。"
+          ],
+          "prompt": "如果坚持给同一目标值，哪一侧会在某次精度要求下失败？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p008",
+          "compositionId": "em-l04-limits-composition-8",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。双向判据解释必要方向同一范围，充分方向较小δ；词汇形式定义留p10/p19。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "两侧拼起来，何时得到函数极限？",
+          "lead": "在目标点两侧都可考察时；符号⇔表示两个方向都能推出。",
+          "formula": "\\lim_{x\\to a}f(x)=L\\quad\\Longleftrightarrow\\quad\\lim_{x\\to a^-}f(x)=\\lim_{x\\to a^+}f(x)=L",
+          "steps": [
+            {
+              "title": "相同目标，用较小范围同时保证",
+              "text": "给定ε；左、右分别给δ₋、δ₊。",
+              "formula": "\\delta=\\min(\\delta_-,\\delta_+)"
+            }
+          ],
+          "prompt": "若只证明两侧各有极限，为什么还少一个条件？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p009",
+          "compositionId": "em-l04-limits-composition-9",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "原400件模型；元/日与变化率分开",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。完整解释“没有跳跃”现象，连续正式定义留第六讲。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "利润没有跳跃，差商却分成两边",
+          "formula": "\\lim_{h\\to0^-}\\Pi(80+h)=\\lim_{h\\to0^+}\\Pi(80+h)=18800",
+          "table": {
+            "columns": [
+              "所研究的对象",
+              "左极限",
+              "右极限",
+              "共同实数极限"
+            ],
+            "rows": [
+              [
+                "利润",
+                "18 800",
+                "18 800",
+                "18 800"
+              ],
+              [
+                "差商",
+                "360",
+                "−160",
+                "不存在"
+              ]
+            ]
+          },
+          "prompt": "利润图没有断开，为何仍不能画一条共同的切线？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p010",
+          "compositionId": "em-l04-limits-composition-10",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。给数学名称完整含义，再述费马必要条件；数列网格不偷用局部连续输入。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l4-hour1",
+          "title": "“最优点导数为零”有前提",
+          "lead": "可导 differentiable：差商趋近时存在有限实数极限，这个极限称导数。",
+          "body": [
+            "内点 interior point：目标点左右有一小段输入都在定义域内。",
+            "必要条件 necessary condition：结论成立必须满足的条件，满足它本身未必足够。",
+            "若内点处附近函数值都不大于该点，即局部最大，且函数在此可导，则导数必须为零。"
+          ],
+          "prompt": "80元的最优结论成立；上面哪个前提不成立？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p011",
+          "compositionId": "em-l04-limits-composition-11",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "数学范围与执行规则",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。经济定义域深化前提；不介绍未解释的约束驻点等词。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "端点和报价网格，也不能套同一句话",
+          "body": [
+            "在价格区间[30,100]的端点，只能从定义域内的一侧研究。",
+            "报价网格没有任意小的非零调价；网格最优不能直接推出导数为零。",
+            "原模型的全域最优证明仍须覆盖每个合法输入，不能由必要条件替代。"
+          ],
+          "prompt": "若最高利润发生在最高允许售价，是否一定要出现水平切线？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p012",
+          "compositionId": "em-l04-limits-composition-12",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "exercise",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "合同A：给定规则与数量上限",
+          "accent": "ink",
+          "layout": "exercise",
+          "style": "editorial",
+          "teachingCue": "预计4分钟。先解释全量折扣与所有量，再进行4分钟独立计算；门槛归右段。留足独立作答时间，计时不自动公开答案。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 240,
+          "moduleId": "limits-l4-hour1",
+          "title": "采购满500件，整批都按新单价计费",
+          "exerciseMinutes": 4,
+          "lead": "全量折扣 all-units discount：达到门槛后，整批数量都改按较低单价计算。",
+          "formula": "C_A(q)=\\begin{cases}5000+20q,&0<q<500,\\\\5000+18q,&500\\le q\\le10000.\\end{cases}",
+          "body": [
+            "q：每批采购件数；$C_A$：每批总成本（元）。实际q取整数，极限采用连续数量近似。",
+            "固定费用5000元/批；这是全量折扣，非只给第500件以后的部分打折。"
+          ],
+          "prompt": "独立求500处左右极限、Cₐ(499)、Cₐ(500)。不连续近似时，两次实际订单少付多少？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p013",
+          "compositionId": "em-l04-limits-composition-13",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "合同A；原生图按解析模型绘制",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计2分钟。反馈整数980与连续跳差1000不同，保留一万上限。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 120,
+          "moduleId": "limits-l4-hour1",
+          "title": "极限跳差1000元，实际少付980元",
+          "table": {
+            "columns": [
+              "比较对象",
+              "结果（元/批）"
+            ],
+            "rows": [
+              [
+                "左侧趋近500",
+                "15 000"
+              ],
+              [
+                "右侧趋近500；恰买500件",
+                "14 000"
+              ],
+              [
+                "恰买499件",
+                "14 980"
+              ],
+              [
+                "499件改为500件的成本变化",
+                "−980"
+              ]
+            ]
+          },
+          "limitFigure": {
+            "kind": "contract",
+            "params": {
+              "view": 0
+            }
+          },
+          "body": [
+            "极限比较的1000元跳差，不等于相邻整数订单的成本差。"
+          ],
+          "prompt": "多买1件却少付总款，来自哪一项合同规则？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p014",
+          "compositionId": "em-l04-limits-composition-14",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。用两个同一故事内例子比较，避免新例子跳跃。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "分段写法，不决定极限是否存在",
+          "table": {
+            "columns": [
+              "分段对象",
+              "接合处两侧",
+              "共同极限"
+            ],
+            "rows": [
+              [
+                "80元处的日利润",
+                "18 800与18 800",
+                "存在"
+              ],
+              [
+                "500件处的合同A总成本",
+                "15 000与14 000",
+                "不存在"
+              ]
+            ]
+          },
+          "body": [
+            "要核对两侧的实际结果，而不是数公式有几段。"
+          ],
+          "prompt": "如果把“函数分段”当成没有极限的理由，遗漏了哪一步？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p015",
+          "compositionId": "em-l04-limits-composition-15",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "成本构成示意；变量单位一致",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。由采购计算的需求引出法则，不把规则列表孤立插入。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "组合成本，能否分别取极限再相加？",
+          "formula": "C(q)=F(q)+q\\,u(q)",
+          "body": [
+            "F(q)：固定或批次费用；u(q)：每件费用；q·u(q)是本批货款。",
+            "附近的各项都有有限极限时，才能用相应法则组织计算。"
+          ],
+          "prompt": "若两项各自没有有限极限，和是否也一定没有？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p016",
+          "compositionId": "em-l04-limits-composition-16",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。必要输入一致条件可见，四则商留下一页；用直接lim记号有前置同一过程。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "有限极限的四则法则，先看条件",
+          "lead": "同一过程 $x\\to a$ 下，设 $f(x)\\to A$、$g(x)\\to B$，A、B均为实数。",
+          "formula": "\\begin{aligned}\\lim(f\\pm g)&=A\\pm B,\\\\\\lim(cf)&=cA,\\\\\\lim(fg)&=AB.\\end{aligned}",
+          "body": [
+            "c为固定实数；函数在目标附近的共同输入范围有定义。",
+            "对同一整数编号n趋于无穷的数列，相应法则也成立。"
+          ],
+          "prompt": "若两项使用不同自变量或不同趋近方向，能否直接拼起来？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p017",
+          "compositionId": "em-l04-limits-composition-17",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。条件失效与结论相反分开，后续0/0例子回答这个疑问。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "商法则为什么要求分母极限非零？",
+          "formula": "\\lim_{x\\to a}\\frac{f(x)}{g(x)}=\\frac AB,\\qquad B\\ne0",
+          "body": [
+            "若 $|g(x)-B|<|B|/2$，便有 $|g(x)|>|B|/2>0$。",
+            "足够近时，分母既非零，也与零保持可控制的距离。"
+          ],
+          "prompt": "B=0时是“这条法则不能用”，还是“所有商的极限都不存在”？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p018",
+          "compositionId": "em-l04-limits-composition-18",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。名称含义先解释，累积公式保留；只证一条法则以理解条件与机制。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "和法则：把总误差拆成两项",
+          "lead": "三角不等式 triangle inequality：$|u+v|\\le|u|+|v|$；合成误差不超过两项误差之和。",
+          "formula": "|(f+g)-(A+B)|\\le|f-A|+|g-B|",
+          "steps": [
+            {
+              "title": "分别分配误差预算",
+              "text": "给定ε>0，分别保证 |f−A|<ε/2 与 |g−B|<ε/2，得到δ₁与δ₂。"
+            },
+            {
+              "title": "同一输入范围同时通过",
+              "formula": "\\delta=\\min(\\delta_1,\\delta_2)\\quad\\Rightarrow\\quad|(f+g)-(A+B)|<\\varepsilon"
+            }
+          ],
+          "prompt": "为什么不能给两项都分配完整的ε，然后直接声称总误差小于ε？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p019",
+          "compositionId": "em-l04-limits-composition-19",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "constructivist",
+          "teachingCue": "预计1分钟。把p15悬问收回，建立充分条件后再谈反向失败。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l4-hour1",
+          "title": "法则能正着用，不表示反过来也成立",
+          "lead": "充分条件 sufficient condition：满足它就能保证结论；反向未必成立。",
+          "formula": "u(x)=1/x,\\qquad v(x)=-1/x,\\qquad u(x)+v(x)=0\\quad(x\\ne0)",
+          "body": [
+            "u、v各自没有 $x\\to0$ 时的有限实数极限。",
+            "它们的和恒为0，极限却存在。"
+          ],
+          "prompt": "“和有极限，所以每项都有极限”错在什么？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p020",
+          "compositionId": "em-l04-limits-composition-20",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。未定式先解释，不把0/0说极限不存在或数字0。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "0/0不是一个可计算的数",
+          "lead": "未定式 indeterminate form：组成部分的趋近状态，尚不能决定整体的结果。",
+          "body": [
+            "“0/0”描述分子、分母都趋于0；它不是除以零所得的数值。",
+            "要回到非零输入的精确关系，继续比较变化尺度。"
+          ],
+          "formula": "\\lim_{x\\to1}\\frac{x^2-1}{x-1}\\quad\\text{不能由 }0/0\\text{ 直接给答案}",
+          "prompt": "这道题与上一讲平方函数差商，有什么共同的合法运算？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p021",
+          "compositionId": "em-l04-limits-composition-21",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。局部相等给出机制，不用尚未介绍的去心邻域术语。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "目标点以外相等，极限就能比较",
+          "formula": "\\frac{x^2-1}{x-1}=x+1\\quad(x\\ne1)",
+          "steps": [
+            {
+              "title": "保持原式在目标点无定义",
+              "formula": "\\lim_{x\\to1}\\frac{x^2-1}{x-1}=\\lim_{x\\to1}(x+1)=2",
+              "text": "两式在足够近而不等于1的全部输入处相等，误差保证完全相同。"
+            }
+          ],
+          "prompt": "这是给原函数补值，还是用另一个表达式研究同一批输入？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p022",
+          "compositionId": "em-l04-limits-composition-22",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。提高代数梯度，重复同一严谨依据而非泛泛重说结论。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "同一种依据，处理立方差",
+          "formula": "\\frac{x^3-8}{x-2}=x^2+2x+4\\quad(x\\ne2)",
+          "steps": [
+            {
+              "title": "变形以后，再用有限极限法则",
+              "formula": "\\lim_{x\\to2}\\frac{x^3-8}{x-2}=2^2+2\\cdot2+4=12"
+            }
+          ],
+          "prompt": "为什么答案是12，仍不意味着原式在2处能直接计算？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p023",
+          "compositionId": "em-l04-limits-composition-23",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。共轭式就地解释而非直接丢术语，先核对定义域再取极限。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "根式差不能直接约，怎样保留精确等式？",
+          "lead": "有理化 rationalization：乘以共轭式，使根式差转为可以处理的乘积。",
+          "formula": "\\frac{\\sqrt{1+x}-1}{x}=\\frac1{\\sqrt{1+x}+1}\\quad(x\\ge-1,\\ x\\ne0)",
+          "body": [
+            "共轭式是把两项之间的减号改为加号：$(\\sqrt{1+x}-1)(\\sqrt{1+x}+1)=x$。"
+          ],
+          "prompt": "新分母是否可能等于0？原式还保留哪些范围条件？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p024",
+          "compositionId": "em-l04-limits-composition-24",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "proof",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。不借尚未讲的复合连续性；根式界先证明，商法则合法性明示。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "不偷用结论，先证明根式的趋近",
+          "formula": "|\\sqrt{1+x}-1|=\\frac{|x|}{\\sqrt{1+x}+1}\\le|x|\\quad(x\\ge-1)",
+          "steps": [
+            {
+              "title": "由误差保证根式趋于1",
+              "text": "任取ε>0，取δ=min(1/2,ε)；0<|x|<δ时根式有定义，误差小于ε。"
+            },
+            {
+              "title": "现在分母极限非零，才用商法则",
+              "formula": "\\lim_{x\\to0}\\frac{\\sqrt{1+x}-1}{x}=\\frac1{1+1}=\\frac12"
+            }
+          ]
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p025",
+          "compositionId": "em-l04-limits-composition-25",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "exercise",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "exercise",
+          "style": "editorial",
+          "teachingCue": "预计4分钟。4分钟独立练习；不在初始讲解透露a/2或c=4。留足独立作答时间，计时不自动公开答案。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 240,
+          "moduleId": "limits-l4-hour1",
+          "title": "参数与补值，分别会改变什么？",
+          "exerciseMinutes": 4,
+          "body": [
+            "① 固定任意实数a，求 $\\lim_{x\\to0}(\\sqrt{1+ax}-1)/x$；说明附近哪些输入有定义，别漏a=0。",
+            "② 设 $f_c(x)=(x^2-4)/(x-2)$（x≠2），并规定 $f_c(2)=c$。求 $x\\to2$ 时极限；何时它等于函数值？"
+          ],
+          "prompt": "四分钟独立作答：精确变形、范围、所用法则与参数条件都要写。"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p026",
+          "compositionId": "em-l04-limits-composition-26",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "proof",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。参数符号和零值都明确处理，不把证明只写a>0。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour1",
+          "title": "参数a改变尺度，a=0也在答案里",
+          "formula": "\\frac{\\sqrt{1+ax}-1}{x}=\\frac a{\\sqrt{1+ax}+1}\\quad(x\\ne0,\\ 1+ax\\ge0)",
+          "steps": [
+            {
+              "title": "先守住附近定义域",
+              "text": "若a≠0，取 |x|<1/(2|a|)，则1+ax>1/2；若a=0，根式恒为1。"
+            },
+            {
+              "title": "误差界与商法则",
+              "formula": "|\\sqrt{1+ax}-1|\\le|a|\\,|x|\\to0,\\qquad \\lim_{x\\to0}\\frac{\\sqrt{1+ax}-1}{x}=a/2"
+            }
+          ],
+          "prompt": "a为负时，为什么仍能选一个目标两侧都合法的范围？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p027",
+          "compositionId": "em-l04-limits-composition-27",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。再次核查目标点与附近行为，但用新的参数练习完成反馈闭环。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l4-hour1",
+          "title": "改变c，只改变目标点的取值",
+          "formula": "\\frac{x^2-4}{x-2}=x+2\\quad(x\\ne2)",
+          "table": {
+            "columns": [
+              "问题",
+              "结论"
+            ],
+            "rows": [
+              [
+                "$\\lim_{x\\to2}f_c(x)$",
+                "对每一个实数c，均为4"
+              ],
+              [
+                "$f_c(2)$",
+                "c"
+              ],
+              [
+                "极限是否等于函数值",
+                "仅c=4时相等"
+              ]
+            ]
+          },
+          "prompt": "如果c=99，哪一条保证改变了？哪一条没有改变？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p028",
+          "compositionId": "em-l04-limits-composition-28",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第一课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "合同A；实际数量范围0<q≤10000",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计0.5分钟。第一课时留规模问题，第二课时按平均成本进入，不凭空换模型。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 1,
+          "routeRole": "core",
+          "teachingSeconds": 30,
+          "moduleId": "limits-l4-hour1",
+          "title": "500件附近，与规模越来越大，是两种问题",
+          "body": [
+            "靠近500件：考察折扣门槛左右，输入变化很小。",
+            "扩大批量：考察固定费用分摊，输入规模继续增大。",
+            "合同上限10000件。规模分析必须先说明允许讨论多大的输入。"
+          ],
+          "prompt": "真实合同有上限，是否能直接对它谈q趋于无穷？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p029",
+          "compositionId": "em-l04-limits-composition-29",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "接续合同A；元/批与元/件分开",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计0.5分钟。第二课时复接上限与门槛，先提经济问题再给平均成本定义。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 30,
+          "moduleId": "limits-l4-hour2",
+          "title": "总成本之外，商家还关心每件成本",
+          "formula": "C_A(q)=5000+18q\\quad(500\\le q\\le10000)",
+          "body": [
+            "较低单价的采购段保留相同费用规则。",
+            "每批总款随q增加；每件承担的固定费用却在减少。"
+          ],
+          "prompt": "总成本增加，是否必然意味着每件成本也增加？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p030",
+          "compositionId": "em-l04-limits-composition-30",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "合同A；给定确定性成本",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。“平均”用成本口径定义，避免误读成统计外推。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "平均成本：本批总款除以本批数量",
+          "lead": "平均成本 average cost：每批总成本除以采购件数，单位元/件。",
+          "formula": "\\overline C_A(q)=\\frac{C_A(q)}q=18+\\frac{5000}{q}\\quad(500\\le q\\le10000)",
+          "body": [
+            "横线在此表示平均成本，不是统计样本均值。",
+            "18元/件是单件费用；5000/q是每件分摊的固定费用。"
+          ],
+          "prompt": "平均成本下降与采购总款下降，是同一结论吗？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p031",
+          "compositionId": "em-l04-limits-composition-31",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "合同A实际范围500≤q≤10000",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。先画实际实线，不把无界曲线当有限合同图。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "数量增加，18元仍未成为实际平均成本",
+          "table": {
+            "columns": [
+              "本批件数",
+              "每件固定费用",
+              "平均成本（元/件）"
+            ],
+            "rows": [
+              [
+                "500",
+                "10",
+                "28"
+              ],
+              [
+                "1000",
+                "5",
+                "23"
+              ],
+              [
+                "5000",
+                "1",
+                "19"
+              ],
+              [
+                "10000",
+                "0.5",
+                "18.5"
+              ]
+            ]
+          },
+          "limitFigure": {
+            "kind": "average-cost",
+            "params": {
+              "view": 0
+            }
+          },
+          "body": [
+            "到合同上限，固定费用仍有0.5元/件；不能沿此合同继续采购到无限大。"
+          ],
+          "prompt": "“平均成本最终为18”究竟描述哪个模型？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p032",
+          "compositionId": "em-l04-limits-composition-32",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "理想化延伸；实际区间实线，扩展段虚线",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计2分钟。显式新符号A与新定义域，在学生画布清楚标明假设变化。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 120,
+          "moduleId": "limits-l4-hour2",
+          "title": "另设理想延伸，再研究无限规模",
+          "formula": "A(q)=18+5000/q,\\qquad q\\ge500",
+          "body": [
+            "另定义A：假设单价与固定费用不变，取消数量上限。",
+            "A在实际区间内与原平均成本相同；区间外是理想化延伸，不是原合同承诺。"
+          ],
+          "limitFigure": {
+            "kind": "average-cost",
+            "params": {
+              "view": 1
+            }
+          },
+          "prompt": "取消数量上限，是代数化简，还是改变了问题假设？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p033",
+          "compositionId": "em-l04-limits-composition-33",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计2分钟。无界输入的前提先说，M解释范围与单位；“对定义域上点”不掩盖有限域漏洞。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 120,
+          "moduleId": "limits-l4-hour2",
+          "title": "输入趋于无穷，保证靠什么门槛？",
+          "lead": "先要求函数对所有充分大的输入有定义；M为正的输入规模门槛。",
+          "body": [
+            "对任意ε>0，存在M>0，使所有 $x>M$ 都有 $|f(x)-L|<\\varepsilon$，便称输入趋于正无穷时极限为实数L。"
+          ],
+          "formula": "\\lim_{x\\to+\\infty}f(x)=L",
+          "prompt": "这里的M，与第三讲数列的N相同在哪，区别在哪？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p034",
+          "compositionId": "em-l04-limits-composition-34",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "proof",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。完整ε-M证明保留q≥500，防止偷渡真实合同无限规模。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "对理想平均成本，给一个完整保证",
+          "formula": "|A(q)-18|=5000/q\\quad(q\\ge500)",
+          "body": [
+            "任取ε>0，选择 $M=\\max(500,5000/\\varepsilon)$。"
+          ],
+          "steps": [
+            {
+              "title": "所有超过门槛的输入都通过",
+              "formula": "q>M\\Rightarrow|A(q)-18|=5000/q<\\varepsilon"
+            },
+            {
+              "title": "结论属于新定义的函数",
+              "formula": "\\lim_{q\\to+\\infty}A(q)=18",
+              "text": "18元/件是理想延伸中的极限，不是任何有限批量的实际平均成本。"
+            }
+          ]
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p035",
+          "compositionId": "em-l04-limits-composition-35",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "合同A与理想函数A分开解释",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。经济定义域决定可兑现精度，显式限制实现意义。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "误差要求0.1元，真实合同能否兑现？",
+          "formula": "5000/q<0.1\\quad\\Longleftrightarrow\\quad q>50000",
+          "body": [
+            "实际合同要求q≤10000，无法达到这项要求。",
+            "实际可达最低平均成本为18.5元/件；理想极限18与它有差距。"
+          ],
+          "prompt": "如果把18作为采购预算的实际单位成本，会少算哪项费用？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p036",
+          "compositionId": "em-l04-limits-composition-36",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。从5000/q到一般量级，高中幂函数复用但明确除法条件。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "比值看主导项，先让尺度相同",
+          "formula": "\\frac{2x^2+3}{5x^2-x}=\\frac{2+3/x^2}{5-1/x}\\quad(x>1)",
+          "steps": [
+            {
+              "title": "在大规模输入下核对商法则",
+              "formula": "\\lim_{x\\to+\\infty}\\frac{2x^2+3}{5x^2-x}=\\frac25",
+              "text": "1/x与1/x²趋于0；新分母趋于5≠0。x充分大时原分母也非零。"
+            }
+          ],
+          "prompt": "把分子分母各自写成“无穷”，能否代替这一步精确变形？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p037",
+          "compositionId": "em-l04-limits-composition-37",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。只称状态未定，正式输出无穷定义39给出；增长率不混为导数。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "同样“都增大”，比值可以完全不同",
+          "table": {
+            "columns": [
+              "x趋于正无穷",
+              "精确变形",
+              "结果"
+            ],
+            "rows": [
+              [
+                "$x/x$",
+                "1",
+                "1"
+              ],
+              [
+                "$x^2/x$",
+                "x",
+                "无界增大"
+              ],
+              [
+                "$x/x^2$",
+                "1/x",
+                "0"
+              ]
+            ]
+          },
+          "body": [
+            "“∞/∞”只记录两部分的增大状态；不能当作两个数相除。"
+          ],
+          "prompt": "决定结果的，是哪一个量增长得更快？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p038",
+          "compositionId": "em-l04-limits-composition-38",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。0/0反例梯度到无穷极限，高度要求下一页定义。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "同样“都趋零”，也不能给商定值",
+          "table": {
+            "columns": [
+              "x趋于0，x≠0",
+              "精确变形",
+              "输出行为"
+            ],
+            "rows": [
+              [
+                "$x/x$",
+                "1",
+                "恒为1"
+              ],
+              [
+                "$x/x^2$",
+                "1/x",
+                "正负两侧不同"
+              ],
+              [
+                "$x^2/x^4$",
+                "1/x²",
+                "两侧都向上无界增大"
+              ]
+            ]
+          },
+          "prompt": "第三个输出没有有限实数极限，怎样严格描述它的无界增大？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p039",
+          "compositionId": "em-l04-limits-composition-39",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计2分钟。形式定义前先解释输出高度，单侧定义只需替换输入范围。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 120,
+          "moduleId": "limits-l4-hour2",
+          "title": "无穷极限：超过任意指定高度",
+          "lead": "无穷极限 infinite limit：输出最终超过任意高度；H>0是输出高度要求。",
+          "formula": "\\lim_{x\\to a}f(x)=+\\infty\\quad\\Longleftrightarrow\\quad\\forall H>0\\ \\exists\\delta>0:\\ 0<|x-a|<\\delta\\Rightarrow f(x)>H",
+          "body": [
+            "趋于−∞则要求 $f(x)<-H$；H不是输入距离。",
+            "∞不是实数；这种记号不表示函数取到了无穷，也不称收敛于某个实数。"
+          ],
+          "prompt": "这一项高度保证，与“误差小于ε”保证有什么不同？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p040",
+          "compositionId": "em-l04-limits-composition-40",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。图曲线裁到高度边界仍画向上/向下箭头，保留符号方向与空点。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "1/x²两侧向上，1/x两侧却相反",
+          "formula": "0<|x|<1/\\sqrt H\\quad\\Rightarrow\\quad1/x^2>H",
+          "limitFigure": {
+            "kind": "reciprocal"
+          },
+          "body": [
+            "$1/x^2$在x→0时趋于+∞。",
+            "对1/x：右侧趋于+∞，左侧趋于−∞；不能写两侧共同趋于+∞。"
+          ],
+          "prompt": "把绝对值很大误说成输出很大，会漏掉什么？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p041",
+          "compositionId": "em-l04-limits-composition-41",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。与历史无穷小明确区分，过程定义不偷换非标准分析对象。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "现代无穷小，是一个趋零过程",
+          "lead": "在现代极限框架中，无穷小 infinitesimal指某个指定过程中趋于0的函数或数列。",
+          "body": [
+            "α(x)=x，在x→0时是无穷小；固定常数10⁻⁶不是这个过程的无穷小。",
+            "非零无穷小的倒数绝对值无界增大，但正负方向仍要看符号。",
+            "恒为0的函数也趋于0，却不能取倒数。"
+          ],
+          "prompt": "“无穷小乘无穷大”为什么还不能告诉你乘积结果？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p042",
+          "compositionId": "em-l04-limits-composition-42",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "constructivist",
+          "teachingCue": "预计1.5分钟。与37/38一致的精确反例；不宣称对任意输出模型成立。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "一项变大，一项变小，乘积仍需计算",
+          "table": {
+            "columns": [
+              "x趋于正无穷",
+              "精确结果",
+              "乘积的极限行为"
+            ],
+            "rows": [
+              [
+                "$x\\cdot1/x$",
+                "1",
+                "恒为1"
+              ],
+              [
+                "$x\\cdot1/x^2$",
+                "1/x",
+                "趋于0"
+              ],
+              [
+                "$x\\cdot1/\\sqrt x$",
+                "$\\sqrt x$",
+                "趋于+∞"
+              ]
+            ]
+          },
+          "body": [
+            "“0·∞”同样是未定状态；比较尺度才能确定整体。"
+          ],
+          "prompt": "仅用“越来越小”解释第二项，为何还不够？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p043",
+          "compositionId": "em-l04-limits-composition-43",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。接第三讲同一个振荡反例，原生曲线仅画分辨率足够的范围、零点靠包络证据。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "振荡没有消失，影响却可以被压小",
+          "formula": "r(x)=x^2\\sin(\\pi/x)\\quad(x\\ne0)",
+          "limitFigure": {
+            "kind": "squeeze"
+          },
+          "body": [
+            "sin(π/x)本身没有x→0时的实数极限。",
+            "x²把它的输出压在越来越窄的范围内。"
+          ],
+          "prompt": "乘积法则的条件不满足，还能换一条什么依据？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p044",
+          "compositionId": "em-l04-limits-composition-44",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。包络由同一x生成，保证是证明，视觉不是代替。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "夹逼：给所有输入同一组上下界",
+          "lead": "夹逼定理 squeeze theorem：目标附近若 $u(x)\\le f(x)\\le v(x)$，且上下界都趋于同一实数L，则f也趋于L。",
+          "formula": "-x^2\\le x^2\\sin(\\pi/x)\\le x^2\\quad(x\\ne0)",
+          "steps": [
+            {
+              "title": "直接写出完整误差保证",
+              "formula": "|r(x)|\\le x^2,\\qquad\\delta=\\sqrt\\varepsilon\\Rightarrow0<|x|<\\delta\\Rightarrow|r(x)|<\\varepsilon"
+            },
+            {
+              "title": "无需给振荡因子填一个假极限",
+              "formula": "\\lim_{x\\to0}x^2\\sin(\\pi/x)=0"
+            }
+          ],
+          "prompt": "图上曲线看似贴近0，哪个不等式才真正覆盖全部输入？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p045",
+          "compositionId": "em-l04-limits-composition-45",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "新增给定合同B；同质量、同交期的比较假设",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。以同一采购任务延伸模型，写明可比商品质量交期，避免只看极限。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "另一份报价：单位便宜，固定费用更高",
+          "lead": "供应商B提出：每件17元，固定费用7000元/批。",
+          "body": [
+            "合同A：固定5000元，达到500件后每件18元。",
+            "合同B：固定7000元，每件17元；实际范围同样是500至10000件。"
+          ],
+          "prompt": "单价17比18低，是否足以推荐B？先固定这次采购数量。"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p046",
+          "compositionId": "em-l04-limits-composition-46",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "实际合同；件/批与元/批",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。图交点不在此时标出2000可作先观察但练习题不可直接泄漏，图只画两成本线。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "两份合同，在同一批量上比较",
+          "formula": "C_A(q)=5000+18q,\\qquad C_B(q)=7000+17q\\quad(500\\le q\\le10000)",
+          "limitFigure": {
+            "kind": "contract",
+            "params": {
+              "view": 1
+            }
+          },
+          "body": [
+            "本次需求暂定1500件；q是同一批数量，不能给A、B各选一个不同q后比较总款。"
+          ],
+          "prompt": "每件省1元，需要多少件才补回多出的2000元固定费用？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p047",
+          "compositionId": "em-l04-limits-composition-47",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "exercise",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "实际区间与理想延伸区分；同质同交期",
+          "accent": "ink",
+          "layout": "exercise",
+          "style": "editorial",
+          "teachingCue": "预计6分钟。6分钟真实决策任务，起始口播不泄漏交点/推荐/金额，后两页反馈。留足独立作答时间，计时不自动公开答案。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 360,
+          "moduleId": "limits-l4-hour2",
+          "title": "给1500件采购，写一份带条件的建议",
+          "exerciseMinutes": 6,
+          "body": [
+            "① 另设无上限的理想平均成本：$A(q)=18+5000/q$，$B(q)=17+7000/q$（q≥500）。求各自的无穷规模极限。",
+            "② 在真实共同范围内，求两合同等价批量及各自较便宜的范围。",
+            "③ 本批1500件，推荐哪个？写出两份总款。",
+            "④ 能否为了更低平均成本，直接推荐买更多？还需要哪些资料？"
+          ],
+          "prompt": "4分钟独立完成，2分钟同桌核对。理想模型与实际合同的结论分别写清。"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p048",
+          "compositionId": "em-l04-limits-composition-48",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "实际合同差；理想极限另列",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。精确差值决定区间，极限只回答规模假设问题；不需要导数。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "分界是2000件，依据来自真实成本差",
+          "formula": "C_B(q)-C_A(q)=2000-q\\quad(500\\le q\\le10000)",
+          "table": {
+            "columns": [
+              "实际批量",
+              "成本差B−A",
+              "较便宜合同"
+            ],
+            "rows": [
+              [
+                "500≤q<2000",
+                "正",
+                "A"
+              ],
+              [
+                "q=2000",
+                "0",
+                "相同"
+              ],
+              [
+                "2000<q≤10000",
+                "负",
+                "B"
+              ]
+            ]
+          },
+          "body": [
+            "理想平均成本极限：A为18、B为17元/件；不能据此声称B在所有实际批量都更便宜。"
+          ],
+          "prompt": "这个交点在共同定义域内吗？若它落在区间外，建议会怎样变化？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p049",
+          "compositionId": "em-l04-limits-composition-49",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "实际总款与平均成本；两种单位分行",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。回到题目1500而非无限规模；以10k另场合显示条件变化。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "本批1500件选A；一万件时B更便宜",
+          "table": {
+            "columns": [
+              "批量",
+              "合同A",
+              "合同B",
+              "含义"
+            ],
+            "rows": [
+              [
+                "1500件",
+                "32 000元/批",
+                "32 500元/批",
+                "本任务A省500元"
+              ],
+              [
+                "10000件",
+                "18.5元/件",
+                "17.7元/件",
+                "上限处B平均成本更低"
+              ]
+            ]
+          },
+          "body": [
+            "同一q比较平均成本，与比较总款给出同样排序；不同q之间则不能混用。"
+          ],
+          "prompt": "用“B的极限低”推翻本批A省钱的计算，错在哪里？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p050",
+          "compositionId": "em-l04-limits-composition-50",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "采购决策边界；未给定库存收益模型",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。深层经济追问不是泛谈涨跌，而是指出目标与遗漏成本；允许不同有依据答案。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "选供应商，与决定买多少，是两层决策",
+          "body": [
+            "固定1500件任务：比较同量、同质量、同交期的采购总成本。",
+            "改变采购量：还需需求、库存与损耗、资金占用、仓储能力等条件。",
+            "更低平均成本可能伴随更高总支出和更多积压，不能直接推出多买最优。"
+          ],
+          "prompt": "如果只能追加一个变量进入模型，你会选哪一个？它如何改变判断？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p051",
+          "compositionId": "em-l04-limits-composition-51",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。归纳自然桥接回开头导数，不用教师编排语言。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "一条公式，换了过程就换了问题",
+          "table": {
+            "columns": [
+              "过程",
+              "要保证什么",
+              "决策含义"
+            ],
+            "rows": [
+              [
+                "价格p→80",
+                "利润或差商在两侧的行为",
+                "局部变化与转折"
+              ],
+              [
+                "数量q→500",
+                "门槛两侧的成本",
+                "全量折扣"
+              ],
+              [
+                "理想数量q→+∞",
+                "超过规模门槛的全部输入",
+                "固定费用分摊的理想极限"
+              ]
+            ]
+          },
+          "prompt": "每次写lim前，先说清：哪个对象、哪种输入过程、哪些合法范围？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p052",
+          "compositionId": "em-l04-limits-composition-52",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "原400件模型；变化率单位（元/日）/（元/件）",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。回到高中的导数公式，局部单段与范围条件保留，不能套90公式跨到80。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "90元附近，两侧差商终于靠近同一值",
+          "formula": "Q_{90}(h)=\\frac{\\Pi(90+h)-\\Pi(90)}h=-340-9h\\quad(0<|h|<10)",
+          "steps": [
+            {
+              "title": "完整保证同时处理两侧",
+              "formula": "\\delta=\\min(10,\\varepsilon/9)\\Rightarrow0<|h|<\\delta\\Rightarrow|Q_{90}(h)+340|=9|h|<\\varepsilon"
+            },
+            {
+              "title": "有限实数极限，才称导数",
+              "formula": "\\Pi\\prime(90)=-340"
+            }
+          ]
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p053",
+          "compositionId": "em-l04-limits-composition-53",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "教学情境",
+          "sourceNote": "原模型；线性估算为高中导数应用回顾",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1.5分钟。不提前教授泰勒术语，以完整恒等式解释近似与精度。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 90,
+          "moduleId": "limits-l4-hour2",
+          "title": "导数给局部反应，五角调价仍要算实际值",
+          "formula": "\\Pi(90+h)-\\Pi(90)=-340h-9h^2\\quad(|h|<10)",
+          "table": {
+            "columns": [
+              "涨价0.5元/件",
+              "日利润变化（元）"
+            ],
+            "rows": [
+              [
+                "导数的线性估算",
+                "−340×0.5=−170"
+              ],
+              [
+                "原模型的精确变化",
+                "−172.25"
+              ],
+              [
+                "实际−估算",
+                "−2.25"
+              ]
+            ]
+          },
+          "body": [
+            "线性估算 linear approximation：只保留与h成正比的部分；误差是−9h²，有限操作不能假装没有它。"
+          ],
+          "prompt": "把调价幅度减半，估算误差为什么变为四分之一？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p054",
+          "compositionId": "em-l04-limits-composition-54",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "exercise",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "exercise",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。一分钟出口书写；总预算仅1分钟，不额外自动反馈或泄漏。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l4-hour2",
+          "title": "离开教室前，解释清楚这一次除法",
+          "body": [
+            "用自己的话写三句：",
+            "① 每次差商计算时，为什么分母不能取零？",
+            "② 极限怎样在不除以零的前提下给出确定结果？",
+            "③ 80元最优为何没有导数，90元又为何有？"
+          ],
+          "prompt": "用1分钟独立写，不只写“因为lim”。下一讲带着自己的解释回来。"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p055",
+          "compositionId": "em-l04-limits-composition-55",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计1分钟。闭合必要条件反向失败，不引新驻点分类术语；强调第三课所有条件深度。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 60,
+          "moduleId": "limits-l4-hour2",
+          "title": "导数为零，还不能把“最优”证完",
+          "formula": "f(x)=x^3,\\qquad f\\prime(0)=\\lim_{h\\to0}h^2=0",
+          "body": [
+            "在0左边，函数值为负；右边为正。0既非局部最大，也非局部最小。",
+            "内点处可导且局部最优 ⇒ 导数为零；反向不能自动成立。"
+          ],
+          "prompt": "为原商家证明最优，为什么仍需要分段范围与全域比较？"
+        },
+        {
+          "slideKey": "em-l04-limits-20261010-p056",
+          "compositionId": "em-l04-limits-composition-56",
+          "section": "极限、证据与条件",
+          "kicker": "经济数学 / 第四讲 / 第二课时",
+          "kind": "definition",
+          "visual": "formula-board",
+          "sourceLabel": "概念模型",
+          "sourceNote": "数学例题",
+          "accent": "ink",
+          "layout": "essay",
+          "style": "editorial",
+          "teachingCue": "预计0.5分钟。承接夹逼与高中几何，先解释弧度条件；答案留第五讲。",
+          "assistantCue": "只依据当前已公开文字、公式和图形。不得提前透露隐藏步骤、后页练习答案或历史作者的虚构对白。新词先解释含义；商家和合同是给定教学假设，不是统计估计。区分报价网格与连续近似、有限合同与理想延伸，保持原题单位。",
+          "classHour": 2,
+          "routeRole": "core",
+          "teachingSeconds": 30,
+          "moduleId": "limits-l4-hour2",
+          "title": "下一问：三角函数的极限，依据在哪里？",
+          "lead": "弧度 radian：角所对应的弧长除以半径；单位圆指半径为1的圆。",
+          "formula": "\\frac{\\sin h}{h}\\qquad(h\\ne0,\\ h\\text{以弧度计})",
+          "limitFigure": {
+            "kind": "unit-circle",
+            "params": {
+              "angle": 0.6
+            }
+          },
+          "body": [
+            "分子、分母都趋于0，直接商法则不能给答案。"
+          ],
+          "prompt": "能否用单位圆的几何关系，给出覆盖全部小角度的上下界？"
+        }
+      ]
+    }
+  ],
+  "narration": {
+    "em-l03-limits-20261010-p001": [
+      "上一讲我们在给定条件下证明80元是最优报价。现在商家想知道，价格只动一点，利润会怎样变。新值减原值叫增量，价格增量记作h，也写作德尔塔p。你在高中见过导数，但导数公式的分母不能等于零，最后那个结果究竟从哪里来？"
+    ],
+    "em-l03-limits-20261010-p002": [
+      "先不换商家，也不换参数。以80元为基准，分别降五角和涨五角。它们都离开最优点，但两次损失会一样吗？请保留两个方向，按同一个利润式计算。这里的利润按日计，价格单位是元每件。"
+    ],
+    "em-l03-limits-20261010-p003": [
+      "降价五角使日利润减少180元，涨价五角却只减少82点25元。原有的最优判断没有被推翻，两边损失确实不同。下一步要消除价格变化大小的影响，把利润增量除以价格增量，比较每单位调价对应的利润变化。"
+    ],
+    "em-l03-limits-20261010-p004": [
+      "将利润增量除以非零价格增量，得到平均变化率，也叫差商。在图上，它是两点之间割线的斜率。请把单位读完整：日利润变化除以每件价格变化。即使化简后的量纲看似件每天，也不能把这个结果当成实销量。",
+      "左侧两个增量都是负的，所以相除得到正360；右侧价格增加而利润减少，得到负164点5。正号说的是沿价格增大方向利润怎样变，不等于此次操作赚了钱。"
+    ],
+    "em-l03-limits-20261010-p005": [
+      "商家的执行规则是五角一档，因此79点99不是合法报价。我们接下来研究的是另一个明确的近似：把价格看成区间内可连续变化的实数。它有助于分析规律，却不会自动改变报价制度。作出实际建议时，仍要回到附近的合法网格点比较。"
+    ],
+    "em-l03-limits-20261010-p006": [
+      "把价格换成一般输入x，熟悉的导数公式就出现了。x零是固定基准，h是新输入减去基准的增量。lim读作极限。我们暂时还没有定义这个运算，所以不能用这个符号替推理作保证。每次差商运算都必须用非零h，那趋于零究竟要求什么？"
+    ],
+    "em-l03-limits-20261010-p007": [
+      "把h固定成百万分之一并没有完成趋于零。要求可以比它还严格；而且同一个数字换成万元，实际金额就放大一万倍。真正的问题不是选一个看起来小的数，而是任何新的精度要求出现后，我们是否都能给出相应的输入范围。"
+    ],
+    "em-l03-limits-20261010-p008": [
+      "请用一分钟各写一句判断。甲是否还在同一个合法算式里运算？乙是否把近似值说成了精确值？先不要用极限符号盖过问题，指出究竟哪一步缺乏依据。写完再和同桌比较，我们会用一个可算清楚的函数追查。"
+    ],
+    "em-l03-limits-20261010-p009": [
+      "商家的分段结构比较复杂，先用平方函数把运算逻辑放大来看。基准固定在1，h是输入离开1的距离增量，可正可负。此处没有货币单位。我们始终保留h不等于零，先只做精确的代数展开。"
+    ],
+    "em-l03-limits-20261010-p010": [
+      "正增量时，新正方形比边长1的正方形多出两条边带和一个角上的小正方形，面积正好是2h加h平方。图中h为正，不能把负h画成负的几何长度。不过展开等式本身对负h也成立。差商里仍会留下哪一项？"
+    ],
+    "em-l03-limits-20261010-p011": [
+      "只要h非零，就能合法约去它，得到2加h。这是精确等式，不是把h平方忽略掉。化简式能在零处取值，但原差商在零处仍没有定义。我们得到的是输入0处之外的相等关系，还需要一个新的判断来说明为什么2可以成为目标结果。"
+    ],
+    "em-l03-limits-20261010-p012": [
+      "两条图形在非零输入处重合，但输入0处一个空着，一个有函数值。这种相似不能让原式突然获得输入0处。反过来看，如果只考察非零且越来越接近零的输入，它们给出的结果又完全一样。需要建立的是这个过程的含义。"
+    ],
+    "em-l03-limits-20261010-p013": [
+      "这不是我们今天才发现的文字漏洞。早期微积分已解决许多运动与面积问题，而无限微小增量的含义和运算依据受到追问。这里的无穷小先是一个历史术语，不能直接当成某个固定的正实数。观看短片时，请一直保留这个问题：怎样不除以零，又得到确定结果？"
+    ],
+    "em-l03-limits-20261010-p014": [
+      "接下来播放三分钟短片。请留意数学危机所追问的对象，以及微积分基础之争为何不能简化成一句谁对谁错。短片结束后，我们用刚才的平方函数复述其中一个争点。"
+    ],
+    "em-l03-limits-20261010-p015": [
+      "短片中的争论先落在推理依据上。贝克莱在1734年追问，如果推导先需要增量非零，后来又使它消失，原有依据是否仍然成立？用课堂的平方函数复述，约分合法并不能证明原分式可以在零处计算。得到正确答案也不能反过来担保每一步推理。"
+    ],
+    "em-l03-limits-20261010-p016": [
+      "再看早于贝克莱的文本。牛顿在原理的附注中区分比值的极限与最终量的比值。采用的第三版和英译都早于1734年，因此这不是他对贝克莱的事后回应。这个区分提供了重要问题，但今天仍要用我们自己的严格条件检验：差商如何保证接近2？"
+    ],
+    "em-l03-limits-20261010-p017": [
+      "我们不需要把任何零量相除。目标暂定为2，绝对误差就是差商减2再取绝对值。对于每个非零h，误差精确等于h的绝对值。这把接近改成了可核对的问题：输出允许多大的误差，输入就该限制在多近的范围？"
+    ],
+    "em-l03-limits-20261010-p018": [
+      "误差小于百分之一时，输入距离也取小于百分之一；要求提高到千分之一时，相应范围就收紧。这里保证的是范围里的每一个非零输入，而不是选出的两个数。若要求再严格一千倍，误差等式仍能给出范围。我们可以把任意要求记成一个符号。"
+    ],
+    "em-l03-limits-20261010-p019": [
+      "epsilon记作ε，代表提出要求的人给定的正误差容许值。目标2是固定的，ε可以任意小。图上的水平带表示所有满足要求的输出。它的单位应与输出一致；在商家问题中，不能把利润误差的单位和价格范围的单位混用。"
+    ],
+    "em-l03-limits-20261010-p020": [
+      "delta记作δ，限定输入离输入0处有多近。左边严格大于零，把不能计算差商的输入0处排除。δ不是选一个好看的h，而是选定一个完整范围。一旦范围给出，其中所有非零输入都必须满足刚才的输出精度。"
+    ],
+    "em-l03-limits-20261010-p021": [
+      "现在请同桌给一个正的ε，你给一个δ。选完之后，不能再绕开不利的输入。教师会在图上调整两个范围，检验竖直输入带中的整段线是否都落在水平误差带内。请同时思考，满足要求的δ是否只有一个。"
+    ],
+    "em-l03-limits-20261010-p022": [
+      "如果先看一个h，再把δ选成h绝对值的一半，这个h就被排除在测试范围外了。它没有失败，不等于保证成立。真正的保证先给定范围，再接受其中所有输入的检验。这个次序决定了极限定义的含义。"
+    ],
+    "em-l03-limits-20261010-p023": [
+      "现在给出严格定义。a是固定的目标输入，L是固定候选实数。函数在a两侧一段范围里，除a本身外都可以计算。对任意正的ε，如果都能选择正δ，让所有距离a大于零且小于δ的输入，其输出与L的距离都小于ε，就说函数在x趋于a时的极限是L。定义没有要求f在a处有值，也没有禁止输出等于L。"
+    ],
+    "em-l03-limits-20261010-p024": [
+      "量词说明一句话对哪些对象成立。倒A表示对所有，反向E表示存在。先固定a和L，对每一个正ε，都要找到一个正δ；随后范围内所有x接受检验。δ可以随ε改变，却不能看见某个被测试的x后再为它临时修改。请按这个次序读完整句。"
+    ],
+    "em-l03-limits-20261010-p025": [
+      "给定任意正ε，取δ等于ε。我们要检验的是这个范围中的任意非零h，不能只算一个数。",
+      "误差精确等于h的绝对值，所以严格小于δ，也就是ε。无论精度要求怎样收紧，这个选择都能保证整段范围成立。",
+      "因此原差商的极限是2。整个证明没有令原分式中的h等于零；是对每一项误差要求都能兑现的保证，让2成为确定的极限结果。"
+    ],
+    "em-l03-limits-20261010-p026": [
+      "极限定义要求所有正ε都能兑现。要否定3，只需拿出一种它永远不能兑现的要求，例如误差小于零点1。对方可以任意选δ，我们再找范围内一个会失败的输入。",
+      "选h为δ一半与零点1中较小的数。它严格为正，也严格小于δ，所以是必须接受检验的输入。",
+      "它与3的输出误差至少零点9，远大于零点1。δ再小也挡不住这个反例，所以3不是极限。反例选在对方合法范围内，否定才有效。"
+    ],
+    "em-l03-limits-20261010-p027": [
+      "请独立完成四分钟练习。目标固定为3，先写输出误差，再判断三个δ是否对任意正ε都有效。不能只写对或错：有效选择要覆盖范围内所有输入，无效选择要给出一个落在范围内却违反精度的输入。下一页再核对。"
+    ],
+    "em-l03-limits-20261010-p028": [
+      "先看误差：它恰好是2倍h的绝对值。δ不必唯一，也不需要取到尽可能大。",
+      "δ等于ε一半有效，ε四分之一更保守，同样有效。更小的正范围仍然覆盖需要保证的全部输入。",
+      "δ等于ε却无效。选h为四分之三ε，它在范围里，但输出误差是ε的一点5倍。请对照你自己的反例，确认它也在被检验范围内。"
+    ],
+    "em-l03-limits-20261010-p029": [
+      "第一课时的结论是一个可重复检验的保证，而不是最后把零代进去。平方函数差商的极限是2，原差商在输入0处没有定义，两句话可以同时成立。下一课时我们改变输入0处的值，再检验一些看似很有说服力的数值证据。"
+    ],
+    "em-l03-limits-20261010-p030": [
+      "继续刚才的平方函数差商。每一个正ε都能用δ等于ε兑现，原输入0处不参与测试。现在试着把输入0处补上不同的值：会不会影响这一项保证？请用定义判断，不凭图形印象。"
+    ],
+    "em-l03-limits-20261010-p031": [
+      "三种处理只在输入0处不同，被测试的所有非零输入仍然给出2加h，所以误差保证完全不变，极限都为2。图中的99单列在图上方，不按原纵轴比例标示。函数值回答恰在输入0处的输出，极限回答所有足够近而不等于零的输入能保证什么。"
+    ],
+    "em-l03-limits-20261010-p032": [
+      "常函数每一次输出都恰好是2，误差为零。任意正ε都能满足，δ取任何正数即可。因此极限不是永远达不到的数。某些过程没有有限一步达到目标，只是那些函数或数列自身的特点。"
+    ],
+    "em-l03-limits-20261010-p033": [
+      "这个函数同样不能取零，但非零输入可以很接近零。请分别代入正数和负数，判断绝对值相除的结果。",
+      "正输入始终给1，负输入始终给负1。不论范围多小，两种输入都存在。要求误差小于零点5时，没有同一个目标值能同时满足两边，所以这里没有共同的实数极限。"
+    ],
+    "em-l03-limits-20261010-p034": [
+      "看一个更隐蔽的例子：正弦派除以h。每次取h等于正整数n的倒数，输出都精确等于零，不是舍入结果。这样的输入可以无限靠近零，数据也能列任意长。但定义要求所有足够近的非零输入，这一组样点把哪些输入漏掉了？"
+    ],
+    "em-l03-limits-20261010-p035": [
+      "换成二n加二分之一的倒数，输出全部精确为1。这两组输入都从正的一侧靠近零，所以分歧不是正负方向造成的。把输入范围缩小，仍有足够大的n让两组点进入范围。因此那串零不能担保全部输入。"
+    ],
+    "em-l03-limits-20261010-p036": [
+      "请用三分半完成这一题。甲增加的是采样长度，定义要求的是什么？乙缩小范围后，能否彻底排除第二组输入？请写出对任意正δ怎样选择足够大的整数n，使输出为1的输入仍在范围中。先独立写，再互相检查。"
+    ],
+    "em-l03-limits-20261010-p037": [
+      "扩大名单仍只是在原来一类输入中采样；缩小范围也不能删掉全部另一类输入。",
+      "对任意正δ，取整数n大于二δ的倒数，就能让输出为1的点进入范围。",
+      "目标若是0，取误差允许值二分之一，这个点一定失败。要证明极限，必须覆盖所有输入；要否定一个候选值，只需某次精度要求始终有失败输入。请据此修订自己的判断。"
+    ],
+    "em-l03-limits-20261010-p038": [
+      "现在取平方函数差商中的一组输入，h等于n的倒数，就得到2加n的倒数这一串输出。我们已经知道函数对全部输入的保证；但这串数本身也值得研究。它的自变量不再是任意实数距离，而是正整数编号。"
+    ],
+    "em-l03-limits-20261010-p039": [
+      "以整数编号的一串实数叫数列，第n项写作a下标n。一般可以从1开始，也可以另行规定从0开始。本例有n作分母，因此从1开始。图中只有整数编号的点，两个点之间不存在半个编号的数列项。"
+    ],
+    "em-l03-limits-20261010-p040": [
+      "原函数中改变的是实数距离h；这一个数列中改变的是整数编号n。n趋于无穷表示编号无界增大，不是有一个最后的无穷项。要保证后面的误差，我们需要一个编号门槛，而不是一个很小的输入距离。"
+    ],
+    "em-l03-limits-20261010-p041": [
+      "误差小于零点02，等价于n严格大于50。第50项正好压在线上，因此不通过；第51项及以后全部通过。如果定义要求n大于N，取N等于50就能保证。这说明门槛的写法与第一项的编号不能混淆。"
+    ],
+    "em-l03-limits-20261010-p042": [
+      "现在定义数列收敛于实数L。对每个正ε，都能找一个整数门槛N，使所有编号大于N的项，误差都小于ε。N确定后不能跟着正在测试的n移动。",
+      "本例取任何大于ε倒数的整数N。所有n大于N时，n的倒数小于N的倒数，再小于ε，因此数列收敛于2。门槛不必最小，但一定要覆盖后面所有项。"
+    ],
+    "em-l03-limits-20261010-p043": [
+      "δ管靠近目标输入的距离，N管后面全部项的编号。两种保证都能把有限的不相关部分放在考察范围之外。若只改前三项，选择N至少为3，再满足原精度要求，后面的保证仍成立。接下来把这种定义放进商家的逐周扩容安排。"
+    ],
+    "em-l03-limits-20261010-p044": [
+      "商家开始讨论一个分周扩容规则：目标是每日500件，每周只补上当时尚缺能力的百分之20。K下标n表示实施n周后的日能力，从第零周的400开始。能力作连续近似。这是给定规则下的路径，不是统计预测，也还没有核算扩容的收益与成本。"
+    ],
+    "em-l03-limits-20261010-p045": [
+      "下一周能力等于本周能力，加上本周剩余差距的百分之20。第一周加20，能力420；第二周只加16，能力436。改善量不是固定20件，而是每次根据新的差距重新计算。剩余差距越小，新增能力也越小。"
+    ],
+    "em-l03-limits-20261010-p046": [
+      "把剩余差距记作e下标n，等于500减本周能力。代入刚才的规则，可以精确得到下一周差距是本周的零点8倍。第零周差距为100，于是这串差距是100、80、64，逐周乘零点8。这里的差距是尚缺能力，不是统计估计的误差。"
+    ],
+    "em-l03-limits-20261010-p047": [
+      "反复乘零点8得到差距的通项，能力就是500减去它。通项不能只看起来合理，要核对初值与相邻两项的关系。",
+      "n等于零时差距为100；下一项比本项恰好多乘一个零点8。因此它与原规则相同。",
+      "相邻能力之差等于20乘零点8的n次方，始终正，所以每周仍在改善。下一问是：改善不停，是否就必然无限增大？"
+    ],
+    "em-l03-limits-20261010-p048": [
+      "逐项不变小叫单调不减，每一步都变大叫严格递增。若所有项都不超过同一个固定数，就说有上界。能力严格递增，所有有限周都低于500，因此500和600都可以作上界。上界只说没有超过，并没有保证靠近那个数。"
+    ],
+    "em-l03-limits-20261010-p049": [
+      "补上另一个方向：逐项不变大叫单调不增，所有项不低于同一个数叫有下界。单调不减且有上界的实数列存在实数极限；反向条件也成立。但这条定理不让任意上界自动成为极限。",
+      "本题用差距辨认500。差距是100乘零点8的n次方。对任意正ε，取大于零与以零点8为底的ε除以100的对数二者中较大者的整数N。因为零点8的幂随指数增大而减小，对全部n大于N，差距都小于ε。这就按数列极限的定义证明极限为500。"
+    ],
+    "em-l03-limits-20261010-p050": [
+      "有界表示所有项的绝对值不超过同一个固定正数。负1的n次方有界，但奇偶项分别停在负1和1，没有共同实数极限。数列n严格递增，却没有上界，也没有实数极限。定理的条件必须一起满足。不能把不断增大到无穷与收敛于某个实数混为一谈。"
+    ],
+    "em-l03-limits-20261010-p051": [
+      "请用四分钟给出一份能力承诺的判断。第8周能否承诺490件每天？剩余差距严格小于10需要至少几周？是否能在某个有限周达到500？请写出不等式和整数周数。先按给定模型回答，实际排班与整数件数另需执行检验。"
+    ],
+    "em-l03-limits-20261010-p052": [
+      "现在核对结果。第8周不能承诺490件每天。",
+      "第8周约483点22，第10周约489点26，第11周约491点41。可见越接近目标，达成有限门槛仍需要时间。",
+      "剩余差距小于10，化为零点8的n次方小于零点1。取自然对数并注意ln零点8为负，得到n大于10点319，最早整数是11。",
+      "任意有限n都留下正差距，所以不会在有限周达到500。请检查自己是否把极限当成了第8周或最后一周的实际能力。"
+    ],
+    "em-l03-limits-20261010-p053": [
+      "现在才开放周数读数。请先预测，把允许差距从10件改成1件，至少需要多少周，再观察图上整数编号的能力点。每个点都是一周实施后的能力，目标线不是已达到的能力。还要检验跨过门槛之后的全部周数，而不仅是一周。"
+    ],
+    "em-l03-limits-20261010-p054": [
+      "能力路径只是给定规则下的推理。要向客户承诺，还需检验改善能否落实、日排班、实际需求与整数订单。要判断扩容是否值得做，更需要新增收益与成本。不能用能力极限替代项目盈利性。请说出那个结论缺了哪些必须比较的量。"
+    ],
+    "em-l03-limits-20261010-p055": [
+      "现在把三种输入放回各自的规则：报价是五角一档，周数是整数，订单逐件执行。连续函数可以分析规律，却不能把非法报价直接变成建议。若连续分析给79点8元，应在相关合法报价中比较同一模型的结果，再看其他执行条件。"
+    ],
+    "em-l03-limits-20261010-p056": [
+      "回到最初定价问题，恢复日能力400件。左边利润是线性的，因为销量受能力限制；右边按需求成交，利润成为二次式。不要把刚才扩容过程的能力带进这个公式。利润两边都靠近18800，变化率会不会也一样？"
+    ],
+    "em-l03-limits-20261010-p057": [
+      "开头两个五角差商现在有了位置：它们是线索，不是全部输入的证明。要知道趋近时发生什么，需要用利润分段式处理两侧所有足够小的非零h。请提出一种计算方法，把每一侧写成可以直接检验误差的表达式。"
+    ],
+    "em-l03-limits-20261010-p058": [
+      "我们没有推翻80元最优，却还不能据此断言导数等于零。下讲要分开利润本身与差商的趋近，看看这个最优点究竟缺少哪个条件。课后补全采样反例和数列门槛的保证，并试着化简80元两侧的差商，作为下一讲的开场。"
+    ],
+    "em-l04-limits-20261010-p001": [
+      "上一讲留下一问：80元已经最优，导数一定为零吗？现在恢复原400件日能力。先把利润本身的趋近与差商的趋近分开，再把同样的判断方法用到采购门槛和规模决策中。"
+    ],
+    "em-l04-limits-20261010-p002": [
+      "同一个价格增量h可以送入两个对象。第一个是日利润，第二个是日利润增量除以价格增量。它们的输出和单位不同。因此利润两侧靠近同值，不能直接推出差商两侧也相同。我们必须各算各的。"
+    ],
+    "em-l04-limits-20261010-p003": [
+      "基准保持80元，新价格写成80加h。h为负从低价一侧靠近，h为正从高价一侧靠近。先把h绝对值限制小于1，保证两边都在合法连续区间中。左边用线性利润式，右边用二次利润式，不可以跨分段套公式。"
+    ],
+    "em-l04-limits-20261010-p004": [
+      "只对右侧足够近的所有输入作误差保证，称为右极限。只对左侧作保证，称为左极限。任意ε、存在δ、范围内全部输入的次序完全保留，变化的是输入范围。右侧要求x减a在零与δ之间；左侧要求a减x在零与δ之间。"
+    ],
+    "em-l04-limits-20261010-p005": [
+      "从左边代入线性利润式，利润等于18800加360h。这个等式对负1到零之间的所有h精确成立。",
+      "利润增量是360h，除以非零h，得到差商360。它并非近似结果。",
+      "对任意正ε，取δ等于1，范围内所有负h的差商误差都为零。因此差商的左极限是360，而不是从某个小数猜出来的。"
+    ],
+    "em-l04-limits-20261010-p006": [
+      "右边代入二次式，精确得到18800减160h再减9h平方。此处h为正且小于1。",
+      "差商等于负160减9h，距负160的误差就是9h。",
+      "取δ为1与ε除以9中的较小值。这样h既留在公式适用范围内，也让误差严格小于ε。所以右极限是负160。δ不只管精度，还要管原式的条件。"
+    ],
+    "em-l04-limits-20261010-p007": [
+      "两侧分别有完整的误差保证，但一个目标是360，一个是负160。没有一个共同实数能同时满足任意精度要求。图上这是差商，不是利润；输入0处仍为空点。接下来把两侧判断整理成一般的极限判据。"
+    ],
+    "em-l04-limits-20261010-p008": [
+      "两侧都有定义可考察时，函数的两侧极限存在并相等，才有一个共同的函数极限。反过来，整个范围都能保证，自然也能保证其中任何一侧。",
+      "若两侧都以同一个L为目标，给定ε分别选好左右δ，再取较小的那个，就能保证两边全部输入。若目标值不同，单靠缩小输入范围不能拼出同一个L。"
+    ],
+    "em-l04-limits-20261010-p009": [
+      "日利润本身的两侧极限都等于18800，且等于80元处的利润值，因此图没有跳跃。但差商的两侧目标不同，没有共同实数极限。没有断开与能用一条共同切线描述附近变化，是两项不同要求。正式的连续定义留到后面，我们这里先保持对象清楚。"
+    ],
+    "em-l04-limits-20261010-p010": [
+      "差商有有限实数极限时，叫在该点可导，那个极限是导数。内点指左右一小段输入都属于定义域。必要条件表示某结论成立必须满足，但满足它未必能保证结论。局部最大是在附近所有函数值都不超过该点。内点处局部最大并且可导，才推出导数为零。80元满足最优，却不可导，因此不能套这个结论。"
+    ],
+    "em-l04-limits-20261010-p011": [
+      "价格区间的30和100是端点，只能从合法的一侧靠近。五角网格又是离散集合，没有任意小的非零调价。因此端点最优、网格最优都不能机械推出导数为零。导数条件帮助分析，不替代对整个合法范围的比较。"
+    ],
+    "em-l04-limits-20261010-p012": [
+      "把两侧判断用到采购。合同A每批固定费用5000元，不足500件每件20元，达到500件后整批每件18元，上限一万件。这叫全量折扣，不能只给超过门槛的部分降价。实际件数为整数，研究极限时另作连续近似。请用四分钟求两侧极限和499、500件的实际成本，并区分这两个问题。"
+    ],
+    "em-l04-limits-20261010-p013": [
+      "左侧趋近500时，总成本趋近15000；右侧和恰在500件时都是14000。两侧极限不同，差1000元。实际499件成本14980，比500件多980。相邻整数订单的成本差与连续极限跳差不是同一个量。多买一件少付钱，来自整批重计单价的全量折扣。"
+    ],
+    "em-l04-limits-20261010-p014": [
+      "两个函数都分段，日利润在接合处却有共同极限，采购总成本没有。分段是写法，不是极限存在与否的判据。必须算清接合处两侧，并检查是否相同。接下来，总成本由几项组成，我们怎样从组成部分计算极限？"
+    ],
+    "em-l04-limits-20261010-p015": [
+      "总成本由批次费用和货款组成。若这些组成部分在同一个输入趋近过程中各有有限极限，我们想把整体极限分项计算。但如果某项没有有限极限，不能先把它写成一个不存在的数。请保留这个条件，也别急着断言它们的和一定没有极限。"
+    ],
+    "em-l04-limits-20261010-p016": [
+      "现在统一条件：同一个x趋于a的过程中，两个函数各有有限实数极限A和B，固定常数为c。它们的和差、常数倍和乘积就有对应结果。数列也可使用相应法则，但必须是同一个整数编号过程。不能把不同输入、不同方向的结果直接拼接。"
+    ],
+    "em-l04-limits-20261010-p017": [
+      "商法则额外要求分母极限B不为零。因为当g与B的误差小于B绝对值的一半时，g的绝对值就大于这一半，不会变成零，也不会任意贴近零。B等于零时这条法则不能用，却不代表所有商都没有极限。后面我们就算几个这样的商。"
+    ],
+    "em-l04-limits-20261010-p018": [
+      "三角不等式说两个量相加后的绝对值，不超过各自绝对值之和。这里把总误差拆成f的误差与g的误差。",
+      "给定正ε，分别分配ε一半的误差预算。两项各自有极限，所以都能给出相应δ。",
+      "取两个δ中较小的值，让同一个输入同时满足两项要求，总误差便小于ε。若给两项各一个完整ε，直接得到的只是总误差小于二ε，不能偷换成原要求。"
+    ],
+    "em-l04-limits-20261010-p019": [
+      "充分条件是满足它就能保证结论，但不能自动反过来。取u为x的倒数、v为它的相反数。两项在x趋零时各自没有有限实数极限，可是和恒为零。因此各项有有限极限足以保证和有极限，和有极限却不能倒推出各项都有。"
+    ],
+    "em-l04-limits-20261010-p020": [
+      "未定式不是某个答案，而是组成部分的趋近状态还不足以确定整体结果。零比零表示分子和分母都趋于零，不能把它当除以零算出的数。回到非零输入，我们可以进行精确变形，这与上一讲的差商具有相同逻辑。"
+    ],
+    "em-l04-limits-20261010-p021": [
+      "非1输入处，分子可以因式分解并约去x减1，精确等于x加1。原式在1处依旧没有定义。",
+      "两式在目标点之外的整段范围完全相同，所以对极限定义而言接受同一批输入、产生同一误差。x加1趋于2，原式也趋于2。这是研究极限，不是暗中给原函数补值。"
+    ],
+    "em-l04-limits-20261010-p022": [
+      "立方差分解后，在非2输入处精确得到x平方加二x加4。保持这个条件，然后对多项式使用已有的有限极限法则。",
+      "x趋于2时，结果为4加4加4，也就是12。答案属于趋近过程，原分式在目标2处仍不能直接计算。请在自己的推导每次约分处写清非零条件。"
+    ],
+    "em-l04-limits-20261010-p023": [
+      "根式差用共轭式来有理化。这里的共轭式把减号改为加号，乘积精确等于x。x必须至少为负1，原分母还要求x非零。约分后得到根号一加x加1的倒数，新分母至少为1，不会为零。条件仍要保留。"
+    ],
+    "em-l04-limits-20261010-p024": [
+      "为了不把尚未解释的根式趋近当成当然，先用同一个有理化等式估计误差。新分母至少为1，所以根式与1的误差不超过x的绝对值。",
+      "取δ为二分之一与ε中的较小值，保证定义域及误差要求，因此根式趋于1。",
+      "现在新分母趋于2，不为零，商法则可以用，原式的极限等于二分之一。顺序是先证明所用极限，再检查商法则条件。"
+    ],
+    "em-l04-limits-20261010-p025": [
+      "请独立完成两题。第一题参数a是任意固定实数，先确定零附近根式可计算的范围，不能漏掉a等于零。第二题改变的是目标点的补值。请分别回答极限和函数值，别把这两个问题合成一个。推导中保留范围与所用法则。"
+    ],
+    "em-l04-limits-20261010-p026": [
+      "同样有理化，原式等于a除以根号一加ax加1，这个等式要求x非零，而且根式内部非负。",
+      "a非零时，把x绝对值限制小于二倍a绝对值的倒数，根式内部大于二分之一；a等于零时根式恒为1。因此负参数也能保住目标两侧范围。",
+      "根式误差不超过a绝对值乘x绝对值，所以趋于零。新分母趋于2，极限为a除以2，零参数也得到零，没有被排除。"
+    ],
+    "em-l04-limits-20261010-p027": [
+      "非2处，函数精确等于x加2，极限对每个c都为4。恰在2处的函数值却是c，所以两者相等仅当c等于4。c改为99，目标点值改变，非零距离内的误差保证没有改变。请用这个区别核对第二题。"
+    ],
+    "em-l04-limits-20261010-p028": [
+      "第一课时从80元两側进入采购门槛，又建立了计算法则。下一课时仍用这份合同，但改问固定费用如何随规模分摊。靠近500与批量不断扩大是不同过程。合同有一万件上限，直接谈真实合同的q趋于无穷会遗漏定义域条件。"
+    ],
+    "em-l04-limits-20261010-p029": [
+      "第二课时继续合同A达到500件后的采购段。每批总款随着数量增加，但固定费用由更多件分摊。总款增加是否意味着每件更贵？为了回答，需要把总成本与每件平均承担的成本分开。"
+    ],
+    "em-l04-limits-20261010-p030": [
+      "平均成本等于本批总成本除以本批件数，单位为元每件。这里横线只是平均成本记号，不是样本均值。18是单件费用，5000除以q是分到每件的固定费用。平均成本可以下降而总款仍增加，两者不能互换。"
+    ],
+    "em-l04-limits-20261010-p031": [
+      "从500件到一万件，平均成本由28降到18点5。合同上限处固定费用仍分摊零点5元每件。若说平均成本最终为18，就必须说明它属于哪个模型：真实合同在一万件结束，不能直接越过上限研究无限批量。"
+    ],
+    "em-l04-limits-20261010-p032": [
+      "现在明确另设一个函数A，表达式相同，但假定价格和固定费用不变，并取消批量上限。在原合同区间里，它与原平均成本一致；一万件以外是理想化延伸。改变定义域是改变假设，绝不是代数化简。只有这个新函数才有无界输入可考察。"
+    ],
+    "em-l04-limits-20261010-p033": [
+      "研究输入趋于正无穷，先要求函数在所有足够大的输入上可计算。对每一个正ε，要找到正的规模门槛M，保证所有x大于M时误差小于ε。M控制实数输入规模；数列的N控制整数编号。两者都要保证门槛之后全部对象，而不是某个大型样点。"
+    ],
+    "em-l04-limits-20261010-p034": [
+      "给定正ε，误差是5000除以q。取M为500与5000除以ε中的较大值。",
+      "所有q大于这个M时，既属于理想函数定义域，也让误差严格小于ε，因此整个门槛之后都通过。",
+      "新函数A的极限是18元每件。每个有限q仍有正的固定费用分摊，所以18不是某个有限批量的平均成本，更不是原合同已经实现的价格。"
+    ],
+    "em-l04-limits-20261010-p035": [
+      "要求每件成本与18的差小于一角，需要采购超过五万件。原合同最多一万件，所以这个要求无法兑现。真实范围的最低平均成本为18点5。若直接用18编实际预算，会少算固定费用分摊。数学极限正确，应用到哪个范围仍必须核对。"
+    ],
+    "em-l04-limits-20261010-p036": [
+      "在大规模输入下，把分子分母同除以x平方，得到常数项加趋零项的表达式。在x大于1的范围内，x和原分母都非零，这个等式精确成立。",
+      "x趋于正无穷时，x倒数及其平方都趋零，新分母趋于5不为零，所以商法则给五分之二。写分子分母都无限增大本身不能给出这个比例。"
+    ],
+    "em-l04-limits-20261010-p037": [
+      "三组分子分母都随正x无界增大，商却分别恒为1、无界增大和趋于零。∞不是可相除的实数。决定整体的是两部分的相对尺度，必须看精确关系，不能只看它们都变大。"
+    ],
+    "em-l04-limits-20261010-p038": [
+      "两个部分都趋零也一样不能决定结果。x除以x恒为1；x除以x平方等于x倒数，正负方向相反；x平方除以x四次方等于x平方的倒数，两侧都向上无界增大。最后一种没有有限实数极限，但可以给它另一种严格的高度保证。"
+    ],
+    "em-l04-limits-20261010-p039": [
+      "无穷极限不是给一个实数L，而是保证输出超过任何指定高度。任意给正H，都能选正δ，让全部足够近的非零输入输出大于H，记为趋于正无穷。负无穷要求输出小于负H。∞不是函数取到的实数，也不是实数收敛。H管输出高度，δ仍管输入距离。"
+    ],
+    "em-l04-limits-20261010-p040": [
+      "平方倒数只要把输入绝对值限制小于H平方根的倒数，就一定超过高度H，而且两边都为正。x倒数则不同，右边向正无穷，左边向负无穷。绝对值很大表示幅度，输出很大表示正方向，不能抹掉符号。"
+    ],
+    "em-l04-limits-20261010-p041": [
+      "在本课程的现代框架里，无穷小是指定过程中趋于零的函数或数列，不是一个固定而神秘的小实数。x趋于零时的x是例子，固定百万分之一不是这个过程的无穷小。非零趋零量的倒数幅度无界增大，但方向看符号；恒零函数不能取倒数。现在再问，一个变小一个变大，乘积会怎样？"
+    ],
+    "em-l04-limits-20261010-p042": [
+      "正x趋于无穷时，x变大，其倒数、平方倒数和平方根倒数都趋零，乘积却完全不同。三个结果分别恒为1、趋零、趋正无穷。因此变大乘变小不能决定答案，必须比较同一输入下的精确尺度。"
+    ],
+    "em-l04-limits-20261010-p043": [
+      "回到第三讲的正弦派除以x，它本身没有实数极限。现在乘上x平方，振荡仍在，却被压在越来越小的幅度内。不能套乘积法则，因为一项没有有限极限。我们需要用上下界，而不是冒填那个不存在的极限。"
+    ],
+    "em-l04-limits-20261010-p044": [
+      "夹逼定理的条件是：目标附近，函数被两个都趋于同一个L的函数夹在中间。本题正弦值在负1与1之间，乘非负x平方后，上下界就是负x平方与x平方。",
+      "更直接地，输出绝对值不超过x平方。任取正ε，取δ为ε的平方根，范围内所有非零x的误差都小于ε。",
+      "于是乘积趋于零。这个保证覆盖再细的振荡，不需要给正弦因子虚构一个极限。图只能帮助观察，完整不等式才是证据。"
+    ],
+    "em-l04-limits-20261010-p045": [
+      "供应商B给更低的单位费用17元，但每批固定费用7000元，高于A的5000元。比较假定商品质量和交期相同，两份合同在500到一万件范围都可用。17低于18还不足以直接推荐B，必须先知道这次买多少。"
+    ],
+    "em-l04-limits-20261010-p046": [
+      "两份合同放在同一个q上比较。A为5000加18q，B为7000加17q。本次需求暂定1500件。不能让A买一批、B买另一批后只比总款，那会改变任务。每件省一元，要采购多少件才能抵掉额外2000元固定费用？接下来请完整写一份判断。"
+    ],
+    "em-l04-limits-20261010-p047": [
+      "请用六分钟形成建议，前四分钟独立写，后两分钟互相核对。先研究另设的无上限理想平均成本，再回到真实合同的共同范围，求等价批量与适用区间。接着为1500件任务推荐并写总款。最后判断是否可以只因平均成本更低就买更多，列出还需要的资料。"
+    ],
+    "em-l04-limits-20261010-p048": [
+      "两份总成本之差是2000减q。共同范围内，少于2000件时A便宜，等于2000相同，多于2000时B便宜。交点确实在共同定义域里。理想平均成本极限A为18、B为17，但这没有推出B在每个实际批量都便宜。请回到成本差检查建议范围。"
+    ],
+    "em-l04-limits-20261010-p049": [
+      "1500件时，A总款32000，B为32500，A省500元。到一万件上限，平均成本A为18点5、B为17点7，B较低。两结论并不冲突，因为批量不同。同一个q上，平均成本与总款排序一致；跨批量比较时不能只看一个较低的平均数。"
+    ],
+    "em-l04-limits-20261010-p050": [
+      "给定1500件任务，选合同是同量总成本比较。决定买多少则是另一个优化问题，需要需求、存货损耗、资金占用和仓储能力。更低平均成本可能花更多总款、形成积压。请选一个最关键的遗漏变量，说出它进入模型后会怎样改变多买的判断。"
+    ],
+    "em-l04-limits-20261010-p051": [
+      "同一个极限符号服务不同问题：价格靠近80、数量靠近500，或理想模型数量无界增大。要先确定输出对象、输入过程与合法范围，随后才使用法则。现在回到价格，但换到不跨分段的90元，比较它与80元的差商。"
+    ],
+    "em-l04-limits-20261010-p052": [
+      "90元附近取h绝对值小于10，整个范围都在二次利润段里。展开再除以非零h，得到负340减9h，两侧是同一个表达式。",
+      "给任意正ε，取δ为10与ε除以9的较小值，既保住分段，又让差商误差小于ε。",
+      "因此差商有共同有限实数极限负340，这个值才称90元处导数。80元缺少的可导条件，在这里成立。导数的单位仍表示利润对价格的反应。"
+    ],
+    "em-l04-limits-20261010-p053": [
+      "导数描述任意小变化的局部反应。线性估算只保留与h成正比的部分。有限涨价五角时，乘导数得到日利润减少170元，但原式精确减少172点25元，多出负2点25的差。它来自负9h平方，不能当作零。把调价幅度减半，平方项缩为四分之一，这让局部近似的质量也可以被核对。"
+    ],
+    "em-l04-limits-20261010-p054": [
+      "请用一分钟写三句解释，不只写一个lim符号。先说明差商为何不能取零增量，再说明极限作什么保证，最后说明80元与90元为何不同。写下你自己的依据，下一讲用它检验更难的极限。"
+    ],
+    "em-l04-limits-20261010-p055": [
+      "最后再检查必要条件的方向。x立方在零处差商为h平方，导数是零。但附近左边为负、右边为正，零点既不是局部最大也不是局部最小。导数为零不能单独证明最优。原商家仍需要保留分段和合法范围，完成整个范围的比较。"
+    ],
+    "em-l04-limits-20261010-p056": [
+      "下一讲把刚才的严谨方法用到正弦h除以h。h必须以弧度计，弧度是弧长除以半径；单位圆半径为1。分子分母都趋零，直接商法则无法给答案。请带着一个问题：能否用单位圆的几何关系，给出覆盖所有足够小角度的上下界？"
+    ]
+  }
+}

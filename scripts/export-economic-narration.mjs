@@ -1,0 +1,15 @@
+import { build } from 'esbuild';
+import fs from 'node:fs';
+const result = await build({ entryPoints: ['apps/teacher-web/src/features/economic-mathematics/narration-scripts.ts'], bundle: true, format: 'cjs', platform: 'node', write: false });
+const module = { exports: {} }; new Function('module', 'exports', result.outputFiles[0].text)(module, module.exports);
+const { preludeNarration, lessonNarration } = module.exports;
+const publicModule = { exports: {} };
+new Function('module', fs.readFileSync('apps/teacher-web/public/course-assets/economic-mathematics/prelude/course-data.js', 'utf8'))(publicModule);
+const prelude = publicModule.exports;
+const sections = prelude.pages.map((p, i) => ({ heading: `第1讲 · 第${i + 1}页 · ${p.title.replaceAll('\n', '')}`, parts: preludeNarration[p.id] }));
+const refinedBuild = await build({entryPoints:['packages/course-content/src/economic-mathematics/lesson-02-refined.ts'],bundle:true,format:'cjs',platform:'node',write:false});
+const refinedModule={exports:{}}; new Function('module','exports',refinedBuild.outputFiles[0].text)(refinedModule,refinedModule.exports);
+for (const [i,p] of refinedModule.exports.refinedLesson02.slides.entries()) sections.push({heading:`第2讲 · 第${i+1}页 · ${p.title}`,parts:refinedModule.exports.refinedNarration[p.slideKey]});
+const intro = '# 经济数学 · 数字人逐页讲解稿\n\n覆盖第1讲课程引入40页、第2讲函数与营销定量模型50页。正文为已编写的口播稿，不使用大模型临场改写。点击“数字人讲解本页”朗读已公开内容；“公开下一步并讲解”先公开对应步骤，再讲解该步。题目可暂停思考，翻页或改变实验参数会停止旧音频。\n\n课程数字人语音使用项目现有服务，无须启用麦克风。本机中文语音为可选备用，不支持精确口型。第2讲价格实验会在稿末补读当前屏幕的实际参数和结果。\n\n编辑源文件：第1讲为 `apps/teacher-web/src/features/economic-mathematics/narration-scripts.ts`；第2讲为 `packages/course-content/src/economic-mathematics/lesson-02-refined.ts`。修改后运行 `node scripts/build-economic-narration.mjs`，或执行生产构建；此文档可用 `node scripts/export-economic-narration.mjs` 更新。\n\n'.replace('50页', refinedModule.exports.refinedLesson02.slides.length+'页');
+fs.writeFileSync('docs/course/economic-mathematics-narration-script.md', intro + sections.map(s => `## ${s.heading}\n\n${s.parts.map((text, i) => `### ${i ? `公开第${i}步后` : '本页起始讲解'}\n\n${text}\n`).join('\n')}`).join('\n'));
+console.log(JSON.stringify({ pages: sections.length, paragraphs: sections.reduce((sum, s) => sum + s.parts.length, 0), characters: sections.reduce((sum, s) => sum + s.parts.join('').length, 0) }));

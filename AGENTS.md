@@ -1,5 +1,28 @@
 # Repository guidance
 
+## Teaching frontend architecture (required reading)
+
+- Before changing classroom, presentation, fullscreen, narration, globe, or
+  experiment controls, read [`docs/frontend-page-tools.md`](docs/frontend-page-tools.md).
+- Each teaching surface has one bottom toolbar owned by its presentation shell.
+  Courses contribute page actions and panels through `PageTools`; they must not
+  append a second course-specific toolbar when hosted by a shell.
+- Keep playback, narration, microphone capture, drafts, reveal state, and model
+  calculations in their existing controllers. Fullscreen is a layout change;
+  it must not remount those controllers or move the canvas between React roots.
+- Keep Page fullscreen (viewport layout, browser chrome visible) and Screen
+  fullscreen (browser Fullscreen API) as two explicit toolbar buttons. A denied
+  screen request must report failure, never silently enter page fullscreen.
+- Put teacher controls outside the fixed slide canvas. Register tools for the
+  current page only, close obsolete panels on page changes, and enforce the
+  teacher/student/projection permissions. Tool definitions are UI data, not
+  student content or assistant context.
+- Use the common toolbar and panel styles. On narrow screens, collect secondary
+  actions in a panel or scroll the action group; do not add another toolbar row.
+- Validate economic narration, an economic parameter experiment, and a port
+  globe page before migrating other controls; also check fullscreen continuity,
+  student read-only behavior, keyboard/input focus, and desktop/narrow layouts.
+
 ## Student-facing courseware
 
 - Treat every field rendered inside the fixed `1600×1000` slide canvas as

@@ -1,0 +1,80 @@
+.presentation-toolbar{position:relative;z-index:70;display:flex;align-items:center;gap:7px;flex:none;min-width:0;box-sizing:border-box;width:100%;height:64px;padding:7px 12px;border-top:1px solid #486158;background:#192e28;color:#f1f5ed;font:13px/1.4 system-ui,'Microsoft YaHei',sans-serif;text-align:left}
+.presentation-toolbar__navigation,.presentation-toolbar__end{display:flex;align-items:center;gap:4px;flex:none;min-width:0}
+.presentation-toolbar__navigation{padding-right:8px;border-right:1px solid #486158}
+.presentation-toolbar__actions{display:flex;align-items:center;gap:4px;min-width:0;flex:1;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.presentation-toolbar__actions::-webkit-scrollbar{display:none}
+footer.presentation-toolbar :is(button,select,input){font:inherit;box-sizing:border-box}
+footer.presentation-toolbar :is(button,select){display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:40px;min-height:44px;flex:none;padding:8px 10px;border:0;border-radius:8px;background:transparent;color:inherit;cursor:pointer;white-space:nowrap}
+footer.presentation-toolbar button:hover:not(:disabled),footer.presentation-toolbar button[aria-expanded=true],footer.presentation-toolbar button[aria-pressed=true]{background:#36534a;color:#f0dfb0}
+footer.presentation-toolbar button:disabled{opacity:.4;cursor:default}
+footer.presentation-toolbar :is(button,select,input,textarea,a):focus-visible{outline:2px solid #e5cb8d;outline-offset:-2px}
+footer.presentation-toolbar select{max-width:220px;background:#233c32;overflow:hidden;text-overflow:ellipsis}
+footer.presentation-toolbar select option{color:#f1f5ed;background:#233c32}
+footer.presentation-toolbar input[type=number]{width:48px;min-width:0;border:1px solid #547266;border-radius:6px;background:#233c32;color:#fff;text-align:center;padding:5px;font-variant-numeric:tabular-nums}
+.presentation-toolbar__status{max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#bfd2c5;font-size:11px;flex:none}
+.presentation-toolbar__status--error{color:#ffbeac}
+.presentation-toolbar__more{margin-left:auto}
+.presentation-toolbar .presentation-tool-panel{position:absolute;z-index:90;right:10px;bottom:calc(100% + 8px);width:min(430px,calc(100vw - 24px));max-height:min(600px,calc(100dvh - 110px));overflow:auto;overscroll-behavior:contain;box-sizing:border-box;padding:16px;background:#f5f3ec;color:#173c42;border:1px solid #b5c5b8;border-radius:12px;box-shadow:0 12px 36px #061c3b42}
+.presentation-toolbar .presentation-tool-panel__head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;font-size:15px}
+.presentation-toolbar .presentation-tool-panel__head button{min-width:36px;min-height:36px;padding:5px}
+.presentation-toolbar .presentation-tool-panel__body{display:flex;flex-direction:column;gap:12px;min-width:0}
+.presentation-toolbar .presentation-tool-panel :is(button,select){background:#fffdf7;color:#173c42;border:1px solid #bfcec0;min-height:40px;white-space:normal;text-align:left}
+.presentation-toolbar .presentation-tool-panel :is(button:hover:not(:disabled),button[aria-pressed=true]){color:#173c42;background:#dce8de}
+.presentation-toolbar .presentation-tool-panel select option{background:#fffdf7;color:#173c42}
+.presentation-toolbar .presentation-tool-panel input{max-width:100%;accent-color:#21655b}
+.presentation-toolbar .presentation-tool-panel input[type=range]{flex:1;min-width:65px;width:140px}
+.presentation-toolbar .presentation-tool-panel label{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.presentation-toolbar .presentation-tool-panel output{font-variant-numeric:tabular-nums;min-width:36px}
+.presentation-toolbar .presentation-tool-panel a{display:flex;align-items:center;gap:8px;min-height:40px;padding:6px 9px;color:#173c42;text-decoration:none;border-radius:7px}
+.presentation-toolbar .presentation-tool-panel a:hover{background:#dce8de}
+.presentation-toolbar .presentation-tool-panel .presentation-tool--menu{width:100%;justify-content:flex-start}
+.presentation-toolbar .presentation-tool-panel :is(.lbl-controls,.l4-playback,.l5-playback,.l6-playback,.pe-playback,.em-teacher-controls,.im-controls,.mg-demo-controls){display:flex;align-items:stretch;flex-direction:column;gap:10px;min-width:0;height:auto;padding:0;margin:0;border:0;border-radius:0;background:transparent;color:inherit;flex-wrap:nowrap}
+.presentation-toolbar .presentation-tool-panel .em-variable-controls{display:flex;flex-direction:column;gap:14px}
+.presentation-toolbar .presentation-tool-panel .em-speech-settings,.presentation-toolbar .presentation-tool-panel .em-teacher-speech-form{font-size:14px}
+.presentation-toolbar .presentation-tool-panel .port-teacher-controls{display:flex;flex-direction:column;gap:12px;padding:0;border:0;background:transparent;color:inherit}
+.presentation-toolbar .presentation-tool-panel .port-teacher-controls>div:last-child{display:flex;flex-wrap:wrap;gap:6px}
+.presentation-toolbar .presentation-tool-panel :is(.earth-globe__controls,.earth-globe__layer-panel){position:static;inset:auto;width:100%;max-width:100%;background:transparent;color:inherit;border:0;padding:0;box-shadow:none;backdrop-filter:none}
+.presentation-toolbar .presentation-tool-panel .earth-globe__controls{display:flex;align-items:center;gap:8px;margin:0}
+.presentation-toolbar .presentation-tool-panel .earth-globe__layer-panel{display:flex;flex-direction:column;gap:12px;max-height:none;overflow:visible}
+.presentation-toolbar .presentation-tool-panel .earth-globe__layer-panel p{color:#526b60;font-size:12px}
+.presentation-toolbar .presentation-page-position{display:grid;gap:1px;text-align:center;min-width:54px;font-variant-numeric:tabular-nums}
+.presentation-page-position small{font-size:10px;color:#bfd2c5}
+.presentation-toolbar .presentation-lecture-select{max-width:160px}
+.presentation-toolbar .presentation-slide-navigation{display:flex;align-items:center;gap:3px;min-width:0;padding:0;margin:0;position:static;background:transparent;flex-wrap:nowrap}
+.presentation-toolbar__navigation{max-width:48%}
+.presentation-toolbar .presentation-slide-navigation{max-width:100%;overflow-x:auto;scrollbar-width:none}
+.presentation-toolbar .presentation-slide-navigation>label{flex-shrink:0}
+.presentation-toolbar .presentation-slide-navigation::-webkit-scrollbar{display:none}
+.presentation-toolbar .presentation-slide-navigation>button>span{display:none}
+.presentation-slide-page{display:grid;grid-template-columns:46px auto;gap:1px 3px;align-items:center;min-width:78px;line-height:1.15;font-size:12px}
+.presentation-slide-page>small{grid-column:1/-1;text-align:center;color:#bfd2c5;font-size:10px}
+.presentation-slide-page input{width:46px!important;padding:2px!important}
+.presentation-toolbar .presentation-tool-panel{max-width:calc(100% - 12px)}
+.presentation-toolbar .presentation-tool-panel .lesson-select-control{display:flex;flex-direction:column;align-items:stretch;gap:6px;order:initial}
+.presentation-toolbar .presentation-tool-panel .lesson-select-control>svg{display:none}
+.presentation-toolbar .presentation-tool-panel .lesson-select-control select{width:100%;max-width:100%;padding:8px}
+.presentation-toolbar .em-page-navigation{min-width:0;max-width:370px;flex-wrap:nowrap;flex-basis:auto}
+.presentation-toolbar .em-page-navigation select{max-width:220px}
+.presentation-toolbar .em-page-position{color:#bfd2c5}
+:is(.lbl-preview,.port-l4-preview,.l5-preview,.l6-preview,.pe-preview):has(>.presentation-toolbar){grid-template-rows:minmax(0,1fr) auto}
+.management-preview>.slide-letterbox{height:100%;min-height:0;aspect-ratio:auto}
+@media(max-width:1100px){.presentation-toolbar .presentation-lecture-select{max-width:110px}.presentation-toolbar .presentation-tool>span,.presentation-toolbar__actions>.presentation-common-tool>span{display:none}.presentation-toolbar__status{max-width:80px}.presentation-toolbar .em-page-navigation select{max-width:160px}}
+@media(max-width:700px){.presentation-toolbar{gap:3px;padding:5px 6px;height:58px}.presentation-toolbar__navigation{padding-right:4px;max-width:60%}footer.presentation-toolbar :is(button,select){padding:8px;min-width:40px}.presentation-toolbar .presentation-lecture-select{display:none}.presentation-toolbar__status{display:none}.presentation-toolbar__end button>span{display:none}.presentation-toolbar .em-page-navigation select{display:none}.presentation-toolbar .em-page-navigation{gap:2px}.presentation-toolbar .presentation-tool-panel{right:6px;width:min(430px,calc(100vw - 12px));padding:14px}}
+@media print{.presentation-toolbar{display:none!important}}
+.presentation-toolbar .course-pdf-export{display:flex;flex-direction:column;gap:12px;min-width:0;font-size:14px;line-height:1.6}
+.presentation-toolbar .course-pdf-export p{margin:0}
+.presentation-toolbar .course-pdf-export__title{font-weight:700}
+.presentation-toolbar .course-pdf-export fieldset{display:flex;flex-direction:column;gap:10px;margin:0;padding:12px;border:1px solid #bfcec0;border-radius:8px;min-width:0}
+.presentation-toolbar .course-pdf-export legend{padding:0 5px;font-weight:600}
+.presentation-toolbar .course-pdf-export select{width:100%;max-width:100%;white-space:normal}
+.presentation-toolbar .course-pdf-export label{align-items:flex-start;flex-wrap:nowrap}
+.presentation-toolbar .course-pdf-export input[type=radio]{flex:none;margin-top:5px}
+.presentation-toolbar .course-pdf-export a.course-pdf-export__download{justify-content:center;background:#21655b;color:#fff;font-weight:700}
+.presentation-toolbar .course-pdf-export a[aria-disabled=true]{opacity:.65;cursor:default}
+.presentation-toolbar .course-pdf-export small{color:#526b60}
+
+.presentation-fullscreen-notice{position:fixed;z-index:1100;top:12px;left:12px;max-width:min(480px,calc(100vw - 24px));box-sizing:border-box;margin:0;padding:10px 14px;border:1px solid #ba8b5f;border-radius:8px;background:#fff4df;color:#594627;font:13px/1.7 system-ui,'Microsoft YaHei',sans-serif}
+html.presentation-fullscreen :is(.port-l4-preview,.l5-preview,.l6-preview,.pe-preview){height:100dvh;min-height:0;overflow:hidden}
+html.presentation-fullscreen :is(.port-l4-preview-body,.l5-preview-body,.l6-preview-body,.pe-preview-body){display:grid;grid-template-columns:minmax(0,1fr);padding:0;gap:0;min-height:0;overflow:hidden}
+html.presentation-fullscreen :is(.port-l4-teacher-guide,.l5-guide,.l6-guide,.pe-guide){display:none}
+html.presentation-fullscreen :is(.l4-stage,.l5-stage,.l6-stage,.pe-stage) .slide-letterbox{flex:1;min-height:0;aspect-ratio:auto}

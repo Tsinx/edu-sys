@@ -31,7 +31,8 @@
 直接调用 Node，不依赖桌面进程能否找到 pnpm，也不要求安装 LAM 的 Python 环境。
 这是本机教学入口，绑定 `127.0.0.1`，与校园 HTTPS 生产部署分开。
 
-TTS 还需要项目根目录 `.env` 中的 `EDU_SELFSTUDY_TTS_VOICE_ID` 音色配置。
+TTS 默认使用 `qwen-audio-3.1-tts-flash` 与配套系统音色 `longanhuan_v3.1`。
+`EDU_SELFSTUDY_TTS_VOICE_ID` 留空时也可使用默认系统音色；专属音色须与 `EDU_SELFSTUDY_TTS_MODEL` 匹配，旧音色ID不能跨模型沿用。
 API 默认按代码位置读取根目录 `.env`，从根目录或 `apps/platform-api` 启动均一致；
 显式 `EDU_ENV_FILE` 仍可指定其他配置文件，已有进程环境变量优先。
 配置只在进程启动时加载。若 ASR 已配置而 TTS 未配置，应检查音色配置及 API 启动方式，

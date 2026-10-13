@@ -1,4 +1,6 @@
+import { PortClassroomResources } from '../port-lbl/PortClassroomResources';
 import {PortExpansionControls} from '../port-expansion/PortExpansionStage';
+import { NARRATION_PRESENTATION_EVENT, type NarrationPresentation } from '../economic-mathematics/narration-events';
 import type {ExpansionPresentation} from '@edu/course-content';
 import { PortLessonFiveControls, type LessonFivePresentation } from "../port-lesson-five/PortLessonFiveStage";
 import { PortLessonSixControls } from '../port-lesson-six/PortLessonSixStage';
@@ -77,8 +79,8 @@ import { AvatarSelector } from "../avatar/AvatarSelector";
 import { ActivityStage, SlideStage } from "./TeachingSlides";
 import { VoiceCommandComposer } from "./VoiceCommandComposer";
 import { useRealtimeClassroom } from "./useRealtimeClassroom";
-import { ClassroomFullscreenControls } from "./ClassroomFullscreenControls";
-import { ClassroomPlaybackSlot } from "./ClassroomPlaybackSlot";
+import { ClassroomToolbar } from "./ClassroomToolbar";
+import { PageToolsContribution, PageToolsProvider } from "./PageTools";
 import { TeacherParticipation } from "./ClassroomParticipation";
 import { TeacherRankedPractice } from "../ranked-practice/RankedPractice";
 import { useClassroomFullscreen } from "./useClassroomFullscreen";
@@ -180,8 +182,7 @@ export function ClassroomSubsystem() {
     window.matchMedia("(max-width: 980px)").matches
   );
   const [fullscreenAvatarCollapsed, setFullscreenAvatarCollapsed] = useState(false);
-  const [playbackSlot, setPlaybackSlot] = useState<HTMLDivElement | null>(null);
-  const [fullscreenPlaybackSlot, setFullscreenPlaybackSlot] = useState<HTMLDivElement | null>(null);
+  const [composerRequest, setComposerRequest] = useState<{ id: number; mode: "speech" | "text" }>();
   const [participationOpen, setParticipationOpen] = useState(false);
   const [practiceOpen, setPracticeOpen] = useState(false);
   const closeParticipation = useCallback(() => setParticipationOpen(false), []);
@@ -259,6 +260,13 @@ export function ClassroomSubsystem() {
     avatar: lamAvatarRef, phase: setAssistantPhase, transcript: setLamTranscript,
     notice: setNotice, error: setError, snapshot: mergeSnapshot
   });
+  const cancelRealtimeForNarration = useRef(realtimeVoice.cancel); cancelRealtimeForNarration.current = realtimeVoice.cancel;
+  useEffect(() => {
+    const caption = (event: Event) => { const detail = (event as CustomEvent<NarrationPresentation>).detail; if (['loading', 'playing', 'paused'].includes(detail.status)) setLamTranscript(detail.subtitle); };
+    const exclusive = (event: Event) => { if ((event as CustomEvent).detail?.meter) { assistantAbortRef.current?.abort(); assistantAbortRef.current = undefined; cancelRealtimeForNarration.current(); setAssistantPhase('idle'); } };
+    window.addEventListener(NARRATION_PRESENTATION_EVENT, caption); window.addEventListener('edu:exclusive-audio', exclusive);
+    return () => { window.removeEventListener(NARRATION_PRESENTATION_EVENT, caption); window.removeEventListener('edu:exclusive-audio', exclusive); };
+  }, []);
 
   useEffect(() => {
     snapshotRef.current = undefined;
@@ -915,15 +923,16 @@ export function ClassroomSubsystem() {
     }
   }
 
-  const { containerRef: fullscreenRef, isFullscreen, toggleFullscreen, exitFullscreen } =
-    useClassroomFullscreen({
+  const fullscreen = useClassroomFullscreen({
       canTurnPages: snapshot?.activeActivity === "slides" &&
         snapshot.session.status === "live" && !busy && !settingsOpen && !endDialogOpen && !participationOpen && !practiceOpen,
       pageIndex: snapshot?.slide.index ?? 1,
       pageTotal: snapshot?.slide.total ?? 1,
       onPageTurn: (direction) => sendEvent({ type: direction }),
-      onError: setError
+      onError: setError,
+      locale: courseDeck?.locale
     });
+  const { containerRef: fullscreenRef, isFullscreen, exitFullscreen } = fullscreen;
   const avatarConcealed = isFullscreen ? fullscreenAvatarCollapsed : avatarCollapsed;
   const setAvatarConcealed = isFullscreen ? setFullscreenAvatarCollapsed : setAvatarCollapsed;
 
@@ -1144,7 +1153,7 @@ export function ClassroomSubsystem() {
 
       {isManagement && !isFullscreen && <ManagementSourceLocator index={snapshot.slide.index} onJump={index => void sendEvent({type:"set_slide",index})}/>}
       {isStatisticalAnalysis && !isFullscreen && <Suspense fallback={null}><StatisticalAnalysisTeachingNotes index={snapshot.slide.index}/></Suspense>}
-      <ClassroomPlaybackSlot.Provider value={isFullscreen ? fullscreenPlaybackSlot : playbackSlot}><PortExpansionControls.Provider value={{scope:sessionId,initial:snapshot.portExpansionPresentation,onChange:reportPortExpansion}}><PortLessonSixControls.Provider value={{scope:sessionId,initial:snapshot.lessonSixPresentation,onChange:reportLessonSix}}><PortLessonFiveControls.Provider value={{scope:sessionId,openExperiment:(plan,personal)=>void openLessonFive(plan,personal),onChange:reportLessonFive}}><PortLessonFourControls.Provider value={{scope:sessionId,openDemo:cueId=>void lessonFourAction(cueId),onProgress:reportLessonFourProgress}}>
+      <PageToolsProvider courseId={snapshot.courseId} pageKey={snapshot.activeActivity === "slides" ? snapshot.slide.slideId : `activity:${snapshot.activeActivity}`} classroomSpeech><PortExpansionControls.Provider value={{scope:sessionId,initial:snapshot.portExpansionPresentation,onChange:reportPortExpansion}}><PortLessonSixControls.Provider value={{scope:sessionId,initial:snapshot.lessonSixPresentation,onChange:reportLessonSix}}><PortLessonFiveControls.Provider value={{scope:sessionId,openExperiment:(plan,personal)=>void openLessonFive(plan,personal),onChange:reportLessonFive}}><PortLessonFourControls.Provider value={{scope:sessionId,openDemo:cueId=>void lessonFourAction(cueId),onProgress:reportLessonFourProgress}}>
       <div
         ref={fullscreenRef}
         tabIndex={-1}
@@ -1154,13 +1163,35 @@ export function ClassroomSubsystem() {
             ? "classroom-workspace--avatar-collapsed"
             : "",
           isFullscreen ? "classroom-workspace--fullscreen" : "",
+          fullscreen.fullscreenClassName,
           isGlobe ? "classroom-workspace--globe" : "",
           isSimulation ? "classroom-workspace--simulation" : ""
         ]
           .filter(Boolean)
           .join(" ")}
       >
-        <section className="teaching-runtime" aria-label="课堂教学主舞台">
+        <section className="teaching-runtime" aria-label="课堂教学主舞台"
+            onBlurCapture={(event) => {
+              if (event.target instanceof HTMLInputElement && event.target.type === "range") {
+                void flushSlideInteractionQueue();
+              }
+            }}
+            onKeyUpCapture={(event) => {
+              if (event.target instanceof HTMLInputElement && event.target.type === "range") {
+                void flushSlideInteractionQueue();
+              }
+            }}
+            onPointerCancelCapture={(event) => {
+              if (event.target instanceof HTMLInputElement && event.target.type === "range") {
+                void flushSlideInteractionQueue();
+              }
+            }}
+            onPointerUpCapture={(event) => {
+              if (event.target instanceof HTMLInputElement && event.target.type === "range") {
+                void flushSlideInteractionQueue();
+              }
+            }}
+        >
           <nav className="classroom-activity-tabs" aria-label="课堂活动">
             {visibleActivityTabs.map((tab) => {
               const Icon = tab.icon;
@@ -1189,26 +1220,7 @@ export function ClassroomSubsystem() {
             className={`teaching-stage-frame ${!isRegisteredCourse && pointerActive ? "teaching-stage-frame--pointer" : ""} ${
               !isRegisteredCourse && annotationActive ? "teaching-stage-frame--annotation" : ""
             }`}
-            onBlurCapture={(event) => {
-              if (event.target instanceof HTMLInputElement && event.target.type === "range") {
-                void flushSlideInteractionQueue();
-              }
-            }}
-            onKeyUpCapture={(event) => {
-              if (event.target instanceof HTMLInputElement && event.target.type === "range") {
-                void flushSlideInteractionQueue();
-              }
-            }}
-            onPointerCancelCapture={(event) => {
-              if (event.target instanceof HTMLInputElement && event.target.type === "range") {
-                void flushSlideInteractionQueue();
-              }
-            }}
-            onPointerUpCapture={(event) => {
-              if (event.target instanceof HTMLInputElement && event.target.type === "range") {
-                void flushSlideInteractionQueue();
-              }
-            }}
+
           >
             {isSimulation ? (
               <Suspense
@@ -1286,90 +1298,41 @@ export function ClassroomSubsystem() {
             )}
           </div>
 
-          <footer className="teaching-controlbar">
-            {isGlobe ? (
-              <div className="globe-movie-controls" aria-label="证据追踪控制">
-                <span>
-                  <Globe2 size={18} />
-                  第一讲 · 证据追踪任务
-                </span>
-                <div>
-                  <button
-                    type="button"
-                    disabled={
-                      busy ||
-                      snapshot.globePlayback.status !== "playing"
-                    }
-                    onClick={() =>
-                      void sendEvent({ type: "globe_pause" })
-                    }
-                  >
-                    <Pause size={17} /> 暂停
-                  </button>
-                  <button
-                    type="button"
-                    disabled={
-                      busy ||
-                      snapshot.globePlayback.status !== "paused"
-                    }
-                    onClick={() =>
-                      void sendEvent({ type: "globe_resume" })
-                    }
-                  >
-                    <Play size={17} /> 继续
-                  </button>
-                  <button
-                    type="button"
-                    disabled={busy}
-                    onClick={() =>
-                      void sendEvent({ type: "globe_restart" })
-                    }
-                  >
-                    <RotateCcw size={17} /> 重新播放
-                  </button>
-                  <button
-                    type="button"
-                    disabled={busy || !openingReturnSlide}
-                    onClick={() => {
-                      if (!openingReturnSlide) return;
-                      lamAvatarRef.current?.interrupt();
-                      void sendEvent({
-                        type: "set_slide",
-                        index: openingReturnSlide.index
-                      });
-                    }}
-                  >
-                    <SkipForward size={17} /> 跳过
-                  </button>
-                  <button
-                    type="button"
-                    aria-label={t("全屏", "Fullscreen")}
-                    onClick={() => void toggleFullscreen()}
-                  >
-                    <Maximize2 size={17} /> 全屏
-                  </button>
-                </div>
-              </div>
-            ) : isSimulation ? (
-              <div className="simulation-classroom-footer">
-                <span><FlaskConical size={17} /> 登录后本地单机</span>
-                <span>每名学生独立体验四岗位 · 运行时无长连接</span>
-                <button type="button" aria-label={t("全屏", "Fullscreen")} onClick={() => void toggleFullscreen()}>
-                  <Maximize2 size={17} /> 全屏
-                </button>
-              </div>
-            ) : (
-              <>
-            <div className="slide-navigation-controls">
+          {isOpeningLaunchSlide && <PageToolsContribution pageKey={snapshot.slide.slideId} title="航线证据" actions={[
+            { id: 'opening', label: '沿丝绸航线寻找证据', icon: <Play size={17}/>, disabled: busy || !isLive || !OPENING_GLOBE_CUE,
+              onInvoke: () => void sendEvent({type:'globe_play_cue',cueId:OPENING_GLOBE_CUE_ID}) }
+          ]}><p>从港口与航线观察贸易联系。</p></PageToolsContribution>}
+          {isGlobe && <PageToolsContribution pageKey="activity:globe" title="航线播放" actions={[
+            { id: 'globe-toggle', label: snapshot.globePlayback.status === 'playing' ? '暂停' : '继续', icon: snapshot.globePlayback.status === 'playing' ? <Pause size={17}/> : <Play size={17}/>,
+              disabled: busy || !isLive || !['playing','paused'].includes(snapshot.globePlayback.status),
+              onInvoke: () => void sendEvent({type:snapshot.globePlayback.status === 'playing' ? 'globe_pause' : 'globe_resume'}) }
+          ]}>
+            <button type="button" disabled={busy || !isLive} onClick={() => void sendEvent({type:'globe_restart'})}><RotateCcw size={17}/>重新播放</button>
+            <button type="button" disabled={busy || !openingReturnSlide} onClick={() => {
+              if (!openingReturnSlide) return; lamAvatarRef.current?.interrupt();
+              void sendEvent({type:'set_slide',index:openingReturnSlide.index});
+            }}><SkipForward size={17}/>跳过</button>
+          </PageToolsContribution>}
+          {isSlides && <PortClassroomResources courseId={snapshot.courseId} frame={snapshot.slide} localIndex={slidePosition.localIndex} disabled={busy} onSimulation={() => void openFullLessonFourSimulation()}/>}
+          <ClassroomToolbar
+            locale={courseDeck?.locale}
+            fullscreen={fullscreen} avatarCollapsed={avatarConcealed}
+            onTeacherSpeech={() => { setAvatarConcealed(false); setComposerRequest(old => ({id:(old?.id ?? 0)+1,mode:'speech'})); }}
+            onToggleAvatar={() => setAvatarConcealed(collapsed => !collapsed)}
+            onParticipation={() => setParticipationOpen(true)}
+            navigation={isSlides ? <>
+            <div className="presentation-slide-navigation" aria-label={t('课件翻页','Slide navigation')}>
               <button
                 type="button"
+                aria-label={t('上一页','Previous')}
+                title={t('上一页（←）','Previous (←)')}
                 disabled={!isSlides || busy || (courseDeck ? getCourseAdjacentIndex(courseDeck, snapshot.slide.index, -1) === null : snapshot.slide.index <= 1)}
                 onClick={() => void sendEvent({ type: "previous_slide" })}
               >
                 <ChevronLeft size={18} /> <span>{t("上一页", "Previous")}</span>
               </button>
-              <label className="slide-page-input-control">
-                <span>{t("当前页", "Page")}</span>
+              <label className="presentation-slide-page">
+                <small>{slidePosition.lessonNumber === 0 ? t('绪论','Introduction') : t(`第${slidePosition.lessonNumber}讲`,`Lecture ${slidePosition.lessonNumber}`)}</small>
                 <input
                   aria-label={t(`当前讲页码，1到${slidePosition.localTotal}`, `Lecture page, 1 to ${slidePosition.localTotal}`)}
                   disabled={!isSlides || busy}
@@ -1409,34 +1372,16 @@ export function ClassroomSubsystem() {
               </label>
               <button
                 type="button"
+                aria-label={t('下一页','Next')}
+                title={t('下一页（→）','Next (→)')}
                 disabled={!isSlides || busy || (courseDeck ? getCourseAdjacentIndex(courseDeck, snapshot.slide.index, 1) === null : snapshot.slide.index >= snapshot.slide.total)}
                 onClick={() => void sendEvent({ type: "next_slide" })}
               >
                 <span>{t("下一页", "Next")}</span> <ChevronRight size={18} />
               </button>
-              {isOpeningLaunchSlide && (
-                <button
-                  className="start-opening-button"
-                  type="button"
-                  disabled={busy || !isLive || !OPENING_GLOBE_CUE}
-                  onClick={() =>
-                    void sendEvent({
-                      type: "globe_play_cue",
-                      cueId: OPENING_GLOBE_CUE_ID
-                    })
-                  }
-                >
-                  <Play size={17} /> 沿丝绸航线寻找证据
-                </button>
-              )}
             </div>
-
-            {isSlides && <div className="classroom-playback-slot" ref={setPlaybackSlot} />}
-            {isSlides && snapshot.courseId === 'course-port-management-intro' && [7,8,9,10].includes(snapshot.slide.lessonNumber??0) && <a className="port-l4-classroom-link" href={`/port-expansion-preview.html?lesson=${snapshot.slide.lessonNumber}&page=${snapshot.slide.index-(293+((snapshot.slide.lessonNumber??7)-7)*48)}`} target="_blank" rel="noreferrer">第{snapshot.slide.lessonNumber}讲授课台 ↗</a>}
-            {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 6 && <a className="port-l4-classroom-link" href={`/port-lesson-six-preview.html?page=${snapshot.slide.index-245}`} target="_blank" rel="noreferrer">第6讲授课台 ↗</a>}
-            {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 5 && <a className="port-l4-classroom-link" href={`/port-lesson-five-preview.html?page=${snapshot.slide.index-197}`} target="_blank" rel="noreferrer">第5讲授课台 ↗</a>}
-            {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 4 && <a className="port-l4-classroom-link" href={`/port-lesson-four-preview.html?page=${snapshot.slide.index-153}`} target="_blank" rel="noreferrer">第4讲授课台 ↗</a>}
-            {isSlides && snapshot.courseId === 'course-port-management-intro' && snapshot.slide.lessonNumber === 4 && <button className="stage-tool-button" disabled={busy} onClick={()=>void openFullLessonFourSimulation()}><FlaskConical size={17}/>仿真系统</button>}
+            </> : <span className="presentation-page-position">{activityLabel(snapshot.activeActivity)}</span>}
+            more={<>
             <label className="lesson-select-control">
               <span className="sr-only">{t("选择课次", "Select lecture")}</span>
               <select
@@ -1475,49 +1420,20 @@ export function ClassroomSubsystem() {
               </select>
               <ChevronDown aria-hidden="true" size={16} />
             </label>
-
-            <div className="stage-tool-controls">
-              {!isRegisteredCourse && (
-                <>
-                  <button
-                    type="button"
-                    className={pointerActive ? "stage-tool-button stage-tool-button--active" : "stage-tool-button"}
-                    aria-pressed={pointerActive}
-                    onClick={() => setPointerActive((active) => !active)}
-                  >
-                    <MousePointer2 size={17} /> <span>指针</span>
-                  </button>
-                  <button
-                    type="button"
-                    className={annotationActive ? "stage-tool-button stage-tool-button--active" : "stage-tool-button"}
-                    aria-pressed={annotationActive}
-                    onClick={() => setAnnotationActive((active) => !active)}
-                  >
-                    <Highlighter size={17} /> <span>批注</span>
-                  </button>
-                  <button
-                    type="button"
-                    className="stage-tool-button"
-                    onClick={() =>
-                      setParticipationOpen(true)
-                    }
-                  >
-                    <UsersRound size={17} /> <span>{t("学生互动", "Class activities")}</span>
-                  </button>
-                </>
-              )}
-              <button
-                type="button"
-                className="stage-tool-button"
-                aria-label={t("全屏", "Fullscreen")}
-                onClick={() => void toggleFullscreen()}
-              >
-                <Maximize2 size={17} /> <span>{t("全屏", "Fullscreen")}</span>
-              </button>
-            </div>
-              </>
-            )}
-          </footer>
+              <button type="button" onClick={() => void returnToWorkspace()}><ArrowLeft size={17}/>{t('返回工作台','Return to workspace')}</button>
+              {visibleActivityTabs.map(tab => <button type="button" key={tab.id} aria-pressed={snapshot.activeActivity === tab.id} disabled={busy || !isLive}
+                onClick={() => tab.id === 'interaction' ? setParticipationOpen(true) : void sendEvent({type:'set_activity',activity:tab.id})}>
+                <tab.icon size={17}/>{tab.label === 'Slides' ? t('课件','Slides') : tab.label}
+              </button>)}
+              {!isRegisteredCourse && <>
+                <button type="button" aria-pressed={pointerActive} onClick={() => setPointerActive(active => !active)}><MousePointer2 size={17}/>指针</button>
+                <button type="button" aria-pressed={annotationActive} onClick={() => setAnnotationActive(active => !active)}><Highlighter size={17}/>批注</button>
+              </>}
+              {isSimulation && <small>每名学生独立体验四岗位 · 运行时无长连接</small>}
+              <button type="button" onClick={() => setSettingsOpen(true)}><Settings size={17}/>{t('课堂设置','Classroom settings')}</button>
+              {snapshot.courseId === 'course-international-mathematics' && <button type="button" onClick={() => setPracticeOpen(true)}><FlaskConical size={17}/>Ranked practice</button>}
+            </>}
+          />
         </section>
 
         <aside
@@ -1622,8 +1538,10 @@ export function ClassroomSubsystem() {
               </section>}
 
               <VoiceCommandComposer
+                request={composerRequest}
                 key={sessionId}
                 locale={courseDeck?.locale}
+                courseId={snapshot.courseId}
                 concealed={avatarConcealed}
                 compact={isFullscreen || isGlobe}
                 collapsible={isFullscreen}
@@ -1659,33 +1577,10 @@ export function ClassroomSubsystem() {
         </aside>
         <TeacherParticipation key={sessionId} sessionId={sessionId} courseId={snapshot.courseId} lesson={snapshot.slide.lessonNumber} open={participationOpen} onClose={closeParticipation} />
         {snapshot.courseId==='course-international-mathematics'&&<TeacherRankedPractice sessionId={sessionId} lesson={snapshot.slide.lessonNumber} open={practiceOpen} onClose={()=>setPracticeOpen(false)}/>}
-        {isFullscreen && (
-          <>
-            <ClassroomFullscreenControls
-              playbackControlsRef={setFullscreenPlaybackSlot}
-              activity={snapshot.activeActivity}
-              allowedActivities={visibleActivityTabs.map((tab) => tab.id)}
-              busy={busy}
-              isLive={isLive}
-              pageIndex={snapshot.slide.index}
-              pageTotal={snapshot.slide.total}
-              localIndex={slidePosition.localIndex}
-              localTotal={slidePosition.localTotal}
-              lessonNumber={slidePosition.lessonNumber}
-              avatarCollapsed={avatarConcealed}
-              onPageTurn={(direction) => void sendEvent({ type: direction })}
-              onActivityChange={(activity) => void sendEvent({ type: "set_activity", activity })}
-              onToggleAvatar={() => setFullscreenAvatarCollapsed((collapsed) => !collapsed)}
-              onExit={() => void toggleFullscreen()}
-              onWorkspace={() => void returnToWorkspace()}
-              onParticipation={() => setParticipationOpen(true)}
-            />
-            {(error || notice) && <div className="fullscreen-classroom-notice" role="status">{error || notice}</div>}
-          </>
-        )}
+        {isFullscreen && (error || notice) && <div className="fullscreen-classroom-notice" role="status">{error || notice}</div>}
       </div>
 
-      </PortLessonFourControls.Provider></PortLessonFiveControls.Provider></PortLessonSixControls.Provider></PortExpansionControls.Provider></ClassroomPlaybackSlot.Provider>
+      </PortLessonFourControls.Provider></PortLessonFiveControls.Provider></PortLessonSixControls.Provider></PortExpansionControls.Provider></PageToolsProvider>
       {settingsOpen && (
         <div className="classroom-dialog-backdrop">
           <section className="classroom-dialog" role="dialog" aria-modal="true" aria-labelledby="classroom-settings-title">

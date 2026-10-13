@@ -11,6 +11,7 @@ import { EconomicMathematicsTeachingSlides } from "../../apps/teacher-web/src/fe
 import { EconomicMathematicsSlideStage } from "../../apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsSlideStage.tsx";
 import "../../apps/teacher-web/node_modules/katex/dist/katex.min.css";
 import "../../apps/teacher-web/src/features/economic-mathematics/economic-mathematics.css";
+import "../../apps/teacher-web/src/features/economic-mathematics/limits.css";
 import "./print.css";
 
 declare global {

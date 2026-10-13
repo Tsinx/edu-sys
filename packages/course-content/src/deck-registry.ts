@@ -177,7 +177,7 @@ const portDescriptor: CourseDeckDescriptor = {
   slug: "gangkou-guanli-gailun",
   code: "PM-INTRO-001",
   deckId: "deck-course-port-management-intro-foundations",
-  versionId: "release-port-management-governance-market-v14",
+  versionId: "release-port-management-performance-safety-v15",
   title: "港口管理概论",
   totalHours: 32,
   slideTotal: PORT_MANAGEMENT_SLIDES.length,
@@ -284,12 +284,26 @@ const economicMathematicsDescriptor: CourseDeckDescriptor = {
     accent: "economic-mathematics",
     assistantName: "小麦老师",
     supportsStudy: false,
-    resources: ECONOMIC_MATHEMATICS_TEXTBOOKS.map((book) => ({
+    resources: [{
+      role: "第1讲",
+      title: "课程引入 · 从一个点开始",
+      detail: "90秒几何动态艺术短片与40页课程导览 · 45分钟",
+      url: "/course-assets/economic-mathematics/prelude/index.html"
+    }, { role: "第2讲", title: "函数与营销定量模型", detail: `从销量记录到函数、定价与扩容决策 · ${ECONOMIC_MATHEMATICS_LESSONS[1]!.slideTotal}页 / 90分钟`, url: "/economic-narration.html?lesson=2" }, {
+        role: "第3讲", title: "从导数疑问到极限的严格定义", detail: `${ECONOMIC_MATHEMATICS_LESSONS[2]!.slideTotal}页 / 2 × 45分钟 · 内嵌微积分历史短片`, url: "/economic-narration.html?lesson=3"
+      }, {
+        role: "第4讲", title: "左右极限、极限运算与规模边界", detail: `${ECONOMIC_MATHEMATICS_LESSONS[3]!.slideTotal}页 / 2 × 45分钟 · 采购合同与极限证明`, url: "/economic-narration.html?lesson=4"
+      }, {
+        role: "第3讲短片",
+      title: "消失的增量 · 微积分之争与数学危机",
+      detail: "3分钟 · 三次数学危机的前因后果 · 中文旁白与原创几何动效 · 可下载MP4",
+      url: "/course-assets/economic-mathematics/calculus-history/index.html"
+    }, ...ECONOMIC_MATHEMATICS_TEXTBOOKS.map((book) => ({
       role: book.role,
       title: book.title,
       detail: `${book.editor} · ${book.publisher} · ${book.year} · ISBN ${book.isbn}`,
       ...("url" in book && book.url ? { url: book.url } : {})
-    }))
+    }))]
   },
   getSlide: summarizeEconomicMathematicsSlide,
   getSlideByKey(slideKey) {
@@ -325,7 +339,7 @@ const statisticalAnalysisDescriptor: CourseDeckDescriptor = {
   lessons: STATISTICAL_ANALYSIS_LESSONS, allowedActivities: ['slides'],
   presentation: {
     shortTitle: '统计分析', categoryLabel: '商科研究生',
-    description: '从研究问题与数据证据出发，衔接科研可视化、回归、问卷测量、因果推断与时间序列。32课时16讲，前五讲已建设，共250页，各90分钟。',
+    description: '从研究问题与数据证据出发，衔接科研可视化、回归、问卷测量、因果推断与时间序列。32课时16讲，前七讲已建设，共350页，各90分钟。',
     heroImage: '/course-assets/statistical-analysis/images/l1-01-retail-night.png',
     accent: 'statistical-analysis', assistantName: '小麦老师', supportsStudy: false,
     resources: [

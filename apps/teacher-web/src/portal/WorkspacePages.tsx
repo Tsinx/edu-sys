@@ -1,3 +1,5 @@
+import '../features/classroom/page-tools.css';
+import { PageToolsProvider, PresentationToolbar } from '../features/classroom/PageTools';
 import { ActivityWorkspace } from "../features/activities/ActivityWorkspace";
 import {
   BookOpen,
@@ -571,6 +573,12 @@ export function CourseWorkspace() {
               <p>
                 {t("查看课件不会开启课堂。开始上课会优先恢复您最近的进行中课堂。", "Preview slides without starting a class. Start / resume class restores your latest active class.")}
               </p>
+              {profile?.resources.filter(resource => resource.role === "课程序章" && resource.url).map(resource => (
+                <p key={resource.url} className="workspace-section">
+                  <a href={resource.url} target="_blank" rel="noreferrer">{resource.title}</a>
+                  {" · "}{resource.detail}
+                </p>
+              ))}
               <CourseLessonDirectory deck={deck} activityCounts={activityCounts} onPrepare={number => {
                 setLesson(number);
                 setQuery({ tab: "settings" });
@@ -1247,8 +1255,16 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
         )}
       </header>
       {ready && (
-        <>
-          <nav>
+        <PageToolsProvider courseId={courseId} pageKey={slide.slideKey} role="reader">
+
+          <div className="workspace-reader-stage">
+            <SlideStage frame={frame} readOnly={deck.locale !== "en"} playbackMode="reader" onNavigate={go}
+              interaction={deck.locale === "en" && deck.getInteractionDefaults(slide.slideKey) ? {deckId: deck.deckId, slideId: slide.slideKey, revision: 1, values: interactions[slide.slideKey] ?? {...deck.getInteractionDefaults(slide.slideKey)}} : null}
+              onInteractionPatch={patch => setInteractions(old => {const current = old[slide.slideKey] ?? {...deck.getInteractionDefaults(slide.slideKey)}; return deck.validateInteractionPatch(slide.slideKey, patch, current) ? {...old, [slide.slideKey]: {...current, ...patch}} : old;})}
+              onInteractionReset={() => setInteractions(old => ({...old, [slide.slideKey]: {...deck.getInteractionDefaults(slide.slideKey)}}))}/>
+          </div>
+          {deck.locale === "en" && deck.presentation.supportsStudy && !preview && <EnglishReadingAssistant key={courseId} courseId={courseId} globalIndex={index} onNavigate={go}/>}
+          <PresentationToolbar label={t('课件工具栏','Presentation toolbar')} moreLabel={t('更多工具','More tools')} more={<>
             <label>
               {t("讲次", "Lesson")}
               <select
@@ -1278,30 +1294,12 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
                 </option>)}
               </select>
             </label> : null}
-            <button
-              disabled={prev === null}
-              onClick={() => prev !== null && go(prev)}
-            >
-              {t("上一页", "Previous")}
-            </button>
-            <span>
-              {index} / {deck.slideTotal}
-            </span>
-            <button
-              disabled={next === null}
-              onClick={() => next !== null && go(next)}
-            >
-              {t("下一页", "Next")}
-            </button>
-          </nav>
-          <div className="workspace-reader-stage">
-            <SlideStage frame={frame} readOnly={deck.locale !== "en"} playbackMode="reader" onNavigate={go}
-              interaction={deck.locale === "en" && deck.getInteractionDefaults(slide.slideKey) ? {deckId: deck.deckId, slideId: slide.slideKey, revision: 1, values: interactions[slide.slideKey] ?? {...deck.getInteractionDefaults(slide.slideKey)}} : null}
-              onInteractionPatch={patch => setInteractions(old => {const current = old[slide.slideKey] ?? {...deck.getInteractionDefaults(slide.slideKey)}; return deck.validateInteractionPatch(slide.slideKey, patch, current) ? {...old, [slide.slideKey]: {...current, ...patch}} : old;})}
-              onInteractionReset={() => setInteractions(old => ({...old, [slide.slideKey]: {...deck.getInteractionDefaults(slide.slideKey)}}))}/>
-          </div>
-          {deck.locale === "en" && deck.presentation.supportsStudy && !preview && <EnglishReadingAssistant key={courseId} courseId={courseId} globalIndex={index} onNavigate={go}/>}
-        </>
+          </>} navigation={<nav className="presentation-slide-navigation" aria-label={t("课件翻页","Slide navigation")}>
+            <button aria-label={t("上一页","Previous")} title={t("上一页","Previous")} disabled={prev === null} onClick={() => prev !== null && go(prev)}>←</button>
+            <span className="presentation-page-position"><small>{t(`第${slide.lessonNumber}讲`,`Lesson ${slide.lessonNumber}`)}</small><span>{index} / {deck.slideTotal}</span></span>
+            <button aria-label={t("下一页","Next")} title={t("下一页","Next")} disabled={next === null} onClick={() => next !== null && go(next)}>→</button>
+          </nav>}/>
+        </PageToolsProvider>
       )}
       {!ready && <p role="status">{status || t("正在读取课件…", "Loading slides\u2026")}</p>}
     </main>

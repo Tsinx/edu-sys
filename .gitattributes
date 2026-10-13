@@ -4,3 +4,8 @@ packages/course-content/src/statistical-analysis/data.json text eol=lf
 # Archived snapshots and verified media must retain their recorded file bytes.
 archive/** -text whitespace=-blank-at-eof,cr-at-eol
 apps/teacher-web/public/course-assets/international-mathematics/** -text
+apps/teacher-web/public/course-assets/economic-mathematics/** -text whitespace=-blank-at-eof,cr-at-eol
+
+# Generated vendor bundles contain shader strings; preserve their whitespace.
+apps/teacher-web/public/course-assets/economic-mathematics/prelude/film.js whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab,cr-at-eol
+apps/teacher-web/public/course-assets/economic-mathematics/prelude/narration.js whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab,cr-at-eol

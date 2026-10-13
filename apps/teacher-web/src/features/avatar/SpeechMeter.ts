@@ -11,7 +11,7 @@ export class SpeechMeter {
   private lastTime = 0;
   private cues = new Map<AudioBufferSourceNode, { startAt: number; cues: SpeechVisemeCue[] }>();
 
-  connect(source: AudioBufferSourceNode) {
+  connect(source: AudioBufferSourceNode, destination?: AudioNode) {
     const context = source.context as AudioContext;
     if (this.context !== context) {
       this.analyser?.disconnect();
@@ -19,7 +19,7 @@ export class SpeechMeter {
       this.context = context;
       this.analyser = context.createAnalyser();
       this.analyser.fftSize = this.samples.length;
-      this.analyser.connect(context.destination);
+      this.analyser.connect(destination ?? context.destination);
     }
     source.connect(this.analyser!);
     this.sources.add(source);

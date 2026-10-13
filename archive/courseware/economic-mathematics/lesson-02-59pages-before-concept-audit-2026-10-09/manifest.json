@@ -1,0 +1,76 @@
+{
+  "purpose": "59-page content before concept-order audit; same page keys and reveal counts",
+  "version": "release-economic-mathematics-lesson02-mapping-2026-10-09",
+  "files": [
+    {
+      "path": "packages/course-content/src/economic-mathematics/lesson-02-refined.ts",
+      "sha256": "aebd2070d22db004abc3f6d2f42bc8c737af0c40eff21c328c57f28526105bfb",
+      "bytes": 59619
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/MerchantFigure.tsx",
+      "sha256": "e5523210c15caee5aea31221523c77c83346f3be832e6087599dee95c0b35754",
+      "bytes": 9200
+    },
+    {
+      "path": "apps/teacher-web/scripts/export-economic-refined.tsx",
+      "sha256": "ccceb9399a475f378139d6c6b1a58286623b969405327542183e5d2230412844",
+      "bytes": 14400
+    },
+    {
+      "path": "apps/teacher-web/test/economic-mathematics-refined.test.tsx",
+      "sha256": "4bebac7c4f0ac2d510d4989b3a97a4f605ebe25a42da983c58b6dc69c4cb0f46",
+      "bytes": 5014
+    },
+    {
+      "path": "docs/course/economic-mathematics-lesson-02-design.md",
+      "sha256": "69ea34067153a64fe9386eb6952673a18448798f272bd2942de8d1f120d5ff97",
+      "bytes": 7690
+    },
+    {
+      "path": "docs/course/economic-mathematics-lesson-02-flow.md",
+      "sha256": "b546ba9deb380d6d9b0078e0a161ad2ab56b8780a0a350a6512febc531f765bb",
+      "bytes": 2170
+    },
+    {
+      "path": "docs/course/economic-mathematics-lesson-02-script.md",
+      "sha256": "fd68d7ffdbf48dd830a4aa914333266382ff1b795ed26eb4c48c00c2de8ca21d",
+      "bytes": 36669
+    },
+    {
+      "path": "docs/course/economic-mathematics-lesson-02-exercises.md",
+      "sha256": "2f4ae9534b4111c71bbb9741de3809513f990b3f8e509acb4cff5a92c8515bd0",
+      "bytes": 7405
+    },
+    {
+      "path": "docs/course/economic-mathematics-lesson-02-validation.md",
+      "sha256": "d864f732a688c026c9b22a0be0c597af523b14a6a3b0f2525bc00be676faca1b",
+      "bytes": 4335
+    },
+    {
+      "path": "docs/course/economic-mathematics-narration-script.md",
+      "sha256": "c0f8cc84aaae8f37d79264f654371797db27d198bef1a1b6cf0279836d13cb4c",
+      "bytes": 48862
+    },
+    {
+      "path": "output/pdf/economic-lesson02-teacher.pdf",
+      "sha256": "557f04d92c366a577856ce2b44141b366cf16db1a93c18f01a894408c5e4b7a6",
+      "bytes": 14574925
+    },
+    {
+      "path": "output/pdf/economic-lesson02-worksheet.pdf",
+      "sha256": "4f8bc5821bdb28b0629b417aecc8b335a02b1b51843bbbed2d3e13b0c067bc93",
+      "bytes": 245346
+    },
+    {
+      "path": "output/pdf/economic-lesson02-answers.pdf",
+      "sha256": "fd6dc061fae3a92cd0a73d8d497e0405f568c8d2398e0bcd9237685590560363",
+      "bytes": 269479
+    },
+    {
+      "path": "output/pdf/economic-lesson02-source-fingerprint.json",
+      "sha256": "73589a0bfaccc99f6df9eff052bbb6f2f4f444a4d3fdae4690c7879316ae3ee2",
+      "bytes": 1623
+    }
+  ]
+}

@@ -1,10 +1,10 @@
 import {usePortAutoplay} from '../classroom/usePortAutoplay';
 import {PortLessonSixFilmPlayback} from './PortLessonSixFilmPlayback';
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
 import { LESSON_SIX_DEFAULT, lessonSixStateValid, type LessonSixPresentation, type PortLessonSixPage } from '@edu/course-content';
 import { SlideViewport } from '../classroom/SlideViewport';
-import { ClassroomPlaybackSlot } from '../classroom/ClassroomPlaybackSlot';
+import { PageToolsContribution } from '../classroom/PageTools';
+import { Pause, Play } from 'lucide-react';
 import { PortLessonSixComposition } from './PortLessonSixComposition';
 import {LessonSixGlobeControls} from './PortLessonSixGlobe';
 import {lessonSixCamera} from './lesson-six-geography';
@@ -15,7 +15,7 @@ export function PortLessonSixStage(props:{page:PortLessonSixPage;readOnly?:boole
   return <Playback key={`${host.scope}:${props.page.slideKey}:${!!props.readOnly}`} {...props}/>;
 }
 function Playback({page,readOnly=false,state:controlled}:{page:PortLessonSixPage;readOnly?:boolean;state?:LessonSixPresentation}){
-  const host=useContext(PortLessonSixControls),slot=useContext(ClassroomPlaybackSlot),storageKey=`port-l6:${host.scope}:${page.slideKey}`;
+  const host=useContext(PortLessonSixControls),storageKey=`port-l6:${host.scope}:${page.slideKey}`;
   const [state,setState]=useState<LessonSixPresentation>(()=>{
     if(host.initial?.slideKey===page.slideKey&&lessonSixStateValid(page,host.initial))return host.initial;
     if(!readOnly)try{const saved=JSON.parse(sessionStorage.getItem(storageKey)??'null');if(saved&&lessonSixStateValid(page,saved))return saved;}catch{/* storage may be unavailable */}
@@ -48,5 +48,5 @@ function Playback({page,readOnly=false,state:controlled}:{page:PortLessonSixPage
     {page.visual==='map'&&<><button onClick={()=>update({...current.current,camera:{latitude:30,longitude:110,distance:3.1}})}>地球全貌</button><button onClick={()=>update({...current.current,camera:lessonSixCamera(page.localPage,state.option)})}>回到案例</button><span className="l6-globe-help">拖动旋转 · 滚轮缩放</span></>}
     {page.reveal&&<button onClick={()=>{cancel();setPlaying(false);update({...current.current,progress:1,revealed:!state.revealed});}}>{state.revealed?'收起解析':'揭示解析'}</button>}
   </div>:null;
-  return <LessonSixGlobeControls.Provider value={{readOnly,onCameraChange:camera=>{cancel();setPlaying(false);update({...current.current,camera});}}}><section className="l6-stage"><SlideViewport label={`第6讲 · ${page.localPage}/48`}><PortLessonSixComposition page={page} state={shown}/></SlideViewport>{slot&&controls?createPortal(controls,slot):controls}</section></LessonSixGlobeControls.Provider>;
+  return <LessonSixGlobeControls.Provider value={{readOnly,onCameraChange:camera=>{cancel();setPlaying(false);update({...current.current,camera});}}}><section className="l6-stage"><SlideViewport label={`第6讲 · ${page.localPage}/48`}><PortLessonSixComposition page={page} state={shown}/></SlideViewport>{controls&&<PageToolsContribution pageKey={page.slideKey} title="播放与解析" actions={[{id:'play',label:playing?'暂停':'播放',icon:playing?<Pause size={18}/>:<Play size={18}/>,onInvoke:play}]}>{controls}</PageToolsContribution>}</section></LessonSixGlobeControls.Provider>;
 }

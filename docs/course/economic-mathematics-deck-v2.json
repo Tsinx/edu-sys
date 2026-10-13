@@ -1,186 +1,206 @@
 {
-  "deckId": "deck-economic-mathematics-2026-v2",
-  "versionId": "release-economic-mathematics-editorial-v2",
+  "deckId": "deck-economic-mathematics-2026-limits-sequence",
+  "versionId": "release-economic-mathematics-limits-sequence-2026-10-11",
   "canvas": [
     1600,
     1000
   ],
   "hours": 64,
-  "slideTotal": 348,
+  "slideTotal": 529,
   "lessons": [
     {
       "number": 1,
       "unit": 1,
-      "unitTitle": "函数与营销定量模型",
-      "title": "函数：从交易记录到数量关系",
-      "hours": 2,
-      "expectedSlides": 15,
-      "coreQuestion": "记录怎样变成可以计算的规则？",
-      "exerciseCapability": "识别输入、输出和参数；求定义域并解释单位",
+      "unitTitle": "课程引入与函数模型",
+      "title": "课程引入：从一个点开始",
+      "hours": 1,
+      "expectedSlides": 40,
+      "coreQuestion": "如何用数学检查一个经济判断？",
+      "exerciseCapability": "区分收入与利润，使用比例关系检验降价判断。",
       "slideStart": 1,
-      "slideEnd": 15,
+      "slideEnd": 40,
       "prerequisites": [
-        "代数运算",
-        "区间"
+        "乘法与比例"
       ],
       "outcomes": [
-        "识别输入、输出和参数",
-        "求定义域并解释单位"
+        "了解课程框架与学习要求",
+        "使用比例关系检验收入与利润判断"
       ],
       "route": [
         {
-          "minutes": 12,
-          "activity": "零售记录"
+          "minutes": 1.5,
+          "activity": "几何动态短片"
         },
         {
-          "minutes": 25,
-          "activity": "函数与定义域"
+          "minutes": 12.5,
+          "activity": "课程框架"
         },
         {
-          "minutes": 23,
-          "activity": "完整建模"
+          "minutes": 6,
+          "activity": "认识老师"
         },
         {
-          "minutes": 20,
-          "activity": "独立练习"
+          "minutes": 13,
+          "activity": "学习须知"
         },
         {
           "minutes": 10,
-          "activity": "配送计费迁移"
+          "activity": "第一次数学判断"
+        },
+        {
+          "minutes": 2,
+          "activity": "收束"
         }
       ],
-      "slideTotal": 15
+      "slideTotal": 40
     },
     {
       "number": 2,
       "unit": 1,
       "unitTitle": "函数与营销定量模型",
-      "title": "需求、收入、成本与利润",
+      "title": "函数与营销定量模型",
       "hours": 2,
-      "expectedSlides": 11,
-      "coreQuestion": "卖得更多，赚得也更多吗？",
-      "exerciseCapability": "区分收入与利润；连接价格与销量；解释盈亏",
-      "slideStart": 16,
-      "slideEnd": 26,
+      "expectedSlides": 59,
+      "coreQuestion": "一个商家准备调整售价，怎样得到一份有依据的定价建议？",
+      "exerciseCapability": "确定经营可行集，检查复合与反函数，证明全域最优并比较扩容收益和成本。",
+      "slideStart": 41,
+      "slideEnd": 99,
       "prerequisites": [
-        "函数",
-        "单位与定义域"
+        "集合、区间与集合运算",
+        "一次函数、二次函数与不等式",
+        "函数单调性、二次函数顶点与配方"
       ],
       "outcomes": [
-        "区分收入与利润",
-        "连接价格与销量",
-        "解释盈亏"
+        "陈述映射、像与原像，区分单射、满射与双射",
+        "区分定义域、陪域与值域",
+        "检验复合和反函数条件",
+        "证明定价结论并解释容量变化"
       ],
       "route": [
         {
-          "minutes": 15,
-          "activity": "价格记录与问题"
+          "minutes": 45,
+          "activity": "从销量记录到映射、经济定义域和合法成本链；独立练习9分钟"
         },
         {
-          "minutes": 25,
-          "activity": "收入成本模型"
-        },
-        {
-          "minutes": 20,
-          "activity": "利润实验"
-        },
-        {
-          "minutes": 20,
-          "activity": "独立练习"
-        },
-        {
-          "minutes": 10,
-          "activity": "行业迁移"
+          "minutes": 45,
+          "activity": "从销量目标到反函数、最优定价和扩容比较；独立练习11分钟"
         }
       ],
-      "slideTotal": 11
+      "classHours": [
+        {
+          "hour": 1,
+          "minutes": 45,
+          "slideStart": 1,
+          "slideEnd": 29,
+          "activity": "记录、经营条件与函数链"
+        },
+        {
+          "hour": 2,
+          "minutes": 45,
+          "slideStart": 30,
+          "slideEnd": 59,
+          "activity": "目标、定价与扩容决策"
+        }
+      ],
+      "slideTotal": 59
     },
     {
       "number": 3,
       "unit": 2,
       "unitTitle": "极限与连续",
-      "title": "数列极限：逐轮接近",
+      "title": "从数列到函数极限",
       "hours": 2,
-      "expectedSlides": 11,
-      "coreQuestion": "广告优化能无限增加触达吗？",
-      "exerciseCapability": "识别数列的极限；用误差刻画接近；区别趋势与终点",
-      "slideStart": 27,
-      "slideEnd": 37,
+      "expectedSlides": 72,
+      "coreQuestion": "怎样不除以零，又对任意精度给出保证？",
+      "exerciseCapability": "按映射理解数列，区分潜无穷、实无穷与极限过程；读懂并应用ε–N定义、否定条件及正负无穷；区分有限期限、极限能力与实际承诺；从全部尾项过渡到全部附近输入，应用ε–δ定义",
+      "slideStart": 100,
+      "slideEnd": 171,
       "prerequisites": [
-        "数列",
-        "不等式"
+        "第二讲商家模型、可行集和报价网格",
+        "高中导数符号、代数恒等式、绝对值与指数"
       ],
       "outcomes": [
-        "识别数列的极限",
-        "用误差刻画接近",
-        "区别趋势与终点"
+        "按映射理解数列，区分潜无穷、实无穷与极限过程",
+        "读懂并应用ε–N定义、否定条件及正负无穷",
+        "区分有限期限、极限能力与实际承诺",
+        "从全部尾项过渡到全部附近输入，应用ε–δ定义"
       ],
       "route": [
         {
-          "minutes": 15,
-          "activity": "投放轮次"
+          "minutes": 45,
+          "activity": "差商与历史短片 → 数列与无穷直觉 → 误差带与ε–N → 基础判断、门槛证明及反馈"
         },
         {
-          "minutes": 25,
-          "activity": "数列与极限"
-        },
-        {
-          "minutes": 20,
-          "activity": "误差实验"
-        },
-        {
-          "minutes": 20,
-          "activity": "独立练习"
-        },
-        {
-          "minutes": 10,
-          "activity": "库存迁移"
+          "minutes": 45,
+          "activity": "否定条件与正负无穷 → 扩容期限 → 数列到函数、ε–δ及练习 → 返回80元两侧"
         }
       ],
-      "slideTotal": 11
+      "classHours": [
+        {
+          "hour": 1,
+          "minutes": 45,
+          "slideStart": 1,
+          "slideEnd": 36,
+          "activity": "差商与历史短片 → 数列与无穷直觉 → 误差带与ε–N → 基础判断、门槛证明及反馈"
+        },
+        {
+          "hour": 2,
+          "minutes": 45,
+          "slideStart": 37,
+          "slideEnd": 72,
+          "activity": "否定条件与正负无穷 → 扩容期限 → 数列到函数、ε–δ及练习 → 返回80元两侧"
+        }
+      ],
+      "slideTotal": 72
     },
     {
       "number": 4,
       "unit": 2,
       "unitTitle": "极限与连续",
-      "title": "函数极限：位置附近的趋势",
+      "title": "左右极限、计算与采购决策",
       "hours": 2,
-      "expectedSlides": 11,
-      "coreQuestion": "缺失的一条记录能否由邻近趋势补足？",
-      "exerciseCapability": "计算左右极限；使用因式分解与有理化；区分函数值和极限",
-      "slideStart": 38,
-      "slideEnd": 48,
+      "expectedSlides": 58,
+      "coreQuestion": "左右能否拼成同一个极限，理想成本能否指导本批采购？",
+      "exerciseCapability": "区分函数极限与差商极限，判断左右条件；有条件地运用法则与精确变形；区分输入规模、输出无穷与实际定义域；在同一批量和完整费用下作出采购判断",
+      "slideStart": 172,
+      "slideEnd": 229,
       "prerequisites": [
-        "函数与数列极限"
+        "第二讲商家模型、可行集和报价网格",
+        "高中导数符号、代数恒等式、绝对值与指数"
       ],
       "outcomes": [
-        "计算左右极限",
-        "使用因式分解与有理化",
-        "区分函数值和极限"
+        "区分函数极限与差商极限，判断左右条件",
+        "有条件地运用法则与精确变形",
+        "区分输入规模、输出无穷与实际定义域",
+        "在同一批量和完整费用下作出采购判断"
       ],
       "route": [
         {
-          "minutes": 15,
-          "activity": "邻近数据"
+          "minutes": 45,
+          "activity": "从80元两侧到左右极限 → 合同门槛 → 有条件的法则与变形 → 基础选择与参数证明"
         },
         {
-          "minutes": 25,
-          "activity": "左右极限"
-        },
-        {
-          "minutes": 25,
-          "activity": "代数计算"
-        },
-        {
-          "minutes": 15,
-          "activity": "独立练习"
-        },
-        {
-          "minutes": 10,
-          "activity": "边界迁移"
+          "minutes": 45,
+          "activity": "有限采购范围与理想延伸 → 输入规模与输出高度 → 夹逼 → 本批采购与库存费用"
         }
       ],
-      "slideTotal": 11
+      "classHours": [
+        {
+          "hour": 1,
+          "minutes": 45,
+          "slideStart": 1,
+          "slideEnd": 30,
+          "activity": "从80元两侧到左右极限 → 合同门槛 → 有条件的法则与变形 → 基础选择与参数证明"
+        },
+        {
+          "hour": 2,
+          "minutes": 45,
+          "slideStart": 31,
+          "slideEnd": 58,
+          "activity": "有限采购范围与理想延伸 → 输入规模与输出高度 → 夹逼 → 本批采购与库存费用"
+        }
+      ],
+      "slideTotal": 58
     },
     {
       "number": 5,
@@ -191,8 +211,8 @@
       "expectedSlides": 15,
       "coreQuestion": "小变化在什么条件下可以替换？",
       "exerciseCapability": "建立正弦重要极限；辨别等价替换的条件",
-      "slideStart": 49,
-      "slideEnd": 63,
+      "slideStart": 230,
+      "slideEnd": 244,
       "prerequisites": [
         "极限",
         "夹逼思想",
@@ -235,8 +255,8 @@
       "expectedSlides": 11,
       "coreQuestion": "规则在哪一个位置突然改变？",
       "exerciseCapability": "验证连续的三个条件；区分间断类型；解释商业门槛",
-      "slideStart": 64,
-      "slideEnd": 74,
+      "slideStart": 245,
+      "slideEnd": 255,
       "prerequisites": [
         "左右极限",
         "函数值"
@@ -279,8 +299,8 @@
       "expectedSlides": 11,
       "coreQuestion": "很小的调价怎样改变利润？",
       "exerciseCapability": "用定义求导；解释导数单位；区分割线与切线",
-      "slideStart": 75,
-      "slideEnd": 85,
+      "slideStart": 256,
+      "slideEnd": 266,
       "prerequisites": [
         "函数极限",
         "利润函数"
@@ -323,8 +343,8 @@
       "expectedSlides": 10,
       "coreQuestion": "复杂的成本关系怎样拆开计算？",
       "exerciseCapability": "使用基本求导公式；正确应用乘积与商法则",
-      "slideStart": 86,
-      "slideEnd": 95,
+      "slideStart": 267,
+      "slideEnd": 276,
       "prerequisites": [
         "导数定义",
         "幂运算"
@@ -366,8 +386,8 @@
       "expectedSlides": 10,
       "coreQuestion": "曝光变化怎样传到订阅收入？",
       "exerciseCapability": "识别内外函数；计算复合变化率；核对单位链",
-      "slideStart": 96,
-      "slideEnd": 105,
+      "slideStart": 277,
+      "slideEnd": 286,
       "prerequisites": [
         "基本求导",
         "复合函数"
@@ -410,8 +430,8 @@
       "expectedSlides": 10,
       "coreQuestion": "销售增速上升时，销售量一定加速增长吗？",
       "exerciseCapability": "计算二阶导数；区分水平、增速与增速变化",
-      "slideStart": 106,
-      "slideEnd": 115,
+      "slideStart": 287,
+      "slideEnd": 296,
       "prerequisites": [
         "一阶导数",
         "链式法则"
@@ -453,8 +473,8 @@
       "expectedSlides": 10,
       "coreQuestion": "小幅调价的估算会偏差多少？",
       "exerciseCapability": "计算微分；比较增量与微分；解释近似误差",
-      "slideStart": 116,
-      "slideEnd": 125,
+      "slideStart": 297,
+      "slideEnd": 306,
       "prerequisites": [
         "导数",
         "切线"
@@ -497,8 +517,8 @@
       "expectedSlides": 11,
       "coreQuestion": "一段平均变化能证明什么？",
       "exerciseCapability": "检查定理条件；用中值定理连接变化率；证明简单不等式",
-      "slideStart": 126,
-      "slideEnd": 136,
+      "slideStart": 307,
+      "slideEnd": 317,
       "prerequisites": [
         "连续与可导"
       ],
@@ -540,8 +560,8 @@
       "expectedSlides": 11,
       "coreQuestion": "零除以零，为什么没有固定答案？",
       "exerciseCapability": "识别未定式；核验洛必达条件；转换其他未定形式",
-      "slideStart": 137,
-      "slideEnd": 147,
+      "slideStart": 318,
+      "slideEnd": 328,
       "prerequisites": [
         "极限",
         "求导"
@@ -584,8 +604,8 @@
       "expectedSlides": 10,
       "coreQuestion": "候选价格怎样变成可行的最优价格？",
       "exerciseCapability": "用导数判断单调；比较端点与驻点；解释凹凸和拐点",
-      "slideStart": 148,
-      "slideEnd": 157,
+      "slideStart": 329,
+      "slideEnd": 338,
       "prerequisites": [
         "一阶与二阶导数"
       ],
@@ -627,8 +647,8 @@
       "expectedSlides": 10,
       "coreQuestion": "多销售一件，会带来多少净收益？",
       "exerciseCapability": "按销量定义边际量；区分平均量与边际量；使用MR=MC并检验最优",
-      "slideStart": 158,
-      "slideEnd": 167,
+      "slideStart": 339,
+      "slideEnd": 348,
       "prerequisites": [
         "导数与极值",
         "反函数关系"
@@ -671,8 +691,8 @@
       "expectedSlides": 10,
       "coreQuestion": "同样涨价1%，销量反应为什么不同？",
       "exerciseCapability": "计算无量纲需求弹性；连接弹性与收入变化；区分收入最优和利润最优",
-      "slideStart": 168,
-      "slideEnd": 177,
+      "slideStart": 349,
+      "slideEnd": 358,
       "prerequisites": [
         "导数",
         "边际收入"
@@ -715,8 +735,8 @@
       "expectedSlides": 10,
       "coreQuestion": "只知道变化率，能恢复总量吗？",
       "exerciseCapability": "辨认原函数；保留积分常数；利用初始条件恢复函数",
-      "slideStart": 178,
-      "slideEnd": 187,
+      "slideStart": 359,
+      "slideEnd": 368,
       "prerequisites": [
         "基本求导"
       ],
@@ -758,8 +778,8 @@
       "expectedSlides": 10,
       "coreQuestion": "哪些变化率可以直接恢复？",
       "exerciseCapability": "使用积分公式；通过求导核验；注意定义域与绝对值",
-      "slideStart": 188,
-      "slideEnd": 197,
+      "slideStart": 369,
+      "slideEnd": 378,
       "prerequisites": [
         "原函数",
         "基本求导公式"
@@ -802,8 +822,8 @@
       "expectedSlides": 10,
       "coreQuestion": "复杂表达式里藏着什么简单结构？",
       "exerciseCapability": "识别微分因子；完成换元与回代；解释换元范围",
-      "slideStart": 198,
-      "slideEnd": 207,
+      "slideStart": 379,
+      "slideEnd": 388,
       "prerequisites": [
         "链式法则",
         "积分公式"
@@ -846,8 +866,8 @@
       "expectedSlides": 10,
       "coreQuestion": "一个乘积怎样化成更简单的积分？",
       "exerciseCapability": "选择u与dv；正确保留边界与符号；核验分部积分结果",
-      "slideStart": 208,
-      "slideEnd": 217,
+      "slideStart": 389,
+      "slideEnd": 398,
       "prerequisites": [
         "乘积求导",
         "换元积分"
@@ -890,8 +910,8 @@
       "expectedSlides": 10,
       "coreQuestion": "一天的配送量怎样从速率记录估算？",
       "exerciseCapability": "建立黎曼和；解释有向面积；比较取样误差",
-      "slideStart": 218,
-      "slideEnd": 227,
+      "slideStart": 399,
+      "slideEnd": 408,
       "prerequisites": [
         "积分公式",
         "数列极限"
@@ -934,8 +954,8 @@
       "expectedSlides": 10,
       "coreQuestion": "为什么累计量的导数回到速率？",
       "exerciseCapability": "使用牛顿莱布尼茨公式；求变上限积分导数；区分累计量与速率",
-      "slideStart": 228,
-      "slideEnd": 237,
+      "slideStart": 409,
+      "slideEnd": 418,
       "prerequisites": [
         "原函数",
         "定积分"
@@ -978,8 +998,8 @@
       "expectedSlides": 10,
       "coreQuestion": "换了变量，边界要怎样跟着改变？",
       "exerciseCapability": "同步变换上下限；处理定积分边界项；检查符号与单位",
-      "slideStart": 238,
-      "slideEnd": 247,
+      "slideStart": 419,
+      "slideEnd": 428,
       "prerequisites": [
         "换元",
         "分部积分",
@@ -1023,8 +1043,8 @@
       "expectedSlides": 10,
       "coreQuestion": "总量和平均量怎样帮助安排运营？",
       "exerciseCapability": "从速率求累计；计算区间平均值；区别净面积与几何面积",
-      "slideStart": 248,
-      "slideEnd": 257,
+      "slideStart": 429,
+      "slideEnd": 438,
       "prerequisites": [
         "定积分与基本定理"
       ],
@@ -1066,8 +1086,8 @@
       "expectedSlides": 10,
       "coreQuestion": "曲线下的面积能够表达什么经济差额？",
       "exerciseCapability": "计算两类剩余；确定积分范围；区分剩余与企业利润",
-      "slideStart": 258,
-      "slideEnd": 267,
+      "slideStart": 439,
+      "slideEnd": 448,
       "prerequisites": [
         "反需求",
         "定积分与面积"
@@ -1110,8 +1130,8 @@
       "expectedSlides": 14,
       "coreQuestion": "两个输入怎样共同决定结果？",
       "exerciseCapability": "二元函数的定义域；区分曲面、截线、等高线",
-      "slideStart": 268,
-      "slideEnd": 281,
+      "slideStart": 449,
+      "slideEnd": 462,
       "prerequisites": [
         "一元函数",
         "坐标",
@@ -1154,8 +1174,8 @@
       "expectedSlides": 10,
       "coreQuestion": "保持广告不变时，调价会怎样？",
       "exerciseCapability": "求偏导数；说明固定条件和单位；辨别混合偏导",
-      "slideStart": 282,
-      "slideEnd": 291,
+      "slideStart": 463,
+      "slideEnd": 472,
       "prerequisites": [
         "多元函数",
         "单变量求导"
@@ -1198,8 +1218,8 @@
       "expectedSlides": 10,
       "coreQuestion": "两个小变化如何合并估算？",
       "exerciseCapability": "计算全微分；构造切平面；比较实际变化与近似误差",
-      "slideStart": 292,
-      "slideEnd": 301,
+      "slideStart": 473,
+      "slideEnd": 482,
       "prerequisites": [
         "偏导数",
         "单变量微分"
@@ -1242,8 +1262,8 @@
       "expectedSlides": 10,
       "coreQuestion": "决策沿一条路径联动时，变化率怎样传递？",
       "exerciseCapability": "计算联动路径导数；求隐函数偏导；解释保持目标不变的补偿",
-      "slideStart": 302,
-      "slideEnd": 311,
+      "slideStart": 483,
+      "slideEnd": 492,
       "prerequisites": [
         "偏导与全微分",
         "单变量链式法则"
@@ -1286,8 +1306,8 @@
       "expectedSlides": 11,
       "coreQuestion": "两项投入的驻点一定最好吗？",
       "exerciseCapability": "求多元驻点；使用Hessian判别；比较局部和全局最优",
-      "slideStart": 312,
-      "slideEnd": 322,
+      "slideStart": 493,
+      "slideEnd": 503,
       "prerequisites": [
         "一阶与二阶偏导"
       ],
@@ -1329,8 +1349,8 @@
       "expectedSlides": 14,
       "coreQuestion": "有限资源怎样比较增量响应？",
       "exerciseCapability": "消元与拉格朗日法；检查边界并解释影子价格",
-      "slideStart": 323,
-      "slideEnd": 336,
+      "slideStart": 504,
+      "slideEnd": 517,
       "prerequisites": [
         "偏导数",
         "一元极值"
@@ -1372,8 +1392,8 @@
       "expectedSlides": 12,
       "coreQuestion": "新行业、新成本下，你能独立完成建模吗？",
       "exerciseCapability": "独立识别变量和约束；完整求解并比较边界；解释敏感性与模型限制",
-      "slideStart": 337,
-      "slideEnd": 348,
+      "slideStart": 518,
+      "slideEnd": 529,
       "prerequisites": [
         "函数、微分、积分与约束优化"
       ],
@@ -1407,576 +1427,2625 @@
       "slideTotal": 12
     }
   ],
-  "constructivistPages": 24,
+  "constructivistPages": 29,
   "pages": [
     {
       "index": 1,
-      "slideKey": "em-v2-l01-p001",
+      "slideKey": "em-intro-film",
       "lesson": 1,
       "localIndex": 1,
       "title": "经济数学",
-      "layout": "cover",
-      "style": "cover",
-      "image": "course-cover.png",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 2,
-      "slideKey": "em-v2-l01-p002",
+      "slideKey": "em-intro-welcome",
       "lesson": 1,
       "localIndex": 2,
-      "title": "函数与营销定量模型",
-      "layout": "cover",
-      "style": "cover",
-      "image": "unit-01.png",
+      "title": "看见变化，做出选择。",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 3,
-      "slideKey": "em-v2-l01-p003",
+      "slideKey": "em-intro-four-shapes",
       "lesson": 1,
       "localIndex": 3,
-      "title": "三次定价记录",
-      "layout": "story",
-      "image": "l01-scene.png",
+      "title": "刚才的形状，也是问题的形状。",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 4,
-      "slideKey": "em-v2-l01-p004",
+      "slideKey": "em-intro-receipt",
       "lesson": 1,
       "localIndex": 4,
-      "title": "输入、输出与参数",
-      "layout": "split",
-      "steps": 0,
-      "revealTitles": []
+      "title": "一家店，两周收入。",
+      "steps": 2,
+      "revealTitles": [
+        "销量增加了，收入却减少了。",
+        "收入 = 单价 × 销量；利润还需要成本。"
+      ]
     },
     {
       "index": 5,
-      "slideKey": "em-v2-l01-p005",
+      "slideKey": "em-intro-scope",
       "lesson": 1,
       "localIndex": 5,
-      "title": "函数的三个组成部分",
-      "layout": "essay",
+      "title": "这门课的坐标",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 6,
-      "slideKey": "em-v2-l01-p006",
+      "slideKey": "em-intro-map",
       "lesson": 1,
       "localIndex": 6,
-      "title": "价格模型的定义域",
-      "layout": "proof",
-      "steps": 3,
-      "revealTitles": [
-        "销量非负",
-        "价格非负",
-        "共同范围"
-      ]
+      "title": "八个单元，一条问题链。",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 7,
-      "slideKey": "em-v2-l01-p007",
+      "slideKey": "em-intro-unit-1",
       "lesson": 1,
       "localIndex": 7,
-      "title": "定义域先于代入",
-      "layout": "exercise",
-      "style": "constructivist",
-      "steps": 3,
-      "revealTitles": [
-        "根号条件",
-        "分母条件",
-        "交集"
-      ]
+      "title": "给现实中的量一个名字。",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 8,
-      "slideKey": "em-v2-l01-p008",
+      "slideKey": "em-intro-unit-2",
       "lesson": 1,
       "localIndex": 8,
-      "title": "同一关系的三种表示",
-      "layout": "essay",
-      "image": "l01-concept.png",
+      "title": "越来越近，不等于已经到达。",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 9,
-      "slideKey": "em-v2-l01-p009",
+      "slideKey": "em-intro-unit-3",
       "lesson": 1,
       "localIndex": 9,
-      "title": "价格与需求的图形",
-      "layout": "plot",
+      "title": "把镜头推近。",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 10,
-      "slideKey": "em-v2-l01-p010",
+      "slideKey": "em-intro-unit-4",
       "lesson": 1,
       "localIndex": 10,
-      "title": "记录、模型与预测",
-      "layout": "compare",
+      "title": "再多一点，带来什么？",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 11,
-      "slideKey": "em-v2-l01-p011",
+      "slideKey": "em-intro-unit-5",
       "lesson": 1,
       "localIndex": 11,
-      "title": "配送费的分段规则",
-      "layout": "proof",
-      "steps": 2,
-      "revealTitles": [
-        "半千克",
-        "两千克半"
-      ]
+      "title": "沿着变化，找回原来的函数。",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 12,
-      "slideKey": "em-v2-l01-p012",
+      "slideKey": "em-intro-unit-6",
       "lesson": 1,
       "localIndex": 12,
-      "title": "连续计费与进位计费",
-      "layout": "compare",
-      "steps": 1,
-      "revealTitles": [
-        "比较结果"
-      ]
+      "title": "把每一小段，加起来。",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 13,
-      "slideKey": "em-v2-l01-p013",
+      "slideKey": "em-intro-unit-7",
       "lesson": 1,
       "localIndex": 13,
-      "title": "独立建模：打印费用",
-      "layout": "exercise",
-      "steps": 3,
-      "revealTitles": [
-        "费用规则",
-        "输入范围",
-        "代入"
-      ]
+      "title": "世界不只有一个旋钮。",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 14,
-      "slideKey": "em-v2-l01-p014",
+      "slideKey": "em-intro-unit-8",
       "lesson": 1,
       "localIndex": 14,
-      "title": "一个关系，两项检查",
-      "layout": "essay",
+      "title": "有限的预算，更好的分配。",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 15,
-      "slideKey": "em-v2-l01-p015",
+      "slideKey": "em-intro-evidence-chain",
       "lesson": 1,
       "localIndex": 15,
-      "title": "销量增加与利润增加",
-      "layout": "split",
-      "steps": 0,
-      "revealTitles": []
+      "title": "一个结论，需要一条证据链。",
+      "steps": 1,
+      "revealTitles": [
+        "公式帮助我们判断；假设决定判断能走多远。"
+      ]
     },
     {
       "index": 16,
-      "slideKey": "em-v2-l02-p001",
-      "lesson": 2,
-      "localIndex": 1,
-      "title": "补货日的选择",
-      "layout": "story",
-      "image": "l02-scene.png",
+      "slideKey": "em-intro-teacher",
+      "lesson": 1,
+      "localIndex": 16,
+      "title": "李行之",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 17,
-      "slideKey": "em-v2-l02-p002",
-      "lesson": 2,
-      "localIndex": 2,
-      "title": "同一业务的四个量",
-      "layout": "essay",
-      "image": "l02-concept.png",
+      "slideKey": "em-intro-research",
+      "lesson": 1,
+      "localIndex": 17,
+      "title": "当 AI 加入协作，决策会怎样改变？",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 18,
-      "slideKey": "em-v2-l02-p003",
-      "lesson": 2,
-      "localIndex": 3,
-      "title": "收入按销量计算",
-      "layout": "proof",
-      "steps": 3,
-      "revealTitles": [
-        "价格决定需求",
-        "收入成为价格函数",
-        "范围与单位"
-      ]
+      "slideKey": "em-intro-tools",
+      "lesson": 1,
+      "localIndex": 18,
+      "title": "把想法做成可以使用的工具。",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 19,
-      "slideKey": "em-v2-l02-p004",
-      "lesson": 2,
-      "localIndex": 4,
-      "title": "固定成本与变动成本",
-      "layout": "split",
-      "steps": 1,
-      "revealTitles": [
-        "计算"
-      ]
+      "slideKey": "em-intro-practice",
+      "lesson": 1,
+      "localIndex": 19,
+      "title": "从教学现场，检验技术的价值。",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 20,
-      "slideKey": "em-v2-l02-p005",
-      "lesson": 2,
-      "localIndex": 5,
-      "title": "把三条关系连起来",
-      "layout": "proof",
-      "steps": 3,
+      "slideKey": "em-intro-conversation",
+      "lesson": 1,
+      "localIndex": 20,
+      "title": "你可以带着“不确定”来上课。",
+      "steps": 1,
       "revealTitles": [
-        "展开",
-        "价格50元",
-        "价格60元"
+        "写下卡住的位置，比只说“我不会”更容易得到帮助。"
       ]
     },
     {
       "index": 21,
-      "slideKey": "em-v2-l02-p006",
-      "lesson": 2,
-      "localIndex": 6,
-      "title": "销量少了，利润增加了",
-      "layout": "plot",
+      "slideKey": "em-intro-textbook",
+      "lesson": 1,
+      "localIndex": 21,
+      "title": "一本主教材，一套练习工具。",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 22,
-      "slideKey": "em-v2-l02-p007",
-      "lesson": 2,
-      "localIndex": 7,
-      "title": "价格实验",
-      "layout": "lab",
-      "steps": 0,
-      "revealTitles": [],
-      "interactionId": "price-profit-lab"
-    },
-    {
-      "index": 23,
-      "slideKey": "em-v2-l02-p008",
-      "lesson": 2,
-      "localIndex": 8,
-      "title": "盈亏平衡不等于最优",
-      "layout": "proof",
-      "steps": 3,
+      "slideKey": "em-intro-resources",
+      "lesson": 1,
+      "localIndex": 22,
+      "title": "课堂之外，把问题再走一遍。",
+      "steps": 1,
       "revealTitles": [
-        "求解",
-        "盈利区间",
-        "另一个问题"
+        "课外资源用于复习；本课程64学时均为线下理论教学。"
       ]
     },
     {
+      "index": 23,
+      "slideKey": "em-intro-assessment",
+      "lesson": 1,
+      "localIndex": 23,
+      "title": "成绩来自四个部分。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
       "index": 24,
-      "slideKey": "em-v2-l02-p009",
-      "lesson": 2,
-      "localIndex": 9,
-      "title": "独立练习：订阅服务",
-      "layout": "exercise",
-      "steps": 2,
+      "slideKey": "em-intro-homework",
+      "lesson": 1,
+      "localIndex": 24,
+      "title": "作业留下你的思考过程。",
+      "steps": 1,
       "revealTitles": [
-        "模型",
-        "结果"
+        "做错后的订正，请说明错误发生在哪一步。"
       ]
     },
     {
       "index": 25,
-      "slideKey": "em-v2-l02-p010",
-      "lesson": 2,
-      "localIndex": 10,
-      "title": "两个假设会改变结论",
-      "layout": "compare",
+      "slideKey": "em-intro-stage-test",
+      "lesson": 1,
+      "localIndex": 25,
+      "title": "阶段考核：独立完成一次检查。",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 26,
-      "slideKey": "em-v2-l02-p011",
-      "lesson": 2,
-      "localIndex": 11,
-      "title": "变量选择决定下一步",
-      "layout": "essay",
-      "steps": 0,
-      "revealTitles": []
+      "slideKey": "em-intro-application",
+      "lesson": 1,
+      "localIndex": 26,
+      "title": "个人应用任务：把预算分配说清楚。",
+      "steps": 1,
+      "revealTitles": [
+        "建议面向管理者；同时写明假设、适用范围及工具使用情况。"
+      ]
     },
     {
       "index": 27,
-      "slideKey": "em-v2-l03-p001",
-      "lesson": 3,
-      "localIndex": 1,
-      "title": "极限与连续",
-      "layout": "cover",
-      "style": "cover",
-      "image": "unit-02.png",
+      "slideKey": "em-intro-final",
+      "lesson": 1,
+      "localIndex": 27,
+      "title": "期末：从计算走向解释。",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 28,
-      "slideKey": "em-v2-l03-p002",
-      "lesson": 3,
-      "localIndex": 2,
-      "title": "广告的逐轮改进",
-      "layout": "story",
-      "image": "l03-scene.png",
-      "steps": 0,
-      "revealTitles": []
+      "slideKey": "em-intro-ai",
+      "lesson": 1,
+      "localIndex": 28,
+      "title": "让 AI 帮忙，也让结论经得起检查。",
+      "steps": 1,
+      "revealTitles": [
+        "不能把工具输出直接当成自己的推导和证据。"
+      ]
     },
     {
       "index": 29,
-      "slideKey": "em-v2-l03-p003",
-      "lesson": 3,
-      "localIndex": 3,
-      "title": "轮次与数值",
-      "layout": "table",
-      "steps": 0,
-      "revealTitles": []
+      "slideKey": "em-intro-verification",
+      "lesson": 1,
+      "localIndex": 29,
+      "title": "算出来了，就一定对吗？",
+      "steps": 1,
+      "revealTitles": [
+        "负数可能是模型超出适用范围的信号；不能直接当作可销售数量。"
+      ]
     },
     {
       "index": 30,
-      "slideKey": "em-v2-l03-p004",
-      "lesson": 3,
-      "localIndex": 4,
-      "title": "接近与达到",
-      "layout": "essay",
-      "image": "l03-concept.png",
-      "steps": 0,
-      "revealTitles": []
+      "slideKey": "em-intro-independent",
+      "lesson": 1,
+      "localIndex": 30,
+      "title": "能复现，才算真正掌握。",
+      "steps": 1,
+      "revealTitles": [
+        "交流可以帮助理解；提交的个人任务应体现自己的推导与判断。"
+      ]
     },
     {
       "index": 31,
-      "slideKey": "em-v2-l03-p005",
-      "lesson": 3,
-      "localIndex": 5,
-      "title": "误差能直接计算",
-      "layout": "proof",
-      "steps": 3,
-      "revealTitles": [
-        "误差小于2",
-        "整数轮次",
-        "任意正误差"
-      ]
+      "slideKey": "em-intro-routine",
+      "lesson": 1,
+      "localIndex": 31,
+      "title": "把复习变成一个小循环。",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 32,
-      "slideKey": "em-v2-l03-p006",
-      "lesson": 3,
-      "localIndex": 6,
-      "title": "数列极限的实验",
-      "layout": "lab",
-      "steps": 0,
-      "revealTitles": [],
-      "interactionId": "sequence-limit-lab"
-    },
-    {
-      "index": 33,
-      "slideKey": "em-v2-l03-p007",
-      "lesson": 3,
-      "localIndex": 7,
-      "title": "极限的运算",
-      "layout": "proof",
-      "steps": 3,
+      "slideKey": "em-intro-start-line",
+      "lesson": 1,
+      "localIndex": 32,
+      "title": "起点可以不同。问题可以一起研究。",
+      "steps": 1,
       "revealTitles": [
-        "和与积",
-        "商的条件",
-        "例题"
+        "今天的第一次判断，只需要乘法与比例。"
       ]
     },
     {
-      "index": 34,
-      "slideKey": "em-v2-l03-p008",
-      "lesson": 3,
-      "localIndex": 8,
-      "title": "有界不等于收敛",
-      "layout": "compare",
-      "style": "constructivist",
+      "index": 33,
+      "slideKey": "em-intro-challenge",
+      "lesson": 1,
+      "localIndex": 33,
+      "title": "降价10%，销量至少增加多少，收入才不下降？",
       "steps": 0,
       "revealTitles": []
+    },
+    {
+      "index": 34,
+      "slideKey": "em-intro-choose-base",
+      "lesson": 1,
+      "localIndex": 34,
+      "title": "先选一组容易检查的数据。",
+      "steps": 1,
+      "revealTitles": [
+        "收入条件：9q ≥ 1,000。"
+      ]
     },
     {
       "index": 35,
-      "slideKey": "em-v2-l03-p009",
-      "lesson": 3,
-      "localIndex": 9,
-      "title": "单调有界的意义",
-      "layout": "essay",
-      "steps": 0,
-      "revealTitles": []
+      "slideKey": "em-intro-wrong-ten",
+      "lesson": 1,
+      "localIndex": 35,
+      "title": "“少10%，多10%”能互相抵消吗？",
+      "steps": 2,
+      "revealTitles": [
+        "新收入：9 × 110 = 990 元。",
+        "比原来少10元；两个百分比的基数不同。"
+      ]
     },
     {
       "index": 36,
-      "slideKey": "em-v2-l03-p010",
-      "lesson": 3,
-      "localIndex": 10,
-      "title": "独立练习：库存回补",
-      "layout": "exercise",
+      "slideKey": "em-intro-derive",
+      "lesson": 1,
+      "localIndex": 36,
+      "title": "保住收入，需要跨过这条线。",
       "steps": 3,
       "revealTitles": [
-        "极限",
-        "误差条件",
-        "整数结论"
+        "9q ≥ 1,000  ⇒  q ≥ 111.111…",
+        "销量增幅 ≥ (111.111… − 100) ÷ 100 = 11.111…%",
+        "如果销量只能取整数件，本例至少卖112件，增幅为12%。"
       ]
     },
     {
       "index": 37,
-      "slideKey": "em-v2-l03-p011",
-      "lesson": 3,
-      "localIndex": 11,
-      "title": "预测需要说明时间范围",
-      "layout": "essay",
-      "steps": 0,
-      "revealTitles": []
+      "slideKey": "em-intro-generalize",
+      "lesson": 1,
+      "localIndex": 37,
+      "title": "从一组数，走向一般关系。",
+      "steps": 3,
+      "revealTitles": [
+        "新收入 = 0.9p × (1 + g)q",
+        "0.9p(1 + g)q ≥ pq  ⇒  0.9(1 + g) ≥ 1",
+        "g ≥ 1 ÷ 0.9 − 1 = 1/9 ≈ 11.111%"
+      ]
     },
     {
       "index": 38,
-      "slideKey": "em-v2-l04-p001",
-      "lesson": 4,
-      "localIndex": 1,
-      "title": "一个空缺的位置",
-      "layout": "story",
-      "image": "l04-scene.png",
-      "steps": 0,
-      "revealTitles": []
+      "slideKey": "em-intro-transfer",
+      "lesson": 1,
+      "localIndex": 38,
+      "title": "收入不下降，利润也不下降吗？",
+      "steps": 3,
+      "revealTitles": [
+        "原贡献： (10 − 6) × 100 = 400 元。",
+        "新贡献： (9 − 6)q = 3q；保住利润需要 q ≥ 133.333…件。",
+        "整数销量至少134件。保住收入，不等于保住利润。"
+      ]
     },
     {
       "index": 39,
-      "slideKey": "em-v2-l04-p002",
-      "lesson": 4,
-      "localIndex": 2,
-      "title": "附近的数值",
-      "layout": "table",
+      "slideKey": "em-intro-exit",
+      "lesson": 1,
+      "localIndex": 39,
+      "title": "把今天的判断，写成三句话。",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 40,
-      "slideKey": "em-v2-l04-p003",
-      "lesson": 4,
-      "localIndex": 3,
-      "title": "空点与极限",
-      "layout": "plot",
+      "slideKey": "em-intro-begin",
+      "lesson": 1,
+      "localIndex": 40,
+      "title": "从一个量开始。",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 41,
-      "slideKey": "em-v2-l04-p004",
-      "lesson": 4,
-      "localIndex": 4,
-      "title": "两条接近路径",
-      "layout": "essay",
-      "image": "l04-concept.png",
+      "slideKey": "em-l02-refined-mapping-p001",
+      "lesson": 2,
+      "localIndex": 1,
+      "title": "函数与营销定量模型",
+      "layout": "cover",
+      "style": "cover",
+      "image": "refined/merchant-cover.png",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 42,
-      "slideKey": "em-v2-l04-p005",
-      "lesson": 4,
-      "localIndex": 5,
-      "title": "分段规则的左右极限",
-      "layout": "proof",
-      "steps": 3,
+      "slideKey": "em-l02-refined-mapping-p002",
+      "lesson": 2,
+      "localIndex": 2,
+      "title": "两个价格，都卖出400件",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 1,
       "revealTitles": [
-        "左侧",
-        "右侧",
-        "双侧"
+        "这张表尚不能区分两种解释"
       ]
     },
     {
       "index": 43,
-      "slideKey": "em-v2-l04-p006",
-      "lesson": 4,
-      "localIndex": 6,
-      "title": "约分先核对范围",
-      "layout": "proof",
-      "steps": 3,
-      "revealTitles": [
-        "邻近但不同于1",
-        "计算趋势",
-        "原函数仍有空点"
-      ]
+      "slideKey": "em-l02-refined-mapping-p003",
+      "lesson": 2,
+      "localIndex": 3,
+      "title": "400件是需求，还是交付上限？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 44,
-      "slideKey": "em-v2-l04-p007",
-      "lesson": 4,
-      "localIndex": 7,
-      "title": "有理化处理根式",
-      "layout": "proof",
-      "steps": 2,
-      "revealTitles": [
-        "乘共轭",
-        "代入连续表达式"
-      ]
+      "slideKey": "em-l02-refined-mapping-p004",
+      "lesson": 2,
+      "localIndex": 4,
+      "title": "相同销量，可以来自不同需求",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 45,
-      "slideKey": "em-v2-l04-p008",
-      "lesson": 4,
-      "localIndex": 8,
-      "title": "无穷远的主导项",
-      "layout": "proof",
-      "steps": 2,
-      "revealTitles": [
-        "同除最高次幂",
-        "求极限"
-      ]
+      "slideKey": "em-l02-refined-mapping-p005",
+      "lesson": 2,
+      "localIndex": 5,
+      "title": "同一个输入，两个不同的研究对象",
+      "layout": "compare",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 46,
-      "slideKey": "em-v2-l04-p009",
-      "lesson": 4,
-      "localIndex": 9,
-      "title": "不能把零分母都叫无穷大",
-      "layout": "compare",
-      "style": "constructivist",
-      "steps": 1,
-      "revealTitles": [
-        "三种结果"
-      ]
+      "slideKey": "em-l02-refined-mapping-p006",
+      "lesson": 2,
+      "localIndex": 6,
+      "title": "映射、像与原像",
+      "layout": "split",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 47,
-      "slideKey": "em-v2-l04-p010",
-      "lesson": 4,
-      "localIndex": 10,
-      "title": "独立计算",
-      "layout": "exercise",
-      "steps": 2,
-      "revealTitles": [
-        "因式分解",
-        "有理化"
-      ]
+      "slideKey": "em-l02-refined-mapping-p007",
+      "lesson": 2,
+      "localIndex": 7,
+      "title": "单射、满射与双射",
+      "layout": "compare",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 48,
-      "slideKey": "em-v2-l04-p011",
-      "lesson": 4,
-      "localIndex": 11,
-      "title": "函数值能否补上？",
-      "layout": "essay",
+      "slideKey": "em-l02-refined-mapping-p008",
+      "lesson": 2,
+      "localIndex": 8,
+      "title": "不同价格，都对应400件，有矛盾吗？",
+      "layout": "split",
+      "style": "editorial",
       "steps": 1,
       "revealTitles": [
-        "补点"
+        "没有违反唯一性"
       ]
     },
     {
       "index": 49,
+      "slideKey": "em-l02-refined-mapping-p009",
+      "lesson": 2,
+      "localIndex": 9,
+      "title": "一元实函数：实数集合之间的映射",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "区分模型与观测"
+      ]
+    },
+    {
+      "index": 50,
+      "slideKey": "em-l02-refined-mapping-p010",
+      "lesson": 2,
+      "localIndex": 10,
+      "title": "定义域、陪域与值域",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 51,
+      "slideKey": "em-l02-refined-mapping-p011",
+      "lesson": 2,
+      "localIndex": 11,
+      "title": "怎样比较表格之外的价格？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 52,
+      "slideKey": "em-l02-refined-mapping-p012",
+      "lesson": 2,
+      "localIndex": 12,
+      "title": "定义域：数学背景与实际背景",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "实际含义进一步限制输入"
+      ]
+    },
+    {
+      "index": 53,
+      "slideKey": "em-l02-refined-mapping-p013",
+      "lesson": 2,
+      "localIndex": 13,
+      "title": "本题允许比较哪些价格？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 54,
+      "slideKey": "em-l02-refined-mapping-p014",
+      "lesson": 2,
+      "localIndex": 14,
+      "title": "平台每次只允许调价0.5元",
+      "layout": "split",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 55,
+      "slideKey": "em-l02-refined-mapping-p015",
+      "lesson": 2,
+      "localIndex": 15,
+      "title": "交付能力，会直接限制售价吗？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 56,
+      "slideKey": "em-l02-refined-mapping-p016",
+      "lesson": 2,
+      "localIndex": 16,
+      "title": "练习一：经营承诺与可行价格",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 57,
+      "slideKey": "em-l02-refined-mapping-p017",
+      "lesson": 2,
+      "localIndex": 17,
+      "title": "先翻译承诺，再求交集",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "允许部分需求不成交",
+        "必须全部履约"
+      ]
+    },
+    {
+      "index": 58,
+      "slideKey": "em-l02-refined-mapping-p018",
+      "lesson": 2,
+      "localIndex": 18,
+      "title": "没有可行方案，该改变什么？",
+      "layout": "essay",
+      "style": "constructivist",
+      "steps": 1,
+      "revealTitles": [
+        "调整意味着真实条件改变"
+      ]
+    },
+    {
+      "index": 59,
+      "slideKey": "em-l02-refined-mapping-p019",
+      "lesson": 2,
+      "localIndex": 19,
+      "title": "不拒绝低价，怎样处理超额需求？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 60,
+      "slideKey": "em-l02-refined-mapping-p020",
+      "lesson": 2,
+      "localIndex": 20,
+      "title": "需求经过容量限制，才成为销量",
+      "layout": "split",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 61,
+      "slideKey": "em-l02-refined-mapping-p021",
+      "lesson": 2,
+      "localIndex": 21,
+      "title": "从履约条件推导分段函数",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "先确定两种机制的分界",
+        "保留每一段的适用范围"
+      ]
+    },
+    {
+      "index": 62,
+      "slideKey": "em-l02-refined-mapping-p022",
+      "lesson": 2,
+      "localIndex": 22,
+      "title": "能卖出的数量，与想买的数量",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 63,
+      "slideKey": "em-l02-refined-mapping-p023",
+      "lesson": 2,
+      "localIndex": 23,
+      "title": "成本账，应按需求还是按履约量计算？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 64,
+      "slideKey": "em-l02-refined-mapping-p024",
+      "lesson": 2,
+      "localIndex": 24,
+      "title": "价格 → 销量 → 成本",
+      "layout": "split",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 65,
+      "slideKey": "em-l02-refined-mapping-p025",
+      "lesson": 2,
+      "localIndex": 25,
+      "title": "复合函数及其定义域",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 66,
+      "slideKey": "em-l02-refined-mapping-p026",
+      "lesson": 2,
+      "localIndex": 26,
+      "title": "练习二：两条成本链，都能接上吗？",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 67,
+      "slideKey": "em-l02-refined-mapping-p027",
+      "lesson": 2,
+      "localIndex": 27,
+      "title": "实际销量链，在整个价格区间成立",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "输出始终进入成本定义域",
+        "保留真实计费过程"
+      ]
+    },
+    {
+      "index": 68,
+      "slideKey": "em-l02-refined-mapping-p028",
+      "lesson": 2,
+      "localIndex": 28,
+      "title": "把需求直接交给成本，哪里会失效？",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "先筛选可以进入的需求输出",
+        "限制以后才得到复合"
+      ]
+    },
+    {
+      "index": 69,
+      "slideKey": "em-l02-refined-mapping-p029",
+      "lesson": 2,
+      "localIndex": 29,
+      "title": "算出16,000，不等于原复合有定义",
+      "layout": "proof",
+      "style": "constructivist",
+      "steps": 3,
+      "revealTitles": [
+        "实际销量始终在合法范围",
+        "第二个复合没有定义",
+        "代数计算更换了研究对象"
+      ]
+    },
+    {
+      "index": 70,
+      "slideKey": "em-l02-refined-mapping-p030",
+      "lesson": 2,
+      "localIndex": 30,
+      "title": "希望每天售出300件，该怎样报价？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 71,
+      "slideKey": "em-l02-refined-mapping-p031",
+      "lesson": 2,
+      "localIndex": 31,
+      "title": "由单射到反函数",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "反向对应：值域成为反函数的定义域"
+      ]
+    },
+    {
+      "index": 72,
+      "slideKey": "em-l02-refined-mapping-p032",
+      "lesson": 2,
+      "localIndex": 32,
+      "title": "同一商家：需求可逆，销量未必",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "需求：所有实际输出都唯一确定价格",
+        "销量：300件唯一，400件却不唯一"
+      ]
+    },
+    {
+      "index": 73,
+      "slideKey": "em-l02-refined-mapping-p033",
+      "lesson": 2,
+      "localIndex": 33,
+      "title": "反函数的输入，必须是原值域",
+      "layout": "split",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "原陪域不等于原值域"
+      ]
+    },
+    {
+      "index": 74,
+      "slideKey": "em-l02-refined-mapping-p034",
+      "lesson": 2,
+      "localIndex": 34,
+      "title": "反函数不是函数值的倒数",
+      "layout": "compare",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 75,
+      "slideKey": "em-l02-refined-mapping-p035",
+      "lesson": 2,
+      "localIndex": 35,
+      "title": "双射与互逆关系",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "价格经过需求再回到价格",
+        "需求经过价格再回到需求"
+      ]
+    },
+    {
+      "index": 76,
+      "slideKey": "em-l02-refined-mapping-p036",
+      "lesson": 2,
+      "localIndex": 36,
+      "title": "400件目标，怎样才能唯一报价？",
+      "layout": "essay",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 77,
+      "slideKey": "em-l02-refined-mapping-p037",
+      "lesson": 2,
+      "localIndex": 37,
+      "title": "练习三：限制原函数，再求逆",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 78,
+      "slideKey": "em-l02-refined-mapping-p038",
+      "lesson": 2,
+      "localIndex": 38,
+      "title": "相同反解表达式，不同反函数",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 79,
+      "slideKey": "em-l02-refined-mapping-p039",
+      "lesson": 2,
+      "localIndex": 39,
+      "title": "销量相同，收入为什么不同？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 80,
+      "slideKey": "em-l02-refined-mapping-p040",
+      "lesson": 2,
+      "localIndex": 40,
+      "title": "平台佣金，按哪一个金额收取？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 81,
+      "slideKey": "em-l02-refined-mapping-p041",
+      "lesson": 2,
+      "localIndex": 41,
+      "title": "从单位贡献到日利润",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "80元处核对账目"
+      ]
+    },
+    {
+      "index": 82,
+      "slideKey": "em-l02-refined-mapping-p042",
+      "lesson": 2,
+      "localIndex": 42,
+      "title": "两种销量机制，两段利润",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "需求不少于能力：销量400件",
+        "需求低于能力：销量1200−10p"
+      ]
+    },
+    {
+      "index": 83,
+      "slideKey": "em-l02-refined-mapping-p043",
+      "lesson": 2,
+      "localIndex": 43,
+      "title": "80元优于两种方案，是否已是最优？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "证明须覆盖整个可行集"
+      ]
+    },
+    {
+      "index": 84,
+      "slideKey": "em-l02-refined-mapping-p044",
+      "lesson": 2,
+      "localIndex": 44,
+      "title": "练习四：用一次与二次函数证明最优价格",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 85,
+      "slideKey": "em-l02-refined-mapping-p045",
+      "lesson": 2,
+      "localIndex": 45,
+      "title": "71.11元：顶点算对了，结论呢？",
+      "layout": "essay",
+      "style": "constructivist",
+      "steps": 1,
+      "revealTitles": [
+        "这个顶点不属于二次分支"
+      ]
+    },
+    {
+      "index": 86,
+      "slideKey": "em-l02-refined-mapping-p046",
+      "lesson": 2,
+      "localIndex": 46,
+      "title": "覆盖整个区间：先分段，再比较",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "左段端点给出候选最大值",
+        "右段位于二次式顶点的右侧"
+      ]
+    },
+    {
+      "index": 87,
+      "slideKey": "em-l02-refined-mapping-p047",
+      "lesson": 2,
+      "localIndex": 47,
+      "title": "证明成立，还要检查能否报价",
+      "layout": "split",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 88,
+      "slideKey": "em-l02-refined-mapping-p048",
+      "lesson": 2,
+      "localIndex": 48,
+      "title": "售价已最优，扩容还能增加利润吗？",
+      "layout": "split",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 89,
+      "slideKey": "em-l02-refined-mapping-p049",
+      "lesson": 2,
+      "localIndex": 49,
+      "title": "容量变500，分界为什么变70？",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "重新求需求与能力相等的位置",
+        "重新定义销量函数"
+      ]
+    },
+    {
+      "index": 90,
+      "slideKey": "em-l02-refined-mapping-p050",
+      "lesson": 2,
+      "localIndex": 50,
+      "title": "扩容后，利润函数怎样改变？",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 91,
+      "slideKey": "em-l02-refined-mapping-p051",
+      "lesson": 2,
+      "localIndex": 51,
+      "title": "同一顶点，现在进入合法分支",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "比较两段的最好结果",
+        "连续模型的全局最优"
+      ]
+    },
+    {
+      "index": 92,
+      "slideKey": "em-l02-refined-mapping-p052",
+      "lesson": 2,
+      "localIndex": 52,
+      "title": "71.11元不能报价，比较哪两个点？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 93,
+      "slideKey": "em-l02-refined-mapping-p053",
+      "lesson": 2,
+      "localIndex": 53,
+      "title": "多赚711元，扩容成本却是1,000元",
+      "layout": "table",
+      "style": "constructivist",
+      "steps": 1,
+      "revealTitles": [
+        "项目比较与方案内部排序不同"
+      ]
+    },
+    {
+      "index": 94,
+      "slideKey": "em-l02-refined-mapping-p054",
+      "lesson": 2,
+      "localIndex": 54,
+      "title": "同一模型，核对扩容前后的账",
+      "layout": "lab",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "interactionId": "price-profit-lab"
+    },
+    {
+      "index": 95,
+      "slideKey": "em-l02-refined-mapping-p055",
+      "lesson": 2,
+      "localIndex": 55,
+      "title": "综合练习：另一商品的定价",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 96,
+      "slideKey": "em-l02-refined-mapping-p056",
+      "lesson": 2,
+      "localIndex": 56,
+      "title": "先核对可行集与逆向判断",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "全部履约要求需求不超过320",
+        "320件目标对应多个价格"
+      ]
+    },
+    {
+      "index": 97,
+      "slideKey": "em-l02-refined-mapping-p057",
+      "lesson": 2,
+      "localIndex": 57,
+      "title": "利润算对，还要说明比较范围",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "本次计算支持的结论"
+      ]
+    },
+    {
+      "index": 98,
+      "slideKey": "em-l02-refined-mapping-p058",
+      "lesson": 2,
+      "localIndex": 58,
+      "title": "定价报告，还缺哪些经营证据？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 99,
+      "slideKey": "em-l02-refined-mapping-p059",
+      "lesson": 2,
+      "localIndex": 59,
+      "title": "函数的条件，也是决策的条件",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 100,
+      "slideKey": "em-l03-limits-sequence-20261011-p001",
+      "lesson": 3,
+      "localIndex": 1,
+      "title": "分母不能是零，导数怎样得到？",
+      "layout": "cover",
+      "style": "cover",
+      "image": "v2/l03-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 101,
+      "slideKey": "em-l03-limits-sequence-20261011-p002",
+      "lesson": 3,
+      "localIndex": 2,
+      "title": "80元最优，左右各动一次呢？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 102,
+      "slideKey": "em-l03-limits-sequence-20261011-p003",
+      "lesson": 3,
+      "localIndex": 3,
+      "title": "同样五角，两边的损失并不相同",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 103,
+      "slideKey": "em-l03-limits-sequence-20261011-p004",
+      "lesson": 3,
+      "localIndex": 4,
+      "title": "用增量之比比较两次变化",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "两个方向，两个比值"
+      ]
+    },
+    {
+      "index": 104,
+      "slideKey": "em-l03-limits-sequence-20261011-p005",
+      "lesson": 3,
+      "localIndex": 5,
+      "title": "五角报价，能研究一分钱的变化吗？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 105,
+      "slideKey": "em-l03-limits-sequence-20261011-p006",
+      "lesson": 3,
+      "localIndex": 6,
+      "title": "高中导数公式里，究竟在做什么？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 106,
+      "slideKey": "em-l03-limits-sequence-20261011-p007",
+      "lesson": 3,
+      "localIndex": 7,
+      "title": "一个固定的小数，够小了吗？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 107,
+      "slideKey": "em-l03-limits-sequence-20261011-p008",
+      "lesson": 3,
+      "localIndex": 8,
+      "title": "两种解释，哪一步有缺口？",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 108,
+      "slideKey": "em-l03-limits-sequence-20261011-p009",
+      "lesson": 3,
+      "localIndex": 9,
+      "title": "把疑问放进一个能算清的函数",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 109,
+      "slideKey": "em-l03-limits-sequence-20261011-p010",
+      "lesson": 3,
+      "localIndex": 10,
+      "title": "新增面积里，多出的那一块",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 110,
+      "slideKey": "em-l03-limits-sequence-20261011-p011",
+      "lesson": 3,
+      "localIndex": 11,
+      "title": "约去非零增量，等式没有近似",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 111,
+      "slideKey": "em-l03-limits-sequence-20261011-p012",
+      "lesson": 3,
+      "localIndex": 12,
+      "title": "同一条线，输入0处的身份不同",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 112,
+      "slideKey": "em-l03-limits-sequence-20261011-p013",
+      "lesson": 3,
+      "localIndex": 13,
+      "title": "这道除法，曾经牵动微积分的基础",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 113,
+      "slideKey": "em-l03-limits-sequence-20261011-p014",
+      "lesson": 3,
+      "localIndex": 14,
+      "title": "微积分基础之争",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "historyFilm": true
+    },
+    {
+      "index": 114,
+      "slideKey": "em-l03-limits-sequence-20261011-p015",
+      "lesson": 3,
+      "localIndex": 15,
+      "title": "贝克莱追问：同一个增量，换了身份吗？",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 115,
+      "slideKey": "em-l03-limits-sequence-20261011-p016",
+      "lesson": 3,
+      "localIndex": 16,
+      "title": "牛顿的区分：比值的极限，还是最终量的比值？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 116,
+      "slideKey": "em-l03-limits-sequence-20261011-p017",
+      "lesson": 3,
+      "localIndex": 17,
+      "title": "先沿一串非零增量走向零",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 117,
+      "slideKey": "em-l03-limits-sequence-20261011-p018",
+      "lesson": 3,
+      "localIndex": 18,
+      "title": "数列：定义在正整数集上的函数",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 118,
+      "slideKey": "em-l03-limits-sequence-20261011-p019",
+      "lesson": 3,
+      "localIndex": 19,
+      "title": "没有最后一项，怎样谈整体的行为？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 119,
+      "slideKey": "em-l03-limits-sequence-20261011-p020",
+      "lesson": 3,
+      "localIndex": 20,
+      "title": "潜无穷与实无穷：过程和整体",
+      "layout": "compare",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 120,
+      "slideKey": "em-l03-limits-sequence-20261011-p021",
+      "lesson": 3,
+      "localIndex": 21,
+      "title": "趋向无穷，不是走到一个叫“无穷”的数",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 121,
+      "slideKey": "em-l03-limits-sequence-20261011-p022",
+      "lesson": 3,
+      "localIndex": 22,
+      "title": "离2的距离，才是要追踪的量",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 122,
+      "slideKey": "em-l03-limits-sequence-20261011-p023",
+      "lesson": 3,
+      "localIndex": 23,
+      "title": "误差带：从哪一项起全部进入？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 123,
+      "slideKey": "em-l03-limits-sequence-20261011-p024",
+      "lesson": 3,
+      "localIndex": 24,
+      "title": "严格小于0.02，最早从第51项开始",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 124,
+      "slideKey": "em-l03-limits-sequence-20261011-p025",
+      "lesson": 3,
+      "localIndex": 25,
+      "title": "ε：误差要求可以继续缩小",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 125,
+      "slideKey": "em-l03-limits-sequence-20261011-p026",
+      "lesson": 3,
+      "localIndex": 26,
+      "title": "先定误差，再选一个整数门槛",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 126,
+      "slideKey": "em-l03-limits-sequence-20261011-p027",
+      "lesson": 3,
+      "localIndex": 27,
+      "title": "“任意—存在—所有”，各在说什么？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 127,
+      "slideKey": "em-l03-limits-sequence-20261011-p028",
+      "lesson": 3,
+      "localIndex": 28,
+      "title": "数列收敛的ε–N定义",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 128,
+      "slideKey": "em-l03-limits-sequence-20261011-p029",
+      "lesson": 3,
+      "localIndex": 29,
+      "title": "一个固定的误差带，不够证明收敛",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 129,
+      "slideKey": "em-l03-limits-sequence-20261011-p030",
+      "lesson": 3,
+      "localIndex": 30,
+      "title": "上下交替，也可以收敛",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 130,
+      "slideKey": "em-l03-limits-sequence-20261011-p031",
+      "lesson": 3,
+      "localIndex": 31,
+      "title": "可以永远不等于极限，也可以一直等于极限",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 131,
+      "slideKey": "em-l03-limits-sequence-20261011-p032",
+      "lesson": 3,
+      "localIndex": 32,
+      "title": "继续放大：观察误差，不把小数读成零",
+      "layout": "lab",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "limitLab": "sequence-zoom"
+    },
+    {
+      "index": 132,
+      "slideKey": "em-l03-limits-sequence-20261011-p033",
+      "lesson": 3,
+      "localIndex": 33,
+      "title": "基础判断：先把三件事分清",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 133,
+      "slideKey": "em-l03-limits-sequence-20261011-p034",
+      "lesson": 3,
+      "localIndex": 34,
+      "title": "反馈：同一个误差，解决三个判断",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 3,
+      "revealTitles": [
+        "收敛不要求取到2",
+        "边界不算通过",
+        "上下交替不妨碍距离缩小"
+      ]
+    },
+    {
+      "index": 134,
+      "slideKey": "em-l03-limits-sequence-20261011-p035",
+      "lesson": 3,
+      "localIndex": 35,
+      "title": "巩固证明：把数字改成任意ε",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 135,
+      "slideKey": "em-l03-limits-sequence-20261011-p036",
+      "lesson": 3,
+      "localIndex": 36,
+      "title": "反馈：门槛不是答案猜测，而是覆盖规则",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 3,
+      "revealTitles": [
+        "具体要求",
+        "任意要求",
+        "更晚的门槛仍有效"
+      ]
+    },
+    {
+      "index": 136,
+      "slideKey": "em-l03-limits-sequence-20261011-p037",
+      "lesson": 3,
+      "localIndex": 37,
+      "title": "否定极限，不能只挑一个早期失误",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 137,
+      "slideKey": "em-l03-limits-sequence-20261011-p038",
+      "lesson": 3,
+      "localIndex": 38,
+      "title": "不收敛于A：一次固定挑战，任意晚的反例",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 138,
+      "slideKey": "em-l03-limits-sequence-20261011-p039",
+      "lesson": 3,
+      "localIndex": 39,
+      "title": "一个很接近的错误候选值，也能被排除",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 139,
+      "slideKey": "em-l03-limits-sequence-20261011-p040",
+      "lesson": 3,
+      "localIndex": 40,
+      "title": "放大错误候选：越走远，反而越出带",
+      "layout": "lab",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "limitLab": "sequence-zoom"
+    },
+    {
+      "index": 140,
+      "slideKey": "em-l03-limits-sequence-20261011-p041",
+      "lesson": 3,
+      "localIndex": 41,
+      "title": "深入追问：把错误候选彻底排除",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 141,
+      "slideKey": "em-l03-limits-sequence-20261011-p042",
+      "lesson": 3,
+      "localIndex": 42,
+      "title": "反馈：任意晚仍会失败，但数列并未发散",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 3,
+      "revealTitles": [
+        "门槛之后再选项",
+        "同一个误差对每个门槛有效",
+        "结论的范围"
+      ]
+    },
+    {
+      "index": 142,
+      "slideKey": "em-l03-limits-sequence-20261011-p043",
+      "lesson": 3,
+      "localIndex": 43,
+      "title": "收敛与发散，先限定在实数极限中",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 143,
+      "slideKey": "em-l03-limits-sequence-20261011-p044",
+      "lesson": 3,
+      "localIndex": 44,
+      "title": "有界却发散：两个位置始终交替出现",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 144,
+      "slideKey": "em-l03-limits-sequence-20261011-p045",
+      "lesson": 3,
+      "localIndex": 45,
+      "title": "向上与向下：正无穷、负无穷",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 145,
+      "slideKey": "em-l03-limits-sequence-20261011-p046",
+      "lesson": 3,
+      "localIndex": 46,
+      "title": "无穷的门槛保证：仍然要求所有尾项",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 146,
+      "slideKey": "em-l03-limits-sequence-20261011-p047",
+      "lesson": 3,
+      "localIndex": 47,
+      "title": "幅度越来越大，仍可能没有正负方向",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 147,
+      "slideKey": "em-l03-limits-sequence-20261011-p048",
+      "lesson": 3,
+      "localIndex": 48,
+      "title": "基础分类：别把三种行为混在一起",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 148,
+      "slideKey": "em-l03-limits-sequence-20261011-p049",
+      "lesson": 3,
+      "localIndex": 49,
+      "title": "反馈：方向、幅度与界限分别回答不同问题",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 149,
+      "slideKey": "em-l03-limits-sequence-20261011-p050",
+      "lesson": 3,
+      "localIndex": 50,
+      "title": "同一商家扩容：目标500，如何逐周接近？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 150,
+      "slideKey": "em-l03-limits-sequence-20261011-p051",
+      "lesson": 3,
+      "localIndex": 51,
+      "title": "“剩余差距的20%”怎样写成递推？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 151,
+      "slideKey": "em-l03-limits-sequence-20261011-p052",
+      "lesson": 3,
+      "localIndex": 52,
+      "title": "把能力问题改写成剩余缺口",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 152,
+      "slideKey": "em-l03-limits-sequence-20261011-p053",
+      "lesson": 3,
+      "localIndex": 53,
+      "title": "增加且有上界，但上界不自动就是极限",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 153,
+      "slideKey": "em-l03-limits-sequence-20261011-p054",
+      "lesson": 3,
+      "localIndex": 54,
+      "title": "用同一ε–N规则证明能力趋于500",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "把误差要求解成编号要求",
+        "选整数门槛，覆盖所有以后周数"
+      ]
+    },
+    {
+      "index": 154,
+      "slideKey": "em-l03-limits-sequence-20261011-p055",
+      "lesson": 3,
+      "localIndex": 55,
+      "title": "经济决策：第8周，能承诺每天490件吗？",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 155,
+      "slideKey": "em-l03-limits-sequence-20261011-p056",
+      "lesson": 3,
+      "localIndex": 56,
+      "title": "反馈：第11周达标，不等于能力已达500",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 3,
+      "revealTitles": [
+        "核对三个关键周数",
+        "不等式方向与整数周数",
+        "有限周仍留下正差距"
+      ]
+    },
+    {
+      "index": 156,
+      "slideKey": "em-l03-limits-sequence-20261011-p057",
+      "lesson": 3,
+      "localIndex": 57,
+      "title": "再收紧履约目标：要等多久，留多少余量？",
+      "layout": "lab",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "interactionId": "sequence-limit-lab",
+      "limitLab": "capacity"
+    },
+    {
+      "index": 157,
+      "slideKey": "em-l03-limits-sequence-20261011-p058",
+      "lesson": 3,
+      "localIndex": 58,
+      "title": "能力路径成立，经营承诺仍需要别的条件",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 158,
+      "slideKey": "em-l03-limits-sequence-20261011-p059",
+      "lesson": 3,
+      "localIndex": 59,
+      "title": "从数列回到函数：刚才只走了一条路",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 159,
+      "slideKey": "em-l03-limits-sequence-20261011-p060",
+      "lesson": 3,
+      "localIndex": 60,
+      "title": "一条路径全通过，其他路径仍可能失败",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 160,
+      "slideKey": "em-l03-limits-sequence-20261011-p061",
+      "lesson": 3,
+      "localIndex": 61,
+      "title": "函数保证：把“编号以后”换成“距离以内”",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 161,
+      "slideKey": "em-l03-limits-sequence-20261011-p062",
+      "lesson": 3,
+      "localIndex": 62,
+      "title": "为什么排除h=0？输入范围怎样确定？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 162,
+      "slideKey": "em-l03-limits-sequence-20261011-p063",
+      "lesson": 3,
+      "localIndex": 63,
+      "title": "函数极限的ε–δ定义",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 163,
+      "slideKey": "em-l03-limits-sequence-20261011-p064",
+      "lesson": 3,
+      "localIndex": 64,
+      "title": "同一顺序：先要求，再保证，最后任意检验",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 164,
+      "slideKey": "em-l03-limits-sequence-20261011-p065",
+      "lesson": 3,
+      "localIndex": 65,
+      "title": "放大函数误差：范围变小，规则仍可检验",
+      "layout": "lab",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "limitLab": "error-band"
+    },
+    {
+      "index": 165,
+      "slideKey": "em-l03-limits-sequence-20261011-p066",
+      "lesson": 3,
+      "localIndex": 66,
+      "title": "完整证明：平方函数差商的极限是2",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "对范围内所有输入检验",
+        "结论保留原分式的条件"
+      ]
+    },
+    {
+      "index": 166,
+      "slideKey": "em-l03-limits-sequence-20261011-p067",
+      "lesson": 3,
+      "localIndex": 67,
+      "title": "巩固：哪些δ能覆盖所有输入？",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 167,
+      "slideKey": "em-l03-limits-sequence-20261011-p068",
+      "lesson": 3,
+      "localIndex": 68,
+      "title": "反馈：更小可以，更大须重新检验",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 3,
+      "revealTitles": [
+        "两个有效范围",
+        "一个范围内的反例",
+        "一条路径不是全部附近输入"
+      ]
+    },
+    {
+      "index": 168,
+      "slideKey": "em-l03-limits-sequence-20261011-p069",
+      "lesson": 3,
+      "localIndex": 69,
+      "title": "目标点补值，不改变附近的极限",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 169,
+      "slideKey": "em-l03-limits-sequence-20261011-p070",
+      "lesson": 3,
+      "localIndex": 70,
+      "title": "回到商家：80元两侧，究竟哪一个对象趋近？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 170,
+      "slideKey": "em-l03-limits-sequence-20261011-p071",
+      "lesson": 3,
+      "localIndex": 71,
+      "title": "从有限五角调价，走向全部足够小的变化",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 171,
+      "slideKey": "em-l03-limits-sequence-20261011-p072",
+      "lesson": 3,
+      "localIndex": 72,
+      "title": "最优价格，导数一定等于零吗？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 172,
+      "slideKey": "em-l04-limits-sequence-20261011-p001",
+      "lesson": 4,
+      "localIndex": 1,
+      "title": "同一个最优点，两种极限问题",
+      "layout": "cover",
+      "style": "cover",
+      "image": "v2/l04-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 173,
+      "slideKey": "em-l04-limits-sequence-20261011-p002",
+      "lesson": 4,
+      "localIndex": 2,
+      "title": "利润与差商，是不同的数学对象",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 174,
+      "slideKey": "em-l04-limits-sequence-20261011-p003",
+      "lesson": 4,
+      "localIndex": 3,
+      "title": "固定80元，让新价格从两边靠近",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 175,
+      "slideKey": "em-l04-limits-sequence-20261011-p004",
+      "lesson": 4,
+      "localIndex": 4,
+      "title": "只从一侧靠近：左右极限",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 176,
+      "slideKey": "em-l04-limits-sequence-20261011-p005",
+      "lesson": 4,
+      "localIndex": 5,
+      "title": "80元左侧：利润在升，差商固定为360",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "差商是精确常数",
+        "左侧误差保证"
+      ]
+    },
+    {
+      "index": 177,
+      "slideKey": "em-l04-limits-sequence-20261011-p006",
+      "lesson": 4,
+      "localIndex": 6,
+      "title": "80元右侧：差商靠近−160",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "右侧差商与误差",
+        "一项δ同时保住分段与精度"
+      ]
+    },
+    {
+      "index": 178,
+      "slideKey": "em-l04-limits-sequence-20261011-p007",
+      "lesson": 4,
+      "localIndex": 7,
+      "title": "左右极限都存在，却不相等",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 179,
+      "slideKey": "em-l04-limits-sequence-20261011-p008",
+      "lesson": 4,
+      "localIndex": 8,
+      "title": "两侧拼起来，何时得到函数极限？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "相同目标，用较小范围同时保证"
+      ]
+    },
+    {
+      "index": 180,
+      "slideKey": "em-l04-limits-sequence-20261011-p009",
+      "lesson": 4,
+      "localIndex": 9,
+      "title": "利润没有跳跃，差商却分成两边",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 181,
+      "slideKey": "em-l04-limits-sequence-20261011-p010",
+      "lesson": 4,
+      "localIndex": 10,
+      "title": "“最优点导数为零”有前提",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 182,
+      "slideKey": "em-l04-limits-sequence-20261011-p011",
+      "lesson": 4,
+      "localIndex": 11,
+      "title": "端点和报价网格，也不能套同一句话",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 183,
+      "slideKey": "em-l04-limits-sequence-20261011-p012",
+      "lesson": 4,
+      "localIndex": 12,
+      "title": "采购满500件，整批都按新单价计费",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 184,
+      "slideKey": "em-l04-limits-sequence-20261011-p013",
+      "lesson": 4,
+      "localIndex": 13,
+      "title": "极限跳差1000元，实际少付980元",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 185,
+      "slideKey": "em-l04-limits-sequence-20261011-p014",
+      "lesson": 4,
+      "localIndex": 14,
+      "title": "分段写法，不决定极限是否存在",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 186,
+      "slideKey": "em-l04-limits-sequence-20261011-p015",
+      "lesson": 4,
+      "localIndex": 15,
+      "title": "组合成本，能否分别取极限再相加？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 187,
+      "slideKey": "em-l04-limits-sequence-20261011-p016",
+      "lesson": 4,
+      "localIndex": 16,
+      "title": "有限极限的四则法则，先看条件",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 188,
+      "slideKey": "em-l04-limits-sequence-20261011-p017",
+      "lesson": 4,
+      "localIndex": 17,
+      "title": "商法则为什么要求分母极限非零？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 189,
+      "slideKey": "em-l04-limits-sequence-20261011-p018",
+      "lesson": 4,
+      "localIndex": 18,
+      "title": "和法则：把总误差拆成两项",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "分别分配误差预算",
+        "同一输入范围同时通过"
+      ]
+    },
+    {
+      "index": 190,
+      "slideKey": "em-l04-limits-sequence-20261011-p019",
+      "lesson": 4,
+      "localIndex": 19,
+      "title": "法则能正着用，不表示反过来也成立",
+      "layout": "essay",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 191,
+      "slideKey": "em-l04-limits-sequence-20261011-p020",
+      "lesson": 4,
+      "localIndex": 20,
+      "title": "0/0不是一个可计算的数",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 192,
+      "slideKey": "em-l04-limits-sequence-20261011-p021",
+      "lesson": 4,
+      "localIndex": 21,
+      "title": "目标点以外相等，极限就能比较",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "保持原式在目标点无定义"
+      ]
+    },
+    {
+      "index": 193,
+      "slideKey": "em-l04-limits-sequence-20261011-p022",
+      "lesson": 4,
+      "localIndex": 22,
+      "title": "同一种依据，处理立方差",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "变形以后，再用有限极限法则"
+      ]
+    },
+    {
+      "index": 194,
+      "slideKey": "em-l04-limits-sequence-20261011-p023",
+      "lesson": 4,
+      "localIndex": 23,
+      "title": "根式差不能直接约，怎样保留精确等式？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 195,
+      "slideKey": "em-l04-limits-sequence-20261011-p024",
+      "lesson": 4,
+      "localIndex": 24,
+      "title": "不偷用结论，先证明根式的趋近",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "由误差保证根式趋于1",
+        "现在分母极限非零，才用商法则"
+      ]
+    },
+    {
+      "index": 196,
+      "slideKey": "em-l04-limits-sequence-20261011-p025",
+      "lesson": 4,
+      "localIndex": 25,
+      "title": "基础计算：变形以前，先核对条件",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 197,
+      "slideKey": "em-l04-limits-sequence-20261011-p026",
+      "lesson": 4,
+      "localIndex": 26,
+      "title": "反馈：0/0提示继续研究，不给出答案",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 3,
+      "revealTitles": [
+        "平方差约分",
+        "根式差有理化",
+        "分母极限为零时，不能套商法则"
+      ]
+    },
+    {
+      "index": 198,
+      "slideKey": "em-l04-limits-sequence-20261011-p027",
+      "lesson": 4,
+      "localIndex": 27,
+      "title": "参数与补值，分别会改变什么？",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 199,
+      "slideKey": "em-l04-limits-sequence-20261011-p028",
+      "lesson": 4,
+      "localIndex": 28,
+      "title": "参数a改变尺度，a=0也在答案里",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "先守住附近定义域",
+        "误差界与商法则"
+      ]
+    },
+    {
+      "index": 200,
+      "slideKey": "em-l04-limits-sequence-20261011-p029",
+      "lesson": 4,
+      "localIndex": 29,
+      "title": "改变c，只改变目标点的取值",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 201,
+      "slideKey": "em-l04-limits-sequence-20261011-p030",
+      "lesson": 4,
+      "localIndex": 30,
+      "title": "500件附近，与规模越来越大，是两种问题",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 202,
+      "slideKey": "em-l04-limits-sequence-20261011-p031",
+      "lesson": 4,
+      "localIndex": 31,
+      "title": "总成本之外，商家还关心每件成本",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 203,
+      "slideKey": "em-l04-limits-sequence-20261011-p032",
+      "lesson": 4,
+      "localIndex": 32,
+      "title": "平均成本：本批总款除以本批数量",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 204,
+      "slideKey": "em-l04-limits-sequence-20261011-p033",
+      "lesson": 4,
+      "localIndex": 33,
+      "title": "数量增加，18元仍未成为实际平均成本",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 205,
+      "slideKey": "em-l04-limits-sequence-20261011-p034",
+      "lesson": 4,
+      "localIndex": 34,
+      "title": "另设理想延伸，再研究无限规模",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 206,
+      "slideKey": "em-l04-limits-sequence-20261011-p035",
+      "lesson": 4,
+      "localIndex": 35,
+      "title": "由整数尾部，推广到所有充分大的实数输入",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 207,
+      "slideKey": "em-l04-limits-sequence-20261011-p036",
+      "lesson": 4,
+      "localIndex": 36,
+      "title": "对理想平均成本，给一个完整保证",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "所有超过门槛的输入都通过",
+        "结论属于另设的理想函数"
+      ]
+    },
+    {
+      "index": 208,
+      "slideKey": "em-l04-limits-sequence-20261011-p037",
+      "lesson": 4,
+      "localIndex": 37,
+      "title": "经济判断：0.1元误差，实际合同能兑现吗？",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 209,
+      "slideKey": "em-l04-limits-sequence-20261011-p038",
+      "lesson": 4,
+      "localIndex": 38,
+      "title": "比值看主导项，先让尺度相同",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "在大规模输入下核对商法则"
+      ]
+    },
+    {
+      "index": 210,
+      "slideKey": "em-l04-limits-sequence-20261011-p039",
+      "lesson": 4,
+      "localIndex": 39,
+      "title": "同样“都增大”，比值可以完全不同",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 211,
+      "slideKey": "em-l04-limits-sequence-20261011-p040",
+      "lesson": 4,
+      "localIndex": 40,
+      "title": "同样“都趋零”，也不能给商定值",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 212,
+      "slideKey": "em-l04-limits-sequence-20261011-p041",
+      "lesson": 4,
+      "localIndex": 41,
+      "title": "输出趋于无穷：高度要求，输入距离来保证",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 213,
+      "slideKey": "em-l04-limits-sequence-20261011-p042",
+      "lesson": 4,
+      "localIndex": 42,
+      "title": "1/x²两侧向上，1/x两侧却相反",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 214,
+      "slideKey": "em-l04-limits-sequence-20261011-p043",
+      "lesson": 4,
+      "localIndex": 43,
+      "title": "现代无穷小，是一个趋零过程",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 215,
+      "slideKey": "em-l04-limits-sequence-20261011-p044",
+      "lesson": 4,
+      "localIndex": 44,
+      "title": "一项变大，一项变小，乘积仍需计算",
+      "layout": "essay",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 216,
+      "slideKey": "em-l04-limits-sequence-20261011-p045",
+      "lesson": 4,
+      "localIndex": 45,
+      "title": "振荡没有消失，影响却可以被压小",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 217,
+      "slideKey": "em-l04-limits-sequence-20261011-p046",
+      "lesson": 4,
+      "localIndex": 46,
+      "title": "夹逼：给所有输入同一组上下界",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "直接写出完整误差保证",
+        "无需给振荡因子填一个假极限"
+      ]
+    },
+    {
+      "index": 218,
+      "slideKey": "em-l04-limits-sequence-20261011-p047",
+      "lesson": 4,
+      "localIndex": 47,
+      "title": "另一份报价：单位便宜，固定费用更高",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 219,
+      "slideKey": "em-l04-limits-sequence-20261011-p048",
+      "lesson": 4,
+      "localIndex": 48,
+      "title": "两份合同，在同一批量上比较",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 220,
+      "slideKey": "em-l04-limits-sequence-20261011-p049",
+      "lesson": 4,
+      "localIndex": 49,
+      "title": "给1500件采购，写一份带条件的建议",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 221,
+      "slideKey": "em-l04-limits-sequence-20261011-p050",
+      "lesson": 4,
+      "localIndex": 50,
+      "title": "分界是2000件，依据来自真实成本差",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 222,
+      "slideKey": "em-l04-limits-sequence-20261011-p051",
+      "lesson": 4,
+      "localIndex": 51,
+      "title": "本批1500件选A；一万件时B更便宜",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 223,
+      "slideKey": "em-l04-limits-sequence-20261011-p052",
+      "lesson": 4,
+      "localIndex": 52,
+      "title": "选供应商，与决定买多少，是两层决策",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "把一个实际约束写进费用",
+        "扩大决策范围需补资料"
+      ]
+    },
+    {
+      "index": 224,
+      "slideKey": "em-l04-limits-sequence-20261011-p053",
+      "lesson": 4,
+      "localIndex": 53,
+      "title": "一条公式，换了过程就换了问题",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 225,
+      "slideKey": "em-l04-limits-sequence-20261011-p054",
+      "lesson": 4,
+      "localIndex": 54,
+      "title": "90元附近，两侧差商终于靠近同一值",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "完整保证同时处理两侧",
+        "有限实数极限，才称导数"
+      ]
+    },
+    {
+      "index": 226,
+      "slideKey": "em-l04-limits-sequence-20261011-p055",
+      "lesson": 4,
+      "localIndex": 55,
+      "title": "导数给局部反应，五角调价仍要算实际值",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 227,
+      "slideKey": "em-l04-limits-sequence-20261011-p056",
+      "lesson": 4,
+      "localIndex": 56,
+      "title": "离开教室前，解释清楚这一次除法",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 228,
+      "slideKey": "em-l04-limits-sequence-20261011-p057",
+      "lesson": 4,
+      "localIndex": 57,
+      "title": "导数为零，还不能把“最优”证完",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 229,
+      "slideKey": "em-l04-limits-sequence-20261011-p058",
+      "lesson": 4,
+      "localIndex": 58,
+      "title": "下一问：三角函数的极限，依据在哪里？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 230,
       "slideKey": "em-v2-l05-p001",
       "lesson": 5,
       "localIndex": 1,
@@ -1987,7 +4056,7 @@
       "revealTitles": []
     },
     {
-      "index": 50,
+      "index": 231,
       "slideKey": "em-v2-l05-p002",
       "lesson": 5,
       "localIndex": 2,
@@ -1997,7 +4066,7 @@
       "revealTitles": []
     },
     {
-      "index": 51,
+      "index": 232,
       "slideKey": "em-v2-l05-p003",
       "lesson": 5,
       "localIndex": 3,
@@ -2007,7 +4076,7 @@
       "revealTitles": []
     },
     {
-      "index": 52,
+      "index": 233,
       "slideKey": "em-v2-l05-p004",
       "lesson": 5,
       "localIndex": 4,
@@ -2017,7 +4086,7 @@
       "revealTitles": []
     },
     {
-      "index": 53,
+      "index": 234,
       "slideKey": "em-v2-l05-p005",
       "lesson": 5,
       "localIndex": 5,
@@ -2031,7 +4100,7 @@
       ]
     },
     {
-      "index": 54,
+      "index": 235,
       "slideKey": "em-v2-l05-p006",
       "lesson": 5,
       "localIndex": 6,
@@ -2041,7 +4110,7 @@
       "revealTitles": []
     },
     {
-      "index": 55,
+      "index": 236,
       "slideKey": "em-v2-l05-p007",
       "lesson": 5,
       "localIndex": 7,
@@ -2052,7 +4121,7 @@
       "revealTitles": []
     },
     {
-      "index": 56,
+      "index": 237,
       "slideKey": "em-v2-l05-p008",
       "lesson": 5,
       "localIndex": 8,
@@ -2066,7 +4135,7 @@
       ]
     },
     {
-      "index": 57,
+      "index": 238,
       "slideKey": "em-v2-l05-p009",
       "lesson": 5,
       "localIndex": 9,
@@ -2076,7 +4145,7 @@
       "revealTitles": []
     },
     {
-      "index": 58,
+      "index": 239,
       "slideKey": "em-v2-l05-p010",
       "lesson": 5,
       "localIndex": 10,
@@ -2090,7 +4159,7 @@
       ]
     },
     {
-      "index": 59,
+      "index": 240,
       "slideKey": "em-v2-l05-p011",
       "lesson": 5,
       "localIndex": 11,
@@ -2100,7 +4169,7 @@
       "revealTitles": []
     },
     {
-      "index": 60,
+      "index": 241,
       "slideKey": "em-v2-l05-p012",
       "lesson": 5,
       "localIndex": 12,
@@ -2114,7 +4183,7 @@
       ]
     },
     {
-      "index": 61,
+      "index": 242,
       "slideKey": "em-v2-l05-p013",
       "lesson": 5,
       "localIndex": 13,
@@ -2127,7 +4196,7 @@
       ]
     },
     {
-      "index": 62,
+      "index": 243,
       "slideKey": "em-v2-l05-p014",
       "lesson": 5,
       "localIndex": 14,
@@ -2141,7 +4210,7 @@
       ]
     },
     {
-      "index": 63,
+      "index": 244,
       "slideKey": "em-v2-l05-p015",
       "lesson": 5,
       "localIndex": 15,
@@ -2151,7 +4220,7 @@
       "revealTitles": []
     },
     {
-      "index": 64,
+      "index": 245,
       "slideKey": "em-v2-l06-p001",
       "lesson": 6,
       "localIndex": 1,
@@ -2162,7 +4231,7 @@
       "revealTitles": []
     },
     {
-      "index": 65,
+      "index": 246,
       "slideKey": "em-v2-l06-p002",
       "lesson": 6,
       "localIndex": 2,
@@ -2175,7 +4244,7 @@
       ]
     },
     {
-      "index": 66,
+      "index": 247,
       "slideKey": "em-v2-l06-p003",
       "lesson": 6,
       "localIndex": 3,
@@ -2186,7 +4255,7 @@
       "interactionId": "continuity-threshold-lab"
     },
     {
-      "index": 67,
+      "index": 248,
       "slideKey": "em-v2-l06-p004",
       "lesson": 6,
       "localIndex": 4,
@@ -2197,7 +4266,7 @@
       "revealTitles": []
     },
     {
-      "index": 68,
+      "index": 249,
       "slideKey": "em-v2-l06-p005",
       "lesson": 6,
       "localIndex": 5,
@@ -2211,7 +4280,7 @@
       ]
     },
     {
-      "index": 69,
+      "index": 250,
       "slideKey": "em-v2-l06-p006",
       "lesson": 6,
       "localIndex": 6,
@@ -2221,7 +4290,7 @@
       "revealTitles": []
     },
     {
-      "index": 70,
+      "index": 251,
       "slideKey": "em-v2-l06-p007",
       "lesson": 6,
       "localIndex": 7,
@@ -2235,7 +4304,7 @@
       ]
     },
     {
-      "index": 71,
+      "index": 252,
       "slideKey": "em-v2-l06-p008",
       "lesson": 6,
       "localIndex": 8,
@@ -2245,7 +4314,7 @@
       "revealTitles": []
     },
     {
-      "index": 72,
+      "index": 253,
       "slideKey": "em-v2-l06-p009",
       "lesson": 6,
       "localIndex": 9,
@@ -2258,7 +4327,7 @@
       ]
     },
     {
-      "index": 73,
+      "index": 254,
       "slideKey": "em-v2-l06-p010",
       "lesson": 6,
       "localIndex": 10,
@@ -2272,7 +4341,7 @@
       ]
     },
     {
-      "index": 74,
+      "index": 255,
       "slideKey": "em-v2-l06-p011",
       "lesson": 6,
       "localIndex": 11,
@@ -2282,7 +4351,7 @@
       "revealTitles": []
     },
     {
-      "index": 75,
+      "index": 256,
       "slideKey": "em-v2-l07-p001",
       "lesson": 7,
       "localIndex": 1,
@@ -2294,7 +4363,7 @@
       "revealTitles": []
     },
     {
-      "index": 76,
+      "index": 257,
       "slideKey": "em-v2-l07-p002",
       "lesson": 7,
       "localIndex": 2,
@@ -2305,7 +4374,7 @@
       "revealTitles": []
     },
     {
-      "index": 77,
+      "index": 258,
       "slideKey": "em-v2-l07-p003",
       "lesson": 7,
       "localIndex": 3,
@@ -2319,7 +4388,7 @@
       ]
     },
     {
-      "index": 78,
+      "index": 259,
       "slideKey": "em-v2-l07-p004",
       "lesson": 7,
       "localIndex": 4,
@@ -2330,7 +4399,7 @@
       "revealTitles": []
     },
     {
-      "index": 79,
+      "index": 260,
       "slideKey": "em-v2-l07-p005",
       "lesson": 7,
       "localIndex": 5,
@@ -2344,7 +4413,7 @@
       ]
     },
     {
-      "index": 80,
+      "index": 261,
       "slideKey": "em-v2-l07-p006",
       "lesson": 7,
       "localIndex": 6,
@@ -2355,7 +4424,7 @@
       "interactionId": "secant-tangent-lab"
     },
     {
-      "index": 81,
+      "index": 262,
       "slideKey": "em-v2-l07-p007",
       "lesson": 7,
       "localIndex": 7,
@@ -2368,7 +4437,7 @@
       ]
     },
     {
-      "index": 82,
+      "index": 263,
       "slideKey": "em-v2-l07-p008",
       "lesson": 7,
       "localIndex": 8,
@@ -2379,7 +4448,7 @@
       "revealTitles": []
     },
     {
-      "index": 83,
+      "index": 264,
       "slideKey": "em-v2-l07-p009",
       "lesson": 7,
       "localIndex": 9,
@@ -2392,7 +4461,7 @@
       ]
     },
     {
-      "index": 84,
+      "index": 265,
       "slideKey": "em-v2-l07-p010",
       "lesson": 7,
       "localIndex": 10,
@@ -2405,7 +4474,7 @@
       ]
     },
     {
-      "index": 85,
+      "index": 266,
       "slideKey": "em-v2-l07-p011",
       "lesson": 7,
       "localIndex": 11,
@@ -2415,7 +4484,7 @@
       "revealTitles": []
     },
     {
-      "index": 86,
+      "index": 267,
       "slideKey": "em-v2-l08-p001",
       "lesson": 8,
       "localIndex": 1,
@@ -2426,7 +4495,7 @@
       "revealTitles": []
     },
     {
-      "index": 87,
+      "index": 268,
       "slideKey": "em-v2-l08-p002",
       "lesson": 8,
       "localIndex": 2,
@@ -2436,7 +4505,7 @@
       "revealTitles": []
     },
     {
-      "index": 88,
+      "index": 269,
       "slideKey": "em-v2-l08-p003",
       "lesson": 8,
       "localIndex": 3,
@@ -2449,7 +4518,7 @@
       ]
     },
     {
-      "index": 89,
+      "index": 270,
       "slideKey": "em-v2-l08-p004",
       "lesson": 8,
       "localIndex": 4,
@@ -2463,7 +4532,7 @@
       ]
     },
     {
-      "index": 90,
+      "index": 271,
       "slideKey": "em-v2-l08-p005",
       "lesson": 8,
       "localIndex": 5,
@@ -2474,7 +4543,7 @@
       "revealTitles": []
     },
     {
-      "index": 91,
+      "index": 272,
       "slideKey": "em-v2-l08-p006",
       "lesson": 8,
       "localIndex": 6,
@@ -2488,7 +4557,7 @@
       ]
     },
     {
-      "index": 92,
+      "index": 273,
       "slideKey": "em-v2-l08-p007",
       "lesson": 8,
       "localIndex": 7,
@@ -2498,7 +4567,7 @@
       "revealTitles": []
     },
     {
-      "index": 93,
+      "index": 274,
       "slideKey": "em-v2-l08-p008",
       "lesson": 8,
       "localIndex": 8,
@@ -2512,7 +4581,7 @@
       ]
     },
     {
-      "index": 94,
+      "index": 275,
       "slideKey": "em-v2-l08-p009",
       "lesson": 8,
       "localIndex": 9,
@@ -2525,7 +4594,7 @@
       ]
     },
     {
-      "index": 95,
+      "index": 276,
       "slideKey": "em-v2-l08-p010",
       "lesson": 8,
       "localIndex": 10,
@@ -2535,7 +4604,7 @@
       "revealTitles": []
     },
     {
-      "index": 96,
+      "index": 277,
       "slideKey": "em-v2-l09-p001",
       "lesson": 9,
       "localIndex": 1,
@@ -2546,7 +4615,7 @@
       "revealTitles": []
     },
     {
-      "index": 97,
+      "index": 278,
       "slideKey": "em-v2-l09-p002",
       "lesson": 9,
       "localIndex": 2,
@@ -2557,7 +4626,7 @@
       "revealTitles": []
     },
     {
-      "index": 98,
+      "index": 279,
       "slideKey": "em-v2-l09-p003",
       "lesson": 9,
       "localIndex": 3,
@@ -2571,7 +4640,7 @@
       ]
     },
     {
-      "index": 99,
+      "index": 280,
       "slideKey": "em-v2-l09-p004",
       "lesson": 9,
       "localIndex": 4,
@@ -2584,7 +4653,7 @@
       ]
     },
     {
-      "index": 100,
+      "index": 281,
       "slideKey": "em-v2-l09-p005",
       "lesson": 9,
       "localIndex": 5,
@@ -2597,7 +4666,7 @@
       ]
     },
     {
-      "index": 101,
+      "index": 282,
       "slideKey": "em-v2-l09-p006",
       "lesson": 9,
       "localIndex": 6,
@@ -2608,7 +4677,7 @@
       "revealTitles": []
     },
     {
-      "index": 102,
+      "index": 283,
       "slideKey": "em-v2-l09-p007",
       "lesson": 9,
       "localIndex": 7,
@@ -2622,7 +4691,7 @@
       ]
     },
     {
-      "index": 103,
+      "index": 284,
       "slideKey": "em-v2-l09-p008",
       "lesson": 9,
       "localIndex": 8,
@@ -2636,7 +4705,7 @@
       ]
     },
     {
-      "index": 104,
+      "index": 285,
       "slideKey": "em-v2-l09-p009",
       "lesson": 9,
       "localIndex": 9,
@@ -2649,7 +4718,7 @@
       ]
     },
     {
-      "index": 105,
+      "index": 286,
       "slideKey": "em-v2-l09-p010",
       "lesson": 9,
       "localIndex": 10,
@@ -2662,7 +4731,7 @@
       ]
     },
     {
-      "index": 106,
+      "index": 287,
       "slideKey": "em-v2-l10-p001",
       "lesson": 10,
       "localIndex": 1,
@@ -2673,7 +4742,7 @@
       "revealTitles": []
     },
     {
-      "index": 107,
+      "index": 288,
       "slideKey": "em-v2-l10-p002",
       "lesson": 10,
       "localIndex": 2,
@@ -2684,7 +4753,7 @@
       "revealTitles": []
     },
     {
-      "index": 108,
+      "index": 289,
       "slideKey": "em-v2-l10-p003",
       "lesson": 10,
       "localIndex": 3,
@@ -2698,7 +4767,7 @@
       ]
     },
     {
-      "index": 109,
+      "index": 290,
       "slideKey": "em-v2-l10-p004",
       "lesson": 10,
       "localIndex": 4,
@@ -2708,7 +4777,7 @@
       "revealTitles": []
     },
     {
-      "index": 110,
+      "index": 291,
       "slideKey": "em-v2-l10-p005",
       "lesson": 10,
       "localIndex": 5,
@@ -2719,7 +4788,7 @@
       "revealTitles": []
     },
     {
-      "index": 111,
+      "index": 292,
       "slideKey": "em-v2-l10-p006",
       "lesson": 10,
       "localIndex": 6,
@@ -2732,7 +4801,7 @@
       ]
     },
     {
-      "index": 112,
+      "index": 293,
       "slideKey": "em-v2-l10-p007",
       "lesson": 10,
       "localIndex": 7,
@@ -2746,7 +4815,7 @@
       ]
     },
     {
-      "index": 113,
+      "index": 294,
       "slideKey": "em-v2-l10-p008",
       "lesson": 10,
       "localIndex": 8,
@@ -2756,7 +4825,7 @@
       "revealTitles": []
     },
     {
-      "index": 114,
+      "index": 295,
       "slideKey": "em-v2-l10-p009",
       "lesson": 10,
       "localIndex": 9,
@@ -2769,7 +4838,7 @@
       ]
     },
     {
-      "index": 115,
+      "index": 296,
       "slideKey": "em-v2-l10-p010",
       "lesson": 10,
       "localIndex": 10,
@@ -2782,7 +4851,7 @@
       ]
     },
     {
-      "index": 116,
+      "index": 297,
       "slideKey": "em-v2-l11-p001",
       "lesson": 11,
       "localIndex": 1,
@@ -2793,7 +4862,7 @@
       "revealTitles": []
     },
     {
-      "index": 117,
+      "index": 298,
       "slideKey": "em-v2-l11-p002",
       "lesson": 11,
       "localIndex": 2,
@@ -2804,7 +4873,7 @@
       "revealTitles": []
     },
     {
-      "index": 118,
+      "index": 299,
       "slideKey": "em-v2-l11-p003",
       "lesson": 11,
       "localIndex": 3,
@@ -2818,7 +4887,7 @@
       ]
     },
     {
-      "index": 119,
+      "index": 300,
       "slideKey": "em-v2-l11-p004",
       "lesson": 11,
       "localIndex": 4,
@@ -2829,7 +4898,7 @@
       "interactionId": "linearization-error-lab"
     },
     {
-      "index": 120,
+      "index": 301,
       "slideKey": "em-v2-l11-p005",
       "lesson": 11,
       "localIndex": 5,
@@ -2842,7 +4911,7 @@
       ]
     },
     {
-      "index": 121,
+      "index": 302,
       "slideKey": "em-v2-l11-p006",
       "lesson": 11,
       "localIndex": 6,
@@ -2852,7 +4921,7 @@
       "revealTitles": []
     },
     {
-      "index": 122,
+      "index": 303,
       "slideKey": "em-v2-l11-p007",
       "lesson": 11,
       "localIndex": 7,
@@ -2862,7 +4931,7 @@
       "revealTitles": []
     },
     {
-      "index": 123,
+      "index": 304,
       "slideKey": "em-v2-l11-p008",
       "lesson": 11,
       "localIndex": 8,
@@ -2875,7 +4944,7 @@
       ]
     },
     {
-      "index": 124,
+      "index": 305,
       "slideKey": "em-v2-l11-p009",
       "lesson": 11,
       "localIndex": 9,
@@ -2888,7 +4957,7 @@
       ]
     },
     {
-      "index": 125,
+      "index": 306,
       "slideKey": "em-v2-l11-p010",
       "lesson": 11,
       "localIndex": 10,
@@ -2901,7 +4970,7 @@
       ]
     },
     {
-      "index": 126,
+      "index": 307,
       "slideKey": "em-v2-l12-p001",
       "lesson": 12,
       "localIndex": 1,
@@ -2913,7 +4982,7 @@
       "revealTitles": []
     },
     {
-      "index": 127,
+      "index": 308,
       "slideKey": "em-v2-l12-p002",
       "lesson": 12,
       "localIndex": 2,
@@ -2924,7 +4993,7 @@
       "revealTitles": []
     },
     {
-      "index": 128,
+      "index": 309,
       "slideKey": "em-v2-l12-p003",
       "lesson": 12,
       "localIndex": 3,
@@ -2935,7 +5004,7 @@
       "revealTitles": []
     },
     {
-      "index": 129,
+      "index": 310,
       "slideKey": "em-v2-l12-p004",
       "lesson": 12,
       "localIndex": 4,
@@ -2949,7 +5018,7 @@
       ]
     },
     {
-      "index": 130,
+      "index": 311,
       "slideKey": "em-v2-l12-p005",
       "lesson": 12,
       "localIndex": 5,
@@ -2963,7 +5032,7 @@
       ]
     },
     {
-      "index": 131,
+      "index": 312,
       "slideKey": "em-v2-l12-p006",
       "lesson": 12,
       "localIndex": 6,
@@ -2977,7 +5046,7 @@
       ]
     },
     {
-      "index": 132,
+      "index": 313,
       "slideKey": "em-v2-l12-p007",
       "lesson": 12,
       "localIndex": 7,
@@ -2990,7 +5059,7 @@
       ]
     },
     {
-      "index": 133,
+      "index": 314,
       "slideKey": "em-v2-l12-p008",
       "lesson": 12,
       "localIndex": 8,
@@ -3003,7 +5072,7 @@
       ]
     },
     {
-      "index": 134,
+      "index": 315,
       "slideKey": "em-v2-l12-p009",
       "lesson": 12,
       "localIndex": 9,
@@ -3016,7 +5085,7 @@
       ]
     },
     {
-      "index": 135,
+      "index": 316,
       "slideKey": "em-v2-l12-p010",
       "lesson": 12,
       "localIndex": 10,
@@ -3029,7 +5098,7 @@
       ]
     },
     {
-      "index": 136,
+      "index": 317,
       "slideKey": "em-v2-l12-p011",
       "lesson": 12,
       "localIndex": 11,
@@ -3039,7 +5108,7 @@
       "revealTitles": []
     },
     {
-      "index": 137,
+      "index": 318,
       "slideKey": "em-v2-l13-p001",
       "lesson": 13,
       "localIndex": 1,
@@ -3050,7 +5119,7 @@
       "revealTitles": []
     },
     {
-      "index": 138,
+      "index": 319,
       "slideKey": "em-v2-l13-p002",
       "lesson": 13,
       "localIndex": 2,
@@ -3061,7 +5130,7 @@
       "revealTitles": []
     },
     {
-      "index": 139,
+      "index": 320,
       "slideKey": "em-v2-l13-p003",
       "lesson": 13,
       "localIndex": 3,
@@ -3071,7 +5140,7 @@
       "revealTitles": []
     },
     {
-      "index": 140,
+      "index": 321,
       "slideKey": "em-v2-l13-p004",
       "lesson": 13,
       "localIndex": 4,
@@ -3084,7 +5153,7 @@
       ]
     },
     {
-      "index": 141,
+      "index": 322,
       "slideKey": "em-v2-l13-p005",
       "lesson": 13,
       "localIndex": 5,
@@ -3097,7 +5166,7 @@
       ]
     },
     {
-      "index": 142,
+      "index": 323,
       "slideKey": "em-v2-l13-p006",
       "lesson": 13,
       "localIndex": 6,
@@ -3110,7 +5179,7 @@
       ]
     },
     {
-      "index": 143,
+      "index": 324,
       "slideKey": "em-v2-l13-p007",
       "lesson": 13,
       "localIndex": 7,
@@ -3123,7 +5192,7 @@
       ]
     },
     {
-      "index": 144,
+      "index": 325,
       "slideKey": "em-v2-l13-p008",
       "lesson": 13,
       "localIndex": 8,
@@ -3136,7 +5205,7 @@
       ]
     },
     {
-      "index": 145,
+      "index": 326,
       "slideKey": "em-v2-l13-p009",
       "lesson": 13,
       "localIndex": 9,
@@ -3146,7 +5215,7 @@
       "revealTitles": []
     },
     {
-      "index": 146,
+      "index": 327,
       "slideKey": "em-v2-l13-p010",
       "lesson": 13,
       "localIndex": 10,
@@ -3160,7 +5229,7 @@
       ]
     },
     {
-      "index": 147,
+      "index": 328,
       "slideKey": "em-v2-l13-p011",
       "lesson": 13,
       "localIndex": 11,
@@ -3172,7 +5241,7 @@
       ]
     },
     {
-      "index": 148,
+      "index": 329,
       "slideKey": "em-v2-l14-p001",
       "lesson": 14,
       "localIndex": 1,
@@ -3183,7 +5252,7 @@
       "revealTitles": []
     },
     {
-      "index": 149,
+      "index": 330,
       "slideKey": "em-v2-l14-p002",
       "lesson": 14,
       "localIndex": 2,
@@ -3194,7 +5263,7 @@
       "revealTitles": []
     },
     {
-      "index": 150,
+      "index": 331,
       "slideKey": "em-v2-l14-p003",
       "lesson": 14,
       "localIndex": 3,
@@ -3208,7 +5277,7 @@
       ]
     },
     {
-      "index": 151,
+      "index": 332,
       "slideKey": "em-v2-l14-p004",
       "lesson": 14,
       "localIndex": 4,
@@ -3218,7 +5287,7 @@
       "revealTitles": []
     },
     {
-      "index": 152,
+      "index": 333,
       "slideKey": "em-v2-l14-p005",
       "lesson": 14,
       "localIndex": 5,
@@ -3228,7 +5297,7 @@
       "revealTitles": []
     },
     {
-      "index": 153,
+      "index": 334,
       "slideKey": "em-v2-l14-p006",
       "lesson": 14,
       "localIndex": 6,
@@ -3242,7 +5311,7 @@
       ]
     },
     {
-      "index": 154,
+      "index": 335,
       "slideKey": "em-v2-l14-p007",
       "lesson": 14,
       "localIndex": 7,
@@ -3253,7 +5322,7 @@
       "revealTitles": []
     },
     {
-      "index": 155,
+      "index": 336,
       "slideKey": "em-v2-l14-p008",
       "lesson": 14,
       "localIndex": 8,
@@ -3267,7 +5336,7 @@
       ]
     },
     {
-      "index": 156,
+      "index": 337,
       "slideKey": "em-v2-l14-p009",
       "lesson": 14,
       "localIndex": 9,
@@ -3280,7 +5349,7 @@
       ]
     },
     {
-      "index": 157,
+      "index": 338,
       "slideKey": "em-v2-l14-p010",
       "lesson": 14,
       "localIndex": 10,
@@ -3293,7 +5362,7 @@
       ]
     },
     {
-      "index": 158,
+      "index": 339,
       "slideKey": "em-v2-l15-p001",
       "lesson": 15,
       "localIndex": 1,
@@ -3304,7 +5373,7 @@
       "revealTitles": []
     },
     {
-      "index": 159,
+      "index": 340,
       "slideKey": "em-v2-l15-p002",
       "lesson": 15,
       "localIndex": 2,
@@ -3315,7 +5384,7 @@
       "revealTitles": []
     },
     {
-      "index": 160,
+      "index": 341,
       "slideKey": "em-v2-l15-p003",
       "lesson": 15,
       "localIndex": 3,
@@ -3329,7 +5398,7 @@
       ]
     },
     {
-      "index": 161,
+      "index": 342,
       "slideKey": "em-v2-l15-p004",
       "lesson": 15,
       "localIndex": 4,
@@ -3343,7 +5412,7 @@
       ]
     },
     {
-      "index": 162,
+      "index": 343,
       "slideKey": "em-v2-l15-p005",
       "lesson": 15,
       "localIndex": 5,
@@ -3354,7 +5423,7 @@
       "revealTitles": []
     },
     {
-      "index": 163,
+      "index": 344,
       "slideKey": "em-v2-l15-p006",
       "lesson": 15,
       "localIndex": 6,
@@ -3368,7 +5437,7 @@
       ]
     },
     {
-      "index": 164,
+      "index": 345,
       "slideKey": "em-v2-l15-p007",
       "lesson": 15,
       "localIndex": 7,
@@ -3380,7 +5449,7 @@
       ]
     },
     {
-      "index": 165,
+      "index": 346,
       "slideKey": "em-v2-l15-p008",
       "lesson": 15,
       "localIndex": 8,
@@ -3394,7 +5463,7 @@
       ]
     },
     {
-      "index": 166,
+      "index": 347,
       "slideKey": "em-v2-l15-p009",
       "lesson": 15,
       "localIndex": 9,
@@ -3408,7 +5477,7 @@
       ]
     },
     {
-      "index": 167,
+      "index": 348,
       "slideKey": "em-v2-l15-p010",
       "lesson": 15,
       "localIndex": 10,
@@ -3418,7 +5487,7 @@
       "revealTitles": []
     },
     {
-      "index": 168,
+      "index": 349,
       "slideKey": "em-v2-l16-p001",
       "lesson": 16,
       "localIndex": 1,
@@ -3429,7 +5498,7 @@
       "revealTitles": []
     },
     {
-      "index": 169,
+      "index": 350,
       "slideKey": "em-v2-l16-p002",
       "lesson": 16,
       "localIndex": 2,
@@ -3440,7 +5509,7 @@
       "revealTitles": []
     },
     {
-      "index": 170,
+      "index": 351,
       "slideKey": "em-v2-l16-p003",
       "lesson": 16,
       "localIndex": 3,
@@ -3454,7 +5523,7 @@
       ]
     },
     {
-      "index": 171,
+      "index": 352,
       "slideKey": "em-v2-l16-p004",
       "lesson": 16,
       "localIndex": 4,
@@ -3467,7 +5536,7 @@
       ]
     },
     {
-      "index": 172,
+      "index": 353,
       "slideKey": "em-v2-l16-p005",
       "lesson": 16,
       "localIndex": 5,
@@ -3480,7 +5549,7 @@
       ]
     },
     {
-      "index": 173,
+      "index": 354,
       "slideKey": "em-v2-l16-p006",
       "lesson": 16,
       "localIndex": 6,
@@ -3491,7 +5560,7 @@
       "revealTitles": []
     },
     {
-      "index": 174,
+      "index": 355,
       "slideKey": "em-v2-l16-p007",
       "lesson": 16,
       "localIndex": 7,
@@ -3502,7 +5571,7 @@
       "interactionId": "elasticity-profit-lab"
     },
     {
-      "index": 175,
+      "index": 356,
       "slideKey": "em-v2-l16-p008",
       "lesson": 16,
       "localIndex": 8,
@@ -3515,7 +5584,7 @@
       ]
     },
     {
-      "index": 176,
+      "index": 357,
       "slideKey": "em-v2-l16-p009",
       "lesson": 16,
       "localIndex": 9,
@@ -3528,7 +5597,7 @@
       ]
     },
     {
-      "index": 177,
+      "index": 358,
       "slideKey": "em-v2-l16-p010",
       "lesson": 16,
       "localIndex": 10,
@@ -3541,7 +5610,7 @@
       ]
     },
     {
-      "index": 178,
+      "index": 359,
       "slideKey": "em-v2-l17-p001",
       "lesson": 17,
       "localIndex": 1,
@@ -3553,7 +5622,7 @@
       "revealTitles": []
     },
     {
-      "index": 179,
+      "index": 360,
       "slideKey": "em-v2-l17-p002",
       "lesson": 17,
       "localIndex": 2,
@@ -3564,7 +5633,7 @@
       "revealTitles": []
     },
     {
-      "index": 180,
+      "index": 361,
       "slideKey": "em-v2-l17-p003",
       "lesson": 17,
       "localIndex": 3,
@@ -3575,7 +5644,7 @@
       "revealTitles": []
     },
     {
-      "index": 181,
+      "index": 362,
       "slideKey": "em-v2-l17-p004",
       "lesson": 17,
       "localIndex": 4,
@@ -3589,7 +5658,7 @@
       ]
     },
     {
-      "index": 182,
+      "index": 363,
       "slideKey": "em-v2-l17-p005",
       "lesson": 17,
       "localIndex": 5,
@@ -3603,7 +5672,7 @@
       ]
     },
     {
-      "index": 183,
+      "index": 364,
       "slideKey": "em-v2-l17-p006",
       "lesson": 17,
       "localIndex": 6,
@@ -3616,7 +5685,7 @@
       ]
     },
     {
-      "index": 184,
+      "index": 365,
       "slideKey": "em-v2-l17-p007",
       "lesson": 17,
       "localIndex": 7,
@@ -3626,7 +5695,7 @@
       "revealTitles": []
     },
     {
-      "index": 185,
+      "index": 366,
       "slideKey": "em-v2-l17-p008",
       "lesson": 17,
       "localIndex": 8,
@@ -3639,7 +5708,7 @@
       ]
     },
     {
-      "index": 186,
+      "index": 367,
       "slideKey": "em-v2-l17-p009",
       "lesson": 17,
       "localIndex": 9,
@@ -3653,7 +5722,7 @@
       ]
     },
     {
-      "index": 187,
+      "index": 368,
       "slideKey": "em-v2-l17-p010",
       "lesson": 17,
       "localIndex": 10,
@@ -3666,7 +5735,7 @@
       ]
     },
     {
-      "index": 188,
+      "index": 369,
       "slideKey": "em-v2-l18-p001",
       "lesson": 18,
       "localIndex": 1,
@@ -3677,7 +5746,7 @@
       "revealTitles": []
     },
     {
-      "index": 189,
+      "index": 370,
       "slideKey": "em-v2-l18-p002",
       "lesson": 18,
       "localIndex": 2,
@@ -3688,7 +5757,7 @@
       "revealTitles": []
     },
     {
-      "index": 190,
+      "index": 371,
       "slideKey": "em-v2-l18-p003",
       "lesson": 18,
       "localIndex": 3,
@@ -3701,7 +5770,7 @@
       ]
     },
     {
-      "index": 191,
+      "index": 372,
       "slideKey": "em-v2-l18-p004",
       "lesson": 18,
       "localIndex": 4,
@@ -3715,7 +5784,7 @@
       ]
     },
     {
-      "index": 192,
+      "index": 373,
       "slideKey": "em-v2-l18-p005",
       "lesson": 18,
       "localIndex": 5,
@@ -3725,7 +5794,7 @@
       "revealTitles": []
     },
     {
-      "index": 193,
+      "index": 374,
       "slideKey": "em-v2-l18-p006",
       "lesson": 18,
       "localIndex": 6,
@@ -3739,7 +5808,7 @@
       ]
     },
     {
-      "index": 194,
+      "index": 375,
       "slideKey": "em-v2-l18-p007",
       "lesson": 18,
       "localIndex": 7,
@@ -3752,7 +5821,7 @@
       ]
     },
     {
-      "index": 195,
+      "index": 376,
       "slideKey": "em-v2-l18-p008",
       "lesson": 18,
       "localIndex": 8,
@@ -3763,7 +5832,7 @@
       "revealTitles": []
     },
     {
-      "index": 196,
+      "index": 377,
       "slideKey": "em-v2-l18-p009",
       "lesson": 18,
       "localIndex": 9,
@@ -3776,7 +5845,7 @@
       ]
     },
     {
-      "index": 197,
+      "index": 378,
       "slideKey": "em-v2-l18-p010",
       "lesson": 18,
       "localIndex": 10,
@@ -3789,7 +5858,7 @@
       ]
     },
     {
-      "index": 198,
+      "index": 379,
       "slideKey": "em-v2-l19-p001",
       "lesson": 19,
       "localIndex": 1,
@@ -3800,7 +5869,7 @@
       "revealTitles": []
     },
     {
-      "index": 199,
+      "index": 380,
       "slideKey": "em-v2-l19-p002",
       "lesson": 19,
       "localIndex": 2,
@@ -3811,7 +5880,7 @@
       "revealTitles": []
     },
     {
-      "index": 200,
+      "index": 381,
       "slideKey": "em-v2-l19-p003",
       "lesson": 19,
       "localIndex": 3,
@@ -3825,7 +5894,7 @@
       ]
     },
     {
-      "index": 201,
+      "index": 382,
       "slideKey": "em-v2-l19-p004",
       "lesson": 19,
       "localIndex": 4,
@@ -3839,7 +5908,7 @@
       ]
     },
     {
-      "index": 202,
+      "index": 383,
       "slideKey": "em-v2-l19-p005",
       "lesson": 19,
       "localIndex": 5,
@@ -3852,7 +5921,7 @@
       ]
     },
     {
-      "index": 203,
+      "index": 384,
       "slideKey": "em-v2-l19-p006",
       "lesson": 19,
       "localIndex": 6,
@@ -3865,7 +5934,7 @@
       ]
     },
     {
-      "index": 204,
+      "index": 385,
       "slideKey": "em-v2-l19-p007",
       "lesson": 19,
       "localIndex": 7,
@@ -3879,7 +5948,7 @@
       ]
     },
     {
-      "index": 205,
+      "index": 386,
       "slideKey": "em-v2-l19-p008",
       "lesson": 19,
       "localIndex": 8,
@@ -3890,7 +5959,7 @@
       "revealTitles": []
     },
     {
-      "index": 206,
+      "index": 387,
       "slideKey": "em-v2-l19-p009",
       "lesson": 19,
       "localIndex": 9,
@@ -3903,7 +5972,7 @@
       ]
     },
     {
-      "index": 207,
+      "index": 388,
       "slideKey": "em-v2-l19-p010",
       "lesson": 19,
       "localIndex": 10,
@@ -3916,7 +5985,7 @@
       ]
     },
     {
-      "index": 208,
+      "index": 389,
       "slideKey": "em-v2-l20-p001",
       "lesson": 20,
       "localIndex": 1,
@@ -3927,7 +5996,7 @@
       "revealTitles": []
     },
     {
-      "index": 209,
+      "index": 390,
       "slideKey": "em-v2-l20-p002",
       "lesson": 20,
       "localIndex": 2,
@@ -3938,7 +6007,7 @@
       "revealTitles": []
     },
     {
-      "index": 210,
+      "index": 391,
       "slideKey": "em-v2-l20-p003",
       "lesson": 20,
       "localIndex": 3,
@@ -3952,7 +6021,7 @@
       ]
     },
     {
-      "index": 211,
+      "index": 392,
       "slideKey": "em-v2-l20-p004",
       "lesson": 20,
       "localIndex": 4,
@@ -3966,7 +6035,7 @@
       ]
     },
     {
-      "index": 212,
+      "index": 393,
       "slideKey": "em-v2-l20-p005",
       "lesson": 20,
       "localIndex": 5,
@@ -3980,7 +6049,7 @@
       ]
     },
     {
-      "index": 213,
+      "index": 394,
       "slideKey": "em-v2-l20-p006",
       "lesson": 20,
       "localIndex": 6,
@@ -3993,7 +6062,7 @@
       ]
     },
     {
-      "index": 214,
+      "index": 395,
       "slideKey": "em-v2-l20-p007",
       "lesson": 20,
       "localIndex": 7,
@@ -4005,7 +6074,7 @@
       ]
     },
     {
-      "index": 215,
+      "index": 396,
       "slideKey": "em-v2-l20-p008",
       "lesson": 20,
       "localIndex": 8,
@@ -4018,7 +6087,7 @@
       ]
     },
     {
-      "index": 216,
+      "index": 397,
       "slideKey": "em-v2-l20-p009",
       "lesson": 20,
       "localIndex": 9,
@@ -4031,7 +6100,7 @@
       ]
     },
     {
-      "index": 217,
+      "index": 398,
       "slideKey": "em-v2-l20-p010",
       "lesson": 20,
       "localIndex": 10,
@@ -4041,7 +6110,7 @@
       "revealTitles": []
     },
     {
-      "index": 218,
+      "index": 399,
       "slideKey": "em-v2-l21-p001",
       "lesson": 21,
       "localIndex": 1,
@@ -4053,7 +6122,7 @@
       "revealTitles": []
     },
     {
-      "index": 219,
+      "index": 400,
       "slideKey": "em-v2-l21-p002",
       "lesson": 21,
       "localIndex": 2,
@@ -4064,7 +6133,7 @@
       "revealTitles": []
     },
     {
-      "index": 220,
+      "index": 401,
       "slideKey": "em-v2-l21-p003",
       "lesson": 21,
       "localIndex": 3,
@@ -4075,7 +6144,7 @@
       "revealTitles": []
     },
     {
-      "index": 221,
+      "index": 402,
       "slideKey": "em-v2-l21-p004",
       "lesson": 21,
       "localIndex": 4,
@@ -4089,7 +6158,7 @@
       ]
     },
     {
-      "index": 222,
+      "index": 403,
       "slideKey": "em-v2-l21-p005",
       "lesson": 21,
       "localIndex": 5,
@@ -4100,7 +6169,7 @@
       "interactionId": "riemann-sum-lab"
     },
     {
-      "index": 223,
+      "index": 404,
       "slideKey": "em-v2-l21-p006",
       "lesson": 21,
       "localIndex": 6,
@@ -4113,7 +6182,7 @@
       ]
     },
     {
-      "index": 224,
+      "index": 405,
       "slideKey": "em-v2-l21-p007",
       "lesson": 21,
       "localIndex": 7,
@@ -4125,7 +6194,7 @@
       ]
     },
     {
-      "index": 225,
+      "index": 406,
       "slideKey": "em-v2-l21-p008",
       "lesson": 21,
       "localIndex": 8,
@@ -4135,7 +6204,7 @@
       "revealTitles": []
     },
     {
-      "index": 226,
+      "index": 407,
       "slideKey": "em-v2-l21-p009",
       "lesson": 21,
       "localIndex": 9,
@@ -4148,7 +6217,7 @@
       ]
     },
     {
-      "index": 227,
+      "index": 408,
       "slideKey": "em-v2-l21-p010",
       "lesson": 21,
       "localIndex": 10,
@@ -4158,7 +6227,7 @@
       "revealTitles": []
     },
     {
-      "index": 228,
+      "index": 409,
       "slideKey": "em-v2-l22-p001",
       "lesson": 22,
       "localIndex": 1,
@@ -4169,7 +6238,7 @@
       "revealTitles": []
     },
     {
-      "index": 229,
+      "index": 410,
       "slideKey": "em-v2-l22-p002",
       "lesson": 22,
       "localIndex": 2,
@@ -4180,7 +6249,7 @@
       "revealTitles": []
     },
     {
-      "index": 230,
+      "index": 411,
       "slideKey": "em-v2-l22-p003",
       "lesson": 22,
       "localIndex": 3,
@@ -4193,7 +6262,7 @@
       ]
     },
     {
-      "index": 231,
+      "index": 412,
       "slideKey": "em-v2-l22-p004",
       "lesson": 22,
       "localIndex": 4,
@@ -4207,7 +6276,7 @@
       ]
     },
     {
-      "index": 232,
+      "index": 413,
       "slideKey": "em-v2-l22-p005",
       "lesson": 22,
       "localIndex": 5,
@@ -4218,7 +6287,7 @@
       "interactionId": "accumulation-limit-lab"
     },
     {
-      "index": 233,
+      "index": 414,
       "slideKey": "em-v2-l22-p006",
       "lesson": 22,
       "localIndex": 6,
@@ -4231,7 +6300,7 @@
       ]
     },
     {
-      "index": 234,
+      "index": 415,
       "slideKey": "em-v2-l22-p007",
       "lesson": 22,
       "localIndex": 7,
@@ -4244,7 +6313,7 @@
       ]
     },
     {
-      "index": 235,
+      "index": 416,
       "slideKey": "em-v2-l22-p008",
       "lesson": 22,
       "localIndex": 8,
@@ -4254,7 +6323,7 @@
       "revealTitles": []
     },
     {
-      "index": 236,
+      "index": 417,
       "slideKey": "em-v2-l22-p009",
       "lesson": 22,
       "localIndex": 9,
@@ -4267,7 +6336,7 @@
       ]
     },
     {
-      "index": 237,
+      "index": 418,
       "slideKey": "em-v2-l22-p010",
       "lesson": 22,
       "localIndex": 10,
@@ -4281,7 +6350,7 @@
       ]
     },
     {
-      "index": 238,
+      "index": 419,
       "slideKey": "em-v2-l23-p001",
       "lesson": 23,
       "localIndex": 1,
@@ -4292,7 +6361,7 @@
       "revealTitles": []
     },
     {
-      "index": 239,
+      "index": 420,
       "slideKey": "em-v2-l23-p002",
       "lesson": 23,
       "localIndex": 2,
@@ -4303,7 +6372,7 @@
       "revealTitles": []
     },
     {
-      "index": 240,
+      "index": 421,
       "slideKey": "em-v2-l23-p003",
       "lesson": 23,
       "localIndex": 3,
@@ -4317,7 +6386,7 @@
       ]
     },
     {
-      "index": 241,
+      "index": 422,
       "slideKey": "em-v2-l23-p004",
       "lesson": 23,
       "localIndex": 4,
@@ -4330,7 +6399,7 @@
       ]
     },
     {
-      "index": 242,
+      "index": 423,
       "slideKey": "em-v2-l23-p005",
       "lesson": 23,
       "localIndex": 5,
@@ -4343,7 +6412,7 @@
       ]
     },
     {
-      "index": 243,
+      "index": 424,
       "slideKey": "em-v2-l23-p006",
       "lesson": 23,
       "localIndex": 6,
@@ -4356,7 +6425,7 @@
       ]
     },
     {
-      "index": 244,
+      "index": 425,
       "slideKey": "em-v2-l23-p007",
       "lesson": 23,
       "localIndex": 7,
@@ -4370,7 +6439,7 @@
       ]
     },
     {
-      "index": 245,
+      "index": 426,
       "slideKey": "em-v2-l23-p008",
       "lesson": 23,
       "localIndex": 8,
@@ -4383,7 +6452,7 @@
       ]
     },
     {
-      "index": 246,
+      "index": 427,
       "slideKey": "em-v2-l23-p009",
       "lesson": 23,
       "localIndex": 9,
@@ -4395,7 +6464,7 @@
       ]
     },
     {
-      "index": 247,
+      "index": 428,
       "slideKey": "em-v2-l23-p010",
       "lesson": 23,
       "localIndex": 10,
@@ -4407,7 +6476,7 @@
       ]
     },
     {
-      "index": 248,
+      "index": 429,
       "slideKey": "em-v2-l24-p001",
       "lesson": 24,
       "localIndex": 1,
@@ -4418,7 +6487,7 @@
       "revealTitles": []
     },
     {
-      "index": 249,
+      "index": 430,
       "slideKey": "em-v2-l24-p002",
       "lesson": 24,
       "localIndex": 2,
@@ -4429,7 +6498,7 @@
       "revealTitles": []
     },
     {
-      "index": 250,
+      "index": 431,
       "slideKey": "em-v2-l24-p003",
       "lesson": 24,
       "localIndex": 3,
@@ -4443,7 +6512,7 @@
       ]
     },
     {
-      "index": 251,
+      "index": 432,
       "slideKey": "em-v2-l24-p004",
       "lesson": 24,
       "localIndex": 4,
@@ -4453,7 +6522,7 @@
       "revealTitles": []
     },
     {
-      "index": 252,
+      "index": 433,
       "slideKey": "em-v2-l24-p005",
       "lesson": 24,
       "localIndex": 5,
@@ -4467,7 +6536,7 @@
       ]
     },
     {
-      "index": 253,
+      "index": 434,
       "slideKey": "em-v2-l24-p006",
       "lesson": 24,
       "localIndex": 6,
@@ -4481,7 +6550,7 @@
       ]
     },
     {
-      "index": 254,
+      "index": 435,
       "slideKey": "em-v2-l24-p007",
       "lesson": 24,
       "localIndex": 7,
@@ -4494,7 +6563,7 @@
       ]
     },
     {
-      "index": 255,
+      "index": 436,
       "slideKey": "em-v2-l24-p008",
       "lesson": 24,
       "localIndex": 8,
@@ -4508,7 +6577,7 @@
       ]
     },
     {
-      "index": 256,
+      "index": 437,
       "slideKey": "em-v2-l24-p009",
       "lesson": 24,
       "localIndex": 9,
@@ -4521,7 +6590,7 @@
       ]
     },
     {
-      "index": 257,
+      "index": 438,
       "slideKey": "em-v2-l24-p010",
       "lesson": 24,
       "localIndex": 10,
@@ -4533,7 +6602,7 @@
       ]
     },
     {
-      "index": 258,
+      "index": 439,
       "slideKey": "em-v2-l25-p001",
       "lesson": 25,
       "localIndex": 1,
@@ -4544,7 +6613,7 @@
       "revealTitles": []
     },
     {
-      "index": 259,
+      "index": 440,
       "slideKey": "em-v2-l25-p002",
       "lesson": 25,
       "localIndex": 2,
@@ -4555,7 +6624,7 @@
       "revealTitles": []
     },
     {
-      "index": 260,
+      "index": 441,
       "slideKey": "em-v2-l25-p003",
       "lesson": 25,
       "localIndex": 3,
@@ -4569,7 +6638,7 @@
       ]
     },
     {
-      "index": 261,
+      "index": 442,
       "slideKey": "em-v2-l25-p004",
       "lesson": 25,
       "localIndex": 4,
@@ -4579,7 +6648,7 @@
       "revealTitles": []
     },
     {
-      "index": 262,
+      "index": 443,
       "slideKey": "em-v2-l25-p005",
       "lesson": 25,
       "localIndex": 5,
@@ -4590,7 +6659,7 @@
       "interactionId": "consumer-surplus-lab"
     },
     {
-      "index": 263,
+      "index": 444,
       "slideKey": "em-v2-l25-p006",
       "lesson": 25,
       "localIndex": 6,
@@ -4604,7 +6673,7 @@
       ]
     },
     {
-      "index": 264,
+      "index": 445,
       "slideKey": "em-v2-l25-p007",
       "lesson": 25,
       "localIndex": 7,
@@ -4618,7 +6687,7 @@
       ]
     },
     {
-      "index": 265,
+      "index": 446,
       "slideKey": "em-v2-l25-p008",
       "lesson": 25,
       "localIndex": 8,
@@ -4631,7 +6700,7 @@
       ]
     },
     {
-      "index": 266,
+      "index": 447,
       "slideKey": "em-v2-l25-p009",
       "lesson": 25,
       "localIndex": 9,
@@ -4645,7 +6714,7 @@
       ]
     },
     {
-      "index": 267,
+      "index": 448,
       "slideKey": "em-v2-l25-p010",
       "lesson": 25,
       "localIndex": 10,
@@ -4658,7 +6727,7 @@
       ]
     },
     {
-      "index": 268,
+      "index": 449,
       "slideKey": "em-v2-l26-p001",
       "lesson": 26,
       "localIndex": 1,
@@ -4670,7 +6739,7 @@
       "revealTitles": []
     },
     {
-      "index": 269,
+      "index": 450,
       "slideKey": "em-v2-l26-p002",
       "lesson": 26,
       "localIndex": 2,
@@ -4681,7 +6750,7 @@
       "revealTitles": []
     },
     {
-      "index": 270,
+      "index": 451,
       "slideKey": "em-v2-l26-p003",
       "lesson": 26,
       "localIndex": 3,
@@ -4692,7 +6761,7 @@
       "revealTitles": []
     },
     {
-      "index": 271,
+      "index": 452,
       "slideKey": "em-v2-l26-p004",
       "lesson": 26,
       "localIndex": 4,
@@ -4706,7 +6775,7 @@
       ]
     },
     {
-      "index": 272,
+      "index": 453,
       "slideKey": "em-v2-l26-p005",
       "lesson": 26,
       "localIndex": 5,
@@ -4720,7 +6789,7 @@
       ]
     },
     {
-      "index": 273,
+      "index": 454,
       "slideKey": "em-v2-l26-p006",
       "lesson": 26,
       "localIndex": 6,
@@ -4730,7 +6799,7 @@
       "revealTitles": []
     },
     {
-      "index": 274,
+      "index": 455,
       "slideKey": "em-v2-l26-p007",
       "lesson": 26,
       "localIndex": 7,
@@ -4740,7 +6809,7 @@
       "revealTitles": []
     },
     {
-      "index": 275,
+      "index": 456,
       "slideKey": "em-v2-l26-p008",
       "lesson": 26,
       "localIndex": 8,
@@ -4750,7 +6819,7 @@
       "revealTitles": []
     },
     {
-      "index": 276,
+      "index": 457,
       "slideKey": "em-v2-l26-p009",
       "lesson": 26,
       "localIndex": 9,
@@ -4764,7 +6833,7 @@
       ]
     },
     {
-      "index": 277,
+      "index": 458,
       "slideKey": "em-v2-l26-p010",
       "lesson": 26,
       "localIndex": 10,
@@ -4775,7 +6844,7 @@
       "interactionId": "marketing-surface-lab"
     },
     {
-      "index": 278,
+      "index": 459,
       "slideKey": "em-v2-l26-p011",
       "lesson": 26,
       "localIndex": 11,
@@ -4789,7 +6858,7 @@
       ]
     },
     {
-      "index": 279,
+      "index": 460,
       "slideKey": "em-v2-l26-p012",
       "lesson": 26,
       "localIndex": 12,
@@ -4802,7 +6871,7 @@
       ]
     },
     {
-      "index": 280,
+      "index": 461,
       "slideKey": "em-v2-l26-p013",
       "lesson": 26,
       "localIndex": 13,
@@ -4816,7 +6885,7 @@
       ]
     },
     {
-      "index": 281,
+      "index": 462,
       "slideKey": "em-v2-l26-p014",
       "lesson": 26,
       "localIndex": 14,
@@ -4826,7 +6895,7 @@
       "revealTitles": []
     },
     {
-      "index": 282,
+      "index": 463,
       "slideKey": "em-v2-l27-p001",
       "lesson": 27,
       "localIndex": 1,
@@ -4837,7 +6906,7 @@
       "revealTitles": []
     },
     {
-      "index": 283,
+      "index": 464,
       "slideKey": "em-v2-l27-p002",
       "lesson": 27,
       "localIndex": 2,
@@ -4848,7 +6917,7 @@
       "revealTitles": []
     },
     {
-      "index": 284,
+      "index": 465,
       "slideKey": "em-v2-l27-p003",
       "lesson": 27,
       "localIndex": 3,
@@ -4862,7 +6931,7 @@
       ]
     },
     {
-      "index": 285,
+      "index": 466,
       "slideKey": "em-v2-l27-p004",
       "lesson": 27,
       "localIndex": 4,
@@ -4874,7 +6943,7 @@
       ]
     },
     {
-      "index": 286,
+      "index": 467,
       "slideKey": "em-v2-l27-p005",
       "lesson": 27,
       "localIndex": 5,
@@ -4884,7 +6953,7 @@
       "revealTitles": []
     },
     {
-      "index": 287,
+      "index": 468,
       "slideKey": "em-v2-l27-p006",
       "lesson": 27,
       "localIndex": 6,
@@ -4898,7 +6967,7 @@
       ]
     },
     {
-      "index": 288,
+      "index": 469,
       "slideKey": "em-v2-l27-p007",
       "lesson": 27,
       "localIndex": 7,
@@ -4912,7 +6981,7 @@
       ]
     },
     {
-      "index": 289,
+      "index": 470,
       "slideKey": "em-v2-l27-p008",
       "lesson": 27,
       "localIndex": 8,
@@ -4925,7 +6994,7 @@
       ]
     },
     {
-      "index": 290,
+      "index": 471,
       "slideKey": "em-v2-l27-p009",
       "lesson": 27,
       "localIndex": 9,
@@ -4939,7 +7008,7 @@
       ]
     },
     {
-      "index": 291,
+      "index": 472,
       "slideKey": "em-v2-l27-p010",
       "lesson": 27,
       "localIndex": 10,
@@ -4951,7 +7020,7 @@
       ]
     },
     {
-      "index": 292,
+      "index": 473,
       "slideKey": "em-v2-l28-p001",
       "lesson": 28,
       "localIndex": 1,
@@ -4962,7 +7031,7 @@
       "revealTitles": []
     },
     {
-      "index": 293,
+      "index": 474,
       "slideKey": "em-v2-l28-p002",
       "lesson": 28,
       "localIndex": 2,
@@ -4973,7 +7042,7 @@
       "revealTitles": []
     },
     {
-      "index": 294,
+      "index": 475,
       "slideKey": "em-v2-l28-p003",
       "lesson": 28,
       "localIndex": 3,
@@ -4987,7 +7056,7 @@
       ]
     },
     {
-      "index": 295,
+      "index": 476,
       "slideKey": "em-v2-l28-p004",
       "lesson": 28,
       "localIndex": 4,
@@ -5000,7 +7069,7 @@
       ]
     },
     {
-      "index": 296,
+      "index": 477,
       "slideKey": "em-v2-l28-p005",
       "lesson": 28,
       "localIndex": 5,
@@ -5011,7 +7080,7 @@
       "interactionId": "tangent-plane-lab"
     },
     {
-      "index": 297,
+      "index": 478,
       "slideKey": "em-v2-l28-p006",
       "lesson": 28,
       "localIndex": 6,
@@ -5025,7 +7094,7 @@
       ]
     },
     {
-      "index": 298,
+      "index": 479,
       "slideKey": "em-v2-l28-p007",
       "lesson": 28,
       "localIndex": 7,
@@ -5038,7 +7107,7 @@
       ]
     },
     {
-      "index": 299,
+      "index": 480,
       "slideKey": "em-v2-l28-p008",
       "lesson": 28,
       "localIndex": 8,
@@ -5052,7 +7121,7 @@
       ]
     },
     {
-      "index": 300,
+      "index": 481,
       "slideKey": "em-v2-l28-p009",
       "lesson": 28,
       "localIndex": 9,
@@ -5065,7 +7134,7 @@
       ]
     },
     {
-      "index": 301,
+      "index": 482,
       "slideKey": "em-v2-l28-p010",
       "lesson": 28,
       "localIndex": 10,
@@ -5075,7 +7144,7 @@
       "revealTitles": []
     },
     {
-      "index": 302,
+      "index": 483,
       "slideKey": "em-v2-l29-p001",
       "lesson": 29,
       "localIndex": 1,
@@ -5086,7 +7155,7 @@
       "revealTitles": []
     },
     {
-      "index": 303,
+      "index": 484,
       "slideKey": "em-v2-l29-p002",
       "lesson": 29,
       "localIndex": 2,
@@ -5097,7 +7166,7 @@
       "revealTitles": []
     },
     {
-      "index": 304,
+      "index": 485,
       "slideKey": "em-v2-l29-p003",
       "lesson": 29,
       "localIndex": 3,
@@ -5111,7 +7180,7 @@
       ]
     },
     {
-      "index": 305,
+      "index": 486,
       "slideKey": "em-v2-l29-p004",
       "lesson": 29,
       "localIndex": 4,
@@ -5125,7 +7194,7 @@
       ]
     },
     {
-      "index": 306,
+      "index": 487,
       "slideKey": "em-v2-l29-p005",
       "lesson": 29,
       "localIndex": 5,
@@ -5139,7 +7208,7 @@
       ]
     },
     {
-      "index": 307,
+      "index": 488,
       "slideKey": "em-v2-l29-p006",
       "lesson": 29,
       "localIndex": 6,
@@ -5153,7 +7222,7 @@
       ]
     },
     {
-      "index": 308,
+      "index": 489,
       "slideKey": "em-v2-l29-p007",
       "lesson": 29,
       "localIndex": 7,
@@ -5167,7 +7236,7 @@
       ]
     },
     {
-      "index": 309,
+      "index": 490,
       "slideKey": "em-v2-l29-p008",
       "lesson": 29,
       "localIndex": 8,
@@ -5181,7 +7250,7 @@
       ]
     },
     {
-      "index": 310,
+      "index": 491,
       "slideKey": "em-v2-l29-p009",
       "lesson": 29,
       "localIndex": 9,
@@ -5194,7 +7263,7 @@
       ]
     },
     {
-      "index": 311,
+      "index": 492,
       "slideKey": "em-v2-l29-p010",
       "lesson": 29,
       "localIndex": 10,
@@ -5208,7 +7277,7 @@
       ]
     },
     {
-      "index": 312,
+      "index": 493,
       "slideKey": "em-v2-l30-p001",
       "lesson": 30,
       "localIndex": 1,
@@ -5220,7 +7289,7 @@
       "revealTitles": []
     },
     {
-      "index": 313,
+      "index": 494,
       "slideKey": "em-v2-l30-p002",
       "lesson": 30,
       "localIndex": 2,
@@ -5231,7 +7300,7 @@
       "revealTitles": []
     },
     {
-      "index": 314,
+      "index": 495,
       "slideKey": "em-v2-l30-p003",
       "lesson": 30,
       "localIndex": 3,
@@ -5242,7 +7311,7 @@
       "revealTitles": []
     },
     {
-      "index": 315,
+      "index": 496,
       "slideKey": "em-v2-l30-p004",
       "lesson": 30,
       "localIndex": 4,
@@ -5256,7 +7325,7 @@
       ]
     },
     {
-      "index": 316,
+      "index": 497,
       "slideKey": "em-v2-l30-p005",
       "lesson": 30,
       "localIndex": 5,
@@ -5270,7 +7339,7 @@
       ]
     },
     {
-      "index": 317,
+      "index": 498,
       "slideKey": "em-v2-l30-p006",
       "lesson": 30,
       "localIndex": 6,
@@ -5284,7 +7353,7 @@
       ]
     },
     {
-      "index": 318,
+      "index": 499,
       "slideKey": "em-v2-l30-p007",
       "lesson": 30,
       "localIndex": 7,
@@ -5295,7 +7364,7 @@
       "interactionId": "unconstrained-optimum-lab"
     },
     {
-      "index": 319,
+      "index": 500,
       "slideKey": "em-v2-l30-p008",
       "lesson": 30,
       "localIndex": 8,
@@ -5306,7 +7375,7 @@
       "revealTitles": []
     },
     {
-      "index": 320,
+      "index": 501,
       "slideKey": "em-v2-l30-p009",
       "lesson": 30,
       "localIndex": 9,
@@ -5318,7 +7387,7 @@
       ]
     },
     {
-      "index": 321,
+      "index": 502,
       "slideKey": "em-v2-l30-p010",
       "lesson": 30,
       "localIndex": 10,
@@ -5332,7 +7401,7 @@
       ]
     },
     {
-      "index": 322,
+      "index": 503,
       "slideKey": "em-v2-l30-p011",
       "lesson": 30,
       "localIndex": 11,
@@ -5342,7 +7411,7 @@
       "revealTitles": []
     },
     {
-      "index": 323,
+      "index": 504,
       "slideKey": "em-v2-l31-p001",
       "lesson": 31,
       "localIndex": 1,
@@ -5353,7 +7422,7 @@
       "revealTitles": []
     },
     {
-      "index": 324,
+      "index": 505,
       "slideKey": "em-v2-l31-p002",
       "lesson": 31,
       "localIndex": 2,
@@ -5364,7 +7433,7 @@
       "revealTitles": []
     },
     {
-      "index": 325,
+      "index": 506,
       "slideKey": "em-v2-l31-p003",
       "lesson": 31,
       "localIndex": 3,
@@ -5378,7 +7447,7 @@
       ]
     },
     {
-      "index": 326,
+      "index": 507,
       "slideKey": "em-v2-l31-p004",
       "lesson": 31,
       "localIndex": 4,
@@ -5392,7 +7461,7 @@
       ]
     },
     {
-      "index": 327,
+      "index": 508,
       "slideKey": "em-v2-l31-p005",
       "lesson": 31,
       "localIndex": 5,
@@ -5402,7 +7471,7 @@
       "revealTitles": []
     },
     {
-      "index": 328,
+      "index": 509,
       "slideKey": "em-v2-l31-p006",
       "lesson": 31,
       "localIndex": 6,
@@ -5416,7 +7485,7 @@
       ]
     },
     {
-      "index": 329,
+      "index": 510,
       "slideKey": "em-v2-l31-p007",
       "lesson": 31,
       "localIndex": 7,
@@ -5428,7 +7497,7 @@
       ]
     },
     {
-      "index": 330,
+      "index": 511,
       "slideKey": "em-v2-l31-p008",
       "lesson": 31,
       "localIndex": 8,
@@ -5439,7 +7508,7 @@
       "interactionId": "budget-constraint-lab"
     },
     {
-      "index": 331,
+      "index": 512,
       "slideKey": "em-v2-l31-p009",
       "lesson": 31,
       "localIndex": 9,
@@ -5453,7 +7522,7 @@
       ]
     },
     {
-      "index": 332,
+      "index": 513,
       "slideKey": "em-v2-l31-p010",
       "lesson": 31,
       "localIndex": 10,
@@ -5467,7 +7536,7 @@
       ]
     },
     {
-      "index": 333,
+      "index": 514,
       "slideKey": "em-v2-l31-p011",
       "lesson": 31,
       "localIndex": 11,
@@ -5478,7 +7547,7 @@
       "revealTitles": []
     },
     {
-      "index": 334,
+      "index": 515,
       "slideKey": "em-v2-l31-p012",
       "lesson": 31,
       "localIndex": 12,
@@ -5492,7 +7561,7 @@
       ]
     },
     {
-      "index": 335,
+      "index": 516,
       "slideKey": "em-v2-l31-p013",
       "lesson": 31,
       "localIndex": 13,
@@ -5506,7 +7575,7 @@
       ]
     },
     {
-      "index": 336,
+      "index": 517,
       "slideKey": "em-v2-l31-p014",
       "lesson": 31,
       "localIndex": 14,
@@ -5516,7 +7585,7 @@
       "revealTitles": []
     },
     {
-      "index": 337,
+      "index": 518,
       "slideKey": "em-v2-l32-p001",
       "lesson": 32,
       "localIndex": 1,
@@ -5527,7 +7596,7 @@
       "revealTitles": []
     },
     {
-      "index": 338,
+      "index": 519,
       "slideKey": "em-v2-l32-p002",
       "lesson": 32,
       "localIndex": 2,
@@ -5538,7 +7607,7 @@
       "revealTitles": []
     },
     {
-      "index": 339,
+      "index": 520,
       "slideKey": "em-v2-l32-p003",
       "lesson": 32,
       "localIndex": 3,
@@ -5552,7 +7621,7 @@
       ]
     },
     {
-      "index": 340,
+      "index": 521,
       "slideKey": "em-v2-l32-p004",
       "lesson": 32,
       "localIndex": 4,
@@ -5566,7 +7635,7 @@
       ]
     },
     {
-      "index": 341,
+      "index": 522,
       "slideKey": "em-v2-l32-p005",
       "lesson": 32,
       "localIndex": 5,
@@ -5580,7 +7649,7 @@
       ]
     },
     {
-      "index": 342,
+      "index": 523,
       "slideKey": "em-v2-l32-p006",
       "lesson": 32,
       "localIndex": 6,
@@ -5594,7 +7663,7 @@
       ]
     },
     {
-      "index": 343,
+      "index": 524,
       "slideKey": "em-v2-l32-p007",
       "lesson": 32,
       "localIndex": 7,
@@ -5605,7 +7674,7 @@
       "revealTitles": []
     },
     {
-      "index": 344,
+      "index": 525,
       "slideKey": "em-v2-l32-p008",
       "lesson": 32,
       "localIndex": 8,
@@ -5619,7 +7688,7 @@
       ]
     },
     {
-      "index": 345,
+      "index": 526,
       "slideKey": "em-v2-l32-p009",
       "lesson": 32,
       "localIndex": 9,
@@ -5633,7 +7702,7 @@
       ]
     },
     {
-      "index": 346,
+      "index": 527,
       "slideKey": "em-v2-l32-p010",
       "lesson": 32,
       "localIndex": 10,
@@ -5647,7 +7716,7 @@
       ]
     },
     {
-      "index": 347,
+      "index": 528,
       "slideKey": "em-v2-l32-p011",
       "lesson": 32,
       "localIndex": 11,
@@ -5660,7 +7729,7 @@
       ]
     },
     {
-      "index": 348,
+      "index": 529,
       "slideKey": "em-v2-l32-p012",
       "lesson": 32,
       "localIndex": 12,

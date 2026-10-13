@@ -17,9 +17,9 @@ test("all pages parse inline and display mathematics; full answers exclude teach
  }
 });
 test("unrevealed steps are absent from DOM, and input controls stay outside the projection",()=>{
- const s=slides.find(s=>s.title==="独立建模：打印费用")!,d=definition(s)!;
+ const s=slides.find(s=>s.lesson===2&&s.title==='算出16,000，不等于原复合有定义')!,d=definition(s)!;
  const render=(step:number)=>renderToStaticMarkup(<Slide spec={s} interaction={{deckId,slideId:s.slideKey,revision:1,values:{...d.defaults,presentationStep:step}}} readOnly={false}/>);
- assert.ok(!render(0).includes("费用规则"));assert.ok(render(1).includes("费用规则"));assert.ok(!render(1).includes("输入范围"));assert.ok(render(3).includes("输入范围"));assert.ok(!render(3).includes("<button"));
+ assert.ok(!render(0).includes("实际销量始终"));assert.ok(render(1).includes("实际销量始终"));assert.ok(!render(1).includes("第二个复合没有定义"));assert.ok(render(3).includes("第二个复合没有定义"));assert.ok(!render(3).includes("<button"));
 });
 test("laboratory outputs are finite, labelled, and controls adjust dependent constraints atomically",()=>{
  for(const s of slides.filter(s=>s.interactionId)){const d=definition(s)!;const readout=economicLabReadout(s.interactionId!,{...d.defaults});assert.ok(readout.length>0);assert.ok(!JSON.stringify(readout).match(/NaN|Infinity/));}

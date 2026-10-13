@@ -2,7 +2,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { existsSync } from "node:fs";
+import { createReadStream, existsSync } from "node:fs";
+import { stat } from "node:fs/promises";
 import { campusBuild } from "./campus-build";
 
 const teacherWebRoot = fileURLToPath(new URL(".", import.meta.url));
@@ -19,12 +20,36 @@ const releaseId=process.env.EDU_RELEASE_ID ?? `campus-${new Date().toISOString()
 const keywordModels=["original", ...["personal-20260909", "xiaomai-20260909-epoch10"].filter(id=>existsSync(resolve(teacherWebRoot,"public/vendor/local-kws",id)))];
 
 export default defineConfig({
-  plugins: [campusBuild(releaseId),react()],
+  plugins: [campusBuild(releaseId),react(), {
+    name: 'edu-static-pdf-downloads',
+    configureServer(server) {
+      // Development serves the same verified artifacts as production. This
+      // middleware only streams files; requests cannot launch a PDF renderer.
+      const exportsRoot = resolve(teacherWebRoot, '../../.runtime/course-pdf-cache/artifacts');
+      server.middlewares.use('/course-exports', async (request, response, next) => {
+        const name = (request.url ?? '').split('?')[0]!;
+        if (!['GET', 'HEAD'].includes(request.method ?? '') ||
+          !/^\/(manifest\.json|[a-z0-9-]+\/[a-f0-9]{64}\/[a-z0-9-]+\.(pdf|zip))$/.test(name)) return next();
+        const path = resolve(exportsRoot, name.slice(1));
+        const file = await stat(path).catch(() => null);
+        if (!file?.isFile()) { response.statusCode = 404; response.end(); return; }
+        response.setHeader('Content-Type', name.endsWith('.pdf') ? 'application/pdf' : name.endsWith('.zip') ? 'application/zip' : 'application/json');
+        response.setHeader('Content-Length', file.size);
+        response.setHeader('X-Content-Type-Options', 'nosniff');
+        response.setHeader('Cache-Control', name === '/manifest.json' ? 'no-cache' : 'public, max-age=31536000, immutable');
+        if (request.method === 'HEAD') { response.end(); return; }
+        const stream = createReadStream(path); stream.on('error', () => response.destroy());
+        response.on('close', () => stream.destroy()); stream.pipe(response);
+      });
+    }
+  }],
   define: { "import.meta.env.VITE_EDU_RELEASE_ID":JSON.stringify(releaseId), "import.meta.env.VITE_EDU_KWS_MODELS":JSON.stringify(JSON.stringify(keywordModels)) },
   build: {
     rollupOptions: {
       input: {
         main: resolve(teacherWebRoot, "index.html"),
+        coursePdf: resolve(teacherWebRoot, "course-pdf.html"),
+        economicNarration: resolve(teacherWebRoot, "economic-narration.html"),
         statisticalAnalysisPreview: resolve(teacherWebRoot, "statistical-analysis-preview.html"),
         managementPreview: resolve(teacherWebRoot, "management-preview.html"),
         globePreview: resolve(teacherWebRoot, "globe-preview.html"),

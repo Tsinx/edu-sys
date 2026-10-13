@@ -1,0 +1,51 @@
+.sam-receipt{display:grid;grid-template-columns:480px 1fr;gap:130px;padding-top:12px}
+.sam-receipt section,.sam-receipt aside{border-top:2px solid #152e3e40;padding-top:23px}
+.sam-receipt span,.sam-first-question>p,.sam-score-practice>span,.sam-design-case>span{font-size:25px;line-height:1.7;color:var(--sa-teal)}
+.sam-receipt h2{font:86px/1.2 StatsSerif,serif;color:var(--sa-amber);margin:16px 0 8px}
+.sam-receipt h2 small{font:30px StatsSans,sans-serif}
+.sam-receipt section>p{font-size:27px;line-height:1.7;margin-bottom:24px}
+.sam-receipt blockquote{font:47px/1.65 StatsSerif,serif;margin:28px 0}
+.sam-receipt aside>p{font-size:29px;line-height:1.7;color:#53646b}
+.sam-first-question{padding:20px 0}
+.sam-first-question blockquote{font:48px/1.7 StatsSerif,serif;margin:0 0 40px}
+.sam-first-question>div{display:flex;gap:50px;border-top:2px solid #152e3e40;padding-top:30px}
+.sam-first-question>div>span{font-size:32px;line-height:1.8}
+.sam-first-question>p{margin-top:35px;color:#53646b}
+.sam-complete-form{display:grid;grid-template-columns:365px 1fr;gap:50px;border-top:2px solid #152e3e40;padding-top:18px}
+.sam-complete-form aside{border-right:1px solid #152e3e30;padding-right:30px}
+.sam-complete-form aside>span{font-size:23px;color:var(--sa-teal)}
+.sam-complete-form aside>p{font-size:25px;line-height:1.65;margin:16px 0 9px}
+.sam-complete-form small{display:block;font-size:22px;line-height:1.65;color:#53646b}
+.sam-complete-form ol{list-style:decimal;padding-left:33px;margin:17px 0;font-size:24px;line-height:1.65}
+.sam-complete-form li::marker{color:var(--sa-teal)}
+.sam-form-items>span{display:block;font-size:24px;line-height:1.7;color:#53646b;margin-bottom:17px}
+.sam-form-items>div{display:grid;grid-template-columns:62px minmax(0,1fr) 175px;column-gap:12px;align-items:baseline;padding:15px 0;border-bottom:1px solid #152e3e26}
+.sam-form-items>div:last-child{border-bottom:0}
+.sam-form-items b{font:25px/1.7 StatsSerif,serif;color:var(--sa-teal)}
+.sam-form-items p{font-size:26px;line-height:1.55}
+.sam-form-items>div>span{font-size:21px;line-height:1.6;color:#667980;white-space:nowrap}
+.sam-field-flow>p{font-size:26px;line-height:1.7;color:#53646b;max-width:1330px}
+.sam-field-flow .sam-flow{padding:30px 10px 36px;gap:30px}
+.sam-field-flow .sam-flow b{font-size:102px}
+.sam-field-flow .sam-flow p{font-size:26px}
+.sam-score-practice{padding:45px 0 0 10px}
+.sam-score-practice>p{font:76px/1.5 StatsSerif,serif;margin:24px 0;color:var(--sa-ink)}
+.sam-score-practice b{display:inline-block;width:100px;font:35px StatsSerif,serif;color:var(--sa-teal)}
+.sam-score-practice small{font-size:29px;line-height:1.7;color:#53646b}
+.sam-design-case{padding:20px 0}
+.sam-design-case blockquote{font:40px/1.85 StatsSerif,serif;margin:29px 0}
+.sam-design-case>p{font-size:29px;line-height:1.7;color:#53646b}
+.sam-page--survey .sam-table--survey-workflow th:first-child{width:230px}
+.sam-page--survey .sam-table--survey-scale-definition th:first-child{width:350px}
+.sam-page--survey .sam-table--survey-scale-use th:first-child{width:335px}
+.sam-page--survey .sam-table--survey-scale-routes th:first-child{width:330px}
+.sam-page--survey .sam-table--survey-report-revised th:first-child{width:310px}
+.sam-page--survey .sam-table--survey-report-revised{font-size:26px}
+.sam-page--survey .sam-table--survey-score-worked{font-size:26px;margin-top:65px}
+.sam-page--survey .sam-table--survey-score-worked th:nth-child(1){width:220px}
+.sam-page--survey .sam-table--survey-score-worked th:nth-child(2){width:190px}
+.sam-page--survey .sam-table--survey-score-feedback,.sam-page--survey .sam-table--survey-score-transfer-feedback{margin-top:65px}
+.sam-page--survey .sam-table--survey-score-worked td,.sam-page--survey .sam-table--survey-score-feedback td,.sam-page--survey .sam-table--survey-score-transfer-feedback td{padding-top:31px;padding-bottom:31px}
+.sam-page--survey .sam-table--survey-alpha-worked th:first-child{width:430px}
+.sam-page--survey .sam-table--survey-alpha-worked td{padding-top:17px;padding-bottom:17px}
+.sam-page--survey .sam-table--survey-design-feedback th:first-child{width:265px}

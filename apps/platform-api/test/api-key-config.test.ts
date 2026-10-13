@@ -26,7 +26,7 @@ test("empty assistant overrides and uppercase placeholders do not mask a usable 
     assert.equal(JSON.parse(output).dialogue, "你好");
     assert.equal(calls, 1);
     assert.equal(new DashScopeStudySpeechProvider().asrConfigured, true);
-    const speech = new DashScopeStudySpeechProvider({fetchImplementation: async (_url, init) => {
+    const speech = new DashScopeStudySpeechProvider({asrModel: "qwen3-asr-flash", fetchImplementation: async (_url, init) => {
       assert.equal(new Headers(init?.headers).get("Authorization"), "Bearer synthetic-lowercase-key");
       return Response.json({choices: [{message: {content: "测试语音"}}]});
     }});

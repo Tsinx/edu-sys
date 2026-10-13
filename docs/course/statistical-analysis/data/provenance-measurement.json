@@ -1,0 +1,21 @@
+{
+  "seed": 20261011,
+  "wholesale": {
+    "source": "https://archive.ics.uci.edu/dataset/292/wholesale+customers",
+    "doi": "10.24432/C5030X",
+    "license": "CC BY 4.0",
+    "archiveSHA256": "647e6a61683ed23f48c7b04e1e2be78835eca8758b32267603fc42a1479dbfb8",
+    "csvSHA256": "c3d018c643565b85cee733c4a2ac76dd76e080e857cb23f0ccfcc2e15a6c17ef",
+    "features": [
+      "Fresh",
+      "Milk",
+      "Grocery",
+      "Frozen",
+      "Detergents_Paper",
+      "Delicassen"
+    ],
+    "policy": "Six annual expenditure columns only; log1p then sample-SD standardization; full 440-row descriptive fit; Channel and Region are supplementary; signs anchored by largest absolute coefficient; no customer quality or causal ranking."
+  },
+  "surveyScoring": "T3=6−raw; preserve NA; each 3-item domain requires >=2 answered items; alpha uses complete cases within its stated item set; no automatic quality exclusions.",
+  "units": "UCI monetary units per year; no currency or observation year invented"
+}

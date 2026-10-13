@@ -1,9 +1,9 @@
 import {usePortAutoplay} from '../classroom/usePortAutoplay';
-import {useCallback,useContext,useEffect,useRef,useState} from 'react';
-import {createPortal} from 'react-dom';
+import {useCallback,useEffect,useRef,useState} from 'react';
+import { Pause, Play } from 'lucide-react';
 import {getLessonSixFilm,lessonSixFilmDuration,lessonSixFilmElapsed,lessonSixFilmFrame,lessonSixFilmCamera,lessonSixShotDuration,lessonSixStateValid,type LessonSixPresentation,type PortLessonSixPage,type LessonSixCamera} from '@edu/course-content';
 import {SlideViewport} from '../classroom/SlideViewport';
-import {ClassroomPlaybackSlot} from '../classroom/ClassroomPlaybackSlot';
+import {PageToolsContribution} from '../classroom/PageTools';
 import {PortLessonSixFilm} from './PortLessonSixFilm';
 import {LessonSixFilmControls} from './lesson-six-film-controls';
 import {useLessonSixNarration} from './useLessonSixNarration';
@@ -14,7 +14,7 @@ function normalise(page:PortLessonSixPage,value:LessonSixPresentation):LessonSix
  return value.cinematic?.clipId===film.id?value:{...value,cinematic:{clipId:film.id,status:'paused',elapsedMs:value.progress*lessonSixFilmDuration(film),startedAt:null,runId:`legacy-${film.id}`}};
 }
 export function PortLessonSixFilmPlayback({page,host,readOnly=false,state:controlled}:{page:PortLessonSixPage;host:Host;readOnly?:boolean;state?:LessonSixPresentation}){
- const storageKey=`port-l6:${host.scope}:${page.slideKey}`,slot=useContext(ClassroomPlaybackSlot),callback=useRef(host.onChange);callback.current=host.onChange;
+ const storageKey=`port-l6:${host.scope}:${page.slideKey}`,callback=useRef(host.onChange);callback.current=host.onChange;
  const [state,setState]=useState<LessonSixPresentation>(()=>{
   const restore=(value:LessonSixPresentation)=>{const next=normalise(page,value);if(readOnly)return next;const f=getLessonSixFilm(page.localPage,next.option,next.revealed)!,elapsed=lessonSixFilmElapsed(f,next.cinematic!);return {...next,progress:elapsed/lessonSixFilmDuration(f),cinematic:{...next.cinematic!,status:'paused' as const,elapsedMs:elapsed,startedAt:null}};};
   if(host.initial?.slideKey===page.slideKey&&lessonSixStateValid(page,host.initial))return restore(host.initial);
@@ -54,5 +54,6 @@ export function PortLessonSixFilmPlayback({page,host,readOnly=false,state:contro
   {readOnly&&<span>跟随教师画面 · 声音由本机控制</span>}{audioControls}
   {narration.error&&<div className="l6-film-error" role="status">{narration.error}{!readOnly&&<button onClick={()=>{narration.continueSilent();void play(true);}}>静音继续</button>}</div>}
  </div>;
- return <LessonSixFilmControls.Provider value={{readOnly,onExploreStart:explore,onCameraChange:cameraChange}}><section className="l6-stage"><SlideViewport label={`第6讲 · ${page.localPage}/48`}><PortLessonSixFilm page={page} state={shown}/></SlideViewport>{bar&&(slot?createPortal(bar,slot):bar)}</section></LessonSixFilmControls.Provider>;
+ return <LessonSixFilmControls.Provider value={{readOnly,onExploreStart:explore,onCameraChange:cameraChange}}><section className="l6-stage"><SlideViewport label={`第6讲 · ${page.localPage}/48`}><PortLessonSixFilm page={page} state={shown}/></SlideViewport>{bar&&<PageToolsContribution pageKey={page.slideKey} title={readOnly?'本机旁白':'地球仪工具'} audience={readOnly?'local':'teacher'}
+   actions={readOnly?[]:[{id:'film-play',label:preparing?'准备旁白…':playing?'暂停':'播放',icon:playing?<Pause size={18}/>:<Play size={18}/>,disabled:preparing,onInvoke:()=>void play()}]}>{bar}</PageToolsContribution>}</section></LessonSixFilmControls.Provider>;
 }

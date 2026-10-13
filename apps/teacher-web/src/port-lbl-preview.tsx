@@ -1,3 +1,5 @@
+import { PageToolsProvider } from './features/classroom/PageTools';
+import { CoursePreviewToolbar } from './features/classroom/CoursePreviewToolbar';
 import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { PORT_LBL_SLIDES } from "../../../packages/course-content/src/port-lbl";
@@ -21,9 +23,10 @@ function Preview(){
       if(e.key==="Escape")setProjection(false);
     };window.addEventListener("keydown",key);return()=>window.removeEventListener("keydown",key);
   },[index]);
-  return <main className="lbl-preview" style={projection?{gridTemplateRows:"minmax(0,1fr)"}:undefined}>
-    {!projection&&<nav className="lbl-preview-bar"><strong>港口管理 · 双讲课件</strong><button onClick={()=>move(-1)} disabled={index===0}>上一页</button><select aria-label="选择课件页" value={index} onChange={e=>setIndex(Number(e.target.value))}>{PORT_LBL_SLIDES.map((p,i)=><option key={p.slideKey} value={i}>{p.lesson===2?"Ⅱ":"Ⅲ"} · {p.localPage}　{p.title}</option>)}</select><button onClick={()=>move(1)} disabled={index===105}>下一页</button><button onClick={()=>setProjection(true)}>投影</button></nav>}
+  return <PageToolsProvider courseId="course-port-management-intro" pageKey={page.slideKey} role={projection?'projection':'teacher'}><main className="lbl-preview" style={projection?{gridTemplateRows:"minmax(0,1fr)"}:undefined}>
+
     <PortLblStage key={page.slideKey} page={page} readOnly={false} projection={projection}/>
-  </main>;
+    {!projection&&<CoursePreviewToolbar title={`第${page.lesson}讲`} page={index+1} titles={PORT_LBL_SLIDES.map(p=>`${p.lesson} · ${p.localPage} ${p.title}`)} onPage={n=>setIndex(n-1)} onProjection={()=>setProjection(true)}/>}
+  </main></PageToolsProvider>;
 }
 createRoot(document.getElementById("root")!).render(<StrictMode><Preview/></StrictMode>);

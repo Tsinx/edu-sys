@@ -1,3 +1,5 @@
+import { usePageTools, usePageToolsScope } from '../classroom/PageTools';
+import { SlidersHorizontal } from 'lucide-react';
 import {
   ACESFilmicToneMapping,
   AdditiveBlending,
@@ -2345,45 +2347,51 @@ export const InteractiveEarthGlobe = forwardRef<
     shippingLanes.map((path) => path.tier)
   ).size;
 
-  return (
-    <section
-      className={[
-        "earth-globe",
-        `earth-globe--${stageState}`,
-        `earth-globe--map-${resolvedMapMode}`,
-        className
-      ]
-        .filter(Boolean)
-        .join(" ")}
-      style={style}
-      role="region"
-      aria-label={ariaLabel}
-      data-map-mode={resolvedMapMode}
-      data-route-view={resolvedRouteView}
-      data-shipping-lane-detail={resolvedShippingLaneDetail}
-      data-shipping-lane-batches={shippingLaneBatchCount}
-      data-moving-vessel={movingVessel?.id ?? "none"}
-      data-camera-tracking={Boolean(cameraTrackingCoordinate)}
-      data-administrative-detail={
-        resolvedAdministrativeDetail
-      }
-    >
-      <img
-        className="earth-globe__fallback"
-        src={fallbackImageUrl}
-        alt=""
-        aria-hidden="true"
-      />
-      <div ref={mountRef} className="earth-globe__mount" />
-      <div className="earth-globe__aura" aria-hidden="true" />
-      <div className="earth-globe__grid" aria-hidden="true" />
-      <header className="earth-globe__heading">
-        <span>{eyebrow}</span>
-        <h2>{title}</h2>
-        <p>{interactionHint}</p>
-      </header>
-      {showMapModeToggle || showRouteModeToggle ? (
-        <aside
+  const toolsHost = usePageToolsScope();
+  const globeControls = <div
+          className="earth-globe__controls"
+          role="group"
+          aria-label="地球仪控制"
+        >
+          <button
+            type="button"
+            onClick={() => zoomBy(0.78)}
+            aria-label="放大地球"
+            title="放大"
+          >
+            <ZoomIn aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            onClick={() => zoomBy(1.28)}
+            aria-label="缩小地球"
+            title="缩小"
+          >
+            <ZoomOut aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            onClick={() => setAutoRotating((current) => !current)}
+            aria-label={autoRotating ? "暂停自动旋转" : "继续自动旋转"}
+            aria-pressed={autoRotating}
+            title={autoRotating ? "暂停自动旋转" : "继续自动旋转"}
+          >
+            {autoRotating ? (
+              <Pause aria-hidden="true" />
+            ) : (
+              <Play aria-hidden="true" />
+            )}
+          </button>
+          <button
+            type="button"
+            onClick={resetView}
+            aria-label="恢复初始视角"
+            title="恢复初始视角"
+          >
+            <RotateCcw aria-hidden="true" />
+          </button>
+        </div>;
+  const globeLayers = <aside
           className="earth-globe__layer-panel"
           aria-label="地图与航线图层"
         >
@@ -2610,15 +2618,51 @@ export const InteractiveEarthGlobe = forwardRef<
               </p>
             </div>
             )}
-        </aside>
-      ) : (
-        <div className="earth-globe__telemetry" aria-hidden="true">
-          <span>LAT / LNG</span>
-          <strong>GEOSPATIAL</strong>
-          <i />
-        </div>
-      )}
-      {showControls && (
+        </aside>;
+  usePageTools(toolsHost && showControls ? { pageKey: toolsHost.pageKey, actions: [
+    { id: 'globe-tools', label: '地球仪工具', icon: <SlidersHorizontal size={18}/>, panelId: 'globe' },
+    { id: 'globe-reset', label: '恢复初始视角', icon: <RotateCcw size={18}/>, priority: 'secondary', onInvoke: resetView }
+  ], panels: [{ id: 'globe', title: '地球仪工具', content: <>{globeControls}{(showMapModeToggle || showRouteModeToggle) && globeLayers}</> }] } : null);
+
+  return (
+    <section
+      className={[
+        "earth-globe",
+        `earth-globe--${stageState}`,
+        `earth-globe--map-${resolvedMapMode}`,
+        className
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      style={style}
+      role="region"
+      aria-label={ariaLabel}
+      data-map-mode={resolvedMapMode}
+      data-route-view={resolvedRouteView}
+      data-shipping-lane-detail={resolvedShippingLaneDetail}
+      data-shipping-lane-batches={shippingLaneBatchCount}
+      data-moving-vessel={movingVessel?.id ?? "none"}
+      data-camera-tracking={Boolean(cameraTrackingCoordinate)}
+      data-administrative-detail={
+        resolvedAdministrativeDetail
+      }
+    >
+      <img
+        className="earth-globe__fallback"
+        src={fallbackImageUrl}
+        alt=""
+        aria-hidden="true"
+      />
+      <div ref={mountRef} className="earth-globe__mount" />
+      <div className="earth-globe__aura" aria-hidden="true" />
+      <div className="earth-globe__grid" aria-hidden="true" />
+      <header className="earth-globe__heading">
+        <span>{eyebrow}</span>
+        <h2>{title}</h2>
+        <p>{interactionHint}</p>
+      </header>
+      {!toolsHost && (showMapModeToggle || showRouteModeToggle ? globeLayers : <div className="earth-globe__telemetry" aria-hidden="true"><span>LAT / LNG</span><strong>GEOSPATIAL</strong><i/></div>)}
+      {showControls && !toolsHost && (
         <div
           className="earth-globe__controls"
           role="group"

@@ -1,0 +1,10 @@
+@page{size:1600px 1000px;margin:0}
+html,body,#root,.course-pdf-deck{width:1600px;margin:0;padding:0;background:#fff;color-scheme:light}
+body{-webkit-print-color-adjust:exact;print-color-adjust:exact;overflow:visible}
+.course-pdf-sheet{box-sizing:border-box;width:1600px;height:1000px;margin:0;padding:0;overflow:hidden;contain:strict;break-after:page;page-break-after:always}
+.course-pdf-sheet:last-child{break-after:auto;page-break-after:auto}
+.course-pdf-sheet :is(.lbl-stage,.l4-stage,.l5-stage,.l6-stage,.pe-stage){width:1600px;height:1000px;display:block;padding:0;margin:0}
+.course-pdf-sheet .slide-letterbox{width:1600px!important;height:1000px!important;aspect-ratio:16/10}
+.course-pdf-sheet .slide-logical-canvas{transform:translate(-50%,-50%)!important;box-shadow:none}
+.course-pdf-sheet :is(.presentation-toolbar,.em-narrator,.mg-demo-controls,.lbl-controls,.l4-playback,.l5-playback,.l6-playback,.pe-playback){display:none!important}
+.course-pdf-sheet *{animation:none!important;transition:none!important;caret-color:transparent!important}

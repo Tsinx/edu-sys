@@ -1,0 +1,13 @@
+{
+  "verifiedDate": "2026-10-11",
+  "scope": "lectures 6 and 7; primary method references and original public data",
+  "sources": [
+    {"title":"AAPOR Best Practices for Survey Research","url":"https://aapor.org/standards-and-ethics/best-practices/","use":"question wording, target population, pretesting, participation and reporting; not a claim that this teaching questionnaire was validated"},
+    {"title":"Pew Research Center: Writing Survey Questions","url":"https://www.pewresearch.org/writing-survey-questions/","use":"single-concept wording, response choices and question order; rewritten examples are independently authored teaching scenarios"},
+    {"title":"Schaufeli, W. & Bakker, A. (2004). Utrecht Work Engagement Scale: Preliminary Manual, version 1.1","url":"https://www.wilmarschaufeli.nl/publications/Schaufeli/Test%20Manuals/Test_manual_UWES_English.pdf","use":"concrete established-instrument example: work engagement, UWES-9, frequency response 0–6 and manual scoring; no original items reproduced and no endorsement of an unspecified translated version"},
+    {"title":"International Test Commission: Guidelines for Translating and Adapting Tests, second edition, final version 2.4","url":"https://www.intestcom.org/files/guideline_test_adaptation_2ed.pdf","use":"permission, construct and language equivalence, target-population evidence, administration, scoring and documentation; original evidence does not automatically transfer to adaptations"},
+    {"title":"Sijtsma (2009). On the Use, the Misuse, and the Very Limited Usefulness of Cronbach's Alpha","doi":"10.1007/s11336-008-9101-0","url":"https://link.springer.com/article/10.1007/s11336-008-9101-0","use":"limits of alpha; high alpha does not establish unidimensionality or validity"},
+    {"title":"R stats: prcomp","url":"https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html","use":"SVD-based PCA, sample divisor n-1, component directions and scores, arbitrary signs"},
+    {"title":"Cardoso, M. (2013). Wholesale customers [Dataset]","doi":"10.24432/C5030X","url":"https://archive.ics.uci.edu/dataset/292/wholesale+customers","download":"https://archive.ics.uci.edu/static/public/292/wholesale%2Bcustomers.zip","license":"CC BY 4.0","use":"original 440 rows; six annual expenditure variables; Channel and Region supplementary; derived PCA calculations by this course"}
+  ]
+}
