@@ -64,29 +64,63 @@ async function renderChunk(input: { courseId: string; start: number; count: numb
   </main>);
   const deadline = Date.now() + 45_000;
   // Course renderers are lazy. Do not declare readiness while a loading placeholder is present.
-  while (document.querySelectorAll('.course-pdf-sheet .slide-logical-canvas article').length !== indices.length ||
+  const publicSlideReady = (sheet: Element) => {
+    const canvas = sheet.querySelector('.slide-logical-canvas');
+    if (canvas?.querySelector('article')) return true;
+    const frame = canvas?.querySelector<HTMLIFrameElement>('iframe.em-slide');
+    return Boolean(frame?.contentDocument?.querySelector('#page > article.slide'));
+  };
+  while (document.querySelectorAll('.course-pdf-sheet').length !== indices.length ||
+    !Array.from(document.querySelectorAll('.course-pdf-sheet')).every(publicSlideReady) ||
     Array.from(document.querySelectorAll<HTMLElement>('.course-pdf-sheet'), sheet => Number(sheet.dataset.exportIndex)).join(',') !== indices.join(',')) {
     if (Date.now() > deadline) throw new Error('PDF_RENDER_TIMEOUT');
     await delay(100);
   }
-  await document.fonts.ready;
+  // The first Chinese mathematics lesson uses the same-origin public DOM
+  // renderer. Its print mode keeps vector text and replaces the opening
+  // video with its authored poster; teacher notes never enter the frame.
+  const documents = [document];
+  for (const frame of document.querySelectorAll<HTMLIFrameElement>('iframe.em-slide')) {
+    const embedded = frame.contentDocument;
+    const renderer = (frame.contentWindow as (Window & {
+      EconomicPreludeSlides?: { renderPage: (index: number, step: number, print: boolean) => HTMLElement }
+    }) | null)?.EconomicPreludeSlides;
+    const page = Number(frame.title.match(/第(\d+)页/)?.[1]);
+    if (!embedded || !renderer || !Number.isInteger(page) || page < 1) throw new Error('PDF_EMBEDDED_SLIDE');
+    const printedSlide = renderer.renderPage(page - 1, 10_000, true);
+    const movieFooter = printedSlide.querySelector<HTMLElement>('.layout-film .slide-foot, .slide-foot');
+    if (movieFooter && printedSlide.classList.contains('layout-film')) {
+      Object.assign(movieFooter.style, { display: 'flex', background: '#f1ede3', color: '#102c35', padding: '12px 16px' });
+      const label = movieFooter.firstElementChild;
+      if (label) label.textContent = `经济数学 · 视频画面（动画请在线播放） · ${label.textContent}`;
+    }
+    // Load the public print DOM as a fresh, script-free document. Updating
+    // the live video frame can otherwise leave its cached poster layer in
+    // the print output and omit the newly visible source footer.
+    const loaded = new Promise<void>(resolve => frame.addEventListener('load', () => resolve(), { once: true }));
+    const base = new URL('./', frame.src).href;
+    frame.srcdoc = `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><base href="${base}"><link rel="stylesheet" href="prelude.css"><style>html,body{width:1600px;height:1000px;margin:0;overflow:hidden}@page{size:1600px 1000px;margin:0}</style></head><body>${printedSlide.outerHTML}</body></html>`;
+    await loaded;
+    documents.push(frame.contentDocument!);
+  }
+  await Promise.all(documents.map(doc => doc.fonts.ready));
   while (document.querySelector('.earth-globe--loading,[data-render-state="loading"]')) {
     if (Date.now() > deadline) throw new Error('PDF_MAP_TIMEOUT');
     await delay(100);
   }
-  for (const media of document.querySelectorAll<HTMLMediaElement>('video,audio')) { media.pause(); media.removeAttribute('autoplay'); }
+  for (const doc of documents) for (const media of doc.querySelectorAll<HTMLMediaElement>('video,audio')) { media.pause(); media.removeAttribute('autoplay'); }
   const errors: string[] = [];
-  await Promise.all(Array.from(document.images, async image => {
+  await Promise.all(documents.flatMap(doc => Array.from(doc.images, async image => {
     try { await image.decode(); if (!image.naturalWidth) throw new Error('empty'); }
     catch { errors.push(`PDF_IMAGE:${image.getAttribute('src')}`); }
-  }));
-  for (const animation of document.getAnimations()) animation.pause();
+  })));
+  for (const doc of documents) for (const animation of doc.getAnimations()) animation.pause();
   await delay(150);
   for (const canvas of document.querySelectorAll<HTMLElement>('.slide-logical-canvas')) {
     const box = canvas.getBoundingClientRect();
     if (Math.abs(box.width - 1600) > 1 || Math.abs(box.height - 1000) > 1) errors.push('PDF_CANVAS_SIZE');
   }
-  if (document.querySelector('.katex-error,[data-teaching-cue],[data-assistant-cue],[data-story-beat],[data-voyage-stage]')) errors.push('PDF_PUBLIC_CONTENT');
+  if (documents.some(doc => doc.querySelector('.katex-error,[data-teaching-cue],[data-assistant-cue],[data-story-beat],[data-voyage-stage]'))) errors.push('PDF_PUBLIC_CONTENT');
   const state = { ready: true, count: indices.length, errors };
   window.__COURSE_PDF_READY__ = state;
   return state;

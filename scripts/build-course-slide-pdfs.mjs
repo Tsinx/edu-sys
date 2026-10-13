@@ -71,7 +71,13 @@ async function stop(child) {
   if (!child || child.exitCode !== null) return;
   if (process.platform === 'win32') {
     await new Promise(done => { const killer = spawn('taskkill.exe', ['/PID', String(child.pid), '/T', '/F'], { windowsHide: true, stdio: 'ignore' }); killer.once('error', done); killer.once('exit', done); });
-  } else { child.kill('SIGTERM'); }
+  } else {
+    await new Promise(done => {
+      const timer = setTimeout(() => child.kill('SIGKILL'), 5000);
+      child.once('exit', () => { clearTimeout(timer); done(); });
+      child.kill('SIGTERM');
+    });
+  }
 }
 
 class Cdp {
@@ -146,8 +152,9 @@ async function browser(baseUrl, runId) {
   const profile = resolve(cache, 'work', `browser-${runId}-${Date.now()}`);
   await mkdir(profile, { recursive: true });
   const child = spawn(executable, ['--headless=new', '--disable-extensions', '--disable-background-networking', '--no-first-run',
+    '--no-startup-window', '--disable-background-timer-throttling', '--disable-backgrounding-occluded-windows', '--disable-renderer-backgrounding',
     '--no-default-browser-check', '--hide-scrollbars', '--renderer-process-limit=1', '--js-flags=--max-old-space-size=256',
-    '--remote-debugging-port=0', '--remote-debugging-address=127.0.0.1', `--user-data-dir=${profile}`, 'about:blank'],
+    '--remote-debugging-port=0', '--remote-debugging-address=127.0.0.1', `--user-data-dir=${profile}`],
     { cwd: root, stdio: 'ignore', windowsHide: true });
   try {
     const deadline = Date.now() + 30_000; let port;
