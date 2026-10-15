@@ -13,6 +13,7 @@ import { usePortLabPlayback } from './usePortLabPlayback';
 import { PortLabLiveOperations } from './PortLabLiveOperations';
 import { PortLabPlaybackControls } from './PortLabPlaybackControls';
 import { PortLabAnalysis } from './PortLabAnalysis';
+import { PortIncidentBriefing } from './PortIncidentBriefing';
 import { PORT_INCIDENT_TASKS, PortIncidentControls, PortIncidentEvidence, PortIncidentSummary, PortIncidentHistory } from './PortIncidentControls';
 
 const format = (n: number | null, digits = 1) => n === null ? '—' : n.toLocaleString('zh-CN',{maximumFractionDigits:digits,minimumFractionDigits:digits});
@@ -51,10 +52,11 @@ export function PortClassLabPage({lesson}:{lesson:PortClassLesson}) {
   const send=(command:PortLabCommand)=>{
     const previous=latest.current;
     try{const step=lesson===12?(command.kind==='isolate'?1:['reconcile','start-reconcile','test'].includes(command.kind)?2:command.kind==='restore'?3:previous.step):['advance','tick'].includes(command.kind)&&previous.run.kind==='baseline'&&previous.run.terminal.minute===previous.run.checkpoint?1:previous.step;const next={...previous,run:applyPortClassLabCommand(previous.run,command),step,sealedAt:null};latest.current=next;setBook(next);setError('');return next.run;}
-    catch(e){const message=e instanceof Error?e.message:String(e);playback.pause('error');setError(message);const next={...previous,attempts:[...previous.attempts,{minute:previous.run.terminal.minute,command:command.kind,message}].slice(-80),sealedAt:null};latest.current=next;setBook(next);return undefined;}
+    catch(e){const message=e instanceof Error?e.message:String(e);playback.pause('error');setError(message);const next={...previous,attempts:[...previous.attempts,{minute:previous.run.terminal.minute,command:command.kind,message,afterEvent:previous.run.events.length}].slice(-80),sealedAt:null};latest.current=next;setBook(next);return undefined;}
   };
   const playback=usePortLabPlayback(()=>latest.current.run,seconds=>send({kind:'tick',seconds}));
   const {playing}=playback;
+  useEffect(()=>{if(lesson===12&&loaded.book.teachingMode)playback.setSpeed(10);},[lesson,loaded]);
   useEffect(()=>{if(playing)stage.current?.scrollIntoView({block:'start',behavior:'smooth'});},[playing]);
   const operationLocked=playing||finished||!!r.pendingTask;
   const sceneView=useMemo(()=>({...view,status:playing?'running' as const:'paused' as const}),[view,playing]);
@@ -92,11 +94,12 @@ export function PortClassLabPage({lesson}:{lesson:PortClassLesson}) {
       if(file.size>2_000_000)throw Error('记录文件超过2MB');
       const next=decodeNotebook(JSON.parse(await file.text()),lesson);
       download(JSON.stringify(packed(latest.current,lesson),null,2),`port-lesson-${lesson}-before-import.json`,'application/json');
-      playback.reset();setSessionId(newNotebookId());latest.current=next;setBook(next);setDispatch(next.run.terminal.setup.dispatch);setScope(next.run.incident?.scope??'gate');
+      playback.reset();if(next.teachingMode)playback.setSpeed(10);setSessionId(newNotebookId());latest.current=next;setBook(next);setDispatch(next.run.terminal.setup.dispatch);setScope(next.run.incident?.scope??'gate');
       const audit=next.run.commands.find(c=>c.kind==='audit'||c.kind==='start-audit');setQuarantine(audit&&(audit.kind==='audit'||audit.kind==='start-audit')?[...audit.quarantine]:[]);setError('');
       setNotice('已按逐箱指令重放，数值和完成状态重新核验；原场次保留，新副本在本窗口独立保存。');
     }catch(e){setError(e instanceof Error?e.message:String(e));}
   };
+  const changeTeachingMode=(teachingMode:boolean)=>{playback.pause();if(teachingMode)playback.setSpeed(10);setBook(p=>({...p,teachingMode}));};
   const restart=()=>{playback.reset();setError('');setQuarantine([]);setScope('gate');setComparisonChoice('latest');const next=createPortClassLab(lesson,lesson===11&&book.baseline?'trial':undefined,r.scenario);setDispatch(next.terminal.setup.dispatch);setBook(p=>({...p,archive:[...p.archive,{run:p.run,notes:p.notes,attempts:p.attempts,sealedAt:p.sealedAt}].slice(-8),attempts:[],notes:lesson===12?{}:p.notes,run:next,step:lesson===11&&p.baseline?2:0,sealedAt:null}));};
   return <main className="pcl" data-lesson={lesson} data-lab-version={PORT_CLASS_LAB_VERSION}>
     <header className="pcl-header"><a className="pcl-brand" href="/port-class-lab.html?lesson=11"><span>PORT / FIELD LAB</span><strong>港口管理概论 · 课堂实验</strong></a><nav aria-label="专用实验入口"><a aria-current={lesson===11?'page':undefined} href="/port-class-lab.html?lesson=11">11 · 绩效诊断</a><a aria-current={lesson===12?'page':undefined} href="/port-class-lab.html?lesson=12">12 · 中断恢复</a><a href={`/port-expansion-preview.html?lesson=${lesson}`}>本讲课件 ↗</a><a href="/port-lab-guide.html" target="_blank" rel="noopener">诊断系统使用说明 ↗</a></nav></header>
@@ -104,6 +107,7 @@ export function PortClassLabPage({lesson}:{lesson:PortClassLesson}) {
     {lesson===12&&<nav className="pcl-scenarios" aria-label="第12讲独立场景">{(['system','equipment'] as const).map((id,index)=><a key={id} aria-current={r.scenario===id?'page':undefined} href={`/port-class-lab.html?lesson=12&scenario=${id}`}><span>场景 {index+1} · 约30分钟</span><strong>{PORT_LAB_SCENARIOS[id].title}</strong><small>{PORT_LAB_SCENARIOS[id].description}</small></a>)}<a className="pcl-task-link" href={`/port-lab-taskbook.html#${r.scenario??'system'}`} target="_blank" rel="noopener">打开／打印场景任务书 ↗</a></nav>}
     {(loaded.error||saveError)&&<aside className="pcl-alert" role="alert">{loaded.error||saveError}{loaded.raw&&<button onClick={()=>download(loaded.raw!,'port-lab-original.txt','text/plain')}>下载原笔记</button>}</aside>}
     {loaded.legacyRaw&&<aside className="pcl-feedback">已保留旧版流量实验记录。本页使用逐箱模型，旧版与本版结果分开保存。<button onClick={()=>download(loaded.legacyRaw!,'port-lab-v1-original.json','application/json')}>下载旧版原记录</button></aside>}
+    {lesson===12&&<PortIncidentBriefing run={r} attempts={book.attempts} teaching={book.teachingMode??false} onTeaching={changeTeachingMode} onPause={playback.pause}/>}
     <nav className="pcl-steps" aria-label="30分钟任务书">{tasks.map((task,i)=><button key={task.title} aria-current={book.step===i?'step':undefined} onClick={()=>setBook(p=>({...p,step:i}))}><b>{i+1}</b><span>{task.title}<small>{task.minutes} 分钟</small></span></button>)}</nav>
     <section className="pcl-task"><div><span className="pcl-eyebrow">任务 {book.step+1} / 4</span><h2>{tasks[book.step]!.title}</h2></div><p>{tasks[book.step]!.body}</p><span className="pcl-task-proof">{lesson===11?book.baseline?`基准已保存 · 试验 ${book.trials.length}/3 份`:'基准尚未保存':`技术工作 ${format(incident!.repairWork,0)}/${r.emergency?.repairTarget??60} 人分钟 · ${incident!.restoredAt===null?'尚未恢复':'已恢复'}`}</span></section>
     {r.emergency&&<PortIncidentEvidence run={r}/>}
@@ -141,6 +145,3 @@ export function PortClassLabPage({lesson}:{lesson:PortClassLesson}) {
     <footer className="pcl-footer">本实验为独立教学情境，参数与票据均为课程设定。与综合模拟共用逐箱、车辆及设施内核，不重演新加坡、天津或名古屋现场。<a href={`/port-expansion-preview.html?lesson=${lesson}&student=1`}>阅读本讲课件</a> · <a href={lesson===11?'/handouts/port-facilities-v20-l11/port-management-lesson-11-v20-facilities.pdf':'/handouts/port-facilities-v20-l12/port-management-lesson-12-v20-facilities.pdf'} download>下载本讲PDF</a> · <a href="/port-simulation-preview.html?course=full">48小时综合实训</a></footer>
   </main>;
 }
-
-
-
