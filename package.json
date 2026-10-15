@@ -5,6 +5,7 @@
   "packageManager": "pnpm@11.9.0",
   "scripts": {
     "dev": "concurrently -k -n API,WEB -c cyan,magenta \"pnpm --filter @edu/platform-api dev\" \"pnpm --filter @edu/teacher-web dev\"",
+    "serve:port-classroom": "node scripts/serve-port-classroom.mjs",
     "build": "pnpm typecheck && pnpm --filter @edu/teacher-web build",
     "typecheck": "pnpm -r --if-present typecheck",
     "slides:pdf": "node scripts/build-course-slide-pdfs.mjs",

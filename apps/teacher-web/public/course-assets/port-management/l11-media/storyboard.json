@@ -1,0 +1,31 @@
+{
+  "title":"繁忙的港口，等待的货物",
+  "subtitle":"港口管理概论 · 第11讲开场片",
+  "duration":180,"fps":30,"width":1920,"height":1200,
+  "evidenceLabel":"场景为AI教学示意；历史数据单独注明来源",
+  "shots":[
+    {"id":"opening","from":0,"to":10,"kind":"scene","image":"anchorage.jpg","title":"繁忙的港口","second":"等待的货物","narration":"海面上，一艘船等待靠泊。岸边，设备持续运转。一个看起来繁忙的港口，究竟运行得好不好？"},
+    {"id":"mpa","from":10,"to":20,"kind":"evidence","image":"anchorage.jpg","title":"1336万 TEU","second":"2024年1—4月 · 新加坡 · 同比 +8.8%","narration":"二零二四年前四个月，新加坡处理集装箱一千三百三十六万标箱，同比增长百分之八点八。"},
+    {"id":"reroute","from":20,"to":30,"kind":"route","title":"班期被打乱","second":"改线 → 到港失序 → 船舶集中到达","narration":"五月三十日，海事及港务管理局说明：绕行好望角打乱班期，集装箱船到港失序，集中到达。"},
+    {"id":"arrivals","from":30,"to":40,"kind":"arrivals","title":"同样的总量","second":"不同的到达节奏","narration":"把同样一批船均匀排开，和挤在短时间内到达，结果会一样吗？总量之外，还要看时间分布。"},
+    {"id":"call-work","from":40,"to":50,"kind":"scene","image":"quayside.jpg","title":"一艘船的工作量","second":"单次挂靠装卸量也会改变占用","narration":"官方说明还提到，部分班轮增加单船处理量。一艘船占用多久，既取决于作业速度，也取决于工作量。"},
+    {"id":"quay","from":50,"to":60,"kind":"scene","image":"terminal.jpg","title":"箱子落地之后","second":"岸桥 → 运输 → 堆场","narration":"现在跟随一个箱子。岸桥把它放下，车辆接运，场桥入场。任何一个接口停住，上游都可能受到影响。"},
+    {"id":"yard","from":60,"to":70,"kind":"scene","image":"yard.jpg","title":"看见设备，也要看见条件","second":"司机 · 车辆 · 作业面 · 接续时点","narration":"有车辆，不等于有足够司机；有场桥，不等于作业面已经准备好。有效能力，取决于资源能否接续。"},
+    {"id":"gate","from":70,"to":80,"kind":"scene","image":"gate.jpg","title":"卸下来了，交付了吗？","second":"放行条件与闸口能力仍需满足","narration":"货物到达堆场，客户也未必已经收到。手续、核验和闸口放行，仍然可能把时间留在交付之前。"},
+    {"id":"network","from":80,"to":90,"kind":"network","image":"terminal.jpg","title":"一次局部提速","second":"会让全程更快，还是把积压推向下一站？","narration":"如果只让岸桥更快，运输与闸口保持原样，改善会到达客户，还是只把积压推向下一站？"},
+    {"id":"clock","from":90,"to":100,"kind":"clock","title":"先把时钟对齐","second":"到达 · 移泊 · 开工 · 完工 · 离泊","narration":"判断之前，先把时钟对齐。到达、移泊、开工、完工、离泊，记录不同事件，才能拆出不同损失区段。"},
+    {"id":"mix","from":100,"to":110,"kind":"mix","title":"平均值背后的任务","second":"船型不同，单次作业量也不同","narration":"比较两个港口，还要比较它们处理的任务。大船更多、单次装卸量更大，平均在港时间就可能更长。"},
+    {"id":"unfinished","from":110,"to":120,"kind":"unfinished","title":"还有没完成的任务","second":"未完成记录，不能从评价里消失","narration":"还有一个容易被删掉的事实：那些尚未完成的任务。只统计先完成的一批，可能让结果看起来过于漂亮。"},
+    {"id":"stock","from":120,"to":130,"kind":"stock","title":"积压从哪里来？","second":"期末存量 = 期初存量 + 流入 − 流出","narration":"积压不是一个孤立的数字。期初有多少，期间进入多少，离开多少，必须先在同一个边界里核对。"},
+    {"id":"records","from":130,"to":140,"kind":"scene","image":"control-room.jpg","title":"从现场，到记录","second":"队列是线索，机制要靠证据区分","narration":"最长的队列给出线索，却不能直接指定责任。需要岗位、设备、时间戳和货流记录，区分竞争解释。"},
+    {"id":"checkpoint","from":140,"to":150,"kind":"experiment","image":"terminal.jpg","title":"同一开局","second":"第120分钟检查点 · 固定300箱队列","narration":"本讲实验从同一个检查点出发，面对固定三百箱队列。先保留基准，再改变一项你能够解释的条件。"},
+    {"id":"branches","from":150,"to":160,"kind":"branches","title":"两条轨迹，一个起点","second":"相同货流 · 相同终点 · 记录全部改动","narration":"两条轨迹，要用相同的货流与终点比较。把所有改动写清楚，才有可能说明差异来自哪里。"},
+    {"id":"tradeoff","from":160,"to":170,"kind":"tradeoff","image":"gate.jpg","title":"改善，要付出什么？","second":"交付 · 未完量 · 费用 · 到期结果","narration":"交付增加了多少，剩余任务还有多少，费用付出了多少？一项建议，需要同时回答改善和代价。"},
+    {"id":"question","from":170,"to":180,"kind":"scene","image":"anchorage.jpg","title":"你会先核查哪一段？","second":"带着一个主假设，进入现场记录。","narration":"现在回到这艘等待的船。你会先核查哪一段，哪条记录又能推翻你的判断？把这个问题带进今天的实验。"}
+  ],
+  "sources":[
+    {"id":"mpa","title":"MPA, 30 May 2024","url":"https://www.mpa.gov.sg/media-centre/details/in-response-to-media-queries-on--vessels--extended-waiting-times-for-berths-in-the-port-of-singapore","boundary":"1336万TEU、8.8%、改线与单船工作量为2024年历史说明；通用港外场景不代表当时锚地拥挤，MPA说明锚地当时并未拥挤。"},
+    {"id":"cppi","title":"World Bank CPPI methodology","url":"https://www.worldbank.org/en/topic/transport/publication/cppi","boundary":"端点与任务结构用于解释评价；片中概念图及实验参数为独立教学设计。"},
+    {"id":"lab","title":"第11讲独立实验","url":"/port-class-lab.html?lesson=11","boundary":"120分钟检查点、300箱为固定教学情境，不是实际港口数据。"}
+  ]
+}

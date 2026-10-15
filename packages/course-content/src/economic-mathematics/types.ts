@@ -62,6 +62,8 @@ export type EconomicMathematicsInteractionId =
   | "budget-constraint-lab";
 
 export interface EconomicMathematicsAuthoredSlide {
+  /** Two authored concept questions with teacher-controlled feedback. */
+  conceptCheck?: boolean;
   limitFigure?: EconomicMathematicsLimitFigure;
   limitLab?: 'error-band' | 'capacity' | 'sequence-zoom';
   /** Links the teacher exercise bank; never rendered in the shared canvas. */
@@ -120,7 +122,7 @@ export interface EconomicMathematicsRevealStep {
 
 /** Explicit mathematical evidence; no title/keyword selects a curve. */
 export interface EconomicMathematicsLimitFigure {
-  kind: 'profit' | 'quotient' | 'square-area' | 'hole' | 'error-band' | 'sign' | 'oscillation-samples' | 'sequence' | 'sequence-comparison' | 'sequence-zoom' | 'capacity' | 'counter-sequences' | 'contract' | 'average-cost' | 'reciprocal' | 'squeeze' | 'unit-circle';
+  kind: 'profit' | 'quotient' | 'square-area' | 'hole' | 'error-band' | 'sign' | 'oscillation-samples' | 'sequence' | 'sequence-comparison' | 'sequence-zoom' | 'capacity' | 'counter-sequences' | 'contract' | 'average-cost' | 'reciprocal' | 'squeeze' | 'unit-circle' | 'derivative-bridge';
   params?: Readonly<Record<string, number>>;
 }
 

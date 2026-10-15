@@ -141,7 +141,7 @@ test('sequence zoom restores exact precision parameters, rejects students and hi
   assert.equal(restored.json().slideInteraction.values.precision,15);
   const shared=classroomSnapshotSchema.parse((await app.inject({method:'GET',url:url+'/snapshot',headers:student})).json());
   assert.deepEqual(shared.slideInteraction?.values,restored.json().slideInteraction.values);
-  const proof=slides.find(s=>s.lesson===3&&s.title==='反馈：门槛不是答案猜测，而是覆盖规则')!;
+  const proof=slides.find(s=>s.lesson===3&&s.title.includes('反馈：门槛不是答案猜测，而是覆盖规则'))!;
   const frame=getCourseDeckByCourseId(courseId)!.getSlide(proof.index),d=definition(proof)!;
   const ctx={courseId,courseTitle:'经济数学',activeActivity:'slides' as const,slide:{...frame,slideId:proof.slideKey,deckId,versionId:version,total:slides.length,logicalWidth:1600 as const,logicalHeight:1000 as const,aspectRatio:'16:10' as const},slideInteraction:{deckId,slideId:proof.slideKey,revision:1,values:{...d.defaults,presentationStep:0}},simulation:null,globePlayback:{cueId:null,runId:null,stepIndex:0,status:'idle' as const,stepStartedAt:null,stepElapsedMs:0}};
   const prompt=buildPromptWorkspace(courseId,'经济数学',undefined,proof.index,'slides',ctx).compiled;
@@ -224,7 +224,32 @@ test("classroom steps synchronize, reject conflicts, restore on return and resta
  assert.equal(oldLimits.slide.total,513);assert.equal(oldLimits.slide.lessonNumber,3);assert.equal(oldLimits.slide.versionId,oldLimitsVersion);
  assert.equal(oldLimits.slide.slideId,'em-l03-limits-20261010-p014');assert.equal(oldLimits.slideInteraction?.values.filmTime,97);
  assert.equal((await control({type:'next_slide'})).statusCode,409);
+ await app.close();
+ const savedSequence=JSON.parse(await readFile(dataFile,'utf8'));
+ Object.assign(savedSequence.classroomRuntimes[id],{deckId:'deck-economic-mathematics-2026-limits-sequence',deckVersion:'release-economic-mathematics-limits-sequence-2026-10-11',slideIndex:131,slideKey:'em-l03-limits-sequence-20261011-p032'});
+ savedSequence.classroomRuntimes[id].slideInteractions['em-l03-limits-sequence-20261011-p032']={revision:10,values:{presentationStep:0,precision:9,tailPower:9,candidate:'2.001',epsilonFactor:'5'}};
+ await writeFile(dataFile,JSON.stringify(savedSequence));app=await buildApp({dataFile,portSimulationTickMs:0});
+ const oldSequence=classroomSnapshotSchema.parse((await app.inject({method:'GET',url:url+'/snapshot'})).json());
+ assert.equal(oldSequence.slide.total,529);assert.equal(oldSequence.slide.lessonNumber,3);assert.equal(oldSequence.slide.versionId,'release-economic-mathematics-limits-sequence-2026-10-11');
+ assert.equal(oldSequence.slideInteraction?.revision,10);assert.equal(oldSequence.slideInteraction?.values.precision,9);
+ assert.equal((await control({type:'next_slide'})).statusCode,409);
  const fresh=await app.inject({method:"POST",url:"/api/courses/"+courseId+"/class-sessions",payload:{mode:"new"}});assert.equal(fresh.statusCode,201);
  const freshFrame=(await app.inject({method:"GET",url:"/api/class-sessions/"+fresh.json().id+"/snapshot"})).json().slide;assert.equal(freshFrame.versionId,version);
  }finally{await app.close();await rm(dir,{recursive:true,force:true});}
+});
+
+test('all concept group choices reach the assistant, while each unrevealed answer stays excluded',()=>{
+ const deck=getCourseDeckByCourseId(courseId)!;
+ const checks=slides.filter(p=>p.conceptCheck);
+ assert.equal(checks.length,27);
+ for(const p of checks){
+  const frame=deck.getSlide(p.index),d=definition(p)!;
+  for(const step of [0,1,2]){
+   const ctx={courseId,courseTitle:'经济数学',activeActivity:'slides' as const,slide:{...frame,slideId:p.slideKey,deckId,versionId:version,total:slides.length,logicalWidth:1600 as const,logicalHeight:1000 as const,aspectRatio:'16:10' as const},slideInteraction:{deckId,slideId:p.slideKey,revision:1,values:{...d.defaults,presentationStep:step}},simulation:null,globePlayback:{cueId:null,runId:null,stepIndex:0,status:'idle' as const,stepStartedAt:null,stepElapsedMs:0}};
+   const prompt=buildPromptWorkspace(courseId,'经济数学',undefined,p.index,'slides',ctx).compiled;
+   for(const question of p.table!.columns)assert.ok(prompt.includes(question));
+   for(const [i,reveal] of p.steps!.entries())assert.equal(prompt.includes(reveal.text!),i<step,p.slideKey+':'+step+':'+i);
+   for(const privateKey of ['exerciseActivityId','teachingCue','conceptCheck','routeRole'])assert.ok(!prompt.includes(privateKey));
+  }
+ }
 });

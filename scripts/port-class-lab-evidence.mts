@@ -1,0 +1,23 @@
+import { writeFile } from 'node:fs/promises';
+import { applyPortClassLabCommand as act, createPortClassLab as create, portClassLabMetrics as metrics, serializePortClassLab, PORT_CLASS_LAB_VERSION } from '../packages/port-simulation-core/src/port-class-lab.ts';
+const baseline=act(create(11),{kind:'advance',minutes:360});
+const trial=(drivers:number,gateClerks:number)=>{const r=create(11,'trial');return act(act(r,{kind:'dispatch',value:{...r.terminal.setup.dispatch,drivers,gateClerks}}),{kind:'advance',minutes:360});};
+let recovery=create(12);
+recovery=act(recovery,{kind:'record'});recovery=act(recovery,{kind:'isolate',scope:'gate'});
+recovery=act(recovery,{kind:'audit',quarantine:['R3','R4']});recovery=act(recovery,{kind:'manual'});
+recovery=act(recovery,{kind:'repair'});recovery=act(recovery,{kind:'advance',minutes:30});
+recovery=act(recovery,{kind:'reconcile'});recovery=act(recovery,{kind:'test'});
+while(!recovery.incident!.testPassed&&recovery.terminal.minute<230)recovery=act(recovery,{kind:'advance',minutes:5});
+recovery=act(recovery,{kind:'restore'});
+recovery=act(recovery,{kind:'advance',minutes:90});
+const waiting=act(create(12),{kind:'advance',minutes:150});
+const runs={baseline,drivers4:trial(4,1),coordinated:trial(8,2),recovery,waiting};
+const data={version:PORT_CLASS_LAB_VERSION,checkpoint:{metrics:metrics(create(11)),record:serializePortClassLab(create(11))},label:'教师参考运行，非学生完成记录，非真实港口数据',runs:Object.fromEntries(Object.entries(runs).map(([name,r])=>[name,{metrics:metrics(r),record:serializePortClassLab(r),timeline:name==='recovery'?{fault:90,technical:r.events.find(e=>e.text.startsWith('技术恢复完成'))!.minute,reconciled:r.events.find(e=>e.text.startsWith('恢复记录对账完成'))!.minute,restored:r.incident!.restoredAt!}:null}]))};
+await writeFile(new URL('../packages/course-content/src/port-class-lab-evidence.json',import.meta.url),JSON.stringify(data,null,2)+'\n');
+console.log(JSON.stringify(Object.fromEntries(Object.entries(runs).map(([name,r])=>[name,metrics(r)])),null,2));
+
+const fmt=(n:number|null)=>n===null?'—':n.toFixed(2);
+const ref=['# 第11—12讲逐箱实验教师参考','','当前课堂实验 `port-class-lab/2.0`，共用综合 `port-operations/3.2` 设施内核。旧版1.0按原规则保留。以下为教师参考，不是学生成绩或最优方案。','','## 第11讲','','同一第120分钟检查点、同一300箱需求、同一第360分钟终点。','','| 方案 | 新增交付/箱 | 全部未交付/箱 | 平均在制/箱 | 本段成本 | 单位交付成本 |','|---|---:|---:|---:|---:|---:|',...(['baseline','drivers4','coordinated'] as const).map((name,i)=>{const m=data.runs[name]!.metrics;return '| '+['基准：2司机、1闸口员','4司机、1闸口员','8司机、2闸口员'][i]+' | '+[m.delivered,m.remaining,m.averageInProcess,m.cost,m.costPerDelivered].map(fmt).join(' | ')+' |';}),'','增加岗位不保证单位成本下降或平均在制下降。检查实际交付、未完成量、道路与设备等待，并保留不支持最初假设的结果。组合方案不能把全部收益归于一项改动。','','## 第12讲','','R2与R3均为有效的T02副本，保留任一条、隔离另一条与R4，均可通过核验。R4版本过期且数量与独立记录不一致。',''];
+const rm=data.runs.recovery!.metrics,tm=data.runs.recovery!.timeline!;
+ref.push(`参考：第90分钟记录并隔离，核验至100；启用有限备用、启动技术恢复，${fmt(tm.technical)}分钟完成技术工作，${fmt(tm.reconciled)}分钟完成对账，实际3箱试运行后在${fmt(tm.restored)}分钟恢复。RTO为${fmt(rm.recoveryMinutes)}分钟，${rm.recoveryMinutes!<=60?'达到':'超出'}60分钟目标。`,`观察至240分钟：新增交付${rm.delivered}箱，未交付${rm.remaining}箱，成本${fmt(rm.cost)}教学单位。`,'','24箱是可信备用额度上限，不保证观察期内用尽；单道额定22箱/时仍受提箱、运输、道路和交接条件约束。技术完成、额度用尽和3箱试运完成会暂停推进。未恢复的失败处置也可在终点保存复盘，重开保留历史分支。','','## 解释与核对','','- 箱、车辆、作业任务和库存同源；吊装循环完成前显示交接中，空吊具返回并确认后释放车辆。','- 目的作业位可用时直接送达；受阻时才驶入带箱待接区。空车卸箱后离开交接位，返回待命区再领任务。','- 每个窗口独立保存；刷新、导入和载入历史场次会建立副本。损坏原文保留，完成状态重新核验。','- 切离页面自动暂停；岗位修改先应用再运行。左键平移、Shift加左键旋转、滚轮缩放，右键拖动也可平移。','- 数量为整数箱；平均在制与短窗速率可以有小数。兼容字段capacities沿用旧配置估计，不作为逐箱实际产能；现场分析采用observedRates、任务与资源状态。','','几何、设备速率、费用、车队与恢复目标均为教学设定。交通预约偏保守，没有校准真实车辆动力学、司机班制、危险货物间距、怠速能耗或法定放行程序。成本不是实港报价。','');
+await writeFile(new URL('../docs/course/port-class-lab-teacher-reference.md',import.meta.url),ref.join('\n'));

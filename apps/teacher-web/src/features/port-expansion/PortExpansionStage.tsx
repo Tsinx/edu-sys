@@ -1,12 +1,13 @@
 import {usePortAutoplay} from '../classroom/usePortAutoplay';
 import {createContext,useCallback,useContext,useEffect,useRef,useState} from 'react';
-import {EXPANSION_DEFAULT,expansionStateValid,type ExpansionPresentation,type PortExpansionPage} from '@edu/course-content';
+import {EXPANSION_DEFAULT,expansionStateValid,expansionTotal,portOpeningFilm,type ExpansionPresentation,type PortExpansionPage} from '@edu/course-content';
 import {SlideViewport} from '../classroom/SlideViewport';
 import {PageToolsContribution} from '../classroom/PageTools';
 import { Pause, Play } from 'lucide-react';
 import {PortExpansionComposition} from './PortExpansionComposition';
+import {PortElevenOpening} from './PortElevenOpening';
 export const PortExpansionControls=createContext<{scope:string;initial?:(ExpansionPresentation&{slideKey:string})|null;onChange?:(key:string,state:ExpansionPresentation)=>void}>({scope:'reading'});
-export function PortExpansionStage(props:{page:PortExpansionPage;readOnly?:boolean;state?:ExpansionPresentation}){const host=useContext(PortExpansionControls);return <Playback key={`${host.scope}:${props.page.slideKey}:${!!props.readOnly}`} {...props}/>;}
+export function PortExpansionStage(props:{page:PortExpansionPage;readOnly?:boolean;state?:ExpansionPresentation}){const host=useContext(PortExpansionControls);const key=`${host.scope}:${props.page.slideKey}:${!!props.readOnly}`;return !!portOpeningFilm(props.page.slideKey)?<PortElevenOpening key={key} page={props.page} readOnly={props.readOnly??true} controlled={props.state} initial={host.initial?.slideKey===props.page.slideKey?host.initial:undefined} scope={host.scope} onChange={host.onChange}/>:<Playback key={key} {...props}/>;}
 function Playback({page,readOnly=true,state:controlled}:{page:PortExpansionPage;readOnly?:boolean;state?:ExpansionPresentation}){
  const host=useContext(PortExpansionControls),key=`port-expansion:${host.scope}:${page.slideKey}`;
  const [state,setState]=useState<ExpansionPresentation>(()=>{
@@ -24,5 +25,5 @@ function Playback({page,readOnly=true,state:controlled}:{page:PortExpansionPage;
  useEffect(()=>{if(readOnly)return;const handler=(e:KeyboardEvent)=>{if(e.ctrlKey||e.altKey||e.metaKey||(e.target as HTMLElement).closest('input,select,button,a,textarea'))return;if(e.code==='Space'){e.preventDefault();play();}if(e.key==='.'){e.preventDefault();next();}};addEventListener('keydown',handler);return()=>removeEventListener('keydown',handler);});
  const shown=controlled&&expansionStateValid(page,controlled)?controlled:state;
  const controls=readOnly?null:<div className="pe-playback" aria-label={`第${page.lesson}讲播放控制`}><button onClick={play}>{playing?'暂停':'播放'}</button><button onClick={()=>{jump(0);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setPlaying(true);}}>重播</button><button onClick={next}>下一幕</button><input aria-label="动画进度" type="range" min="0" max="1000" value={Math.round(state.progress*1000)} onChange={e=>jump(Number(e.target.value)/1000)}/><output>{Math.round(state.progress*100)}%</output><button onClick={()=>jump(1)}>全景</button>{page.options&&<select aria-label="演示选项" value={state.option} onChange={e=>{cancel();setPlaying(false);update({...current.current,option:Number(e.target.value),revealed:false});}}>{page.options.map((o,i)=><option key={o} value={i}>{o}</option>)}</select>}{page.reveal&&<button onClick={()=>{cancel();setPlaying(false);update({...current.current,progress:1,revealed:!current.current.revealed});}}>{state.revealed?'收起解析':'揭示解析'}</button>}</div>;
- return <section className="pe-stage"><SlideViewport label={`第${page.lesson}讲 · ${page.localPage}/48`}><PortExpansionComposition page={page} state={shown}/></SlideViewport>{controls&&<PageToolsContribution pageKey={page.slideKey} title="演示工具" priority={page.lesson>=11?'secondary':'primary'} actions={[{id:'play',label:playing?'暂停':'播放',icon:playing?<Pause size={18}/>:<Play size={18}/>,onInvoke:play}]}>{controls}</PageToolsContribution>}</section>;
+ return <section className="pe-stage"><SlideViewport label={`第${page.lesson}讲 · ${page.localPage}/${expansionTotal(page.lesson)}`}><PortExpansionComposition page={page} state={shown}/></SlideViewport>{controls&&<PageToolsContribution pageKey={page.slideKey} title="演示工具" priority={page.lesson>=11?'secondary':'primary'} actions={[{id:'play',label:playing?'暂停':'播放',icon:playing?<Pause size={18}/>:<Play size={18}/>,onInvoke:play}]}>{controls}</PageToolsContribution>}</section>;
 }

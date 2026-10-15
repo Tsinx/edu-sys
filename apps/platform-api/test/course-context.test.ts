@@ -74,8 +74,8 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
       [8, 342, 389],
       [9, 390, 437],
       [10, 438, 485],
-      [11, 486, 533],
-      [12, 534, 581]
+      [11, 486, 517],
+      [12, 518, 549]
     ]
   );
   for (const lesson of readyLessons) {
@@ -97,16 +97,16 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
     assert.equal(lesson.assistantBrief, null);
   }
 
-  assert.equal(PORT_MANAGEMENT_SLIDES.length, 581);
+  assert.equal(PORT_MANAGEMENT_SLIDES.length, 549);
   assert.deepEqual(
     PORT_MANAGEMENT_SLIDES.map((slide) => slide.index),
-    Array.from({ length: 581 }, (_, index) => index + 1)
+    Array.from({ length: 549 }, (_, index) => index + 1)
   );
   assert.equal(
     new Set(PORT_MANAGEMENT_SLIDES.map((slide) => slide.slideKey)).size,
-    581
+    549
   );
-  assert.equal(PORT_MANAGEMENT_DECK_VERSION, "release-port-management-performance-safety-v15");
+  assert.equal(PORT_MANAGEMENT_DECK_VERSION, "release-port-management-facilities-v20");
 });
 
 test("lesson-local page numbers map cleanly onto the internal global index", () => {
@@ -160,7 +160,7 @@ test("every slide carries complete narrative and source metadata", () => {
     assert.ok(evidenceStates.has(slide.narrative.evidence));
     assert.ok(storyBeats.has(slide.narrative.storyBeat));
     assert.ok(slide.narrative.progress >= 1);
-    assert.ok(slide.narrative.progress <= 581);
+    assert.ok(slide.narrative.progress <= 549);
     for (const sourceId of slide.sourceIds ?? []) {
       assert.ok(
         PORT_MANAGEMENT_SOURCES[sourceId],

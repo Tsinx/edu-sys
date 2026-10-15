@@ -10,6 +10,13 @@ export function profitQuotient(base: 80 | 90, h: number): number {
   return (profitAt(base + h) - profitAt(base)) / h;
 }
 export function squareQuotient(h: number): number { return h === 0 ? NaN : 2 + h; }
+export function derivativeBridgeValue(model: 0 | 1 | 2, x: number): number {
+  return model === 0 ? x * x : model === 1 ? -x * x : -Math.abs(x);
+}
+export function derivativeBridgeQuotient(model: 0 | 1 | 2, h: number): number {
+  if (!Number.isFinite(h) || h === 0) return NaN;
+  return model === 0 ? h : model === 1 ? -h : -Math.sign(h);
+}
 export function capacityAt(n: number): number {
   return Number.isInteger(n) && n >= 0 ? 500 - 100 * .8 ** n : NaN;
 }

@@ -1,5 +1,6 @@
+import {newLocalPortId} from './local-port-id';
 import { useCallback, useEffect, useRef, useState } from "react";
-import { defaultPortConfig, defaultPortPlan, portStorageKey, type PortCourseUnit, type PortCourseView, type PortCourseStep, type PortBox, type PortCommand, type PortConfig, type PortMode, type PortPlan, type PortResult, type PortView } from "@edu/port-simulation-core";
+import { defaultPortConfig, defaultPortPlan, portStorageKey, portObservationAdvance, PORT_HORIZON, type PortCourseUnit, type PortCourseView, type PortCourseStep, type PortBox, type PortCommand, type PortConfig, type PortMode, type PortPlan, type PortResult, type PortView } from "@edu/port-simulation-core";
 import type { LabStorage } from "./useTerminalTraining";
 import type { PortTutorialView } from "@edu/port-simulation-core";
 import type { PortSubmissionPackage } from "@edu/port-simulation-core";
@@ -41,9 +42,17 @@ type Message = {
 };
 function entryRules(e: { raw: string; rules?: PortView["schema"] }): PortView["schema"] {
     if(e.rules) return e.rules;
-    try { const schema=JSON.parse(e.raw).schema; return ["port-operations/3.0","port-course/1.0"].includes(schema)?"port-operations/3.0":"port-operations/3.1"; } catch { return "port-operations/3.1"; }
+    try { const schema=JSON.parse(e.raw).schema; if(schema==="port-operations/3.2")return schema; return ["port-operations/3.0","port-course/1.0"].includes(schema)?"port-operations/3.0":"port-operations/3.1"; } catch { return "port-operations/3.1"; }
 }
 export function usePortOperations(storage: LabStorage | null | undefined, scope: string, initialMode: PortMode, locked: boolean, initialConfig = defaultPortConfig(), course?: { unit: PortCourseUnit; demo: boolean; tutorial?: boolean }, enabled = true) {
+    const observationKey = `edu-port-operations:observation:${scope}`;
+    const [observationEnd, setObservationEndState] = useState<number | null>(() => {
+        try {
+            const value = JSON.parse(storage?.getItem(observationKey) ?? "null");
+            return Number.isInteger(value) && value > 0 && value <= PORT_HORIZON ? value : null;
+        } catch { return null; }
+    });
+    const observationEndRef = useRef(observationEnd);
     const [sealed, setSealed] = useState(false), [sealing, setSealing] = useState(false);
     const sealedRef = useRef(false), sealingRef = useRef(false);
     const sealRequest = useRef<number | null>(null);
@@ -56,11 +65,11 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
     speedRef.current = speed;
     const persist = useCallback(() => { if (original.current)
         return; try {
-        for (const rules of ["port-operations/3.0", "port-operations/3.1"] as const) {
+        for (const rules of ["port-operations/3.0", "port-operations/3.1", "port-operations/3.2"] as const) {
             const entries = book.current.entries.filter(e => entryRules(e) === rules);
             if (entries.length) storage?.setItem(portStorageKey(scope, modeRef.current, rules), JSON.stringify({ entries, active: entries.some(e=>e.id===book.current.active) ? book.current.active : "", final: entries.some(e=>e.id===book.current.final) ? book.current.final : null }));
         }
-        storage?.setItem(`edu-port-operations:active-rules:${scope}:${modeRef.current}`, latest.current?.schema ?? "port-operations/3.1");
+        storage?.setItem(`edu-port-operations:active-rules:${scope}:${modeRef.current}`, latest.current?.schema ?? "port-operations/3.2");
         if (!locked)
             storage?.setItem(`edu-port-operations:selection:${scope}`, modeRef.current);
         const flush = storage?.flush?.();
@@ -74,7 +83,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
         original.current = null;
         const merged: History = { active: "", final: null, entries: [] };
         const preferred = storage?.getItem(`edu-port-operations:active-rules:${scope}:${mode}`);
-        for (const rules of ["port-operations/3.0", "port-operations/3.1"] as const) {
+        for (const rules of ["port-operations/3.0", "port-operations/3.1", "port-operations/3.2"] as const) {
             const raw = storage?.getItem(portStorageKey(scope, mode, rules));
             if (!raw) continue;
             try {
@@ -106,14 +115,25 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
         if (!v || v.status !== "running" || clockPending.current)
             return;
         const scale = v.mode === "battle" ? 60 : speedRef.current, now = Date.now();
-        const seconds = Math.min(172800, Math.floor(Math.max(0, now - lastWall.current) * scale / 1000));
+        const elapsed = Math.min(172800, Math.floor(Math.max(0, now - lastWall.current) * scale / 1000));
+        const endpoint = v.mode === "practice" && !course ? observationEndRef.current : null;
+        const seconds = portObservationAdvance(v.second, elapsed, endpoint);
+        if (endpoint !== null && v.second >= endpoint) {
+            clockPending.current = true;
+            void post({ type: "command", command: { kind: "pause" } }).finally(() => { clockPending.current = false; });
+            return;
+        }
         if (!seconds)
             return;
         lastWall.current += seconds * 1000 / scale;
         clockPending.current = true;
-        void post({ type: "command", command: { kind: "advance", seconds } }).finally(() => { clockPending.current = false; });
+        void post({ type: "command", command: { kind: "advance", seconds } }).then(async message => {
+            const target = observationEndRef.current;
+            if (v.mode === "practice" && !course && target !== null && message.view === latest.current && message.view?.second !== undefined && message.view.second >= target && message.view.status === "running")
+                await post({ type: "command", command: { kind: "pause" } });
+        }).finally(() => { clockPending.current = false; });
     }, [post, course?.demo]);
-    const launch = useCallback(async (mode: PortMode, config: PortConfig, plan: PortPlan, raw?: string, id?: string, schema: PortView["schema"] = "port-operations/3.1") => {
+    const launch = useCallback(async (mode: PortMode, config: PortConfig, plan: PortPlan, raw?: string, id?: string, schema: PortView["schema"] = "port-operations/3.2") => {
         sealedRef.current = false; sealingRef.current = false; setSealed(false); setSealing(false);
         setBusy(true);
         setError("");
@@ -130,7 +150,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
         lastWall.current = Date.now();
         modeRef.current = mode;
         benchmarkConfig.current = "";
-        active.current = id ?? crypto.randomUUID();
+        active.current = id ?? newLocalPortId();
         book.current.active = active.current;
         if (!id && !course?.tutorial)
             book.current.entries.push({ id: active.current, created: new Date().toISOString(), mode, seed: config.seed, status: "ready", second: 0, raw: "", score: null, rules: schema });
@@ -275,7 +295,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
                 return;
             }
         }
-        let schema: PortView["schema"] = latest.current?.schema ?? "port-operations/3.1";
+        let schema: PortView["schema"] = latest.current?.schema ?? "port-operations/3.2";
         let config = latest.current?.config ?? initialConfig, plan = latest.current?.plan ?? defaultPortPlan();
         try {
             const raw = entry?.raw ?? book.current.entries.find(e => e.id === active.current)?.raw;
@@ -292,7 +312,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
         }
         if (newSeed)
             config = { ...config, seed: crypto.getRandomValues(new Uint32Array(1))[0]! };
-        await launch(modeRef.current, config, plan, undefined, undefined, newSeed ? "port-operations/3.1" : schema);
+        await launch(modeRef.current, config, plan, undefined, undefined, newSeed ? "port-operations/3.2" : schema);
     };
     const load = async (raw: string) => {
         try {
@@ -309,7 +329,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
                 await launch(importedMode, initialConfig, defaultPortPlan(), raw);
                 return;
             }
-            if (!["port-operations/3.0", "port-operations/3.1"].includes(data.schema))
+            if (!["port-operations/3.0", "port-operations/3.1", "port-operations/3.2"].includes(data.schema))
                 throw new Error("这是旧版存档，请打开“8 小时基础实训”导入，旧成绩按原规则重放。");
             if (locked && data.mode !== initialMode)
                 throw new Error("导入场次与教师指定模式不一致。");
@@ -345,7 +365,20 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
         setTimeout(() => URL.revokeObjectURL(url), 1000);
     } };
     const setDemoPlaying = (playing: boolean) => { demoPlayingRef.current = playing; setDemoPlayingState(playing); lastWall.current = Date.now(); demoActionWall.current = 0; if (!playing && latest.current?.status === "running") void post({ type: "command", command: { kind: "pause" } }); };
-    return { view, sealed, sealing, seal, runId: history.active, lesson, tutorial, observe: (target: string) => course?.tutorial ? post({ type: "tutorial-observe", target }) : Promise.resolve(null), demonstration, demoPlaying, setDemoPlaying, demoStep: () => { if (demoPlayingRef.current) setDemoPlaying(false); return post({ type: "demo-step" }); }, history, error, notice, speed, box, busy, send, configure, retry, load, selectFinal, openHistory, exportReport, inspect: (boxId: string) => post({ type: "inspect", boxId }), setSpeed: (n: number) => { if (latest.current?.mode === "practice") {
+    const setObservationEnd = (value: number | null) => {
+        if (course || latest.current?.mode !== "practice") return;
+        if (value !== null && (!Number.isInteger(value) || value <= (latest.current?.second ?? 0) || value > PORT_HORIZON)) {
+            setError("观察终点须晚于当前时点，且不超过开局后48小时。");
+            return;
+        }
+        observationEndRef.current = value;
+        setObservationEndState(value);
+        try {
+            storage?.setItem(observationKey, JSON.stringify(value));
+            void storage?.flush?.().catch(e => setError(`观察终点尚未保存：${String(e)}`));
+        } catch (e) { setError(`观察终点尚未保存：${String(e)}`); }
+    };
+    return { view, observationEnd, setObservationEnd, sealed, sealing, seal, runId: history.active, lesson, tutorial, observe: (target: string) => course?.tutorial ? post({ type: "tutorial-observe", target }) : Promise.resolve(null), demonstration, demoPlaying, setDemoPlaying, demoStep: () => { if (demoPlayingRef.current) setDemoPlaying(false); return post({ type: "demo-step" }); }, history, error, notice, speed, box, busy, send, configure, retry, load, selectFinal, openHistory, exportReport, inspect: (boxId: string) => post({ type: "inspect", boxId }), setSpeed: (n: number) => { if (latest.current?.mode === "practice") {
             tick();
             speedRef.current = n;
             setSpeedState(n);

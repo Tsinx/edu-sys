@@ -60,14 +60,15 @@ export function servicePortReference(s: PortSession, policy: 1 | 2 = 1) {
     }
 }
 /** Calibrated teaching comparison, within the same 1,200-point budget. */
-export function calibratedPortPlan() {
+export function calibratedPortPlan(physical = false) {
     const plan = defaultPortPlan(), e = plan.equipment;
     Object.assign(e, { cranes: 6, vehicles: 8, yardMachines: 4, gates: 2, vehicle: "agv", yardMachine: "rmg", gateSystem: "smart" });
     Object.assign(e.dispatch, { berthCranes: [3, 3], craneOperators: 6, drivers: 2, yardOperators: 4, gateClerks: 1, technicians: 1 });
+    if (physical) { Object.assign(e,{cranes:4,yardMachines:6,yardMachine:'rtg'});Object.assign(e.dispatch,{berthCranes:[2,2],craneOperators:4,yardOperators:6}); }
     return cleanPortPlan(plan);
 }
 export function runPortReference(config: PortConfig, stepSeconds = 120, schema: PortSession["schema"] = PORT_OPERATIONS_SCHEMA, referenceVersion: 1 | 2 = 1) {
-    const s = createPortSession("battle", config, referenceVersion === 2 ? calibratedPortPlan() : defaultPortPlan(), schema);
+    const s = createPortSession("battle", config, referenceVersion === 2 ? calibratedPortPlan(schema === 'port-operations/3.2') : defaultPortPlan(), schema);
     s.referenceVersion = referenceVersion;
     applyPortCommand(s, { kind: "start" });
     while (s.second < PORT_HORIZON) {
@@ -150,15 +151,15 @@ export function serializePortSession(s: PortSession, options: {
     suspend?: boolean;
 } = {}) {
     const status = options.suspend && ["running", "paused"].includes(s.status) ? s.mode === "battle" ? "interrupted" : "paused" : s.status;
-    return JSON.stringify({ schema: s.schema, ...(s.referenceVersion === undefined ? {} : { referenceVersion: s.referenceVersion }), scoringVersion: s.scoringVersion ?? 1, ...(s.schema === "port-operations/3.1" ? { navigationVersion: PORT_NAVIGATION_VERSION } : {}), generator: PORT_ARRIVAL_GENERATOR, config: cleanPortConfig(s.config), mode: s.mode, initialPlan: cleanPortPlan(s.initialPlan), schedule: s.schedules, commands: s.commands, inputLog: s.inputLog ?? [], traceCoverage: s.traceCoverage ?? "complete", status, ...(options.review ? { review: portReport(s) } : {}) });
+    return JSON.stringify({ schema: s.schema, ...(s.referenceVersion === undefined ? {} : { referenceVersion: s.referenceVersion }), scoringVersion: s.scoringVersion ?? 1, ...(s.schema !== "port-operations/3.0" ? { navigationVersion: PORT_NAVIGATION_VERSION } : {}), generator: PORT_ARRIVAL_GENERATOR, config: cleanPortConfig(s.config), mode: s.mode, initialPlan: cleanPortPlan(s.initialPlan), schedule: s.schedules, commands: s.commands, inputLog: s.inputLog ?? [], traceCoverage: s.traceCoverage ?? "complete", status, ...(options.review ? { review: portReport(s) } : {}) });
 }
 export function restorePortSession(raw: string, suspend = false): PortSession {
     if (raw.length > 20000000)
         throw new Error("复盘文件过大。");
     const data = JSON.parse(raw);
-    if (![PORT_OPERATIONS_SCHEMA, "port-operations/3.0"].includes(data?.schema) || data.generator !== PORT_ARRIVAL_GENERATOR || !["practice", "battle"].includes(data.mode) || !Array.isArray(data.commands) || data.commands.length > 50000)
+    if (![PORT_OPERATIONS_SCHEMA, "port-operations/3.1", "port-operations/3.0"].includes(data?.schema) || data.generator !== PORT_ARRIVAL_GENERATOR || !["practice", "battle"].includes(data.mode) || !Array.isArray(data.commands) || data.commands.length > 50000)
         throw new Error("港口综合实训复盘版本或指令记录无效。");
-    if (data.schema === "port-operations/3.1" && data.navigationVersion !== PORT_NAVIGATION_VERSION) throw new Error("航行规则版本无效。");
+    if (data.schema !== "port-operations/3.0" && data.navigationVersion !== PORT_NAVIGATION_VERSION) throw new Error("航行规则版本无效。");
     const s = createPortSession(data.mode, cleanPortConfig(data.config), cleanPortPlan(data.initialPlan), data.schema);
     if (data.referenceVersion !== undefined && ![1, 2].includes(data.referenceVersion)) throw new Error("成本基准版本无效。");
     if (data.referenceVersion === undefined) delete s.referenceVersion; else s.referenceVersion = data.referenceVersion;

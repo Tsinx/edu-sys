@@ -1,0 +1,356 @@
+{
+  "version": "port-class-lab/2.0",
+  "checkpoint": {
+    "metrics": {
+      "minute": 120,
+      "elapsed": 0,
+      "delivered": 0,
+      "cumulativeDelivered": 13,
+      "remaining": 287,
+      "unloaded": 17,
+      "queues": [
+        1,
+        1,
+        2
+      ],
+      "waitingBoxMinutes": 0,
+      "averageInProcess": null,
+      "cost": 0,
+      "costPerDelivered": null,
+      "deadlineShare": null,
+      "capacities": [
+        128,
+        9.75970425138632,
+        72,
+        22
+      ],
+      "observedRates": [
+        12,
+        6,
+        0,
+        12
+      ],
+      "recoveryMinutes": null,
+      "dataExposureMinutes": null
+    },
+    "record": {
+      "version": "port-class-lab/2.0",
+      "lesson": 11,
+      "kind": "baseline",
+      "commands": []
+    }
+  },
+  "label": "教师参考运行，非学生完成记录，非真实港口数据",
+  "runs": {
+    "baseline": {
+      "metrics": {
+        "minute": 360,
+        "elapsed": 240,
+        "delivered": 30,
+        "cumulativeDelivered": 43,
+        "remaining": 257,
+        "unloaded": 48,
+        "queues": [
+          0,
+          2,
+          3
+        ],
+        "waitingBoxMinutes": 980.5833333333335,
+        "averageInProcess": 4.08576388888889,
+        "cost": 150.83778333333333,
+        "costPerDelivered": 5.027926111111111,
+        "deadlineShare": 0.11666666666666667,
+        "capacities": [
+          128,
+          9.75970425138632,
+          72,
+          22
+        ],
+        "observedRates": [
+          12,
+          6,
+          6,
+          6
+        ],
+        "recoveryMinutes": null,
+        "dataExposureMinutes": null
+      },
+      "record": {
+        "version": "port-class-lab/2.0",
+        "lesson": 11,
+        "kind": "baseline",
+        "commands": [
+          {
+            "kind": "advance",
+            "minutes": 360
+          }
+        ]
+      },
+      "timeline": null
+    },
+    "drivers4": {
+      "metrics": {
+        "minute": 360,
+        "elapsed": 240,
+        "delivered": 37,
+        "cumulativeDelivered": 50,
+        "remaining": 250,
+        "unloaded": 57,
+        "queues": [
+          2,
+          1,
+          4
+        ],
+        "waitingBoxMinutes": 1598.1333333333334,
+        "averageInProcess": 6.65888888888889,
+        "cost": 168.5456041666667,
+        "costPerDelivered": 4.5552865990991,
+        "deadlineShare": 0.13666666666666666,
+        "capacities": [
+          128,
+          19.51940850277264,
+          72,
+          22
+        ],
+        "observedRates": [
+          6,
+          12,
+          12,
+          6
+        ],
+        "recoveryMinutes": null,
+        "dataExposureMinutes": null
+      },
+      "record": {
+        "version": "port-class-lab/2.0",
+        "lesson": 11,
+        "kind": "trial",
+        "commands": [
+          {
+            "kind": "dispatch",
+            "value": {
+              "berthCranes": [
+                2,
+                2
+              ],
+              "craneOperators": 4,
+              "drivers": 4,
+              "yardOperators": 3,
+              "gateClerks": 1,
+              "technicians": 0,
+              "priority": "balanced"
+            }
+          },
+          {
+            "kind": "advance",
+            "minutes": 360
+          }
+        ]
+      },
+      "timeline": null
+    },
+    "coordinated": {
+      "metrics": {
+        "minute": 360,
+        "elapsed": 240,
+        "delivered": 32,
+        "cumulativeDelivered": 45,
+        "remaining": 255,
+        "unloaded": 55,
+        "queues": [
+          7,
+          1,
+          2
+        ],
+        "waitingBoxMinutes": 2283.4500000000003,
+        "averageInProcess": 9.514375000000001,
+        "cost": 210.06722916666666,
+        "costPerDelivered": 6.564600911458333,
+        "deadlineShare": 0.12666666666666668,
+        "capacities": [
+          128,
+          39.03881700554528,
+          72,
+          44
+        ],
+        "observedRates": [
+          6,
+          6,
+          0,
+          12
+        ],
+        "recoveryMinutes": null,
+        "dataExposureMinutes": null
+      },
+      "record": {
+        "version": "port-class-lab/2.0",
+        "lesson": 11,
+        "kind": "trial",
+        "commands": [
+          {
+            "kind": "dispatch",
+            "value": {
+              "berthCranes": [
+                2,
+                2
+              ],
+              "craneOperators": 4,
+              "drivers": 8,
+              "yardOperators": 3,
+              "gateClerks": 2,
+              "technicians": 0,
+              "priority": "balanced"
+            }
+          },
+          {
+            "kind": "advance",
+            "minutes": 360
+          }
+        ]
+      },
+      "timeline": null
+    },
+    "recovery": {
+      "metrics": {
+        "minute": 240,
+        "elapsed": 150,
+        "delivered": 22,
+        "cumulativeDelivered": 33,
+        "remaining": 267,
+        "unloaded": 42,
+        "queues": [
+          6,
+          1,
+          2
+        ],
+        "waitingBoxMinutes": 1558.6666666666667,
+        "averageInProcess": 10.391111111111112,
+        "cost": 142.09545833333334,
+        "costPerDelivered": 6.45888446969697,
+        "deadlineShare": null,
+        "capacities": [
+          128,
+          39.03881700554528,
+          72,
+          44
+        ],
+        "observedRates": [
+          6,
+          6,
+          12,
+          18
+        ],
+        "recoveryMinutes": 62.05000000000001,
+        "dataExposureMinutes": 15
+      },
+      "record": {
+        "version": "port-class-lab/2.0",
+        "lesson": 12,
+        "kind": "incident",
+        "commands": [
+          {
+            "kind": "record"
+          },
+          {
+            "kind": "isolate",
+            "scope": "gate"
+          },
+          {
+            "kind": "audit",
+            "quarantine": [
+              "R3",
+              "R4"
+            ]
+          },
+          {
+            "kind": "manual"
+          },
+          {
+            "kind": "repair"
+          },
+          {
+            "kind": "advance",
+            "minutes": 30
+          },
+          {
+            "kind": "reconcile"
+          },
+          {
+            "kind": "test"
+          },
+          {
+            "kind": "advance",
+            "minutes": 5
+          },
+          {
+            "kind": "advance",
+            "minutes": 5
+          },
+          {
+            "kind": "advance",
+            "minutes": 5
+          },
+          {
+            "kind": "restore"
+          },
+          {
+            "kind": "advance",
+            "minutes": 90
+          }
+        ]
+      },
+      "timeline": {
+        "fault": 90,
+        "technical": 130,
+        "reconciled": 140,
+        "restored": 152.05
+      }
+    },
+    "waiting": {
+      "metrics": {
+        "minute": 240,
+        "elapsed": 150,
+        "delivered": 0,
+        "cumulativeDelivered": 11,
+        "remaining": 289,
+        "unloaded": 53,
+        "queues": [
+          4,
+          2,
+          36
+        ],
+        "waitingBoxMinutes": 3754.2666666666673,
+        "averageInProcess": 25.02844444444445,
+        "cost": 142.01964166666664,
+        "costPerDelivered": null,
+        "deadlineShare": null,
+        "capacities": [
+          128,
+          39.03881700554528,
+          72,
+          0
+        ],
+        "observedRates": [
+          18,
+          18,
+          18,
+          0
+        ],
+        "recoveryMinutes": null,
+        "dataExposureMinutes": 15
+      },
+      "record": {
+        "version": "port-class-lab/2.0",
+        "lesson": 12,
+        "kind": "incident",
+        "commands": [
+          {
+            "kind": "advance",
+            "minutes": 150
+          }
+        ]
+      },
+      "timeline": null
+    }
+  }
+}

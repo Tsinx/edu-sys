@@ -61,7 +61,8 @@ export default defineConfig({
         portSimulationPreview: resolve(
           teacherWebRoot,
           "port-simulation-preview.html"
-        )
+        ),
+        portClassLab: resolve(teacherWebRoot, "port-class-lab.html")
       }
     }
   },

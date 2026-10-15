@@ -1,0 +1,39 @@
+{
+  "tool": "built-in image_gen.imagegen",
+  "date": "2026-10-14",
+  "boundary": "All generic AI teaching illustrations; no event footage or actual legal compliance is asserted.",
+  "generated": [
+    {
+      "name": "handoff",
+      "asset": "handoff-source.png",
+      "prompt": "Use case: scientific-educational. Asset type: university port safety lecture illustration and opening film frame. A small team of four Chinese adult container-terminal professionals in correct hard hats, high visibility safety vests and work trousers at a sheltered shift-handover desk beside a safe pedestrian observation area, two women and two men of varied adult ages. One points to a paper handover log while a colleague verifies a tablet; another looks toward cranes in the background. Realistic modern Chinese container port, technically plausible equipment and separated pedestrian paths, normal calm shift at warm sunrise. Respectful, candid professional documentary-style architectural visualization, life and occupational responsibility as the focus. Wide 16:10 composition with people on right and quiet port environment left for typography added later. Deep navy teal steel, warm amber highlights, natural restrained color. No readable text on forms or signs, no logos, no flags, no watermarks, no UI. Generic teaching scene, not actual historic footage, not any identifiable person."
+    },
+    {
+      "name": "warehouse",
+      "asset": "warehouse-source.png",
+      "prompt": "Use case: scientific-educational. Asset type: technically credible university port risk management teaching scene. Interior of a modern generic port warehouse seen from a raised safe inspection walkway, two Chinese adult inspectors in proper hard hats and high visibility vests checking a tablet and sealed inventory paperwork in foreground right. Neatly organized separated pallet storage blocks and enclosed storage cages in background, wide marked inspection lanes, believable fire door and fixed fire protection devices. No open chemicals, no leaking substances, no visible hazard instructions, no specific dangerous goods quantities. The scene conveys inspection of inventory and accountability, not chemical handling training. Cinematic realistic industrial visualization, cool teal steel and natural pale daylight, quiet orange accents, wide 16:10 frame. No readable words, invented labels, logos, charts, arrows or watermark. Generic AI teaching reconstruction, not a photograph of Tianjin or any actual accident."
+    },
+    {
+      "name": "records",
+      "asset": "records-source.png",
+      "prompt": "Use case: scientific-educational. Asset type: university port operations ethics and risk-control lecture illustration, plus cinematic film frame. A close but wide composition of two Chinese adult port logistics professionals at a clean protected gate-office desk, independently comparing a paper shipment ledger and a tablet record, one indicates a mismatch with a pen while the other checks a second document. Correct hard hats nearby, high visibility vests, practical workwear, calm concentrated expressions, candid human details. Through the window, container terminal road and one waiting truck in believable safe lane. Focus on trustworthy records and careful handover, do not depict cyberattack screens. Hands and documents anatomically credible. No readable letters, numbers, logos or text on screens or paper; no charts or decorative UI. Cinematic realistic editorial visualization, soft afternoon daylight, teal and warm ochre accents, landscape 16:10. Generic teaching scene, no identifiable real people, no historical reconstruction claims, no watermark."
+    },
+    {
+      "name": "drill",
+      "asset": "drill-source.png",
+      "prompt": "Use case: scientific-educational. Asset type: university port emergency-management and professional responsibility lecture scene, cinematic film frame. Six adult Chinese port professionals, including an operations manager, an IT technician, two logistics supervisors and two emergency liaison staff, conducting a calm tabletop continuity exercise inside a modern port coordination room. They are gathered around a physical port-site model and paper handover documents, one woman explains a checklist while a man independently verifies another record. Proper workwear, high visibility vests, no military uniforms, no operational hero posing. Through wide background windows are container cranes, a safely parked emergency support vehicle far outside, no active disaster. Realistic industrial architecture, warm amber task light mixed with teal daylight, restrained cinematic realism. Wide landscape 16:10, people naturally distributed across frame, credible hands. No readable writing, maps with text, screen UI, flags, logos, watermarks, explosions, fire or injured people. Clearly a generic teaching drill, not footage of any actual event."
+    },
+    {
+      "name": "community",
+      "asset": "community-source.png",
+      "prompt": "Use case: scientific-educational. Asset type: university lecture illustration on port development, public interest and risk exposure, plus documentary-style opening film frame. A wide elevated panorama of a generic modern Chinese container port alongside a coastal city at early evening. Container terminal and cranes occupy left midground, a broad transport corridor and landscaped public green buffer visible in middle, residential apartment neighborhoods and an ordinary waterfront public walking path in right foreground. A few adults walking safely in the public area, far from terminal traffic; no identifiable landmarks. Believable geography, port land and city land are visibly distinct. The image explores relationships, not an engineering safe-distance plan. Cinematic restrained realistic architectural visualization, deep teal water, warm city windows, dignified calm mood, landscape 16:10. No labels, numbers, readable text, flags, logos, diagrams, arrows, watermarks, disaster, flames or smoke. Generic AI teaching scene, not Tianjin historical imagery and not proof of any actual regulatory compliance."
+    }
+  ],
+  "reused": [
+    {
+      "name": "gate",
+      "source": "../l11-media/gate.jpg",
+      "type": "existing AI teaching illustration"
+    }
+  ]
+}

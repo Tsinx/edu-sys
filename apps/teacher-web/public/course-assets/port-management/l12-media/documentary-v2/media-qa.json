@@ -1,0 +1,103 @@
+{
+  "lesson": 12,
+  "title": "放行之前",
+  "version": "l12-opening-v2",
+  "duration": 180,
+  "width": 1920,
+  "height": 1200,
+  "fps": 30,
+  "frames": 5400,
+  "fullDecode": "pass",
+  "codec": "H.264 yuv420p / AAC 48kHz stereo",
+  "pictureEdits": 25,
+  "realVideoSourceCount": 11,
+  "archiveSeconds": 16,
+  "voiceSeconds": 116.27,
+  "noNarrationSeconds": 63.73,
+  "loudness": {
+    "input_i": "-16.51",
+    "input_tp": "-4.29",
+    "input_lra": "12.30",
+    "input_thresh": "-27.63",
+    "output_i": "-16.71",
+    "output_tp": "-3.48",
+    "output_lra": "7.00",
+    "output_thresh": "-27.45",
+    "normalization_type": "dynamic",
+    "target_offset": "0.71"
+  },
+  "bytes": 90315396,
+  "sha256": "e0279e87fc6865768340c34f8628f534ec693a7d50ed969ce9e7d243e87303c1",
+  "storyboardSha256": "b22ab2917e755d975ae2b1f0c321ad205d858522c319e9cb79345e4af2a84b15",
+  "captionsSha256": "1217f7d713c96fd74fc45d657df9449b98508b3bd88445bd7b80d218dcb28d3a",
+  "sourceHashes": [
+    {
+      "id": "10452020",
+      "sha256": "4f6ebe4df779adbabbc0ed209065ebb56df9404bb542d93108ef5c222e8bef17",
+      "license": "Pexels License",
+      "url": "https://www.pexels.com/video/container-ship-in-commercial-dock-10452020/"
+    },
+    {
+      "id": "11335972",
+      "sha256": "13aba013727f08e408862e0d91ba77eaea74861716f55d1755c779ca504211a2",
+      "license": "Pexels License",
+      "url": "https://www.pexels.com/video/ship-in-harbor-at-night-11335972/"
+    },
+    {
+      "id": "18718867",
+      "sha256": "2da0e3a13852d4cffa96b3934aee83c768d6cfeac4153edc83d80337bfbc4efb",
+      "license": "Pexels License",
+      "url": "https://www.pexels.com/video/a-large-red-crane-is-in-the-middle-of-a-ship-18718867/"
+    },
+    {
+      "id": "30899354",
+      "sha256": "537ddf610acc7970802ccec82ab170a4b32bef6ce67201179f5afd5f0606d2b8",
+      "license": "Pexels License",
+      "url": "https://www.pexels.com/video/aerial-view-of-busy-international-container-port-30899354/"
+    },
+    {
+      "id": "33585292",
+      "sha256": "25be9b67177ebf5cbed7bac1573ca0d38d5ac8e242b5c1e0764bd77a4a2412fb",
+      "license": "Pexels License",
+      "url": "https://www.pexels.com/video/industrial-container-cranes-at-santos-port-33585292/"
+    },
+    {
+      "id": "36375964",
+      "sha256": "74e874941ceed170c0cc381fbbf24b30e9e68ae8e92d50485ace95fb24d26023",
+      "license": "Pexels License",
+      "url": "https://www.pexels.com/video/container-yard-operations-with-loading-cranes-36375964/"
+    },
+    {
+      "id": "4294434",
+      "sha256": "9be43ad0159f8e0b9cee36aaaacb31f27f1082c74591c68e013f91e2d44431dd",
+      "license": "Pexels License",
+      "url": "https://www.pexels.com/video/man-walking-towards-the-forklift-inside-the-warehouse-4294434/"
+    },
+    {
+      "id": "5100045",
+      "sha256": "0af6ad3d61d2b29f9422597e004f5a633cb2e457c05f0b3d6b70c68e9b93f72d",
+      "license": "Pexels License",
+      "url": "https://www.pexels.com/video/man-in-helmet-checking-logistics-and-input-data-5100045/"
+    },
+    {
+      "id": "5100055",
+      "sha256": "f9fdfb974fb5838129a24f0d8337bb6c93e7a23958b661254ed995acc7c016bd",
+      "license": "Pexels License",
+      "url": "https://www.pexels.com/video/man-wearing-hard-hat-holding-a-box-5100055/"
+    },
+    {
+      "id": "5308785",
+      "sha256": "a1b3922cf1c3fa2a5b09dee95079214225bd32d8794720d083874f7b8a9e1787",
+      "license": "Pexels License",
+      "url": "https://www.pexels.com/video/night-video-of-a-fishing-boat-at-the-port-5308785/"
+    },
+    {
+      "id": "7018675",
+      "sha256": "4becc73df25f696c42752c5f2fc6ccc12a8c2f5b558df08bc3bed294a9045938",
+      "license": "Pexels License",
+      "url": "https://www.pexels.com/video/a-woman-checking-the-document-while-walking-in-the-warehouse-7018675/"
+    }
+  ],
+  "subjectiveListening": "not claimed; waveform, ASR and browser playback checked separately",
+  "classroomSpeakerTrial": "not yet run"
+}

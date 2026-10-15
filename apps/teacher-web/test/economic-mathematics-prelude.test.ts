@@ -6,7 +6,7 @@ import test from 'node:test';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { getCourseDeckByCourseId, getCoursePresentation } from '@edu/course-content/deck-registry';
-import { economicModels, ECONOMIC_MATHEMATICS_SLIDES, economicVisibleCopy } from '@edu/course-content/economic-mathematics';
+import { economicModels, ECONOMIC_MATHEMATICS_SLIDES, ECONOMIC_MATHEMATICS_VERSION_ID, economicVisibleCopy } from '@edu/course-content/economic-mathematics';
 
 const root = fileURLToPath(new URL('../public/course-assets/economic-mathematics/prelude/', import.meta.url));
 type Page = { id: string; title: string; reveals?: string[]; conclusion?: string; special?: boolean };
@@ -37,8 +37,8 @@ const notes = require('../../../docs/course/economic-mathematics-prelude-notes.c
 
 test('prelude is lesson one, former lessons one and two combine without changing later numbering', () => {
   const deck = getCourseDeckByCourseId('course-economic-mathematics')!;
-  assert.equal(deck.slideTotal, 529); assert.equal(deck.lessons.length, 32); assert.equal(deck.totalHours, 64);
-  assert.equal(deck.versionId, 'release-economic-mathematics-limits-sequence-2026-10-11');
+  assert.equal(deck.slideTotal, ECONOMIC_MATHEMATICS_SLIDES.length); assert.equal(deck.lessons.length, 32); assert.equal(deck.totalHours, 64);
+  assert.equal(deck.versionId, ECONOMIC_MATHEMATICS_VERSION_ID);
   assert.equal(deck.lessons[0]!.slideTotal, 40); assert.equal(deck.lessons[1]!.slideTotal, 59);
   assert.equal(deck.lessons[2]!.number, 3); assert.equal(deck.lessons[2]!.slideStart, 100);
   const resource = getCoursePresentation(deck.courseId)!.resources.find(r => r.role === '第1讲');

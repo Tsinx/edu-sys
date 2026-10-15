@@ -1,0 +1,31 @@
+{
+ "title":"守住安全，才能抵达","subtitle":"港口管理概论 · 第12讲 · 安全发展与职业责任",
+ "duration":180,"fps":30,"width":1920,"height":1200,
+ "evidenceLabel":"AI教学示意；事故事实与价值原则分别注明来源",
+ "shots":[
+  {"id":"opening","from":0,"to":10,"kind":"scene","image":"handoff.jpg","title":"守住安全","second":"才能抵达","narration":"清晨，一次交班，一份记录，一项确认。港口的每一次交接，都连接着工作人员与周边公众的安全。"},
+  {"id":"life","from":10,"to":20,"kind":"principle","image":"community.jpg","title":"人民至上，生命至上","second":"安全发展，落实到每一个岗位","narration":"安全生产法强调人民至上、生命至上。港口的效率和秩序，要以保护人的生命安全为前提。"},
+  {"id":"archive","from":20,"to":30,"kind":"archive","title":"从调查证据出发","second":"天津港“8·12”事故调查报告 · 2016年公布","narration":"回看天津港八一二事故调查报告。许可、库存、培训和监督，哪些环节缺少了有效的风险控制？"},
+  {"id":"barrier","from":30,"to":40,"kind":"scene","image":"warehouse.jpg","title":"制度存在之后","second":"还需要执行、核验与缺陷闭环","narration":"调查揭示了许可、库存和培训等管理问题。制度存在，并不自动证明现场风险已经受到控制。"},
+  {"id":"honesty","from":40,"to":50,"kind":"scene","image":"records.jpg","title":"如实记录，就是承担责任","second":"对象 · 版本 · 数量 · 时间戳","narration":"记录不一致时，不能为了赶进度而补一个签字。保留差异、追查来源，让下一班知道真实状态。"},
+  {"id":"duty","from":50,"to":60,"kind":"responsibility","image":"handoff.jpg","title":"责任落实到接口","second":"谁提供证据，谁复核，谁接续？","narration":"责任不能只写在制度的末尾。谁提供证据，谁独立复核，谁接续业务，都要有明确对象和记录。"},
+  {"id":"bowtie","from":60,"to":70,"kind":"bowtie","title":"在失控之前阻断风险","second":"威胁 → 预防屏障 → 顶事件 → 减缓屏障 → 后果","narration":"把威胁、失控和后果分开。预防屏障要在失控前起作用，减缓措施则限制后果，并支持后续恢复。"},
+  {"id":"dependency","from":70,"to":80,"kind":"dependency","title":"三次确认，可能同源","second":"独立性，要沿着数据和责任追查","narration":"如果三个确认都复制同一份错误资料，签字再多，也没有增加独立依据。核验质量比确认次数更关键。"},
+  {"id":"nagoya","from":80,"to":90,"kind":"scene","image":"gate.jpg","title":"设备还在，业务仍可能中断","second":"名古屋NUTS事件 · 2023年7月","narration":"名古屋港的公开材料记录，二零二三年七月，集装箱搬入搬出约三天停止。信息依赖也会约束物流。"},
+  {"id":"boundary","from":90,"to":100,"kind":"boundary","image":"gate.jpg","title":"先界定影响，再决定处置","second":"可信条件优先，保留业务须有独立依据","narration":"面对中断，先判断哪些业务依赖失效信息。决定暂停或保留，都要说明依据，不能只追求当下产量。"},
+  {"id":"continuity","from":100,"to":110,"kind":"scene","image":"drill.jpg","title":"协同应急，靠平时准备","second":"人员 · 资料 · 容量 · 退出条件","narration":"协同应急靠平时准备。备用流程需要人员、独立资料和有限容量，也需要明确的停止与退出条件。"},
+  {"id":"restore","from":110,"to":120,"kind":"restore","title":"修好了，还要验证什么？","second":"技术可用 → 数据可信 → 业务可执行","narration":"系统能够响应，只证明了一部分。数据是否一致，受控任务能否正确交接，还需要分别取得证据。"},
+  {"id":"craft","from":120,"to":130,"kind":"scene","image":"warehouse.jpg","title":"把专业精神落实到细节","second":"认真核查 · 如实报告 · 持续纠偏","narration":"专业精神体现在细节里：核查一个版本，报告一项缺陷，完成一次复核，把发现的问题真正闭环。"},
+  {"id":"lab","from":130,"to":140,"kind":"experiment","image":"records.jpg","title":"进入你的值班现场","second":"第90分钟：闸口接口失去可信记录","narration":"本讲实验从第九十分钟开始。闸口接口失去可信记录，内部设备仍然可用。你的第一项决定是什么？"},
+  {"id":"choices","from":140,"to":150,"kind":"choices","title":"每项决定，都要留下依据","second":"范围 · 备用 · 恢复 · 交接","narration":"隔离到哪里，备用如何核验，恢复需要哪些证据？把决定、反馈和改动留下，让别人能够复核。"},
+  {"id":"handover","from":150,"to":160,"kind":"scene","image":"handoff.jpg","title":"恢复之后，责任继续","second":"原始告警 · 数据缺口 · 未完任务 · 下一次复核","narration":"恢复成功，也不能删除原始告警。数据缺口、未完任务和下一次复核，要一并交给明确的责任对象。"},
+  {"id":"public","from":160,"to":170,"kind":"scene","image":"community.jpg","title":"港口连接贸易，也连接生活","second":"发展与安全，需要共同守护","narration":"港口连接贸易，也连接城市生活。尊重生命、依法履责、诚实记录，让专业能力成为守护公众的力量。"},
+  {"id":"question","from":170,"to":180,"kind":"scene","image":"handoff.jpg","title":"哪一项证据，能改变你的决定？","second":"把安全发展的要求，写进一次可复核的行动。","narration":"当进度与核验发生冲突，你会依据什么作决定？带着这个问题进入实验，把安全要求写进可复核的行动。"}
+ ],
+ "sources":[
+  {"id":"principle","title":"安全生产法第三条（2021年修正文本）","url":"https://www.mem.gov.cn/fw/flfgbz/fg/202107/t20210716_416558.shtml","boundary":"用于人民至上、生命至上及预防理念的价值依据；不提供具体现场法律意见或法定权限判定。"},
+  {"id":"tianjin","title":"天津港“8·12”瑞海公司事故调查报告","url":"https://www.mem.gov.cn/gk/sgcc/tbzdsgdcbg/2016/201602/P020190415543917598002.pdf","boundary":"许可、库存、培训和监督的历史管理证据；不重演化学过程，不新增官方责任认定，不使用AI场景冒充事件影像。"},
+  {"id":"nagoya","title":"日本国土交通省：港口信息安全对策委员会资料","url":"https://www.mlit.go.jp/kowan/kowan_mn2_000006.html","boundary":"NUTS事件及集装箱搬入搬出约三天停止，不扩大为全港所有物理作业停止。"},
+  {"id":"lab","title":"第12讲独立教学实验","url":"/port-class-lab.html?lesson=12","boundary":"90分钟接口异常、票据、额度与恢复规则均为课程设定。片中不提前公布票据隔离答案或完整最优操作顺序。"}
+ ]
+}

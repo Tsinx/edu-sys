@@ -1,0 +1,110 @@
+{
+  "voice": "existing classroom default",
+  "fingerprint": "71261af64fb0ea2c26f1a47cfbbe1aab76e1e07c7124ef961caecb6a27e9539c",
+  "records": [
+    {
+      "id": "cold",
+      "from": 3.5,
+      "spokenEnd": 6.883333333333333,
+      "naturalSeconds": 3.3833333333333333,
+      "tempo": 1,
+      "sha256": "1f46bb0b61eae7acf0117dad953c573be92dabb65b995e74d310f25752893177"
+    },
+    {
+      "id": "identity",
+      "from": 10.5,
+      "spokenEnd": 16.71666666666667,
+      "naturalSeconds": 6.216666666666667,
+      "tempo": 1,
+      "sha256": "749c7225dcc8b29206e6ab4da21e22a7de9a3e82c4d12431e5da1dcb5b4e3593"
+    },
+    {
+      "id": "mpa",
+      "from": 20.5,
+      "spokenEnd": 29.3,
+      "naturalSeconds": 8.8,
+      "tempo": 1,
+      "sha256": "915b984b29b9d52e30e62aefaa9969194f1db523f2d7f24319581f69db4749d3"
+    },
+    {
+      "id": "volume",
+      "from": 38.5,
+      "spokenEnd": 48.3,
+      "naturalSeconds": 9.8,
+      "tempo": 1,
+      "sha256": "93379a3d758dcf1e922a3d42f3fcc959af0cace5aaf400f38247490bdfe61acc"
+    },
+    {
+      "id": "boundary",
+      "from": 54.5,
+      "spokenEnd": 61.3,
+      "naturalSeconds": 6.8,
+      "tempo": 1,
+      "sha256": "cba5a96f622a5a4736cce5e09b0dd48a2c0d5c01bc6a9c982058e937205675c2"
+    },
+    {
+      "id": "chain",
+      "from": 66.5,
+      "spokenEnd": 75.8,
+      "naturalSeconds": 9.3,
+      "tempo": 1,
+      "sha256": "b02b61b87eff68acac36f94d505d006b0d994387fa146a1049185638fd645144"
+    },
+    {
+      "id": "constraint",
+      "from": 81.5,
+      "spokenEnd": 91.55,
+      "naturalSeconds": 10.05,
+      "tempo": 1,
+      "sha256": "bac6be2b212262b2baac933bcd2e5d2418608216fd8842cfbd7ecbabaa384c20"
+    },
+    {
+      "id": "clock",
+      "from": 97.5,
+      "spokenEnd": 108.55,
+      "naturalSeconds": 11.05,
+      "tempo": 1,
+      "sha256": "8ff593535cbec8034b911258ce4a6114d794f7e5b98f69aa0c2d7f229fd0cfd7"
+    },
+    {
+      "id": "unfinished",
+      "from": 111.5,
+      "spokenEnd": 119.38333333333334,
+      "naturalSeconds": 7.883333333333334,
+      "tempo": 1,
+      "sha256": "32cb28c24fe1ac3c5177985f691cbce7b57cf86eea17574d0ea952b8f58a97d1"
+    },
+    {
+      "id": "experiment",
+      "from": 125,
+      "spokenEnd": 133.71666666666667,
+      "naturalSeconds": 8.716666666666667,
+      "tempo": 1,
+      "sha256": "9cf39e102594f0a65e10102f74e90c817f50c2428ee8af0c13c0e522802b3b6e"
+    },
+    {
+      "id": "takeover",
+      "from": 139.5,
+      "spokenEnd": 148.8,
+      "naturalSeconds": 9.3,
+      "tempo": 1,
+      "sha256": "671238af190c9d673e3936acdfc28534a3d319088c1a392b234004e0fb703e4b"
+    },
+    {
+      "id": "rival",
+      "from": 155.5,
+      "spokenEnd": 163.05,
+      "naturalSeconds": 7.55,
+      "tempo": 1,
+      "sha256": "66aaac4f0214d8fe8dbe75c58937374f73252e3165bcc685963188b79a3bdf2e"
+    },
+    {
+      "id": "question",
+      "from": 169,
+      "spokenEnd": 171.71666666666667,
+      "naturalSeconds": 2.716666666666667,
+      "tempo": 1,
+      "sha256": "9da56997f10c4a51b5a21756183200179792c70bf4b1dfc3dbc126fa000fc34e"
+    }
+  ]
+}

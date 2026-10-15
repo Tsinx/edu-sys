@@ -1,0 +1,568 @@
+{
+  "lesson": 11,
+  "id": "l11-opening-v2",
+  "title": "等待，发生在哪里",
+  "subtitle": "一次港口效率追问",
+  "duration": 180,
+  "width": 1920,
+  "height": 1200,
+  "fps": 30,
+  "format": "原创教学纪实短片 · 真实拍摄素材剪辑 · 中文合成旁白",
+  "intent": "保留完整的作业动作，以动作接动作的剪辑观察货流。旁白跨越切点，档案只在必要时进入画面；不使用图表卡片或AI静帧撑时长。",
+  "shots": [
+    {
+      "id": "cold",
+      "from": 3,
+      "to": 9.5,
+      "narration": "这一箱离开船边以后，还要等多久？",
+      "title": "一个吊箱动作"
+    },
+    {
+      "id": "identity",
+      "from": 10,
+      "to": 20,
+      "narration": "岸桥在动，车辆在走。繁忙的画面背后，交付可能仍在等待。",
+      "title": "等待，发生在哪里"
+    },
+    {
+      "id": "mpa",
+      "from": 20,
+      "to": 37.5,
+      "narration": "二零二四年五月，新加坡。绕行好望角打乱班期，船舶集中到港。等待，从航线变化传到码头。",
+      "title": "班期变化传到码头"
+    },
+    {
+      "id": "volume",
+      "from": 38,
+      "to": 54,
+      "narration": "官方说明记录，前四个月箱量同比增长百分之八点八。但总量之外，到港的节奏与单船作业量，也在改变。",
+      "title": "原始说明中的证据"
+    },
+    {
+      "id": "boundary",
+      "from": 54,
+      "to": 65.5,
+      "narration": "这份说明同时明确，锚地并未拥挤。一个港口的压力，不能只凭一幅画面来判断。",
+      "title": "画面与证据的边界"
+    },
+    {
+      "id": "chain",
+      "from": 66,
+      "to": 80.5,
+      "narration": "镜头转回作业。船边的一个吊箱动作，后面还接着运输、堆存和交付。每一次接续，都可能留下等待。",
+      "title": "追踪货流的接续"
+    },
+    {
+      "id": "constraint",
+      "from": 81,
+      "to": 96,
+      "narration": "岸桥多卸一箱，车辆能否接走？堆场能否收下？如果下游不变，上游的提速，可能只是把队列推向下一个位置。",
+      "title": "提速以后，谁来接续"
+    },
+    {
+      "id": "clock",
+      "from": 97,
+      "to": 110.5,
+      "narration": "要找到损失，先把时间端点记清。到港、开工、完工、离泊；再把货物离开堆场的时刻，接回同一条业务链。",
+      "title": "把时间接回记录"
+    },
+    {
+      "id": "unfinished",
+      "from": 111,
+      "to": 124,
+      "narration": "平均值还可能遮住另一件事：那些仍未离港的船、仍未交付的箱，是否留在了报表里？",
+      "title": "仍在等待的货物"
+    },
+    {
+      "id": "experiment",
+      "from": 124.5,
+      "to": 138.5,
+      "narration": "改善需要一次可复核的试验。同一个开局，同一批货物，同一个终点；只改变你声明要改变的条件。",
+      "title": "一次能够复核的试验"
+    },
+    {
+      "id": "takeover",
+      "from": 139,
+      "to": 154,
+      "narration": "在接下来的现场接管中，先写一个能够被推翻的判断。增加司机会有用吗？你准备观察哪段队列、哪项交付记录？",
+      "title": "接管教学现场"
+    },
+    {
+      "id": "rival",
+      "from": 155,
+      "to": 168,
+      "narration": "如果局部更快，最终交付却没有增加，你会保留原来的方案，还是重新寻找约束？",
+      "title": "让结果改变判断"
+    },
+    {
+      "id": "question",
+      "from": 168.5,
+      "to": 175,
+      "narration": "你凭什么证明，等待真的减少了？",
+      "title": "带入课堂的问题"
+    }
+  ],
+  "cuts": [
+    {
+      "from": 0,
+      "to": 4,
+      "source": "18718867",
+      "in": 1,
+      "sound": 1
+    },
+    {
+      "from": 4,
+      "to": 7,
+      "source": "33585292",
+      "in": 3
+    },
+    {
+      "from": 7,
+      "to": 9,
+      "source": "36375964",
+      "in": 4
+    },
+    {
+      "from": 9,
+      "to": 11,
+      "source": "18718867",
+      "in": 11
+    },
+    {
+      "from": 11,
+      "to": 20,
+      "source": "30899354",
+      "in": 1
+    },
+    {
+      "from": 20,
+      "to": 29,
+      "source": "33585292",
+      "in": 14
+    },
+    {
+      "from": 29,
+      "to": 37,
+      "source": "10452020",
+      "in": 0.5
+    },
+    {
+      "from": 37,
+      "to": 46,
+      "source": "33585292",
+      "in": 24,
+      "archive": "mpa"
+    },
+    {
+      "from": 46,
+      "to": 54,
+      "source": "36375964",
+      "in": 12
+    },
+    {
+      "from": 54,
+      "to": 65,
+      "source": "11335972",
+      "in": 0.3
+    },
+    {
+      "from": 65,
+      "to": 73,
+      "source": "18718867",
+      "in": 3,
+      "sound": 0.13
+    },
+    {
+      "from": 73,
+      "to": 81,
+      "source": "33585292",
+      "in": 35
+    },
+    {
+      "from": 81,
+      "to": 89,
+      "source": "36375964",
+      "in": 1
+    },
+    {
+      "from": 89,
+      "to": 96,
+      "source": "30899354",
+      "in": 5
+    },
+    {
+      "from": 96,
+      "to": 103,
+      "source": "7018675",
+      "in": 2
+    },
+    {
+      "from": 103,
+      "to": 110,
+      "source": "5100045",
+      "in": 5
+    },
+    {
+      "from": 110,
+      "to": 117,
+      "source": "4294434",
+      "in": 8
+    },
+    {
+      "from": 117,
+      "to": 124,
+      "source": "36375964",
+      "in": 21
+    },
+    {
+      "from": 124,
+      "to": 130,
+      "source": "18718867",
+      "in": 9,
+      "sound": 0.13
+    },
+    {
+      "from": 130,
+      "to": 138,
+      "source": "33585292",
+      "in": 43
+    },
+    {
+      "from": 138,
+      "to": 146,
+      "source": "10452020",
+      "in": 1
+    },
+    {
+      "from": 146,
+      "to": 154,
+      "source": "36375964",
+      "in": 10
+    },
+    {
+      "from": 154,
+      "to": 161,
+      "source": "33585292",
+      "in": 7
+    },
+    {
+      "from": 161,
+      "to": 168,
+      "source": "30899354",
+      "in": 6
+    },
+    {
+      "from": 168,
+      "to": 175,
+      "source": "18718867",
+      "in": 1,
+      "sound": 0.13
+    },
+    {
+      "from": 175,
+      "to": 180,
+      "source": "11335972",
+      "in": 5
+    }
+  ],
+  "chapters": [
+    {
+      "from": 0,
+      "title": "动作与等待"
+    },
+    {
+      "from": 20,
+      "title": "历史材料：新加坡2024"
+    },
+    {
+      "from": 65,
+      "title": "货流的下一环"
+    },
+    {
+      "from": 96,
+      "title": "记录那些仍在等待的"
+    },
+    {
+      "from": 124,
+      "title": "可复核的改善试验"
+    },
+    {
+      "from": 168,
+      "title": "带入课堂的问题"
+    }
+  ],
+  "overlays": [
+    {
+      "kind": "title",
+      "from": 11,
+      "to": 19.5,
+      "kicker": "港口观察 / 11",
+      "lines": [
+        "等待，",
+        "发生在哪里"
+      ],
+      "sub": "一次港口效率追问"
+    },
+    {
+      "kind": "lower",
+      "from": 24,
+      "to": 32,
+      "kicker": "资料回看 / SINGAPORE 2024",
+      "lines": [
+        "班期失序，集中到港"
+      ],
+      "sub": "史实来源：MPA · 2024.05.30｜背景实拍非事件现场"
+    },
+    {
+      "kind": "lower",
+      "from": 46,
+      "to": 53,
+      "kicker": "MPA / 2024年1—4月",
+      "lines": [
+        "箱量同比 +8.8%"
+      ],
+      "sub": "总量之外，节奏与单次工作量也在改变"
+    },
+    {
+      "kind": "lower",
+      "from": 56,
+      "to": 63,
+      "kicker": "同一份官方说明",
+      "lines": [
+        "锚地并未拥挤"
+      ],
+      "sub": "背景画面为一般港城实拍，不能代替事件证据"
+    },
+    {
+      "kind": "lower",
+      "from": 98,
+      "to": 105,
+      "kicker": "从镜头回到业务记录",
+      "lines": [
+        "时间端点，要能够核对"
+      ],
+      "sub": "到港 / 开工 / 完工 / 离泊 / 货物交付"
+    },
+    {
+      "kind": "question",
+      "from": 168,
+      "to": 174.7,
+      "kicker": "带入课堂 / 第11讲",
+      "lines": [
+        "你凭什么证明，",
+        "等待真的减少了？"
+      ],
+      "sub": "诊断 → 同起点试验 → 结果复盘"
+    }
+  ],
+  "sources": [
+    {
+      "id": "mpa",
+      "title": "MPA · 2024年5月30日媒体说明",
+      "url": "https://www.mpa.gov.sg/media-centre/details/in-response-to-media-queries-on--vessels--extended-waiting-times-for-berths-in-the-port-of-singapore",
+      "boundary": "历史材料；班期失序、集中到港和单船作业量变化；明确锚地并未拥挤。实拍素材不是该事件现场。"
+    }
+  ],
+  "footage": [
+    {
+      "id": "10452020",
+      "title": "Container Ship in Commercial Dock",
+      "slug": "container-ship-in-commercial-dock",
+      "author": "Glenn Langhorst",
+      "file": "10452020-hd_3840_2160_30fps.mp4",
+      "scene": "靠泊船舶与装卸延时摄影",
+      "location": "原发布页未确认地点",
+      "url": "https://www.pexels.com/video/container-ship-in-commercial-dock-10452020/",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "accessed": "2026-10-14",
+      "boundary": "实拍素材仅表现一般作业，不指认片中单位或人员与所述事件有关。无采访或当事人发言。",
+      "sha256": "4f6ebe4df779adbabbc0ed209065ebb56df9404bb542d93108ef5c222e8bef17",
+      "duration": 9.933333,
+      "width": 3840,
+      "height": 2160,
+      "fps": "30/1",
+      "audio": true
+    },
+    {
+      "id": "11335972",
+      "title": "Ship in Harbor at Night",
+      "slug": "ship-in-harbor-at-night",
+      "author": "Glenn Langhorst",
+      "file": "11335972-uhd_3840_2160_30fps.mp4",
+      "scene": "港城夜景",
+      "location": "通用港城夜景；非事件现场",
+      "url": "https://www.pexels.com/video/ship-in-harbor-at-night-11335972/",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "accessed": "2026-10-14",
+      "boundary": "实拍素材仅表现一般作业，不指认片中单位或人员与所述事件有关。无采访或当事人发言。",
+      "sha256": "13aba013727f08e408862e0d91ba77eaea74861716f55d1755c779ca504211a2",
+      "duration": 12.16,
+      "width": 3840,
+      "height": 2160,
+      "fps": "30/1",
+      "audio": true
+    },
+    {
+      "id": "18718867",
+      "title": "A large red crane is in the middle of a ship",
+      "slug": "a-large-red-crane-is-in-the-middle-of-a-ship",
+      "author": "wowi allinsky",
+      "file": "18718867-uhd_3840_2160_60fps.mp4",
+      "scene": "岸桥吊装集装箱",
+      "location": "原发布页未确认地点",
+      "url": "https://www.pexels.com/video/a-large-red-crane-is-in-the-middle-of-a-ship-18718867/",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "accessed": "2026-10-14",
+      "boundary": "实拍素材仅表现一般作业，不指认片中单位或人员与所述事件有关。无采访或当事人发言。",
+      "sha256": "2da0e3a13852d4cffa96b3934aee83c768d6cfeac4153edc83d80337bfbc4efb",
+      "duration": 16.405,
+      "width": 3840,
+      "height": 2160,
+      "fps": "60/1",
+      "audio": true
+    },
+    {
+      "id": "30899354",
+      "title": "Aerial View of Busy International Container Port",
+      "slug": "aerial-view-of-busy-international-container-port",
+      "author": "Toàn BDS",
+      "file": "13210444_3840_2160_60fps.mp4",
+      "scene": "港区航拍",
+      "location": "原发布页未确认地点",
+      "url": "https://www.pexels.com/video/aerial-view-of-busy-international-container-port-30899354/",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "accessed": "2026-10-14",
+      "boundary": "实拍素材仅表现一般作业，不指认片中单位或人员与所述事件有关。无采访或当事人发言。",
+      "sha256": "537ddf610acc7970802ccec82ab170a4b32bef6ce67201179f5afd5f0606d2b8",
+      "duration": 14.581233,
+      "width": 3840,
+      "height": 2160,
+      "fps": "60000/1001",
+      "audio": false
+    },
+    {
+      "id": "33585292",
+      "title": "Industrial Container Cranes at Santos Port",
+      "slug": "industrial-container-cranes-at-santos-port",
+      "author": "FÁBIO REIS DE ABREU (PORTUGA)",
+      "file": "14276630_1920_1080_60fps.mp4",
+      "scene": "岸桥与过往车辆",
+      "location": "巴西桑托斯港（发布者标注）",
+      "url": "https://www.pexels.com/video/industrial-container-cranes-at-santos-port-33585292/",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "accessed": "2026-10-14",
+      "boundary": "实拍素材仅表现一般作业，不指认片中单位或人员与所述事件有关。无采访或当事人发言。",
+      "sha256": "25be9b67177ebf5cbed7bac1573ca0d38d5ac8e242b5c1e0764bd77a4a2412fb",
+      "duration": 54.90485,
+      "width": 1920,
+      "height": 1080,
+      "fps": "60000/1001",
+      "audio": false
+    },
+    {
+      "id": "36375964",
+      "title": "Container Yard Operations with Loading Cranes",
+      "slug": "container-yard-operations-with-loading-cranes",
+      "author": "Riccardo Falconi",
+      "file": "15427538_3840_2160_50fps.mp4",
+      "scene": "场桥与集装箱堆场",
+      "location": "原发布页未确认地点",
+      "url": "https://www.pexels.com/video/container-yard-operations-with-loading-cranes-36375964/",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "accessed": "2026-10-14",
+      "boundary": "实拍素材仅表现一般作业，不指认片中单位或人员与所述事件有关。无采访或当事人发言。",
+      "sha256": "74e874941ceed170c0cc381fbbf24b30e9e68ae8e92d50485ace95fb24d26023",
+      "duration": 28.64,
+      "width": 3840,
+      "height": 2160,
+      "fps": "50/1",
+      "audio": false
+    },
+    {
+      "id": "4294434",
+      "title": "Man Walking towards the Forklift inside the Warehouse",
+      "slug": "man-walking-towards-the-forklift-inside-the-warehouse",
+      "author": "Tiger Lily",
+      "file": "4294434-uhd_3840_2160_25fps.mp4",
+      "scene": "库内叉车与作业人员",
+      "location": "通用仓储工作场景；非事故现场",
+      "url": "https://www.pexels.com/video/man-walking-towards-the-forklift-inside-the-warehouse-4294434/",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "accessed": "2026-10-14",
+      "boundary": "实拍素材仅表现一般作业，不指认片中单位或人员与所述事件有关。无采访或当事人发言。",
+      "sha256": "9be43ad0159f8e0b9cee36aaaacb31f27f1082c74591c68e013f91e2d44431dd",
+      "duration": 21.64,
+      "width": 3840,
+      "height": 2160,
+      "fps": "25/1",
+      "audio": false
+    },
+    {
+      "id": "5100045",
+      "title": "Man in Helmet Checking Logistics and Input Data",
+      "slug": "man-in-helmet-checking-logistics-and-input-data",
+      "author": "Gustavo Fring",
+      "file": "5100045-uhd_3840_2160_30fps.mp4",
+      "scene": "戴安全帽的仓储人员核对记录",
+      "location": "通用仓储工作场景；非采访、非事故相关人员",
+      "url": "https://www.pexels.com/video/man-in-helmet-checking-logistics-and-input-data-5100045/",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "accessed": "2026-10-14",
+      "boundary": "实拍素材仅表现一般作业，不指认片中单位或人员与所述事件有关。无采访或当事人发言。",
+      "sha256": "0af6ad3d61d2b29f9422597e004f5a633cb2e457c05f0b3d6b70c68e9b93f72d",
+      "duration": 13.7137,
+      "width": 3840,
+      "height": 2160,
+      "fps": "30000/1001",
+      "audio": false
+    },
+    {
+      "id": "7018675",
+      "title": "A Woman Checking the Document while Walking in the Warehouse",
+      "slug": "a-woman-checking-the-document-while-walking-in-the-warehouse",
+      "author": "cottonbro studio",
+      "file": "7018675-uhd_4096_2160_25fps.mp4",
+      "scene": "仓内巡视与记录核对",
+      "location": "通用仓储工作场景；非采访、非事故相关人员",
+      "url": "https://www.pexels.com/video/a-woman-checking-the-document-while-walking-in-the-warehouse-7018675/",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "accessed": "2026-10-14",
+      "boundary": "实拍素材仅表现一般作业，不指认片中单位或人员与所述事件有关。无采访或当事人发言。",
+      "sha256": "4becc73df25f696c42752c5f2fc6ccc12a8c2f5b558df08bc3bed294a9045938",
+      "duration": 31.36,
+      "width": 4096,
+      "height": 2160,
+      "fps": "25/1",
+      "audio": false
+    }
+  ],
+  "sound": {
+    "voice": "原创中文讲稿，沿用课程已配置的中文合成声音。非记者或当事人采访。",
+    "locationSound": "标有 sound 的剪辑段保留素材原声；其他声音为原创配乐与设计音效。原声不作为历史案件同期声。",
+    "score": "原创、独立分段合成配乐，无外部音乐采样。开场与章节转折留出无旁白空间。"
+  },
+  "credits": {
+    "from": 175,
+    "authors": [
+      "Glenn Langhorst",
+      "wowi allinsky",
+      "Toàn BDS",
+      "FÁBIO REIS DE ABREU (PORTUGA)",
+      "Riccardo Falconi",
+      "Tiger Lily",
+      "Gustavo Fring",
+      "cottonbro studio"
+    ],
+    "license": "实拍：Pexels License｜完整片段来源与许可见播放器",
+    "boundary": "一般港口与仓储实拍，不是所述事件现场；人物与案件无关。"
+  }
+}

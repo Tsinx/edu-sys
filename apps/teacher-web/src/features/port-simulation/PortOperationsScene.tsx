@@ -2,14 +2,15 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "re
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { portNavigationPose, portLocationPose, portAnchorPoint, PORT_ENTRANCE, navigationPoint, type PortView } from "@edu/port-simulation-core";
+import { portNavigationPose, portLocationPose, portAnchorPoint, PORT_ENTRANCE, navigationPoint, facilityVehicleHeight, physicalContainerPosition,physicalHoist,physicalVehiclePose,physicalQuayCranePose,physicalYardMachinePose,type PortView } from "@edu/port-simulation-core";
 import { createTerminalWorld } from "./terminal-3d-world";
 import { createSceneGesture } from "./scene-gesture";
+import { ownScenePointers } from '../classroom/scene-pointer-ownership';
 export interface PortSceneHandle {
     zoom: (direction: number) => void;
     focus: (id: string) => void;
     fit: (ids: string[]) => void;
-    camera: (name: "overview" | "yard" | "sea") => void;
+    camera: (name: "overview" | "yard" | "sea" | "quay" | "gate") => void;
     project: (id: string) => { x: number; y: number; visible: boolean } | null;
 }
 export type PortDrag = {
@@ -43,9 +44,11 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
     view: PortView;
     selected: string;
     speed: number;
+    clockLimit?: number;
     followSelected?: boolean;
     floatingPanel?: boolean;
     quality?: "balanced" | "high";
+    fieldLab?:boolean;
     highlightIds?: string[];
     onSelect: (id: string) => void;
     onContext: (id: string) => void;
@@ -63,6 +66,14 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
     const focusedPoint = (id: string) => {
         const r = runtime.current, v = latest.current.view;
         if (!r) return undefined;
+        // The chart panel can be below an offscreen (suspended) canvas. Locate
+        // equipment from the current physical record rather than its last drawn pose.
+        if (latest.current.fieldLab && v.facilities) {
+            const vehicle = /^vehicle-(\d+)$/.exec(id), crane = /^crane-(\d+)$/.exec(id), yard = /^yard-crane-(\d+)$/.exec(id);
+            if (vehicle && v.facilities.vehicles[Number(vehicle[1])]) { const p = physicalVehiclePose(v.facilities,v.jobs,Number(vehicle[1]),v.second); return new THREE.Vector3(p.x,facilityVehicleHeight(p),p.z); }
+            if (crane && v.facilities.quayCranes[Number(crane[1])]) { const p = physicalQuayCranePose(v,Number(crane[1]),v.second); return new THREE.Vector3(p.x,0,p.z); }
+            if (yard && v.facilities.yardMachines[Number(yard[1])]) { const p = physicalYardMachinePose(v,Number(yard[1]),v.second); return new THREE.Vector3(p.x,0,p.z); }
+        }
         const ship = v.vessels.find(s => s.id === id);
         if (ship && ["approach", "departed"].includes(ship.call.stage)) return berthPosition(ship.call.plannedBerth ?? 0);
         if (ship && v.schema !== "port-operations/3.0" && !r.visible) {
@@ -96,7 +107,7 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
             const x=rect.left+(p.x+1)*rect.width/2,y=rect.top+(1-p.y)*rect.height/2;
             return { x, y, visible: x>0 && x<window.innerWidth && y>0 && y<window.innerHeight && p.z >= -1 && p.z <= 1 && Math.abs(p.x) < .96 && Math.abs(p.y) < .96 };
         }, camera(name) { const r = runtime.current; if (!r)
-            return; following.current = false; if(name === "sea" && latest.current.view.schema !== "port-operations/3.0") {r.controls.target.set(0,0,-750);r.camera.position.copy(r.controls.target).add(new THREE.Vector3(480,1600,-800).multiplyScalar(Math.max(1,1.1/r.camera.aspect)));r.controls.update();return;} const p = name === "yard" ? [135, 160, -10] : name === "sea" ? [160, 230, -330] : [198, 240, -290]; r.camera.position.set(p[0]!, p[1]!, p[2]!); r.controls.target.set(0, 0, name === "yard" ? 30 : name === "sea" ? -165 : -87); } }), []);
+            return; following.current = false; if(name === "sea" && latest.current.view.schema !== "port-operations/3.0") {r.controls.target.set(0,0,-750);r.camera.position.copy(r.controls.target).add(new THREE.Vector3(480,1600,-800).multiplyScalar(Math.max(1,1.1/r.camera.aspect)));r.controls.update();return;} const p = name === "yard" ? [135, 160, -10] : name === "quay" ? [75, 85, -160] : name === "gate" ? [90, 75, 160] : name === "sea" ? [160, 230, -330] : [198, 240, -290]; r.camera.position.set(p[0]!, p[1]!, p[2]!); r.controls.target.set(0, 0, name === "yard" ? 30 : name === "gate" ? 72 : name === "sea" ? -165 : -70); } }), []);
     useEffect(() => {
         const h = host.current!;
         const balanced = props.quality === "balanced";
@@ -126,6 +137,7 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
         camera.position.set(198, 240, -290);
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.target.set(0, 0, -87);
+        if(props.fieldLab){camera.position.set(90,110,-165);controls.target.set(0,0,-20);}
         controls.enableDamping = true;
         controls.addEventListener("start", () => { following.current = false; });
         controls.maxPolarAngle = Math.PI * .47;
@@ -152,13 +164,21 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
         sun.shadow.camera.far = 800;
         sun.shadow.bias = -.0005;
         scene.add(sun);
-        const world = createTerminalWorld(latest.current.view.plan.equipment, { liveCargo: true });
+        const equipment=latest.current.view.plan.equipment;
+        const world = createTerminalWorld({...equipment,vehicles:latest.current.view.facilities?.vehicles.length??equipment.vehicles}, { liveCargo: true,internalVehicles:equipment.vehicles });
+        if (latest.current.fieldLab) world.vehicles.forEach((vehicle, i) => vehicle.traverse(object => {
+            object.userData.entityId = `vehicle-${i}`;
+            if (object.userData.entityIds) object.userData.entityIds = object.userData.entityIds.map(() => `vehicle-${i}`);
+        }));
         scene.add(world.root);
+        const incidentBeacon = new THREE.Mesh(new THREE.SphereGeometry(2.5,12,8),new THREE.MeshBasicMaterial({color:0xc45048}));
+        incidentBeacon.visible=false;world.root.add(incidentBeacon);
         world.ships.forEach(s => s.visible = false);
         world.labels.children.filter(c => c.userData.vesselIndex !== undefined).forEach(c => c.visible = false);
         world.lots.visible = false;
         world.people.forEach(p => p.visible = false);
-        world.routes.visible = true;
+        world.routes.visible = !latest.current.view.facilities;
+        const facilityRoutes=new THREE.Group();world.root.add(facilityRoutes);let facilityRouteKey='';
         const positions = new Map<string, THREE.Vector3>();
         for (const [id, p] of world.facilityPositions)
             positions.set(/^y[1-6]$/.test(id) ? id.toUpperCase() : id, p);
@@ -184,12 +204,12 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
                 const buoy=new THREE.Mesh(new THREE.CylinderGeometry(modern?2:.6,modern?3:1,modern?7:3,6),new THREE.MeshStandardMaterial({color:x<(modern?-450:0)?0xcc7356:0x5fc8af}));
                 buoy.position.set(x,0,z);buoys.add(buoy);
             }
-        if(modern) {
+        if(modern&&!props.fieldLab) {
             marker("entrance",new THREE.Vector3(PORT_ENTRANCE.x,0,PORT_ENTRANCE.z),"港口入口 · 航道",38);
             marker("turning",new THREE.Vector3(0,0,-370),"港内转向水域",200);
         }
         world.root.add(buoys);
-        const boxes = new THREE.InstancedMesh(new THREE.BoxGeometry(7.4, 2.6, 3.1), new THREE.MeshStandardMaterial({ roughness: .65, metalness: .2 }), 10000);
+        const boxes = new THREE.InstancedMesh(new THREE.BoxGeometry(6.4, 2.6, 3.1), new THREE.MeshStandardMaterial({ roughness: .65, metalness: .2 }), 10000);
         boxes.castShadow = true;
         boxes.receiveShadow = true;
         boxes.count = 0;
@@ -258,8 +278,8 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
             renderer.domElement.style.cursor = "";
             if (renderer.domElement.hasPointerCapture(e.pointerId)) renderer.domElement.releasePointerCapture(e.pointerId);
         };
-        const context = (e: MouseEvent) => { e.preventDefault(); const id = pick(e.clientX, e.clientY); if (id)
-            latest.current.onContext(id); };
+        controls.mouseButtons.LEFT=THREE.MOUSE.PAN;controls.mouseButtons.RIGHT=null as any;
+        const releasePointers=ownScenePointers(renderer.domElement,(dx,dy)=>{following.current=false;const scale=2*camera.position.distanceTo(controls.target)*Math.tan(camera.fov*Math.PI/360)/Math.max(1,h.clientHeight);const delta=new THREE.Vector3().setFromMatrixColumn(camera.matrix,0).multiplyScalar(-dx*scale).add(new THREE.Vector3().setFromMatrixColumn(camera.matrix,1).multiplyScalar(dy*scale));camera.position.add(delta);controls.target.add(delta);controls.update();},(x,y)=>{const id=pick(x,y);if(id)latest.current.onContext(id);});
         const dragOver = (e: DragEvent) => { if (e.dataTransfer?.types.includes(PORT_DRAG_MIME)) {
             e.preventDefault();
             e.dataTransfer.dropEffect = "move";
@@ -278,7 +298,6 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
         renderer.domElement.addEventListener("pointermove", pointerMove);
         renderer.domElement.addEventListener("pointercancel", pointerCancel);
         renderer.domElement.addEventListener("lostpointercapture", pointerCancel);
-        renderer.domElement.addEventListener("contextmenu", context);
         renderer.domElement.addEventListener("dragover", dragOver);
         renderer.domElement.addEventListener("drop", drop);
         renderer.domElement.addEventListener("keydown", key);
@@ -322,6 +341,7 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
                 shadow = now;
             }
             const p = latest.current, v = p.view;
+            if(v.facilities){const key=v.jobs.map(j=>`${j.id}:${j.physical?.stage}:${j.physical?.phaseStart}`).join('|');if(key!==facilityRouteKey){facilityRouteKey=key;for(const child of [...facilityRoutes.children]){const line=child as THREE.Line;line.geometry.dispose();(line.material as THREE.Material).dispose();facilityRoutes.remove(line);}for(const j of v.jobs){const route=j.physical?.route;if(!route)continue;const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints(route.points.map(p=>new THREE.Vector3(p.x,1,p.z))),new THREE.LineDashedMaterial({color:j.physical?.stage==='haul'?'#68dbb4':j.physical?.stage==='machine'?'#efbc68':'#7bbde6',dashSize:2,gapSize:2,transparent:true,opacity:.65}));line.computeLineDistances();facilityRoutes.add(line);}}}
             const inset = p.floatingPanel && camera.aspect < 1 ? .26 : 0;
             if (inset !== lastInset) {
                 // Move the visible center above the narrow-screen operation drawer.
@@ -333,7 +353,7 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
                 anchorTime = now;
                 lastView = v;
             }
-            const clock = v.second + (v.status === "running" ? Math.min(30, (now - anchorTime) / 1000 * (v.mode === "battle" ? 60 : p.speed)) : 0);
+            const clock = Math.min(p.clockLimit ?? Infinity, v.second + (v.status === "running" ? Math.min(30, (now - anchorTime) / 1000 * (v.mode === "battle" ? 60 : p.speed)) : 0));
             world.water.material.uniforms.time!.value = clock / 60;
             for (const ship of v.vessels) {
                 if (!vesselModels.has(ship.id)) {
@@ -364,17 +384,17 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
             const byLocation = new Map<string, number>(), ids: string[] = [];
             let count = 0;
             const moving = new Map(v.jobs.map(j => [j.boxId, j]));
-            world.vehicles.forEach((truck, i) => { truck.position.set(-115 + i % 2 * 6, 0, 35 + Math.floor(i / 2) * 9); });
+            world.vehicles.forEach((truck, i) => { if(v.facilities){const pose=physicalVehiclePose(v.facilities,v.jobs,i,clock);truck.position.set(pose.x,facilityVehicleHeight(pose),pose.z);truck.rotation.y=pose.heading;if(p.fieldLab)positions.set(`vehicle-${i}`,truck.position.clone());}else truck.position.set(-123 - i % 2 * 7, 0, -14 + Math.floor(i / 2) * 12); });
             for (const box of v.boxes) {
                 const b = v.batches.find(b => b.id === box.batchId)!;
                 const call = v.vessels.find(v => v.id === b.callId)!.call;
-                if (!box.available || box.deliveredAt !== null || box.location === "external" || box.location.startsWith("ship:") && ["approach", "departed"].includes(call.stage))
+                if (!box.available || box.deliveredAt !== null || box.location === "external"&&(!v.facilities||box.carrier===null||box.carrier===undefined) || box.location.startsWith("ship:") && ["approach", "departed"].includes(call.stage))
                     continue;
                 const n = byLocation.get(box.location) ?? 0;
                 byLocation.set(box.location, n + 1);
                 const pos = point(box.location, n, clock);
                 const j = moving.get(box.id);
-                if (j) {
+                if (j&&!v.facilities) {
                     const t = THREE.MathUtils.clamp(1 - j.remaining + (clock - j.updatedAt) * j.rate, 0, 1), to = point(j.to, 0, clock);
                     if (j.kind === "truck") {
                         const from = point(j.from, 0, clock), via = new THREE.Vector3(to.x, from.y, from.z);
@@ -392,7 +412,7 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
                         pos.y += Math.sin(t * Math.PI) * (j.kind === "quay" ? 22 : 8);
                     }
                 }
-                dummy.rotation.y=box.location.startsWith("ship:")&&!j?-vesselHeading(b.callId,clock):0;
+                if(v.facilities){const pose=physicalContainerPosition(v,box,clock);pos.set(pose.x,pose.y,pose.z);dummy.rotation.y=pose.heading;}else dummy.rotation.y=box.location.startsWith("ship:")&&!j?-vesselHeading(b.callId,clock):0;
                 dummy.position.copy(pos);
                 dummy.updateMatrix();
                 boxes.setMatrixAt(count, dummy.matrix);
@@ -406,7 +426,18 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
             boxes.instanceMatrix.needsUpdate = true;
             if (boxes.instanceColor)
                 boxes.instanceColor.needsUpdate = true;
-            world.cranes.forEach(({ body, trolley, index, homeX }) => { const berth = index < v.plan.equipment.dispatch.berthCranes[0] ? 0 : 1, local = berth ? index - v.plan.equipment.dispatch.berthCranes[0] : index, num = v.plan.equipment.dispatch.berthCranes[berth]; const x = local < num ? (berth ? 62 : -62) + (local - (num - 1) / 2) * 19 : -120; body.position.x = x - homeX; const j = v.jobs.find(j => j.kind === "quay" && j.resource === index); const t = j ? THREE.MathUtils.clamp(1 - j.remaining + (clock - j.updatedAt) * j.rate, 0, 1) : 0; trolley.position.set(homeX, 27 + Math.sin(t * Math.PI) * 3, -68 + t * 35); positions.set(`crane-${index}`, new THREE.Vector3(x, 0, -40)); });
+            const rig=(trolley:THREE.Group,hook:THREE.Group,ropes:THREE.Mesh[],height:number,heading:number)=>{hook.position.y=height;hook.rotation.y=heading;ropes.forEach(rope=>{rope.position.y=height/2;rope.scale.y=Math.max(.1,-height);});};
+            world.cranes.forEach(({ body, trolley, hook,ropes,index, homeX }) => {
+              const j=v.jobs.find(j=>j.kind==='quay'&&j.resource===index);
+              if(v.facilities){const pose=physicalQuayCranePose(v,index,clock);body.position.x=pose.x-homeX;body.position.z=0;
+                const h=j?.physical?.stage==='service'?physicalHoist(v,j,clock).hook:{x:pose.x,z:-26,y:25.5,heading:0};
+                trolley.position.set(h.x-body.position.x,29,h.z);rig(trolley,hook,ropes,h.y-29,h.heading);positions.set(`crane-${index}`,new THREE.Vector3(pose.x,0,-39));
+              }else{const berth=index<v.plan.equipment.dispatch.berthCranes[0]?0:1,local=berth?index-v.plan.equipment.dispatch.berthCranes[0]:index,num=v.plan.equipment.dispatch.berthCranes[berth],x=local<num?(berth?62:-62)+(local-(num-1)/2)*19:124;body.position.x=x-homeX;const t=j?THREE.MathUtils.clamp(1-j.remaining+(clock-j.updatedAt)*j.rate,0,1):0;trolley.position.set(homeX,29,-68+t*35);rig(trolley,hook,ropes,-8.5,0);positions.set(`crane-${index}`,new THREE.Vector3(x,0,-40));}
+            });
+            if(v.facilities)world.yardCranes.forEach(crane=>{const pose=physicalYardMachinePose(v,crane.index,clock),j=v.jobs.find(j=>j.kind==='yard'&&j.resource===crane.index),h=j?.physical?.stage==='service'?physicalHoist(v,j,clock).hook:{x:pose.x,z:pose.z,y:17,heading:0};crane.body.position.set(pose.x,0,j?.physical?.stage==='service'?h.z:pose.z);crane.trolley.position.set(h.x-pose.x,20,0);rig(crane.trolley,crane.hook,crane.ropes,h.y-20,h.heading);positions.set(`yard-crane-${crane.index}`,crane.body.position.clone());});
+            const yardIncident=v.facilities?.yardIncident;
+            incidentBeacon.visible=!!yardIncident;
+            if(yardIncident){const p=physicalYardMachinePose(v,yardIncident.failed,clock);incidentBeacon.position.set(p.x,25,p.z);(incidentBeacon.material as THREE.MeshBasicMaterial).color.set(yardIncident.mode==='trial'&&yardIncident.trialRemaining>0?0xc69a38:0xc45048);}
             const d = v.plan.equipment.dispatch, total = d.craneOperators + d.drivers + d.yardOperators + d.gateClerks + d.technicians;
             world.people.forEach((person, i) => person.visible = i < total);
             const selected = focusedPoint(p.selected);
@@ -434,7 +465,7 @@ export const PortOperationsScene = forwardRef<PortSceneHandle, {
             renderer.render(scene, camera);
         });
         setStatus("ready");
-        return () => { renderer.setAnimationLoop(null); observer.disconnect(); visibilityObserver.disconnect(); controls.dispose(); renderer.domElement.removeEventListener("pointerdown", pointerDown); renderer.domElement.removeEventListener("pointerup", pointerUp); renderer.domElement.removeEventListener("pointermove", pointerMove); renderer.domElement.removeEventListener("pointercancel", pointerCancel); renderer.domElement.removeEventListener("lostpointercapture", pointerCancel); renderer.domElement.removeEventListener("contextmenu", context); renderer.domElement.removeEventListener("dragover", dragOver); renderer.domElement.removeEventListener("drop", drop); renderer.domElement.removeEventListener("keydown", key); renderer.domElement.removeEventListener("webglcontextlost", lost); world.dispose(); env.dispose(); sun.shadow.map?.dispose(); renderer.dispose(); renderer.forceContextLoss(); renderer.domElement.remove(); runtime.current = null; };
+        return () => { renderer.setAnimationLoop(null); observer.disconnect(); visibilityObserver.disconnect(); releasePointers(); controls.dispose(); renderer.domElement.removeEventListener("pointerdown", pointerDown); renderer.domElement.removeEventListener("pointerup", pointerUp); renderer.domElement.removeEventListener("pointermove", pointerMove); renderer.domElement.removeEventListener("pointercancel", pointerCancel); renderer.domElement.removeEventListener("lostpointercapture", pointerCancel); renderer.domElement.removeEventListener("dragover", dragOver); renderer.domElement.removeEventListener("drop", drop); renderer.domElement.removeEventListener("keydown", key); renderer.domElement.removeEventListener("webglcontextlost", lost); world.dispose(); env.dispose(); sun.shadow.map?.dispose(); renderer.dispose(); renderer.forceContextLoss(); renderer.domElement.remove(); runtime.current = null; };
     }, [construction, retry, props.quality]);
     return <div ref={host} className="port-ops-scene" data-renderer={status}>{status !== "ready" && <div className="port-scene-state">{status === "loading" ? "正在构建三维港区…" : <><p>三维画面暂不可用，业务操作与记录仍可使用。</p><button onClick={() => setRetry(n => n + 1)}>恢复 3D</button></>}</div>}</div>;
 });

@@ -307,7 +307,15 @@ export class JsonStateStore {
           }
           if (sanitizedRuntime.deckVersion !== PORT_MANAGEMENT_DECK_VERSION) {
             if (!slideSpec) {
+              // Rewritten lessons keep their lesson identity even when a page
+              // was removed. Do not apply the old three-lesson numeric map to
+              // later releases (e.g. v15 lesson 12 page 550).
+              const keyedLesson = /^l(\d+)-/.exec(sanitizedRuntime.slideKey ?? "");
+              const lessonFromKey = keyedLesson ? runtimeDeck.lessons.find(
+                (lesson) => lesson.number === Number(keyedLesson[1]) && lesson.status === "ready"
+              ) : undefined;
               const previousLesson =
+                lessonFromKey?.number ?? (
                 sanitizedRuntime.deckVersion === "release-port-management-voyage-v7"
                   ? rawSlideIndex <= 47 ? 1 : rawSlideIndex <= 83 ? 2 : 3
                   :
@@ -333,7 +341,7 @@ export class JsonStateStore {
                       ? 1
                       : rawSlideIndex <= 56
                         ? 2
-                        : 3;
+                        : 3);
               const lessonStart =
                 getPortManagementLesson(
                   previousLesson as PortManagementLessonNumber
@@ -4164,9 +4172,9 @@ export class JsonStateStore {
         completeActiveGlobe();
       } else if(input.type === "set_port_expansion_presentation") {
         const page=PORT_EXPANSION_SLIDES.find(p=>p.slideKey===input.slideKey);
-        if(session.courseId!=="course-port-management-intro"||!page||runtime.slideKey!==input.slideKey)throw Object.assign(new Error("第7—8讲页码已变化"),{statusCode:409});
-        if(!expansionStateValid(page,input))throw Object.assign(new Error("呈现选项无效"),{statusCode:400});
-        runtime.portExpansionPresentation={slideKey:input.slideKey,progress:input.progress,option:input.option,revealed:input.revealed};
+        if(session.courseId!=="course-port-management-intro"||!page||runtime.slideKey!==input.slideKey)throw Object.assign(new Error("港口课件页码已变化"),{statusCode:409});
+        if(!expansionStateValid(page,input)||(input.cinematic?.startedAt??0)>Date.now()+30000)throw Object.assign(new Error("呈现选项无效"),{statusCode:400});
+        runtime.portExpansionPresentation={slideKey:input.slideKey,progress:input.progress,option:input.option,revealed:input.revealed,...(input.cinematic?{cinematic:{...input.cinematic}}:{})};
       } else if(input.type === "set_lesson_six_presentation") {
         const page=PORT_LESSON_SIX_SLIDES.find(p=>p.slideKey===input.slideKey);
         if(session.courseId!=="course-port-management-intro"||!page||runtime.slideKey!==input.slideKey||deck.getSlide(runtime.slideIndex).lessonNumber!==6)throw Object.assign(new Error("第6讲页码已变化"),{statusCode:409});

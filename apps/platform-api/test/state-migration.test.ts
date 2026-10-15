@@ -3,7 +3,7 @@ import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
-import { PORT_MANAGEMENT_DECK_VERSION } from "@edu/course-content";
+import { PORT_MANAGEMENT_DECK_VERSION, getPortManagementLesson } from "@edu/course-content";
 import {
   createInitialClassroomRuntime,
   createSeedState,
@@ -24,6 +24,40 @@ function legacyRuntime(slideIndex: number): ClassroomRuntimeState {
     slideIndex
   } as ClassroomRuntimeState;
 }
+
+test('rewritten port lessons restore surviving keys or their own cover, preserving completed records', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'edu-port-v15-recovery-'));
+  const file = join(directory, 'state.json');
+  const state = createSeedState(), base = state.classSessions[0]!;
+  const cases = [
+    { id: 'removed-l12', index: 550, key: 'l12-dangerous-cargo', lesson: 12 },
+    { id: 'removed-l11', index: 502, key: 'l11-removed-page', lesson: 11 },
+    { id: 'surviving-l12', index: 534, key: 'l12-investigation-question', lesson: 12 }
+  ];
+  state.classSessions = cases.map(entry => ({ ...base, id: entry.id, status: 'live' as const }));
+  state.classSessions.push({ ...base, id: 'completed-l12', status: 'completed' });
+  for (const entry of cases) state.classroomRuntimes[entry.id] = {
+    ...createInitialClassroomRuntime(), slideIndex: entry.index, slideKey: entry.key, deckVersion: 'release-port-management-performance-safety-v15'
+  };
+  const completed = { ...state.classroomRuntimes['removed-l12']! };
+  state.classroomRuntimes['completed-l12'] = completed;
+  await writeFile(file, JSON.stringify(state));
+  const store = new JsonStateStore(file);
+  try {
+    await store.initialize();
+    for (const entry of cases) {
+      const slide = store.getClassroomSnapshot(entry.id)!.slide;
+      assert.equal(slide.index, getPortManagementLesson(entry.lesson as 11 | 12).slideStart);
+      assert.equal(slide.lessonNumber, entry.lesson);
+      assert.equal(slide.versionId, PORT_MANAGEMENT_DECK_VERSION);
+    }
+    const saved = JSON.parse(await readFile(file, 'utf8'));
+    assert.deepEqual(saved.classroomRuntimes['completed-l12'], completed);
+  } finally {
+    store.close();
+    await rm(directory, { recursive: true, force: true });
+  }
+});
 
 test("old numeric slide state returns to the matching new lesson cover", async () => {
   const tempDirectory = await mkdtemp(join(tmpdir(), "edu-deck-migration-"));

@@ -11,7 +11,7 @@ test('performance comparisons separate weighting, sample evidence and necessary 
  assert.equal(safetyEvidenceGate(1).readyForAuthorizedReview,true);
  for(const f of [performancePerspective,safetyEvidenceGate])for(const n of [-1,3,NaN,.5])assert.throws(()=>f(n));
  assert.throws(()=>sampleDeliverySummary([],4));assert.throws(()=>sampleDeliverySummary([2,NaN],4));
- assert.equal(PORT_LESSON_ELEVEN_SLIDES[0]!.index,486);assert.equal(PORT_LESSON_TWELVE_SLIDES.at(-1)!.index,581);
+ assert.equal(PORT_LESSON_ELEVEN_SLIDES[0]!.index,486);assert.equal(PORT_LESSON_TWELVE_SLIDES.at(-1)!.index,549);
 });
 test('new evidence stays labelled and disclosed answers stay outside hidden contexts',()=>{
  for(const page of [...PORT_LESSON_ELEVEN_SLIDES,...PORT_LESSON_TWELVE_SLIDES]){

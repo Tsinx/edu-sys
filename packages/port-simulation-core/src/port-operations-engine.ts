@@ -1,5 +1,7 @@
 import { TERMINAL_EQUIPMENT, terminalBudget, validateTerminalSetup } from "./terminal-lab.js";
 import { createPortNavigation } from "./port-navigation.js";
+import { accruePortResourceStatistics, completePortResourceStatistics } from './port-resource-statistics.js';
+import { createPortFacilities, schedulePhysicalJobs, refreshPhysicalRates, completePhysicalStage, afterPhysicalTransfer, physicalDispatchIssue, physicalJobPower, redistributePhysicalCranes } from './port-facilities.js';
 import { PORT_HORIZON, PORT_SHIFT_SECONDS, PORT_OPERATIONS_SCHEMA, PORT_ARRIVAL_GENERATOR, PORT_DOC_NAMES, cleanPortConfig, cleanPortPlan, defaultPortConfig, defaultPortPlan, generatePortSchedule, portRng, portLocationName, type PortBatch, type PortBox, type PortCall, type PortCommand, type PortConfig, type PortDocument, type PortEvent, type PortJob, type PortMode, type PortOrder, type PortPlan, type PortResult, type PortSession } from "./port-operations-model.js";
 const copy = <T>(v: T): T => structuredClone(v);
 const doc = (reference: string, value = reference): PortDocument => ({ reference, value, status: "draft", reason: "航前基础资料已接收，等待核对与提交。" });
@@ -12,6 +14,7 @@ export function createPortSession(mode: PortMode = "practice", config = defaultP
         throw new Error("未知训练模式。");
     const clean = cleanPortConfig(config);
     const initialPlan = cleanPortPlan(plan);
+    if(schema==='port-operations/3.2'&&initialPlan.equipment.dispatch.berthCranes.some(n=>n>2))throw new Error('本教学岸线每泊位最多投入两台岸桥，其余设备保持待命。');
     const s: PortSession = { inputLog: [], traceCoverage: "complete", schema, generator: PORT_ARRIVAL_GENERATOR, config: clean, mode, status: "ready", second: 0, plan: copy(initialPlan), initialPlan, schedules: generatePortSchedule(clean), calls: {}, batches: {}, boxes: {}, berths: [null, null], anchors: [null, null, null, null], channel: null, jobs: [], events: [], notices: [], attempts: [], commands: [], taught: [], pauseReason: "", cost: 0, energy: 0, effort: { personSeconds: 0, energySeconds: 0, capitalSeconds: 0 }, distance: 0, rehandles: 0, wind: 1, failedCrane: null, repairPending: false, jobSequence: 0, handover: [] };
     const paperwork = portRng(config.seed ^ 0x27d4eb2f);
     let boxSequence = 0;
@@ -34,7 +37,7 @@ export function createPortSession(mode: PortMode = "practice", config = defaultP
             for (let j = 0; j < count; j++) {
                 const boxId = `C-${String(++boxSequence).padStart(5, "0")}`;
                 b.boxIds.push(boxId);
-                s.boxes[boxId] = { id: boxId, batchId: id, location: flow === "import" ? `ship:${v.id}` : "external", available: flow === "import", queuedAt: b.availableAt, unloadedAt: null, loadedAt: null, deliveredAt: null, issueExpected: flow === "import" && i === 0 && j === 0 && Number(v.id.slice(1)) % 3 === 0, issue: "none", inspectionYard: null, reviewReady: false, history: [] };
+                s.boxes[boxId] = { id: boxId, batchId: id, location: flow === "import" ? `ship:${v.id}` : "external", available: flow === "import", queuedAt: b.availableAt, unloadedAt: null, loadedAt: null, deliveredAt: null, issueExpected: flow === "import" && i === 0 && j === 0 && Number(v.id.slice(1)) % 3 === 0, issue: "none", inspectionYard: null, reviewReady: false, history: [],...(schema==='port-operations/3.2'&&flow==='import'?{shipSlot:v.unload-1-(i===0?j:Math.ceil(v.unload/2)+j)}:{}) };
             }
         }
     }
@@ -47,7 +50,8 @@ export function createPortSession(mode: PortMode = "practice", config = defaultP
     if (config.disruption === "outage")
         event(s, { id: "fault:0", at: 18 * 3600, kind: "fault", object: "equipment", value: 0 });
     s.scoringVersion = 2;
-    if (schema === PORT_OPERATIONS_SCHEMA) s.referenceVersion = 2;
+    if (schema !== 'port-operations/3.0') s.referenceVersion = 2;
+    if (schema === 'port-operations/3.2') s.facilities = createPortFacilities(s.plan);
     settle(s);
     return s;
 }
@@ -98,7 +102,7 @@ export function portTransportDistance(s: PortSession, from: string, to: string) 
 function resources(s: PortSession) {
     const e = s.plan.equipment, d = e.dispatch;
     const assigned = d.berthCranes[0] + d.berthCranes[1];
-    return { quay: Math.min(e.cranes, d.craneOperators, assigned), truck: Math.min(e.vehicles, d.drivers * (e.vehicle === "agv" ? 4 : 1), e.vehicle === "tractor" ? 16 : e.facilities.filter(f => f.kind === "charger").length * 8), yard: Math.min(e.yardMachines, d.yardOperators), gate: Math.min(e.gates, d.gateClerks * (e.gateSystem === "smart" ? 2 : 1)) };
+    return { quay: Math.min(e.cranes, d.craneOperators, assigned), truck: Math.min(e.vehicles, d.drivers * (e.vehicle === "agv" ? 4 : 1), e.vehicle === "tractor" ? 16 : e.facilities.filter(f => f.kind === "charger").length * 8), yard: Math.min(e.yardMachines, d.yardOperators), gate: Math.min(e.gates, d.gateClerks * (e.gateSystem === "smart" ? 2 : 1),s.facilities?e.facilities.filter(f=>f.kind==='gate').length*2:Infinity) };
 }
 export function portActiveResources(s: PortSession) { return resources(s); }
 function quayBerth(s: PortSession, resource: number) { return resource < s.plan.equipment.dispatch.berthCranes[0] ? 0 : 1; }
@@ -106,13 +110,14 @@ function jobDuration(s: PortSession, j: Pick<PortJob, "kind" | "from" | "to">) {
     const e = s.plan.equipment;
     if (j.kind === "quay")
         return 3600 / (TERMINAL_EQUIPMENT.crane[e.crane].rate * .75 * s.wind);
-    if (j.kind === "truck")
+    if (j.kind === "truck" && !s.facilities)
         return (60 + portTransportDistance(s, j.from, j.to) * 1.5) * 8 / TERMINAL_EQUIPMENT.vehicle[e.vehicle].rate;
     if (j.kind === "yard")
         return 3600 / TERMINAL_EQUIPMENT.yardMachine[e.yardMachine].rate;
     return 3600 / TERMINAL_EQUIPMENT.gateSystem[e.gateSystem].rate;
 }
 function rateJobs(s: PortSession) {
+    if (s.facilities) { refreshPhysicalRates(s); return; }
     const available = resources(s);
     const occupied = new Set<number>();
     for (const j of s.jobs) {
@@ -198,6 +203,7 @@ function candidates(s: PortSession): Candidate[] {
     return out.sort((a, b) => a.box.queuedAt - b.box.queuedAt || a.box.id.localeCompare(b.box.id));
 }
 function scheduleJobs(s: PortSession) {
+    if (s.facilities) { schedulePhysicalJobs(s, candidates(s)); return; }
     const available = resources(s);
     const used = new Set(s.jobs.map(j => j.boxId));
     const options = candidates(s);
@@ -224,6 +230,7 @@ function scheduleJobs(s: PortSession) {
         }
 }
 function finishJob(s: PortSession, j: PortJob) {
+    completePortResourceStatistics(s, j);
     const box = s.boxes[j.boxId]!, b = s.batches[box.batchId]!, c = s.calls[b.callId]!;
     box.location = j.to;
     box.queuedAt = s.second;
@@ -391,8 +398,11 @@ function settle(s: PortSession) {
     }
     const done = s.jobs.filter(j => j.end !== null && j.end <= s.second);
     s.jobs = s.jobs.filter(j => !done.includes(j));
-    for (const j of done.sort((a, b) => a.id - b.id))
+    for (const j of done.sort((a, b) => a.id - b.id)) {
+        if (s.facilities && !completePhysicalStage(s, j)) continue;
         finishJob(s, j);
+        if (s.facilities) afterPhysicalTransfer(s, j);
+    }
     if (s.second >= PORT_HORIZON) {
         s.status = "completed";
         s.pauseReason = "48 小时实战结束，请核对交班记录。";
@@ -402,9 +412,11 @@ function settle(s: PortSession) {
     teach(s);
 }
 function accrue(s: PortSession, delta: number) {
+    accruePortResourceStatistics(s, delta);
+    if (s.facilities) s.facilities.waitingBoxSeconds += Object.values(s.boxes).filter(b=>b.unloadedAt!==null&&b.deliveredAt===null).length*delta;
     const e = s.plan.equipment, d = e.dispatch;
     const personnel = d.craneOperators + d.drivers + d.yardOperators + d.gateClerks + d.technicians;
-    const power = s.jobs.reduce((sum, j) => sum + (j.rate > 0 ? ({ quay: TERMINAL_EQUIPMENT.crane[e.crane].energy, truck: TERMINAL_EQUIPMENT.vehicle[e.vehicle].energy, yard: TERMINAL_EQUIPMENT.yardMachine[e.yardMachine].energy, gate: TERMINAL_EQUIPMENT.gateSystem[e.gateSystem].energy })[j.kind] : 0), 0);
+    const power = s.jobs.reduce((sum, j) => sum + (s.facilities ? physicalJobPower(s,j) : j.rate > 0 ? ({ quay: TERMINAL_EQUIPMENT.crane[e.crane].energy, truck: TERMINAL_EQUIPMENT.vehicle[e.vehicle].energy, yard: TERMINAL_EQUIPMENT.yardMachine[e.yardMachine].energy, gate: TERMINAL_EQUIPMENT.gateSystem[e.gateSystem].energy })[j.kind] : 0), 0);
     // Integer exposure integrals make replay independent of browser tick partitioning.
     s.effort.personSeconds += personnel * delta;
     s.effort.energySeconds += power * delta;
@@ -442,7 +454,7 @@ export function advancePortSession(s: PortSession, seconds: number, record = tru
     const start = s.second, target = Math.min(PORT_HORIZON, s.second + seconds);
     settle(s);
     while (s.second < target && s.status === "running") {
-        const next = Math.min(target, s.events[0]?.at ?? Infinity, ...s.jobs.map(j => j.end ?? Infinity));
+        const next = Math.min(target, s.events[0]?.at ?? Infinity, s.facilities?.quayShift?.end??Infinity, ...s.jobs.map(j => j.end ?? Infinity));
         if (next <= s.second)
             throw new Error("事件时钟未前进。");
         accrue(s, next - s.second);
@@ -641,8 +653,12 @@ function execute(s: PortSession, o: PortOrder): PortResult {
         const errors = validateTerminalSetup({ ...s.plan.equipment, dispatch: o.dispatch });
         if (errors.length)
             return result("invalid", "dispatch-form", errors.join("；"));
+        const blocked = physicalDispatchIssue(s,o.dispatch);
+        if (blocked) return result('waiting','physical-dispatch',blocked);
         rateJobs(s);
+        const previous=s.plan.equipment.dispatch;
         s.plan.equipment.dispatch = copy(o.dispatch);
+        redistributePhysicalCranes(s,previous);
         rateJobs(s);
         return result("applied", "dispatch-changed", "岗位与设备分配已更新，在制任务保留已有工作量。");
     }

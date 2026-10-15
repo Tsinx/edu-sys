@@ -18,11 +18,10 @@ import type {
   LamRuntimeStatus,
   SlideInteractionValues
 } from "@edu/contracts";
-import { getCourseAdjacentIndex, getCourseLessonLabel, type CourseDeckDescriptor } from "@edu/course-content/deck-registry";
+import { getCourseAdjacentIndex, getCourseDeckByCourseId, getCourseLessonLabel } from "@edu/course-content/deck-registry";
 import {
   getPortManagementGlobeCue,
   getPortManagementGlobalSlideIndex,
-  getPortManagementLessonSlidePosition,
   getPortManagementSlideByKey,
   PORT_MANAGEMENT_LESSONS,
   type PortManagementGlobeCueStep
@@ -84,6 +83,8 @@ import { PageToolsContribution, PageToolsProvider } from "./PageTools";
 import { TeacherParticipation } from "./ClassroomParticipation";
 import { TeacherRankedPractice } from "../ranked-practice/RankedPractice";
 import { useClassroomFullscreen } from "./useClassroomFullscreen";
+import { classroomSlidePosition } from './classroom-slide-position';
+import { ClassroomDeckNotice } from './ClassroomDeckNotice';
 import "./classroom.css";
 import "./classroom-fullscreen.css";
 
@@ -165,7 +166,7 @@ export function ClassroomSubsystem() {
   const navigate = useNavigate();
   const [snapshot, setSnapshot] = useState<ClassroomSnapshot>();
   const t = (zh: string, en: string) => snapshot?.courseId === "course-international-mathematics" ? en : zh;
-  const [courseDeck, setCourseDeck] = useState<CourseDeckDescriptor | null>(null);
+  const courseDeck = snapshot ? getCourseDeckByCourseId(snapshot.courseId) ?? null : null;
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -271,34 +272,11 @@ export function ClassroomSubsystem() {
   useEffect(() => {
     snapshotRef.current = undefined;
     setSnapshot(undefined);
-    setCourseDeck(null);
   }, [sessionId]);
 
   useEffect(() => {
     snapshotRef.current = snapshot;
   }, [snapshot]);
-
-  useEffect(() => {
-    let active = true;
-    if (!snapshot?.courseId || ![ECONOMIC_MATHEMATICS_COURSE_ID, "statistical-analysis", "management-principles", "course-international-mathematics"].includes(snapshot.courseId)) {
-      setCourseDeck(null);
-      return () => {
-        active = false;
-      };
-    }
-    void import("@edu/course-content/deck-registry")
-      .then((module) => {
-        if (active) {
-          setCourseDeck(module.getCourseDeckByCourseId(snapshot.courseId) ?? null);
-        }
-      })
-      .catch((reason: Error) => {
-        if (active) setError(`课程注册表装载失败：${reason.message}`);
-      });
-    return () => {
-      active = false;
-    };
-  }, [snapshot?.courseId]);
 
   useEffect(() => {
     const queue = interactionSyncRef.current;
@@ -455,14 +433,9 @@ export function ClassroomSubsystem() {
 
   useEffect(() => {
     if (!snapshot) return;
-    if ([ECONOMIC_MATHEMATICS_COURSE_ID, "statistical-analysis", "management-principles", "course-international-mathematics"].includes(snapshot.courseId)) {
-      const position = courseDeck?.getLessonPosition(snapshot.slide.index);
-      if (position) setSlidePageDraft(String(position.localIndex));
-      return;
-    }
-    const position = getPortManagementLessonSlidePosition(snapshot.slide.index);
-    if (position) setSlidePageDraft(String(position.localIndex));
-  }, [courseDeck, snapshot?.courseId, snapshot?.slide.index]);
+    const position = classroomSlidePosition(snapshot.courseId, snapshot.slide, courseDeck);
+    setSlidePageDraft(position ? String(position.localIndex) : '');
+  }, [courseDeck, snapshot?.courseId, snapshot?.slide.index, snapshot?.slide.slideId, snapshot?.slide.versionId, snapshot?.slide.lessonNumber]);
 
   const elapsed = useMemo(
     () => (snapshot ? formatElapsed(snapshot.session.startsAt, now) : "00:00:00"),
@@ -497,7 +470,7 @@ export function ClassroomSubsystem() {
     }
   }
 
-  const portExpansionReportRef=useRef({last:0,key:"",revealed:false,option:0});
+  const portExpansionReportRef=useRef({last:0,key:"",revealed:false,option:0,filmStatus:""});
   const portExpansionQueue=useRef(Promise.resolve());
   const portExpansionTrailing=useRef<ReturnType<typeof setTimeout>|undefined>(undefined);
   useEffect(()=>()=>clearTimeout(portExpansionTrailing.current),[]);
@@ -505,14 +478,14 @@ export function ClassroomSubsystem() {
     if(snapshotRef.current?.slide.slideId!==slideKey)return;
     const last=portExpansionReportRef.current,now=Date.now();
     clearTimeout(portExpansionTrailing.current);
-    if(last.key===slideKey&&last.revealed===value.revealed&&last.option===value.option&&now-last.last<300&&value.progress!==0&&value.progress!==1){
+    if(last.key===slideKey&&last.revealed===value.revealed&&last.option===value.option&&last.filmStatus===(value.cinematic?.status??"")&&now-last.last<300&&value.progress!==0&&value.progress!==1){
       portExpansionTrailing.current=setTimeout(()=>reportPortExpansion(slideKey,value),300-(now-last.last));return;
     }
-    portExpansionReportRef.current={last:now,key:slideKey,revealed:value.revealed,option:value.option};
+    portExpansionReportRef.current={last:now,key:slideKey,revealed:value.revealed,option:value.option,filmStatus:value.cinematic?.status??""};
     portExpansionQueue.current=portExpansionQueue.current.then(async()=>{
       if(snapshotRef.current?.slide.slideId!==slideKey)return;
       mergeSnapshot(await api.sendClassroomEvent(sessionId,{type:'set_port_expansion_presentation',slideKey,...value}));
-    }).catch(reason=>{if(!(reason instanceof ApiError&&reason.status===409))setError(`第7—8讲同步未完成：${reason.message}`);});
+    }).catch(reason=>{if(!(reason instanceof ApiError&&reason.status===409))setError(`港口课件同步未完成：${reason.message}`);});
   }
   const lessonSixReportRef=useRef({last:0,key:"",revealed:false,option:0});
   const lessonSixQueue=useRef(Promise.resolve());
@@ -960,7 +933,7 @@ export function ClassroomSubsystem() {
     }
   }
 
-  if (loading) {
+  if (loading || (snapshot && snapshot.session.id !== sessionId)) {
     return (
       <main className="classroom-subsystem classroom-subsystem--centered">
         <LoaderCircle className="spin" size={32} />
@@ -988,14 +961,8 @@ export function ClassroomSubsystem() {
   const isManagement = snapshot.courseId === "management-principles";
   const isInternationalMathematics = snapshot.courseId === "course-international-mathematics";
   const isRegisteredCourse = isEconomicMathematics || isStatisticalAnalysis || isManagement || isInternationalMathematics;
-  if (isRegisteredCourse && !courseDeck) {
-    return (
-      <main className="classroom-subsystem classroom-subsystem--centered">
-        {error ? <CircleAlert size={34} /> : <LoaderCircle className="spin" size={32} />}
-        <p>{error || "正在装载当前课程注册表"}</p>
-      </main>
-    );
-  }
+  const slidePosition = classroomSlidePosition(snapshot.courseId, snapshot.slide, courseDeck);
+  if (!slidePosition) return <ClassroomDeckNotice courseId={snapshot.courseId} english={isInternationalMathematics} />;
 
   const isLive = snapshot.session.status === "live";
   const isSlides = snapshot.activeActivity === "slides";
@@ -1012,9 +979,6 @@ export function ClassroomSubsystem() {
     !isRegisteredCourse && OPENING_GLOBE_CUE
       ? getPortManagementSlideByKey(OPENING_GLOBE_CUE.returnSlideKey)
       : undefined;
-  const slidePosition = isRegisteredCourse
-    ? courseDeck!.getLessonPosition(snapshot.slide.index)!
-    : getPortManagementLessonSlidePosition(snapshot.slide.index)!;
   const lessonOptions = isRegisteredCourse
     ? courseDeck!.lessons.map((lesson) => ({
         number: lesson.number,
@@ -1036,7 +1000,7 @@ export function ClassroomSubsystem() {
     : activityTabs;
 
   async function commitSlidePageInput() {
-    if (!snapshot) return;
+    if (!snapshot || !slidePosition) return;
     const restoreCurrentValue = () =>
       setSlidePageDraft(String(slidePosition.localIndex));
     const rawValue = slidePageDraft.trim();

@@ -1,4 +1,4 @@
-import {PORT_EXPANSION_SLIDES,expansionVisiblePoints,expansionOptionSummary,expansionDiagramSummary} from '@edu/course-content';
+import {PORT_EXPANSION_SLIDES,expansionTotal,expansionVisiblePoints,expansionOptionSummary,expansionDiagramSummary} from '@edu/course-content';
 import {MANAGEMENT_BUILD} from '@edu/course-content/management-principles';
 import type { AssistantPromptModule, AssistantPromptScope, AssistantPromptSettings, AssistantPromptWorkspace, ClassroomSnapshot } from "@edu/contracts";
 import { PORT_LESSON_SIX_SLIDES, lessonSixVisiblePoints, getLessonSixFilm, lessonSixFilmElapsed, lessonSixFilmDuration, lessonSixFilmFrame } from '@edu/course-content';
@@ -156,7 +156,7 @@ export function buildPromptWorkspace(
     '【课堂方式】课件内交互由教师控制；没有独立个人实验、提交或成绩。没有实际记录不能声称学生已完成。'
   ].join('\n'):undefined;
   const peSupport=pe?[
-    `【本页定位】第${pe.lesson}讲第${pe.localPage}/48页，${pe.title}。${pe.lead}`,
+    `【本页定位】第${pe.lesson}讲第${pe.localPage}/${expansionTotal(pe.lesson)}页，${pe.title}。${pe.lead}`,
     `【已公开内容】${pePoints.length?pePoints.join('；'):'正文尚未展开，只能依据标题、题干和图解输入条件讨论。'}`,
     `【当前演示】进度${Math.round(peState.progress*100)}%；${expansionOptionSummary(pe,peState)}`,
     `【图解材料】${expansionDiagramSummary(pe,peState)}`,
@@ -168,7 +168,7 @@ export function buildPromptWorkspace(
     `【本页专属约束】${pe.assistantCue}`,
 
     `【证据边界】${pe.assistantCue}`,
-    '【课堂方式】教师控制逐步展开与情境切换，个人口头或纸面思考，无独立仿真实验提交。未收到学生记录，不得声称已完成。'
+    pe.lesson>=11?'【课堂方式】本讲32页90分钟，含30分钟独立实验。实验入口/port-class-lab.html?lesson='+pe.lesson+'；本机记录不等于平台提交，参考运行不等于学生完成。未收到实际记录，不推断其操作或结果。':'【课堂方式】教师控制逐步展开与情境切换，个人口头或纸面思考，无独立仿真实验提交。未收到学生记录，不得声称已完成。'
   ].join('\n'):undefined;
   const internationalSupport = internationalSlide ? [
     `Current lecture: ${internationalSlide.lessonTitle}. Current page: ${internationalSlide.title}.`,
