@@ -1,29 +1,33 @@
 {
-  "version": "release-economic-mathematics-limits-sequence-2026-10-11",
+  "version": "release-economic-mathematics-limits-reinforcement-2026-10-13",
   "files": [
     {
       "file": "packages/course-content/src/economic-mathematics/lesson-03-refined.ts",
-      "sha256": "622fa6c821953db4d80b49f415ad6bf7ca84f134846d68bbd9d02d1ac2047ed4"
+      "sha256": "858de23c55f2a1623b79507689003a6a79d5168f8701295d4c991a73672ed9da"
     },
     {
       "file": "packages/course-content/src/economic-mathematics/lesson-04-refined.ts",
-      "sha256": "81d12765083c8f26b2d633ad5393523aba55b652b1ba0f4387df0f0a525258d6"
+      "sha256": "8cc75bad856c417ac884f5f998597d39be7c084d4855ba52d36800cacd83b433"
     },
     {
       "file": "packages/course-content/src/economic-mathematics/limit-exercises.ts",
-      "sha256": "5341e7ff986fa302dc13953f92990237b281614b6a5d8be1bcda108a9062d41f"
+      "sha256": "3d74f77915a30e17e3796b8bedc6902a7a7179a5aa8a3568dc20128c1342e3e0"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/limit-group-checks.ts",
+      "sha256": "fa817728bf1e45bb2652af7d8acb4ffdacf6238f4277886df7f5b519a0a08e4d"
     },
     {
       "file": "packages/course-content/src/economic-mathematics/limits-authoring.ts",
-      "sha256": "7f45d7624cb46ee4fc7b890bcfc3fff0f927b491d43331890e257a57188ff55c"
+      "sha256": "d7a333a82483562cdcc7d7b72b4002cbc0a292181808c477dab29b6a844e535b"
     },
     {
       "file": "packages/course-content/src/economic-mathematics/limits-model.ts",
-      "sha256": "090070f3e4da69ff7987e8a72216d942e4e18759e25db64aa393b2ff838727a0"
+      "sha256": "3a09457c786054cfe14d1c0a3c73243db6139fa7da4463f248ca497dbc676882"
     },
     {
       "file": "apps/teacher-web/src/features/economic-mathematics/LimitFigure.tsx",
-      "sha256": "a5a4525b101f923d7b2d41860fe0bf5bccd6196a85271ea0f7b75e8a07a1c8be"
+      "sha256": "00edaf63a7a844bb43e81c792ccaf00a5af3156ef9128389ade94da822aa7ebe"
     },
     {
       "file": "apps/teacher-web/src/features/economic-mathematics/LessonHistoryFilm.tsx",
@@ -31,7 +35,7 @@
     },
     {
       "file": "apps/teacher-web/src/features/economic-mathematics/limits.css",
-      "sha256": "34ac1e557ccac60f66f1fb671a02fcbc55ea5be43958f222fbcc5ac85b6d59bb"
+      "sha256": "127178b078ee6ffcac95612574fd1c0e0aab8d86cc5a35240942449842fd39c8"
     },
     {
       "file": "packages/course-content/src/economic-mathematics/merchant-model.ts",
@@ -39,11 +43,11 @@
     },
     {
       "file": "packages/course-content/src/economic-mathematics/curriculum.ts",
-      "sha256": "05b04b1ec65fd7d2b78551f8cac801697ad0972a6a37f03afed062df7ab0d3f5"
+      "sha256": "070b69d1c745dc178ebf5ccd4c2bc802dd92476ccec2f99eb97d2d4b8a706173"
     },
     {
       "file": "packages/course-content/src/economic-mathematics/slides.ts",
-      "sha256": "e54f8c4a649d9cb36596730cd8485dc030bac5d8f3ef95ea13dc52d66bc9297b"
+      "sha256": "98bf19529abc4df7271c6c92082ade796a9bd33e492b81d57d7de983a4abc93e"
     },
     {
       "file": "packages/course-content/src/economic-mathematics/interactions.ts",
@@ -51,7 +55,7 @@
     },
     {
       "file": "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
-      "sha256": "da7f0d90ccd4c062550e17a5238dbb16a99d0df9ba673bf3036449bd6b0fd29b"
+      "sha256": "ccc580c211b6c7eb69871f876a9ad4236823b66b801960d00d21a18df89149e9"
     },
     {
       "file": "apps/teacher-web/src/features/economic-mathematics/economic-mathematics.css",
@@ -71,7 +75,7 @@
     },
     {
       "file": "scripts/prepare-economic-limits.mjs",
-      "sha256": "0c45b73b1c4b3a7dd52e6853c7be08b8e69be9641e904aae3837f72aa135eeeb"
+      "sha256": "f9800c7c7a9775a8d5ce509c63b45bf845a66690427777e7bd7939d8bf541558"
     }
   ]
 }

@@ -1,0 +1,73 @@
+{
+  "images": [
+    {
+      "name": "handoff",
+      "src": "handoff-source.png",
+      "sha256": "76fded20e2d5cf997e467b421b8afcf18e7063b30f094bf1169ca85d6b26fdd5",
+      "type": "AI teaching illustration",
+      "historicFootage": false
+    },
+    {
+      "name": "warehouse",
+      "src": "warehouse-source.png",
+      "sha256": "0308b87edac05d9bca52fd08b0280f3a9e7fe88f58e9ef105f25c54fced79104",
+      "type": "AI teaching illustration",
+      "historicFootage": false
+    },
+    {
+      "name": "records",
+      "src": "records-source.png",
+      "sha256": "4313868b0805df107a65a870a12e2559914ed2d2dfaf449a5b95f2968f64cdb7",
+      "type": "AI teaching illustration",
+      "historicFootage": false
+    },
+    {
+      "name": "drill",
+      "src": "drill-source.png",
+      "sha256": "6aff696a89a99a8f29fd40c7d0ed8f0878ecac7f9e1bc3ec59ba3d932756cf39",
+      "type": "AI teaching illustration",
+      "historicFootage": false
+    },
+    {
+      "name": "community",
+      "src": "community-source.png",
+      "sha256": "dc85ae7f690a7eff165eed749361855d3440d5ce405a5d925e0df23cd8c06285",
+      "type": "AI teaching illustration",
+      "historicFootage": false
+    },
+    {
+      "name": "gate",
+      "src": "apps\\teacher-web\\public\\course-assets\\port-management\\l11-media\\gate.jpg",
+      "sha256": "edcdf615a338bc56b742d7aa35f18f7bd58c17ffbab3b63ac01a2db9b19286b5",
+      "type": "AI teaching illustration",
+      "historicFootage": false
+    }
+  ],
+  "music": "Original deterministic additive synthesis, no external samples",
+  "sources": [
+    {
+      "id": "principle",
+      "title": "安全生产法第三条（2021年修正文本）",
+      "url": "https://www.mem.gov.cn/fw/flfgbz/fg/202107/t20210716_416558.shtml",
+      "boundary": "用于人民至上、生命至上及预防理念的价值依据；不提供具体现场法律意见或法定权限判定。"
+    },
+    {
+      "id": "tianjin",
+      "title": "天津港“8·12”瑞海公司事故调查报告",
+      "url": "https://www.mem.gov.cn/gk/sgcc/tbzdsgdcbg/2016/201602/P020190415543917598002.pdf",
+      "boundary": "许可、库存、培训和监督的历史管理证据；不重演化学过程，不新增官方责任认定，不使用AI场景冒充事件影像。"
+    },
+    {
+      "id": "nagoya",
+      "title": "日本国土交通省：港口信息安全对策委员会资料",
+      "url": "https://www.mlit.go.jp/kowan/kowan_mn2_000006.html",
+      "boundary": "NUTS事件及集装箱搬入搬出约三天停止，不扩大为全港所有物理作业停止。"
+    },
+    {
+      "id": "lab",
+      "title": "第12讲独立教学实验",
+      "url": "/port-class-lab.html?lesson=12",
+      "boundary": "90分钟接口异常、票据、额度与恢复规则均为课程设定。片中不提前公布票据隔离答案或完整最优操作顺序。"
+    }
+  ]
+}

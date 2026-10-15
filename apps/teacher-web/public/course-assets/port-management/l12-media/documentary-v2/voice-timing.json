@@ -1,0 +1,110 @@
+{
+  "voice": "existing classroom default",
+  "fingerprint": "71261af64fb0ea2c26f1a47cfbbe1aab76e1e07c7124ef961caecb6a27e9539c",
+  "records": [
+    {
+      "id": "cold",
+      "from": 3.5,
+      "spokenEnd": 7.466666666666667,
+      "naturalSeconds": 3.966666666666667,
+      "tempo": 1,
+      "sha256": "63a152ce7ca70f8d9d9ad3f3919e038ce138f5f1d15fc1c383ea9b8756ac5a50"
+    },
+    {
+      "id": "identity",
+      "from": 10.5,
+      "spokenEnd": 17.21666666666667,
+      "naturalSeconds": 6.716666666666667,
+      "tempo": 1,
+      "sha256": "0c94fc889af390ec3b390067151e34c89ce53040c5a9686f0106a041c130b1b9"
+    },
+    {
+      "id": "life",
+      "from": 20.5,
+      "spokenEnd": 30.71666666666667,
+      "naturalSeconds": 10.216666666666667,
+      "tempo": 1,
+      "sha256": "056b8824186d9887f5bf8c448d593f3d2748d0a3c29462b20790fc266d153a6f"
+    },
+    {
+      "id": "archive",
+      "from": 36,
+      "spokenEnd": 48.21666666666667,
+      "naturalSeconds": 12.216666666666667,
+      "tempo": 1,
+      "sha256": "f21c11f5cb1ae2dfb4df49bb672abe4dc8336a6ed9ba0921c7c720b91b36c648"
+    },
+    {
+      "id": "barriers",
+      "from": 51.5,
+      "spokenEnd": 65,
+      "naturalSeconds": 14.466666666666667,
+      "tempo": 1.0716049382716049,
+      "sha256": "80d36ca5bc00cb766cb58fda082c05703a31e17b5ed32f2e66728502ab0f64c5"
+    },
+    {
+      "id": "digital",
+      "from": 66.5,
+      "spokenEnd": 76.38333333333333,
+      "naturalSeconds": 9.883333333333333,
+      "tempo": 1,
+      "sha256": "83e53c470c790a298b92a3606f955b4e34ca8572afea8b809f9e2ba6290cb622"
+    },
+    {
+      "id": "nagoya",
+      "from": 82,
+      "spokenEnd": 92.3,
+      "naturalSeconds": 10.3,
+      "tempo": 1,
+      "sha256": "d02f3c2241f27d4087882f074a76e667c4a77500307a2d8768b60b266170fbc1"
+    },
+    {
+      "id": "independent",
+      "from": 97.5,
+      "spokenEnd": 106.21666666666667,
+      "naturalSeconds": 8.716666666666667,
+      "tempo": 1,
+      "sha256": "622739b2ce5ce101f7c3c4159ce519bd352db4782bab71f50384fcfe1d228f3c"
+    },
+    {
+      "id": "pause",
+      "from": 110.5,
+      "spokenEnd": 119.8,
+      "naturalSeconds": 9.3,
+      "tempo": 1,
+      "sha256": "21161ca37cbc745f28661d9d3881bdae83e0e773e4c412e02e40898ccfd57f33"
+    },
+    {
+      "id": "restore",
+      "from": 125.5,
+      "spokenEnd": 134.71666666666667,
+      "naturalSeconds": 9.216666666666667,
+      "tempo": 1,
+      "sha256": "90759c8d086987def4aa7afec155647900a1c2a5aa5f6df9938bd124ef679b9d"
+    },
+    {
+      "id": "takeover",
+      "from": 140.5,
+      "spokenEnd": 151.46666666666667,
+      "naturalSeconds": 10.966666666666667,
+      "tempo": 1,
+      "sha256": "ec7073a1c2fc3f1509783488da7953139ad58982bdad150a81564159293d7967"
+    },
+    {
+      "id": "responsibility",
+      "from": 156.5,
+      "spokenEnd": 165.21666666666667,
+      "naturalSeconds": 8.716666666666667,
+      "tempo": 1,
+      "sha256": "3ab59ebaac3a8fda959a3b82483e2114413fbd848360997a3f8360cd8e409eeb"
+    },
+    {
+      "id": "question",
+      "from": 169,
+      "spokenEnd": 171.55,
+      "naturalSeconds": 2.55,
+      "tempo": 1,
+      "sha256": "93558a2b1e0cfa1c03023228372fda6ba0b9bebb3293775406f786f71f62380c"
+    }
+  ]
+}

@@ -123,3 +123,5 @@
   .port-stage-dock { width: max-content; overflow-x: auto; }
   .port-stage-dock button { flex-shrink: 0; }
 }
+
+.port-class-lab-entry{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:15px 24px;background:#e3eddf;color:#254e56;font-family:"Microsoft YaHei",sans-serif;font-size:13px}.port-class-lab-entry a{color:#225d69;padding:9px 13px;border:1px solid #a7c0b2;border-radius:6px;text-decoration:none;background:#fbfaf1}

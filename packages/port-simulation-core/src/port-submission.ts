@@ -1,3 +1,4 @@
+import {digestSha256} from './sha256.js';
 import { applyPortCommand, createPortSession } from "./port-operations-engine.js";
 import { applyPortCourseCommand, createPortCourse, isPortCourseUnit, portCourseGoals, portCourseScore, portCoursePerformance, type PortCourseCommand, type PortCourseRun, type PortCourseSelection } from "./port-course.js";
 import { portReport, portScore, portReferenceCost } from "./port-operations-review.js";
@@ -65,7 +66,7 @@ export async function portStateHash(s: PortSession) {
   // UI history, input capture and restoration pause labels are not business state.
   const { inputLog, traceCoverage, commands, pauseReason, ...state } = s;
   const bytes = new TextEncoder().encode(JSON.stringify(state));
-  return Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", bytes)), x => x.toString(16).padStart(2, "0")).join("");
+  return digestSha256(bytes);
 }
 
 /** Deterministic, read-only replay. Never restores into a live student's storage. */
@@ -83,9 +84,9 @@ export class PortSubmissionReplay {
     this.data = JSON.parse(raw);
     const d = this.data;
     const segment = ["port-course/1.0", "port-course/1.1", "port-course/1.2"].includes(d.schema);
-    if (!segment && !["port-operations/3.0", "port-operations/3.1"].includes(d.schema)) throw new Error("不支持的实验版本。");
+    if (!segment && !["port-operations/3.0", "port-operations/3.1", "port-operations/3.2"].includes(d.schema)) throw new Error("不支持的实验版本。");
     if (segment && (!isPortCourseUnit(d.unit) || d.demo === true)) throw new Error("演示或未知分段不能提交。");
-    if (["port-course/1.1", "port-course/1.2", "port-operations/3.1"].includes(d.schema) && d.navigationVersion !== PORT_NAVIGATION_VERSION) throw new Error("航行规则版本不一致。");
+    if (["port-course/1.1", "port-course/1.2", "port-operations/3.1", "port-operations/3.2"].includes(d.schema) && d.navigationVersion !== PORT_NAVIGATION_VERSION) throw new Error("航行规则版本不一致。");
     if (!segment && d.generator !== PORT_ARRIVAL_GENERATOR) throw new Error("船期生成器版本不一致。");
     this.unit = segment ? d.unit : "full";
     if (d.traceCoverage === "complete" && !Array.isArray(d.inputLog)) throw new Error("缺失完整操作记录。");

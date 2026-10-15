@@ -1,3 +1,4 @@
+import {digestSha256} from './sha256.js';
 import type { PortSimulationAuthoritativeEngineState } from "@edu/contracts";
 
 function stableKey(value: unknown) {
@@ -48,8 +49,5 @@ export async function hashPortSimulationState(
   state: PortSimulationAuthoritativeEngineState
 ) {
   const bytes = new TextEncoder().encode(canonicalPortSimulationStateJson(state));
-  const digest = await globalThis.crypto.subtle.digest("SHA-256", bytes);
-  return Array.from(new Uint8Array(digest), (byte) =>
-    byte.toString(16).padStart(2, "0")
-  ).join("");
+  return digestSha256(bytes);
 }

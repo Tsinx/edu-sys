@@ -1,0 +1,25 @@
+.port-learning { min-width: 0; line-height: 1.65; }
+.port-learning h3 { margin: 18px 0 8px; font-size: 15px; }
+.port-learning > p, .port-learning details > p { line-height: 1.7; }
+.port-learning label { display: grid; gap: 5px; margin: 12px 0; font-size: 13px; }
+.port-learning textarea { box-sizing: border-box; width: 100%; min-width: 0; padding: 9px 10px; border: 1px solid #a4bdb6; border-radius: 5px; background: #fffefa; color: #234b50; font: inherit; line-height: 1.65; resize: vertical; }
+.port-learning textarea:focus-visible { outline: 2px solid #246f78; outline-offset: 2px; }
+.port-learning select { min-width: 0; width: 100%; text-overflow: ellipsis; }
+.port-learning-actions, .port-learning-endpoint { display: flex; align-items: end; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.port-learning-endpoint label { flex: 1 1 150px; margin: 0; }
+.port-learning-endpoint input { box-sizing: border-box; width: 100%; }
+.port-learning-check, .port-learning-alert { padding: 10px 12px; margin: 12px 0; border-left: 3px solid #38777d; background: #e7f1ed; overflow-wrap: anywhere; }
+.port-learning-alert { border-color: #ae7042; background: #f5ece0; }
+.port-learning-caption { font-size: 12px; color: #526e70; }
+.port-learning-table { max-width: 100%; overflow-x: auto; margin: 12px 0; }
+.port-learning-table table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.port-learning-table th, .port-learning-table td { padding: 8px 6px; border-bottom: 1px solid #cdded8; text-align: left; white-space: normal; overflow-wrap: anywhere; }
+.port-learning-table thead { color: #fff; background: #285e66; }
+.port-learning-table tbody th { width: 39%; font-weight: 500; }
+.port-learning-table caption { text-align: left; padding: 6px 0; color: #46666a; }
+.port-learning-waits > div { display: grid; grid-template-columns: 42px minmax(50px,1fr) 60px; gap: 8px; align-items: center; padding: 4px 0; font-size: 12px; }
+.port-learning-waits meter { width: 100%; height: 18px; accent-color: #36767b; }
+.port-learning-risk > p { overflow-wrap: anywhere; }
+.port-ops .port-tabs { overflow-x: auto; }
+.port-ops .port-tabs > button { flex-shrink: 0; }
+.port-learning button { white-space: normal; }

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { capacityAt, exactOscillationSample, idealAverage, profitAt, profitQuotient, supplierCost, reciprocalSequenceError, sequenceComparisonValue, sequenceZoomState, limitPrecisionLabel, type EconomicMathematicsLimitFigure } from '@edu/course-content/economic-mathematics';
+import { capacityAt, exactOscillationSample, idealAverage, profitAt, profitQuotient, supplierCost, reciprocalSequenceError, sequenceComparisonValue, sequenceZoomState, limitPrecisionLabel, derivativeBridgeValue, type EconomicMathematicsLimitFigure } from '@edu/course-content/economic-mathematics';
 import type { SlideInteractionValues } from '@edu/contracts';
 
 const ink = '#202c2d', teal = '#466d6e', rust = '#a64e35', pale = '#dce6df', paper = '#f6f3e9';
@@ -26,6 +26,26 @@ function Dot({ x, y, open=false, color=rust }: { x:number;y:number;open?:boolean
 export function LimitFigure({ config, values }: { config: EconomicMathematicsLimitFigure; values: SlideInteractionValues }) {
   const p = config.params ?? {};
   switch (config.kind) {
+    case 'derivative-bridge': {
+      const model = (p.model === 1 ? 1 : p.model === 2 ? 2 : 0) as 0 | 1 | 2;
+      const range: Range = model === 0 ? [-.4, 2.1] : [-2.1, .4];
+      const x=(v:number)=>100+530*(v+1.4)/2.8,y=(v:number)=>380-300*(v-range[0])/(range[1]-range[0]);
+      return <svg className="em-limit-figure" viewBox="0 0 700 460" role="img" aria-label={model===0?(p.tangent===1?'平方函数与0处切线的数学图形':'平方函数在0附近的数学图形'):model===1?'负平方函数在0处局部最大的数学图形':'负绝对值函数在0处形成折角与局部最大的数学图形'}>
+          <text x="95" y="32">{model===0?'f(x)=x²':model===1?'f(x)=−x²':'f(x)=−|x|'}</text>
+          <line x1="95" x2="642" y1={y(0)} y2={y(0)} stroke={ink} strokeWidth="2"/>
+          <path d={`M633,${y(0)-6} l10,6 l-10,6`} fill="none" stroke={ink} strokeWidth="2"/>
+          <line x1={x(0)} x2={x(0)} y1="64" y2="384" stroke={ink} strokeWidth="2"/>
+          <path d={`M${x(0)-6},74 l6,-10 l6,10`} fill="none" stroke={ink} strokeWidth="2"/>
+          {[-1,1].map(t=><g key={t}><line x1={x(t)} x2={x(t)} y1={y(0)-5} y2={y(0)+5} stroke={ink}/><text className="em-chart-tick" x={x(t)} y={y(0)+32} textAnchor="middle">{t}</text></g>)}
+          {(model===0?[1,2]:[-2,-1]).map(t=><g key={t}><line x1={x(0)-5} x2={x(0)+5} y1={y(t)} y2={y(t)} stroke={ink}/><text className="em-chart-tick" x={x(0)-14} y={y(t)+8} textAnchor="end">{t}</text></g>)}
+          <path d={curve(t=>derivativeBridgeValue(model,t),-1.4,0,x,y)} fill="none" stroke={teal} strokeWidth="5"/>
+          <path d={curve(t=>derivativeBridgeValue(model,t),0,1.4,x,y)} fill="none" stroke={rust} strokeWidth="5"/>
+          {p.tangent===1&&model!==2&&<><line x1={x(-1.2)} x2={x(1.2)} y1={y(0)} y2={y(0)} stroke={teal} strokeWidth="4"/><text x="450" y={y(0)-18}>切线：y=0</text></>}
+          <Dot x={x(0)} y={y(0)}/>
+          <text className="em-chart-tick" x={x(0)-16} y={y(0)+30} textAnchor="end">0</text>
+          <text x="646" y={y(0)+46} textAnchor="end">输入x</text><text x={x(0)+16} y="65">函数值</text>
+      </svg>;
+    }
     case 'profit': {
       const min=p.min??75,max=p.max??85,low=Math.floor(Math.min(profitAt(min),profitAt(max))/1000)*1000;
       return <Plot xRange={[min,max]} yRange={[low,19200]} xLabel="售价（元/件）" yLabel="日利润（元）" xTicks={[min,80,max]} yTicks={[low,18800]}>

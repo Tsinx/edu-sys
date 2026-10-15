@@ -22,8 +22,9 @@ export const PORT_EXPANSION_SOURCES = {
 } as const;
 export type ExpansionSource=keyof typeof PORT_EXPANSION_SOURCES;
 export type CargoKind='container'|'dry'|'grain'|'liquid'|'lng'|'roro'|'project'|'reefer'|'passenger';
-export type ExpansionVisual='hero'|'terminal'|'chain'|'matrix'|'section'|'ledger'|'bars'|'network'|'map'|'generations'|'city'|'scenario'|'phases'|'decision'|'rights'|'contract'|'cashflow'|'choice'|'invoice'|'service'|'evidence'|'performance'|'sample'|'scorecard'|'barriers'|'incident'|'dependency';
-export interface ExpansionPresentation {progress:number;option:number;revealed:boolean}
+export type ExpansionVisual='hero'|'terminal'|'chain'|'matrix'|'section'|'ledger'|'bars'|'network'|'map'|'generations'|'city'|'scenario'|'phases'|'decision'|'rights'|'contract'|'cashflow'|'choice'|'invoice'|'service'|'evidence'|'performance'|'sample'|'scorecard'|'barriers'|'incident'|'dependency'|'timeline'|'distribution'|'bowtie'|'recovery'|'lab'|'records';
+export interface ExpansionFilmPresentation {clipId:'l11-opening-v2'|'l12-opening-v2';status:'paused'|'playing';elapsedMs:number;startedAt:number|null}
+export interface ExpansionPresentation {progress:number;option:number;revealed:boolean;cinematic?:ExpansionFilmPresentation}
 export const EXPANSION_DEFAULT:ExpansionPresentation={progress:0,option:0,revealed:false};
 export interface PortExpansionPage extends PortManagementSlideSpec {
   lesson:7|8|9|10|11|12;localPage:number;visual:ExpansionVisual;points:readonly string[];source:ExpansionSource;
@@ -31,16 +32,29 @@ export interface PortExpansionPage extends PortManagementSlideSpec {
   values?:readonly number[];unit?:string;reveal?:string;options?:readonly string[];focus?:number;
   teachingCue:string;assistantCue:string;
 }
-const sectionEnds={7:[6,14,20,24,32,38,44,48],8:[6,12,18,24,30,36,42,48],9:[6,12,18,24,30,36,42,48],10:[6,12,18,24,30,36,42,48],11:[6,12,18,24,30,36,42,48],12:[6,12,18,24,30,36,42,48]} as const;
+const sectionEnds={7:[6,14,20,24,32,38,44,48],8:[6,12,18,24,30,36,42,48],9:[6,12,18,24,30,36,42,48],10:[6,12,18,24,30,36,42,48],11:[4,8,12,16,20,24,28,32],12:[4,8,12,16,20,24,28,32]} as const;
+export function expansionTotal(lesson:7|8|9|10|11|12){return lesson>=11?32:48;}
+export function expansionStart(lesson:7|8|9|10|11|12){return lesson===12?518:294+(lesson-7)*48;}
 type PageInput={n:number;key:string;title:string;lead:string;points:string[];teaching:string;visual:ExpansionVisual;source?:ExpansionSource;cargo?:CargoKind;image?:string;labels?:string[];rows?:string[][];values?:number[];unit?:string;reveal?:string;options?:string[];focus?:number};
-export const EXPANSION_TITLES={7:'货种改变，港口为什么必须跟着改变？',8:'港口如何演进，又该建在哪里、建多大？',9:'谁拥有港口，谁承担责任？',10:'港口怎样竞争、定价并赢得货源？',11:'怎样判断一个港口真的“表现好”？',12:'哪条安全红线不能用效率交换？'} as const;
+export const EXPANSION_TITLES={7:'货种改变，港口为什么必须跟着改变？',8:'港口如何演进，又该建在哪里、建多大？',9:'谁拥有港口，谁承担责任？',10:'港口怎样竞争、定价并赢得货源？',11:'港口绩效诊断与运营改善',12:'港口风险屏障与中断恢复'} as const;
 const sections={7:['同一港湾，不同货物','干散货与粮食','液体散货与液化气','滚装与交付','重大件、冷链与客运','工艺比较','方案适配','综合判断'],8:['从旧码头到港口网络','第一至第三代能力','第四、第五代视角','港城空间演变','区位与约束','需求与规模','分期与触发','规划决策'],9:['同一港区，多种责任','资产与权利','四种治理组合','权利落实到主体','一份特许经营约定','风险与激励','监督与公共责任','变更、退出与决策'],10:['客户买的是什么','竞争发生在哪里','全程成本与时间','可靠性与约束','收费结构与成本','定价与客户差异','竞争响应与合作','价值主张与证据'],11:['一份好消息，三种结果','规模、效率与效果','指标的口径与证据','基准与比较边界','均值、波动与尾部','全程结果与局部改善','多目标与行为激励','评价建议与复核'],12:['赶船期的一次确认','危险、风险与屏障','屏障依赖与硬约束','责任与授权接口','安全、保安与应急','信息与物理作业','事件时间线与证据','恢复审查与责任']} as const;
+const ADVANCED_SECTIONS={11:['新加坡拥堵的竞争解释','时间、能力与积压','可比样本与评价设计','实操A：预置现场与基准','实操B：同起点改善试验','从运行记录解释结果','经营评审与方案取舍','迁移、复核与提交'],12:['调查证据与信息中断','蝴蝶结与屏障依赖','业务影响与恢复目标','实操A：事件与备用流程','实操B：对账与恢复验证','恢复时点与积压轨迹','屏障、责任与连续性评审','证据交接与退出任务']} as const;
 export function expansionPage(lesson:7|8|9|10|11|12,v:PageInput):PortExpansionPage {
-  const source=v.source??(lesson>=11?'ps-concept':'pe-concept'),section=sections[lesson][sectionEnds[lesson].findIndex(end=>v.n<=end)]!,index=(293+(lesson-7)*48)+v.n;
+  const source=v.source??(lesson>=11?'ps-concept':'pe-concept'),section=(lesson>=11?ADVANCED_SECTIONS[lesson as 11|12]:sections[lesson])[sectionEnds[lesson].findIndex(end=>v.n<=end)]!,index=expansionStart(lesson)-1+v.n;
   return {index,lesson,localPage:v.n,slideKey:`l${lesson}-${v.key}`,lessonTitle:EXPANSION_TITLES[lesson],section,kicker:`PORT STUDIES / ${String(lesson).padStart(2,'0')}`,layout:'split',title:v.title,lead:v.lead,points:v.points,visual:v.visual,source,sourceIds:[source],cargo:v.cargo,image:v.image,labels:v.labels,rows:v.rows,values:v.values,unit:v.unit,reveal:v.reveal,options:v.options,focus:v.focus,teachingCue:v.teaching,assistantCue:`${PORT_EXPANSION_SOURCES[source].boundary} 只解释已展开图层、当前选项和已揭示解析。不得复述未展开要点、教师稿或后续页答案。无学生记录时不能声称已提交或完成。`,narrative:{location:lesson===11?'港口绩效记录—交付结果—评价证据':lesson===12?'教学告警—责任接口—授权审查':lesson===7?'港湾—专业化码头—货物交接':lesson===8?'城市—港区—腹地网络':lesson===9?'港口资产—经营主体—权责接口':'客户交付任务—竞争路径—全程服务',voyageStage:section,storyBeat:v.reveal?'decision':'evidence',evidence:source==='ps-case'?'scenario':source==='ps-concept'?'concept':source==='pe-model'?'scenario':source==='pe-concept'?'concept':'documented',publicLabel:source==='ps-case'?'教学情境':source==='ps-concept'?'概念图解':source==='pe-model'?'教学情境':source==='pe-concept'?'概念图解':source==='pe-generation'?'研究框架':'公开资料',progress:index}};
 }
-export function expansionTiming(lesson:7|8|9|10|11|12):readonly PortLessonTimingBlock[]{const start=294+(lesson-7)*48,ends=sectionEnds[lesson],minutes=lesson===7?[9,15,12,9,16,11,12,6]:lesson===8?[9,12,12,12,11,12,12,10]:lesson===9?[9,12,12,12,12,12,11,10]:lesson===10?[9,11,13,12,12,11,12,10]:lesson===11?[9,12,12,12,12,12,11,10]:[8,12,13,12,12,12,11,10];return sections[lesson].map((label,i)=>({label,slideStart:start+(i===0?0:ends[i-1]!),slideEnd:start+ends[i]!-1,minutes:minutes[i]!,purpose:label}));}
-export function expansionStateValid(page:PortExpansionPage,s:ExpansionPresentation){return !!s&&Number.isFinite(s.progress)&&s.progress>=0&&s.progress<=1&&Number.isInteger(s.option)&&s.option>=0&&s.option<(page.options?.length??1)&&typeof s.revealed==='boolean'&&(!s.revealed||!!page.reveal);}
+export function expansionTiming(lesson:7|8|9|10|11|12):readonly PortLessonTimingBlock[]{
+  const start=expansionStart(lesson),ends=sectionEnds[lesson];
+  const minutes=lesson>=11?[8,12,13,12,18,12,9,6]:lesson===7?[9,15,12,9,16,11,12,6]:lesson===8?[9,12,12,12,11,12,12,10]:lesson===9?[9,12,12,12,12,12,11,10]:[9,11,13,12,12,11,12,10];
+  const labels=lesson>=11?ADVANCED_SECTIONS[lesson as 11|12]:sections[lesson];
+  return labels.map((label,i)=>({label,slideStart:start+(i===0?0:ends[i-1]!),slideEnd:start+ends[i]!-1,minutes:minutes[i]!,purpose:label}));
+}
+export function expansionStateValid(page:PortExpansionPage,s:ExpansionPresentation){
+ const c=s?.cinematic;
+ const expectedClip=page.slideKey==='l11-singapore-question'?'l11-opening-v2':page.slideKey==='l12-investigation-question'?'l12-opening-v2':undefined;
+ const filmValid=!c||(expectedClip!==undefined&&c.clipId===expectedClip&&['paused','playing'].includes(c.status)&&Number.isFinite(c.elapsedMs)&&c.elapsedMs>=0&&c.elapsedMs<=180000&&(c.status==='paused'?c.startedAt===null:typeof c.startedAt==='number'&&Number.isFinite(c.startedAt)&&c.startedAt>0));
+ return !!s&&filmValid&&Number.isFinite(s.progress)&&s.progress>=0&&s.progress<=1&&Number.isInteger(s.option)&&s.option>=0&&s.option<(page.options?.length??1)&&typeof s.revealed==='boolean'&&(!s.revealed||!!page.reveal);
+}
 export function expansionVisiblePoints(page:PortExpansionPage,progress:number){return page.points.slice(0,Math.floor(Math.max(0,Math.min(1,progress))*page.points.length+1e-6));}
 export function effectiveChainCapacity(capacities:readonly number[]){if(!capacities.length||capacities.some(x=>!Number.isFinite(x)||x<0))throw new Error('能力必须为同口径非负数');return Math.min(...capacities);}
 export const PLANNING_DEMAND=[80,100,120] as const;
@@ -57,6 +71,15 @@ export function expansionOptionSummary(p:PortExpansionPage,s:ExpansionPresentati
   return p.options?.[s.option]??'';
 }
 export function expansionDiagramSummary(p:PortExpansionPage,s:ExpansionPresentation){
+  if(s.cinematic)return `第${p.lesson}讲开场短片《${p.lesson===12?'放行之前':'等待，发生在哪里'}》，总长180秒；教师${s.cinematic.status==='playing'?'正在播放':'暂停在'}${Math.floor(s.cinematic.elapsedMs/1000)}秒。采用许可实拍素材与官方档案；一般作业实拍不能当成所述事件现场，人物与案件无关。旁白为课程合成配音，无当事人采访；当前时间不证明学生已观看或完成实验。不推断尚未播放镜头。`;
+  if(p.lesson>=11&&!['performance','sample','scorecard','barriers'].includes(p.visual)){
+    if(s.progress===0)return '图解尚未展开，不推断未显示材料。';
+    const count=Math.ceil(s.progress*(p.labels?.length??0));
+    if(p.values)return p.values.slice(0,count).map((v,i)=>(p.labels?.[i]??String(i+1))+'：'+v).join('；')+'；单位：'+(p.unit??'模拟分钟');
+    const rows=p.visual==='lab'?(p.rows??[]).slice(0,Math.ceil(s.progress*(p.rows?.length??0))):['chain','incident','bowtie'].includes(p.visual)?s.progress>.5?p.rows??[]:[]:['records','decision','evidence','ledger','matrix'].includes(p.visual)?(p.rows??[]).slice(0,1+Math.floor(s.progress*Math.max(1,(p.rows?.length??1)-1)+1e-6)):[];
+    return [...(p.labels??[]).slice(0,count),...rows.map(r=>r.join('：'))].join('；')||'当前公开图解。';
+  }
+
   if(p.lesson>=11){if(s.progress===0)return '图解尚未展开，不推断未显示材料。';if(p.visual==='scorecard'){const v=performancePerspective(s.option);return `教学无量纲评分：速度权重${v.speedWeight}、可靠性权重${v.reliabilityWeight}；A=${v.A}，B=${v.B}。只比较已给定维度，安全不参与加权抵消。`;}if(p.visual==='performance')return '独立教学月报：吞吐量100→120千TEU；平均船舶在港时间20→16小时/次挂靠；交付超期20→30次/100票。各行独立刻度，不跨单位比较。';if(p.visual==='sample'){const shown=Math.floor(s.progress*6+1e-6);return PERFORMANCE_CASE.samples.map((x,i)=>{const v=sampleDeliverySummary(x,4);return `${i?'B':'A'}已展开${shown}次记录：${x.slice(0,shown).join('、')}天。${shown===6?`完整教学均值${v.mean}天、超过4天${v.late}次；样本不预测未来概率。`:'不推断未展开记录。'}`;}).join('；');}if(p.visual==='barriers'&&p.options){if(s.progress<1)return '确认项仍在展开；不能将未展开项当成已确认，不提供现场批准。';const v=safetyEvidenceGate(s.option);return v.readyForAuthorizedReview?'教学确认项齐备，仍待有权角色审查；不等于允许现场复工。':`教学缺项：${v.missing.join('、')}；效率收益不能补齐证据。`;}return (p.rows??[]).filter((_,i)=>i===0||s.progress>=i/Math.max(1,(p.rows?.length??1)-1)).map(r=>r.join('：')).join('；')||p.labels?.slice(0,Math.ceil(s.progress*p.labels.length)).join(' → ')||'当前公开图解。';}
 
   if(['cashflow','choice','invoice'].includes(p.visual))return expansionOptionSummary(p,s);

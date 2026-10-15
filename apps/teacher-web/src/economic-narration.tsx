@@ -11,15 +11,16 @@ import { PageToolsProvider, PresentationToolbar } from './features/classroom/Pag
 const requestedLesson = Number(new URLSearchParams(location.search).get('lesson') ?? 2);
 const selectedLesson = ([2,3,4].includes(requestedLesson) ? requestedLesson : 2) as 2 | 3 | 4;
 const pages = ECONOMIC_MATHEMATICS_SLIDES.filter(p => p.lesson === selectedLesson);
+const optionalPages=pages.filter(p=>p.routeRole==='optional').length;
 document.title = '经济数学 · 第' + selectedLesson + '讲 · ' + pages[0]!.lessonTitle;
-const storage = selectedLesson === 2 ? 'economic-narration-lesson02-mapping-v1' : 'economic-narration-limits-sequence-20261011-lesson' + selectedLesson;
+const storage = selectedLesson === 2 ? 'economic-narration-lesson02-mapping-v1' : 'economic-narration-limits-reinforcement-20261013-lesson' + selectedLesson;
 const reviewMode = new URLSearchParams(location.search).get('review') === '1';
 function restore(): { index: number; values: Record<string, SlideInteractionValues> } {
   if (reviewMode) return { index: 0, values: new URLSearchParams(location.search).get('answers') === '1' ? Object.fromEntries(pages.filter(p=>p.steps?.length||p.limitLab||p.historyFilm).map(p=>[p.slideKey,{...getEconomicMathematicsInteractionDefinition(p)?.defaults,presentationStep:p.steps?.length??0}])) : {} };
   try {
     const raw = JSON.parse(localStorage.getItem(storage) ?? '{}');
     const sameVersion = raw.version === ECONOMIC_MATHEMATICS_VERSION_ID;
-    if (!sameVersion && !(selectedLesson === 2 && ['release-economic-mathematics-lesson02-mapping-2026-10-09','release-economic-mathematics-limits-refined-2026-10-10'].includes(raw.version))) return { index: 0, values: {} };
+    if (!sameVersion && !(selectedLesson === 2 && ['release-economic-mathematics-lesson02-mapping-2026-10-09','release-economic-mathematics-limits-refined-2026-10-10','release-economic-mathematics-limits-sequence-2026-10-11'].includes(raw.version))) return { index: 0, values: {} };
     const values: Record<string, SlideInteractionValues> = {};
     for (const p of pages) { const def = getEconomicMathematicsInteractionDefinition(p); if (def && raw.values?.[p.slideKey] && validateEconomicMathematicsInteractionState(def, raw.values[p.slideKey])) values[p.slideKey] = raw.values[p.slideKey]; }
     const byKey = pages.findIndex(p => p.slideKey === raw.slideKey);
@@ -53,7 +54,7 @@ function Viewer() {
     addEventListener('keydown', key); return () => removeEventListener('keydown', key);
   }, []);
   return <PageToolsProvider courseId="course-economic-mathematics" pageKey={spec.slideKey} role="teacher"><main className="em-narration-viewer">
-    <CourseHeader lesson={selectedLesson} duration={`2 × 45分钟 · ${pages.length}页`} onRestart={() => setIndex(0)}/>
+    <CourseHeader lesson={selectedLesson} duration={optionalPages?`2 × 45分钟 · 主线${pages.length-optionalPages}页＋拓展${optionalPages}页`:`2 × 45分钟 · ${pages.length}页`} onRestart={() => setIndex(0)}/>
     <EconomicMathematicsSlideStage frame={{ index: spec.index, deckId: ECONOMIC_MATHEMATICS_DECK_ID, versionId: ECONOMIC_MATHEMATICS_VERSION_ID, slideId: spec.slideKey, total: ECONOMIC_MATHEMATICS_SLIDES.length, title: spec.title, summary: spec.title, lessonNumber: spec.lesson, lessonTitle: spec.lessonTitle, section: spec.section, logicalWidth: 1600, logicalHeight: 1000, aspectRatio: '16:10' }} interaction={def ? { deckId: ECONOMIC_MATHEMATICS_DECK_ID, slideId: spec.slideKey, revision: 1, values } : null} readOnly={false} onInteractionPatch={patch} onInteractionReset={() => setAllValues(old => ({ ...old, [spec.slideKey]: { ...def?.defaults } }))}/>
     <PresentationToolbar label="课件工具栏" navigation={<CoursePageNavigation index={index} titles={pages.map(page => page.title)} onChange={setIndex}/>}
       end={<FullscreenButtons controls={fullscreen}/>}/>

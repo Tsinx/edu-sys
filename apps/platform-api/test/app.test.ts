@@ -79,7 +79,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     assert.equal(initialSnapshot.slide.logicalHeight, 1000);
     assert.equal(initialSnapshot.slide.aspectRatio, "16:10");
     assert.equal(initialSnapshot.slide.index, 1);
-    assert.equal(initialSnapshot.slide.total, 581);
+    assert.equal(initialSnapshot.slide.total, 549);
     assert.equal(
       initialSnapshot.slide.title,
       "港口管理概论"
@@ -87,7 +87,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     assert.equal(initialSnapshot.slide.slideId, "l1-course-cover");
     assert.equal(
       initialSnapshot.slide.versionId,
-      "release-port-management-performance-safety-v15"
+      "release-port-management-facilities-v20"
     );
     assert.equal(initialSnapshot.globePlayback.status, "idle");
     assert.equal(initialSnapshot.participantsOnline, 0);

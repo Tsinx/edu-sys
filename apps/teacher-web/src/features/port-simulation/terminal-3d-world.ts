@@ -57,17 +57,18 @@ function label(text: string, width = 34, color = "#e4f8f6") {
 }
 export interface TerminalWorld {
   root: THREE.Group; labels: THREE.Group; routes: THREE.Group; lots: THREE.Group;
-  ships: THREE.Group[]; cranes: Array<{ body: THREE.Group; trolley: THREE.Group; index: number; homeX: number }>;
+  ships: THREE.Group[]; cranes: Array<{ body: THREE.Group; trolley: THREE.Group; hook: THREE.Group; ropes:THREE.Mesh[]; index: number; homeX: number }>;
+  yardCranes:Array<{body:THREE.Group;trolley:THREE.Group;hook:THREE.Group;ropes:THREE.Mesh[];index:number}>;
   vehicles: THREE.Group[]; people: THREE.Group[];
   selection: THREE.Mesh; water: THREE.Mesh<THREE.PlaneGeometry, THREE.ShaderMaterial>;
   facilityPositions: Map<string, THREE.Vector3>; vehiclePaths: THREE.Vector3[][];
   dispose: () => void;
 }
-export function createTerminalWorld(setup: TerminalSetup, options: { liveCargo?: boolean } = {}): TerminalWorld {
+export function createTerminalWorld(setup: TerminalSetup, options: { liveCargo?: boolean; internalVehicles?:number } = {}): TerminalWorld {
   const root = new THREE.Group(); const labels = new THREE.Group(); const routes = new THREE.Group(); const lots = new THREE.Group();
   const geometry = new THREE.BoxGeometry(1, 1, 1); const b = new Solids(root, geometry);
   const facilityPositions = new Map<string, THREE.Vector3>();
-  const ships: THREE.Group[] = []; const cranes: TerminalWorld["cranes"] = []; const vehicles: THREE.Group[] = []; const people: THREE.Group[] = [];
+  const ships: THREE.Group[] = []; const cranes: TerminalWorld["cranes"] = [];const yardCranes:TerminalWorld['yardCranes']=[]; const vehicles: THREE.Group[] = []; const people: THREE.Group[] = [];
   const vehiclePaths: THREE.Vector3[][] = [];
   const waterMaterial = new THREE.ShaderMaterial({
     uniforms: { time: { value: 0 }, tint: { value: new THREE.Color("#247f91") } },
@@ -89,23 +90,24 @@ export function createTerminalWorld(setup: TerminalSetup, options: { liveCargo?:
     b.box(x, 6, 220 + Math.abs(x % 80), 32, 12, 43, "#a2b5ae");
     b.box(x, 12.5, 220 + Math.abs(x % 80), 33, 1, 44, "#7b999d");
   }
-  b.box(0, -1.15, 31, 268, 3.1, 176, "#727f83", "land");
-  b.box(0, 0.46, 31, 265, 0.12, 172, "#a7b3b0", "land");
+  b.box(0, -1.15, 37, 292, 3.1, 188, "#727f83", "land");
+  b.box(0, 0.46, 37, 290, 0.12, 184, "#a7b3b0", "land");
   b.box(0, 0.72, -43, 262, 0.5, 23, "#c9c6b4", "quay");
   b.box(0, 0.75, -54.5, 264, 0.65, 1.3, "#e8dcc0", "quay");
   // Roads form a connected graph around six by three reserved buildable blocks.
   for (const z of [-26, 18, 54, 90]) {
-    b.box(0, 0.65, z, 254, 0.1, 8, "#596b71", "transport");
+    b.box(0, 0.65, z, 284, 0.1, 12, "#596b71", "transport");
     for (let x = -124; x < 127; x += 8) b.box(x, 0.73, z, 3.6, 0.025, 0.16, "#ddcf9b");
   }
   for (const x of [-112, 0, 112]) {
-    b.box(x, 0.67, 32, 7, 0.11, 126, "#596b71", "transport");
+    b.box(x, 0.67, 32, 12, 0.11, 128, "#596b71", "transport");
     for (let z = -26; z < 94; z += 9) b.box(x, 0.76, z, 0.16, 0.02, 4, "#ddcf9b");
   }
+  b.box(-130,.5,80,32,.2,220,'#a7b3b0');b.box(-112,.67,130,12,.11,88,'#596b71','transport');
   // Pedestrian path is physically separated from the vehicle loop.
-  b.box(0, 0.66, 106, 262, 0.25, 4, "#bac6bf");
-  b.box(0, 0.86, 102.9, 262, 0.4, 0.3, "#e4d5b5");
-  for (const x of [-126, 126]) for (let z = -45; z < 111; z += 9) {
+  b.box(0, 0.66, 120, 248, 0.25, 4, "#bac6bf");
+  b.box(0, 0.86, 116.9, 248, 0.4, 0.3, "#e4d5b5");
+  for (const x of [-142, 142]) for (let z = -45; z < 122; z += 9) {
     b.box(x, 1.5, z, 0.2, 2.1, 0.2, "#d7dddd");
     b.box(x, 2.1, z + 4.5, 0.1, 0.2, 9, "#c0cacc");
   }
@@ -132,13 +134,13 @@ export function createTerminalWorld(setup: TerminalSetup, options: { liveCargo?:
       c.box(x + dx, 1.6, -39 + dz, 2, 1.2, 4, "#334b54", id);
     }
     for (const z of [-48, -30]) c.box(x, 0.98, z, 265 / Math.max(1, setup.cranes), 0.12, 0.3, "#697d85");
-    c.box(x, 29, -48, 7, 1.4, setup.crane === "wide" ? 58 : 42, paint, id);
+    c.box(x, 29, -48, 7, 1.4, setup.crane === "wide" ? 78 : 58, paint, id);
     c.box(x, 33, -39, 8, 5.2, 8, "#f0ddaf", id);
     c.box(x + 3.7, 31.6, -44, 2.8, 2.4, 3, "#46636b", id);
     c.beam([x, 31, -38], [x, 49, -37], 1.2, paint, id);
     c.beam([x, 48, -37], [x, 30, -74], 0.19, steel, id);
     c.beam([x, 48, -37], [x, 30, -22], 0.19, steel, id);
-    for (let z = -74; z < -25; z += 6) {
+    for (let z = -86; z < -16; z += 6) {
       c.beam([x - 2.8, 29, z], [x - 2.8, 31.5, z + 3], 0.18, paint, id);
       c.beam([x + 2.8, 29, z], [x + 2.8, 31.5, z + 3], 0.18, paint, id);
       c.box(x, 31.5, z, 5.8, 0.18, 0.18, paint, id);
@@ -146,10 +148,9 @@ export function createTerminalWorld(setup: TerminalSetup, options: { liveCargo?:
     const trolley = new THREE.Group(); trolley.userData.entityId = id;
     const t = new Solids(trolley, geometry);
     t.box(0, 0, 0, 4, 1.1, 4.5, "#e8bc65", id);
-    for (const dx of [-2.7, 2.7]) for (const dz of [-1.2, 1.2]) t.box(dx, -4.1, dz, 0.075, 8, 0.075, "#354e58", id);
-    t.box(0, -8.5, 0, 6.8, 0.6, 3.2, "#e9c868", id);
-    container(t, 0, -11.4, 0, colors[i % colors.length]!, id, 6.4);
-    c.finish(); t.finish(); trolley.position.set(x, 28.5, -54); body.add(trolley); cranes.push({ body, trolley, index: i, homeX: x });
+    const hook=new THREE.Group();hook.userData.entityId=id;const h=new Solids(hook,geometry);h.box(0,0,0,6.8,.6,3.2,'#e9c868',id);if(!options.liveCargo)container(h,0,-2.9,0,colors[i%colors.length]!,id,6.4);h.finish();hook.position.y=-8.5;trolley.add(hook);
+    const ropes:THREE.Mesh[]=[];for(const dx of [-2.7,2.7])for(const dz of [-1.2,1.2]){const rope=new THREE.Mesh(new THREE.CylinderGeometry(.055,.055,1,5),new THREE.MeshStandardMaterial({color:'#354e58'}));rope.position.set(dx,-4.25,dz);rope.scale.y=8.5;trolley.add(rope);ropes.push(rope);}
+    c.finish(); t.finish(); trolley.position.set(x, 28.5, -54); body.add(trolley); cranes.push({ body, trolley, hook,ropes,index: i, homeX: x });
   }
   for (let i = 0; i < 2; i++) {
     const ship = new THREE.Group(); const id = i === 0 ? "vessel-a" : "vessel-b"; ship.userData.entityId = id;
@@ -182,23 +183,27 @@ export function createTerminalWorld(setup: TerminalSetup, options: { liveCargo?:
   for (const f of setup.facilities) {
     const p = terminalLotPosition(f.col, f.row); const g = new THREE.Group(); g.position.set(p.x, 0, p.z); g.rotation.y = f.rotation * Math.PI / 2; root.add(g);
     facilityPositions.set(f.id, g.position.clone()); const s = new Solids(g, geometry);
-    s.box(0, 0.81, 0, 29, 0.2, 26, "#9caaa2", f.id);
+    s.box(0, 0.81, 0, 24, 0.2, 22, "#9caaa2", f.id);
     if (f.kind === "yard" || f.kind === "reefer") {
       if (!options.liveCargo) for (let row = 0; row < 5; row++) for (let col = 0; col < 3; col++) for (let level = 0; level < 2 + ((row + col) % 3 === 0 ? 1 : 0); level++)
         container(s, -8.4 + col * 8.4, 1 + level * 2.8, -8 + row * 3.65, f.kind === "reefer" ? "#d3dcd8" : colors[(row + col * 2 + level) % colors.length]!, f.id);
       const yardIndex = setup.facilities.filter(q => q.kind === "yard" || q.kind === "reefer").findIndex(q => q.id === f.id);
       if (yardIndex < setup.yardMachines) {
-        for (const x of [-13, 13]) {
-          for (const z of [-2, 2]) s.box(x, 6.6, z, 0.85, 11.8, 0.85, "#79b9b7", f.id);
-          s.box(x, 1.1, 0, 1.7, 1.5, 6, "#354f55", f.id);
-          if (setup.yardMachine === "rmg") s.box(x, 0.94, 0, 0.4, 0.2, 26, "#d5dee0", f.id);
+        const body=new THREE.Group();body.position.set(p.x,0,p.z);body.userData.entityId=f.id;root.add(body);const gantry=new Solids(body,geometry);
+        for (const x of [-12, 12]) {
+          for (const z of [-2, 2]) gantry.box(x, 10, z, 0.85, 18.5, 0.85, "#79b9b7", f.id);
+          gantry.box(x, 1.1, 0, 1.7, 1.5, 6, "#354f55", f.id);
+          if (setup.yardMachine === "rmg") s.box(x, 0.94, 3, 0.4, 0.2, 36, "#d5dee0", f.id);
         }
-        s.box(0, 12.5, 0, 28, 1.4, 4, "#87c7c4", f.id);
-        s.box(9, 10.8, 0, 3, 2.6, 3, "#e2e6dc", f.id);
+        gantry.box(0,20,0,25,1.4,4,'#87c7c4',f.id);gantry.box(9,18.3,0,3,2.6,3,'#e2e6dc',f.id);gantry.finish();
+        const trolley=new THREE.Group();trolley.position.set(0,20,0);body.add(trolley);const t=new Solids(trolley,geometry);t.box(0,0,0,4,1,4,'#d7e7d9',f.id);t.finish();
+        const hook=new THREE.Group();hook.position.y=-3;const h=new Solids(hook,geometry);h.box(0,0,0,6.8,.5,3.2,'#e9c868',f.id);h.finish();trolley.add(hook);
+        const ropes:THREE.Mesh[]=[];for(const dx of [-2.7,2.7])for(const dz of [-1.2,1.2]){const rope=new THREE.Mesh(new THREE.CylinderGeometry(.05,.05,1,5),new THREE.MeshStandardMaterial({color:'#354e58'}));rope.position.set(dx,-1.5,dz);rope.scale.y=3;trolley.add(rope);ropes.push(rope);}
+        yardCranes.push({body,trolley,hook,ropes,index:yardIndex});
       }
     } else if (f.kind === "warehouse" || f.kind === "workshop") {
-      s.box(0, 5.6, 0, 25, 9, 20, f.kind === "warehouse" ? "#c4cdc7" : "#9eafb5", f.id);
-      s.box(0, 10.5, 0, 27, 0.65, 22, "#607d89", f.id);
+      s.box(0, 5.6, 0, 23, 9, 20, f.kind === "warehouse" ? "#c4cdc7" : "#9eafb5", f.id);
+      s.box(0, 10.5, 0, 24, 0.65, 22, "#607d89", f.id);
       for (let x = -8; x <= 8; x += 8) { s.box(x, 3.6, -10.1, 5, 5.5, 0.2, "#506774", f.id); s.box(x, 7.8, -10.25, 5, 1, 0.1, "#98c2cb", f.id); }
       for (let x = -10; x <= 10; x += 4) s.box(x, 10.92, 0, 3, 0.1, 16, "#476878", f.id);
     } else if (f.kind === "gate") {
@@ -206,8 +211,8 @@ export function createTerminalWorld(setup: TerminalSetup, options: { liveCargo?:
       for (const x of [-10, 0, 10]) s.box(x, 4.2, 0, 0.8, 7, 0.8, "#d7dfd9", f.id);
       s.box(0, 8, 0, 29, 1.2, 8, "#e8c383", f.id);
       for (const x of [-5, 5]) {
-        s.box(x, 2.1, 4, 0.5, 3, 0.5, "#6faea2", f.id);
-        s.box(x, 3, 4, 0.2, 0.2, 4, "#e9c37d", f.id);
+        s.box(x + 2.3, 2.1, 4, 0.5, 3, 0.5, "#6faea2", f.id);
+
         s.box(x - 2.6, 2.5, 0, 1.6, 3.2, 3, "#d3ded5", f.id);
       }
     } else {
@@ -227,8 +232,9 @@ export function createTerminalWorld(setup: TerminalSetup, options: { liveCargo?:
   for (let i = 0; i < setup.vehicles; i++) {
     const g = new THREE.Group(); const id = "transport"; g.userData.entityId = id; const s = new Solids(g, geometry);
     s.box(0, 1.4, 0, 3.4, 1.1, 8, "#d9c587", id);
-    if (setup.vehicle !== "agv") { s.box(0, 2.4, -4, 3.3, 2.8, 3.1, setup.vehicle === "electric" ? "#79b6ac" : "#e5d9b5", id); s.box(0, 2.95, -5.6, 2.7, 1.1, 0.06, "#35596c", id); }
-    s.box(0, 3, 0.6, 3, 2.4, 6.2, colors[i % colors.length]!, id);
+    const external=options.internalVehicles!==undefined&&i>=options.internalVehicles;
+    if (setup.vehicle !== "agv"||external) { s.box(0, 2.4, -4, 3.3, 2.8, 3.1, external?'#6e9fc6':setup.vehicle === "electric" ? "#79b6ac" : "#e5d9b5", id); s.box(0, 2.95, -5.6, 2.7, 1.1, 0.06, "#35596c", id); }
+    if(!options.liveCargo)s.box(0, 3, 0.6, 3, 2.4, 6.2, colors[i % colors.length]!, id);
     for (const x of [-1.65, 1.65]) for (const z of [-2.6, 2.6]) s.box(x, 0.95, z, 0.7, 1.4, 1.4, "#283e4b", id);
     s.box(0, 1.2, -5.6, 2.6, 0.25, 0.12, "#fff0bb", id);
     s.finish(); root.add(g); vehicles.push(g);
@@ -247,7 +253,7 @@ export function createTerminalWorld(setup: TerminalSetup, options: { liveCargo?:
     s.box(0, 1.6, 0, 0.7, 1, 0.4, i < 2 ? "#efb573" : "#d4da9a", "people");
     s.box(0, 2.35, 0, 0.58, 0.5, 0.5, "#efdfb2", "people");
     for (const x of [-0.2, 0.2]) s.box(x, 0.75, 0, 0.22, 0.9, 0.22, "#3a5867", "people");
-    s.finish(); g.position.set(-117 + i * 9, 0.7, 106); root.add(g); people.push(g);
+    s.finish(); g.position.set(-105 + i * 9, 0.7, 120); root.add(g); people.push(g);
   }
   for (let i = 0; i < 9; i++) {
     const x = -120 + i * 30; b.box(x, 7, 98, 0.35, 13, 0.35, "#b7c9c9");
@@ -259,8 +265,8 @@ export function createTerminalWorld(setup: TerminalSetup, options: { liveCargo?:
   const selection = new THREE.Mesh(new THREE.RingGeometry(11, 12, 64), new THREE.MeshBasicMaterial({ color: "#e7c16e", side: THREE.DoubleSide, transparent: true, opacity: 0.95, depthTest: false }));
   selection.rotation.x = -Math.PI / 2; selection.position.y = 1; selection.renderOrder = 4; selection.visible = false; root.add(selection);
   root.add(labels, routes, lots);
-  for (const [id, position] of Object.entries({ "berth-a": [-62, 0, -41], "berth-b": [62, 0, -41], "crane-a": [-62, 0, -39], "crane-b": [62, 0, -39], transport: [0, 0, -25], people: [0, 0, 106] })) facilityPositions.set(id, new THREE.Vector3(...position));
-  return { root, labels, routes, lots, ships, cranes, vehicles, people, selection, water, facilityPositions, vehiclePaths, dispose() {
+  for (const [id, position] of Object.entries({ "berth-a": [-62, 0, -41], "berth-b": [62, 0, -41], "crane-a": [-62, 0, -39], "crane-b": [62, 0, -39], transport: [0, 0, -25], people: [0, 0, 120] })) facilityPositions.set(id, new THREE.Vector3(...position));
+  return { root, labels, routes, lots, ships, cranes,yardCranes, vehicles, people, selection, water, facilityPositions, vehiclePaths, dispose() {
     const geometries = new Set<THREE.BufferGeometry>(); const materials = new Set<THREE.Material>(); const textures = new Set<THREE.Texture>();
     root.traverse(object => {
       const mesh = object as THREE.Mesh; if (mesh.geometry) geometries.add(mesh.geometry);

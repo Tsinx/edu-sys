@@ -1,0 +1,67 @@
+{
+  "images": [
+    {
+      "name": "terminal",
+      "src": "terminal-source.png",
+      "sha256": "8341688b3c62204e22159045e28fa3a3b436d84f3d9b857d7d2e6dcc3ea0dc89",
+      "type": "AI teaching illustration",
+      "historicFootage": false
+    },
+    {
+      "name": "yard",
+      "src": "yard-source.png",
+      "sha256": "ff4bd4f694b5d09d49c39b1ac66628c64ebcb1cd939f3f0ee08bf1859f707c50",
+      "type": "AI teaching illustration",
+      "historicFootage": false
+    },
+    {
+      "name": "gate",
+      "src": "gate-source.png",
+      "sha256": "1d1f9a985a4c9bee3b668b163d9a034137c57ea8ad7bba7d7014cead75ed64d0",
+      "type": "AI teaching illustration",
+      "historicFootage": false
+    },
+    {
+      "name": "anchorage",
+      "src": "anchorage-source.png",
+      "sha256": "03095d29b7e8f6a2972954d27137c0461b8b306abf3ad9cf044e34fdfcfbd0ab",
+      "type": "AI teaching illustration",
+      "historicFootage": false
+    },
+    {
+      "name": "quayside",
+      "src": "apps\\teacher-web\\public\\course-assets\\port-management\\story-l3-berth-window.png",
+      "sha256": "8a42f115a826c1e5bd0b8ea487880007148b6d56ee4dda115202d720b773f390",
+      "type": "AI teaching illustration",
+      "historicFootage": false
+    },
+    {
+      "name": "control-room",
+      "src": "apps\\teacher-web\\public\\course-assets\\port-management\\story-l3-terminal-diagnosis.png",
+      "sha256": "e5ed02d8290ce5c2b7d7220fe0bab832c4d76402092cd1ae9d4d8c74e572a1f3",
+      "type": "AI teaching illustration",
+      "historicFootage": false
+    }
+  ],
+  "music": "Original deterministic additive synthesis, no external samples",
+  "sources": [
+    {
+      "id": "mpa",
+      "title": "MPA, 30 May 2024",
+      "url": "https://www.mpa.gov.sg/media-centre/details/in-response-to-media-queries-on--vessels--extended-waiting-times-for-berths-in-the-port-of-singapore",
+      "boundary": "1336万TEU、8.8%、改线与单船工作量为2024年历史说明；通用港外场景不代表当时锚地拥挤，MPA说明锚地当时并未拥挤。"
+    },
+    {
+      "id": "cppi",
+      "title": "World Bank CPPI methodology",
+      "url": "https://www.worldbank.org/en/topic/transport/publication/cppi",
+      "boundary": "端点与任务结构用于解释评价；片中概念图及实验参数为独立教学设计。"
+    },
+    {
+      "id": "lab",
+      "title": "第11讲独立实验",
+      "url": "/port-class-lab.html?lesson=11",
+      "boundary": "120分钟检查点、300箱为固定教学情境，不是实际港口数据。"
+    }
+  ]
+}

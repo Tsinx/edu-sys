@@ -1,0 +1,19 @@
+{
+  "version": "release-economic-mathematics-limits-sequence-2026-10-11",
+  "sourceFingerprint": "cf2631c62caac1e52737f03ac278fdbf01694a2742d6b08bf39d783df6afc352",
+  "pdfs": [
+    {
+      "lesson": 3,
+      "pages": 72,
+      "bytes": 8340404,
+      "sha256": "99fca4265c5b175d6c106abb1ccf5a4d421f9d206ce93a3c3bf77edfe44a0035"
+    },
+    {
+      "lesson": 4,
+      "pages": 58,
+      "bytes": 8277249,
+      "sha256": "ab7ca1126f2bc3921a27674a7f4fbab1aec2ac9ec5e36c0ca99111f704278a86"
+    }
+  ],
+  "filmSha256": "e65f00992ab5400ac98345667dee0121d5bcbd2fe0515f68703ca5e5468f4bf8"
+}

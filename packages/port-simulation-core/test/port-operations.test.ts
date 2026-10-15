@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { createHash } from "node:crypto";
-import { PORT_HORIZON, applyPortCommand as act, advancePortSession as advance, createPortSession, defaultPortConfig, defaultPortPlan, generatePortSchedule, samplePortGap, portRng, portTriangle, portStudentView, portCargoDone, portScore, portDeadline, portYardUsage, portHandoverItems, servicePortReference, runPortReference, serializePortSession, restorePortSession, type PortSession } from "../src/index.js";
+import { PORT_HORIZON, applyPortCommand as act, advancePortSession as advance, createPortSession as createCurrentPortSession, defaultPortConfig, defaultPortPlan, generatePortSchedule, samplePortGap, portRng, portTriangle, portStudentView, portCargoDone, portScore, portDeadline, portYardUsage, portHandoverItems, servicePortReference, runPortReference as runCurrentPortReference, serializePortSession, restorePortSession, type PortSession } from "../src/index.js";
+// Frozen 3.1 throughput and replay assertions remain attached to their original rules.
+const createPortSession: typeof createCurrentPortSession=(mode,config,plan,schema='port-operations/3.1')=>createCurrentPortSession(mode,config,plan,schema);
+const runPortReference: typeof runCurrentPortReference=(config,step,schema='port-operations/3.1',reference)=>runCurrentPortReference(config,step,schema,reference);
 const docs = (s: PortSession) => { for (const c of Object.values(s.calls).filter(c => c.announced))
     for (const kind of ["entry", "health", "border", "departure"] as const)
         act(s, { kind: "document", callId: c.id, document: kind, value: c.docs[kind].reference }); };

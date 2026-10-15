@@ -3,6 +3,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { createSceneGesture } from "./scene-gesture";
+import { ownScenePointers } from '../classroom/scene-pointer-ownership';
 import { TERMINAL_SCENARIOS, terminalLiveRates, terminalMetrics, terminalVesselProgress, type TerminalState } from "@edu/port-simulation-core";
 import { createTerminalWorld, sampleTerminalPath, TERMINAL_CAMERAS, type TerminalCamera, type TerminalWorld } from "./terminal-3d-world";
 
@@ -61,6 +62,8 @@ export const TerminalScene3D = forwardRef<TerminalSceneHandle, Props>(function T
     const controls = new OrbitControls(camera, renderer.domElement); controls.target.set(0, 0, 13);
     controls.target.set(...initialView.target as [number, number, number]); controls.enableDamping = true; controls.dampingFactor = 0.1; controls.minDistance = 28; controls.maxDistance = 900;
     controls.maxPolarAngle = Math.PI / 2.15; controls.minPolarAngle = 0; controls.screenSpacePanning = true; controls.update();
+    controls.mouseButtons.LEFT=THREE.MOUSE.PAN;controls.mouseButtons.RIGHT=null as any;
+    const releasePointers=ownScenePointers(renderer.domElement,(dx,dy)=>{const scale=2*camera.position.distanceTo(controls.target)*Math.tan(camera.fov*Math.PI/360)/Math.max(1,host.clientHeight);const delta=new THREE.Vector3().setFromMatrixColumn(camera.matrix,0).multiplyScalar(-dx*scale).add(new THREE.Vector3().setFromMatrixColumn(camera.matrix,1).multiplyScalar(dy*scale));camera.position.add(delta);controls.target.add(delta);controls.update();});
     controls.touches.ONE = THREE.TOUCH.ROTATE; controls.touches.TWO = THREE.TOUCH.DOLLY_PAN;
     const world = createTerminalWorld(latest.current.state.setup); scene.add(world.root);
     const r = { camera, controls, world, renderer, goal: undefined as { position: THREE.Vector3; target: THREE.Vector3 } | undefined }; runtime.current = r;
@@ -152,7 +155,7 @@ export const TerminalScene3D = forwardRef<TerminalSceneHandle, Props>(function T
     });
     setStatus("ready");
     return () => {
-      renderer.setAnimationLoop(null); observer.disconnect(); intersection.disconnect(); controls.dispose();
+      renderer.setAnimationLoop(null); observer.disconnect(); intersection.disconnect(); releasePointers();controls.dispose();
       renderer.domElement.removeEventListener("pointerdown", pointerDown); renderer.domElement.removeEventListener("pointerup", pointerUp);
       renderer.domElement.removeEventListener("pointermove", pointerMove); renderer.domElement.removeEventListener("pointercancel", pointerCancel);
       renderer.domElement.removeEventListener("lostpointercapture", pointerCancel);

@@ -1,3 +1,4 @@
+import './features/port-simulation/port-facility-readout.css';
 import './features/port-expansion/port-expansion.css';
 import "./features/port-simulation/port-results.css";
 import { StrictMode } from "react";
@@ -14,6 +15,7 @@ import "./features/port-lesson-five/port-lesson-five.css";
 import './features/port-lesson-six/port-lesson-six.css';
 import "./features/port-simulation/terminal-studio.css";
 import "./features/port-simulation/port-operations.css";
+import "./features/port-simulation/port-learning.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

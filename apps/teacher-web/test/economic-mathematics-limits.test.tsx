@@ -2,18 +2,19 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { ECONOMIC_MATHEMATICS_SLIDES as all, ECONOMIC_MATHEMATICS_DECK_ID as deckId, ECONOMIC_MATHEMATICS_VERSION_ID as version, getEconomicMathematicsHistoricalCounts, getEconomicMathematicsInteractionDefinition as definition, validateEconomicMathematicsInteractionState as validate, economicVisibleCopy, lesson03Narration, lesson04Narration, profitAt, profitQuotient, capacityAt, capacityGap, earliestCapacityWeek, supplierCost, idealAverage, exactOscillationSample, limitLabReadout, reciprocalSequenceError, sequenceZoomState, limitPrecisionLabel, LIMIT_EXERCISE_ACTIVITIES as exercises } from '@edu/course-content/economic-mathematics';
+import { ECONOMIC_MATHEMATICS_SLIDES as all, ECONOMIC_MATHEMATICS_DECK_ID as deckId, ECONOMIC_MATHEMATICS_VERSION_ID as version, getEconomicMathematicsHistoricalCounts, getEconomicMathematicsInteractionDefinition as definition, validateEconomicMathematicsInteractionState as validate, economicVisibleCopy, lesson03Narration, lesson04Narration, profitAt, profitQuotient, capacityAt, capacityGap, earliestCapacityWeek, supplierCost, idealAverage, exactOscillationSample, limitLabReadout, reciprocalSequenceError, sequenceZoomState, limitPrecisionLabel, derivativeBridgeValue, derivativeBridgeQuotient, LIMIT_EXERCISE_ACTIVITIES as exercises } from '@edu/course-content/economic-mathematics';
 import { EconomicMathematicsTeachingSlides as Slide } from '../src/features/economic-mathematics/EconomicMathematicsTeachingSlides';
 const pages=all.filter(p=>p.lesson===3||p.lesson===4);
 const narration={...lesson03Narration,...lesson04Narration};
 
-test('sequence-first 72 and 58 pages each meet two 45-minute budgets, with the film counted once',()=>{
-  assert.equal(pages.length,130);
-  for(const [lesson,count] of [[3,72],[4,58]]) {
+test('reinforcement routes keep two 45-minute hours, short group checks and optional depth',()=>{
+  assert.equal(pages.length,161);
+  for(const [lesson,count,core] of [[3,85,67],[4,76,57]]) {
     const selected=pages.filter(p=>p.lesson===lesson);
     assert.equal(selected.length,count);
     for(const hour of [1,2]) assert.equal(selected.filter(p=>p.classHour===hour).reduce((s,p)=>s+p.teachingSeconds!,0),2700);
-    assert.ok(selected.every(p=>p.routeRole==='core'));
+    assert.equal(selected.filter(p=>p.routeRole==='core').length,core);
+    assert.ok(selected.slice(core).every(p=>p.routeRole==='optional'&&p.teachingSeconds===0));
   }
   const films=pages.filter(p=>p.historyFilm);
   assert.equal(films.length,1);assert.equal(films[0]!.lesson,3);assert.equal(films[0]!.localIndex,14);assert.equal(films[0]!.teachingSeconds,180);
@@ -21,8 +22,10 @@ test('sequence-first 72 and 58 pages each meet two 45-minute budgets, with the f
   for(const page of pages) {assert.equal(narration[page.slideKey]!.length,1+(page.steps?.length??0));assert.ok(!('speech' in page));assert.ok(!('bridge' in page));}
   assert.equal(getEconomicMathematicsHistoricalCounts('release-economic-mathematics-lesson02-mapping-2026-10-09')!.reduce((s,n)=>s+n,0),421);
   assert.equal(getEconomicMathematicsHistoricalCounts('release-economic-mathematics-limits-refined-2026-10-10')!.reduce((s,n)=>s+n,0),513);
-  assert.ok(pages.every(p=>p.slideKey.includes('-limits-sequence-20261011-')));
-  assert.ok(version.includes('limits-sequence'));
+  assert.equal(getEconomicMathematicsHistoricalCounts('release-economic-mathematics-limits-sequence-2026-10-11')!.reduce((s,n)=>s+n,0),529);
+  assert.ok(pages.every(p=>p.slideKey.includes('-limits-reinforcement-20261013-')));
+  assert.ok(version.includes('limits-reinforcement'));
+  assert.ok(all.filter(p=>p.routeRole!=='optional').length/all.length>=.9);
 });
 
 test('pricing evidence shares the merchant model and never turns a zero quotient into a number',()=>{
@@ -94,12 +97,13 @@ test('every reveal parses, preserves privacy and validates integer steps and fil
   for(const time of [-1,.5,181,NaN])assert.equal(validate(d,{...d.defaults,filmTime:time}),false);
 });
 
-test('new mathematical language appears with a meaning before it is needed in follow-up pages',()=>{
-  for(const [lesson,checks] of [[3,[['差商',4],['无穷小',13],['数列 sequence',18],['潜无穷 potential',20],['实无穷 actual',20],['绝对误差',22],['收敛 convergence',22],['向上取整 ceiling',26],['量词',27],['发散 divergence',37],['有界 bounded',43],['单调不减 non-decreasing',53],['单调有界定理',53],['自然对数 natural',54]]],[4,[['右极限 right-hand',4],['必要条件 necessary',10],['全量折扣',12],['三角不等式',18],['充分条件',19],['未定式',20],['有理化',23],['平均成本 average',32],['夹逼定理',46],['弧度 radian',58]]]] as const) {
+test('new mathematical language has a dedicated explanation, including the derivative bridge',()=>{
+  for(const [lesson,checks] of [[3,[['数列 sequence','数列：'],['潜无穷 potential','潜无穷与实无穷：'],['实无穷 actual','潜无穷与实无穷：'],['收敛 convergence','离2的距离'],['向上取整 ceiling','先定误差'],['单调不减 non-decreasing','增加且有上界'],['自然对数 natural','用同一ε–N规则证明']]],[4,[['右极限 right-hand','只从一侧靠近'],['可导 differentiable','高中导数，正是'],['局部最大 local','局部最大，比较'],['内点 interior','局部最大，比较'],['必要条件 necessary','导数为零，是有前提'],['全量折扣','采购门槛：'],['三角不等式','和法则：'],['充分条件','法则能正着用'],['未定式','0/0不是'],['有理化','根式差不能'],['平均成本 average','平均成本：'],['夹逼定理','夹逼：'],['弧度 radian','下一问：']]]] as const) {
     const selected=pages.filter(p=>p.lesson===lesson);
-    for(const [term,number] of checks){
+    for(const [term,title] of checks){
       const first=selected.findIndex(p=>economicVisibleCopy(p,{presentationStep:p.steps?.length??0}).includes(term))+1;
-      assert.equal(first,number,term);
+      const explained=selected.findIndex(p=>p.title.includes(title))+1;
+      assert.ok(first>0);assert.equal(first,explained,term);
     }
   }
   for(const p of pages)assert.doesNotMatch(economicVisibleCopy(p,{presentationStep:p.steps?.length??0}),/去心邻域|聚点|柯西列|驻点|延拓|泰勒展开/);
@@ -129,9 +133,9 @@ test('analytic zoom retains nonzero errors and distinguishes false candidates at
   assert.notEqual(fine[0]![1],'0');assert.notEqual(fine[1]![1],'0');
 });
 
-test('twelve graded activities link to the explained concepts and contain twenty-one answerable questions',()=>{
-  assert.equal(exercises.length,12);assert.equal(exercises.flatMap(a=>a.questions).length,21);
-  assert.equal(pages.filter(p=>p.kind==='exercise').length,12);
+test('twenty-seven new group pairs and existing depth exercises stay linked and keep feedback hidden',()=>{
+  assert.equal(exercises.length,39);assert.equal(exercises.flatMap(a=>a.questions).length,75);
+  assert.equal(pages.filter(p=>p.kind==='exercise').length,39);
   for(const a of exercises){
     const linked=pages.filter(p=>p.exerciseActivityId===a.id);
     assert.equal(linked.length,1,a.id);assert.equal(linked[0]!.kind,'exercise');assert.equal(linked[0]!.lesson,a.lesson);
@@ -145,4 +149,29 @@ test('twelve graded activities link to the explained concepts and contain twenty
   assert.ok(index('正无穷、负无穷')<index('基础分类'));
   assert.ok(index('函数极限的ε–δ')<index('巩固：哪些δ'));
   for(const p of pages)for(const n of narration[p.slideKey]!)assert.doesNotMatch(n,/陪域|去心邻域|聚点|柯西列/);
+  const checks=pages.filter(p=>p.conceptCheck);
+  assert.equal(checks.length,27);
+  assert.equal(checks.filter(p=>p.lesson===3).length,13);assert.equal(checks.filter(p=>p.lesson===4).length,14);
+  for(const p of checks){
+    assert.equal(p.table?.columns.length,2);assert.equal(p.table?.rows.length,4);assert.equal(p.steps?.length,2);
+    const before=economicVisibleCopy(p,{presentationStep:0});
+    for(const r of p.steps!){assert.ok(!before.includes(r.title));assert.ok(!before.includes(r.text!));}
+    const first=economicVisibleCopy(p,{presentationStep:1});assert.ok(first.includes(p.steps![0]!.text!));assert.ok(!first.includes(p.steps![1]!.text!));
+  }
+});
+
+test('derivative bridge separates value comparisons from finite difference quotient limits',()=>{
+  for(const model of [0,1,2] as const)for(const h of [-1,-.01,-1e-12,1e-12,.01,1]){
+    const exact=(derivativeBridgeValue(model,h)-derivativeBridgeValue(model,0))/h;
+    assert.ok(Math.abs(exact-derivativeBridgeQuotient(model,h))<1e-14);
+    if(model!==0)assert.ok(derivativeBridgeValue(model,h)<derivativeBridgeValue(model,0));
+  }
+  for(const model of [0,1,2] as const)assert.ok(Number.isNaN(derivativeBridgeQuotient(model,0)));
+  assert.equal(derivativeBridgeQuotient(2,-.1),1);assert.equal(derivativeBridgeQuotient(2,.1),-1);
+  const fourth=pages.filter(p=>p.lesson===4),at=(s:string)=>fourth.findIndex(p=>p.title.includes(s));
+  assert.ok(at('利润没有跳跃')<at('高中导数，正是'));
+  assert.ok(at('高中导数，正是')<at('局部最大，比较'));
+  assert.ok(at('局部最大，比较')<at('都有局部最大'));
+  assert.ok(at('都有局部最大')<at('导数为零，是有前提'));
+  assert.ok(at('导数为零，是有前提')<at('三个前提，少一个'));
 });

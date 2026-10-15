@@ -3,9 +3,9 @@ import type { EconomicMathematicsUnitNumber } from "./types.js";
 export const ECONOMIC_MATHEMATICS_COURSE_ID = "course-economic-mathematics";
 export const ECONOMIC_MATHEMATICS_COURSE_SLUG = "economic-mathematics";
 export const ECONOMIC_MATHEMATICS_COURSE_CODE = "14210850";
-export const ECONOMIC_MATHEMATICS_DECK_ID = "deck-economic-mathematics-2026-limits-sequence";
+export const ECONOMIC_MATHEMATICS_DECK_ID = "deck-economic-mathematics-2026-limits-reinforcement";
 export const ECONOMIC_MATHEMATICS_VERSION_ID =
-  "release-economic-mathematics-limits-sequence-2026-10-11";
+  "release-economic-mathematics-limits-reinforcement-2026-10-13";
 export const ECONOMIC_MATHEMATICS_CANVAS_WIDTH = 1600;
 export const ECONOMIC_MATHEMATICS_CANVAS_HEIGHT = 1000;
 export const ECONOMIC_MATHEMATICS_TOTAL_HOURS = 64;

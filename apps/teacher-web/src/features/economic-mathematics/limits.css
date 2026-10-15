@@ -8,6 +8,14 @@
 .em-limits .em-reveal{padding:14px 0}
 .em-limits .em-reveal p{font-size:30px;line-height:1.45}
 .em-limits .em-reveal .em-math{font-size:36px}
+.em-limits.em-concept-check .em-copy{display:grid;grid-template-columns:1fr 1fr;gap:12px 36px;align-content:start}
+.em-limits.em-concept-check .em-table{grid-column:1/-1;table-layout:fixed;margin-bottom:0;font-size:30px;line-height:1.35}
+.em-limits.em-concept-check .em-table th{width:50%;font-size:32px;line-height:1.35;vertical-align:top;padding:10px 18px 16px}
+.em-limits.em-concept-check .em-table td{padding:10px 18px;vertical-align:top}
+.em-limits.em-concept-check .em-reveal{display:block;padding:12px 18px 0;border-top:2px solid #466d6e;margin:0}
+.em-limits.em-concept-check .em-step-number{display:none}
+.em-limits.em-concept-check .em-reveal h2{font-size:30px;margin:0 0 8px;color:#466d6e}
+.em-limits.em-concept-check .em-reveal p{font-size:30px;line-height:1.35;margin:0}
 .em-limits.em-has-limit-figure .em-content{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px;align-items:center}
 .em-limits.em-has-limit-figure .em-copy{align-self:center}
 .em-limits.em-has-limit-figure .em-math{font-size:36px}

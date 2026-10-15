@@ -106,6 +106,7 @@ export function getEconomicMathematicsHistoricalCounts(version: string): readonl
   if (version === 'release-economic-mathematics-lesson02-flow-2026-10-09') return [40, 60, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(2).map(l => l.slides.length)];
   if (version === 'release-economic-mathematics-lesson02-mapping-2026-10-09') return [40, 59, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(2).map(l => l.slides.length)];
   if (version === 'release-economic-mathematics-limits-refined-2026-10-10') return [40, 59, 58, 56, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(4).map(l => l.slides.length)];
+  if (version === 'release-economic-mathematics-limits-sequence-2026-10-11') return [40, 59, 72, 58, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(4).map(l => l.slides.length)];
   return undefined;
 }
 

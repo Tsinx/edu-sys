@@ -879,7 +879,7 @@ export const teacherDemoSchema = z.object({
 });
 export type TeacherDemo = z.infer<typeof teacherDemoSchema>;
 export const lessonFourPresentationSchema = z.object({slideKey:z.string().min(1).max(128),progress:z.number().finite().min(0).max(1)});
-export const portExpansionPresentationSchema=z.object({slideKey:z.string().min(1).max(128),progress:z.number().finite().min(0).max(1),option:z.number().int().min(0).max(3),revealed:z.boolean()}).strict();
+export const portExpansionPresentationSchema=z.object({slideKey:z.string().min(1).max(128),progress:z.number().finite().min(0).max(1),option:z.number().int().min(0).max(3),revealed:z.boolean(),cinematic:z.object({clipId:z.enum(['l11-opening-v2','l12-opening-v2']),status:z.enum(['paused','playing']),elapsedMs:z.number().finite().min(0).max(180000),startedAt:z.number().finite().positive().nullable()}).strict().optional()}).strict();
 export const lessonFivePresentationSchema = z.object({slideKey:z.string().min(1).max(128),progress:z.number().finite().min(0).max(1),revealed:z.boolean()});
 export const lessonSixPresentationSchema = z.object({slideKey:z.string().min(1).max(128),progress:z.number().finite().min(0).max(1),revealed:z.boolean(),option:z.number().int().min(0).max(2),cinematic:z.object({clipId:z.string().min(1).max(128),status:z.enum(['paused','playing']),elapsedMs:z.number().finite().min(0).max(120000),startedAt:z.number().finite().positive().nullable(),runId:z.string().min(1).max(80)}).strict().optional(),camera:z.object({latitude:z.number().finite().min(-90).max(90),longitude:z.number().finite().min(-180).max(180),distance:z.number().finite().min(1.45).max(4)}).strict().optional()});
 export const simulationNavigationSchema = z.object({

@@ -1,4 +1,5 @@
 /** Teacher exercise bank. Answers are not part of the shared slide context. */
+import { LIMIT_GROUP_CHECKS } from './limit-group-checks.js';
 export interface LimitExerciseQuestion {
   type: 'single' | 'short';
   stem: string;
@@ -16,6 +17,7 @@ export interface LimitExerciseActivity {
   questions: readonly LimitExerciseQuestion[];
 }
 export const LIMIT_EXERCISE_ACTIVITIES: readonly LimitExerciseActivity[] = [
+  ...LIMIT_GROUP_CHECKS,
   {
     id: 'l3-convergence', lesson: 3, title: '第三讲·基础判断：收敛与尾部保证', level: '基础', minutes: 3,
     questions: [
