@@ -1,0 +1,10 @@
+{
+  "checkedOn": "2026-10-17",
+  "dataBoundary": "全部门店数据为固定种子自编教学模拟，不是引用企业记录；概念序列与反例单独标注。",
+  "sources": [
+    {"title":"Hernan and Robins, Causal Inference: What If (2020), January 2 2025 PDF","url":"https://miguelhernan.org/whatifbook","verifiedPdf":"https://miguelhernan.org/s/hernanrobins_WhatIf_2jan25.pdf","sections":"Chapters 1-3: potential outcomes and identification conditions; Chapter 6: causal diagrams; 12.1-12.2: weighting via models; 15.2, 15.4, 15.5: propensity scores, matching and predictive models","use":"因果目标、可交换性、一致性、重叠、倾向分数与设计/预测区别。原计划Harvard旧PDF链接已重定向，改用作者网站的明确版本。"},
+    {"title":"Stata, xtreg - Linear models for panel data","url":"https://www.stata.com/manuals/xtxtreg.pdf","sections":"Description and quick start; SE/Robust; Methods and formulas: xtreg, fe (PDF pages 39-40), absorbed variables","use":"组内变换、虚拟变量等价和聚类推断范围；本课CR1明确按全LSDV参数计自由度，不宣称软件默认数值一致。"},
+    {"title":"Austin (2011), Optimal caliper widths for propensity-score matching","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC3120982/","doi":"10.1002/pst.433","use":"0.2 SD logit卡钳的参考；只作为事前规定的教学选择，不声称对所有场景最优。"},
+    {"title":"Abadie and Imbens (2008), On the Failure of the Bootstrap for Matching Estimators","url":"https://www.nber.org/papers/t0325","published":"Econometrica 76(6):1537-1557","use":"固定近邻匹配不能直接套普通bootstrap；匹配部分不伪造区间。"}
+  ]
+}

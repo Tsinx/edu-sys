@@ -4,7 +4,7 @@ import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { applyPortClassLabCommand as act, createPortClassLab, summarizePortResources } from '@edu/port-simulation-core';
 import { freshNotebook, packedNotebook, decodeNotebook } from '../src/features/port-simulation/port-class-notebook';
-import { decodePortAnalysis, newPortAnalysisChart } from '../src/features/port-simulation/port-analysis-config';
+import { decodePortAnalysis, defaultPortAnalysis, newPortAnalysisChart } from '../src/features/port-simulation/port-analysis-config';
 import { groupAnalysisRows, portAnalysisCsv, portAnalysisData, portAnalysisRange } from '../src/features/port-simulation/port-analysis-data';
 import { PortLabAnalysis } from '../src/features/port-simulation/PortLabAnalysis';
 
@@ -33,7 +33,7 @@ test('group utilization is weighted by device seconds; custom ranges and raw CSV
 
 test('both experiments expose device chart entry, durable configuration and real statistical charts without teacher metadata', () => {
   for (const lesson of [11, 12] as const) {
-    const book = freshNotebook(lesson); book.run = act(book.run, { kind: 'advance', minutes: 15 });
+    const book = freshNotebook(lesson); book.analysis = defaultPortAnalysis(book.run, lesson); book.run = act(book.run, { kind: 'advance', minutes: 15 });
     const html = renderToStaticMarkup(<PortLabAnalysis run={book.run} baseline={null} dashboard={book.analysis} selected="vehicle-0" onSelect={() => {}} onChange={() => {}} onFocus={() => {}}/>);
     assert.match(html, /为所选设备添加图表/); assert.match(html, /配置随实验自动保存/); assert.match(html, /role="img"/); assert.match(html, /data-range-from="/); assert.doesNotMatch(html, /NaN|Infinity|teachingCue|assistantCue/);
     if (lesson === 11) assert.match(html, /任务占用率＝/); else assert.match(html, /交付中断与闸口恢复/);

@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-16",
+  "origin": "http://127.0.0.1:5176",
+  "pages": 450,
+  "publicChecks": 900,
+  "widths": [
+    1600,
+    390
+  ],
+  "failures": 0,
+  "browserErrors": [],
+  "logicalCanvas": [
+    1600,
+    1000
+  ],
+  "newClassroomPages": 100,
+  "classroomCanvasChecks": 400,
+  "classroomChecks": [
+    "course workspace exposes nine ready lectures and seven planned lectures",
+    "lecture 8 opens and joins at its authored start",
+    "teacher next page crosses from lecture 8 into lecture 9",
+    "following students cannot change server slide state",
+    "new lectures synchronize every page at desktop and narrow widths",
+    "one toolbar and local PDF access remain available to both roles",
+    "current-page assistant context reaches lecture 9 without planned fallback",
+    "page fullscreen preserves the new page and synchronized navigation"
+  ],
+  "classroomErrors": [],
+  "fullReport": "output/statistical-analysis-factors-qa/accepted-audit.json",
+  "runtimeReport": "output/statistical-analysis-factors-qa/runtime-audit.json",
+  "rawDataUnchangedSHA256": "48ffd2cf48d7737be2ffd3210f47e11a6d506ba747bf184c68ac50f55c7c0aaa",
+  "factorDataSHA256": "55bce81b1ba505a5e822df9485ca11a4c1e0b5e65535a3478f74725324d30ac3",
+  "finalNewLectureChecks": 200,
+  "verificationNote": "Full 450-page two-width pass, followed by a complete 100-page two-width pass after localizing only the lecture 9 MI parameter labels. Unchanged lecture 1-7 checks retained."
+}

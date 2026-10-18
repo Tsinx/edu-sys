@@ -8,8 +8,8 @@ const pages=all.filter(p=>p.lesson===3||p.lesson===4);
 const narration={...lesson03Narration,...lesson04Narration};
 
 test('reinforcement routes keep two 45-minute hours, short group checks and optional depth',()=>{
-  assert.equal(pages.length,161);
-  for(const [lesson,count,core] of [[3,85,67],[4,76,57]]) {
+  assert.equal(pages.length,145);
+  for(const [lesson,count,core] of [[3,85,67],[4,60,56]]) {
     const selected=pages.filter(p=>p.lesson===lesson);
     assert.equal(selected.length,count);
     for(const hour of [1,2]) assert.equal(selected.filter(p=>p.classHour===hour).reduce((s,p)=>s+p.teachingSeconds!,0),2700);
@@ -23,8 +23,8 @@ test('reinforcement routes keep two 45-minute hours, short group checks and opti
   assert.equal(getEconomicMathematicsHistoricalCounts('release-economic-mathematics-lesson02-mapping-2026-10-09')!.reduce((s,n)=>s+n,0),421);
   assert.equal(getEconomicMathematicsHistoricalCounts('release-economic-mathematics-limits-refined-2026-10-10')!.reduce((s,n)=>s+n,0),513);
   assert.equal(getEconomicMathematicsHistoricalCounts('release-economic-mathematics-limits-sequence-2026-10-11')!.reduce((s,n)=>s+n,0),529);
-  assert.ok(pages.every(p=>p.slideKey.includes('-limits-reinforcement-20261013-')));
-  assert.ok(version.includes('limits-reinforcement'));
+  assert.ok(pages.every(p=>p.slideKey.includes(p.lesson===3?'-limits-reinforcement-20261013-':'-math-first-20261016-')));
+  assert.ok(version.includes('continuity-derivative')); assert.equal(getEconomicMathematicsHistoricalCounts('release-economic-mathematics-limits-reinforcement-2026-10-13')!.reduce((a,b)=>a+b,0),560);
   assert.ok(all.filter(p=>p.routeRole!=='optional').length/all.length>=.9);
 });
 
@@ -97,15 +97,15 @@ test('every reveal parses, preserves privacy and validates integer steps and fil
   for(const time of [-1,.5,181,NaN])assert.equal(validate(d,{...d.defaults,filmTime:time}),false);
 });
 
-test('new mathematical language has a dedicated explanation, including the derivative bridge',()=>{
-  for(const [lesson,checks] of [[3,[['数列 sequence','数列：'],['潜无穷 potential','潜无穷与实无穷：'],['实无穷 actual','潜无穷与实无穷：'],['收敛 convergence','离2的距离'],['向上取整 ceiling','先定误差'],['单调不减 non-decreasing','增加且有上界'],['自然对数 natural','用同一ε–N规则证明']]],[4,[['右极限 right-hand','只从一侧靠近'],['可导 differentiable','高中导数，正是'],['局部最大 local','局部最大，比较'],['内点 interior','局部最大，比较'],['必要条件 necessary','导数为零，是有前提'],['全量折扣','采购门槛：'],['三角不等式','和法则：'],['充分条件','法则能正着用'],['未定式','0/0不是'],['有理化','根式差不能'],['平均成本 average','平均成本：'],['夹逼定理','夹逼：'],['弧度 radian','下一问：']]]] as const) {
-    const selected=pages.filter(p=>p.lesson===lesson);
-    for(const [term,title] of checks){
-      const first=selected.findIndex(p=>economicVisibleCopy(p,{presentationStep:p.steps?.length??0}).includes(term))+1;
-      const explained=selected.findIndex(p=>p.title.includes(title))+1;
-      assert.ok(first>0);assert.equal(first,explained,term);
-    }
-  }
+test('mathematical terms are explained at their first formal use',()=>{
+  const checks:Record<number,readonly (readonly [string,string])[]>={
+    3:[['数列 sequence','数列：'],['潜无穷 potential','潜无穷与实无穷：'],['实无穷 actual','潜无穷与实无穷：'],['收敛 convergence','离2的距离'],['向上取整 ceiling','先定误差'],['单调不减 non-decreasing','增加且有上界'],['自然对数 natural','用同一ε–N规则证明']],
+    4:[['左极限 left-hand','左右极限：'],['未定式 indeterminate','0/0型：'],['共轭式 conjugate','根式差无法'],['无穷小 infinitesimal','无穷小：'],['夹逼定理 squeeze','夹逼定理：']]
+  };
+  for(const lesson of [3,4]){const selected=pages.filter(p=>p.lesson===lesson);for(const [term,title]of checks[lesson]!){
+    const first=selected.findIndex(p=>economicVisibleCopy(p,{presentationStep:p.steps?.length??0}).includes(term));
+    assert.ok(first>=0,term);assert.equal(first,selected.findIndex(p=>p.title.includes(title)),term);
+  }}
   for(const p of pages)assert.doesNotMatch(economicVisibleCopy(p,{presentationStep:p.steps?.length??0}),/去心邻域|聚点|柯西列|驻点|延拓|泰勒展开/);
 });
 
@@ -133,9 +133,9 @@ test('analytic zoom retains nonzero errors and distinguishes false candidates at
   assert.notEqual(fine[0]![1],'0');assert.notEqual(fine[1]![1],'0');
 });
 
-test('twenty-seven new group pairs and existing depth exercises stay linked and keep feedback hidden',()=>{
-  assert.equal(exercises.length,39);assert.equal(exercises.flatMap(a=>a.questions).length,75);
-  assert.equal(pages.filter(p=>p.kind==='exercise').length,39);
+test('active concept pairs and existing depth exercises stay linked and keep feedback hidden',()=>{
+  assert.equal(exercises.length,31);assert.equal(exercises.flatMap(a=>a.questions).length,61);
+  assert.equal(pages.filter(p=>p.kind==='exercise').length,31);
   for(const a of exercises){
     const linked=pages.filter(p=>p.exerciseActivityId===a.id);
     assert.equal(linked.length,1,a.id);assert.equal(linked[0]!.kind,'exercise');assert.equal(linked[0]!.lesson,a.lesson);
@@ -150,8 +150,8 @@ test('twenty-seven new group pairs and existing depth exercises stay linked and 
   assert.ok(index('函数极限的ε–δ')<index('巩固：哪些δ'));
   for(const p of pages)for(const n of narration[p.slideKey]!)assert.doesNotMatch(n,/陪域|去心邻域|聚点|柯西列/);
   const checks=pages.filter(p=>p.conceptCheck);
-  assert.equal(checks.length,27);
-  assert.equal(checks.filter(p=>p.lesson===3).length,13);assert.equal(checks.filter(p=>p.lesson===4).length,14);
+  assert.equal(checks.length,25);
+  assert.equal(checks.filter(p=>p.lesson===3).length,13);assert.equal(checks.filter(p=>p.lesson===4).length,12);
   for(const p of checks){
     assert.equal(p.table?.columns.length,2);assert.equal(p.table?.rows.length,4);assert.equal(p.steps?.length,2);
     const before=economicVisibleCopy(p,{presentationStep:0});
@@ -168,10 +168,9 @@ test('derivative bridge separates value comparisons from finite difference quoti
   }
   for(const model of [0,1,2] as const)assert.ok(Number.isNaN(derivativeBridgeQuotient(model,0)));
   assert.equal(derivativeBridgeQuotient(2,-.1),1);assert.equal(derivativeBridgeQuotient(2,.1),-1);
-  const fourth=pages.filter(p=>p.lesson===4),at=(s:string)=>fourth.findIndex(p=>p.title.includes(s));
-  assert.ok(at('利润没有跳跃')<at('高中导数，正是'));
-  assert.ok(at('高中导数，正是')<at('局部最大，比较'));
-  assert.ok(at('局部最大，比较')<at('都有局部最大'));
-  assert.ok(at('都有局部最大')<at('导数为零，是有前提'));
-  assert.ok(at('导数为零，是有前提')<at('三个前提，少一个'));
+  const fourth=pages.filter(p=>p.lesson===4&&p.routeRole==='core');
+  assert.ok(fourth.every(p=>!p.title.includes('局部最大')&&!p.title.includes('导数为零')));
+  const seventh=all.filter(p=>p.lesson===7);
+  assert.ok(seventh.some(p=>p.title.includes('局部极值：只与附近')));
+  assert.ok(seventh.some(p=>p.title.includes('费马定理')));
 });

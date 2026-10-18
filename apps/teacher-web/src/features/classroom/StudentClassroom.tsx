@@ -15,7 +15,7 @@ import { PageToolsProvider, PresentationToolbar } from "./PageTools";
 import { FullscreenButtons } from './FullscreenButtons';
 import { usePresentationFullscreen } from './usePresentationFullscreen';
 import { useStudentClassroom } from "./useStudentClassroom";
-import { classroomSlidePosition } from './classroom-slide-position';
+import { classroomDeckIssue, classroomSlidePosition } from './classroom-slide-position';
 import { ClassroomDeckNotice } from './ClassroomDeckNotice';
 import { restoreStudentNavigation, simulationUnitLabels, studentFrame, teacherLocation, type StudentLocation, type StudentNavigation } from "./student-navigation";
 import { PortLessonFourControls } from "../port-lesson-four/PortLessonFourStage";
@@ -46,7 +46,7 @@ export function StudentClassroom() {
     {failure ? <CircleAlert size={32}/> : <LoaderCircle className="spin" size={32}/>}
     <h1>{failure ? t("暂时无法打开课堂", "Unable to open this classroom") : t("正在加入课堂", "Joining classroom")}</h1><p>{failure || t("正在准备课程与教师位置…", "Preparing course and teacher position\u2026")}</p><Link to="/">{t("返回学习首页", "Return to learning home")}</Link>
   </main>;
-  if (!classroomSlidePosition(classroom.snapshot.courseId, classroom.snapshot.slide, deck)) return <ClassroomDeckNotice courseId={classroom.snapshot.courseId} english={deck.locale === 'en'} />;
+  if (!classroomSlidePosition(classroom.snapshot.courseId, classroom.snapshot.slide, deck)) return <ClassroomDeckNotice courseId={classroom.snapshot.courseId} english={deck.locale === 'en'} student issue={classroomDeckIssue(classroom.snapshot.courseId, classroom.snapshot.slide, deck)} />;
   return <StudentWorkspace key={`${sessionId}:${classroom.actor.actorId}`} sessionId={sessionId} deck={deck} actor={classroom.actor}
     snapshot={classroom.snapshot} connected={classroom.connected} error={classroom.error}/>;
 }

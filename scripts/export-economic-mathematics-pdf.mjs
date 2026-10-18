@@ -21,6 +21,8 @@ async function courseSourceFingerprint() {
     ...(await readdir(resolve(repositoryRoot, courseRoot, "v2"))).filter(name => name.endsWith(".ts")).map(name => courseRoot + "/v2/" + name),
     "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
     "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsFigures.tsx",
+    "apps/teacher-web/src/features/economic-mathematics/FoundationFigure.tsx",
+    "apps/teacher-web/src/features/economic-mathematics/limits.css",
     "apps/teacher-web/src/features/economic-mathematics/economic-mathematics.css",
     "scripts/economic-mathematics-pdf/entry.tsx", "scripts/economic-mathematics-pdf/print.css",
     "docs/course/economic-mathematics-deck-v2.json", "pnpm-lock.yaml",

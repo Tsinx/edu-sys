@@ -1,0 +1,8168 @@
+{
+  "deckId": "deck-economic-mathematics-2026-limits-reinforcement",
+  "versionId": "release-economic-mathematics-limits-reinforcement-2026-10-13",
+  "canvas": [
+    1600,
+    1000
+  ],
+  "hours": 64,
+  "slideTotal": 560,
+  "lessons": [
+    {
+      "number": 1,
+      "unit": 1,
+      "unitTitle": "课程引入与函数模型",
+      "title": "课程引入：从一个点开始",
+      "hours": 1,
+      "expectedSlides": 40,
+      "coreQuestion": "如何用数学检查一个经济判断？",
+      "exerciseCapability": "区分收入与利润，使用比例关系检验降价判断。",
+      "slideStart": 1,
+      "slideEnd": 40,
+      "prerequisites": [
+        "乘法与比例"
+      ],
+      "outcomes": [
+        "了解课程框架与学习要求",
+        "使用比例关系检验收入与利润判断"
+      ],
+      "route": [
+        {
+          "minutes": 1.5,
+          "activity": "几何动态短片"
+        },
+        {
+          "minutes": 12.5,
+          "activity": "课程框架"
+        },
+        {
+          "minutes": 6,
+          "activity": "认识老师"
+        },
+        {
+          "minutes": 13,
+          "activity": "学习须知"
+        },
+        {
+          "minutes": 10,
+          "activity": "第一次数学判断"
+        },
+        {
+          "minutes": 2,
+          "activity": "收束"
+        }
+      ],
+      "slideTotal": 40
+    },
+    {
+      "number": 2,
+      "unit": 1,
+      "unitTitle": "函数与营销定量模型",
+      "title": "函数与营销定量模型",
+      "hours": 2,
+      "expectedSlides": 59,
+      "coreQuestion": "一个商家准备调整售价，怎样得到一份有依据的定价建议？",
+      "exerciseCapability": "确定经营可行集，检查复合与反函数，证明全域最优并比较扩容收益和成本。",
+      "slideStart": 41,
+      "slideEnd": 99,
+      "prerequisites": [
+        "集合、区间与集合运算",
+        "一次函数、二次函数与不等式",
+        "函数单调性、二次函数顶点与配方"
+      ],
+      "outcomes": [
+        "陈述映射、像与原像，区分单射、满射与双射",
+        "区分定义域、陪域与值域",
+        "检验复合和反函数条件",
+        "证明定价结论并解释容量变化"
+      ],
+      "route": [
+        {
+          "minutes": 45,
+          "activity": "从销量记录到映射、经济定义域和合法成本链；独立练习9分钟"
+        },
+        {
+          "minutes": 45,
+          "activity": "从销量目标到反函数、最优定价和扩容比较；独立练习11分钟"
+        }
+      ],
+      "classHours": [
+        {
+          "hour": 1,
+          "minutes": 45,
+          "slideStart": 1,
+          "slideEnd": 29,
+          "activity": "记录、经营条件与函数链"
+        },
+        {
+          "hour": 2,
+          "minutes": 45,
+          "slideStart": 30,
+          "slideEnd": 59,
+          "activity": "目标、定价与扩容决策"
+        }
+      ],
+      "slideTotal": 59
+    },
+    {
+      "number": 3,
+      "unit": 2,
+      "unitTitle": "极限与连续",
+      "title": "从数列到函数极限",
+      "hours": 2,
+      "expectedSlides": 85,
+      "coreQuestion": "怎样不除以零，又对任意精度给出保证？",
+      "exerciseCapability": "按映射理解数列，区分潜无穷、实无穷与极限过程；读懂并应用ε–N定义、否定条件及正负无穷；区分有限期限、极限能力与实际承诺；从全部尾项过渡到全部附近输入，应用ε–δ定义",
+      "slideStart": 100,
+      "slideEnd": 184,
+      "prerequisites": [
+        "第二讲商家模型、可行集和报价网格",
+        "高中导数符号、代数恒等式、绝对值与指数"
+      ],
+      "outcomes": [
+        "按映射理解数列，区分潜无穷、实无穷与极限过程",
+        "读懂并应用ε–N定义、否定条件及正负无穷",
+        "区分有限期限、极限能力与实际承诺",
+        "从全部尾项过渡到全部附近输入，应用ε–δ定义"
+      ],
+      "route": [
+        {
+          "minutes": 45,
+          "activity": "差商与历史短片 → 数列与无穷 → 误差带与ε–N；五次小组辨析"
+        },
+        {
+          "minutes": 45,
+          "activity": "收敛反例与无穷方向 → 单调界限 → 全部附近输入与ε–δ；八次小组辨析"
+        }
+      ],
+      "classHours": [
+        {
+          "hour": 1,
+          "minutes": 45,
+          "slideStart": 1,
+          "slideEnd": 32,
+          "activity": "差商与历史短片 → 数列与无穷 → 误差带与ε–N；五次小组辨析"
+        },
+        {
+          "hour": 2,
+          "minutes": 45,
+          "slideStart": 33,
+          "slideEnd": 67,
+          "activity": "收敛反例与无穷方向 → 单调界限 → 全部附近输入与ε–δ；八次小组辨析"
+        }
+      ],
+      "slideTotal": 85
+    },
+    {
+      "number": 4,
+      "unit": 2,
+      "unitTitle": "极限与连续",
+      "title": "左右极限、计算与采购决策",
+      "hours": 2,
+      "expectedSlides": 76,
+      "coreQuestion": "左右能否拼成同一个极限，理想成本能否指导本批采购？",
+      "exerciseCapability": "区分函数极限与差商极限，判断左右条件；有条件地运用法则与精确变形；区分输入规模、输出无穷与实际定义域；在同一批量和完整费用下作出采购判断",
+      "slideStart": 185,
+      "slideEnd": 260,
+      "prerequisites": [
+        "第二讲商家模型、可行集和报价网格",
+        "高中导数符号、代数恒等式、绝对值与指数"
+      ],
+      "outcomes": [
+        "区分函数极限与差商极限，判断左右条件",
+        "有条件地运用法则与精确变形",
+        "区分输入规模、输出无穷与实际定义域",
+        "在同一批量和完整费用下作出采购判断"
+      ],
+      "route": [
+        {
+          "minutes": 45,
+          "activity": "左右极限 → 导数回顾与局部最大 → 带条件的法则及0/0；七次小组辨析"
+        },
+        {
+          "minutes": 45,
+          "activity": "精确变形 → 定义域与输入/输出无穷 → 夹逼与同批量比较；七次小组辨析"
+        }
+      ],
+      "classHours": [
+        {
+          "hour": 1,
+          "minutes": 45,
+          "slideStart": 1,
+          "slideEnd": 29,
+          "activity": "左右极限 → 导数回顾与局部最大 → 带条件的法则及0/0；七次小组辨析"
+        },
+        {
+          "hour": 2,
+          "minutes": 45,
+          "slideStart": 30,
+          "slideEnd": 57,
+          "activity": "精确变形 → 定义域与输入/输出无穷 → 夹逼与同批量比较；七次小组辨析"
+        }
+      ],
+      "slideTotal": 76
+    },
+    {
+      "number": 5,
+      "unit": 2,
+      "unitTitle": "极限与连续",
+      "title": "重要极限与等价无穷小",
+      "hours": 2,
+      "expectedSlides": 15,
+      "coreQuestion": "小变化在什么条件下可以替换？",
+      "exerciseCapability": "建立正弦重要极限；辨别等价替换的条件",
+      "slideStart": 261,
+      "slideEnd": 275,
+      "prerequisites": [
+        "极限",
+        "夹逼思想",
+        "弧度"
+      ],
+      "outcomes": [
+        "建立正弦重要极限",
+        "辨别等价替换的条件"
+      ],
+      "route": [
+        {
+          "minutes": 10,
+          "activity": "微小转角"
+        },
+        {
+          "minutes": 25,
+          "activity": "单位圆与夹逼"
+        },
+        {
+          "minutes": 20,
+          "activity": "指数极限与等价关系"
+        },
+        {
+          "minutes": 25,
+          "activity": "计算与错例"
+        },
+        {
+          "minutes": 10,
+          "activity": "近似边界"
+        }
+      ],
+      "slideTotal": 15
+    },
+    {
+      "number": 6,
+      "unit": 2,
+      "unitTitle": "极限与连续",
+      "title": "连续性与优惠门槛",
+      "hours": 2,
+      "expectedSlides": 11,
+      "coreQuestion": "规则在哪一个位置突然改变？",
+      "exerciseCapability": "验证连续的三个条件；区分间断类型；解释商业门槛",
+      "slideStart": 276,
+      "slideEnd": 286,
+      "prerequisites": [
+        "左右极限",
+        "函数值"
+      ],
+      "outcomes": [
+        "验证连续的三个条件",
+        "区分间断类型",
+        "解释商业门槛"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "免运费门槛"
+        },
+        {
+          "minutes": 25,
+          "activity": "连续条件"
+        },
+        {
+          "minutes": 20,
+          "activity": "门槛实验"
+        },
+        {
+          "minutes": 20,
+          "activity": "参数与练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "定价迁移"
+        }
+      ],
+      "slideTotal": 11
+    },
+    {
+      "number": 7,
+      "unit": 3,
+      "unitTitle": "导数与微分",
+      "title": "导数：从平均变化到瞬时变化",
+      "hours": 2,
+      "expectedSlides": 11,
+      "coreQuestion": "很小的调价怎样改变利润？",
+      "exerciseCapability": "用定义求导；解释导数单位；区分割线与切线",
+      "slideStart": 287,
+      "slideEnd": 297,
+      "prerequisites": [
+        "函数极限",
+        "利润函数"
+      ],
+      "outcomes": [
+        "用定义求导",
+        "解释导数单位",
+        "区分割线与切线"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "配送变化"
+        },
+        {
+          "minutes": 25,
+          "activity": "导数定义"
+        },
+        {
+          "minutes": 20,
+          "activity": "割线实验"
+        },
+        {
+          "minutes": 20,
+          "activity": "独立计算"
+        },
+        {
+          "minutes": 10,
+          "activity": "变化解释"
+        }
+      ],
+      "slideTotal": 11
+    },
+    {
+      "number": 8,
+      "unit": 3,
+      "unitTitle": "导数与微分",
+      "title": "求导法则与基本函数",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "复杂的成本关系怎样拆开计算？",
+      "exerciseCapability": "使用基本求导公式；正确应用乘积与商法则",
+      "slideStart": 298,
+      "slideEnd": 307,
+      "prerequisites": [
+        "导数定义",
+        "幂运算"
+      ],
+      "outcomes": [
+        "使用基本求导公式",
+        "正确应用乘积与商法则"
+      ],
+      "route": [
+        {
+          "minutes": 12,
+          "activity": "生产关系"
+        },
+        {
+          "minutes": 28,
+          "activity": "基本公式"
+        },
+        {
+          "minutes": 25,
+          "activity": "组合求导"
+        },
+        {
+          "minutes": 15,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "结果核验"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 9,
+      "unit": 3,
+      "unitTitle": "导数与微分",
+      "title": "链式法则：沿关系传递变化",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "曝光变化怎样传到订阅收入？",
+      "exerciseCapability": "识别内外函数；计算复合变化率；核对单位链",
+      "slideStart": 308,
+      "slideEnd": 317,
+      "prerequisites": [
+        "基本求导",
+        "复合函数"
+      ],
+      "outcomes": [
+        "识别内外函数",
+        "计算复合变化率",
+        "核对单位链"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "订阅漏斗"
+        },
+        {
+          "minutes": 25,
+          "activity": "链式法则"
+        },
+        {
+          "minutes": 25,
+          "activity": "完整计算"
+        },
+        {
+          "minutes": 15,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "迁移建模"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 10,
+      "unit": 3,
+      "unitTitle": "导数与微分",
+      "title": "高阶导数与变化的变化",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "销售增速上升时，销售量一定加速增长吗？",
+      "exerciseCapability": "计算二阶导数；区分水平、增速与增速变化",
+      "slideStart": 318,
+      "slideEnd": 327,
+      "prerequisites": [
+        "一阶导数",
+        "链式法则"
+      ],
+      "outcomes": [
+        "计算二阶导数",
+        "区分水平、增速与增速变化"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "运动观察"
+        },
+        {
+          "minutes": 25,
+          "activity": "二阶导数"
+        },
+        {
+          "minutes": 20,
+          "activity": "曲率与累计"
+        },
+        {
+          "minutes": 20,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "解释迁移"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 11,
+      "unit": 3,
+      "unitTitle": "导数与微分",
+      "title": "微分与线性近似",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "小幅调价的估算会偏差多少？",
+      "exerciseCapability": "计算微分；比较增量与微分；解释近似误差",
+      "slideStart": 328,
+      "slideEnd": 337,
+      "prerequisites": [
+        "导数",
+        "切线"
+      ],
+      "outcomes": [
+        "计算微分",
+        "比较增量与微分",
+        "解释近似误差"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "小幅调价"
+        },
+        {
+          "minutes": 25,
+          "activity": "线性近似"
+        },
+        {
+          "minutes": 20,
+          "activity": "误差实验"
+        },
+        {
+          "minutes": 20,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "适用边界"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 12,
+      "unit": 4,
+      "unitTitle": "导数应用、边际与弹性分析",
+      "title": "中值定理：平均与瞬时之间",
+      "hours": 2,
+      "expectedSlides": 11,
+      "coreQuestion": "一段平均变化能证明什么？",
+      "exerciseCapability": "检查定理条件；用中值定理连接变化率；证明简单不等式",
+      "slideStart": 338,
+      "slideEnd": 348,
+      "prerequisites": [
+        "连续与可导"
+      ],
+      "outcomes": [
+        "检查定理条件",
+        "用中值定理连接变化率",
+        "证明简单不等式"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "平均速度"
+        },
+        {
+          "minutes": 25,
+          "activity": "罗尔与拉格朗日"
+        },
+        {
+          "minutes": 25,
+          "activity": "应用推导"
+        },
+        {
+          "minutes": 15,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "边界反例"
+        }
+      ],
+      "slideTotal": 11
+    },
+    {
+      "number": 13,
+      "unit": 4,
+      "unitTitle": "导数应用、边际与弹性分析",
+      "title": "洛必达法则与未定式",
+      "hours": 2,
+      "expectedSlides": 11,
+      "coreQuestion": "零除以零，为什么没有固定答案？",
+      "exerciseCapability": "识别未定式；核验洛必达条件；转换其他未定形式",
+      "slideStart": 349,
+      "slideEnd": 359,
+      "prerequisites": [
+        "极限",
+        "求导"
+      ],
+      "outcomes": [
+        "识别未定式",
+        "核验洛必达条件",
+        "转换其他未定形式"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "相对变化"
+        },
+        {
+          "minutes": 25,
+          "activity": "法则条件"
+        },
+        {
+          "minutes": 25,
+          "activity": "转换计算"
+        },
+        {
+          "minutes": 15,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "方法选择"
+        }
+      ],
+      "slideTotal": 11
+    },
+    {
+      "number": 14,
+      "unit": 4,
+      "unitTitle": "导数应用、边际与弹性分析",
+      "title": "单调、凹凸与最值",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "候选价格怎样变成可行的最优价格？",
+      "exerciseCapability": "用导数判断单调；比较端点与驻点；解释凹凸和拐点",
+      "slideStart": 360,
+      "slideEnd": 369,
+      "prerequisites": [
+        "一阶与二阶导数"
+      ],
+      "outcomes": [
+        "用导数判断单调",
+        "比较端点与驻点",
+        "解释凹凸和拐点"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "定价候选"
+        },
+        {
+          "minutes": 25,
+          "activity": "符号表"
+        },
+        {
+          "minutes": 25,
+          "activity": "最值推导"
+        },
+        {
+          "minutes": 15,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "约束迁移"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 15,
+      "unit": 4,
+      "unitTitle": "导数应用、边际与弹性分析",
+      "title": "边际收入、成本与利润",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "多销售一件，会带来多少净收益？",
+      "exerciseCapability": "按销量定义边际量；区分平均量与边际量；使用MR=MC并检验最优",
+      "slideStart": 370,
+      "slideEnd": 379,
+      "prerequisites": [
+        "导数与极值",
+        "反函数关系"
+      ],
+      "outcomes": [
+        "按销量定义边际量",
+        "区分平均量与边际量",
+        "使用MR=MC并检验最优"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "追加订单"
+        },
+        {
+          "minutes": 25,
+          "activity": "反需求与边际"
+        },
+        {
+          "minutes": 25,
+          "activity": "利润最优"
+        },
+        {
+          "minutes": 15,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "单位解释"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 16,
+      "unit": 4,
+      "unitTitle": "导数应用、边际与弹性分析",
+      "title": "需求弹性与调价决策",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "同样涨价1%，销量反应为什么不同？",
+      "exerciseCapability": "计算无量纲需求弹性；连接弹性与收入变化；区分收入最优和利润最优",
+      "slideStart": 380,
+      "slideEnd": 389,
+      "prerequisites": [
+        "导数",
+        "边际收入"
+      ],
+      "outcomes": [
+        "计算无量纲需求弹性",
+        "连接弹性与收入变化",
+        "区分收入最优和利润最优"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "两个细分市场"
+        },
+        {
+          "minutes": 25,
+          "activity": "弹性推导"
+        },
+        {
+          "minutes": 20,
+          "activity": "调价实验"
+        },
+        {
+          "minutes": 20,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "决策迁移"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 17,
+      "unit": 5,
+      "unitTitle": "不定积分",
+      "title": "原函数与不定积分",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "只知道变化率，能恢复总量吗？",
+      "exerciseCapability": "辨认原函数；保留积分常数；利用初始条件恢复函数",
+      "slideStart": 390,
+      "slideEnd": 399,
+      "prerequisites": [
+        "基本求导"
+      ],
+      "outcomes": [
+        "辨认原函数",
+        "保留积分常数",
+        "利用初始条件恢复函数"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "流入与存量"
+        },
+        {
+          "minutes": 25,
+          "activity": "原函数"
+        },
+        {
+          "minutes": 25,
+          "activity": "初始条件"
+        },
+        {
+          "minutes": 15,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "成本迁移"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 18,
+      "unit": 5,
+      "unitTitle": "不定积分",
+      "title": "基本积分公式与直接积分",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "哪些变化率可以直接恢复？",
+      "exerciseCapability": "使用积分公式；通过求导核验；注意定义域与绝对值",
+      "slideStart": 400,
+      "slideEnd": 409,
+      "prerequisites": [
+        "原函数",
+        "基本求导公式"
+      ],
+      "outcomes": [
+        "使用积分公式",
+        "通过求导核验",
+        "注意定义域与绝对值"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "速率清单"
+        },
+        {
+          "minutes": 25,
+          "activity": "公式与范围"
+        },
+        {
+          "minutes": 25,
+          "activity": "直接积分"
+        },
+        {
+          "minutes": 15,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "核验迁移"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 19,
+      "unit": 5,
+      "unitTitle": "不定积分",
+      "title": "换元积分：识别内层变化",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "复杂表达式里藏着什么简单结构？",
+      "exerciseCapability": "识别微分因子；完成换元与回代；解释换元范围",
+      "slideStart": 410,
+      "slideEnd": 419,
+      "prerequisites": [
+        "链式法则",
+        "积分公式"
+      ],
+      "outcomes": [
+        "识别微分因子",
+        "完成换元与回代",
+        "解释换元范围"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "嵌套变化"
+        },
+        {
+          "minutes": 25,
+          "activity": "第一类换元"
+        },
+        {
+          "minutes": 25,
+          "activity": "第二类换元"
+        },
+        {
+          "minutes": 15,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "策略迁移"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 20,
+      "unit": 5,
+      "unitTitle": "不定积分",
+      "title": "分部积分：把困难转移",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "一个乘积怎样化成更简单的积分？",
+      "exerciseCapability": "选择u与dv；正确保留边界与符号；核验分部积分结果",
+      "slideStart": 420,
+      "slideEnd": 429,
+      "prerequisites": [
+        "乘积求导",
+        "换元积分"
+      ],
+      "outcomes": [
+        "选择u与dv",
+        "正确保留边界与符号",
+        "核验分部积分结果"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "时间加权"
+        },
+        {
+          "minutes": 25,
+          "activity": "公式推导"
+        },
+        {
+          "minutes": 25,
+          "activity": "例题策略"
+        },
+        {
+          "minutes": 15,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "综合选择"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 21,
+      "unit": 6,
+      "unitTitle": "定积分及累计量应用",
+      "title": "定积分：由局部速率累计总量",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "一天的配送量怎样从速率记录估算？",
+      "exerciseCapability": "建立黎曼和；解释有向面积；比较取样误差",
+      "slideStart": 430,
+      "slideEnd": 439,
+      "prerequisites": [
+        "积分公式",
+        "数列极限"
+      ],
+      "outcomes": [
+        "建立黎曼和",
+        "解释有向面积",
+        "比较取样误差"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "配送速率"
+        },
+        {
+          "minutes": 25,
+          "activity": "分割与取样"
+        },
+        {
+          "minutes": 20,
+          "activity": "矩形实验"
+        },
+        {
+          "minutes": 20,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "累计迁移"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 22,
+      "unit": 6,
+      "unitTitle": "定积分及累计量应用",
+      "title": "微积分基本定理",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "为什么累计量的导数回到速率？",
+      "exerciseCapability": "使用牛顿莱布尼茨公式；求变上限积分导数；区分累计量与速率",
+      "slideStart": 440,
+      "slideEnd": 449,
+      "prerequisites": [
+        "原函数",
+        "定积分"
+      ],
+      "outcomes": [
+        "使用牛顿莱布尼茨公式",
+        "求变上限积分导数",
+        "区分累计量与速率"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "存量记录"
+        },
+        {
+          "minutes": 25,
+          "activity": "基本定理"
+        },
+        {
+          "minutes": 20,
+          "activity": "上限实验"
+        },
+        {
+          "minutes": 20,
+          "activity": "完整计算"
+        },
+        {
+          "minutes": 10,
+          "activity": "独立迁移"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 23,
+      "unit": 6,
+      "unitTitle": "定积分及累计量应用",
+      "title": "定积分的换元与分部",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "换了变量，边界要怎样跟着改变？",
+      "exerciseCapability": "同步变换上下限；处理定积分边界项；检查符号与单位",
+      "slideStart": 450,
+      "slideEnd": 459,
+      "prerequisites": [
+        "换元",
+        "分部积分",
+        "基本定理"
+      ],
+      "outcomes": [
+        "同步变换上下限",
+        "处理定积分边界项",
+        "检查符号与单位"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "计量转换"
+        },
+        {
+          "minutes": 25,
+          "activity": "定积分换元"
+        },
+        {
+          "minutes": 25,
+          "activity": "定积分分部"
+        },
+        {
+          "minutes": 15,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "综合核验"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 24,
+      "unit": 6,
+      "unitTitle": "定积分及累计量应用",
+      "title": "累计销售、平均量与面积",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "总量和平均量怎样帮助安排运营？",
+      "exerciseCapability": "从速率求累计；计算区间平均值；区别净面积与几何面积",
+      "slideStart": 460,
+      "slideEnd": 469,
+      "prerequisites": [
+        "定积分与基本定理"
+      ],
+      "outcomes": [
+        "从速率求累计",
+        "计算区间平均值",
+        "区别净面积与几何面积"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "配送排班"
+        },
+        {
+          "minutes": 25,
+          "activity": "累计计算"
+        },
+        {
+          "minutes": 20,
+          "activity": "平均量与分段"
+        },
+        {
+          "minutes": 20,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "业务迁移"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 25,
+      "unit": 6,
+      "unitTitle": "定积分及累计量应用",
+      "title": "消费者剩余与生产者剩余",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "曲线下的面积能够表达什么经济差额？",
+      "exerciseCapability": "计算两类剩余；确定积分范围；区分剩余与企业利润",
+      "slideStart": 470,
+      "slideEnd": 479,
+      "prerequisites": [
+        "反需求",
+        "定积分与面积"
+      ],
+      "outcomes": [
+        "计算两类剩余",
+        "确定积分范围",
+        "区分剩余与企业利润"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "市场价格"
+        },
+        {
+          "minutes": 25,
+          "activity": "消费者剩余"
+        },
+        {
+          "minutes": 20,
+          "activity": "价格实验"
+        },
+        {
+          "minutes": 20,
+          "activity": "生产者剩余与练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "解释边界"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 26,
+      "unit": 7,
+      "unitTitle": "多元函数微分",
+      "title": "多元函数：价格与广告共同变化",
+      "hours": 2,
+      "expectedSlides": 14,
+      "coreQuestion": "两个输入怎样共同决定结果？",
+      "exerciseCapability": "二元函数的定义域；区分曲面、截线、等高线",
+      "slideStart": 480,
+      "slideEnd": 493,
+      "prerequisites": [
+        "一元函数",
+        "坐标",
+        "平方根"
+      ],
+      "outcomes": [
+        "二元函数的定义域",
+        "区分曲面、截线、等高线"
+      ],
+      "route": [
+        {
+          "minutes": 12,
+          "activity": "多因素场景"
+        },
+        {
+          "minutes": 23,
+          "activity": "函数与定义域"
+        },
+        {
+          "minutes": 25,
+          "activity": "截线与等高线实验"
+        },
+        {
+          "minutes": 20,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "模型边界"
+        }
+      ],
+      "slideTotal": 14
+    },
+    {
+      "number": 27,
+      "unit": 7,
+      "unitTitle": "多元函数微分",
+      "title": "偏导数：固定其他因素",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "保持广告不变时，调价会怎样？",
+      "exerciseCapability": "求偏导数；说明固定条件和单位；辨别混合偏导",
+      "slideStart": 494,
+      "slideEnd": 503,
+      "prerequisites": [
+        "多元函数",
+        "单变量求导"
+      ],
+      "outcomes": [
+        "求偏导数",
+        "说明固定条件和单位",
+        "辨别混合偏导"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "控制变量"
+        },
+        {
+          "minutes": 25,
+          "activity": "偏导计算"
+        },
+        {
+          "minutes": 20,
+          "activity": "截线比较"
+        },
+        {
+          "minutes": 20,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "边界解释"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 28,
+      "unit": 7,
+      "unitTitle": "多元函数微分",
+      "title": "全微分与切平面",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "两个小变化如何合并估算？",
+      "exerciseCapability": "计算全微分；构造切平面；比较实际变化与近似误差",
+      "slideStart": 504,
+      "slideEnd": 513,
+      "prerequisites": [
+        "偏导数",
+        "单变量微分"
+      ],
+      "outcomes": [
+        "计算全微分",
+        "构造切平面",
+        "比较实际变化与近似误差"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "联动调整"
+        },
+        {
+          "minutes": 25,
+          "activity": "全微分"
+        },
+        {
+          "minutes": 20,
+          "activity": "切平面实验"
+        },
+        {
+          "minutes": 20,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "适用范围"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 29,
+      "unit": 7,
+      "unitTitle": "多元函数微分",
+      "title": "多元链式法则与隐函数",
+      "hours": 2,
+      "expectedSlides": 10,
+      "coreQuestion": "决策沿一条路径联动时，变化率怎样传递？",
+      "exerciseCapability": "计算联动路径导数；求隐函数偏导；解释保持目标不变的补偿",
+      "slideStart": 514,
+      "slideEnd": 523,
+      "prerequisites": [
+        "偏导与全微分",
+        "单变量链式法则"
+      ],
+      "outcomes": [
+        "计算联动路径导数",
+        "求隐函数偏导",
+        "解释保持目标不变的补偿"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "联动路径"
+        },
+        {
+          "minutes": 25,
+          "activity": "多元链式"
+        },
+        {
+          "minutes": 25,
+          "activity": "隐函数与补偿"
+        },
+        {
+          "minutes": 15,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "策略迁移"
+        }
+      ],
+      "slideTotal": 10
+    },
+    {
+      "number": 30,
+      "unit": 8,
+      "unitTitle": "无约束、约束优化与营销决策",
+      "title": "无约束极值与二阶判别",
+      "hours": 2,
+      "expectedSlides": 11,
+      "coreQuestion": "两项投入的驻点一定最好吗？",
+      "exerciseCapability": "求多元驻点；使用Hessian判别；比较局部和全局最优",
+      "slideStart": 524,
+      "slideEnd": 534,
+      "prerequisites": [
+        "一阶与二阶偏导"
+      ],
+      "outcomes": [
+        "求多元驻点",
+        "使用Hessian判别",
+        "比较局部和全局最优"
+      ],
+      "route": [
+        {
+          "minutes": 15,
+          "activity": "工作室投入"
+        },
+        {
+          "minutes": 25,
+          "activity": "驻点推导"
+        },
+        {
+          "minutes": 20,
+          "activity": "二阶实验"
+        },
+        {
+          "minutes": 20,
+          "activity": "独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "最优边界"
+        }
+      ],
+      "slideTotal": 11
+    },
+    {
+      "number": 31,
+      "unit": 8,
+      "unitTitle": "无约束、约束优化与营销决策",
+      "title": "约束优化：一笔预算的两种用途",
+      "hours": 2,
+      "expectedSlides": 14,
+      "coreQuestion": "有限资源怎样比较增量响应？",
+      "exerciseCapability": "消元与拉格朗日法；检查边界并解释影子价格",
+      "slideStart": 535,
+      "slideEnd": 548,
+      "prerequisites": [
+        "偏导数",
+        "一元极值"
+      ],
+      "outcomes": [
+        "消元与拉格朗日法",
+        "检查边界并解释影子价格"
+      ],
+      "route": [
+        {
+          "minutes": 12,
+          "activity": "预算与可行集"
+        },
+        {
+          "minutes": 25,
+          "activity": "消元及端点"
+        },
+        {
+          "minutes": 23,
+          "activity": "拉格朗日与切线"
+        },
+        {
+          "minutes": 20,
+          "activity": "实验和独立练习"
+        },
+        {
+          "minutes": 10,
+          "activity": "敏感性"
+        }
+      ],
+      "slideTotal": 14
+    },
+    {
+      "number": 32,
+      "unit": 8,
+      "unitTitle": "无约束、约束优化与营销决策",
+      "title": "综合决策：从情境到可解释的方案",
+      "hours": 2,
+      "expectedSlides": 12,
+      "coreQuestion": "新行业、新成本下，你能独立完成建模吗？",
+      "exerciseCapability": "独立识别变量和约束；完整求解并比较边界；解释敏感性与模型限制",
+      "slideStart": 549,
+      "slideEnd": 560,
+      "prerequisites": [
+        "函数、微分、积分与约束优化"
+      ],
+      "outcomes": [
+        "独立识别变量和约束",
+        "完整求解并比较边界",
+        "解释敏感性与模型限制"
+      ],
+      "route": [
+        {
+          "minutes": 10,
+          "activity": "任务与变量"
+        },
+        {
+          "minutes": 20,
+          "activity": "独立建模"
+        },
+        {
+          "minutes": 25,
+          "activity": "推导与核验"
+        },
+        {
+          "minutes": 20,
+          "activity": "敏感性与小组报告"
+        },
+        {
+          "minutes": 15,
+          "activity": "个人迁移与复盘"
+        }
+      ],
+      "slideTotal": 12
+    }
+  ],
+  "constructivistPages": 29,
+  "pages": [
+    {
+      "index": 1,
+      "slideKey": "em-intro-film",
+      "lesson": 1,
+      "localIndex": 1,
+      "title": "经济数学",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 2,
+      "slideKey": "em-intro-welcome",
+      "lesson": 1,
+      "localIndex": 2,
+      "title": "看见变化，做出选择。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 3,
+      "slideKey": "em-intro-four-shapes",
+      "lesson": 1,
+      "localIndex": 3,
+      "title": "刚才的形状，也是问题的形状。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 4,
+      "slideKey": "em-intro-receipt",
+      "lesson": 1,
+      "localIndex": 4,
+      "title": "一家店，两周收入。",
+      "steps": 2,
+      "revealTitles": [
+        "销量增加了，收入却减少了。",
+        "收入 = 单价 × 销量；利润还需要成本。"
+      ]
+    },
+    {
+      "index": 5,
+      "slideKey": "em-intro-scope",
+      "lesson": 1,
+      "localIndex": 5,
+      "title": "这门课的坐标",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 6,
+      "slideKey": "em-intro-map",
+      "lesson": 1,
+      "localIndex": 6,
+      "title": "八个单元，一条问题链。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 7,
+      "slideKey": "em-intro-unit-1",
+      "lesson": 1,
+      "localIndex": 7,
+      "title": "给现实中的量一个名字。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 8,
+      "slideKey": "em-intro-unit-2",
+      "lesson": 1,
+      "localIndex": 8,
+      "title": "越来越近，不等于已经到达。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 9,
+      "slideKey": "em-intro-unit-3",
+      "lesson": 1,
+      "localIndex": 9,
+      "title": "把镜头推近。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 10,
+      "slideKey": "em-intro-unit-4",
+      "lesson": 1,
+      "localIndex": 10,
+      "title": "再多一点，带来什么？",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 11,
+      "slideKey": "em-intro-unit-5",
+      "lesson": 1,
+      "localIndex": 11,
+      "title": "沿着变化，找回原来的函数。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 12,
+      "slideKey": "em-intro-unit-6",
+      "lesson": 1,
+      "localIndex": 12,
+      "title": "把每一小段，加起来。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 13,
+      "slideKey": "em-intro-unit-7",
+      "lesson": 1,
+      "localIndex": 13,
+      "title": "世界不只有一个旋钮。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 14,
+      "slideKey": "em-intro-unit-8",
+      "lesson": 1,
+      "localIndex": 14,
+      "title": "有限的预算，更好的分配。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 15,
+      "slideKey": "em-intro-evidence-chain",
+      "lesson": 1,
+      "localIndex": 15,
+      "title": "一个结论，需要一条证据链。",
+      "steps": 1,
+      "revealTitles": [
+        "公式帮助我们判断；假设决定判断能走多远。"
+      ]
+    },
+    {
+      "index": 16,
+      "slideKey": "em-intro-teacher",
+      "lesson": 1,
+      "localIndex": 16,
+      "title": "李行之",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 17,
+      "slideKey": "em-intro-research",
+      "lesson": 1,
+      "localIndex": 17,
+      "title": "当 AI 加入协作，决策会怎样改变？",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 18,
+      "slideKey": "em-intro-tools",
+      "lesson": 1,
+      "localIndex": 18,
+      "title": "把想法做成可以使用的工具。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 19,
+      "slideKey": "em-intro-practice",
+      "lesson": 1,
+      "localIndex": 19,
+      "title": "从教学现场，检验技术的价值。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 20,
+      "slideKey": "em-intro-conversation",
+      "lesson": 1,
+      "localIndex": 20,
+      "title": "你可以带着“不确定”来上课。",
+      "steps": 1,
+      "revealTitles": [
+        "写下卡住的位置，比只说“我不会”更容易得到帮助。"
+      ]
+    },
+    {
+      "index": 21,
+      "slideKey": "em-intro-textbook",
+      "lesson": 1,
+      "localIndex": 21,
+      "title": "一本主教材，一套练习工具。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 22,
+      "slideKey": "em-intro-resources",
+      "lesson": 1,
+      "localIndex": 22,
+      "title": "课堂之外，把问题再走一遍。",
+      "steps": 1,
+      "revealTitles": [
+        "课外资源用于复习；本课程64学时均为线下理论教学。"
+      ]
+    },
+    {
+      "index": 23,
+      "slideKey": "em-intro-assessment",
+      "lesson": 1,
+      "localIndex": 23,
+      "title": "成绩来自四个部分。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 24,
+      "slideKey": "em-intro-homework",
+      "lesson": 1,
+      "localIndex": 24,
+      "title": "作业留下你的思考过程。",
+      "steps": 1,
+      "revealTitles": [
+        "做错后的订正，请说明错误发生在哪一步。"
+      ]
+    },
+    {
+      "index": 25,
+      "slideKey": "em-intro-stage-test",
+      "lesson": 1,
+      "localIndex": 25,
+      "title": "阶段考核：独立完成一次检查。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 26,
+      "slideKey": "em-intro-application",
+      "lesson": 1,
+      "localIndex": 26,
+      "title": "个人应用任务：把预算分配说清楚。",
+      "steps": 1,
+      "revealTitles": [
+        "建议面向管理者；同时写明假设、适用范围及工具使用情况。"
+      ]
+    },
+    {
+      "index": 27,
+      "slideKey": "em-intro-final",
+      "lesson": 1,
+      "localIndex": 27,
+      "title": "期末：从计算走向解释。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 28,
+      "slideKey": "em-intro-ai",
+      "lesson": 1,
+      "localIndex": 28,
+      "title": "让 AI 帮忙，也让结论经得起检查。",
+      "steps": 1,
+      "revealTitles": [
+        "不能把工具输出直接当成自己的推导和证据。"
+      ]
+    },
+    {
+      "index": 29,
+      "slideKey": "em-intro-verification",
+      "lesson": 1,
+      "localIndex": 29,
+      "title": "算出来了，就一定对吗？",
+      "steps": 1,
+      "revealTitles": [
+        "负数可能是模型超出适用范围的信号；不能直接当作可销售数量。"
+      ]
+    },
+    {
+      "index": 30,
+      "slideKey": "em-intro-independent",
+      "lesson": 1,
+      "localIndex": 30,
+      "title": "能复现，才算真正掌握。",
+      "steps": 1,
+      "revealTitles": [
+        "交流可以帮助理解；提交的个人任务应体现自己的推导与判断。"
+      ]
+    },
+    {
+      "index": 31,
+      "slideKey": "em-intro-routine",
+      "lesson": 1,
+      "localIndex": 31,
+      "title": "把复习变成一个小循环。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 32,
+      "slideKey": "em-intro-start-line",
+      "lesson": 1,
+      "localIndex": 32,
+      "title": "起点可以不同。问题可以一起研究。",
+      "steps": 1,
+      "revealTitles": [
+        "今天的第一次判断，只需要乘法与比例。"
+      ]
+    },
+    {
+      "index": 33,
+      "slideKey": "em-intro-challenge",
+      "lesson": 1,
+      "localIndex": 33,
+      "title": "降价10%，销量至少增加多少，收入才不下降？",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 34,
+      "slideKey": "em-intro-choose-base",
+      "lesson": 1,
+      "localIndex": 34,
+      "title": "先选一组容易检查的数据。",
+      "steps": 1,
+      "revealTitles": [
+        "收入条件：9q ≥ 1,000。"
+      ]
+    },
+    {
+      "index": 35,
+      "slideKey": "em-intro-wrong-ten",
+      "lesson": 1,
+      "localIndex": 35,
+      "title": "“少10%，多10%”能互相抵消吗？",
+      "steps": 2,
+      "revealTitles": [
+        "新收入：9 × 110 = 990 元。",
+        "比原来少10元；两个百分比的基数不同。"
+      ]
+    },
+    {
+      "index": 36,
+      "slideKey": "em-intro-derive",
+      "lesson": 1,
+      "localIndex": 36,
+      "title": "保住收入，需要跨过这条线。",
+      "steps": 3,
+      "revealTitles": [
+        "9q ≥ 1,000  ⇒  q ≥ 111.111…",
+        "销量增幅 ≥ (111.111… − 100) ÷ 100 = 11.111…%",
+        "如果销量只能取整数件，本例至少卖112件，增幅为12%。"
+      ]
+    },
+    {
+      "index": 37,
+      "slideKey": "em-intro-generalize",
+      "lesson": 1,
+      "localIndex": 37,
+      "title": "从一组数，走向一般关系。",
+      "steps": 3,
+      "revealTitles": [
+        "新收入 = 0.9p × (1 + g)q",
+        "0.9p(1 + g)q ≥ pq  ⇒  0.9(1 + g) ≥ 1",
+        "g ≥ 1 ÷ 0.9 − 1 = 1/9 ≈ 11.111%"
+      ]
+    },
+    {
+      "index": 38,
+      "slideKey": "em-intro-transfer",
+      "lesson": 1,
+      "localIndex": 38,
+      "title": "收入不下降，利润也不下降吗？",
+      "steps": 3,
+      "revealTitles": [
+        "原贡献： (10 − 6) × 100 = 400 元。",
+        "新贡献： (9 − 6)q = 3q；保住利润需要 q ≥ 133.333…件。",
+        "整数销量至少134件。保住收入，不等于保住利润。"
+      ]
+    },
+    {
+      "index": 39,
+      "slideKey": "em-intro-exit",
+      "lesson": 1,
+      "localIndex": 39,
+      "title": "把今天的判断，写成三句话。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 40,
+      "slideKey": "em-intro-begin",
+      "lesson": 1,
+      "localIndex": 40,
+      "title": "从一个量开始。",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 41,
+      "slideKey": "em-l02-refined-mapping-p001",
+      "lesson": 2,
+      "localIndex": 1,
+      "title": "函数与营销定量模型",
+      "layout": "cover",
+      "style": "cover",
+      "image": "refined/merchant-cover.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 42,
+      "slideKey": "em-l02-refined-mapping-p002",
+      "lesson": 2,
+      "localIndex": 2,
+      "title": "两个价格，都卖出400件",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "这张表尚不能区分两种解释"
+      ]
+    },
+    {
+      "index": 43,
+      "slideKey": "em-l02-refined-mapping-p003",
+      "lesson": 2,
+      "localIndex": 3,
+      "title": "400件是需求，还是交付上限？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 44,
+      "slideKey": "em-l02-refined-mapping-p004",
+      "lesson": 2,
+      "localIndex": 4,
+      "title": "相同销量，可以来自不同需求",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 45,
+      "slideKey": "em-l02-refined-mapping-p005",
+      "lesson": 2,
+      "localIndex": 5,
+      "title": "同一个输入，两个不同的研究对象",
+      "layout": "compare",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 46,
+      "slideKey": "em-l02-refined-mapping-p006",
+      "lesson": 2,
+      "localIndex": 6,
+      "title": "映射、像与原像",
+      "layout": "split",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 47,
+      "slideKey": "em-l02-refined-mapping-p007",
+      "lesson": 2,
+      "localIndex": 7,
+      "title": "单射、满射与双射",
+      "layout": "compare",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 48,
+      "slideKey": "em-l02-refined-mapping-p008",
+      "lesson": 2,
+      "localIndex": 8,
+      "title": "不同价格，都对应400件，有矛盾吗？",
+      "layout": "split",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "没有违反唯一性"
+      ]
+    },
+    {
+      "index": 49,
+      "slideKey": "em-l02-refined-mapping-p009",
+      "lesson": 2,
+      "localIndex": 9,
+      "title": "一元实函数：实数集合之间的映射",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "区分模型与观测"
+      ]
+    },
+    {
+      "index": 50,
+      "slideKey": "em-l02-refined-mapping-p010",
+      "lesson": 2,
+      "localIndex": 10,
+      "title": "定义域、陪域与值域",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 51,
+      "slideKey": "em-l02-refined-mapping-p011",
+      "lesson": 2,
+      "localIndex": 11,
+      "title": "怎样比较表格之外的价格？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 52,
+      "slideKey": "em-l02-refined-mapping-p012",
+      "lesson": 2,
+      "localIndex": 12,
+      "title": "定义域：数学背景与实际背景",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "实际含义进一步限制输入"
+      ]
+    },
+    {
+      "index": 53,
+      "slideKey": "em-l02-refined-mapping-p013",
+      "lesson": 2,
+      "localIndex": 13,
+      "title": "本题允许比较哪些价格？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 54,
+      "slideKey": "em-l02-refined-mapping-p014",
+      "lesson": 2,
+      "localIndex": 14,
+      "title": "平台每次只允许调价0.5元",
+      "layout": "split",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 55,
+      "slideKey": "em-l02-refined-mapping-p015",
+      "lesson": 2,
+      "localIndex": 15,
+      "title": "交付能力，会直接限制售价吗？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 56,
+      "slideKey": "em-l02-refined-mapping-p016",
+      "lesson": 2,
+      "localIndex": 16,
+      "title": "练习一：经营承诺与可行价格",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 57,
+      "slideKey": "em-l02-refined-mapping-p017",
+      "lesson": 2,
+      "localIndex": 17,
+      "title": "先翻译承诺，再求交集",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "允许部分需求不成交",
+        "必须全部履约"
+      ]
+    },
+    {
+      "index": 58,
+      "slideKey": "em-l02-refined-mapping-p018",
+      "lesson": 2,
+      "localIndex": 18,
+      "title": "没有可行方案，该改变什么？",
+      "layout": "essay",
+      "style": "constructivist",
+      "steps": 1,
+      "revealTitles": [
+        "调整意味着真实条件改变"
+      ]
+    },
+    {
+      "index": 59,
+      "slideKey": "em-l02-refined-mapping-p019",
+      "lesson": 2,
+      "localIndex": 19,
+      "title": "不拒绝低价，怎样处理超额需求？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 60,
+      "slideKey": "em-l02-refined-mapping-p020",
+      "lesson": 2,
+      "localIndex": 20,
+      "title": "需求经过容量限制，才成为销量",
+      "layout": "split",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 61,
+      "slideKey": "em-l02-refined-mapping-p021",
+      "lesson": 2,
+      "localIndex": 21,
+      "title": "从履约条件推导分段函数",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "先确定两种机制的分界",
+        "保留每一段的适用范围"
+      ]
+    },
+    {
+      "index": 62,
+      "slideKey": "em-l02-refined-mapping-p022",
+      "lesson": 2,
+      "localIndex": 22,
+      "title": "能卖出的数量，与想买的数量",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 63,
+      "slideKey": "em-l02-refined-mapping-p023",
+      "lesson": 2,
+      "localIndex": 23,
+      "title": "成本账，应按需求还是按履约量计算？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 64,
+      "slideKey": "em-l02-refined-mapping-p024",
+      "lesson": 2,
+      "localIndex": 24,
+      "title": "价格 → 销量 → 成本",
+      "layout": "split",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 65,
+      "slideKey": "em-l02-refined-mapping-p025",
+      "lesson": 2,
+      "localIndex": 25,
+      "title": "复合函数及其定义域",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 66,
+      "slideKey": "em-l02-refined-mapping-p026",
+      "lesson": 2,
+      "localIndex": 26,
+      "title": "练习二：两条成本链，都能接上吗？",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 67,
+      "slideKey": "em-l02-refined-mapping-p027",
+      "lesson": 2,
+      "localIndex": 27,
+      "title": "实际销量链，在整个价格区间成立",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "输出始终进入成本定义域",
+        "保留真实计费过程"
+      ]
+    },
+    {
+      "index": 68,
+      "slideKey": "em-l02-refined-mapping-p028",
+      "lesson": 2,
+      "localIndex": 28,
+      "title": "把需求直接交给成本，哪里会失效？",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "先筛选可以进入的需求输出",
+        "限制以后才得到复合"
+      ]
+    },
+    {
+      "index": 69,
+      "slideKey": "em-l02-refined-mapping-p029",
+      "lesson": 2,
+      "localIndex": 29,
+      "title": "算出16,000，不等于原复合有定义",
+      "layout": "proof",
+      "style": "constructivist",
+      "steps": 3,
+      "revealTitles": [
+        "实际销量始终在合法范围",
+        "第二个复合没有定义",
+        "代数计算更换了研究对象"
+      ]
+    },
+    {
+      "index": 70,
+      "slideKey": "em-l02-refined-mapping-p030",
+      "lesson": 2,
+      "localIndex": 30,
+      "title": "希望每天售出300件，该怎样报价？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 71,
+      "slideKey": "em-l02-refined-mapping-p031",
+      "lesson": 2,
+      "localIndex": 31,
+      "title": "由单射到反函数",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "反向对应：值域成为反函数的定义域"
+      ]
+    },
+    {
+      "index": 72,
+      "slideKey": "em-l02-refined-mapping-p032",
+      "lesson": 2,
+      "localIndex": 32,
+      "title": "同一商家：需求可逆，销量未必",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "需求：所有实际输出都唯一确定价格",
+        "销量：300件唯一，400件却不唯一"
+      ]
+    },
+    {
+      "index": 73,
+      "slideKey": "em-l02-refined-mapping-p033",
+      "lesson": 2,
+      "localIndex": 33,
+      "title": "反函数的输入，必须是原值域",
+      "layout": "split",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "原陪域不等于原值域"
+      ]
+    },
+    {
+      "index": 74,
+      "slideKey": "em-l02-refined-mapping-p034",
+      "lesson": 2,
+      "localIndex": 34,
+      "title": "反函数不是函数值的倒数",
+      "layout": "compare",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 75,
+      "slideKey": "em-l02-refined-mapping-p035",
+      "lesson": 2,
+      "localIndex": 35,
+      "title": "双射与互逆关系",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "价格经过需求再回到价格",
+        "需求经过价格再回到需求"
+      ]
+    },
+    {
+      "index": 76,
+      "slideKey": "em-l02-refined-mapping-p036",
+      "lesson": 2,
+      "localIndex": 36,
+      "title": "400件目标，怎样才能唯一报价？",
+      "layout": "essay",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 77,
+      "slideKey": "em-l02-refined-mapping-p037",
+      "lesson": 2,
+      "localIndex": 37,
+      "title": "练习三：限制原函数，再求逆",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 78,
+      "slideKey": "em-l02-refined-mapping-p038",
+      "lesson": 2,
+      "localIndex": 38,
+      "title": "相同反解表达式，不同反函数",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 79,
+      "slideKey": "em-l02-refined-mapping-p039",
+      "lesson": 2,
+      "localIndex": 39,
+      "title": "销量相同，收入为什么不同？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 80,
+      "slideKey": "em-l02-refined-mapping-p040",
+      "lesson": 2,
+      "localIndex": 40,
+      "title": "平台佣金，按哪一个金额收取？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 81,
+      "slideKey": "em-l02-refined-mapping-p041",
+      "lesson": 2,
+      "localIndex": 41,
+      "title": "从单位贡献到日利润",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "80元处核对账目"
+      ]
+    },
+    {
+      "index": 82,
+      "slideKey": "em-l02-refined-mapping-p042",
+      "lesson": 2,
+      "localIndex": 42,
+      "title": "两种销量机制，两段利润",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "需求不少于能力：销量400件",
+        "需求低于能力：销量1200−10p"
+      ]
+    },
+    {
+      "index": 83,
+      "slideKey": "em-l02-refined-mapping-p043",
+      "lesson": 2,
+      "localIndex": 43,
+      "title": "80元优于两种方案，是否已是最优？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "证明须覆盖整个可行集"
+      ]
+    },
+    {
+      "index": 84,
+      "slideKey": "em-l02-refined-mapping-p044",
+      "lesson": 2,
+      "localIndex": 44,
+      "title": "练习四：用一次与二次函数证明最优价格",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 85,
+      "slideKey": "em-l02-refined-mapping-p045",
+      "lesson": 2,
+      "localIndex": 45,
+      "title": "71.11元：顶点算对了，结论呢？",
+      "layout": "essay",
+      "style": "constructivist",
+      "steps": 1,
+      "revealTitles": [
+        "这个顶点不属于二次分支"
+      ]
+    },
+    {
+      "index": 86,
+      "slideKey": "em-l02-refined-mapping-p046",
+      "lesson": 2,
+      "localIndex": 46,
+      "title": "覆盖整个区间：先分段，再比较",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "左段端点给出候选最大值",
+        "右段位于二次式顶点的右侧"
+      ]
+    },
+    {
+      "index": 87,
+      "slideKey": "em-l02-refined-mapping-p047",
+      "lesson": 2,
+      "localIndex": 47,
+      "title": "证明成立，还要检查能否报价",
+      "layout": "split",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 88,
+      "slideKey": "em-l02-refined-mapping-p048",
+      "lesson": 2,
+      "localIndex": 48,
+      "title": "售价已最优，扩容还能增加利润吗？",
+      "layout": "split",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 89,
+      "slideKey": "em-l02-refined-mapping-p049",
+      "lesson": 2,
+      "localIndex": 49,
+      "title": "容量变500，分界为什么变70？",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "重新求需求与能力相等的位置",
+        "重新定义销量函数"
+      ]
+    },
+    {
+      "index": 90,
+      "slideKey": "em-l02-refined-mapping-p050",
+      "lesson": 2,
+      "localIndex": 50,
+      "title": "扩容后，利润函数怎样改变？",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 91,
+      "slideKey": "em-l02-refined-mapping-p051",
+      "lesson": 2,
+      "localIndex": 51,
+      "title": "同一顶点，现在进入合法分支",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "比较两段的最好结果",
+        "连续模型的全局最优"
+      ]
+    },
+    {
+      "index": 92,
+      "slideKey": "em-l02-refined-mapping-p052",
+      "lesson": 2,
+      "localIndex": 52,
+      "title": "71.11元不能报价，比较哪两个点？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 93,
+      "slideKey": "em-l02-refined-mapping-p053",
+      "lesson": 2,
+      "localIndex": 53,
+      "title": "多赚711元，扩容成本却是1,000元",
+      "layout": "table",
+      "style": "constructivist",
+      "steps": 1,
+      "revealTitles": [
+        "项目比较与方案内部排序不同"
+      ]
+    },
+    {
+      "index": 94,
+      "slideKey": "em-l02-refined-mapping-p054",
+      "lesson": 2,
+      "localIndex": 54,
+      "title": "同一模型，核对扩容前后的账",
+      "layout": "lab",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "interactionId": "price-profit-lab"
+    },
+    {
+      "index": 95,
+      "slideKey": "em-l02-refined-mapping-p055",
+      "lesson": 2,
+      "localIndex": 55,
+      "title": "综合练习：另一商品的定价",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 96,
+      "slideKey": "em-l02-refined-mapping-p056",
+      "lesson": 2,
+      "localIndex": 56,
+      "title": "先核对可行集与逆向判断",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "全部履约要求需求不超过320",
+        "320件目标对应多个价格"
+      ]
+    },
+    {
+      "index": 97,
+      "slideKey": "em-l02-refined-mapping-p057",
+      "lesson": 2,
+      "localIndex": 57,
+      "title": "利润算对，还要说明比较范围",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "本次计算支持的结论"
+      ]
+    },
+    {
+      "index": 98,
+      "slideKey": "em-l02-refined-mapping-p058",
+      "lesson": 2,
+      "localIndex": 58,
+      "title": "定价报告，还缺哪些经营证据？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 99,
+      "slideKey": "em-l02-refined-mapping-p059",
+      "lesson": 2,
+      "localIndex": 59,
+      "title": "函数的条件，也是决策的条件",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 100,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p001",
+      "lesson": 3,
+      "localIndex": 1,
+      "title": "分母不能是零，导数怎样得到？",
+      "layout": "cover",
+      "style": "cover",
+      "image": "v2/l03-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 101,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p002",
+      "lesson": 3,
+      "localIndex": 2,
+      "title": "80元最优，左右各动一次呢？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 102,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p003",
+      "lesson": 3,
+      "localIndex": 3,
+      "title": "同样五角，两边的损失并不相同",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 103,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p004",
+      "lesson": 3,
+      "localIndex": 4,
+      "title": "用增量之比比较两次变化",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "两个方向，两个比值"
+      ]
+    },
+    {
+      "index": 104,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p005",
+      "lesson": 3,
+      "localIndex": 5,
+      "title": "五角报价，能研究一分钱的变化吗？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 105,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p006",
+      "lesson": 3,
+      "localIndex": 6,
+      "title": "高中导数公式里，究竟在做什么？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 106,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p007",
+      "lesson": 3,
+      "localIndex": 7,
+      "title": "一个固定的小数，够小了吗？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 107,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p008",
+      "lesson": 3,
+      "localIndex": 8,
+      "title": "把疑问放进一个能算清的函数",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 108,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p009",
+      "lesson": 3,
+      "localIndex": 9,
+      "title": "新增面积里，多出的那一块",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 109,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p010",
+      "lesson": 3,
+      "localIndex": 10,
+      "title": "约去非零增量，等式没有近似",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 110,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p011",
+      "lesson": 3,
+      "localIndex": 11,
+      "title": "小组辨析：约分以前，先保留哪个条件？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 111,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p012",
+      "lesson": 3,
+      "localIndex": 12,
+      "title": "同一条线，输入0处的身份不同",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 112,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p013",
+      "lesson": 3,
+      "localIndex": 13,
+      "title": "这道除法，曾经牵动微积分的基础",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 113,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p014",
+      "lesson": 3,
+      "localIndex": 14,
+      "title": "微积分基础之争",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "historyFilm": true
+    },
+    {
+      "index": 114,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p015",
+      "lesson": 3,
+      "localIndex": 15,
+      "title": "贝克莱追问：同一个增量，换了身份吗？",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 115,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p016",
+      "lesson": 3,
+      "localIndex": 16,
+      "title": "牛顿的区分：比值的极限，还是最终量的比值？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 116,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p017",
+      "lesson": 3,
+      "localIndex": 17,
+      "title": "先沿一串非零增量走向零",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 117,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p018",
+      "lesson": 3,
+      "localIndex": 18,
+      "title": "数列：定义在正整数集上的函数",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 118,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p019",
+      "lesson": 3,
+      "localIndex": 19,
+      "title": "小组辨析：序号不同，数值能否相同？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 119,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p020",
+      "lesson": 3,
+      "localIndex": 20,
+      "title": "没有最后一项，怎样谈整体的行为？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 120,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p021",
+      "lesson": 3,
+      "localIndex": 21,
+      "title": "潜无穷与实无穷：过程和整体",
+      "layout": "compare",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 121,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p022",
+      "lesson": 3,
+      "localIndex": 22,
+      "title": "趋向无穷，不是走到一个叫“无穷”的数",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 122,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p023",
+      "lesson": 3,
+      "localIndex": 23,
+      "title": "小组辨析：编号越走越大，会走到哪里？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 123,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p024",
+      "lesson": 3,
+      "localIndex": 24,
+      "title": "离2的距离，才是要追踪的量",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 124,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p025",
+      "lesson": 3,
+      "localIndex": 25,
+      "title": "误差带：从哪一项起全部进入？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 125,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p026",
+      "lesson": 3,
+      "localIndex": 26,
+      "title": "严格小于0.02，最早从第51项开始",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 126,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p027",
+      "lesson": 3,
+      "localIndex": 27,
+      "title": "小组辨析：边界上的项，算不算通过？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：B"
+      ]
+    },
+    {
+      "index": 127,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p028",
+      "lesson": 3,
+      "localIndex": 28,
+      "title": "ε：误差要求可以继续缩小",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 128,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p029",
+      "lesson": 3,
+      "localIndex": 29,
+      "title": "先定误差，再选一个整数门槛",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 129,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p030",
+      "lesson": 3,
+      "localIndex": 30,
+      "title": "“任意—存在—所有”，各在说什么？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 130,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p031",
+      "lesson": 3,
+      "localIndex": 31,
+      "title": "数列收敛的ε–N定义",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 131,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p032",
+      "lesson": 3,
+      "localIndex": 32,
+      "title": "小组辨析：谁先提出要求，谁后给出保证？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：D"
+      ]
+    },
+    {
+      "index": 132,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p033",
+      "lesson": 3,
+      "localIndex": 33,
+      "title": "一个固定的误差带，不够证明收敛",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 133,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p034",
+      "lesson": 3,
+      "localIndex": 34,
+      "title": "上下交替，也可以收敛",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 134,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p035",
+      "lesson": 3,
+      "localIndex": 35,
+      "title": "可以永远不等于极限，也可以一直等于极限",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 135,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p036",
+      "lesson": 3,
+      "localIndex": 36,
+      "title": "小组辨析：方向会变，误差可以越来越小",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 136,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p037",
+      "lesson": 3,
+      "localIndex": 37,
+      "title": "继续放大：观察误差，不把小数读成零",
+      "layout": "lab",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "limitLab": "sequence-zoom"
+    },
+    {
+      "index": 137,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p038",
+      "lesson": 3,
+      "localIndex": 38,
+      "title": "小组辨析：图上看见的，能保证图外的吗？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：B"
+      ]
+    },
+    {
+      "index": 138,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p039",
+      "lesson": 3,
+      "localIndex": 39,
+      "title": "否定极限，不能只挑一个早期失误",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 139,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p040",
+      "lesson": 3,
+      "localIndex": 40,
+      "title": "不收敛于A：一次固定挑战，任意晚的反例",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 140,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p041",
+      "lesson": 3,
+      "localIndex": 41,
+      "title": "小组辨析：一次固定挑战，任意晚仍失败",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：A"
+      ]
+    },
+    {
+      "index": 141,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p042",
+      "lesson": 3,
+      "localIndex": 42,
+      "title": "一个很接近的错误候选值，也能被排除",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 142,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p043",
+      "lesson": 3,
+      "localIndex": 43,
+      "title": "收敛与发散，先限定在实数极限中",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 143,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p044",
+      "lesson": 3,
+      "localIndex": 44,
+      "title": "有界却发散：两个位置始终交替出现",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 144,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p045",
+      "lesson": 3,
+      "localIndex": 45,
+      "title": "向上与向下：正无穷、负无穷",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 145,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p046",
+      "lesson": 3,
+      "localIndex": 46,
+      "title": "无穷的门槛保证：仍然要求所有尾项",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 146,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p047",
+      "lesson": 3,
+      "localIndex": 47,
+      "title": "幅度越来越大，仍可能没有正负方向",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 147,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p048",
+      "lesson": 3,
+      "localIndex": 48,
+      "title": "小组辨析：越来越大，说的是方向还是幅度？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：D"
+      ]
+    },
+    {
+      "index": 148,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p049",
+      "lesson": 3,
+      "localIndex": 49,
+      "title": "同一商家扩容：目标500，如何逐周接近？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 149,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p050",
+      "lesson": 3,
+      "localIndex": 50,
+      "title": "“剩余差距的20%”怎样写成递推？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 150,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p051",
+      "lesson": 3,
+      "localIndex": 51,
+      "title": "把能力问题改写成剩余缺口",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 151,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p052",
+      "lesson": 3,
+      "localIndex": 52,
+      "title": "增加且有上界，但上界不自动就是极限",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 152,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p053",
+      "lesson": 3,
+      "localIndex": 53,
+      "title": "小组辨析：有一个上界，就找到了极限吗？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：A"
+      ]
+    },
+    {
+      "index": 153,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p054",
+      "lesson": 3,
+      "localIndex": 54,
+      "title": "从数列回到函数：刚才只走了一条路",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 154,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p055",
+      "lesson": 3,
+      "localIndex": 55,
+      "title": "一条路径全通过，其他路径仍可能失败",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 155,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p056",
+      "lesson": 3,
+      "localIndex": 56,
+      "title": "小组辨析：一条路通过，其他路呢？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：D",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 156,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p057",
+      "lesson": 3,
+      "localIndex": 57,
+      "title": "函数保证：把“编号以后”换成“距离以内”",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 157,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p058",
+      "lesson": 3,
+      "localIndex": 58,
+      "title": "为什么排除h=0？输入范围怎样确定？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 158,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p059",
+      "lesson": 3,
+      "localIndex": 59,
+      "title": "函数极限的ε–δ定义",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 159,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p060",
+      "lesson": 3,
+      "localIndex": 60,
+      "title": "小组辨析：一段范围，要覆盖所有检验点",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 160,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p061",
+      "lesson": 3,
+      "localIndex": 61,
+      "title": "同一顺序：先要求，再保证，最后任意检验",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 161,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p062",
+      "lesson": 3,
+      "localIndex": 62,
+      "title": "放大函数误差：范围变小，规则仍可检验",
+      "layout": "lab",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "limitLab": "error-band"
+    },
+    {
+      "index": 162,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p063",
+      "lesson": 3,
+      "localIndex": 63,
+      "title": "目标点补值，不改变附近的极限",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 163,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p064",
+      "lesson": 3,
+      "localIndex": 64,
+      "title": "小组辨析：改动一个点，附近的规则变了吗？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 164,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p065",
+      "lesson": 3,
+      "localIndex": 65,
+      "title": "回到商家：80元两侧，究竟哪一个对象趋近？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 165,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p066",
+      "lesson": 3,
+      "localIndex": 66,
+      "title": "从有限五角调价，走向全部足够小的变化",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 166,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p067",
+      "lesson": 3,
+      "localIndex": 67,
+      "title": "最优价格，导数一定等于零吗？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 167,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p068",
+      "lesson": 3,
+      "localIndex": 68,
+      "title": "拓展 · 两种解释，哪一步有缺口？",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 168,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p069",
+      "lesson": 3,
+      "localIndex": 69,
+      "title": "拓展 · 基础判断：先把三件事分清",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 169,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p070",
+      "lesson": 3,
+      "localIndex": 70,
+      "title": "拓展 · 反馈：同一个误差，解决三个判断",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 3,
+      "revealTitles": [
+        "收敛不要求取到2",
+        "边界不算通过",
+        "上下交替不妨碍距离缩小"
+      ]
+    },
+    {
+      "index": 170,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p071",
+      "lesson": 3,
+      "localIndex": 71,
+      "title": "拓展 · 巩固证明：把数字改成任意ε",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 171,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p072",
+      "lesson": 3,
+      "localIndex": 72,
+      "title": "拓展 · 反馈：门槛不是答案猜测，而是覆盖规则",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 3,
+      "revealTitles": [
+        "具体要求",
+        "任意要求",
+        "更晚的门槛仍有效"
+      ]
+    },
+    {
+      "index": 172,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p073",
+      "lesson": 3,
+      "localIndex": 73,
+      "title": "拓展 · 放大错误候选：越走远，反而越出带",
+      "layout": "lab",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "limitLab": "sequence-zoom"
+    },
+    {
+      "index": 173,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p074",
+      "lesson": 3,
+      "localIndex": 74,
+      "title": "拓展 · 深入追问：把错误候选彻底排除",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 174,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p075",
+      "lesson": 3,
+      "localIndex": 75,
+      "title": "拓展 · 反馈：任意晚仍会失败，但数列并未发散",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 3,
+      "revealTitles": [
+        "门槛之后再选项",
+        "同一个误差对每个门槛有效",
+        "结论的范围"
+      ]
+    },
+    {
+      "index": 175,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p076",
+      "lesson": 3,
+      "localIndex": 76,
+      "title": "拓展 · 基础分类：别把三种行为混在一起",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 176,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p077",
+      "lesson": 3,
+      "localIndex": 77,
+      "title": "拓展 · 反馈：方向、幅度与界限分别回答不同问题",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 177,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p078",
+      "lesson": 3,
+      "localIndex": 78,
+      "title": "拓展 · 用同一ε–N规则证明能力趋于500",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "把误差要求解成编号要求",
+        "选整数门槛，覆盖所有以后周数"
+      ]
+    },
+    {
+      "index": 178,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p079",
+      "lesson": 3,
+      "localIndex": 79,
+      "title": "拓展 · 经济决策：第8周，能承诺每天490件吗？",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 179,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p080",
+      "lesson": 3,
+      "localIndex": 80,
+      "title": "拓展 · 反馈：第11周达标，不等于能力已达500",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 3,
+      "revealTitles": [
+        "核对三个关键周数",
+        "不等式方向与整数周数",
+        "有限周仍留下正差距"
+      ]
+    },
+    {
+      "index": 180,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p081",
+      "lesson": 3,
+      "localIndex": 81,
+      "title": "拓展 · 再收紧履约目标：要等多久，留多少余量？",
+      "layout": "lab",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "interactionId": "sequence-limit-lab",
+      "limitLab": "capacity"
+    },
+    {
+      "index": 181,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p082",
+      "lesson": 3,
+      "localIndex": 82,
+      "title": "拓展 · 能力路径成立，经营承诺仍需要别的条件",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 182,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p083",
+      "lesson": 3,
+      "localIndex": 83,
+      "title": "拓展 · 完整证明：平方函数差商的极限是2",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "对范围内所有输入检验",
+        "结论保留原分式的条件"
+      ]
+    },
+    {
+      "index": 183,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p084",
+      "lesson": 3,
+      "localIndex": 84,
+      "title": "拓展 · 巩固：哪些δ能覆盖所有输入？",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 184,
+      "slideKey": "em-l03-limits-reinforcement-20261013-p085",
+      "lesson": 3,
+      "localIndex": 85,
+      "title": "拓展 · 反馈：更小可以，更大须重新检验",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 3,
+      "revealTitles": [
+        "两个有效范围",
+        "一个范围内的反例",
+        "一条路径不是全部附近输入"
+      ]
+    },
+    {
+      "index": 185,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p001",
+      "lesson": 4,
+      "localIndex": 1,
+      "title": "同一个最优点，两种极限问题",
+      "layout": "cover",
+      "style": "cover",
+      "image": "v2/l04-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 186,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p002",
+      "lesson": 4,
+      "localIndex": 2,
+      "title": "利润与差商，是不同的数学对象",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 187,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p003",
+      "lesson": 4,
+      "localIndex": 3,
+      "title": "固定80元，让新价格从两边靠近",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 188,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p004",
+      "lesson": 4,
+      "localIndex": 4,
+      "title": "只从一侧靠近：左右极限",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 189,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p005",
+      "lesson": 4,
+      "localIndex": 5,
+      "title": "小组辨析：左右，是输入的左右",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：A",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 190,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p006",
+      "lesson": 4,
+      "localIndex": 6,
+      "title": "80元左侧：利润在升，差商固定为360",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "差商是精确常数",
+        "左侧误差保证"
+      ]
+    },
+    {
+      "index": 191,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p007",
+      "lesson": 4,
+      "localIndex": 7,
+      "title": "80元右侧：差商靠近−160",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "右侧差商与误差",
+        "一项δ同时保住分段与精度"
+      ]
+    },
+    {
+      "index": 192,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p008",
+      "lesson": 4,
+      "localIndex": 8,
+      "title": "左右极限都存在，却不相等",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 193,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p009",
+      "lesson": 4,
+      "localIndex": 9,
+      "title": "两侧拼起来，何时得到函数极限？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "相同目标，用较小范围同时保证"
+      ]
+    },
+    {
+      "index": 194,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p010",
+      "lesson": 4,
+      "localIndex": 10,
+      "title": "小组辨析：两侧各自存在，还差什么？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：D",
+        "第2题：B"
+      ]
+    },
+    {
+      "index": 195,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p011",
+      "lesson": 4,
+      "localIndex": 11,
+      "title": "利润没有跳跃，差商却分成两边",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 196,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p012",
+      "lesson": 4,
+      "localIndex": 12,
+      "title": "高中导数，正是非零差商的极限",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "回忆一个能算清的导数"
+      ]
+    },
+    {
+      "index": 197,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p013",
+      "lesson": 4,
+      "localIndex": 13,
+      "title": "小组辨析：先有差商极限，再有导数",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：A",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 198,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p014",
+      "lesson": 4,
+      "localIndex": 14,
+      "title": "局部最大，比较的是附近函数值",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 199,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p015",
+      "lesson": 4,
+      "localIndex": 15,
+      "title": "都有局部最大，差商却有不同结果",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 200,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p016",
+      "lesson": 4,
+      "localIndex": 16,
+      "title": "导数为零，是有前提的必要条件",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "以局部最大为例，左右给出相反限制"
+      ]
+    },
+    {
+      "index": 201,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p017",
+      "lesson": 4,
+      "localIndex": 17,
+      "title": "端点和报价网格，也不能套同一句话",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 202,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p018",
+      "lesson": 4,
+      "localIndex": 18,
+      "title": "小组辨析：三个前提，少一个会怎样？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：D",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 203,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p019",
+      "lesson": 4,
+      "localIndex": 19,
+      "title": "采购门槛：先把全量折扣的规则读清",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 204,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p020",
+      "lesson": 4,
+      "localIndex": 20,
+      "title": "极限跳差1000元，实际少付980元",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 205,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p021",
+      "lesson": 4,
+      "localIndex": 21,
+      "title": "分段写法，不决定极限是否存在",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 206,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p022",
+      "lesson": 4,
+      "localIndex": 22,
+      "title": "小组辨析：分段写法，能直接决定极限吗？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 207,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p023",
+      "lesson": 4,
+      "localIndex": 23,
+      "title": "组合成本，能否分别取极限再相加？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 208,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p024",
+      "lesson": 4,
+      "localIndex": 24,
+      "title": "有限极限的四则法则，先看条件",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 209,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p025",
+      "lesson": 4,
+      "localIndex": 25,
+      "title": "商法则为什么要求分母极限非零？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 210,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p026",
+      "lesson": 4,
+      "localIndex": 26,
+      "title": "小组辨析：法则怎么用，何时不能直接用？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：D"
+      ]
+    },
+    {
+      "index": 211,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p027",
+      "lesson": 4,
+      "localIndex": 27,
+      "title": "法则能正着用，不表示反过来也成立",
+      "layout": "essay",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 212,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p028",
+      "lesson": 4,
+      "localIndex": 28,
+      "title": "0/0不是一个可计算的数",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 213,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p029",
+      "lesson": 4,
+      "localIndex": 29,
+      "title": "小组辨析：形式相同，结果就相同吗？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：D",
+        "第2题：A"
+      ]
+    },
+    {
+      "index": 214,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p030",
+      "lesson": 4,
+      "localIndex": 30,
+      "title": "目标点以外相等，极限就能比较",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "保持原式在目标点无定义"
+      ]
+    },
+    {
+      "index": 215,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p031",
+      "lesson": 4,
+      "localIndex": 31,
+      "title": "同一种依据，处理立方差",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "变形以后，再用有限极限法则"
+      ]
+    },
+    {
+      "index": 216,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p032",
+      "lesson": 4,
+      "localIndex": 32,
+      "title": "小组辨析：目标点不能代入，附近可以化简",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 217,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p033",
+      "lesson": 4,
+      "localIndex": 33,
+      "title": "根式差不能直接约，怎样保留精确等式？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 218,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p034",
+      "lesson": 4,
+      "localIndex": 34,
+      "title": "不偷用结论，先证明根式的趋近",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "由误差保证根式趋于1",
+        "现在分母极限非零，才用商法则"
+      ]
+    },
+    {
+      "index": 219,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p035",
+      "lesson": 4,
+      "localIndex": 35,
+      "title": "小组辨析：乘一个共轭式，保住什么条件？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：D"
+      ]
+    },
+    {
+      "index": 220,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p036",
+      "lesson": 4,
+      "localIndex": 36,
+      "title": "500件附近，与规模越来越大，是两种问题",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 221,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p037",
+      "lesson": 4,
+      "localIndex": 37,
+      "title": "总成本之外，商家还关心每件成本",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 222,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p038",
+      "lesson": 4,
+      "localIndex": 38,
+      "title": "平均成本：本批总款除以本批数量",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 223,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p039",
+      "lesson": 4,
+      "localIndex": 39,
+      "title": "数量增加，18元仍未成为实际平均成本",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 224,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p040",
+      "lesson": 4,
+      "localIndex": 40,
+      "title": "另设理想延伸，再研究无限规模",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 225,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p041",
+      "lesson": 4,
+      "localIndex": 41,
+      "title": "小组辨析：没有大输入，能谈无限规模吗？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 226,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p042",
+      "lesson": 4,
+      "localIndex": 42,
+      "title": "由整数尾部，推广到所有充分大的实数输入",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 227,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p043",
+      "lesson": 4,
+      "localIndex": 43,
+      "title": "小组辨析：输入很大，输出一定很大吗？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：A"
+      ]
+    },
+    {
+      "index": 228,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p044",
+      "lesson": 4,
+      "localIndex": 44,
+      "title": "经济判断：0.1元误差，实际合同能兑现吗？",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 229,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p045",
+      "lesson": 4,
+      "localIndex": 45,
+      "title": "输出趋于无穷：高度要求，输入距离来保证",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 230,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p046",
+      "lesson": 4,
+      "localIndex": 46,
+      "title": "1/x²两侧向上，1/x两侧却相反",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 231,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p047",
+      "lesson": 4,
+      "localIndex": 47,
+      "title": "小组辨析：两边都变大，方向相同吗？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：D"
+      ]
+    },
+    {
+      "index": 232,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p048",
+      "lesson": 4,
+      "localIndex": 48,
+      "title": "现代无穷小，是一个趋零过程",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 233,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p049",
+      "lesson": 4,
+      "localIndex": 49,
+      "title": "一项变大，一项变小，乘积仍需计算",
+      "layout": "essay",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 234,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p050",
+      "lesson": 4,
+      "localIndex": 50,
+      "title": "振荡没有消失，影响却可以被压小",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 235,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p051",
+      "lesson": 4,
+      "localIndex": 51,
+      "title": "夹逼：给所有输入同一组上下界",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "直接写出完整误差保证",
+        "无需给振荡因子填一个假极限"
+      ]
+    },
+    {
+      "index": 236,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p052",
+      "lesson": 4,
+      "localIndex": 52,
+      "title": "小组辨析：上下夹住，就一定找到极限吗？",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：A",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 237,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p053",
+      "lesson": 4,
+      "localIndex": 53,
+      "title": "另一份报价：单位便宜，固定费用更高",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 238,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p054",
+      "lesson": 4,
+      "localIndex": 54,
+      "title": "两份合同，在同一批量上比较",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 239,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p055",
+      "lesson": 4,
+      "localIndex": 55,
+      "title": "小组辨析：比较两个数，先固定同一个输入",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 240,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p056",
+      "lesson": 4,
+      "localIndex": 56,
+      "title": "一条公式，换了过程就换了问题",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 241,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p057",
+      "lesson": 4,
+      "localIndex": 57,
+      "title": "下一问：三角函数的极限，依据在哪里？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 242,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p058",
+      "lesson": 4,
+      "localIndex": 58,
+      "title": "拓展 · 采购满500件，整批都按新单价计费",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 243,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p059",
+      "lesson": 4,
+      "localIndex": 59,
+      "title": "拓展 · 和法则：把总误差拆成两项",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "分别分配误差预算",
+        "同一输入范围同时通过"
+      ]
+    },
+    {
+      "index": 244,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p060",
+      "lesson": 4,
+      "localIndex": 60,
+      "title": "拓展 · 基础计算：变形以前，先核对条件",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 245,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p061",
+      "lesson": 4,
+      "localIndex": 61,
+      "title": "拓展 · 反馈：0/0提示继续研究，不给出答案",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 3,
+      "revealTitles": [
+        "平方差约分",
+        "根式差有理化",
+        "分母极限为零时，不能套商法则"
+      ]
+    },
+    {
+      "index": 246,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p062",
+      "lesson": 4,
+      "localIndex": 62,
+      "title": "拓展 · 参数与补值，分别会改变什么？",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 247,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p063",
+      "lesson": 4,
+      "localIndex": 63,
+      "title": "拓展 · 参数a改变尺度，a=0也在答案里",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "先守住附近定义域",
+        "误差界与商法则"
+      ]
+    },
+    {
+      "index": 248,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p064",
+      "lesson": 4,
+      "localIndex": 64,
+      "title": "拓展 · 改变c，只改变目标点的取值",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 249,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p065",
+      "lesson": 4,
+      "localIndex": 65,
+      "title": "拓展 · 对理想平均成本，给一个完整保证",
+      "layout": "proof",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "所有超过门槛的输入都通过",
+        "结论属于另设的理想函数"
+      ]
+    },
+    {
+      "index": 250,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p066",
+      "lesson": 4,
+      "localIndex": 66,
+      "title": "拓展 · 比值看主导项，先让尺度相同",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "在大规模输入下核对商法则"
+      ]
+    },
+    {
+      "index": 251,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p067",
+      "lesson": 4,
+      "localIndex": 67,
+      "title": "拓展 · 同样“都增大”，比值可以完全不同",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 252,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p068",
+      "lesson": 4,
+      "localIndex": 68,
+      "title": "拓展 · 同样“都趋零”，也不能给商定值",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 253,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p069",
+      "lesson": 4,
+      "localIndex": 69,
+      "title": "拓展 · 给1500件采购，写一份带条件的建议",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 254,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p070",
+      "lesson": 4,
+      "localIndex": 70,
+      "title": "拓展 · 分界是2000件，依据来自真实成本差",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 255,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p071",
+      "lesson": 4,
+      "localIndex": 71,
+      "title": "拓展 · 本批1500件选A；一万件时B更便宜",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 256,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p072",
+      "lesson": 4,
+      "localIndex": 72,
+      "title": "拓展 · 选供应商，与决定买多少，是两层决策",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "把一个实际约束写进费用",
+        "扩大决策范围需补资料"
+      ]
+    },
+    {
+      "index": 257,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p073",
+      "lesson": 4,
+      "localIndex": 73,
+      "title": "拓展 · 90元附近，两侧差商终于靠近同一值",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "完整保证同时处理两侧",
+        "有限实数极限，才称导数"
+      ]
+    },
+    {
+      "index": 258,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p074",
+      "lesson": 4,
+      "localIndex": 74,
+      "title": "拓展 · 导数给局部反应，五角调价仍要算实际值",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 259,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p075",
+      "lesson": 4,
+      "localIndex": 75,
+      "title": "拓展 · 离开教室前，解释清楚这一次除法",
+      "layout": "exercise",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 260,
+      "slideKey": "em-l04-limits-reinforcement-20261013-p076",
+      "lesson": 4,
+      "localIndex": 76,
+      "title": "拓展 · 导数为零，还不能把“最优”证完",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 261,
+      "slideKey": "em-v2-l05-p001",
+      "lesson": 5,
+      "localIndex": 1,
+      "title": "微小转角的测量",
+      "layout": "story",
+      "image": "l05-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 262,
+      "slideKey": "em-v2-l05-p002",
+      "lesson": 5,
+      "localIndex": 2,
+      "title": "数值只是线索",
+      "layout": "table",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 263,
+      "slideKey": "em-v2-l05-p003",
+      "lesson": 5,
+      "localIndex": 3,
+      "title": "零附近的比值",
+      "layout": "plot",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 264,
+      "slideKey": "em-v2-l05-p004",
+      "lesson": 5,
+      "localIndex": 4,
+      "title": "三个面积的比较",
+      "layout": "plot",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 265,
+      "slideKey": "em-v2-l05-p005",
+      "lesson": 5,
+      "localIndex": 5,
+      "title": "把比值夹在两端之间",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "从右式得到下界",
+        "从左式得到上界",
+        "两端趋于1"
+      ]
+    },
+    {
+      "index": 266,
+      "slideKey": "em-v2-l05-p006",
+      "lesson": 5,
+      "localIndex": 6,
+      "title": "负侧与角度单位",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 267,
+      "slideKey": "em-v2-l05-p007",
+      "lesson": 5,
+      "localIndex": 7,
+      "title": "局部近似的含义",
+      "layout": "essay",
+      "image": "l05-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 268,
+      "slideKey": "em-v2-l05-p008",
+      "lesson": 5,
+      "localIndex": 8,
+      "title": "正弦极限的变式",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "补出内层",
+        "内层趋于零",
+        "极限"
+      ]
+    },
+    {
+      "index": 269,
+      "slideKey": "em-v2-l05-p009",
+      "lesson": 5,
+      "localIndex": 9,
+      "title": "复利与第二重要极限",
+      "layout": "split",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 270,
+      "slideKey": "em-v2-l05-p010",
+      "lesson": 5,
+      "localIndex": 10,
+      "title": "指数结构的换形",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "内层变量",
+        "标准结构",
+        "极限"
+      ]
+    },
+    {
+      "index": 271,
+      "slideKey": "em-v2-l05-p011",
+      "lesson": 5,
+      "localIndex": 11,
+      "title": "常用等价关系",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 272,
+      "slideKey": "em-v2-l05-p012",
+      "lesson": 5,
+      "localIndex": 12,
+      "title": "相减后的一阶项抵消",
+      "layout": "proof",
+      "style": "constructivist",
+      "steps": 2,
+      "revealTitles": [
+        "直接替换的后果",
+        "高阶反例"
+      ]
+    },
+    {
+      "index": 273,
+      "slideKey": "em-v2-l05-p013",
+      "lesson": 5,
+      "localIndex": 13,
+      "title": "独立计算",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "同趋近点",
+        "比值极限"
+      ]
+    },
+    {
+      "index": 274,
+      "slideKey": "em-v2-l05-p014",
+      "lesson": 5,
+      "localIndex": 14,
+      "title": "估计微小转角误差",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "真实值",
+        "相对误差",
+        "含义"
+      ]
+    },
+    {
+      "index": 275,
+      "slideKey": "em-v2-l05-p015",
+      "lesson": 5,
+      "localIndex": 15,
+      "title": "连续还要检查函数值",
+      "layout": "split",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 276,
+      "slideKey": "em-v2-l06-p001",
+      "lesson": 6,
+      "localIndex": 1,
+      "title": "差一分钱的订单",
+      "layout": "story",
+      "image": "l06-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 277,
+      "slideKey": "em-v2-l06-p002",
+      "lesson": 6,
+      "localIndex": 2,
+      "title": "总支付函数",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "门槛两边",
+        "支付额变化"
+      ]
+    },
+    {
+      "index": 278,
+      "slideKey": "em-v2-l06-p003",
+      "lesson": 6,
+      "localIndex": 3,
+      "title": "门槛实验",
+      "layout": "lab",
+      "steps": 0,
+      "revealTitles": [],
+      "interactionId": "continuity-threshold-lab"
+    },
+    {
+      "index": 279,
+      "slideKey": "em-v2-l06-p004",
+      "lesson": 6,
+      "localIndex": 4,
+      "title": "连续的三个条件",
+      "layout": "essay",
+      "image": "l06-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 280,
+      "slideKey": "em-v2-l06-p005",
+      "lesson": 6,
+      "localIndex": 5,
+      "title": "门槛处的检查",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "左右极限",
+        "函数值",
+        "判断"
+      ]
+    },
+    {
+      "index": 281,
+      "slideKey": "em-v2-l06-p006",
+      "lesson": 6,
+      "localIndex": 6,
+      "title": "三种断开方式",
+      "layout": "compare",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 282,
+      "slideKey": "em-v2-l06-p007",
+      "lesson": 6,
+      "localIndex": 7,
+      "title": "用参数连接两段",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "连接值",
+        "参数",
+        "核对"
+      ]
+    },
+    {
+      "index": 283,
+      "slideKey": "em-v2-l06-p008",
+      "lesson": 6,
+      "localIndex": 8,
+      "title": "区间上的连续",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 284,
+      "slideKey": "em-v2-l06-p009",
+      "lesson": 6,
+      "localIndex": 9,
+      "title": "介值定理的运营解释",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "含义",
+        "边界"
+      ]
+    },
+    {
+      "index": 285,
+      "slideKey": "em-v2-l06-p010",
+      "lesson": 6,
+      "localIndex": 10,
+      "title": "独立练习：阶梯优惠",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "极限",
+        "支付额",
+        "判断"
+      ]
+    },
+    {
+      "index": 286,
+      "slideKey": "em-v2-l06-p011",
+      "lesson": 6,
+      "localIndex": 11,
+      "title": "连续性属于哪一个量？",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 287,
+      "slideKey": "em-v2-l07-p001",
+      "lesson": 7,
+      "localIndex": 1,
+      "title": "导数与微分",
+      "layout": "cover",
+      "style": "cover",
+      "image": "unit-03.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 288,
+      "slideKey": "em-v2-l07-p002",
+      "lesson": 7,
+      "localIndex": 2,
+      "title": "配送车经过的距离",
+      "layout": "story",
+      "image": "l07-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 289,
+      "slideKey": "em-v2-l07-p003",
+      "lesson": 7,
+      "localIndex": 3,
+      "title": "平均变化率",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "代入平方函数",
+        "取越来越短的区间",
+        "单位"
+      ]
+    },
+    {
+      "index": 290,
+      "slideKey": "em-v2-l07-p004",
+      "lesson": 7,
+      "localIndex": 4,
+      "title": "导数定义",
+      "layout": "essay",
+      "image": "l07-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 291,
+      "slideKey": "em-v2-l07-p005",
+      "lesson": 7,
+      "localIndex": 5,
+      "title": "利润的平均调价效应",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "从50元涨价h元",
+        "局部变化率",
+        "解释"
+      ]
+    },
+    {
+      "index": 292,
+      "slideKey": "em-v2-l07-p006",
+      "lesson": 7,
+      "localIndex": 6,
+      "title": "割线向切线靠近",
+      "layout": "lab",
+      "steps": 0,
+      "revealTitles": [],
+      "interactionId": "secant-tangent-lab"
+    },
+    {
+      "index": 293,
+      "slideKey": "em-v2-l07-p007",
+      "lesson": 7,
+      "localIndex": 7,
+      "title": "切线是局部模型",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "平方函数在1处",
+        "利润在50元处"
+      ]
+    },
+    {
+      "index": 294,
+      "slideKey": "em-v2-l07-p008",
+      "lesson": 7,
+      "localIndex": 8,
+      "title": "连续不保证可导",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 295,
+      "slideKey": "em-v2-l07-p009",
+      "lesson": 7,
+      "localIndex": 9,
+      "title": "可导一定连续",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "两个因子的极限",
+        "函数增量趋零"
+      ]
+    },
+    {
+      "index": 296,
+      "slideKey": "em-v2-l07-p010",
+      "lesson": 7,
+      "localIndex": 10,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "差商",
+        "导数与切线"
+      ]
+    },
+    {
+      "index": 297,
+      "slideKey": "em-v2-l07-p011",
+      "lesson": 7,
+      "localIndex": 11,
+      "title": "变化率的说明书",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 298,
+      "slideKey": "em-v2-l08-p001",
+      "lesson": 8,
+      "localIndex": 1,
+      "title": "生产线中的两种变化",
+      "layout": "story",
+      "image": "l08-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 299,
+      "slideKey": "em-v2-l08-p002",
+      "lesson": 8,
+      "localIndex": 2,
+      "title": "基本函数的变化规则",
+      "layout": "table",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 300,
+      "slideKey": "em-v2-l08-p003",
+      "lesson": 8,
+      "localIndex": 3,
+      "title": "从部件构成整体",
+      "layout": "essay",
+      "image": "l08-concept.png",
+      "steps": 1,
+      "revealTitles": [
+        "结果"
+      ]
+    },
+    {
+      "index": 301,
+      "slideKey": "em-v2-l08-p004",
+      "lesson": 8,
+      "localIndex": 4,
+      "title": "乘积法则",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "例题",
+        "整理",
+        "经济解释"
+      ]
+    },
+    {
+      "index": 302,
+      "slideKey": "em-v2-l08-p005",
+      "lesson": 8,
+      "localIndex": 5,
+      "title": "错误的乘积规则",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 303,
+      "slideKey": "em-v2-l08-p006",
+      "lesson": 8,
+      "localIndex": 6,
+      "title": "商法则",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "平均成本",
+        "两条求导路径",
+        "解释"
+      ]
+    },
+    {
+      "index": 304,
+      "slideKey": "em-v2-l08-p007",
+      "lesson": 8,
+      "localIndex": 7,
+      "title": "三角与指数函数",
+      "layout": "table",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 305,
+      "slideKey": "em-v2-l08-p008",
+      "lesson": 8,
+      "localIndex": 8,
+      "title": "完整例题",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "定义域",
+        "求导",
+        "核对"
+      ]
+    },
+    {
+      "index": 306,
+      "slideKey": "em-v2-l08-p009",
+      "lesson": 8,
+      "localIndex": 9,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "乘积",
+        "商"
+      ]
+    },
+    {
+      "index": 307,
+      "slideKey": "em-v2-l08-p010",
+      "lesson": 8,
+      "localIndex": 10,
+      "title": "先整理，再核验",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 308,
+      "slideKey": "em-v2-l09-p001",
+      "lesson": 9,
+      "localIndex": 1,
+      "title": "从曝光到收入",
+      "layout": "story",
+      "image": "l09-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 309,
+      "slideKey": "em-v2-l09-p002",
+      "lesson": 9,
+      "localIndex": 2,
+      "title": "变化经过中间变量",
+      "layout": "essay",
+      "image": "l09-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 310,
+      "slideKey": "em-v2-l09-p003",
+      "lesson": 9,
+      "localIndex": 3,
+      "title": "订阅模型的完整计算",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "内层",
+        "外层",
+        "合成"
+      ]
+    },
+    {
+      "index": 311,
+      "slideKey": "em-v2-l09-p004",
+      "lesson": 9,
+      "localIndex": 4,
+      "title": "一般链式法则",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "平方的内层",
+        "指数的内层"
+      ]
+    },
+    {
+      "index": 312,
+      "slideKey": "em-v2-l09-p005",
+      "lesson": 9,
+      "localIndex": 5,
+      "title": "根式与对数",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "根式",
+        "对数"
+      ]
+    },
+    {
+      "index": 313,
+      "slideKey": "em-v2-l09-p006",
+      "lesson": 9,
+      "localIndex": 6,
+      "title": "漏掉内层会怎样？",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 314,
+      "slideKey": "em-v2-l09-p007",
+      "lesson": 9,
+      "localIndex": 7,
+      "title": "隐函数也可沿链计算",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "对x求导",
+        "解导数",
+        "点(3,4)"
+      ]
+    },
+    {
+      "index": 315,
+      "slideKey": "em-v2-l09-p008",
+      "lesson": 9,
+      "localIndex": 8,
+      "title": "对数求导简化乘积",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "取对数",
+        "求导",
+        "还原"
+      ]
+    },
+    {
+      "index": 316,
+      "slideKey": "em-v2-l09-p009",
+      "lesson": 9,
+      "localIndex": 9,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "对数",
+        "指数"
+      ]
+    },
+    {
+      "index": 317,
+      "slideKey": "em-v2-l09-p010",
+      "lesson": 9,
+      "localIndex": 10,
+      "title": "迁移：获客成本",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "链式计算",
+        "代入"
+      ]
+    },
+    {
+      "index": 318,
+      "slideKey": "em-v2-l10-p001",
+      "lesson": 10,
+      "localIndex": 1,
+      "title": "骑手的速度记录",
+      "layout": "story",
+      "image": "l10-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 319,
+      "slideKey": "em-v2-l10-p002",
+      "lesson": 10,
+      "localIndex": 2,
+      "title": "位置、速度、加速度",
+      "layout": "essay",
+      "image": "l10-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 320,
+      "slideKey": "em-v2-l10-p003",
+      "lesson": 10,
+      "localIndex": 3,
+      "title": "完整求导与解释",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "速度",
+        "加速度",
+        "时段"
+      ]
+    },
+    {
+      "index": 321,
+      "slideKey": "em-v2-l10-p004",
+      "lesson": 10,
+      "localIndex": 4,
+      "title": "二阶导数与图形",
+      "layout": "plot",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 322,
+      "slideKey": "em-v2-l10-p005",
+      "lesson": 10,
+      "localIndex": 5,
+      "title": "二阶导数不等于函数值",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 323,
+      "slideKey": "em-v2-l10-p006",
+      "lesson": 10,
+      "localIndex": 6,
+      "title": "更高阶导数",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "前两阶",
+        "继续求导"
+      ]
+    },
+    {
+      "index": 324,
+      "slideKey": "em-v2-l10-p007",
+      "lesson": 10,
+      "localIndex": 7,
+      "title": "累计销售与销售速率",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "速率",
+        "速率变化",
+        "解释"
+      ]
+    },
+    {
+      "index": 325,
+      "slideKey": "em-v2-l10-p008",
+      "lesson": 10,
+      "localIndex": 8,
+      "title": "两项业务陈述",
+      "layout": "compare",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 326,
+      "slideKey": "em-v2-l10-p009",
+      "lesson": 10,
+      "localIndex": 9,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "指数",
+        "对数"
+      ]
+    },
+    {
+      "index": 327,
+      "slideKey": "em-v2-l10-p010",
+      "lesson": 10,
+      "localIndex": 10,
+      "title": "迁移：增长率报告",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "数值",
+        "结论"
+      ]
+    },
+    {
+      "index": 328,
+      "slideKey": "em-v2-l11-p001",
+      "lesson": 11,
+      "localIndex": 1,
+      "title": "定价旋钮转动一点",
+      "layout": "story",
+      "image": "l11-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 329,
+      "slideKey": "em-v2-l11-p002",
+      "lesson": 11,
+      "localIndex": 2,
+      "title": "切线替代附近曲线",
+      "layout": "essay",
+      "image": "l11-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 330,
+      "slideKey": "em-v2-l11-p003",
+      "lesson": 11,
+      "localIndex": 3,
+      "title": "一次调价的完整核算",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "微分",
+        "实际增量",
+        "估算误差"
+      ]
+    },
+    {
+      "index": 331,
+      "slideKey": "em-v2-l11-p004",
+      "lesson": 11,
+      "localIndex": 4,
+      "title": "误差实验",
+      "layout": "lab",
+      "steps": 0,
+      "revealTitles": [],
+      "interactionId": "linearization-error-lab"
+    },
+    {
+      "index": 332,
+      "slideKey": "em-v2-l11-p005",
+      "lesson": 11,
+      "localIndex": 5,
+      "title": "一般线性近似",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "平方根附近",
+        "适用条件"
+      ]
+    },
+    {
+      "index": 333,
+      "slideKey": "em-v2-l11-p006",
+      "lesson": 11,
+      "localIndex": 6,
+      "title": "绝对误差与相对误差",
+      "layout": "split",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 334,
+      "slideKey": "em-v2-l11-p007",
+      "lesson": 11,
+      "localIndex": 7,
+      "title": "微分的运算法则",
+      "layout": "table",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 335,
+      "slideKey": "em-v2-l11-p008",
+      "lesson": 11,
+      "localIndex": 8,
+      "title": "误差不能省略",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 1,
+      "revealTitles": [
+        "二次项"
+      ]
+    },
+    {
+      "index": 336,
+      "slideKey": "em-v2-l11-p009",
+      "lesson": 11,
+      "localIndex": 9,
+      "title": "独立练习：平方根",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "一次近似",
+        "方向"
+      ]
+    },
+    {
+      "index": 337,
+      "slideKey": "em-v2-l11-p010",
+      "lesson": 11,
+      "localIndex": 10,
+      "title": "迁移：相对变化",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "比例关系",
+        "近似结论"
+      ]
+    },
+    {
+      "index": 338,
+      "slideKey": "em-v2-l12-p001",
+      "lesson": 12,
+      "localIndex": 1,
+      "title": "导数应用、边际与弹性",
+      "layout": "cover",
+      "style": "cover",
+      "image": "unit-04.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 339,
+      "slideKey": "em-v2-l12-p002",
+      "lesson": 12,
+      "localIndex": 2,
+      "title": "一段行程的平均速度",
+      "layout": "story",
+      "image": "l12-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 340,
+      "slideKey": "em-v2-l12-p003",
+      "lesson": 12,
+      "localIndex": 3,
+      "title": "平均与瞬时的桥梁",
+      "layout": "essay",
+      "image": "l12-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 341,
+      "slideKey": "em-v2-l12-p004",
+      "lesson": 12,
+      "localIndex": 4,
+      "title": "罗尔定理的水平桥梁",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "条件",
+        "结论",
+        "例题"
+      ]
+    },
+    {
+      "index": 342,
+      "slideKey": "em-v2-l12-p005",
+      "lesson": 12,
+      "localIndex": 5,
+      "title": "拉格朗日定理的几何关系",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "两端相等",
+        "应用罗尔定理",
+        "还原"
+      ]
+    },
+    {
+      "index": 343,
+      "slideKey": "em-v2-l12-p006",
+      "lesson": 12,
+      "localIndex": 6,
+      "title": "完整例题：平方函数",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "平均斜率",
+        "找到c",
+        "核对位置"
+      ]
+    },
+    {
+      "index": 344,
+      "slideKey": "em-v2-l12-p007",
+      "lesson": 12,
+      "localIndex": 7,
+      "title": "变化幅度的上界",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "中值等式",
+        "上界"
+      ]
+    },
+    {
+      "index": 345,
+      "slideKey": "em-v2-l12-p008",
+      "lesson": 12,
+      "localIndex": 8,
+      "title": "不等式例题",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "对ln在[1,1+x]应用定理",
+        "夹出界限"
+      ]
+    },
+    {
+      "index": 346,
+      "slideKey": "em-v2-l12-p009",
+      "lesson": 12,
+      "localIndex": 9,
+      "title": "条件缺失的反例",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 1,
+      "revealTitles": [
+        "检查"
+      ]
+    },
+    {
+      "index": 347,
+      "slideKey": "em-v2-l12-p010",
+      "lesson": 12,
+      "localIndex": 10,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "条件",
+        "解c"
+      ]
+    },
+    {
+      "index": 348,
+      "slideKey": "em-v2-l12-p011",
+      "lesson": 12,
+      "localIndex": 11,
+      "title": "业务解释的边界",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 349,
+      "slideKey": "em-v2-l13-p001",
+      "lesson": 13,
+      "localIndex": 1,
+      "title": "两个变化同时趋零",
+      "layout": "story",
+      "image": "l13-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 350,
+      "slideKey": "em-v2-l13-p002",
+      "lesson": 13,
+      "localIndex": 2,
+      "title": "未定式需要比较速度",
+      "layout": "essay",
+      "image": "l13-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 351,
+      "slideKey": "em-v2-l13-p003",
+      "lesson": 13,
+      "localIndex": 3,
+      "title": "洛必达法则的条件",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 352,
+      "slideKey": "em-v2-l13-p004",
+      "lesson": 13,
+      "localIndex": 4,
+      "title": "完整例题：对数",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "核验",
+        "分别求导"
+      ]
+    },
+    {
+      "index": 353,
+      "slideKey": "em-v2-l13-p005",
+      "lesson": 13,
+      "localIndex": 5,
+      "title": "重复使用要重复核验",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "第一次",
+        "仍是0/0型"
+      ]
+    },
+    {
+      "index": 354,
+      "slideKey": "em-v2-l13-p006",
+      "lesson": 13,
+      "localIndex": 6,
+      "title": "乘积转换为商",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "重写",
+        "求导数商"
+      ]
+    },
+    {
+      "index": 355,
+      "slideKey": "em-v2-l13-p007",
+      "lesson": 13,
+      "localIndex": 7,
+      "title": "幂形式先取对数",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "对数",
+        "还原"
+      ]
+    },
+    {
+      "index": 356,
+      "slideKey": "em-v2-l13-p008",
+      "lesson": 13,
+      "localIndex": 8,
+      "title": "不能任意求导数商",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 1,
+      "revealTitles": [
+        "核验"
+      ]
+    },
+    {
+      "index": 357,
+      "slideKey": "em-v2-l13-p009",
+      "lesson": 13,
+      "localIndex": 9,
+      "title": "代数方法仍有优势",
+      "layout": "compare",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 358,
+      "slideKey": "em-v2-l13-p010",
+      "lesson": 13,
+      "localIndex": 10,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "第一次",
+        "第二次",
+        "第三次"
+      ]
+    },
+    {
+      "index": 359,
+      "slideKey": "em-v2-l13-p011",
+      "lesson": 13,
+      "localIndex": 11,
+      "title": "迁移：相对增量",
+      "layout": "exercise",
+      "steps": 1,
+      "revealTitles": [
+        "一致结果"
+      ]
+    },
+    {
+      "index": 360,
+      "slideKey": "em-v2-l14-p001",
+      "lesson": 14,
+      "localIndex": 1,
+      "title": "货架上的价格候选",
+      "layout": "story",
+      "image": "l14-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 361,
+      "slideKey": "em-v2-l14-p002",
+      "lesson": 14,
+      "localIndex": 2,
+      "title": "斜率决定升降",
+      "layout": "essay",
+      "image": "l14-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 362,
+      "slideKey": "em-v2-l14-p003",
+      "lesson": 14,
+      "localIndex": 3,
+      "title": "利润函数的符号表",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "驻点",
+        "两侧符号",
+        "最优值"
+      ]
+    },
+    {
+      "index": 363,
+      "slideKey": "em-v2-l14-p004",
+      "lesson": 14,
+      "localIndex": 4,
+      "title": "曲线证据",
+      "layout": "plot",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 364,
+      "slideKey": "em-v2-l14-p005",
+      "lesson": 14,
+      "localIndex": 5,
+      "title": "闭区间最值的路线",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 365,
+      "slideKey": "em-v2-l14-p006",
+      "lesson": 14,
+      "localIndex": 6,
+      "title": "二阶判别的条件",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "向上弯曲",
+        "向下弯曲",
+        "等于零"
+      ]
+    },
+    {
+      "index": 366,
+      "slideKey": "em-v2-l14-p007",
+      "lesson": 14,
+      "localIndex": 7,
+      "title": "驻点不一定是极值",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 367,
+      "slideKey": "em-v2-l14-p008",
+      "lesson": 14,
+      "localIndex": 8,
+      "title": "拐点看凹凸是否改变",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "二阶导数",
+        "符号改变",
+        "结论"
+      ]
+    },
+    {
+      "index": 368,
+      "slideKey": "em-v2-l14-p009",
+      "lesson": 14,
+      "localIndex": 9,
+      "title": "独立练习：可行区间",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "检查",
+        "最值"
+      ]
+    },
+    {
+      "index": 369,
+      "slideKey": "em-v2-l14-p010",
+      "lesson": 14,
+      "localIndex": 10,
+      "title": "迁移：产能约束",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "可行条件",
+        "新最优"
+      ]
+    },
+    {
+      "index": 370,
+      "slideKey": "em-v2-l15-p001",
+      "lesson": 15,
+      "localIndex": 1,
+      "title": "追加一件的订单",
+      "layout": "story",
+      "image": "l15-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 371,
+      "slideKey": "em-v2-l15-p002",
+      "lesson": 15,
+      "localIndex": 2,
+      "title": "边际量以销量为自变量",
+      "layout": "essay",
+      "image": "l15-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 372,
+      "slideKey": "em-v2-l15-p003",
+      "lesson": 15,
+      "localIndex": 3,
+      "title": "把价格写成销量函数",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "反需求",
+        "收入",
+        "边际收入"
+      ]
+    },
+    {
+      "index": 373,
+      "slideKey": "em-v2-l15-p004",
+      "lesson": 15,
+      "localIndex": 4,
+      "title": "降价销售影响全部销量",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "第一部分",
+        "第二部分",
+        "本例"
+      ]
+    },
+    {
+      "index": 374,
+      "slideKey": "em-v2-l15-p005",
+      "lesson": 15,
+      "localIndex": 5,
+      "title": "价格导数不是边际收入",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 375,
+      "slideKey": "em-v2-l15-p006",
+      "lesson": 15,
+      "localIndex": 6,
+      "title": "利润的完整最优推导",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "边际利润",
+        "驻点",
+        "充分检查"
+      ]
+    },
+    {
+      "index": 376,
+      "slideKey": "em-v2-l15-p007",
+      "lesson": 15,
+      "localIndex": 7,
+      "title": "平均成本与边际成本",
+      "layout": "split",
+      "steps": 1,
+      "revealTitles": [
+        "计算"
+      ]
+    },
+    {
+      "index": 377,
+      "slideKey": "em-v2-l15-p008",
+      "lesson": 15,
+      "localIndex": 8,
+      "title": "离散一件的核验",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "实际增量",
+        "导数估算",
+        "解释"
+      ]
+    },
+    {
+      "index": 378,
+      "slideKey": "em-v2-l15-p009",
+      "lesson": 15,
+      "localIndex": 9,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "边际关系",
+        "驻点与价格",
+        "检验与利润"
+      ]
+    },
+    {
+      "index": 379,
+      "slideKey": "em-v2-l15-p010",
+      "lesson": 15,
+      "localIndex": 10,
+      "title": "边际判断需要可行性",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 380,
+      "slideKey": "em-v2-l16-p001",
+      "lesson": 16,
+      "localIndex": 1,
+      "title": "两种服装消费群体",
+      "layout": "story",
+      "image": "l16-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 381,
+      "slideKey": "em-v2-l16-p002",
+      "lesson": 16,
+      "localIndex": 2,
+      "title": "比较相对变化",
+      "layout": "essay",
+      "image": "l16-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 382,
+      "slideKey": "em-v2-l16-p003",
+      "lesson": 16,
+      "localIndex": 3,
+      "title": "同一价格的比较",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "市场A",
+        "市场B",
+        "解释"
+      ]
+    },
+    {
+      "index": 383,
+      "slideKey": "em-v2-l16-p004",
+      "lesson": 16,
+      "localIndex": 4,
+      "title": "收入与弹性的连接",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "求导",
+        "三个区间"
+      ]
+    },
+    {
+      "index": 384,
+      "slideKey": "em-v2-l16-p005",
+      "lesson": 16,
+      "localIndex": 5,
+      "title": "收入驻点的价格",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "单位弹性",
+        "收入最大"
+      ]
+    },
+    {
+      "index": 385,
+      "slideKey": "em-v2-l16-p006",
+      "lesson": 16,
+      "localIndex": 6,
+      "title": "收入最优与利润最优",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 386,
+      "slideKey": "em-v2-l16-p007",
+      "lesson": 16,
+      "localIndex": 7,
+      "title": "弹性与利润实验",
+      "layout": "lab",
+      "steps": 0,
+      "revealTitles": [],
+      "interactionId": "elasticity-profit-lab"
+    },
+    {
+      "index": 387,
+      "slideKey": "em-v2-l16-p008",
+      "lesson": 16,
+      "localIndex": 8,
+      "title": "边际收入的另一种表达",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "适用条件",
+        "本例的核验"
+      ]
+    },
+    {
+      "index": 388,
+      "slideKey": "em-v2-l16-p009",
+      "lesson": 16,
+      "localIndex": 9,
+      "title": "独立练习：订阅量",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "求导与弹性",
+        "收入"
+      ]
+    },
+    {
+      "index": 389,
+      "slideKey": "em-v2-l16-p010",
+      "lesson": 16,
+      "localIndex": 10,
+      "title": "迁移：调价建议",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "近似",
+        "前提"
+      ]
+    },
+    {
+      "index": 390,
+      "slideKey": "em-v2-l17-p001",
+      "lesson": 17,
+      "localIndex": 1,
+      "title": "不定积分",
+      "layout": "cover",
+      "style": "cover",
+      "image": "unit-05.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 391,
+      "slideKey": "em-v2-l17-p002",
+      "lesson": 17,
+      "localIndex": 2,
+      "title": "储液罐的流入",
+      "layout": "story",
+      "image": "l17-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 392,
+      "slideKey": "em-v2-l17-p003",
+      "lesson": 17,
+      "localIndex": 3,
+      "title": "一个导数，多条原函数",
+      "layout": "essay",
+      "image": "l17-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 393,
+      "slideKey": "em-v2-l17-p004",
+      "lesson": 17,
+      "localIndex": 4,
+      "title": "不定积分的记号",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "原函数条件",
+        "核验方法",
+        "常数的意义"
+      ]
+    },
+    {
+      "index": 394,
+      "slideKey": "em-v2-l17-p005",
+      "lesson": 17,
+      "localIndex": 5,
+      "title": "初始条件确定常数",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "积分",
+        "初始条件",
+        "两小时"
+      ]
+    },
+    {
+      "index": 395,
+      "slideKey": "em-v2-l17-p006",
+      "lesson": 17,
+      "localIndex": 6,
+      "title": "线性法则",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "例题",
+        "核验"
+      ]
+    },
+    {
+      "index": 396,
+      "slideKey": "em-v2-l17-p007",
+      "lesson": 17,
+      "localIndex": 7,
+      "title": "变化率积分的单位",
+      "layout": "split",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 397,
+      "slideKey": "em-v2-l17-p008",
+      "lesson": 17,
+      "localIndex": 8,
+      "title": "常数不能随意省略",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 1,
+      "revealTitles": [
+        "一般结果"
+      ]
+    },
+    {
+      "index": 398,
+      "slideKey": "em-v2-l17-p009",
+      "lesson": 17,
+      "localIndex": 9,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "积分",
+        "确定常数",
+        "结果"
+      ]
+    },
+    {
+      "index": 399,
+      "slideKey": "em-v2-l17-p010",
+      "lesson": 17,
+      "localIndex": 10,
+      "title": "迁移：成本函数",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "恢复",
+        "结果"
+      ]
+    },
+    {
+      "index": 400,
+      "slideKey": "em-v2-l18-p001",
+      "lesson": 18,
+      "localIndex": 1,
+      "title": "仓库的速率清单",
+      "layout": "story",
+      "image": "l18-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 401,
+      "slideKey": "em-v2-l18-p002",
+      "lesson": 18,
+      "localIndex": 2,
+      "title": "反向匹配",
+      "layout": "essay",
+      "image": "l18-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 402,
+      "slideKey": "em-v2-l18-p003",
+      "lesson": 18,
+      "localIndex": 3,
+      "title": "幂函数公式",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "例题",
+        "负幂"
+      ]
+    },
+    {
+      "index": 403,
+      "slideKey": "em-v2-l18-p004",
+      "lesson": 18,
+      "localIndex": 4,
+      "title": "特殊的负一次幂",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "正半轴",
+        "负半轴",
+        "范围"
+      ]
+    },
+    {
+      "index": 404,
+      "slideKey": "em-v2-l18-p005",
+      "lesson": 18,
+      "localIndex": 5,
+      "title": "指数与三角",
+      "layout": "table",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 405,
+      "slideKey": "em-v2-l18-p006",
+      "lesson": 18,
+      "localIndex": 6,
+      "title": "展开后逐项积分",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "展开",
+        "积分",
+        "核验"
+      ]
+    },
+    {
+      "index": 406,
+      "slideKey": "em-v2-l18-p007",
+      "lesson": 18,
+      "localIndex": 7,
+      "title": "除法整理",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "拆开",
+        "结果"
+      ]
+    },
+    {
+      "index": 407,
+      "slideKey": "em-v2-l18-p008",
+      "lesson": 18,
+      "localIndex": 8,
+      "title": "积分不是乘积法则的反写",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 408,
+      "slideKey": "em-v2-l18-p009",
+      "lesson": 18,
+      "localIndex": 9,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "结果",
+        "核验"
+      ]
+    },
+    {
+      "index": 409,
+      "slideKey": "em-v2-l18-p010",
+      "lesson": 18,
+      "localIndex": 10,
+      "title": "迁移：边际成本",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "积分",
+        "缺少的信息"
+      ]
+    },
+    {
+      "index": 410,
+      "slideKey": "em-v2-l19-p001",
+      "lesson": 19,
+      "localIndex": 1,
+      "title": "经过容器的流动",
+      "layout": "story",
+      "image": "l19-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 411,
+      "slideKey": "em-v2-l19-p002",
+      "lesson": 19,
+      "localIndex": 2,
+      "title": "把内层变成新变量",
+      "layout": "essay",
+      "image": "l19-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 412,
+      "slideKey": "em-v2-l19-p003",
+      "lesson": 19,
+      "localIndex": 3,
+      "title": "完整例题",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "设新变量",
+        "积分",
+        "回代"
+      ]
+    },
+    {
+      "index": 413,
+      "slideKey": "em-v2-l19-p004",
+      "lesson": 19,
+      "localIndex": 4,
+      "title": "对数结构",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "换元",
+        "结果",
+        "范围"
+      ]
+    },
+    {
+      "index": 414,
+      "slideKey": "em-v2-l19-p005",
+      "lesson": 19,
+      "localIndex": 5,
+      "title": "常数因子需要补齐",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "换元",
+        "结果"
+      ]
+    },
+    {
+      "index": 415,
+      "slideKey": "em-v2-l19-p006",
+      "lesson": 19,
+      "localIndex": 6,
+      "title": "第二类换元",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "设x为新变量的函数",
+        "积分并回代"
+      ]
+    },
+    {
+      "index": 416,
+      "slideKey": "em-v2-l19-p007",
+      "lesson": 19,
+      "localIndex": 7,
+      "title": "三角换元的范围",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "选单调区间",
+        "微分与根式",
+        "结果"
+      ]
+    },
+    {
+      "index": 417,
+      "slideKey": "em-v2-l19-p008",
+      "lesson": 19,
+      "localIndex": 8,
+      "title": "只换字母会漏掉系数",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 418,
+      "slideKey": "em-v2-l19-p009",
+      "lesson": 19,
+      "localIndex": 9,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "换元",
+        "结果"
+      ]
+    },
+    {
+      "index": 419,
+      "slideKey": "em-v2-l19-p010",
+      "lesson": 19,
+      "localIndex": 10,
+      "title": "迁移：衰减速率",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "原函数",
+        "初始条件与极限"
+      ]
+    },
+    {
+      "index": 420,
+      "slideKey": "em-v2-l20-p001",
+      "lesson": 20,
+      "localIndex": 1,
+      "title": "随时间变化的工作量",
+      "layout": "story",
+      "image": "l20-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 421,
+      "slideKey": "em-v2-l20-p002",
+      "lesson": 20,
+      "localIndex": 2,
+      "title": "从乘积法则反推",
+      "layout": "essay",
+      "image": "l20-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 422,
+      "slideKey": "em-v2-l20-p003",
+      "lesson": 20,
+      "localIndex": 3,
+      "title": "分部积分公式",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "选择",
+        "计算部件",
+        "结果"
+      ]
+    },
+    {
+      "index": 423,
+      "slideKey": "em-v2-l20-p004",
+      "lesson": 20,
+      "localIndex": 4,
+      "title": "对数函数的积分",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "隐含的因子1",
+        "套用公式",
+        "结果"
+      ]
+    },
+    {
+      "index": 424,
+      "slideKey": "em-v2-l20-p005",
+      "lesson": 20,
+      "localIndex": 5,
+      "title": "重复分部积分",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "第一次",
+        "第二次",
+        "核验"
+      ]
+    },
+    {
+      "index": 425,
+      "slideKey": "em-v2-l20-p006",
+      "lesson": 20,
+      "localIndex": 6,
+      "title": "循环出现的积分",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "两次分部",
+        "移项"
+      ]
+    },
+    {
+      "index": 426,
+      "slideKey": "em-v2-l20-p007",
+      "lesson": 20,
+      "localIndex": 7,
+      "title": "选择影响工作量",
+      "layout": "compare",
+      "steps": 1,
+      "revealTitles": [
+        "换元更直接"
+      ]
+    },
+    {
+      "index": 427,
+      "slideKey": "em-v2-l20-p008",
+      "lesson": 20,
+      "localIndex": 8,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "选择",
+        "结果"
+      ]
+    },
+    {
+      "index": 428,
+      "slideKey": "em-v2-l20-p009",
+      "lesson": 20,
+      "localIndex": 9,
+      "title": "综合练习",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "选择",
+        "结果"
+      ]
+    },
+    {
+      "index": 429,
+      "slideKey": "em-v2-l20-p010",
+      "lesson": 20,
+      "localIndex": 10,
+      "title": "方法选择的三次检查",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 430,
+      "slideKey": "em-v2-l21-p001",
+      "lesson": 21,
+      "localIndex": 1,
+      "title": "定积分与累计量",
+      "layout": "cover",
+      "style": "cover",
+      "image": "unit-06.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 431,
+      "slideKey": "em-v2-l21-p002",
+      "lesson": 21,
+      "localIndex": 2,
+      "title": "配送高峰的一天",
+      "layout": "story",
+      "image": "l21-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 432,
+      "slideKey": "em-v2-l21-p003",
+      "lesson": 21,
+      "localIndex": 3,
+      "title": "每一小段的贡献",
+      "layout": "essay",
+      "image": "l21-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 433,
+      "slideKey": "em-v2-l21-p004",
+      "lesson": 21,
+      "localIndex": 4,
+      "title": "先做四段估算",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "左端点速率",
+        "矩形和",
+        "中点"
+      ]
+    },
+    {
+      "index": 434,
+      "slideKey": "em-v2-l21-p005",
+      "lesson": 21,
+      "localIndex": 5,
+      "title": "黎曼和实验",
+      "layout": "lab",
+      "steps": 0,
+      "revealTitles": [],
+      "interactionId": "riemann-sum-lab"
+    },
+    {
+      "index": 435,
+      "slideKey": "em-v2-l21-p006",
+      "lesson": 21,
+      "localIndex": 6,
+      "title": "定积分的定义",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "分割趋细",
+        "取样独立"
+      ]
+    },
+    {
+      "index": 436,
+      "slideKey": "em-v2-l21-p007",
+      "lesson": 21,
+      "localIndex": 7,
+      "title": "面积包含方向",
+      "layout": "split",
+      "steps": 1,
+      "revealTitles": [
+        "绝对面积"
+      ]
+    },
+    {
+      "index": 437,
+      "slideKey": "em-v2-l21-p008",
+      "lesson": 21,
+      "localIndex": 8,
+      "title": "定积分的基本性质",
+      "layout": "table",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 438,
+      "slideKey": "em-v2-l21-p009",
+      "lesson": 21,
+      "localIndex": 9,
+      "title": "独立练习：恒定速率",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "累计",
+        "平均"
+      ]
+    },
+    {
+      "index": 439,
+      "slideKey": "em-v2-l21-p010",
+      "lesson": 21,
+      "localIndex": 10,
+      "title": "模型与记录的边界",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 440,
+      "slideKey": "em-v2-l22-p001",
+      "lesson": 22,
+      "localIndex": 1,
+      "title": "水位与流入速率",
+      "layout": "story",
+      "image": "l22-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 441,
+      "slideKey": "em-v2-l22-p002",
+      "lesson": 22,
+      "localIndex": 2,
+      "title": "累计与局部互相连接",
+      "layout": "essay",
+      "image": "l22-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 442,
+      "slideKey": "em-v2-l22-p003",
+      "lesson": 22,
+      "localIndex": 3,
+      "title": "基本定理的两部分",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "变上限",
+        "原函数计算"
+      ]
+    },
+    {
+      "index": 443,
+      "slideKey": "em-v2-l22-p004",
+      "lesson": 22,
+      "localIndex": 4,
+      "title": "8小时累计销售",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "原函数",
+        "定积分",
+        "平均速率"
+      ]
+    },
+    {
+      "index": 444,
+      "slideKey": "em-v2-l22-p005",
+      "lesson": 22,
+      "localIndex": 5,
+      "title": "移动积分上限",
+      "layout": "lab",
+      "steps": 0,
+      "revealTitles": [],
+      "interactionId": "accumulation-limit-lab"
+    },
+    {
+      "index": 445,
+      "slideKey": "em-v2-l22-p006",
+      "lesson": 22,
+      "localIndex": 6,
+      "title": "上限也是函数",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "链式法则",
+        "核验"
+      ]
+    },
+    {
+      "index": 446,
+      "slideKey": "em-v2-l22-p007",
+      "lesson": 22,
+      "localIndex": 7,
+      "title": "上下限都改变",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "拆为两个变上限",
+        "求导"
+      ]
+    },
+    {
+      "index": 447,
+      "slideKey": "em-v2-l22-p008",
+      "lesson": 22,
+      "localIndex": 8,
+      "title": "积分常数会消去",
+      "layout": "compare",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 448,
+      "slideKey": "em-v2-l22-p009",
+      "lesson": 22,
+      "localIndex": 9,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "定积分",
+        "导数"
+      ]
+    },
+    {
+      "index": 449,
+      "slideKey": "em-v2-l22-p010",
+      "lesson": 22,
+      "localIndex": 10,
+      "title": "迁移：流入减去流出",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "净增量",
+        "末存量",
+        "方向"
+      ]
+    },
+    {
+      "index": 450,
+      "slideKey": "em-v2-l23-p001",
+      "lesson": 23,
+      "localIndex": 1,
+      "title": "换一个刻度观察",
+      "layout": "story",
+      "image": "l23-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 451,
+      "slideKey": "em-v2-l23-p002",
+      "lesson": 23,
+      "localIndex": 2,
+      "title": "边界与微分一起变",
+      "layout": "essay",
+      "image": "l23-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 452,
+      "slideKey": "em-v2-l23-p003",
+      "lesson": 23,
+      "localIndex": 3,
+      "title": "完整换元计算",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "换元及边界",
+        "新积分",
+        "结果"
+      ]
+    },
+    {
+      "index": 453,
+      "slideKey": "em-v2-l23-p004",
+      "lesson": 23,
+      "localIndex": 4,
+      "title": "上限发生变化",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "换元",
+        "结果"
+      ]
+    },
+    {
+      "index": 454,
+      "slideKey": "em-v2-l23-p005",
+      "lesson": 23,
+      "localIndex": 5,
+      "title": "错误的边界组合",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 1,
+      "revealTitles": [
+        "检查"
+      ]
+    },
+    {
+      "index": 455,
+      "slideKey": "em-v2-l23-p006",
+      "lesson": 23,
+      "localIndex": 6,
+      "title": "定积分的分部公式",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "例题",
+        "结果"
+      ]
+    },
+    {
+      "index": 456,
+      "slideKey": "em-v2-l23-p007",
+      "lesson": 23,
+      "localIndex": 7,
+      "title": "对称性减少计算",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "奇函数",
+        "偶函数",
+        "前提"
+      ]
+    },
+    {
+      "index": 457,
+      "slideKey": "em-v2-l23-p008",
+      "lesson": 23,
+      "localIndex": 8,
+      "title": "独立练习：換元",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "换元",
+        "结果"
+      ]
+    },
+    {
+      "index": 458,
+      "slideKey": "em-v2-l23-p009",
+      "lesson": 23,
+      "localIndex": 9,
+      "title": "独立练习：分部",
+      "layout": "exercise",
+      "steps": 1,
+      "revealTitles": [
+        "计算"
+      ]
+    },
+    {
+      "index": 459,
+      "slideKey": "em-v2-l23-p010",
+      "lesson": 23,
+      "localIndex": 10,
+      "title": "综合检查",
+      "layout": "essay",
+      "steps": 1,
+      "revealTitles": [
+        "一个界限"
+      ]
+    },
+    {
+      "index": 460,
+      "slideKey": "em-v2-l24-p001",
+      "lesson": 24,
+      "localIndex": 1,
+      "title": "安排一天的配送",
+      "layout": "story",
+      "image": "l24-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 461,
+      "slideKey": "em-v2-l24-p002",
+      "lesson": 24,
+      "localIndex": 2,
+      "title": "速率与累计的两个视角",
+      "layout": "essay",
+      "image": "l24-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 462,
+      "slideKey": "em-v2-l24-p003",
+      "lesson": 24,
+      "localIndex": 3,
+      "title": "分段累计",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "前半段",
+        "后半段",
+        "解释"
+      ]
+    },
+    {
+      "index": 463,
+      "slideKey": "em-v2-l24-p004",
+      "lesson": 24,
+      "localIndex": 4,
+      "title": "累计曲线",
+      "layout": "plot",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 464,
+      "slideKey": "em-v2-l24-p005",
+      "lesson": 24,
+      "localIndex": 5,
+      "title": "连续函数的平均值",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "8小时平均速率",
+        "至少一个时刻",
+        "条件"
+      ]
+    },
+    {
+      "index": 465,
+      "slideKey": "em-v2-l24-p006",
+      "lesson": 24,
+      "localIndex": 6,
+      "title": "面积中的正负",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "净累计",
+        "几何面积",
+        "解释"
+      ]
+    },
+    {
+      "index": 466,
+      "slideKey": "em-v2-l24-p007",
+      "lesson": 24,
+      "localIndex": 7,
+      "title": "两条曲线之间",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "上下关系",
+        "面积"
+      ]
+    },
+    {
+      "index": 467,
+      "slideKey": "em-v2-l24-p008",
+      "lesson": 24,
+      "localIndex": 8,
+      "title": "独立练习：累计销售",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "总量",
+        "前2小时",
+        "平均"
+      ]
+    },
+    {
+      "index": 468,
+      "slideKey": "em-v2-l24-p009",
+      "lesson": 24,
+      "localIndex": 9,
+      "title": "独立练习：总变化",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "净积分",
+        "绝对面积"
+      ]
+    },
+    {
+      "index": 469,
+      "slideKey": "em-v2-l24-p010",
+      "lesson": 24,
+      "localIndex": 10,
+      "title": "迁移：排班依据",
+      "layout": "essay",
+      "steps": 1,
+      "revealTitles": [
+        "估算"
+      ]
+    },
+    {
+      "index": 470,
+      "slideKey": "em-v2-l25-p001",
+      "lesson": 25,
+      "localIndex": 1,
+      "title": "农产品市场的统一价格",
+      "layout": "story",
+      "image": "l25-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 471,
+      "slideKey": "em-v2-l25-p002",
+      "lesson": 25,
+      "localIndex": 2,
+      "title": "愿付与实际支付",
+      "layout": "essay",
+      "image": "l25-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 472,
+      "slideKey": "em-v2-l25-p003",
+      "lesson": 25,
+      "localIndex": 3,
+      "title": "价格60元的完整计算",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "销量",
+        "积分",
+        "三角形核验"
+      ]
+    },
+    {
+      "index": 473,
+      "slideKey": "em-v2-l25-p004",
+      "lesson": 25,
+      "localIndex": 4,
+      "title": "需求曲线与面积",
+      "layout": "plot",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 474,
+      "slideKey": "em-v2-l25-p005",
+      "lesson": 25,
+      "localIndex": 5,
+      "title": "消费者剩余实验",
+      "layout": "lab",
+      "steps": 0,
+      "revealTitles": [],
+      "interactionId": "consumer-surplus-lab"
+    },
+    {
+      "index": 475,
+      "slideKey": "em-v2-l25-p006",
+      "lesson": 25,
+      "localIndex": 6,
+      "title": "生产者剩余",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "供给模型",
+        "市场均衡",
+        "计算"
+      ]
+    },
+    {
+      "index": 476,
+      "slideKey": "em-v2-l25-p007",
+      "lesson": 25,
+      "localIndex": 7,
+      "title": "同一均衡的两块面积",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "消费者剩余",
+        "总剩余",
+        "解释边界"
+      ]
+    },
+    {
+      "index": 477,
+      "slideKey": "em-v2-l25-p008",
+      "lesson": 25,
+      "localIndex": 8,
+      "title": "生产者剩余与利润",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 1,
+      "revealTitles": [
+        "结果"
+      ]
+    },
+    {
+      "index": 478,
+      "slideKey": "em-v2-l25-p009",
+      "lesson": 25,
+      "localIndex": 9,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "销量",
+        "支付",
+        "剩余"
+      ]
+    },
+    {
+      "index": 479,
+      "slideKey": "em-v2-l25-p010",
+      "lesson": 25,
+      "localIndex": 10,
+      "title": "迁移：有数量上限",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "计算",
+        "几何"
+      ]
+    },
+    {
+      "index": 480,
+      "slideKey": "em-v2-l26-p001",
+      "lesson": 26,
+      "localIndex": 1,
+      "title": "多元函数微分",
+      "layout": "cover",
+      "style": "cover",
+      "image": "unit-07.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 481,
+      "slideKey": "em-v2-l26-p002",
+      "lesson": 26,
+      "localIndex": 2,
+      "title": "价格与广告一起调整",
+      "layout": "story",
+      "image": "l26-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 482,
+      "slideKey": "em-v2-l26-p003",
+      "lesson": 26,
+      "localIndex": 3,
+      "title": "两个输入，一个输出",
+      "layout": "essay",
+      "image": "l26-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 483,
+      "slideKey": "em-v2-l26-p004",
+      "lesson": 26,
+      "localIndex": 4,
+      "title": "一个经营点",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "代入",
+        "响应",
+        "边界"
+      ]
+    },
+    {
+      "index": 484,
+      "slideKey": "em-v2-l26-p005",
+      "lesson": 26,
+      "localIndex": 5,
+      "title": "共同允许的输入",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "数学条件",
+        "经济条件",
+        "定义域"
+      ]
+    },
+    {
+      "index": 485,
+      "slideKey": "em-v2-l26-p006",
+      "lesson": 26,
+      "localIndex": 6,
+      "title": "图形是一张面",
+      "layout": "plot",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 486,
+      "slideKey": "em-v2-l26-p007",
+      "lesson": 26,
+      "localIndex": 7,
+      "title": "固定广告的截线",
+      "layout": "plot",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 487,
+      "slideKey": "em-v2-l26-p008",
+      "lesson": 26,
+      "localIndex": 8,
+      "title": "固定价格的截线",
+      "layout": "plot",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 488,
+      "slideKey": "em-v2-l26-p009",
+      "lesson": 26,
+      "localIndex": 9,
+      "title": "相同响应的等高线",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "整理",
+        "保留符号条件",
+        "等高线"
+      ]
+    },
+    {
+      "index": 489,
+      "slideKey": "em-v2-l26-p010",
+      "lesson": 26,
+      "localIndex": 10,
+      "title": "价格与广告实验",
+      "layout": "lab",
+      "steps": 0,
+      "revealTitles": [],
+      "interactionId": "marketing-surface-lab"
+    },
+    {
+      "index": 490,
+      "slideKey": "em-v2-l26-p011",
+      "lesson": 26,
+      "localIndex": 11,
+      "title": "两条调整路径",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "先价格",
+        "先广告",
+        "最终输入相同"
+      ]
+    },
+    {
+      "index": 491,
+      "slideKey": "em-v2-l26-p012",
+      "lesson": 26,
+      "localIndex": 12,
+      "title": "独立练习：定义域",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "共同条件",
+        "两个点"
+      ]
+    },
+    {
+      "index": 492,
+      "slideKey": "em-v2-l26-p013",
+      "lesson": 26,
+      "localIndex": 13,
+      "title": "独立练习：广告补偿",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "维持响应",
+        "投入",
+        "增量"
+      ]
+    },
+    {
+      "index": 493,
+      "slideKey": "em-v2-l26-p014",
+      "lesson": 26,
+      "localIndex": 14,
+      "title": "多输入模型的边界",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 494,
+      "slideKey": "em-v2-l27-p001",
+      "lesson": 27,
+      "localIndex": 1,
+      "title": "只改变一项决策",
+      "layout": "story",
+      "image": "l27-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 495,
+      "slideKey": "em-v2-l27-p002",
+      "lesson": 27,
+      "localIndex": 2,
+      "title": "偏导沿一个方向",
+      "layout": "essay",
+      "image": "l27-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 496,
+      "slideKey": "em-v2-l27-p003",
+      "lesson": 27,
+      "localIndex": 3,
+      "title": "两个偏导数",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "价格方向",
+        "广告方向",
+        "在(60,25)"
+      ]
+    },
+    {
+      "index": 497,
+      "slideKey": "em-v2-l27-p004",
+      "lesson": 27,
+      "localIndex": 4,
+      "title": "单位使解释明确",
+      "layout": "split",
+      "steps": 1,
+      "revealTitles": [
+        "估算"
+      ]
+    },
+    {
+      "index": 498,
+      "slideKey": "em-v2-l27-p005",
+      "lesson": 27,
+      "localIndex": 5,
+      "title": "截线验证方向",
+      "layout": "plot",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 499,
+      "slideKey": "em-v2-l27-p006",
+      "lesson": 27,
+      "localIndex": 6,
+      "title": "二阶与混合偏导",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "同方向",
+        "交叉方向",
+        "解释"
+      ]
+    },
+    {
+      "index": 500,
+      "slideKey": "em-v2-l27-p007",
+      "lesson": 27,
+      "localIndex": 7,
+      "title": "交互项改变局部效应",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "一阶",
+        "二阶",
+        "解释"
+      ]
+    },
+    {
+      "index": 501,
+      "slideKey": "em-v2-l27-p008",
+      "lesson": 27,
+      "localIndex": 8,
+      "title": "边界处不能随意求导",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 1,
+      "revealTitles": [
+        "检查"
+      ]
+    },
+    {
+      "index": 502,
+      "slideKey": "em-v2-l27-p009",
+      "lesson": 27,
+      "localIndex": 9,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "一阶",
+        "交叉",
+        "点值"
+      ]
+    },
+    {
+      "index": 503,
+      "slideKey": "em-v2-l27-p010",
+      "lesson": 27,
+      "localIndex": 10,
+      "title": "迁移：联动决策",
+      "layout": "essay",
+      "steps": 1,
+      "revealTitles": [
+        "两项贡献"
+      ]
+    },
+    {
+      "index": 504,
+      "slideKey": "em-v2-l28-p001",
+      "lesson": 28,
+      "localIndex": 1,
+      "title": "同时调整价格与广告",
+      "layout": "story",
+      "image": "l28-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 505,
+      "slideKey": "em-v2-l28-p002",
+      "lesson": 28,
+      "localIndex": 2,
+      "title": "局部平面",
+      "layout": "essay",
+      "image": "l28-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 506,
+      "slideKey": "em-v2-l28-p003",
+      "lesson": 28,
+      "localIndex": 3,
+      "title": "完整估算",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "偏导",
+        "估算",
+        "实际结果"
+      ]
+    },
+    {
+      "index": 507,
+      "slideKey": "em-v2-l28-p004",
+      "lesson": 28,
+      "localIndex": 4,
+      "title": "切平面的方程",
+      "layout": "proof",
+      "steps": 2,
+      "revealTitles": [
+        "本例",
+        "单位"
+      ]
+    },
+    {
+      "index": 508,
+      "slideKey": "em-v2-l28-p005",
+      "lesson": 28,
+      "localIndex": 5,
+      "title": "切平面实验",
+      "layout": "lab",
+      "steps": 0,
+      "revealTitles": [],
+      "interactionId": "tangent-plane-lab"
+    },
+    {
+      "index": 509,
+      "slideKey": "em-v2-l28-p006",
+      "lesson": 28,
+      "localIndex": 6,
+      "title": "误差来源",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "价格方向",
+        "广告方向",
+        "结论"
+      ]
+    },
+    {
+      "index": 510,
+      "slideKey": "em-v2-l28-p007",
+      "lesson": 28,
+      "localIndex": 7,
+      "title": "偏导存在不够",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 1,
+      "revealTitles": [
+        "路径证据"
+      ]
+    },
+    {
+      "index": 511,
+      "slideKey": "em-v2-l28-p008",
+      "lesson": 28,
+      "localIndex": 8,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "偏导与微分",
+        "切平面",
+        "估算"
+      ]
+    },
+    {
+      "index": 512,
+      "slideKey": "em-v2-l28-p009",
+      "lesson": 28,
+      "localIndex": 9,
+      "title": "迁移：测量误差",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "上界",
+        "范围"
+      ]
+    },
+    {
+      "index": 513,
+      "slideKey": "em-v2-l28-p010",
+      "lesson": 28,
+      "localIndex": 10,
+      "title": "估算报告应包含误差",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 514,
+      "slideKey": "em-v2-l29-p001",
+      "lesson": 29,
+      "localIndex": 1,
+      "title": "决策随着时间联动",
+      "layout": "story",
+      "image": "l29-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 515,
+      "slideKey": "em-v2-l29-p002",
+      "lesson": 29,
+      "localIndex": 2,
+      "title": "沿路径合并贡献",
+      "layout": "essay",
+      "image": "l29-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 516,
+      "slideKey": "em-v2-l29-p003",
+      "lesson": 29,
+      "localIndex": 3,
+      "title": "完整联动计算",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "时刻0的偏导",
+        "路径速度",
+        "合并"
+      ]
+    },
+    {
+      "index": 517,
+      "slideKey": "em-v2-l29-p004",
+      "lesson": 29,
+      "localIndex": 4,
+      "title": "直接代入核验",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "求导",
+        "时刻0",
+        "范围"
+      ]
+    },
+    {
+      "index": 518,
+      "slideKey": "em-v2-l29-p005",
+      "lesson": 29,
+      "localIndex": 5,
+      "title": "多个自变量的链式",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "u方向",
+        "v方向",
+        "固定条件"
+      ]
+    },
+    {
+      "index": 519,
+      "slideKey": "em-v2-l29-p006",
+      "lesson": 29,
+      "localIndex": 6,
+      "title": "隐函数的局部斜率",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "沿曲线求导",
+        "求解条件",
+        "单位圆"
+      ]
+    },
+    {
+      "index": 520,
+      "slideKey": "em-v2-l29-p007",
+      "lesson": 29,
+      "localIndex": 7,
+      "title": "保持销量不变的补偿",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "广告补偿率",
+        "在a=25处",
+        "解释"
+      ]
+    },
+    {
+      "index": 521,
+      "slideKey": "em-v2-l29-p008",
+      "lesson": 29,
+      "localIndex": 8,
+      "title": "三变量隐函数",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "z方向条件",
+        "偏导",
+        "局部说明"
+      ]
+    },
+    {
+      "index": 522,
+      "slideKey": "em-v2-l29-p009",
+      "lesson": 29,
+      "localIndex": 9,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "链式",
+        "直接"
+      ]
+    },
+    {
+      "index": 523,
+      "slideKey": "em-v2-l29-p010",
+      "lesson": 29,
+      "localIndex": 10,
+      "title": "迁移：等目标曲线",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "隐函数",
+        "点值",
+        "边界"
+      ]
+    },
+    {
+      "index": 524,
+      "slideKey": "em-v2-l30-p001",
+      "lesson": 30,
+      "localIndex": 1,
+      "title": "优化与营销决策",
+      "layout": "cover",
+      "style": "cover",
+      "image": "unit-08.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 525,
+      "slideKey": "em-v2-l30-p002",
+      "lesson": 30,
+      "localIndex": 2,
+      "title": "工作室的两项投入",
+      "layout": "story",
+      "image": "l30-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 526,
+      "slideKey": "em-v2-l30-p003",
+      "lesson": 30,
+      "localIndex": 3,
+      "title": "各方向同时停止上升",
+      "layout": "essay",
+      "image": "l30-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 527,
+      "slideKey": "em-v2-l30-p004",
+      "lesson": 30,
+      "localIndex": 4,
+      "title": "完整驻点计算",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "方程组",
+        "候选点",
+        "函数值"
+      ]
+    },
+    {
+      "index": 528,
+      "slideKey": "em-v2-l30-p005",
+      "lesson": 30,
+      "localIndex": 5,
+      "title": "二阶判别",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "D为正",
+        "D为负",
+        "D为零"
+      ]
+    },
+    {
+      "index": 529,
+      "slideKey": "em-v2-l30-p006",
+      "lesson": 30,
+      "localIndex": 6,
+      "title": "本例的全局证据",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "二阶",
+        "平方非负",
+        "唯一达到"
+      ]
+    },
+    {
+      "index": 530,
+      "slideKey": "em-v2-l30-p007",
+      "lesson": 30,
+      "localIndex": 7,
+      "title": "双投入实验",
+      "layout": "lab",
+      "steps": 0,
+      "revealTitles": [],
+      "interactionId": "unconstrained-optimum-lab"
+    },
+    {
+      "index": 531,
+      "slideKey": "em-v2-l30-p008",
+      "lesson": 30,
+      "localIndex": 8,
+      "title": "驻点也可能是鞍点",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 532,
+      "slideKey": "em-v2-l30-p009",
+      "lesson": 30,
+      "localIndex": 9,
+      "title": "边界最优需要另行比较",
+      "layout": "essay",
+      "steps": 1,
+      "revealTitles": [
+        "边界结果"
+      ]
+    },
+    {
+      "index": 533,
+      "slideKey": "em-v2-l30-p010",
+      "lesson": 30,
+      "localIndex": 10,
+      "title": "独立练习",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "驻点",
+        "二阶",
+        "全局"
+      ]
+    },
+    {
+      "index": 534,
+      "slideKey": "em-v2-l30-p011",
+      "lesson": 30,
+      "localIndex": 11,
+      "title": "迁移：预算带来的改变",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 535,
+      "slideKey": "em-v2-l31-p001",
+      "lesson": 31,
+      "localIndex": 1,
+      "title": "两个渠道，一笔预算",
+      "layout": "story",
+      "image": "l31-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 536,
+      "slideKey": "em-v2-l31-p002",
+      "lesson": 31,
+      "localIndex": 2,
+      "title": "约束改变可行选择",
+      "layout": "essay",
+      "image": "l31-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 537,
+      "slideKey": "em-v2-l31-p003",
+      "lesson": 31,
+      "localIndex": 3,
+      "title": "消元成为一元问题",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "内部导数",
+        "必要比例",
+        "预算分配"
+      ]
+    },
+    {
+      "index": 538,
+      "slideKey": "em-v2-l31-p004",
+      "lesson": 31,
+      "localIndex": 4,
+      "title": "最大值还需要证据",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "内部严格凹",
+        "端点",
+        "比较"
+      ]
+    },
+    {
+      "index": 539,
+      "slideKey": "em-v2-l31-p005",
+      "lesson": 31,
+      "localIndex": 5,
+      "title": "可行线上观察最优",
+      "layout": "plot",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 540,
+      "slideKey": "em-v2-l31-p006",
+      "lesson": 31,
+      "localIndex": 6,
+      "title": "拉格朗日函数",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "三个条件",
+        "边际响应相等",
+        "最优点"
+      ]
+    },
+    {
+      "index": 541,
+      "slideKey": "em-v2-l31-p007",
+      "lesson": 31,
+      "localIndex": 7,
+      "title": "切线条件的含义",
+      "layout": "split",
+      "steps": 1,
+      "revealTitles": [
+        "调整方向"
+      ]
+    },
+    {
+      "index": 542,
+      "slideKey": "em-v2-l31-p008",
+      "lesson": 31,
+      "localIndex": 8,
+      "title": "预算约束实验",
+      "layout": "lab",
+      "steps": 0,
+      "revealTitles": [],
+      "interactionId": "budget-constraint-lab"
+    },
+    {
+      "index": 543,
+      "slideKey": "em-v2-l31-p009",
+      "lesson": 31,
+      "localIndex": 9,
+      "title": "任意预算的最优规则",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "比例",
+        "最优分配",
+        "最优响应"
+      ]
+    },
+    {
+      "index": 544,
+      "slideKey": "em-v2-l31-p010",
+      "lesson": 31,
+      "localIndex": 10,
+      "title": "预算的影子价格",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "边际价值",
+        "预算100时",
+        "有限增量"
+      ]
+    },
+    {
+      "index": 545,
+      "slideKey": "em-v2-l31-p011",
+      "lesson": 31,
+      "localIndex": 11,
+      "title": "最优比例的来源",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 546,
+      "slideKey": "em-v2-l31-p012",
+      "lesson": 31,
+      "localIndex": 12,
+      "title": "独立求解新模型",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "必要比例",
+        "投入",
+        "最大值"
+      ]
+    },
+    {
+      "index": 547,
+      "slideKey": "em-v2-l31-p013",
+      "lesson": 31,
+      "localIndex": 13,
+      "title": "资源单价不同",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "每元边际响应",
+        "比例",
+        "投入"
+      ]
+    },
+    {
+      "index": 548,
+      "slideKey": "em-v2-l31-p014",
+      "lesson": 31,
+      "localIndex": 14,
+      "title": "向陌生情境迁移",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 549,
+      "slideKey": "em-v2-l32-p001",
+      "lesson": 32,
+      "localIndex": 1,
+      "title": "展览的资源安排",
+      "layout": "story",
+      "image": "l32-scene.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 550,
+      "slideKey": "em-v2-l32-p002",
+      "lesson": 32,
+      "localIndex": 2,
+      "title": "一份可以审查的方案",
+      "layout": "essay",
+      "image": "l32-concept.png",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 551,
+      "slideKey": "em-v2-l32-p003",
+      "lesson": 32,
+      "localIndex": 3,
+      "title": "先把资源条件写清楚",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "本任务条件",
+        "消去变量",
+        "使用边界"
+      ]
+    },
+    {
+      "index": 552,
+      "slideKey": "em-v2-l32-p004",
+      "lesson": 32,
+      "localIndex": 4,
+      "title": "把问题化成一个变量",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "整理",
+        "导数",
+        "候选"
+      ]
+    },
+    {
+      "index": 553,
+      "slideKey": "em-v2-l32-p005",
+      "lesson": 32,
+      "localIndex": 5,
+      "title": "驻点、端点与证据",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "端点",
+        "候选值",
+        "全局核验"
+      ]
+    },
+    {
+      "index": 554,
+      "slideKey": "em-v2-l32-p006",
+      "lesson": 32,
+      "localIndex": 6,
+      "title": "拉格朗日法的交叉核验",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "条件",
+        "解",
+        "解释"
+      ]
+    },
+    {
+      "index": 555,
+      "slideKey": "em-v2-l32-p007",
+      "lesson": 32,
+      "localIndex": 7,
+      "title": "资源价格改变了配比",
+      "layout": "compare",
+      "style": "constructivist",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 556,
+      "slideKey": "em-v2-l32-p008",
+      "lesson": 32,
+      "localIndex": 8,
+      "title": "预算增加到14",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "消元一般式",
+        "新结果",
+        "近似比较"
+      ]
+    },
+    {
+      "index": 557,
+      "slideKey": "em-v2-l32-p009",
+      "lesson": 32,
+      "localIndex": 9,
+      "title": "长期使用要检查边界",
+      "layout": "proof",
+      "steps": 3,
+      "revealTitles": [
+        "内部解范围",
+        "小预算",
+        "大预算解释"
+      ]
+    },
+    {
+      "index": 558,
+      "slideKey": "em-v2-l32-p010",
+      "lesson": 32,
+      "localIndex": 10,
+      "title": "独立迁移：不同目标",
+      "layout": "exercise",
+      "steps": 3,
+      "revealTitles": [
+        "消元",
+        "最优",
+        "端点"
+      ]
+    },
+    {
+      "index": 559,
+      "slideKey": "em-v2-l32-p011",
+      "lesson": 32,
+      "localIndex": 11,
+      "title": "累计效果也能进入报告",
+      "layout": "exercise",
+      "steps": 2,
+      "revealTitles": [
+        "累计与平均",
+        "口径"
+      ]
+    },
+    {
+      "index": 560,
+      "slideKey": "em-v2-l32-p012",
+      "lesson": 32,
+      "localIndex": 12,
+      "title": "一页决策报告",
+      "layout": "essay",
+      "steps": 0,
+      "revealTitles": []
+    }
+  ]
+}

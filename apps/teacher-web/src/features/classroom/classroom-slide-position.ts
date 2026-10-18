@@ -1,5 +1,17 @@
 import type { SlideFrame } from '@edu/contracts';
 import type { CourseDeckDescriptor, CourseDeckPosition } from '@edu/course-content/deck-registry';
+import { getEconomicMathematicsHistoricalCounts } from '@edu/course-content/economic-mathematics';
+
+/** A recognized historical release cannot be recovered by reloading the current renderer. */
+export function classroomDeckIssue(
+  courseId: string,
+  frame: SlideFrame,
+  deck: CourseDeckDescriptor | null | undefined
+): 'archived' | 'sync' {
+  return deck?.courseId === courseId && courseId === 'course-economic-mathematics'
+    && frame.versionId !== deck.versionId && getEconomicMathematicsHistoricalCounts(frame.versionId)
+    ? 'archived' : 'sync';
+}
 
 /** Numeric page positions are meaningful only within the same course and release. */
 export function classroomSlidePosition(

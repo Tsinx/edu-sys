@@ -1,6 +1,7 @@
 import type {ReactNode} from 'react';
 import katex from 'katex';
-import {MEASUREMENT_DATA as D, measurementLessons, measurementWording, measurementTeachingTables, type MeasurementPage} from '@edu/course-content/statistical-analysis';
+import {MEASUREMENT_DATA as D, measurementLessons, measurementWording, measurementTeachingTables,factorTables, type MeasurementPage} from '@edu/course-content/statistical-analysis';
+import {FactorEvidence,hasFactorEvidence} from './FactorEvidence';
 import './measurement-pages.css';
 import './measurement-survey.css';
 
@@ -9,7 +10,7 @@ type Chart={xlabel:string;ylabel:string;series:Series[];xmin?:number;xmax?:numbe
 type Table={headers:string[];rows:(string|number)[][]};
 const ink='#152e3e',amber='#b87921',teal='#197f7a',muted='#667980';
 const colors:Record<string,string>={ink,amber,teal};
-const plots=D.plots as Record<string,Chart>, tables={...D.tables,...measurementTeachingTables} as Record<string,Table>;
+const plots=D.plots as Record<string,Chart>, tables={...D.tables,...measurementTeachingTables,...factorTables} as Record<string,Table>;
 const f=(n:number,d=3)=>Math.abs(n)>=1000?Math.round(n).toLocaleString('en-US'):Number(n.toPrecision(d)).toString();
 function ChartView({chart,compact=false,selected=false}:{chart:Chart;compact?:boolean;selected?:boolean}){
  const width=compact?600:1100,height=560,l=compact?96:112,r=width-44,top=150,bottom=426;
@@ -103,6 +104,7 @@ function Reliability(){return <svg className="sam-chart" viewBox="0 0 1100 560" 
  </svg>;}
 function Evidence({id,focusRows,focusColumns,compact=false}:{id:string;focusRows?:number[];focusColumns?:number[];compact?:boolean}):ReactNode{
  if(tables[id])return <DataTable id={id} focusRows={focusRows} focusColumns={focusColumns}/>;
+ if(hasFactorEvidence(id))return <FactorEvidence id={id}/>;
  if(plots[id])return <ChartView chart={plots[id]} compact={compact}/>;
  if(measurementWording[id])return <Comparison id={id}/>;
  if(id.startsWith('geometry-'))return <Geometry mode={id.slice(9)}/>;
@@ -142,7 +144,7 @@ export function MeasurementPageView({lesson,page}:{lesson:number;page:number}){
  const p=measurementPageSpec(lesson,page)!;
  const image=p.image?`/course-assets/statistical-analysis/images/${p.image}.png`:undefined;
  if(page===1)return <><img className="sa-art sa-art--bleed" src={image} alt="AI生成教学情境配图"/><div className="sa-cover-shade"/><div className="sa-cover-copy"><span>STATISTICAL ANALYSIS METHODS</span><h1>{p.title}</h1><p>{p.lead}</p><div>{String(lesson).padStart(2,'0')}<i/>{p.caption}</div></div></>;
- return <div className={`sam-page ${lesson===6?'sam-page--survey':''} ${p.visual?'sam-page--evidence':'sam-page--concept'} ${p.formula?'sam-page--formula':''} ${image?'sam-page--art':''}`}>
+ return <div className={`sam-page ${lesson===6?'sam-page--survey':''} ${lesson>=8?'sam-page--factors':''} ${p.visual?'sam-page--evidence':'sam-page--concept'} ${p.formula?'sam-page--formula':''} ${image?'sam-page--art':''}`}>
   {image&&<img className={`sam-art ${p.visual?'sam-art--accent':''}`} src={image} alt="AI生成教学情境配图"/>}
   <div className="sam-content">
    {p.formula&&<Formula value={p.formula}/>}

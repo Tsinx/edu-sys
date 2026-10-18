@@ -62,6 +62,8 @@ export type EconomicMathematicsInteractionId =
   | "budget-constraint-lab";
 
 export interface EconomicMathematicsAuthoredSlide {
+  foundationFigure?: EconomicMathematicsFoundationFigure;
+  foundationLab?: 'angle' | 'compounding' | 'continuity-repair' | 'bisection' | 'derivative-secant';
   /** Two authored concept questions with teacher-controlled feedback. */
   conceptCheck?: boolean;
   limitFigure?: EconomicMathematicsLimitFigure;
@@ -109,6 +111,11 @@ export interface EconomicMathematicsAuthoredSlide {
   routeRole?: "core" | "optional";
   teachingSeconds?: number;
   moduleId?: string;
+}
+
+export interface EconomicMathematicsFoundationFigure {
+  kind: 'angle' | 'sinc' | 'compound' | 'equivalence' | 'continuity' | 'contract' | 'queue' | 'ivt' | 'bisection' | 'extreme' | 'oscillation' | 'sided' | 'far' | 'derivative';
+  params?: Readonly<Record<string, number>>;
 }
 
 export interface EconomicMathematicsRevealStep {

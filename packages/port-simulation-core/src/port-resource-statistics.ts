@@ -104,8 +104,9 @@ function observe(s: PortSession, r: PortResource, capacities: ReturnType<typeof 
   const berth = r.index < s.plan.equipment.dispatch.berthCranes[0] ? 0 : 1;
   const enabled = kind === 'quay' ? f.enabled.quay[berth] : f.enabled[kind as 'truck' | 'yard' | 'gate'];
   if (!enabled || r.kind === 'gate' && f.gateLimit === 0) return state('disabled', '对应业务未启用或受控交付额度已经用尽。');
-  if (!vehicle?.external && r.index >= capacities[kind as keyof typeof capacities]) return state('unstaffed', '该设备未获得岗位或可投入能力；包括司机、操作员及配套设施限制。');
-  if (vehicle?.loadedBox) return state('wait-handoff', '车辆实际载箱，尚未获得下一道运输或交接任务。');
+  const handover = f.staffHandover?.[kind as 'quay' | 'truck' | 'yard' | 'gate'].includes(r.index);
+  if (!vehicle?.external && !handover && r.index >= capacities[kind as keyof typeof capacities]) return state('unstaffed', '该设备未获得岗位或可投入能力；包括司机、操作员及配套设施限制。');
+  if (vehicle?.loadedBox) return state('wait-handoff', handover ? '开局减员后的原有载箱任务仍在岗交接；交接结束返回待命位后撤岗。' : '车辆实际载箱，尚未获得下一道运输或交接任务。');
   if (j) return state('disabled', '当前任务的执行条件未满足；需结合岗位与业务状态核查。');
   return state('idle', '当前未获派任务；需结合箱流、交接位与配套设备判断原因。');
 }

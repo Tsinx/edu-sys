@@ -27,7 +27,7 @@ export function useCourseFullscreen() {
 }
 
 interface CourseHeaderProps {
-  lesson: 1 | 2 | 3 | 4;
+  lesson: 1 | 2 | 3 | 4 | 5 | 6 | 7;
   duration: string;
   onRestart: () => void;
 }
@@ -46,7 +46,7 @@ export function CourseHeader({ lesson, duration, onRestart }: CourseHeaderProps)
       <select aria-label="选择讲次" value={lesson} onChange={event => {
         const next = Number(event.target.value);
         if (next !== lesson) location.assign(next === 1 ? '/course-assets/economic-mathematics/prelude/index.html' : '/economic-narration.html?lesson=' + next);
-      }}>{ECONOMIC_MATHEMATICS_LESSONS.slice(0,4).map(l=><option key={l.number} value={l.number}>{'第'+l.number+'讲 · '+l.title}</option>)}</select>
+      }}>{ECONOMIC_MATHEMATICS_LESSONS.slice(0,7).map(l=><option key={l.number} value={l.number}>{'第'+l.number+'讲 · '+l.title}</option>)}</select>
       <span className="em-course-duration">{duration}</span>
       <details className="em-course-resources" ref={resources}><summary>资料与帮助</summary><div>
         {lesson === 1 ? <>
@@ -61,7 +61,7 @@ export function CourseHeader({ lesson, duration, onRestart }: CourseHeaderProps)
           <a href={'/course-assets/economic-mathematics/limits/lesson0' + lesson + '-teacher.pdf'} download>下载备课PDF</a>
           <a href={'/course-assets/economic-mathematics/limits/lesson0' + lesson + '-worksheet.html'} target="_blank" rel="noreferrer">课堂练习单</a>
           <a href={'/course-assets/economic-mathematics/limits/lesson0' + lesson + '-script.html'} target="_blank" rel="noreferrer">完整讲稿与答案</a>
-          <a href="/course-assets/economic-mathematics/calculus-history/index.html" target="_blank" rel="noreferrer">独立短片与来源</a>
+          {lesson<=4&&<a href="/course-assets/economic-mathematics/calculus-history/index.html" target="_blank" rel="noreferrer">独立短片与来源</a>}
         </>}
         <p>← → 翻页 · 空格展开步骤<br/>Esc 返回教师界面 · 自动保存进度</p>
         <a href="/avatar/live2d/NOTICE.txt" target="_blank" rel="noreferrer">数字人素材许可</a>

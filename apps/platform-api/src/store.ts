@@ -4084,13 +4084,15 @@ export class JsonStateStore {
         return session;
       }
       const remember=(session:ClassSession)=>{if(key)state.portal!.startRequests[key]={fingerprint,sessionId:session.id};return session;};
-      // Direct store callers without identity retain their historical create behavior.
-      if(actor && options.mode!=='new' && !options.scheduledSessionId) {
-        const live=state.classSessions.filter(s=>s.courseId===courseId && s.teacherId===teacherId && s.status==='live').sort((a,b)=>b.startsAt.localeCompare(a.startsAt))[0];
-        if(live)return remember(live);
-      }
       const deck=getCourseDeckByCourseId(courseId);
       if(!deck)throw Object.assign(new Error('这门课程尚未发布课件'),{statusCode:409});
+      // Direct store callers without identity retain their historical create behavior.
+      if(actor && options.mode!=='new' && !options.scheduledSessionId) {
+        const live=state.classSessions.filter(s=>s.courseId===courseId && s.teacherId===teacherId && s.status==='live'
+          && (courseId!==ECONOMIC_MATHEMATICS_COURSE_ID || (state.classroomRuntimes[s.id]?.deckId===deck.deckId && state.classroomRuntimes[s.id]?.deckVersion===deck.versionId)))
+          .sort((a,b)=>b.startsAt.localeCompare(a.startsAt))[0];
+        if(live)return remember(live);
+      }
       const lesson=options.lesson===undefined ? deck.lessons.find(l=>l.status==='ready') : deck.lessons.find(l=>l.number===options.lesson && l.status==='ready');
       if(!lesson)throw Object.assign(new Error('该讲次尚未开放'),{statusCode:400});
       const now=new Date().toISOString();

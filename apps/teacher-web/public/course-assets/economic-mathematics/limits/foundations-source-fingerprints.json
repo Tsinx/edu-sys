@@ -1,0 +1,49 @@
+{
+  "version": "release-economic-mathematics-foundations-depth-2026-10-16",
+  "files": [
+    {
+      "path": "packages/course-content/src/economic-mathematics/foundations-authoring.ts",
+      "sha256": "31203a14b69257de7718ae06c34463b5616363f06a1b03e2395a1770908537df"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/foundations-model.ts",
+      "sha256": "bdec59af517229c8de7dc9359d26b56570dd17071472ee45bd28d4a2f588357b"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/lesson-05-refined.ts",
+      "sha256": "015ad02a2937a0ac15dd707659baf40955a97c6e929a6b11ecef9e963e2d11ad"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/lesson-06-refined.ts",
+      "sha256": "e554bba3468c328891382cd42265fdbc3e1135599571d0400739320d0bf4781b"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/types.ts",
+      "sha256": "bde4ce6786c3450c7500e105d18cbc51835cd7c631804a228114e5ba88e85b94"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/interactions.ts",
+      "sha256": "b50d484b230d817dacc6e352930ec73eeb01478399b5db1572ef9e66ff82e143"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "sha256": "6658a5b6b6378775f009bde38306819d7cb2938facdda9017eaa173830092ecb"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/slides.ts",
+      "sha256": "7f90049b61d0f743b9a307de2677ea5c29bd0a25f6f69b69821c144021ea75b7"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/FoundationFigure.tsx",
+      "sha256": "ff098ce5dc52ecaa7bdd90b8f489b6ee3f42360f40f40fe3f8b0615c9595bdb3"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
+      "sha256": "1acf986b3d1c4e1f7f6f1a27edecd6984d37b2954115083e6af7186c4694c93b"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/limits.css",
+      "sha256": "127178b078ee6ffcac95612574fd1c0e0aab8d86cc5a35240942449842fd39c8"
+    }
+  ]
+}

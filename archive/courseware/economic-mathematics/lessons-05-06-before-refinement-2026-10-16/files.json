@@ -1,0 +1,46 @@
+[
+  {
+    "path": "packages/course-content/src/economic-mathematics/v2/lesson-05.ts",
+    "sha256": "af30fa6bd6105a370144b4175c968b017107bffca4ed7addb73228d9ce8b0bb3"
+  },
+  {
+    "path": "packages/course-content/src/economic-mathematics/v2/lesson-06.ts",
+    "sha256": "9965efe5aac23ee5c4517edbf817b54fd077974b56f266181b6cdd85320087c9"
+  },
+  {
+    "path": "packages/course-content/src/economic-mathematics/curriculum.ts",
+    "sha256": "070b69d1c745dc178ebf5ccd4c2bc802dd92476ccec2f99eb97d2d4b8a706173"
+  },
+  {
+    "path": "packages/course-content/src/economic-mathematics/slides.ts",
+    "sha256": "98bf19529abc4df7271c6c92082ade796a9bd33e492b81d57d7de983a4abc93e"
+  },
+  {
+    "path": "packages/course-content/src/economic-mathematics/types.ts",
+    "sha256": "3a6729c234166c397277d98d2dc8f0cd7f802bd9f15a4a0b49320a7fd9eae2dc"
+  },
+  {
+    "path": "packages/course-content/src/economic-mathematics/interactions.ts",
+    "sha256": "ec5cb0bfe427c38168a3a3db0f0e4e122831281cd18469a840c26a5c3744a66e"
+  },
+  {
+    "path": "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
+    "sha256": "ccc580c211b6c7eb69871f876a9ad4236823b66b801960d00d21a18df89149e9"
+  },
+  {
+    "path": "apps/teacher-web/src/features/economic-mathematics/EconomicPageNarrator.tsx",
+    "sha256": "8373d732802d534de552f64a7576c67f717f9eaffb73c81c502ecd989d41f077"
+  },
+  {
+    "path": "apps/teacher-web/src/features/economic-mathematics/PresentationChrome.tsx",
+    "sha256": "f70a2ac494d24dde1874c9a69b7721527bc02798c091e84e8b6ce32be47bf315"
+  },
+  {
+    "path": "apps/teacher-web/src/economic-narration.tsx",
+    "sha256": "1a3dea75430e8cb34f5f8610eb6780f3798880bababb7b87f912bb66c3472e02"
+  },
+  {
+    "path": "docs/course/economic-mathematics-deck-v2.json",
+    "sha256": "cd945e9ad582ea90ce4e4d7be82979514869383cd84cbb809328d433a9f14d04"
+  }
+]

@@ -1,12 +1,12 @@
 {
-  "deckId": "deck-economic-mathematics-2026-limits-reinforcement",
-  "versionId": "release-economic-mathematics-limits-reinforcement-2026-10-13",
+  "deckId": "deck-economic-mathematics-2026-continuity-derivative",
+  "versionId": "release-economic-mathematics-continuity-derivative-2026-10-17",
   "canvas": [
     1600,
     1000
   ],
   "hours": 64,
-  "slideTotal": 560,
+  "slideTotal": 701,
   "lessons": [
     {
       "number": 1,
@@ -157,31 +157,31 @@
       "number": 4,
       "unit": 2,
       "unitTitle": "极限与连续",
-      "title": "左右极限、计算与采购决策",
+      "title": "极限：方向、条件与方法",
       "hours": 2,
-      "expectedSlides": 76,
-      "coreQuestion": "左右能否拼成同一个极限，理想成本能否指导本批采购？",
-      "exerciseCapability": "区分函数极限与差商极限，判断左右条件；有条件地运用法则与精确变形；区分输入规模、输出无穷与实际定义域；在同一批量和完整费用下作出采购判断",
+      "expectedSlides": 60,
+      "coreQuestion": "怎样从定义、条件与精确关系，判断一个极限？",
+      "exerciseCapability": "区分左右、双侧、无穷远与输出无穷；说明有限极限运算法则的条件和方向；用附近等式完成约分与有理化；用正反例及统一估计解释无穷小与夹逼",
       "slideStart": 185,
-      "slideEnd": 260,
+      "slideEnd": 244,
       "prerequisites": [
-        "第二讲商家模型、可行集和报价网格",
-        "高中导数符号、代数恒等式、绝对值与指数"
+        "第三讲函数极限与ε–δ语言",
+        "高中因式分解、根式与绝对值"
       ],
       "outcomes": [
-        "区分函数极限与差商极限，判断左右条件",
-        "有条件地运用法则与精确变形",
-        "区分输入规模、输出无穷与实际定义域",
-        "在同一批量和完整费用下作出采购判断"
+        "区分左右、双侧、无穷远与输出无穷",
+        "说明有限极限运算法则的条件和方向",
+        "用附近等式完成约分与有理化",
+        "用正反例及统一估计解释无穷小与夹逼"
       ],
       "route": [
         {
           "minutes": 45,
-          "activity": "左右极限 → 导数回顾与局部最大 → 带条件的法则及0/0；七次小组辨析"
+          "activity": "同一分段函数 → 左右与双侧 → 运算法则及0/0；六组个人练习"
         },
         {
           "minutes": 45,
-          "activity": "精确变形 → 定义域与输入/输出无穷 → 夹逼与同批量比较；七次小组辨析"
+          "activity": "附近相等 → 根式差 → 输入输出无穷 → 夹逼；六组个人练习"
         }
       ],
       "classHours": [
@@ -189,150 +189,166 @@
           "hour": 1,
           "minutes": 45,
           "slideStart": 1,
-          "slideEnd": 29,
-          "activity": "左右极限 → 导数回顾与局部最大 → 带条件的法则及0/0；七次小组辨析"
+          "slideEnd": 28,
+          "activity": "同一分段函数 → 左右与双侧 → 运算法则及0/0；六组个人练习"
         },
         {
           "hour": 2,
           "minutes": 45,
-          "slideStart": 30,
-          "slideEnd": 57,
-          "activity": "精确变形 → 定义域与输入/输出无穷 → 夹逼与同批量比较；七次小组辨析"
+          "slideStart": 29,
+          "slideEnd": 56,
+          "activity": "附近相等 → 根式差 → 输入输出无穷 → 夹逼；六组个人练习"
         }
       ],
-      "slideTotal": 76
+      "slideTotal": 60
     },
     {
       "number": 5,
       "unit": 2,
       "unitTitle": "极限与连续",
-      "title": "重要极限与等价无穷小",
+      "title": "重要极限与等价：依据、条件和边界",
       "hours": 2,
-      "expectedSlides": 15,
-      "coreQuestion": "小变化在什么条件下可以替换？",
-      "exerciseCapability": "建立正弦重要极限；辨别等价替换的条件",
-      "slideStart": 261,
-      "slideEnd": 275,
+      "expectedSlides": 66,
+      "coreQuestion": "怎样有依据地比较微小变化，并判断何时可以替换？",
+      "exerciseCapability": "用单位圆、误差估计和夹逼证明正弦重要极限；区分整数数列与实变量版本，正确配对幂的增量和指数；从比值极限定义等价无穷小；用正反例判断乘除与相消结构中的替换",
+      "slideStart": 245,
+      "slideEnd": 310,
       "prerequisites": [
-        "极限",
-        "夹逼思想",
-        "弧度"
+        "第四讲左右极限、运算法则与夹逼",
+        "高中三角恒等式、指数与对数"
       ],
       "outcomes": [
-        "建立正弦重要极限",
-        "辨别等价替换的条件"
+        "用单位圆、误差估计和夹逼证明正弦重要极限",
+        "区分整数数列与实变量版本，正确配对幂的增量和指数",
+        "从比值极限定义等价无穷小",
+        "用正反例判断乘除与相消结构中的替换"
       ],
       "route": [
         {
-          "minutes": 10,
-          "activity": "微小转角"
+          "minutes": 45,
+          "activity": "几何夹逼 → 正弦变式与尺度 → e的定义；六组个人练习"
         },
         {
-          "minutes": 25,
-          "activity": "单位圆与夹逼"
-        },
-        {
-          "minutes": 20,
-          "activity": "指数极限与等价关系"
-        },
-        {
-          "minutes": 25,
-          "activity": "计算与错例"
-        },
-        {
-          "minutes": 10,
-          "activity": "近似边界"
+          "minutes": 45,
+          "activity": "幂与指数对数 → 等价的比值定义 → 替换与相消；六组个人练习"
         }
       ],
-      "slideTotal": 15
+      "classHours": [
+        {
+          "hour": 1,
+          "minutes": 45,
+          "slideStart": 1,
+          "slideEnd": 30,
+          "activity": "几何夹逼 → 正弦变式与尺度 → e的定义；六组个人练习"
+        },
+        {
+          "hour": 2,
+          "minutes": 45,
+          "slideStart": 31,
+          "slideEnd": 60,
+          "activity": "幂与指数对数 → 等价的比值定义 → 替换与相消；六组个人练习"
+        }
+      ],
+      "slideTotal": 66
     },
     {
       "number": 6,
       "unit": 2,
       "unitTitle": "极限与连续",
-      "title": "连续性与优惠门槛",
+      "title": "连续性：点处衔接与区间保证",
       "hours": 2,
-      "expectedSlides": 11,
-      "coreQuestion": "规则在哪一个位置突然改变？",
-      "exerciseCapability": "验证连续的三个条件；区分间断类型；解释商业门槛",
-      "slideStart": 276,
-      "slideEnd": 286,
+      "expectedSlides": 64,
+      "coreQuestion": "函数接得上以后，哪些存在结论能得到保证？",
+      "exerciseCapability": "用极限与函数值判断点处及端点连续；用正反例区分可修补、跳跃、无穷与振荡；核对介值和最值定理的条件及结论边界；分别论证存在、唯一，并解释取得与上界的差别",
+      "slideStart": 311,
+      "slideEnd": 374,
       "prerequisites": [
-        "左右极限",
-        "函数值"
+        "第三、四讲极限、左右极限与误差语言",
+        "第五讲重要极限与等价"
       ],
       "outcomes": [
-        "验证连续的三个条件",
-        "区分间断类型",
-        "解释商业门槛"
+        "用极限与函数值判断点处及端点连续",
+        "用正反例区分可修补、跳跃、无穷与振荡",
+        "核对介值和最值定理的条件及结论边界",
+        "分别论证存在、唯一，并解释取得与上界的差别"
       ],
       "route": [
         {
-          "minutes": 15,
-          "activity": "免运费门槛"
+          "minutes": 45,
+          "activity": "补点 → 连续定义与端点 → 运算及分段 → 间断与误差；六组个人练习"
         },
         {
-          "minutes": 25,
-          "activity": "连续条件"
-        },
-        {
-          "minutes": 20,
-          "activity": "门槛实验"
-        },
-        {
-          "minutes": 20,
-          "activity": "参数与练习"
-        },
-        {
-          "minutes": 10,
-          "activity": "定价迁移"
+          "minutes": 45,
+          "activity": "介值与零点 → 存在和唯一 → 最值及条件反例 → 导数引问；六组个人练习"
         }
       ],
-      "slideTotal": 11
+      "classHours": [
+        {
+          "hour": 1,
+          "minutes": 45,
+          "slideStart": 1,
+          "slideEnd": 30,
+          "activity": "补点 → 连续定义与端点 → 运算及分段 → 间断与误差；六组个人练习"
+        },
+        {
+          "hour": 2,
+          "minutes": 45,
+          "slideStart": 31,
+          "slideEnd": 60,
+          "activity": "介值与零点 → 存在和唯一 → 最值及条件反例 → 导数引问；六组个人练习"
+        }
+      ],
+      "slideTotal": 64
     },
     {
       "number": 7,
       "unit": 3,
       "unitTitle": "导数与微分",
-      "title": "导数：从平均变化到瞬时变化",
+      "title": "导数：定义、条件与局部变化",
       "hours": 2,
-      "expectedSlides": 11,
-      "coreQuestion": "很小的调价怎样改变利润？",
-      "exerciseCapability": "用定义求导；解释导数单位；区分割线与切线",
-      "slideStart": 287,
-      "slideEnd": 297,
+      "expectedSlides": 64,
+      "coreQuestion": "怎样用有限的差商极限描述一点的变化率，并明确它能回答什么？",
+      "exerciseCapability": "用定义和单侧判据判断一点可导；区别函数值、一点导数与导函数；证明可导推出连续并用反例说明反向不成立；解释切线、边际成本与有限增量的差别；核对内点可导极值的必要条件，避免反向误用",
+      "slideStart": 375,
+      "slideEnd": 438,
       "prerequisites": [
-        "函数极限",
-        "利润函数"
+        "第六讲连续性与区间条件",
+        "高中代数、第三至第五讲极限"
       ],
       "outcomes": [
-        "用定义求导",
-        "解释导数单位",
-        "区分割线与切线"
+        "用定义和单侧判据判断一点可导",
+        "区别函数值、一点导数与导函数",
+        "证明可导推出连续并用反例说明反向不成立",
+        "解释切线、边际成本与有限增量的差别",
+        "核对内点可导极值的必要条件，避免反向误用"
       ],
       "route": [
         {
-          "minutes": 15,
-          "activity": "配送变化"
+          "minutes": 45,
+          "activity": "尖角问题 → 输入输出增量 → 差商与导数 → 单侧、定义域与基本计算；六组个人练习"
         },
         {
-          "minutes": 25,
-          "activity": "导数定义"
-        },
-        {
-          "minutes": 20,
-          "activity": "割线实验"
-        },
-        {
-          "minutes": 20,
-          "activity": "独立计算"
-        },
-        {
-          "minutes": 10,
-          "activity": "变化解释"
+          "minutes": 45,
+          "activity": "可导与连续 → 切线 → 同一成本模型的边际与实际增量 → 费马条件；六组个人练习"
         }
       ],
-      "slideTotal": 11
+      "classHours": [
+        {
+          "hour": 1,
+          "minutes": 45,
+          "slideStart": 1,
+          "slideEnd": 30,
+          "activity": "尖角问题 → 输入输出增量 → 差商与导数 → 单侧、定义域与基本计算；六组个人练习"
+        },
+        {
+          "hour": 2,
+          "minutes": 45,
+          "slideStart": 31,
+          "slideEnd": 60,
+          "activity": "可导与连续 → 切线 → 同一成本模型的边际与实际增量 → 费马条件；六组个人练习"
+        }
+      ],
+      "slideTotal": 64
     },
     {
       "number": 8,
@@ -343,8 +359,8 @@
       "expectedSlides": 10,
       "coreQuestion": "复杂的成本关系怎样拆开计算？",
       "exerciseCapability": "使用基本求导公式；正确应用乘积与商法则",
-      "slideStart": 298,
-      "slideEnd": 307,
+      "slideStart": 439,
+      "slideEnd": 448,
       "prerequisites": [
         "导数定义",
         "幂运算"
@@ -386,8 +402,8 @@
       "expectedSlides": 10,
       "coreQuestion": "曝光变化怎样传到订阅收入？",
       "exerciseCapability": "识别内外函数；计算复合变化率；核对单位链",
-      "slideStart": 308,
-      "slideEnd": 317,
+      "slideStart": 449,
+      "slideEnd": 458,
       "prerequisites": [
         "基本求导",
         "复合函数"
@@ -430,8 +446,8 @@
       "expectedSlides": 10,
       "coreQuestion": "销售增速上升时，销售量一定加速增长吗？",
       "exerciseCapability": "计算二阶导数；区分水平、增速与增速变化",
-      "slideStart": 318,
-      "slideEnd": 327,
+      "slideStart": 459,
+      "slideEnd": 468,
       "prerequisites": [
         "一阶导数",
         "链式法则"
@@ -473,8 +489,8 @@
       "expectedSlides": 10,
       "coreQuestion": "小幅调价的估算会偏差多少？",
       "exerciseCapability": "计算微分；比较增量与微分；解释近似误差",
-      "slideStart": 328,
-      "slideEnd": 337,
+      "slideStart": 469,
+      "slideEnd": 478,
       "prerequisites": [
         "导数",
         "切线"
@@ -517,8 +533,8 @@
       "expectedSlides": 11,
       "coreQuestion": "一段平均变化能证明什么？",
       "exerciseCapability": "检查定理条件；用中值定理连接变化率；证明简单不等式",
-      "slideStart": 338,
-      "slideEnd": 348,
+      "slideStart": 479,
+      "slideEnd": 489,
       "prerequisites": [
         "连续与可导"
       ],
@@ -560,8 +576,8 @@
       "expectedSlides": 11,
       "coreQuestion": "零除以零，为什么没有固定答案？",
       "exerciseCapability": "识别未定式；核验洛必达条件；转换其他未定形式",
-      "slideStart": 349,
-      "slideEnd": 359,
+      "slideStart": 490,
+      "slideEnd": 500,
       "prerequisites": [
         "极限",
         "求导"
@@ -604,8 +620,8 @@
       "expectedSlides": 10,
       "coreQuestion": "候选价格怎样变成可行的最优价格？",
       "exerciseCapability": "用导数判断单调；比较端点与驻点；解释凹凸和拐点",
-      "slideStart": 360,
-      "slideEnd": 369,
+      "slideStart": 501,
+      "slideEnd": 510,
       "prerequisites": [
         "一阶与二阶导数"
       ],
@@ -647,8 +663,8 @@
       "expectedSlides": 10,
       "coreQuestion": "多销售一件，会带来多少净收益？",
       "exerciseCapability": "按销量定义边际量；区分平均量与边际量；使用MR=MC并检验最优",
-      "slideStart": 370,
-      "slideEnd": 379,
+      "slideStart": 511,
+      "slideEnd": 520,
       "prerequisites": [
         "导数与极值",
         "反函数关系"
@@ -691,8 +707,8 @@
       "expectedSlides": 10,
       "coreQuestion": "同样涨价1%，销量反应为什么不同？",
       "exerciseCapability": "计算无量纲需求弹性；连接弹性与收入变化；区分收入最优和利润最优",
-      "slideStart": 380,
-      "slideEnd": 389,
+      "slideStart": 521,
+      "slideEnd": 530,
       "prerequisites": [
         "导数",
         "边际收入"
@@ -735,8 +751,8 @@
       "expectedSlides": 10,
       "coreQuestion": "只知道变化率，能恢复总量吗？",
       "exerciseCapability": "辨认原函数；保留积分常数；利用初始条件恢复函数",
-      "slideStart": 390,
-      "slideEnd": 399,
+      "slideStart": 531,
+      "slideEnd": 540,
       "prerequisites": [
         "基本求导"
       ],
@@ -778,8 +794,8 @@
       "expectedSlides": 10,
       "coreQuestion": "哪些变化率可以直接恢复？",
       "exerciseCapability": "使用积分公式；通过求导核验；注意定义域与绝对值",
-      "slideStart": 400,
-      "slideEnd": 409,
+      "slideStart": 541,
+      "slideEnd": 550,
       "prerequisites": [
         "原函数",
         "基本求导公式"
@@ -822,8 +838,8 @@
       "expectedSlides": 10,
       "coreQuestion": "复杂表达式里藏着什么简单结构？",
       "exerciseCapability": "识别微分因子；完成换元与回代；解释换元范围",
-      "slideStart": 410,
-      "slideEnd": 419,
+      "slideStart": 551,
+      "slideEnd": 560,
       "prerequisites": [
         "链式法则",
         "积分公式"
@@ -866,8 +882,8 @@
       "expectedSlides": 10,
       "coreQuestion": "一个乘积怎样化成更简单的积分？",
       "exerciseCapability": "选择u与dv；正确保留边界与符号；核验分部积分结果",
-      "slideStart": 420,
-      "slideEnd": 429,
+      "slideStart": 561,
+      "slideEnd": 570,
       "prerequisites": [
         "乘积求导",
         "换元积分"
@@ -910,8 +926,8 @@
       "expectedSlides": 10,
       "coreQuestion": "一天的配送量怎样从速率记录估算？",
       "exerciseCapability": "建立黎曼和；解释有向面积；比较取样误差",
-      "slideStart": 430,
-      "slideEnd": 439,
+      "slideStart": 571,
+      "slideEnd": 580,
       "prerequisites": [
         "积分公式",
         "数列极限"
@@ -954,8 +970,8 @@
       "expectedSlides": 10,
       "coreQuestion": "为什么累计量的导数回到速率？",
       "exerciseCapability": "使用牛顿莱布尼茨公式；求变上限积分导数；区分累计量与速率",
-      "slideStart": 440,
-      "slideEnd": 449,
+      "slideStart": 581,
+      "slideEnd": 590,
       "prerequisites": [
         "原函数",
         "定积分"
@@ -998,8 +1014,8 @@
       "expectedSlides": 10,
       "coreQuestion": "换了变量，边界要怎样跟着改变？",
       "exerciseCapability": "同步变换上下限；处理定积分边界项；检查符号与单位",
-      "slideStart": 450,
-      "slideEnd": 459,
+      "slideStart": 591,
+      "slideEnd": 600,
       "prerequisites": [
         "换元",
         "分部积分",
@@ -1043,8 +1059,8 @@
       "expectedSlides": 10,
       "coreQuestion": "总量和平均量怎样帮助安排运营？",
       "exerciseCapability": "从速率求累计；计算区间平均值；区别净面积与几何面积",
-      "slideStart": 460,
-      "slideEnd": 469,
+      "slideStart": 601,
+      "slideEnd": 610,
       "prerequisites": [
         "定积分与基本定理"
       ],
@@ -1086,8 +1102,8 @@
       "expectedSlides": 10,
       "coreQuestion": "曲线下的面积能够表达什么经济差额？",
       "exerciseCapability": "计算两类剩余；确定积分范围；区分剩余与企业利润",
-      "slideStart": 470,
-      "slideEnd": 479,
+      "slideStart": 611,
+      "slideEnd": 620,
       "prerequisites": [
         "反需求",
         "定积分与面积"
@@ -1130,8 +1146,8 @@
       "expectedSlides": 14,
       "coreQuestion": "两个输入怎样共同决定结果？",
       "exerciseCapability": "二元函数的定义域；区分曲面、截线、等高线",
-      "slideStart": 480,
-      "slideEnd": 493,
+      "slideStart": 621,
+      "slideEnd": 634,
       "prerequisites": [
         "一元函数",
         "坐标",
@@ -1174,8 +1190,8 @@
       "expectedSlides": 10,
       "coreQuestion": "保持广告不变时，调价会怎样？",
       "exerciseCapability": "求偏导数；说明固定条件和单位；辨别混合偏导",
-      "slideStart": 494,
-      "slideEnd": 503,
+      "slideStart": 635,
+      "slideEnd": 644,
       "prerequisites": [
         "多元函数",
         "单变量求导"
@@ -1218,8 +1234,8 @@
       "expectedSlides": 10,
       "coreQuestion": "两个小变化如何合并估算？",
       "exerciseCapability": "计算全微分；构造切平面；比较实际变化与近似误差",
-      "slideStart": 504,
-      "slideEnd": 513,
+      "slideStart": 645,
+      "slideEnd": 654,
       "prerequisites": [
         "偏导数",
         "单变量微分"
@@ -1262,8 +1278,8 @@
       "expectedSlides": 10,
       "coreQuestion": "决策沿一条路径联动时，变化率怎样传递？",
       "exerciseCapability": "计算联动路径导数；求隐函数偏导；解释保持目标不变的补偿",
-      "slideStart": 514,
-      "slideEnd": 523,
+      "slideStart": 655,
+      "slideEnd": 664,
       "prerequisites": [
         "偏导与全微分",
         "单变量链式法则"
@@ -1306,8 +1322,8 @@
       "expectedSlides": 11,
       "coreQuestion": "两项投入的驻点一定最好吗？",
       "exerciseCapability": "求多元驻点；使用Hessian判别；比较局部和全局最优",
-      "slideStart": 524,
-      "slideEnd": 534,
+      "slideStart": 665,
+      "slideEnd": 675,
       "prerequisites": [
         "一阶与二阶偏导"
       ],
@@ -1349,8 +1365,8 @@
       "expectedSlides": 14,
       "coreQuestion": "有限资源怎样比较增量响应？",
       "exerciseCapability": "消元与拉格朗日法；检查边界并解释影子价格",
-      "slideStart": 535,
-      "slideEnd": 548,
+      "slideStart": 676,
+      "slideEnd": 689,
       "prerequisites": [
         "偏导数",
         "一元极值"
@@ -1392,8 +1408,8 @@
       "expectedSlides": 12,
       "coreQuestion": "新行业、新成本下，你能独立完成建模吗？",
       "exerciseCapability": "独立识别变量和约束；完整求解并比较边界；解释敏感性与模型限制",
-      "slideStart": 549,
-      "slideEnd": 560,
+      "slideStart": 690,
+      "slideEnd": 701,
       "prerequisites": [
         "函数、微分、积分与约束优化"
       ],
@@ -1427,7 +1443,7 @@
       "slideTotal": 12
     }
   ],
-  "constructivistPages": 29,
+  "constructivistPages": 26,
   "pages": [
     {
       "index": 1,
@@ -3550,22 +3566,21 @@
     },
     {
       "index": 185,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p001",
+      "slideKey": "em-l04-math-first-20261016-p001",
       "lesson": 4,
       "localIndex": 1,
-      "title": "同一个最优点，两种极限问题",
+      "title": "靠近同一个点，能得到同一个数吗？",
       "layout": "cover",
       "style": "cover",
-      "image": "v2/l04-scene.png",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 186,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p002",
+      "slideKey": "em-l04-math-first-20261016-p002",
       "lesson": 4,
       "localIndex": 2,
-      "title": "利润与差商，是不同的数学对象",
+      "title": "数值从两边靠近，零处却可以另有取值",
       "layout": "essay",
       "style": "editorial",
       "steps": 0,
@@ -3573,112 +3588,109 @@
     },
     {
       "index": 187,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p003",
+      "slideKey": "em-l04-math-first-20261016-p003",
       "lesson": 4,
       "localIndex": 3,
-      "title": "固定80元，让新价格从两边靠近",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 188,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p004",
-      "lesson": 4,
-      "localIndex": 4,
-      "title": "只从一侧靠近：左右极限",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 189,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p005",
-      "lesson": 4,
-      "localIndex": 5,
-      "title": "小组辨析：左右，是输入的左右",
-      "layout": "table",
-      "style": "editorial",
-      "steps": 2,
-      "revealTitles": [
-        "第1题：A",
-        "第2题：C"
-      ]
-    },
-    {
-      "index": 190,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p006",
-      "lesson": 4,
-      "localIndex": 6,
-      "title": "80元左侧：利润在升，差商固定为360",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 2,
-      "revealTitles": [
-        "差商是精确常数",
-        "左侧误差保证"
-      ]
-    },
-    {
-      "index": 191,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p007",
-      "lesson": 4,
-      "localIndex": 7,
-      "title": "80元右侧：差商靠近−160",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 2,
-      "revealTitles": [
-        "右侧差商与误差",
-        "一项δ同时保住分段与精度"
-      ]
-    },
-    {
-      "index": 192,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p008",
-      "lesson": 4,
-      "localIndex": 8,
-      "title": "左右极限都存在，却不相等",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 193,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p009",
-      "lesson": 4,
-      "localIndex": 9,
-      "title": "两侧拼起来，何时得到函数极限？",
+      "title": "把数表的观察写成统一保证",
       "layout": "essay",
       "style": "editorial",
       "steps": 1,
       "revealTitles": [
-        "相同目标，用较小范围同时保证"
+        "任意精度都可以满足"
       ]
     },
     {
-      "index": 194,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p010",
+      "index": 188,
+      "slideKey": "em-l04-math-first-20261016-p004",
       "lesson": 4,
-      "localIndex": 10,
-      "title": "小组辨析：两侧各自存在，还差什么？",
+      "localIndex": 4,
+      "title": "个人练习01：附近与点值",
       "layout": "table",
       "style": "editorial",
       "steps": 2,
       "revealTitles": [
-        "第1题：D",
-        "第2题：B"
+        "第1题：B",
+        "第2题：C"
       ]
     },
     {
+      "index": 189,
+      "slideKey": "em-l04-math-first-20261016-p005",
+      "lesson": 4,
+      "localIndex": 5,
+      "title": "先只看一侧，问题会怎样简化？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 190,
+      "slideKey": "em-l04-math-first-20261016-p006",
+      "lesson": 4,
+      "localIndex": 6,
+      "title": "左右极限：保留误差要求，限制输入方向",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 191,
+      "slideKey": "em-l04-math-first-20261016-p007",
+      "lesson": 4,
+      "localIndex": 7,
+      "title": "分别证明，而不是分别猜测",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "左侧",
+        "右侧"
+      ]
+    },
+    {
+      "index": 192,
+      "slideKey": "em-l04-math-first-20261016-p008",
+      "lesson": 4,
+      "localIndex": 8,
+      "title": "个人练习02：左右是输入方向",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：A"
+      ]
+    },
+    {
+      "index": 193,
+      "slideKey": "em-l04-math-first-20261016-p009",
+      "lesson": 4,
+      "localIndex": 9,
+      "title": "表达式不同，两侧仍能接到同一个目标",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 194,
+      "slideKey": "em-l04-math-first-20261016-p010",
+      "lesson": 4,
+      "localIndex": 10,
+      "title": "只改右侧规则，双侧极限就可能消失",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
       "index": 195,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p011",
+      "slideKey": "em-l04-math-first-20261016-p011",
       "lesson": 4,
       "localIndex": 11,
-      "title": "利润没有跳跃，差商却分成两边",
+      "title": "双侧极限的判据：两侧都存在，而且相等",
       "layout": "essay",
       "style": "editorial",
       "steps": 0,
@@ -3686,37 +3698,38 @@
     },
     {
       "index": 196,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p012",
+      "slideKey": "em-l04-math-first-20261016-p012",
       "lesson": 4,
       "localIndex": 12,
-      "title": "高中导数，正是非零差商的极限",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 1,
-      "revealTitles": [
-        "回忆一个能算清的导数"
-      ]
-    },
-    {
-      "index": 197,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p013",
-      "lesson": 4,
-      "localIndex": 13,
-      "title": "小组辨析：先有差商极限，再有导数",
+      "title": "个人练习03：两侧拼合",
       "layout": "table",
       "style": "editorial",
       "steps": 2,
       "revealTitles": [
-        "第1题：A",
-        "第2题：C"
+        "第1题：C",
+        "第2题：D"
+      ]
+    },
+    {
+      "index": 197,
+      "slideKey": "em-l04-math-first-20261016-p013",
+      "lesson": 4,
+      "localIndex": 13,
+      "title": "两份单侧保证，怎样合成一份双侧保证？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "同一个目标L，同一个精度ε",
+        "覆盖全部附近输入"
       ]
     },
     {
       "index": 198,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p014",
+      "slideKey": "em-l04-math-first-20261016-p014",
       "lesson": 4,
       "localIndex": 14,
-      "title": "局部最大，比较的是附近函数值",
+      "title": "一个极限清楚了，组合起来还能直接算吗？",
       "layout": "essay",
       "style": "editorial",
       "steps": 0,
@@ -3724,456 +3737,35 @@
     },
     {
       "index": 199,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p015",
+      "slideKey": "em-l04-math-first-20261016-p015",
       "lesson": 4,
       "localIndex": 15,
-      "title": "都有局部最大，差商却有不同结果",
-      "layout": "table",
+      "title": "有限极限的和、差与积",
+      "layout": "essay",
       "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 200,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p016",
+      "slideKey": "em-l04-math-first-20261016-p016",
       "lesson": 4,
       "localIndex": 16,
-      "title": "导数为零，是有前提的必要条件",
+      "title": "和法则背后的理由：把总误差分给两项",
       "layout": "essay",
       "style": "editorial",
-      "steps": 1,
+      "steps": 2,
       "revealTitles": [
-        "以局部最大为例，左右给出相反限制"
+        "各自控制一半精度",
+        "共同范围与总误差"
       ]
     },
     {
       "index": 201,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p017",
+      "slideKey": "em-l04-math-first-20261016-p017",
       "lesson": 4,
       "localIndex": 17,
-      "title": "端点和报价网格，也不能套同一句话",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 202,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p018",
-      "lesson": 4,
-      "localIndex": 18,
-      "title": "小组辨析：三个前提，少一个会怎样？",
-      "layout": "table",
-      "style": "editorial",
-      "steps": 2,
-      "revealTitles": [
-        "第1题：D",
-        "第2题：C"
-      ]
-    },
-    {
-      "index": 203,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p019",
-      "lesson": 4,
-      "localIndex": 19,
-      "title": "采购门槛：先把全量折扣的规则读清",
-      "layout": "exercise",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 204,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p020",
-      "lesson": 4,
-      "localIndex": 20,
-      "title": "极限跳差1000元，实际少付980元",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 205,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p021",
-      "lesson": 4,
-      "localIndex": 21,
-      "title": "分段写法，不决定极限是否存在",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 206,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p022",
-      "lesson": 4,
-      "localIndex": 22,
-      "title": "小组辨析：分段写法，能直接决定极限吗？",
-      "layout": "table",
-      "style": "editorial",
-      "steps": 2,
-      "revealTitles": [
-        "第1题：B",
-        "第2题：C"
-      ]
-    },
-    {
-      "index": 207,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p023",
-      "lesson": 4,
-      "localIndex": 23,
-      "title": "组合成本，能否分别取极限再相加？",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 208,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p024",
-      "lesson": 4,
-      "localIndex": 24,
-      "title": "有限极限的四则法则，先看条件",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 209,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p025",
-      "lesson": 4,
-      "localIndex": 25,
-      "title": "商法则为什么要求分母极限非零？",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 210,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p026",
-      "lesson": 4,
-      "localIndex": 26,
-      "title": "小组辨析：法则怎么用，何时不能直接用？",
-      "layout": "table",
-      "style": "editorial",
-      "steps": 2,
-      "revealTitles": [
-        "第1题：C",
-        "第2题：D"
-      ]
-    },
-    {
-      "index": 211,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p027",
-      "lesson": 4,
-      "localIndex": 27,
-      "title": "法则能正着用，不表示反过来也成立",
-      "layout": "essay",
-      "style": "constructivist",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 212,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p028",
-      "lesson": 4,
-      "localIndex": 28,
-      "title": "0/0不是一个可计算的数",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 213,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p029",
-      "lesson": 4,
-      "localIndex": 29,
-      "title": "小组辨析：形式相同，结果就相同吗？",
-      "layout": "table",
-      "style": "editorial",
-      "steps": 2,
-      "revealTitles": [
-        "第1题：D",
-        "第2题：A"
-      ]
-    },
-    {
-      "index": 214,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p030",
-      "lesson": 4,
-      "localIndex": 30,
-      "title": "目标点以外相等，极限就能比较",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 1,
-      "revealTitles": [
-        "保持原式在目标点无定义"
-      ]
-    },
-    {
-      "index": 215,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p031",
-      "lesson": 4,
-      "localIndex": 31,
-      "title": "同一种依据，处理立方差",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 1,
-      "revealTitles": [
-        "变形以后，再用有限极限法则"
-      ]
-    },
-    {
-      "index": 216,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p032",
-      "lesson": 4,
-      "localIndex": 32,
-      "title": "小组辨析：目标点不能代入，附近可以化简",
-      "layout": "table",
-      "style": "editorial",
-      "steps": 2,
-      "revealTitles": [
-        "第1题：B",
-        "第2题：C"
-      ]
-    },
-    {
-      "index": 217,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p033",
-      "lesson": 4,
-      "localIndex": 33,
-      "title": "根式差不能直接约，怎样保留精确等式？",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 218,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p034",
-      "lesson": 4,
-      "localIndex": 34,
-      "title": "不偷用结论，先证明根式的趋近",
-      "layout": "proof",
-      "style": "editorial",
-      "steps": 2,
-      "revealTitles": [
-        "由误差保证根式趋于1",
-        "现在分母极限非零，才用商法则"
-      ]
-    },
-    {
-      "index": 219,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p035",
-      "lesson": 4,
-      "localIndex": 35,
-      "title": "小组辨析：乘一个共轭式，保住什么条件？",
-      "layout": "table",
-      "style": "editorial",
-      "steps": 2,
-      "revealTitles": [
-        "第1题：C",
-        "第2题：D"
-      ]
-    },
-    {
-      "index": 220,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p036",
-      "lesson": 4,
-      "localIndex": 36,
-      "title": "500件附近，与规模越来越大，是两种问题",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 221,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p037",
-      "lesson": 4,
-      "localIndex": 37,
-      "title": "总成本之外，商家还关心每件成本",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 222,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p038",
-      "lesson": 4,
-      "localIndex": 38,
-      "title": "平均成本：本批总款除以本批数量",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 223,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p039",
-      "lesson": 4,
-      "localIndex": 39,
-      "title": "数量增加，18元仍未成为实际平均成本",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 224,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p040",
-      "lesson": 4,
-      "localIndex": 40,
-      "title": "另设理想延伸，再研究无限规模",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 225,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p041",
-      "lesson": 4,
-      "localIndex": 41,
-      "title": "小组辨析：没有大输入，能谈无限规模吗？",
-      "layout": "table",
-      "style": "editorial",
-      "steps": 2,
-      "revealTitles": [
-        "第1题：B",
-        "第2题：C"
-      ]
-    },
-    {
-      "index": 226,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p042",
-      "lesson": 4,
-      "localIndex": 42,
-      "title": "由整数尾部，推广到所有充分大的实数输入",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 227,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p043",
-      "lesson": 4,
-      "localIndex": 43,
-      "title": "小组辨析：输入很大，输出一定很大吗？",
-      "layout": "table",
-      "style": "editorial",
-      "steps": 2,
-      "revealTitles": [
-        "第1题：B",
-        "第2题：A"
-      ]
-    },
-    {
-      "index": 228,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p044",
-      "lesson": 4,
-      "localIndex": 44,
-      "title": "经济判断：0.1元误差，实际合同能兑现吗？",
-      "layout": "exercise",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 229,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p045",
-      "lesson": 4,
-      "localIndex": 45,
-      "title": "输出趋于无穷：高度要求，输入距离来保证",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 230,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p046",
-      "lesson": 4,
-      "localIndex": 46,
-      "title": "1/x²两侧向上，1/x两侧却相反",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 231,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p047",
-      "lesson": 4,
-      "localIndex": 47,
-      "title": "小组辨析：两边都变大，方向相同吗？",
-      "layout": "table",
-      "style": "editorial",
-      "steps": 2,
-      "revealTitles": [
-        "第1题：B",
-        "第2题：D"
-      ]
-    },
-    {
-      "index": 232,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p048",
-      "lesson": 4,
-      "localIndex": 48,
-      "title": "现代无穷小，是一个趋零过程",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 233,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p049",
-      "lesson": 4,
-      "localIndex": 49,
-      "title": "一项变大，一项变小，乘积仍需计算",
-      "layout": "essay",
-      "style": "constructivist",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 234,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p050",
-      "lesson": 4,
-      "localIndex": 50,
-      "title": "振荡没有消失，影响却可以被压小",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 235,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p051",
-      "lesson": 4,
-      "localIndex": 51,
-      "title": "夹逼：给所有输入同一组上下界",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 2,
-      "revealTitles": [
-        "直接写出完整误差保证",
-        "无需给振荡因子填一个假极限"
-      ]
-    },
-    {
-      "index": 236,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p052",
-      "lesson": 4,
-      "localIndex": 52,
-      "title": "小组辨析：上下夹住，就一定找到极限吗？",
+      "title": "个人练习04：运算法则的方向",
       "layout": "table",
       "style": "editorial",
       "steps": 2,
@@ -4183,33 +3775,319 @@
       ]
     },
     {
-      "index": 237,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p053",
+      "index": 202,
+      "slideKey": "em-l04-math-first-20261016-p018",
       "lesson": 4,
-      "localIndex": 53,
-      "title": "另一份报价：单位便宜，固定费用更高",
+      "localIndex": 18,
+      "title": "商法则多出一个条件：分母极限非零",
       "layout": "essay",
       "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
-      "index": 238,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p054",
+      "index": 203,
+      "slideKey": "em-l04-math-first-20261016-p019",
       "lesson": 4,
-      "localIndex": 54,
-      "title": "两份合同，在同一批量上比较",
+      "localIndex": 19,
+      "title": "为什么B非零，能保护附近的分母？",
       "layout": "essay",
       "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
-      "index": 239,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p055",
+      "index": 204,
+      "slideKey": "em-l04-math-first-20261016-p020",
       "lesson": 4,
-      "localIndex": 55,
-      "title": "小组辨析：比较两个数，先固定同一个输入",
+      "localIndex": 20,
+      "title": "个人练习05：商法则的条件",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：A",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 205,
+      "slideKey": "em-l04-math-first-20261016-p021",
+      "lesson": 4,
+      "localIndex": 21,
+      "title": "同样趋于0，商却给出三种结果",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 206,
+      "slideKey": "em-l04-math-first-20261016-p022",
+      "lesson": 4,
+      "localIndex": 22,
+      "title": "0/0型：一条继续研究的线索",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 207,
+      "slideKey": "em-l04-math-first-20261016-p023",
+      "lesson": 4,
+      "localIndex": 23,
+      "title": "个人练习06：0/0型不是答案",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：D"
+      ]
+    },
+    {
+      "index": 208,
+      "slideKey": "em-l04-math-first-20261016-p024",
+      "lesson": 4,
+      "localIndex": 24,
+      "title": "一次计算，先回答三个问题",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 209,
+      "slideKey": "em-l04-math-first-20261016-p025",
+      "lesson": 4,
+      "localIndex": 25,
+      "title": "把第一课时的定义用到一个新函数",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "先分别计算两侧",
+        "再使用拼合判据"
+      ]
+    },
+    {
+      "index": 210,
+      "slideKey": "em-l04-math-first-20261016-p026",
+      "lesson": 4,
+      "localIndex": 26,
+      "title": "同一个目标，不必共用同一个距离门槛",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "两侧统一估计"
+      ]
+    },
+    {
+      "index": 211,
+      "slideKey": "em-l04-math-first-20261016-p027",
+      "lesson": 4,
+      "localIndex": 27,
+      "title": "不能正着用法则，也不等于整体没有极限",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 212,
+      "slideKey": "em-l04-math-first-20261016-p028",
+      "lesson": 4,
+      "localIndex": 28,
+      "title": "下一步：在附近相等，就能共享同一个极限",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 213,
+      "slideKey": "em-l04-math-first-20261016-p029",
+      "lesson": 4,
+      "localIndex": 29,
+      "title": "约掉的是非零因子，保留的是附近等式",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "极限只检查非中心输入"
+      ]
+    },
+    {
+      "index": 214,
+      "slideKey": "em-l04-math-first-20261016-p030",
+      "lesson": 4,
+      "localIndex": 30,
+      "title": "换成立方差，依据仍然是精确相等",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "保留因式分解依据",
+        "再取极限"
+      ]
+    },
+    {
+      "index": 215,
+      "slideKey": "em-l04-math-first-20261016-p031",
+      "lesson": 4,
+      "localIndex": 31,
+      "title": "个人练习07：约分保留条件",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：B"
+      ]
+    },
+    {
+      "index": 216,
+      "slideKey": "em-l04-math-first-20261016-p032",
+      "lesson": 4,
+      "localIndex": 32,
+      "title": "根式差无法直接约分，可以换一条精确等式",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "先保证附近合法"
+      ]
+    },
+    {
+      "index": 217,
+      "slideKey": "em-l04-math-first-20261016-p033",
+      "lesson": 4,
+      "localIndex": 33,
+      "title": "根式为什么趋近于1？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "根式趋于1",
+        "回到原来的商"
+      ]
+    },
+    {
+      "index": 218,
+      "slideKey": "em-l04-math-first-20261016-p034",
+      "lesson": 4,
+      "localIndex": 34,
+      "title": "有参数时，先把特殊值放回原式",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 219,
+      "slideKey": "em-l04-math-first-20261016-p035",
+      "lesson": 4,
+      "localIndex": 35,
+      "title": "个人练习08：根式差与参数",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：A"
+      ]
+    },
+    {
+      "index": 220,
+      "slideKey": "em-l04-math-first-20261016-p036",
+      "lesson": 4,
+      "localIndex": 36,
+      "title": "输入除了靠近一个点，还可以向两端走远",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 221,
+      "slideKey": "em-l04-math-first-20261016-p037",
+      "lesson": 4,
+      "localIndex": 37,
+      "title": "无穷远处的有限极限：距离门槛换成位置门槛",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 222,
+      "slideKey": "em-l04-math-first-20261016-p038",
+      "lesson": 4,
+      "localIndex": 38,
+      "title": "2+1/x：走向两端，都能给出同一份误差保证",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "任取ε>0",
+        "区分两个方向"
+      ]
+    },
+    {
+      "index": 223,
+      "slideKey": "em-l04-math-first-20261016-p039",
+      "lesson": 4,
+      "localIndex": 39,
+      "title": "走向负无穷，绝对值的符号不能丢",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 224,
+      "slideKey": "em-l04-math-first-20261016-p040",
+      "lesson": 4,
+      "localIndex": 40,
+      "title": "个人练习09：输入走远与符号",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：B"
+      ]
+    },
+    {
+      "index": 225,
+      "slideKey": "em-l04-math-first-20261016-p041",
+      "lesson": 4,
+      "localIndex": 41,
+      "title": "输出无限增大：把误差要求换成任意高度",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 226,
+      "slideKey": "em-l04-math-first-20261016-p042",
+      "lesson": 4,
+      "localIndex": 42,
+      "title": "1/x²与1/x：绝对大小相似，方向却不同",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 227,
+      "slideKey": "em-l04-math-first-20261016-p043",
+      "lesson": 4,
+      "localIndex": 43,
+      "title": "个人练习10：无穷大的方向",
       "layout": "table",
       "style": "editorial",
       "steps": 2,
@@ -4219,11 +4097,155 @@
       ]
     },
     {
+      "index": 228,
+      "slideKey": "em-l04-math-first-20261016-p044",
+      "lesson": 4,
+      "localIndex": 44,
+      "title": "无穷小：在指定过程中趋于0的量",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 229,
+      "slideKey": "em-l04-math-first-20261016-p045",
+      "lesson": 4,
+      "localIndex": 45,
+      "title": "非零无穷小的倒数，先判断绝对大小",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 230,
+      "slideKey": "em-l04-math-first-20261016-p046",
+      "lesson": 4,
+      "localIndex": 46,
+      "title": "个人练习11：无穷小是过程",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 231,
+      "slideKey": "em-l04-math-first-20261016-p047",
+      "lesson": 4,
+      "localIndex": 47,
+      "title": "一项趋零，一项增大，整体仍由相对尺度决定",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 232,
+      "slideKey": "em-l04-math-first-20261016-p048",
+      "lesson": 4,
+      "localIndex": 48,
+      "title": "振荡不停止，整体还能趋于0吗？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 233,
+      "slideKey": "em-l04-math-first-20261016-p049",
+      "lesson": 4,
+      "localIndex": 49,
+      "title": "夹逼定理：同一范围，同一个目标",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 234,
+      "slideKey": "em-l04-math-first-20261016-p050",
+      "lesson": 4,
+      "localIndex": 50,
+      "title": "夹住振荡，也能直接给出δ",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "统一误差上界",
+        "任意ε都能满足"
+      ]
+    },
+    {
+      "index": 235,
+      "slideKey": "em-l04-math-first-20261016-p051",
+      "lesson": 4,
+      "localIndex": 51,
+      "title": "个人练习12：夹逼与振荡",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：B"
+      ]
+    },
+    {
+      "index": 236,
+      "slideKey": "em-l04-math-first-20261016-p052",
+      "lesson": 4,
+      "localIndex": 52,
+      "title": "综合例题：两个根式相减，先保住精确关系",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "共同允许范围",
+        "乘共轭式"
+      ]
+    },
+    {
+      "index": 237,
+      "slideKey": "em-l04-math-first-20261016-p053",
+      "lesson": 4,
+      "localIndex": 53,
+      "title": "同一个式子，换了趋近过程就要重新判断",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 238,
+      "slideKey": "em-l04-math-first-20261016-p054",
+      "lesson": 4,
+      "localIndex": 54,
+      "title": "求极限：每一种方法都有自己的入口条件",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 239,
+      "slideKey": "em-l04-math-first-20261016-p055",
+      "lesson": 4,
+      "localIndex": 55,
+      "title": "一次极限结论，应当说明到什么程度？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
       "index": 240,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p056",
+      "slideKey": "em-l04-math-first-20261016-p056",
       "lesson": 4,
       "localIndex": 56,
-      "title": "一条公式，换了过程就换了问题",
+      "title": "已经会夹逼，下一步就能追问正弦比值",
       "layout": "essay",
       "style": "editorial",
       "steps": 0,
@@ -4231,135 +4253,125 @@
     },
     {
       "index": 241,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p057",
+      "slideKey": "em-l04-math-first-20261016-p057",
       "lesson": 4,
       "localIndex": 57,
-      "title": "下一问：三角函数的极限，依据在哪里？",
-      "layout": "essay",
+      "title": "课外应用01 · 采购门槛的左右",
+      "layout": "exercise",
       "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 242,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p058",
+      "slideKey": "em-l04-math-first-20261016-p058",
       "lesson": 4,
       "localIndex": 58,
-      "title": "拓展 · 采购满500件，整批都按新单价计费",
-      "layout": "exercise",
+      "title": "课外应用02 · 有限合同与理想延伸",
+      "layout": "essay",
       "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 243,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p059",
+      "slideKey": "em-l04-math-first-20261016-p059",
       "lesson": 4,
       "localIndex": 59,
-      "title": "拓展 · 和法则：把总误差拆成两项",
-      "layout": "essay",
+      "title": "课外应用03 · 同一批量的采购比较",
+      "layout": "exercise",
       "style": "editorial",
-      "steps": 2,
-      "revealTitles": [
-        "分别分配误差预算",
-        "同一输入范围同时通过"
-      ]
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 244,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p060",
+      "slideKey": "em-l04-math-first-20261016-p060",
       "lesson": 4,
       "localIndex": 60,
-      "title": "拓展 · 基础计算：变形以前，先核对条件",
-      "layout": "exercise",
+      "title": "课外应用04 · 合同差值与范围",
+      "layout": "essay",
       "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 245,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p061",
-      "lesson": 4,
-      "localIndex": 61,
-      "title": "拓展 · 反馈：0/0提示继续研究，不给出答案",
-      "layout": "essay",
+      "slideKey": "em-l05-math-first-20261016-p001",
+      "lesson": 5,
+      "localIndex": 1,
+      "title": "用几何夹住一个不能直接相除的比值",
+      "layout": "story",
       "style": "editorial",
-      "steps": 3,
-      "revealTitles": [
-        "平方差约分",
-        "根式差有理化",
-        "分母极限为零时，不能套商法则"
-      ]
+      "image": "l05-scene.png",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 246,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p062",
-      "lesson": 4,
-      "localIndex": 62,
-      "title": "拓展 · 参数与补值，分别会改变什么？",
-      "layout": "exercise",
+      "slideKey": "em-l05-math-first-20261016-p002",
+      "lesson": 5,
+      "localIndex": 2,
+      "title": "弧度：把角度写成长度之比",
+      "layout": "essay",
       "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 247,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p063",
-      "lesson": 4,
-      "localIndex": 63,
-      "title": "拓展 · 参数a改变尺度，a=0也在答案里",
-      "layout": "proof",
+      "slideKey": "em-l05-math-first-20261016-p003",
+      "lesson": 5,
+      "localIndex": 3,
+      "title": "个人练习01：弧度与比值",
+      "layout": "table",
       "style": "editorial",
       "steps": 2,
       "revealTitles": [
-        "先守住附近定义域",
-        "误差界与商法则"
+        "第1题：B",
+        "第2题：C"
       ]
     },
     {
       "index": 248,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p064",
-      "lesson": 4,
-      "localIndex": 64,
-      "title": "拓展 · 改变c，只改变目标点的取值",
+      "slideKey": "em-l05-math-first-20261016-p004",
+      "lesson": 5,
+      "localIndex": 4,
+      "title": "移动转角，观察三个长度",
+      "layout": "lab",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "foundationLab": "angle"
+    },
+    {
+      "index": 249,
+      "slideKey": "em-l05-math-first-20261016-p005",
+      "lesson": 5,
+      "localIndex": 5,
+      "title": "数表给出猜想，不能覆盖全部输入",
       "layout": "essay",
       "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
-      "index": 249,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p065",
-      "lesson": 4,
-      "localIndex": 65,
-      "title": "拓展 · 对理想平均成本，给一个完整保证",
-      "layout": "proof",
-      "style": "editorial",
-      "steps": 2,
-      "revealTitles": [
-        "所有超过门槛的输入都通过",
-        "结论属于另设的理想函数"
-      ]
-    },
-    {
       "index": 250,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p066",
-      "lesson": 4,
-      "localIndex": 66,
-      "title": "拓展 · 比值看主导项，先让尺度相同",
+      "slideKey": "em-l05-math-first-20261016-p006",
+      "lesson": 5,
+      "localIndex": 6,
+      "title": "把长度之比，变成面积之间的次序",
       "layout": "essay",
       "style": "editorial",
-      "steps": 1,
-      "revealTitles": [
-        "在大规模输入下核对商法则"
-      ]
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 251,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p067",
-      "lesson": 4,
-      "localIndex": 67,
-      "title": "拓展 · 同样“都增大”，比值可以完全不同",
+      "slideKey": "em-l05-math-first-20261016-p007",
+      "lesson": 5,
+      "localIndex": 7,
+      "title": "三个区域，分别算什么面积？",
       "layout": "essay",
       "style": "editorial",
       "steps": 0,
@@ -4367,32 +4379,38 @@
     },
     {
       "index": 252,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p068",
-      "lesson": 4,
-      "localIndex": 68,
-      "title": "拓展 · 同样“都趋零”，也不能给商定值",
+      "slideKey": "em-l05-math-first-20261016-p008",
+      "lesson": 5,
+      "localIndex": 8,
+      "title": "包含关系，给出第一条关键不等式",
       "layout": "essay",
       "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
+      "steps": 2,
+      "revealTitles": [
+        "面积比较",
+        "正数条件"
+      ]
     },
     {
       "index": 253,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p069",
-      "lesson": 4,
-      "localIndex": 69,
-      "title": "拓展 · 给1500件采购，写一份带条件的建议",
-      "layout": "exercise",
+      "slideKey": "em-l05-math-first-20261016-p009",
+      "lesson": 5,
+      "localIndex": 9,
+      "title": "把目标比值夹住",
+      "layout": "essay",
       "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
+      "steps": 2,
+      "revealTitles": [
+        "上界来自左边",
+        "下界来自右边"
+      ]
     },
     {
       "index": 254,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p070",
-      "lesson": 4,
-      "localIndex": 70,
-      "title": "拓展 · 分界是2000件，依据来自真实成本差",
+      "slideKey": "em-l05-math-first-20261016-p010",
+      "lesson": 5,
+      "localIndex": 10,
+      "title": "余弦为什么靠近1？也可以从同一张图估计",
       "layout": "essay",
       "style": "editorial",
       "steps": 0,
@@ -4400,71 +4418,77 @@
     },
     {
       "index": 255,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p071",
-      "lesson": 4,
-      "localIndex": 71,
-      "title": "拓展 · 本批1500件选A；一万件时B更便宜",
-      "layout": "essay",
-      "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 256,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p072",
-      "lesson": 4,
-      "localIndex": 72,
-      "title": "拓展 · 选供应商，与决定买多少，是两层决策",
+      "slideKey": "em-l05-math-first-20261016-p011",
+      "lesson": 5,
+      "localIndex": 11,
+      "title": "夹逼定理完成正侧证明",
       "layout": "essay",
       "style": "editorial",
       "steps": 2,
       "revealTitles": [
-        "把一个实际约束写进费用",
-        "扩大决策范围需补资料"
+        "两端同归于1",
+        "中间不能逃出"
+      ]
+    },
+    {
+      "index": 256,
+      "slideKey": "em-l05-math-first-20261016-p012",
+      "lesson": 5,
+      "localIndex": 12,
+      "title": "负侧不用重画一套图",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "第一重要极限"
       ]
     },
     {
       "index": 257,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p073",
-      "lesson": 4,
-      "localIndex": 73,
-      "title": "拓展 · 90元附近，两侧差商终于靠近同一值",
-      "layout": "essay",
+      "slideKey": "em-l05-math-first-20261016-p013",
+      "lesson": 5,
+      "localIndex": 13,
+      "title": "个人练习02：几何夹逼的条件",
+      "layout": "table",
       "style": "editorial",
       "steps": 2,
       "revealTitles": [
-        "完整保证同时处理两侧",
-        "有限实数极限，才称导数"
+        "第1题：A",
+        "第2题：B"
       ]
     },
     {
       "index": 258,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p074",
-      "lesson": 4,
-      "localIndex": 74,
-      "title": "拓展 · 导数给局部反应，五角调价仍要算实际值",
+      "slideKey": "em-l05-math-first-20261016-p014",
+      "lesson": 5,
+      "localIndex": 14,
+      "title": "如果输入是度数，结果还等于1吗？",
       "layout": "essay",
       "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
+      "steps": 1,
+      "revealTitles": [
+        "换成弧度之后再用定理"
+      ]
     },
     {
       "index": 259,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p075",
-      "lesson": 4,
-      "localIndex": 75,
-      "title": "拓展 · 离开教室前，解释清楚这一次除法",
-      "layout": "exercise",
+      "slideKey": "em-l05-math-first-20261016-p015",
+      "lesson": 5,
+      "localIndex": 15,
+      "title": "同一个正弦，分母要跟着谁走？",
+      "layout": "essay",
       "style": "editorial",
-      "steps": 0,
-      "revealTitles": []
+      "steps": 1,
+      "revealTitles": [
+        "保留内层"
+      ]
     },
     {
       "index": 260,
-      "slideKey": "em-l04-limits-reinforcement-20261013-p076",
-      "lesson": 4,
-      "localIndex": 76,
-      "title": "拓展 · 导数为零，还不能把“最优”证完",
+      "slideKey": "em-l05-math-first-20261016-p016",
+      "lesson": 5,
+      "localIndex": 16,
+      "title": "换元时，真正趋于0的是内层",
       "layout": "essay",
       "style": "editorial",
       "steps": 0,
@@ -4472,445 +4496,2188 @@
     },
     {
       "index": 261,
-      "slideKey": "em-v2-l05-p001",
+      "slideKey": "em-l05-math-first-20261016-p017",
       "lesson": 5,
-      "localIndex": 1,
-      "title": "微小转角的测量",
-      "layout": "story",
-      "image": "l05-scene.png",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 262,
-      "slideKey": "em-v2-l05-p002",
-      "lesson": 5,
-      "localIndex": 2,
-      "title": "数值只是线索",
+      "localIndex": 17,
+      "title": "个人练习03：先检查内层",
       "layout": "table",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 263,
-      "slideKey": "em-v2-l05-p003",
-      "lesson": 5,
-      "localIndex": 3,
-      "title": "零附近的比值",
-      "layout": "plot",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 264,
-      "slideKey": "em-v2-l05-p004",
-      "lesson": 5,
-      "localIndex": 4,
-      "title": "三个面积的比较",
-      "layout": "plot",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 265,
-      "slideKey": "em-v2-l05-p005",
-      "lesson": 5,
-      "localIndex": 5,
-      "title": "把比值夹在两端之间",
-      "layout": "proof",
-      "steps": 3,
+      "style": "editorial",
+      "steps": 2,
       "revealTitles": [
-        "从右式得到下界",
-        "从左式得到上界",
-        "两端趋于1"
+        "第1题：B",
+        "第2题：B"
       ]
     },
     {
-      "index": 266,
-      "slideKey": "em-v2-l05-p006",
+      "index": 262,
+      "slideKey": "em-l05-math-first-20261016-p018",
       "lesson": 5,
-      "localIndex": 6,
-      "title": "负侧与角度单位",
+      "localIndex": 18,
+      "title": "两个正弦的比值，分别保留内层",
       "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "分开两个标准比值",
+        "极限与条件"
+      ]
+    },
+    {
+      "index": 263,
+      "slideKey": "em-l05-math-first-20261016-p019",
+      "lesson": 5,
+      "localIndex": 19,
+      "title": "系数为0时，回到原式直接判断",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "k≠0：补出同一个内层",
+        "k=0：无需构造0作分母"
+      ]
+    },
+    {
+      "index": 264,
+      "slideKey": "em-l05-math-first-20261016-p020",
+      "lesson": 5,
+      "localIndex": 20,
+      "title": "个人练习04：系数与角度单位",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 265,
+      "slideKey": "em-l05-math-first-20261016-p021",
+      "lesson": 5,
+      "localIndex": 21,
+      "title": "正弦近似，能处理余弦的差吗？",
+      "layout": "essay",
+      "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
-      "index": 267,
-      "slideKey": "em-v2-l05-p007",
+      "index": 266,
+      "slideKey": "em-l05-math-first-20261016-p022",
       "lesson": 5,
-      "localIndex": 7,
-      "title": "局部近似的含义",
+      "localIndex": 22,
+      "title": "一次恒等变形，得到二阶尺度",
       "layout": "essay",
-      "image": "l05-concept.png",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "补出同一个内层",
+        "极限"
+      ]
+    },
+    {
+      "index": 267,
+      "slideKey": "em-l05-math-first-20261016-p023",
+      "lesson": 5,
+      "localIndex": 23,
+      "title": "同样趋零，比较基准可以是x，也可以是x²",
+      "layout": "essay",
+      "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 268,
-      "slideKey": "em-v2-l05-p008",
+      "slideKey": "em-l05-math-first-20261016-p024",
       "lesson": 5,
-      "localIndex": 8,
-      "title": "正弦极限的变式",
-      "layout": "proof",
-      "steps": 3,
+      "localIndex": 24,
+      "title": "个人练习05：一阶与二阶",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
       "revealTitles": [
-        "补出内层",
-        "内层趋于零",
-        "极限"
+        "第1题：B",
+        "第2题：C"
       ]
     },
     {
       "index": 269,
-      "slideKey": "em-v2-l05-p009",
+      "slideKey": "em-l05-math-first-20261016-p025",
       "lesson": 5,
-      "localIndex": 9,
-      "title": "复利与第二重要极限",
-      "layout": "split",
+      "localIndex": 25,
+      "title": "正弦解决了比值，另一类极限把小增量反复相乘",
+      "layout": "essay",
+      "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 270,
-      "slideKey": "em-v2-l05-p010",
+      "slideKey": "em-l05-math-first-20261016-p026",
       "lesson": 5,
-      "localIndex": 10,
-      "title": "指数结构的换形",
-      "layout": "proof",
-      "steps": 3,
-      "revealTitles": [
-        "内层变量",
-        "标准结构",
-        "极限"
-      ]
+      "localIndex": 26,
+      "title": "有限次相乘，先准确理解表达式",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 271,
-      "slideKey": "em-v2-l05-p011",
+      "slideKey": "em-l05-math-first-20261016-p027",
       "lesson": 5,
-      "localIndex": 11,
-      "title": "常用等价关系",
+      "localIndex": 27,
+      "title": "数表提示收敛，证明还需要单调与有界",
       "layout": "essay",
+      "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 272,
-      "slideKey": "em-v2-l05-p012",
+      "slideKey": "em-l05-math-first-20261016-p028",
       "lesson": 5,
-      "localIndex": 12,
-      "title": "相减后的一阶项抵消",
-      "layout": "proof",
-      "style": "constructivist",
-      "steps": 2,
-      "revealTitles": [
-        "直接替换的后果",
-        "高阶反例"
-      ]
+      "localIndex": 28,
+      "title": "第二重要极限：用收敛定义e",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 273,
-      "slideKey": "em-v2-l05-p013",
+      "slideKey": "em-l05-math-first-20261016-p029",
       "lesson": 5,
-      "localIndex": 13,
-      "title": "独立计算",
-      "layout": "exercise",
-      "steps": 2,
-      "revealTitles": [
-        "同趋近点",
-        "比值极限"
-      ]
+      "localIndex": 29,
+      "title": "从整数次数，到零附近的实变量",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
     },
     {
       "index": 274,
-      "slideKey": "em-v2-l05-p014",
+      "slideKey": "em-l05-math-first-20261016-p030",
       "lesson": 5,
-      "localIndex": 14,
-      "title": "估计微小转角误差",
-      "layout": "exercise",
-      "steps": 3,
+      "localIndex": 30,
+      "title": "个人练习06：第二重要极限",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
       "revealTitles": [
-        "真实值",
-        "相对误差",
-        "含义"
+        "第1题：C",
+        "第2题：B"
       ]
     },
     {
       "index": 275,
-      "slideKey": "em-v2-l05-p015",
+      "slideKey": "em-l05-math-first-20261016-p031",
       "lesson": 5,
-      "localIndex": 15,
-      "title": "连续还要检查函数值",
-      "layout": "split",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 276,
-      "slideKey": "em-v2-l06-p001",
-      "lesson": 6,
-      "localIndex": 1,
-      "title": "差一分钱的订单",
-      "layout": "story",
-      "image": "l06-scene.png",
-      "steps": 0,
-      "revealTitles": []
-    },
-    {
-      "index": 277,
-      "slideKey": "em-v2-l06-p002",
-      "lesson": 6,
-      "localIndex": 2,
-      "title": "总支付函数",
-      "layout": "proof",
+      "localIndex": 31,
+      "title": "指数里差一个系数，极限就会改变",
+      "layout": "essay",
+      "style": "editorial",
       "steps": 2,
       "revealTitles": [
-        "门槛两边",
-        "支付额变化"
+        "内层与外层",
+        "结果与定义域"
       ]
     },
     {
-      "index": 278,
-      "slideKey": "em-v2-l06-p003",
-      "lesson": 6,
-      "localIndex": 3,
-      "title": "门槛实验",
-      "layout": "lab",
+      "index": 276,
+      "slideKey": "em-l05-math-first-20261016-p032",
+      "lesson": 5,
+      "localIndex": 32,
+      "title": "更一般的结构，先看一个乘积",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "完整保留标准结构"
+      ]
+    },
+    {
+      "index": 277,
+      "slideKey": "em-l05-math-first-20261016-p033",
+      "lesson": 5,
+      "localIndex": 33,
+      "title": "都像“1的无穷次方”，结果却不同",
+      "layout": "essay",
+      "style": "editorial",
       "steps": 0,
-      "revealTitles": [],
-      "interactionId": "continuity-threshold-lab"
+      "revealTitles": []
+    },
+    {
+      "index": 278,
+      "slideKey": "em-l05-math-first-20261016-p034",
+      "lesson": 5,
+      "localIndex": 34,
+      "title": "个人练习07：底数增量与指数配对",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：D",
+        "第2题：A"
+      ]
     },
     {
       "index": 279,
-      "slideKey": "em-v2-l06-p004",
-      "lesson": 6,
-      "localIndex": 4,
-      "title": "连续的三个条件",
+      "slideKey": "em-l05-math-first-20261016-p035",
+      "lesson": 5,
+      "localIndex": 35,
+      "title": "自然对数与指数的基本极限性质",
       "layout": "essay",
-      "image": "l06-concept.png",
+      "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 280,
-      "slideKey": "em-v2-l06-p005",
-      "lesson": 6,
-      "localIndex": 5,
-      "title": "门槛处的检查",
-      "layout": "proof",
-      "steps": 3,
+      "slideKey": "em-l05-math-first-20261016-p036",
+      "lesson": 5,
+      "localIndex": 36,
+      "title": "对数把幂的极限连到一个比值",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
       "revealTitles": [
-        "左右极限",
-        "函数值",
-        "判断"
+        "得到一个新的标准比值"
       ]
     },
     {
       "index": 281,
-      "slideKey": "em-v2-l06-p006",
-      "lesson": 6,
-      "localIndex": 6,
-      "title": "三种断开方式",
-      "layout": "compare",
-      "steps": 0,
-      "revealTitles": []
+      "slideKey": "em-l05-math-first-20261016-p037",
+      "lesson": 5,
+      "localIndex": 37,
+      "title": "指数的增量也能与输入比较",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "反向使用已知比值"
+      ]
     },
     {
       "index": 282,
-      "slideKey": "em-v2-l06-p007",
-      "lesson": 6,
-      "localIndex": 7,
-      "title": "用参数连接两段",
-      "layout": "proof",
-      "steps": 3,
+      "slideKey": "em-l05-math-first-20261016-p038",
+      "lesson": 5,
+      "localIndex": 38,
+      "title": "个人练习08：指数对数的系数",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
       "revealTitles": [
-        "连接值",
-        "参数",
-        "核对"
+        "第1题：B",
+        "第2题：A"
       ]
     },
     {
       "index": 283,
-      "slideKey": "em-v2-l06-p008",
-      "lesson": 6,
-      "localIndex": 8,
-      "title": "区间上的连续",
+      "slideKey": "em-l05-math-first-20261016-p039",
+      "lesson": 5,
+      "localIndex": 39,
+      "title": "等价无穷小：接近的是比值",
       "layout": "essay",
+      "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 284,
-      "slideKey": "em-v2-l06-p009",
-      "lesson": 6,
-      "localIndex": 9,
-      "title": "介值定理的运营解释",
-      "layout": "proof",
-      "steps": 2,
-      "revealTitles": [
-        "含义",
-        "边界"
-      ]
-    },
-    {
-      "index": 285,
-      "slideKey": "em-v2-l06-p010",
-      "lesson": 6,
-      "localIndex": 10,
-      "title": "独立练习：阶梯优惠",
-      "layout": "exercise",
-      "steps": 3,
-      "revealTitles": [
-        "极限",
-        "支付额",
-        "判断"
-      ]
-    },
-    {
-      "index": 286,
-      "slideKey": "em-v2-l06-p011",
-      "lesson": 6,
-      "localIndex": 11,
-      "title": "连续性属于哪一个量？",
+      "slideKey": "em-l05-math-first-20261016-p040",
+      "lesson": 5,
+      "localIndex": 40,
+      "title": "等价允许近似，不允许写成恒等",
       "layout": "essay",
+      "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
+      "index": 285,
+      "slideKey": "em-l05-math-first-20261016-p041",
+      "lesson": 5,
+      "localIndex": 41,
+      "title": "同趋于0、差趋于0，也可能不等价",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "检查"
+      ]
+    },
+    {
+      "index": 286,
+      "slideKey": "em-l05-math-first-20261016-p042",
+      "lesson": 5,
+      "localIndex": 42,
+      "title": "个人练习09：等价的定义",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
       "index": 287,
-      "slideKey": "em-v2-l07-p001",
-      "lesson": 7,
-      "localIndex": 1,
-      "title": "导数与微分",
-      "layout": "cover",
-      "style": "cover",
-      "image": "unit-03.png",
+      "slideKey": "em-l05-math-first-20261016-p043",
+      "lesson": 5,
+      "localIndex": 43,
+      "title": "常用关系是一组带条件的工具",
+      "layout": "essay",
+      "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 288,
-      "slideKey": "em-v2-l07-p002",
-      "lesson": 7,
-      "localIndex": 2,
-      "title": "配送车经过的距离",
-      "layout": "story",
-      "image": "l07-scene.png",
+      "slideKey": "em-l05-math-first-20261016-p044",
+      "lesson": 5,
+      "localIndex": 44,
+      "title": "为什么商中可以替换？",
+      "layout": "essay",
+      "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
       "index": 289,
-      "slideKey": "em-v2-l07-p003",
-      "lesson": 7,
-      "localIndex": 3,
-      "title": "平均变化率",
-      "layout": "proof",
-      "steps": 3,
+      "slideKey": "em-l05-math-first-20261016-p045",
+      "lesson": 5,
+      "localIndex": 45,
+      "title": "例题：先写条件，再化成简单的商",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
       "revealTitles": [
-        "代入平方函数",
-        "取越来越短的区间",
-        "单位"
+        "两个内层都趋于0",
+        "乘除结构中的替换"
       ]
     },
     {
       "index": 290,
-      "slideKey": "em-v2-l07-p004",
-      "lesson": 7,
-      "localIndex": 4,
-      "title": "导数定义",
+      "slideKey": "em-l05-math-first-20261016-p046",
+      "lesson": 5,
+      "localIndex": 46,
+      "title": "个人练习10：乘除替换的依据",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：B"
+      ]
+    },
+    {
+      "index": 291,
+      "slideKey": "em-l05-math-first-20261016-p047",
+      "lesson": 5,
+      "localIndex": 47,
+      "title": "乘法因子可以逐个控制，减法剩余需要重新检查",
       "layout": "essay",
-      "image": "l07-concept.png",
+      "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
-      "index": 291,
-      "slideKey": "em-v2-l07-p005",
-      "lesson": 7,
-      "localIndex": 5,
-      "title": "利润的平均调价效应",
-      "layout": "proof",
-      "steps": 3,
-      "revealTitles": [
-        "从50元涨价h元",
-        "局部变化率",
-        "解释"
-      ]
-    },
-    {
       "index": 292,
-      "slideKey": "em-v2-l07-p006",
-      "lesson": 7,
-      "localIndex": 6,
-      "title": "割线向切线靠近",
-      "layout": "lab",
-      "steps": 0,
-      "revealTitles": [],
-      "interactionId": "secant-tangent-lab"
-    },
-    {
-      "index": 293,
-      "slideKey": "em-v2-l07-p007",
-      "lesson": 7,
-      "localIndex": 7,
-      "title": "切线是局部模型",
-      "layout": "proof",
-      "steps": 2,
-      "revealTitles": [
-        "平方函数在1处",
-        "利润在50元处"
-      ]
-    },
-    {
-      "index": 294,
-      "slideKey": "em-v2-l07-p008",
-      "lesson": 7,
-      "localIndex": 8,
-      "title": "连续不保证可导",
-      "layout": "compare",
+      "slideKey": "em-l05-math-first-20261016-p048",
+      "lesson": 5,
+      "localIndex": 48,
+      "title": "相减之后，被忽略的部分可能成为全部",
+      "layout": "essay",
       "style": "constructivist",
       "steps": 0,
       "revealTitles": []
     },
     {
-      "index": 295,
-      "slideKey": "em-v2-l07-p009",
-      "lesson": 7,
-      "localIndex": 9,
-      "title": "可导一定连续",
-      "layout": "proof",
+      "index": 293,
+      "slideKey": "em-l05-math-first-20261016-p049",
+      "lesson": 5,
+      "localIndex": 49,
+      "title": "一个不需要新知识的反例",
+      "layout": "essay",
+      "style": "editorial",
       "steps": 2,
       "revealTitles": [
-        "两个因子的极限",
-        "函数增量趋零"
+        "错误替换会得到",
+        "原因"
+      ]
+    },
+    {
+      "index": 294,
+      "slideKey": "em-l05-math-first-20261016-p050",
+      "lesson": 5,
+      "localIndex": 50,
+      "title": "个人练习11：相消反例",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 295,
+      "slideKey": "em-l05-math-first-20261016-p051",
+      "lesson": 5,
+      "localIndex": 51,
+      "title": "有加减时，先尝试精确拆开",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "重新判断"
       ]
     },
     {
       "index": 296,
-      "slideKey": "em-v2-l07-p010",
-      "lesson": 7,
-      "localIndex": 10,
-      "title": "独立练习",
-      "layout": "exercise",
-      "steps": 2,
-      "revealTitles": [
-        "差商",
-        "导数与切线"
-      ]
-    },
-    {
-      "index": 297,
-      "slideKey": "em-v2-l07-p011",
-      "lesson": 7,
-      "localIndex": 11,
-      "title": "变化率的说明书",
+      "slideKey": "em-l05-math-first-20261016-p052",
+      "lesson": 5,
+      "localIndex": 52,
+      "title": "不能无条件逐项相减，也不等于见到减号就停下",
       "layout": "essay",
+      "style": "editorial",
       "steps": 0,
       "revealTitles": []
     },
     {
+      "index": 297,
+      "slideKey": "em-l05-math-first-20261016-p053",
+      "lesson": 5,
+      "localIndex": 53,
+      "title": "综合例题：先识别尺度，再处理结构",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "分子与分母",
+        "极限"
+      ]
+    },
+    {
       "index": 298,
+      "slideKey": "em-l05-math-first-20261016-p054",
+      "lesson": 5,
+      "localIndex": 54,
+      "title": "固定参数改变系数，零参数要回原式",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "a≠0",
+        "a=0"
+      ]
+    },
+    {
+      "index": 299,
+      "slideKey": "em-l05-math-first-20261016-p055",
+      "lesson": 5,
+      "localIndex": 55,
+      "title": "同一重要极限，可以控制相对误差",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 300,
+      "slideKey": "em-l05-math-first-20261016-p056",
+      "lesson": 5,
+      "localIndex": 56,
+      "title": "个人练习12：独立综合检验",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 301,
+      "slideKey": "em-l05-math-first-20261016-p057",
+      "lesson": 5,
+      "localIndex": 57,
+      "title": "为什么相对误差小，绝对误差仍要看尺度？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 302,
+      "slideKey": "em-l05-math-first-20261016-p058",
+      "lesson": 5,
+      "localIndex": 58,
+      "title": "再看一次幂：指数形式相似，仍需核对过程",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 303,
+      "slideKey": "em-l05-math-first-20261016-p059",
+      "lesson": 5,
+      "localIndex": 59,
+      "title": "两条重要极限，组织成一套有条件的方法",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 304,
+      "slideKey": "em-l05-math-first-20261016-p060",
+      "lesson": 5,
+      "localIndex": 60,
+      "title": "极限说“附近”，连续还要接上“这一点”",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 305,
+      "slideKey": "em-l05-math-first-20261016-p061",
+      "lesson": 5,
+      "localIndex": 61,
+      "title": "课外应用 · 固定名义利率下的复利",
+      "layout": "lab",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "foundationLab": "compounding"
+    },
+    {
+      "index": 306,
+      "slideKey": "em-l05-math-first-20261016-p062",
+      "lesson": 5,
+      "localIndex": 62,
+      "title": "拓展01 · e的数列为何有上界",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "控制尾项"
+      ]
+    },
+    {
+      "index": 307,
+      "slideKey": "em-l05-math-first-20261016-p063",
+      "lesson": 5,
+      "localIndex": 63,
+      "title": "拓展02 · e的数列为何递增",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "结合上界"
+      ]
+    },
+    {
+      "index": 308,
+      "slideKey": "em-l05-math-first-20261016-p064",
+      "lesson": 5,
+      "localIndex": 64,
+      "title": "拓展03 · 实变量推广与负侧",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "负侧归入正侧"
+      ]
+    },
+    {
+      "index": 309,
+      "slideKey": "em-l05-math-first-20261016-p065",
+      "lesson": 5,
+      "localIndex": 65,
+      "title": "拓展04 · 一般幂的增量",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "固定系数非零时",
+        "零系数单独处理"
+      ]
+    },
+    {
+      "index": 310,
+      "slideKey": "em-l05-math-first-20261016-p066",
+      "lesson": 5,
+      "localIndex": 66,
+      "title": "拓展08 · 逼近同一个量，差却能有不同答案",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "精确差值",
+        "参数追问"
+      ]
+    },
+    {
+      "index": 311,
+      "slideKey": "em-l06-calculus-20261017-p001",
+      "lesson": 6,
+      "localIndex": 1,
+      "title": "曲线缺了一点，补多少才能接好？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 312,
+      "slideKey": "em-l06-calculus-20261017-p002",
+      "lesson": 6,
+      "localIndex": 2,
+      "title": "同一个附近趋势，三种点处取值",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 313,
+      "slideKey": "em-l06-calculus-20261017-p003",
+      "lesson": 6,
+      "localIndex": 3,
+      "title": "先用一个更简单的洞看清问题",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 314,
+      "slideKey": "em-l06-calculus-20261017-p004",
+      "lesson": 6,
+      "localIndex": 4,
+      "title": "补点实验：邻近曲线保持不动",
+      "layout": "lab",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "foundationLab": "continuity-repair"
+    },
+    {
+      "index": 315,
+      "slideKey": "em-l06-calculus-20261017-p005",
+      "lesson": 6,
+      "localIndex": 5,
+      "title": "在一点连续：极限与函数值吻合",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "回到补点问题"
+      ]
+    },
+    {
+      "index": 316,
+      "slideKey": "em-l06-calculus-20261017-p006",
+      "lesson": 6,
+      "localIndex": 6,
+      "title": "个人练习01：连续的三个条件",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 317,
+      "slideKey": "em-l06-calculus-20261017-p007",
+      "lesson": 6,
+      "localIndex": 7,
+      "title": "连续的直觉：输出误差能被输入距离控制",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 318,
+      "slideKey": "em-l06-calculus-20261017-p008",
+      "lesson": 6,
+      "localIndex": 8,
+      "title": "把“不会突然跳开”写成可检验的距离",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "给定精度",
+        "任意精度"
+      ]
+    },
+    {
+      "index": 319,
+      "slideKey": "em-l06-calculus-20261017-p009",
+      "lesson": 6,
+      "localIndex": 9,
+      "title": "有效的距离，不必唯一",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 320,
+      "slideKey": "em-l06-calculus-20261017-p010",
+      "lesson": 6,
+      "localIndex": 10,
+      "title": "个人练习02：误差与输入距离",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：A",
+        "第2题：B"
+      ]
+    },
+    {
+      "index": 321,
+      "slideKey": "em-l06-calculus-20261017-p011",
+      "lesson": 6,
+      "localIndex": 11,
+      "title": "端点只看定义域内的方向",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 322,
+      "slideKey": "em-l06-calculus-20261017-p012",
+      "lesson": 6,
+      "localIndex": 12,
+      "title": "区间连续：每一个位置都要检查",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 323,
+      "slideKey": "em-l06-calculus-20261017-p013",
+      "lesson": 6,
+      "localIndex": 13,
+      "title": "个人练习03：端点与允许方向",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 324,
+      "slideKey": "em-l06-calculus-20261017-p014",
+      "lesson": 6,
+      "localIndex": 14,
+      "title": "连续函数做四则运算，也要保留条件",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 325,
+      "slideKey": "em-l06-calculus-20261017-p015",
+      "lesson": 6,
+      "localIndex": 15,
+      "title": "复合函数先检查允许输入",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 326,
+      "slideKey": "em-l06-calculus-20261017-p016",
+      "lesson": 6,
+      "localIndex": 16,
+      "title": "个人练习04：运算与复合的条件",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 327,
+      "slideKey": "em-l06-calculus-20261017-p017",
+      "lesson": 6,
+      "localIndex": 17,
+      "title": "分段写法，不意味着图形断开",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "比较连接值"
+      ]
+    },
+    {
+      "index": 328,
+      "slideKey": "em-l06-calculus-20261017-p018",
+      "lesson": 6,
+      "localIndex": 18,
+      "title": "反馈：连续参数，要回原式核对",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "解连接条件",
+        "回原函数"
+      ]
+    },
+    {
+      "index": 329,
+      "slideKey": "em-l06-calculus-20261017-p019",
+      "lesson": 6,
+      "localIndex": 19,
+      "title": "两侧拼好，还要让点值吻合",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "两侧目标一致",
+        "点值接上共同目标"
+      ]
+    },
+    {
+      "index": 330,
+      "slideKey": "em-l06-calculus-20261017-p020",
+      "lesson": 6,
+      "localIndex": 20,
+      "title": "个人练习05：分段函数的连接",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：A"
+      ]
+    },
+    {
+      "index": 331,
+      "slideKey": "em-l06-calculus-20261017-p021",
+      "lesson": 6,
+      "localIndex": 21,
+      "title": "洞可以补好：可去间断",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 332,
+      "slideKey": "em-l06-calculus-20261017-p022",
+      "lesson": 6,
+      "localIndex": 22,
+      "title": "两边接不到一起：跳跃间断",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "两侧分别有限，却不相同"
+      ]
+    },
+    {
+      "index": 333,
+      "slideKey": "em-l06-calculus-20261017-p023",
+      "lesson": 6,
+      "localIndex": 23,
+      "title": "没有有限目标：无穷间断",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 334,
+      "slideKey": "em-l06-calculus-20261017-p024",
+      "lesson": 6,
+      "localIndex": 24,
+      "title": "仍然有界，也可能没有极限",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 335,
+      "slideKey": "em-l06-calculus-20261017-p025",
+      "lesson": 6,
+      "localIndex": 25,
+      "title": "间断分类，先看两侧极限",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 336,
+      "slideKey": "em-l06-calculus-20261017-p026",
+      "lesson": 6,
+      "localIndex": 26,
+      "title": "个人练习06：间断能否补好",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：D"
+      ]
+    },
+    {
+      "index": 337,
+      "slideKey": "em-l06-calculus-20261017-p027",
+      "lesson": 6,
+      "localIndex": 27,
+      "title": "振荡仍在，幅度可以缩到零",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "振幅的限制",
+        "连续判断"
+      ]
+    },
+    {
+      "index": 338,
+      "slideKey": "em-l06-calculus-20261017-p028",
+      "lesson": 6,
+      "localIndex": 28,
+      "title": "连续需要的是误差控制，不是图形平静",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 339,
+      "slideKey": "em-l06-calculus-20261017-p029",
+      "lesson": 6,
+      "localIndex": 29,
+      "title": "连续不等于变化缓慢",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 340,
+      "slideKey": "em-l06-calculus-20261017-p030",
+      "lesson": 6,
+      "localIndex": 30,
+      "title": "点处接好之后，区间上能保证什么？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 341,
+      "slideKey": "em-l06-calculus-20261017-p031",
+      "lesson": 6,
+      "localIndex": 31,
+      "title": "从负到正，真的一定经过0吗？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 342,
+      "slideKey": "em-l06-calculus-20261017-p032",
+      "lesson": 6,
+      "localIndex": 32,
+      "title": "如果允许跳跃，中间就可能没有零点",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 343,
+      "slideKey": "em-l06-calculus-20261017-p033",
+      "lesson": 6,
+      "localIndex": 33,
+      "title": "介值定理：中间的值不能跳过",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 344,
+      "slideKey": "em-l06-calculus-20261017-p034",
+      "lesson": 6,
+      "localIndex": 34,
+      "title": "零点存在定理是一个特例",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 345,
+      "slideKey": "em-l06-calculus-20261017-p035",
+      "lesson": 6,
+      "localIndex": 35,
+      "title": "个人练习07：介值定理的条件",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 346,
+      "slideKey": "em-l06-calculus-20261017-p036",
+      "lesson": 6,
+      "localIndex": 36,
+      "title": "三次函数，先证明有解",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "核对条件",
+        "存在性"
+      ]
+    },
+    {
+      "index": 347,
+      "slideKey": "em-l06-calculus-20261017-p037",
+      "lesson": 6,
+      "localIndex": 37,
+      "title": "有一个零点，为什么还要另证唯一？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第二个因子始终为正",
+        "严格递增排除两个零点"
+      ]
+    },
+    {
+      "index": 348,
+      "slideKey": "em-l06-calculus-20261017-p038",
+      "lesson": 6,
+      "localIndex": 38,
+      "title": "端点异号，也可以有三个零点",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "精确核对",
+        "结论边界"
+      ]
+    },
+    {
+      "index": 349,
+      "slideKey": "em-l06-calculus-20261017-p039",
+      "lesson": 6,
+      "localIndex": 39,
+      "title": "个人练习08：存在与唯一",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：A",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 350,
+      "slideKey": "em-l06-calculus-20261017-p040",
+      "lesson": 6,
+      "localIndex": 40,
+      "title": "不能引用定理，不等于结论必错",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 351,
+      "slideKey": "em-l06-calculus-20261017-p041",
+      "lesson": 6,
+      "localIndex": 41,
+      "title": "不连续的函数，也可能恰好有零点",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 352,
+      "slideKey": "em-l06-calculus-20261017-p042",
+      "lesson": 6,
+      "localIndex": 42,
+      "title": "介值定理：目标值也要落在两端之间",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 353,
+      "slideKey": "em-l06-calculus-20261017-p043",
+      "lesson": 6,
+      "localIndex": 43,
+      "title": "个人练习09：不能用定理与结论错误",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 354,
+      "slideKey": "em-l06-calculus-20261017-p044",
+      "lesson": 6,
+      "localIndex": 44,
+      "title": "经过中间值之外，还能保证取得最值吗？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 355,
+      "slideKey": "em-l06-calculus-20261017-p045",
+      "lesson": 6,
+      "localIndex": 45,
+      "title": "闭区间连续函数，取得最大值和最小值",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 356,
+      "slideKey": "em-l06-calculus-20261017-p046",
+      "lesson": 6,
+      "localIndex": 46,
+      "title": "存在性没有直接给出最值位置",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "反例核对"
+      ]
+    },
+    {
+      "index": 357,
+      "slideKey": "em-l06-calculus-20261017-p047",
+      "lesson": 6,
+      "localIndex": 47,
+      "title": "拿掉端点，最优值可能只剩“靠近”",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 358,
+      "slideKey": "em-l06-calculus-20261017-p048",
+      "lesson": 6,
+      "localIndex": 48,
+      "title": "区间没有有限边界，连续也不能保证最大值",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 359,
+      "slideKey": "em-l06-calculus-20261017-p049",
+      "lesson": 6,
+      "localIndex": 49,
+      "title": "范围闭合，函数有间断仍可能取不到上界",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 360,
+      "slideKey": "em-l06-calculus-20261017-p050",
+      "lesson": 6,
+      "localIndex": 50,
+      "title": "个人练习10：有界与取得",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 361,
+      "slideKey": "em-l06-calculus-20261017-p051",
+      "lesson": 6,
+      "localIndex": 51,
+      "title": "上界限制范围，最大值还要求取到",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 362,
+      "slideKey": "em-l06-calculus-20261017-p052",
+      "lesson": 6,
+      "localIndex": 52,
+      "title": "条件缺失，最值也可能仍然存在",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 363,
+      "slideKey": "em-l06-calculus-20261017-p053",
+      "lesson": 6,
+      "localIndex": 53,
+      "title": "个人练习11：最值定理的边界",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：B"
+      ]
+    },
+    {
+      "index": 364,
+      "slideKey": "em-l06-calculus-20261017-p054",
+      "lesson": 6,
+      "localIndex": 54,
+      "title": "一次补点，连接两个区间定理",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 365,
+      "slideKey": "em-l06-calculus-20261017-p055",
+      "lesson": 6,
+      "localIndex": 55,
+      "title": "接得上，还能有尖角",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 366,
+      "slideKey": "em-l06-calculus-20261017-p056",
+      "lesson": 6,
+      "localIndex": 56,
+      "title": "个人练习12：点与区间的综合判断",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：A"
+      ]
+    },
+    {
+      "index": 367,
+      "slideKey": "em-l06-calculus-20261017-p057",
+      "lesson": 6,
+      "localIndex": 57,
+      "title": "存在、唯一、位置和近似，各需要什么？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 368,
+      "slideKey": "em-l06-calculus-20261017-p058",
+      "lesson": 6,
+      "localIndex": 58,
+      "title": "只改一个点，能否破坏区间上的保证？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "附近极限不变",
+        "区间结论需要重新核对"
+      ]
+    },
+    {
+      "index": 369,
+      "slideKey": "em-l06-calculus-20261017-p059",
+      "lesson": 6,
+      "localIndex": 59,
+      "title": "连续判断的完整依据",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 370,
+      "slideKey": "em-l06-calculus-20261017-p060",
+      "lesson": 6,
+      "localIndex": 60,
+      "title": "下一讲：把差商的极限真正读懂",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 371,
+      "slideKey": "em-l06-calculus-20261017-p061",
+      "lesson": 6,
+      "localIndex": 61,
+      "title": "拓展01 · 二分实验保留什么",
+      "layout": "lab",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "foundationLab": "bisection"
+    },
+    {
+      "index": 372,
+      "slideKey": "em-l06-calculus-20261017-p062",
+      "lesson": 6,
+      "localIndex": 62,
+      "title": "拓展02 · 二分近似的误差保证",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "检查整数步数"
+      ]
+    },
+    {
+      "index": 373,
+      "slideKey": "em-l06-calculus-20261017-p063",
+      "lesson": 6,
+      "localIndex": 63,
+      "title": "拓展03 · 小函数值不等于小位置误差",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "检查精确零点",
+        "方法比较"
+      ]
+    },
+    {
+      "index": 374,
+      "slideKey": "em-l06-calculus-20261017-p064",
+      "lesson": 6,
+      "localIndex": 64,
+      "title": "拓展04 · 用两列输入证明振荡没有极限",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "两列输入都趋于0",
+        "输出不可能有共同目标"
+      ]
+    },
+    {
+      "index": 375,
+      "slideKey": "em-l07-calculus-20261017-p001",
+      "lesson": 7,
+      "localIndex": 1,
+      "title": "接得上，为什么仍然有尖角？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 376,
+      "slideKey": "em-l07-calculus-20261017-p002",
+      "lesson": 7,
+      "localIndex": 2,
+      "title": "先看没有尖角的平方函数",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 377,
+      "slideKey": "em-l07-calculus-20261017-p003",
+      "lesson": 7,
+      "localIndex": 3,
+      "title": "输入增量与函数增量",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "平方函数在a=1处"
+      ]
+    },
+    {
+      "index": 378,
+      "slideKey": "em-l07-calculus-20261017-p004",
+      "lesson": 7,
+      "localIndex": 4,
+      "title": "平均变化率：先保留一个非零区间",
+      "layout": "lab",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": [],
+      "foundationLab": "derivative-secant"
+    },
+    {
+      "index": 379,
+      "slideKey": "em-l07-calculus-20261017-p005",
+      "lesson": 7,
+      "localIndex": 5,
+      "title": "个人练习01：增量与差商",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：B"
+      ]
+    },
+    {
+      "index": 380,
+      "slideKey": "em-l07-calculus-20261017-p006",
+      "lesson": 7,
+      "localIndex": 6,
+      "title": "精确约分以后，再研究趋近",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 381,
+      "slideKey": "em-l07-calculus-20261017-p007",
+      "lesson": 7,
+      "localIndex": 7,
+      "title": "导数：差商的有限极限",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 382,
+      "slideKey": "em-l07-calculus-20261017-p008",
+      "lesson": 7,
+      "localIndex": 8,
+      "title": "可导，需要哪些输入与极限条件？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 383,
+      "slideKey": "em-l07-calculus-20261017-p009",
+      "lesson": 7,
+      "localIndex": 9,
+      "title": "个人练习02：导数定义的过程",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 384,
+      "slideKey": "em-l07-calculus-20261017-p010",
+      "lesson": 7,
+      "localIndex": 10,
+      "title": "右导数：只看正的输入增量",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 385,
+      "slideKey": "em-l07-calculus-20261017-p011",
+      "lesson": 7,
+      "localIndex": 11,
+      "title": "左导数：同一差商，改看负的增量",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 386,
+      "slideKey": "em-l07-calculus-20261017-p012",
+      "lesson": 7,
+      "localIndex": 12,
+      "title": "内点可导的单侧判据",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 387,
+      "slideKey": "em-l07-calculus-20261017-p013",
+      "lesson": 7,
+      "localIndex": 13,
+      "title": "尖角的精确证据",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "左右差商的目标不同"
+      ]
+    },
+    {
+      "index": 388,
+      "slideKey": "em-l07-calculus-20261017-p014",
+      "lesson": 7,
+      "localIndex": 14,
+      "title": "个人练习03：左右导数",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：B"
+      ]
+    },
+    {
+      "index": 389,
+      "slideKey": "em-l07-calculus-20261017-p015",
+      "lesson": 7,
+      "localIndex": 15,
+      "title": "用定义求一个点的导数",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "保留合法的附近等式",
+        "双侧有限极限"
+      ]
+    },
+    {
+      "index": 390,
+      "slideKey": "em-l07-calculus-20261017-p016",
+      "lesson": 7,
+      "localIndex": 16,
+      "title": "只改基点值，差商为什么也变了？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 391,
+      "slideKey": "em-l07-calculus-20261017-p017",
+      "lesson": 7,
+      "localIndex": 17,
+      "title": "个人练习04：点值进入差商",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：B"
+      ]
+    },
+    {
+      "index": 392,
+      "slideKey": "em-l07-calculus-20261017-p018",
+      "lesson": 7,
+      "localIndex": 18,
+      "title": "让基点变化，得到导函数",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 393,
+      "slideKey": "em-l07-calculus-20261017-p019",
+      "lesson": 7,
+      "localIndex": 19,
+      "title": "一个数，与一整个函数",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 394,
+      "slideKey": "em-l07-calculus-20261017-p020",
+      "lesson": 7,
+      "localIndex": 20,
+      "title": "导函数也有自己的定义域",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 395,
+      "slideKey": "em-l07-calculus-20261017-p021",
+      "lesson": 7,
+      "localIndex": 21,
+      "title": "个人练习05：一点导数与导函数",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：B"
+      ]
+    },
+    {
+      "index": 396,
+      "slideKey": "em-l07-calculus-20261017-p022",
+      "lesson": 7,
+      "localIndex": 22,
+      "title": "直线的导数来自恒定差商",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "取极限"
+      ]
+    },
+    {
+      "index": 397,
+      "slideKey": "em-l07-calculus-20261017-p023",
+      "lesson": 7,
+      "localIndex": 23,
+      "title": "常数函数的值非零，导数仍可为零",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 398,
+      "slideKey": "em-l07-calculus-20261017-p024",
+      "lesson": 7,
+      "localIndex": 24,
+      "title": "倒数函数：定义域条件跟着计算走",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "取足够小的范围",
+        "精确差商与极限"
+      ]
+    },
+    {
+      "index": 399,
+      "slideKey": "em-l07-calculus-20261017-p025",
+      "lesson": 7,
+      "localIndex": 25,
+      "title": "导数的正负，先解释这一点的变化率",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 400,
+      "slideKey": "em-l07-calculus-20261017-p026",
+      "lesson": 7,
+      "localIndex": 26,
+      "title": "个人练习06：用定义计算",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 401,
+      "slideKey": "em-l07-calculus-20261017-p027",
+      "lesson": 7,
+      "localIndex": 27,
+      "title": "差商无限增大，仍没有有限导数",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 402,
+      "slideKey": "em-l07-calculus-20261017-p028",
+      "lesson": 7,
+      "localIndex": 28,
+      "title": "三种结果，三种判断",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 403,
+      "slideKey": "em-l07-calculus-20261017-p029",
+      "lesson": 7,
+      "localIndex": 29,
+      "title": "导数的常用记号",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 404,
+      "slideKey": "em-l07-calculus-20261017-p030",
+      "lesson": 7,
+      "localIndex": 30,
+      "title": "有确定变化率，函数值一定接得上吗？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 405,
+      "slideKey": "em-l07-calculus-20261017-p031",
+      "lesson": 7,
+      "localIndex": 31,
+      "title": "可导推出连续：先看函数增量",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 406,
+      "slideKey": "em-l07-calculus-20261017-p032",
+      "lesson": 7,
+      "localIndex": 32,
+      "title": "函数增量趋零，点处值与极限吻合",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 1,
+      "revealTitles": [
+        "结论"
+      ]
+    },
+    {
+      "index": 407,
+      "slideKey": "em-l07-calculus-20261017-p033",
+      "lesson": 7,
+      "localIndex": 33,
+      "title": "反向不成立：连续没有控制差商",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 408,
+      "slideKey": "em-l07-calculus-20261017-p034",
+      "lesson": 7,
+      "localIndex": 34,
+      "title": "个人练习07：可导与连续",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：A"
+      ]
+    },
+    {
+      "index": 409,
+      "slideKey": "em-l07-calculus-20261017-p035",
+      "lesson": 7,
+      "localIndex": 35,
+      "title": "切线由基点与局部斜率确定",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 410,
+      "slideKey": "em-l07-calculus-20261017-p036",
+      "lesson": 7,
+      "localIndex": 36,
+      "title": "平方函数在1处的切线",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "基点和斜率",
+        "点斜式"
+      ]
+    },
+    {
+      "index": 411,
+      "slideKey": "em-l07-calculus-20261017-p037",
+      "lesson": 7,
+      "localIndex": 37,
+      "title": "切线可以穿过曲线",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 412,
+      "slideKey": "em-l07-calculus-20261017-p038",
+      "lesson": 7,
+      "localIndex": 38,
+      "title": "个人练习08：切线与局部信息",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 413,
+      "slideKey": "em-l07-calculus-20261017-p039",
+      "lesson": 7,
+      "localIndex": 39,
+      "title": "给定成本模型，明确产量与范围",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 414,
+      "slideKey": "em-l07-calculus-20261017-p040",
+      "lesson": 7,
+      "localIndex": 40,
+      "title": "从100件变到100+h件",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "平均成本变化率",
+        "允许的附近输入"
+      ]
+    },
+    {
+      "index": 415,
+      "slideKey": "em-l07-calculus-20261017-p041",
+      "lesson": 7,
+      "localIndex": 41,
+      "title": "成本的局部变化率",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 416,
+      "slideKey": "em-l07-calculus-20261017-p042",
+      "lesson": 7,
+      "localIndex": 42,
+      "title": "边际成本：导数的经济含义",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 417,
+      "slideKey": "em-l07-calculus-20261017-p043",
+      "lesson": 7,
+      "localIndex": 43,
+      "title": "多生产一件，实际增加24元吗？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 418,
+      "slideKey": "em-l07-calculus-20261017-p044",
+      "lesson": 7,
+      "localIndex": 44,
+      "title": "个人练习09：边际与实际增量",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：B"
+      ]
+    },
+    {
+      "index": 419,
+      "slideKey": "em-l07-calculus-20261017-p045",
+      "lesson": 7,
+      "localIndex": 45,
+      "title": "固定成本变了，局部成本变化率会变吗？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "新增常数在增量中抵消",
+        "局部变化率不变"
+      ]
+    },
+    {
+      "index": 420,
+      "slideKey": "em-l07-calculus-20261017-p046",
+      "lesson": 7,
+      "localIndex": 46,
+      "title": "容量端点，只能从允许一侧观察",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 421,
+      "slideKey": "em-l07-calculus-20261017-p047",
+      "lesson": 7,
+      "localIndex": 47,
+      "title": "个人练习10：模型范围与固定成本",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：C",
+        "第2题：B"
+      ]
+    },
+    {
+      "index": 422,
+      "slideKey": "em-l07-calculus-20261017-p048",
+      "lesson": 7,
+      "localIndex": 48,
+      "title": "局部极值：只与附近允许输入比较",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 423,
+      "slideKey": "em-l07-calculus-20261017-p049",
+      "lesson": 7,
+      "localIndex": 49,
+      "title": "导数为零，既可以有极值，也可以没有",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 424,
+      "slideKey": "em-l07-calculus-20261017-p050",
+      "lesson": 7,
+      "localIndex": 50,
+      "title": "费马定理：三个条件，一个必要结论",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "以局部极大值为例",
+        "共同有限极限只能为0"
+      ]
+    },
+    {
+      "index": 425,
+      "slideKey": "em-l07-calculus-20261017-p051",
+      "lesson": 7,
+      "localIndex": 51,
+      "title": "个人练习11：极值的必要条件",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：B"
+      ]
+    },
+    {
+      "index": 426,
+      "slideKey": "em-l07-calculus-20261017-p052",
+      "lesson": 7,
+      "localIndex": 52,
+      "title": "去掉可导条件：尖角也能取得极值",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 427,
+      "slideKey": "em-l07-calculus-20261017-p053",
+      "lesson": 7,
+      "localIndex": 53,
+      "title": "去掉内点条件：端点也可能最好",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 428,
+      "slideKey": "em-l07-calculus-20261017-p054",
+      "lesson": 7,
+      "localIndex": 54,
+      "title": "解答之前，先确定正在判断什么",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 429,
+      "slideKey": "em-l07-calculus-20261017-p055",
+      "lesson": 7,
+      "localIndex": 55,
+      "title": "个人练习12：连续参数与可导参数",
+      "layout": "table",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "第1题：B",
+        "第2题：C"
+      ]
+    },
+    {
+      "index": 430,
+      "slideKey": "em-l07-calculus-20261017-p056",
+      "lesson": 7,
+      "localIndex": 56,
+      "title": "小数表能观察，有限极限还要证明",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 431,
+      "slideKey": "em-l07-calculus-20261017-p057",
+      "lesson": 7,
+      "localIndex": 57,
+      "title": "同一成本模型，能怎样解释近似误差？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 432,
+      "slideKey": "em-l07-calculus-20261017-p058",
+      "lesson": 7,
+      "localIndex": 58,
+      "title": "同一点的导数相同，附近函数可以不同",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 433,
+      "slideKey": "em-l07-calculus-20261017-p059",
+      "lesson": 7,
+      "localIndex": 59,
+      "title": "一次导数结论的完整说明",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 434,
+      "slideKey": "em-l07-calculus-20261017-p060",
+      "lesson": 7,
+      "localIndex": 60,
+      "title": "下一讲：把定义组织成求导法则",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 435,
+      "slideKey": "em-l07-calculus-20261017-p061",
+      "lesson": 7,
+      "localIndex": 61,
+      "title": "拓展01 · 快速振荡也可以在一点可导",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "直接检查零处差商",
+        "夹逼得到导数"
+      ]
+    },
+    {
+      "index": 436,
+      "slideKey": "em-l07-calculus-20261017-p062",
+      "lesson": 7,
+      "localIndex": 62,
+      "title": "拓展02 · 竖直切线与有限导数的区别",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 437,
+      "slideKey": "em-l07-calculus-20261017-p063",
+      "lesson": 7,
+      "localIndex": 63,
+      "title": "拓展03 · 换自变量，不改变基点极限",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 0,
+      "revealTitles": []
+    },
+    {
+      "index": 438,
+      "slideKey": "em-l07-calculus-20261017-p064",
+      "lesson": 7,
+      "localIndex": 64,
+      "title": "拓展04 · 整数成本能唯一确定边际成本吗？",
+      "layout": "essay",
+      "style": "editorial",
+      "steps": 2,
+      "revealTitles": [
+        "每个整数产量的成本完全相同",
+        "在100处的局部率不同"
+      ]
+    },
+    {
+      "index": 439,
       "slideKey": "em-v2-l08-p001",
       "lesson": 8,
       "localIndex": 1,
@@ -4921,7 +6688,7 @@
       "revealTitles": []
     },
     {
-      "index": 299,
+      "index": 440,
       "slideKey": "em-v2-l08-p002",
       "lesson": 8,
       "localIndex": 2,
@@ -4931,7 +6698,7 @@
       "revealTitles": []
     },
     {
-      "index": 300,
+      "index": 441,
       "slideKey": "em-v2-l08-p003",
       "lesson": 8,
       "localIndex": 3,
@@ -4944,7 +6711,7 @@
       ]
     },
     {
-      "index": 301,
+      "index": 442,
       "slideKey": "em-v2-l08-p004",
       "lesson": 8,
       "localIndex": 4,
@@ -4958,7 +6725,7 @@
       ]
     },
     {
-      "index": 302,
+      "index": 443,
       "slideKey": "em-v2-l08-p005",
       "lesson": 8,
       "localIndex": 5,
@@ -4969,7 +6736,7 @@
       "revealTitles": []
     },
     {
-      "index": 303,
+      "index": 444,
       "slideKey": "em-v2-l08-p006",
       "lesson": 8,
       "localIndex": 6,
@@ -4983,7 +6750,7 @@
       ]
     },
     {
-      "index": 304,
+      "index": 445,
       "slideKey": "em-v2-l08-p007",
       "lesson": 8,
       "localIndex": 7,
@@ -4993,7 +6760,7 @@
       "revealTitles": []
     },
     {
-      "index": 305,
+      "index": 446,
       "slideKey": "em-v2-l08-p008",
       "lesson": 8,
       "localIndex": 8,
@@ -5007,7 +6774,7 @@
       ]
     },
     {
-      "index": 306,
+      "index": 447,
       "slideKey": "em-v2-l08-p009",
       "lesson": 8,
       "localIndex": 9,
@@ -5020,7 +6787,7 @@
       ]
     },
     {
-      "index": 307,
+      "index": 448,
       "slideKey": "em-v2-l08-p010",
       "lesson": 8,
       "localIndex": 10,
@@ -5030,7 +6797,7 @@
       "revealTitles": []
     },
     {
-      "index": 308,
+      "index": 449,
       "slideKey": "em-v2-l09-p001",
       "lesson": 9,
       "localIndex": 1,
@@ -5041,7 +6808,7 @@
       "revealTitles": []
     },
     {
-      "index": 309,
+      "index": 450,
       "slideKey": "em-v2-l09-p002",
       "lesson": 9,
       "localIndex": 2,
@@ -5052,7 +6819,7 @@
       "revealTitles": []
     },
     {
-      "index": 310,
+      "index": 451,
       "slideKey": "em-v2-l09-p003",
       "lesson": 9,
       "localIndex": 3,
@@ -5066,7 +6833,7 @@
       ]
     },
     {
-      "index": 311,
+      "index": 452,
       "slideKey": "em-v2-l09-p004",
       "lesson": 9,
       "localIndex": 4,
@@ -5079,7 +6846,7 @@
       ]
     },
     {
-      "index": 312,
+      "index": 453,
       "slideKey": "em-v2-l09-p005",
       "lesson": 9,
       "localIndex": 5,
@@ -5092,7 +6859,7 @@
       ]
     },
     {
-      "index": 313,
+      "index": 454,
       "slideKey": "em-v2-l09-p006",
       "lesson": 9,
       "localIndex": 6,
@@ -5103,7 +6870,7 @@
       "revealTitles": []
     },
     {
-      "index": 314,
+      "index": 455,
       "slideKey": "em-v2-l09-p007",
       "lesson": 9,
       "localIndex": 7,
@@ -5117,7 +6884,7 @@
       ]
     },
     {
-      "index": 315,
+      "index": 456,
       "slideKey": "em-v2-l09-p008",
       "lesson": 9,
       "localIndex": 8,
@@ -5131,7 +6898,7 @@
       ]
     },
     {
-      "index": 316,
+      "index": 457,
       "slideKey": "em-v2-l09-p009",
       "lesson": 9,
       "localIndex": 9,
@@ -5144,7 +6911,7 @@
       ]
     },
     {
-      "index": 317,
+      "index": 458,
       "slideKey": "em-v2-l09-p010",
       "lesson": 9,
       "localIndex": 10,
@@ -5157,7 +6924,7 @@
       ]
     },
     {
-      "index": 318,
+      "index": 459,
       "slideKey": "em-v2-l10-p001",
       "lesson": 10,
       "localIndex": 1,
@@ -5168,7 +6935,7 @@
       "revealTitles": []
     },
     {
-      "index": 319,
+      "index": 460,
       "slideKey": "em-v2-l10-p002",
       "lesson": 10,
       "localIndex": 2,
@@ -5179,7 +6946,7 @@
       "revealTitles": []
     },
     {
-      "index": 320,
+      "index": 461,
       "slideKey": "em-v2-l10-p003",
       "lesson": 10,
       "localIndex": 3,
@@ -5193,7 +6960,7 @@
       ]
     },
     {
-      "index": 321,
+      "index": 462,
       "slideKey": "em-v2-l10-p004",
       "lesson": 10,
       "localIndex": 4,
@@ -5203,7 +6970,7 @@
       "revealTitles": []
     },
     {
-      "index": 322,
+      "index": 463,
       "slideKey": "em-v2-l10-p005",
       "lesson": 10,
       "localIndex": 5,
@@ -5214,7 +6981,7 @@
       "revealTitles": []
     },
     {
-      "index": 323,
+      "index": 464,
       "slideKey": "em-v2-l10-p006",
       "lesson": 10,
       "localIndex": 6,
@@ -5227,7 +6994,7 @@
       ]
     },
     {
-      "index": 324,
+      "index": 465,
       "slideKey": "em-v2-l10-p007",
       "lesson": 10,
       "localIndex": 7,
@@ -5241,7 +7008,7 @@
       ]
     },
     {
-      "index": 325,
+      "index": 466,
       "slideKey": "em-v2-l10-p008",
       "lesson": 10,
       "localIndex": 8,
@@ -5251,7 +7018,7 @@
       "revealTitles": []
     },
     {
-      "index": 326,
+      "index": 467,
       "slideKey": "em-v2-l10-p009",
       "lesson": 10,
       "localIndex": 9,
@@ -5264,7 +7031,7 @@
       ]
     },
     {
-      "index": 327,
+      "index": 468,
       "slideKey": "em-v2-l10-p010",
       "lesson": 10,
       "localIndex": 10,
@@ -5277,7 +7044,7 @@
       ]
     },
     {
-      "index": 328,
+      "index": 469,
       "slideKey": "em-v2-l11-p001",
       "lesson": 11,
       "localIndex": 1,
@@ -5288,7 +7055,7 @@
       "revealTitles": []
     },
     {
-      "index": 329,
+      "index": 470,
       "slideKey": "em-v2-l11-p002",
       "lesson": 11,
       "localIndex": 2,
@@ -5299,7 +7066,7 @@
       "revealTitles": []
     },
     {
-      "index": 330,
+      "index": 471,
       "slideKey": "em-v2-l11-p003",
       "lesson": 11,
       "localIndex": 3,
@@ -5313,7 +7080,7 @@
       ]
     },
     {
-      "index": 331,
+      "index": 472,
       "slideKey": "em-v2-l11-p004",
       "lesson": 11,
       "localIndex": 4,
@@ -5324,7 +7091,7 @@
       "interactionId": "linearization-error-lab"
     },
     {
-      "index": 332,
+      "index": 473,
       "slideKey": "em-v2-l11-p005",
       "lesson": 11,
       "localIndex": 5,
@@ -5337,7 +7104,7 @@
       ]
     },
     {
-      "index": 333,
+      "index": 474,
       "slideKey": "em-v2-l11-p006",
       "lesson": 11,
       "localIndex": 6,
@@ -5347,7 +7114,7 @@
       "revealTitles": []
     },
     {
-      "index": 334,
+      "index": 475,
       "slideKey": "em-v2-l11-p007",
       "lesson": 11,
       "localIndex": 7,
@@ -5357,7 +7124,7 @@
       "revealTitles": []
     },
     {
-      "index": 335,
+      "index": 476,
       "slideKey": "em-v2-l11-p008",
       "lesson": 11,
       "localIndex": 8,
@@ -5370,7 +7137,7 @@
       ]
     },
     {
-      "index": 336,
+      "index": 477,
       "slideKey": "em-v2-l11-p009",
       "lesson": 11,
       "localIndex": 9,
@@ -5383,7 +7150,7 @@
       ]
     },
     {
-      "index": 337,
+      "index": 478,
       "slideKey": "em-v2-l11-p010",
       "lesson": 11,
       "localIndex": 10,
@@ -5396,7 +7163,7 @@
       ]
     },
     {
-      "index": 338,
+      "index": 479,
       "slideKey": "em-v2-l12-p001",
       "lesson": 12,
       "localIndex": 1,
@@ -5408,7 +7175,7 @@
       "revealTitles": []
     },
     {
-      "index": 339,
+      "index": 480,
       "slideKey": "em-v2-l12-p002",
       "lesson": 12,
       "localIndex": 2,
@@ -5419,7 +7186,7 @@
       "revealTitles": []
     },
     {
-      "index": 340,
+      "index": 481,
       "slideKey": "em-v2-l12-p003",
       "lesson": 12,
       "localIndex": 3,
@@ -5430,7 +7197,7 @@
       "revealTitles": []
     },
     {
-      "index": 341,
+      "index": 482,
       "slideKey": "em-v2-l12-p004",
       "lesson": 12,
       "localIndex": 4,
@@ -5444,7 +7211,7 @@
       ]
     },
     {
-      "index": 342,
+      "index": 483,
       "slideKey": "em-v2-l12-p005",
       "lesson": 12,
       "localIndex": 5,
@@ -5458,7 +7225,7 @@
       ]
     },
     {
-      "index": 343,
+      "index": 484,
       "slideKey": "em-v2-l12-p006",
       "lesson": 12,
       "localIndex": 6,
@@ -5472,7 +7239,7 @@
       ]
     },
     {
-      "index": 344,
+      "index": 485,
       "slideKey": "em-v2-l12-p007",
       "lesson": 12,
       "localIndex": 7,
@@ -5485,7 +7252,7 @@
       ]
     },
     {
-      "index": 345,
+      "index": 486,
       "slideKey": "em-v2-l12-p008",
       "lesson": 12,
       "localIndex": 8,
@@ -5498,7 +7265,7 @@
       ]
     },
     {
-      "index": 346,
+      "index": 487,
       "slideKey": "em-v2-l12-p009",
       "lesson": 12,
       "localIndex": 9,
@@ -5511,7 +7278,7 @@
       ]
     },
     {
-      "index": 347,
+      "index": 488,
       "slideKey": "em-v2-l12-p010",
       "lesson": 12,
       "localIndex": 10,
@@ -5524,7 +7291,7 @@
       ]
     },
     {
-      "index": 348,
+      "index": 489,
       "slideKey": "em-v2-l12-p011",
       "lesson": 12,
       "localIndex": 11,
@@ -5534,7 +7301,7 @@
       "revealTitles": []
     },
     {
-      "index": 349,
+      "index": 490,
       "slideKey": "em-v2-l13-p001",
       "lesson": 13,
       "localIndex": 1,
@@ -5545,7 +7312,7 @@
       "revealTitles": []
     },
     {
-      "index": 350,
+      "index": 491,
       "slideKey": "em-v2-l13-p002",
       "lesson": 13,
       "localIndex": 2,
@@ -5556,7 +7323,7 @@
       "revealTitles": []
     },
     {
-      "index": 351,
+      "index": 492,
       "slideKey": "em-v2-l13-p003",
       "lesson": 13,
       "localIndex": 3,
@@ -5566,7 +7333,7 @@
       "revealTitles": []
     },
     {
-      "index": 352,
+      "index": 493,
       "slideKey": "em-v2-l13-p004",
       "lesson": 13,
       "localIndex": 4,
@@ -5579,7 +7346,7 @@
       ]
     },
     {
-      "index": 353,
+      "index": 494,
       "slideKey": "em-v2-l13-p005",
       "lesson": 13,
       "localIndex": 5,
@@ -5592,7 +7359,7 @@
       ]
     },
     {
-      "index": 354,
+      "index": 495,
       "slideKey": "em-v2-l13-p006",
       "lesson": 13,
       "localIndex": 6,
@@ -5605,7 +7372,7 @@
       ]
     },
     {
-      "index": 355,
+      "index": 496,
       "slideKey": "em-v2-l13-p007",
       "lesson": 13,
       "localIndex": 7,
@@ -5618,7 +7385,7 @@
       ]
     },
     {
-      "index": 356,
+      "index": 497,
       "slideKey": "em-v2-l13-p008",
       "lesson": 13,
       "localIndex": 8,
@@ -5631,7 +7398,7 @@
       ]
     },
     {
-      "index": 357,
+      "index": 498,
       "slideKey": "em-v2-l13-p009",
       "lesson": 13,
       "localIndex": 9,
@@ -5641,7 +7408,7 @@
       "revealTitles": []
     },
     {
-      "index": 358,
+      "index": 499,
       "slideKey": "em-v2-l13-p010",
       "lesson": 13,
       "localIndex": 10,
@@ -5655,7 +7422,7 @@
       ]
     },
     {
-      "index": 359,
+      "index": 500,
       "slideKey": "em-v2-l13-p011",
       "lesson": 13,
       "localIndex": 11,
@@ -5667,7 +7434,7 @@
       ]
     },
     {
-      "index": 360,
+      "index": 501,
       "slideKey": "em-v2-l14-p001",
       "lesson": 14,
       "localIndex": 1,
@@ -5678,7 +7445,7 @@
       "revealTitles": []
     },
     {
-      "index": 361,
+      "index": 502,
       "slideKey": "em-v2-l14-p002",
       "lesson": 14,
       "localIndex": 2,
@@ -5689,7 +7456,7 @@
       "revealTitles": []
     },
     {
-      "index": 362,
+      "index": 503,
       "slideKey": "em-v2-l14-p003",
       "lesson": 14,
       "localIndex": 3,
@@ -5703,7 +7470,7 @@
       ]
     },
     {
-      "index": 363,
+      "index": 504,
       "slideKey": "em-v2-l14-p004",
       "lesson": 14,
       "localIndex": 4,
@@ -5713,7 +7480,7 @@
       "revealTitles": []
     },
     {
-      "index": 364,
+      "index": 505,
       "slideKey": "em-v2-l14-p005",
       "lesson": 14,
       "localIndex": 5,
@@ -5723,7 +7490,7 @@
       "revealTitles": []
     },
     {
-      "index": 365,
+      "index": 506,
       "slideKey": "em-v2-l14-p006",
       "lesson": 14,
       "localIndex": 6,
@@ -5737,7 +7504,7 @@
       ]
     },
     {
-      "index": 366,
+      "index": 507,
       "slideKey": "em-v2-l14-p007",
       "lesson": 14,
       "localIndex": 7,
@@ -5748,7 +7515,7 @@
       "revealTitles": []
     },
     {
-      "index": 367,
+      "index": 508,
       "slideKey": "em-v2-l14-p008",
       "lesson": 14,
       "localIndex": 8,
@@ -5762,7 +7529,7 @@
       ]
     },
     {
-      "index": 368,
+      "index": 509,
       "slideKey": "em-v2-l14-p009",
       "lesson": 14,
       "localIndex": 9,
@@ -5775,7 +7542,7 @@
       ]
     },
     {
-      "index": 369,
+      "index": 510,
       "slideKey": "em-v2-l14-p010",
       "lesson": 14,
       "localIndex": 10,
@@ -5788,7 +7555,7 @@
       ]
     },
     {
-      "index": 370,
+      "index": 511,
       "slideKey": "em-v2-l15-p001",
       "lesson": 15,
       "localIndex": 1,
@@ -5799,7 +7566,7 @@
       "revealTitles": []
     },
     {
-      "index": 371,
+      "index": 512,
       "slideKey": "em-v2-l15-p002",
       "lesson": 15,
       "localIndex": 2,
@@ -5810,7 +7577,7 @@
       "revealTitles": []
     },
     {
-      "index": 372,
+      "index": 513,
       "slideKey": "em-v2-l15-p003",
       "lesson": 15,
       "localIndex": 3,
@@ -5824,7 +7591,7 @@
       ]
     },
     {
-      "index": 373,
+      "index": 514,
       "slideKey": "em-v2-l15-p004",
       "lesson": 15,
       "localIndex": 4,
@@ -5838,7 +7605,7 @@
       ]
     },
     {
-      "index": 374,
+      "index": 515,
       "slideKey": "em-v2-l15-p005",
       "lesson": 15,
       "localIndex": 5,
@@ -5849,7 +7616,7 @@
       "revealTitles": []
     },
     {
-      "index": 375,
+      "index": 516,
       "slideKey": "em-v2-l15-p006",
       "lesson": 15,
       "localIndex": 6,
@@ -5863,7 +7630,7 @@
       ]
     },
     {
-      "index": 376,
+      "index": 517,
       "slideKey": "em-v2-l15-p007",
       "lesson": 15,
       "localIndex": 7,
@@ -5875,7 +7642,7 @@
       ]
     },
     {
-      "index": 377,
+      "index": 518,
       "slideKey": "em-v2-l15-p008",
       "lesson": 15,
       "localIndex": 8,
@@ -5889,7 +7656,7 @@
       ]
     },
     {
-      "index": 378,
+      "index": 519,
       "slideKey": "em-v2-l15-p009",
       "lesson": 15,
       "localIndex": 9,
@@ -5903,7 +7670,7 @@
       ]
     },
     {
-      "index": 379,
+      "index": 520,
       "slideKey": "em-v2-l15-p010",
       "lesson": 15,
       "localIndex": 10,
@@ -5913,7 +7680,7 @@
       "revealTitles": []
     },
     {
-      "index": 380,
+      "index": 521,
       "slideKey": "em-v2-l16-p001",
       "lesson": 16,
       "localIndex": 1,
@@ -5924,7 +7691,7 @@
       "revealTitles": []
     },
     {
-      "index": 381,
+      "index": 522,
       "slideKey": "em-v2-l16-p002",
       "lesson": 16,
       "localIndex": 2,
@@ -5935,7 +7702,7 @@
       "revealTitles": []
     },
     {
-      "index": 382,
+      "index": 523,
       "slideKey": "em-v2-l16-p003",
       "lesson": 16,
       "localIndex": 3,
@@ -5949,7 +7716,7 @@
       ]
     },
     {
-      "index": 383,
+      "index": 524,
       "slideKey": "em-v2-l16-p004",
       "lesson": 16,
       "localIndex": 4,
@@ -5962,7 +7729,7 @@
       ]
     },
     {
-      "index": 384,
+      "index": 525,
       "slideKey": "em-v2-l16-p005",
       "lesson": 16,
       "localIndex": 5,
@@ -5975,7 +7742,7 @@
       ]
     },
     {
-      "index": 385,
+      "index": 526,
       "slideKey": "em-v2-l16-p006",
       "lesson": 16,
       "localIndex": 6,
@@ -5986,7 +7753,7 @@
       "revealTitles": []
     },
     {
-      "index": 386,
+      "index": 527,
       "slideKey": "em-v2-l16-p007",
       "lesson": 16,
       "localIndex": 7,
@@ -5997,7 +7764,7 @@
       "interactionId": "elasticity-profit-lab"
     },
     {
-      "index": 387,
+      "index": 528,
       "slideKey": "em-v2-l16-p008",
       "lesson": 16,
       "localIndex": 8,
@@ -6010,7 +7777,7 @@
       ]
     },
     {
-      "index": 388,
+      "index": 529,
       "slideKey": "em-v2-l16-p009",
       "lesson": 16,
       "localIndex": 9,
@@ -6023,7 +7790,7 @@
       ]
     },
     {
-      "index": 389,
+      "index": 530,
       "slideKey": "em-v2-l16-p010",
       "lesson": 16,
       "localIndex": 10,
@@ -6036,7 +7803,7 @@
       ]
     },
     {
-      "index": 390,
+      "index": 531,
       "slideKey": "em-v2-l17-p001",
       "lesson": 17,
       "localIndex": 1,
@@ -6048,7 +7815,7 @@
       "revealTitles": []
     },
     {
-      "index": 391,
+      "index": 532,
       "slideKey": "em-v2-l17-p002",
       "lesson": 17,
       "localIndex": 2,
@@ -6059,7 +7826,7 @@
       "revealTitles": []
     },
     {
-      "index": 392,
+      "index": 533,
       "slideKey": "em-v2-l17-p003",
       "lesson": 17,
       "localIndex": 3,
@@ -6070,7 +7837,7 @@
       "revealTitles": []
     },
     {
-      "index": 393,
+      "index": 534,
       "slideKey": "em-v2-l17-p004",
       "lesson": 17,
       "localIndex": 4,
@@ -6084,7 +7851,7 @@
       ]
     },
     {
-      "index": 394,
+      "index": 535,
       "slideKey": "em-v2-l17-p005",
       "lesson": 17,
       "localIndex": 5,
@@ -6098,7 +7865,7 @@
       ]
     },
     {
-      "index": 395,
+      "index": 536,
       "slideKey": "em-v2-l17-p006",
       "lesson": 17,
       "localIndex": 6,
@@ -6111,7 +7878,7 @@
       ]
     },
     {
-      "index": 396,
+      "index": 537,
       "slideKey": "em-v2-l17-p007",
       "lesson": 17,
       "localIndex": 7,
@@ -6121,7 +7888,7 @@
       "revealTitles": []
     },
     {
-      "index": 397,
+      "index": 538,
       "slideKey": "em-v2-l17-p008",
       "lesson": 17,
       "localIndex": 8,
@@ -6134,7 +7901,7 @@
       ]
     },
     {
-      "index": 398,
+      "index": 539,
       "slideKey": "em-v2-l17-p009",
       "lesson": 17,
       "localIndex": 9,
@@ -6148,7 +7915,7 @@
       ]
     },
     {
-      "index": 399,
+      "index": 540,
       "slideKey": "em-v2-l17-p010",
       "lesson": 17,
       "localIndex": 10,
@@ -6161,7 +7928,7 @@
       ]
     },
     {
-      "index": 400,
+      "index": 541,
       "slideKey": "em-v2-l18-p001",
       "lesson": 18,
       "localIndex": 1,
@@ -6172,7 +7939,7 @@
       "revealTitles": []
     },
     {
-      "index": 401,
+      "index": 542,
       "slideKey": "em-v2-l18-p002",
       "lesson": 18,
       "localIndex": 2,
@@ -6183,7 +7950,7 @@
       "revealTitles": []
     },
     {
-      "index": 402,
+      "index": 543,
       "slideKey": "em-v2-l18-p003",
       "lesson": 18,
       "localIndex": 3,
@@ -6196,7 +7963,7 @@
       ]
     },
     {
-      "index": 403,
+      "index": 544,
       "slideKey": "em-v2-l18-p004",
       "lesson": 18,
       "localIndex": 4,
@@ -6210,7 +7977,7 @@
       ]
     },
     {
-      "index": 404,
+      "index": 545,
       "slideKey": "em-v2-l18-p005",
       "lesson": 18,
       "localIndex": 5,
@@ -6220,7 +7987,7 @@
       "revealTitles": []
     },
     {
-      "index": 405,
+      "index": 546,
       "slideKey": "em-v2-l18-p006",
       "lesson": 18,
       "localIndex": 6,
@@ -6234,7 +8001,7 @@
       ]
     },
     {
-      "index": 406,
+      "index": 547,
       "slideKey": "em-v2-l18-p007",
       "lesson": 18,
       "localIndex": 7,
@@ -6247,7 +8014,7 @@
       ]
     },
     {
-      "index": 407,
+      "index": 548,
       "slideKey": "em-v2-l18-p008",
       "lesson": 18,
       "localIndex": 8,
@@ -6258,7 +8025,7 @@
       "revealTitles": []
     },
     {
-      "index": 408,
+      "index": 549,
       "slideKey": "em-v2-l18-p009",
       "lesson": 18,
       "localIndex": 9,
@@ -6271,7 +8038,7 @@
       ]
     },
     {
-      "index": 409,
+      "index": 550,
       "slideKey": "em-v2-l18-p010",
       "lesson": 18,
       "localIndex": 10,
@@ -6284,7 +8051,7 @@
       ]
     },
     {
-      "index": 410,
+      "index": 551,
       "slideKey": "em-v2-l19-p001",
       "lesson": 19,
       "localIndex": 1,
@@ -6295,7 +8062,7 @@
       "revealTitles": []
     },
     {
-      "index": 411,
+      "index": 552,
       "slideKey": "em-v2-l19-p002",
       "lesson": 19,
       "localIndex": 2,
@@ -6306,7 +8073,7 @@
       "revealTitles": []
     },
     {
-      "index": 412,
+      "index": 553,
       "slideKey": "em-v2-l19-p003",
       "lesson": 19,
       "localIndex": 3,
@@ -6320,7 +8087,7 @@
       ]
     },
     {
-      "index": 413,
+      "index": 554,
       "slideKey": "em-v2-l19-p004",
       "lesson": 19,
       "localIndex": 4,
@@ -6334,7 +8101,7 @@
       ]
     },
     {
-      "index": 414,
+      "index": 555,
       "slideKey": "em-v2-l19-p005",
       "lesson": 19,
       "localIndex": 5,
@@ -6347,7 +8114,7 @@
       ]
     },
     {
-      "index": 415,
+      "index": 556,
       "slideKey": "em-v2-l19-p006",
       "lesson": 19,
       "localIndex": 6,
@@ -6360,7 +8127,7 @@
       ]
     },
     {
-      "index": 416,
+      "index": 557,
       "slideKey": "em-v2-l19-p007",
       "lesson": 19,
       "localIndex": 7,
@@ -6374,7 +8141,7 @@
       ]
     },
     {
-      "index": 417,
+      "index": 558,
       "slideKey": "em-v2-l19-p008",
       "lesson": 19,
       "localIndex": 8,
@@ -6385,7 +8152,7 @@
       "revealTitles": []
     },
     {
-      "index": 418,
+      "index": 559,
       "slideKey": "em-v2-l19-p009",
       "lesson": 19,
       "localIndex": 9,
@@ -6398,7 +8165,7 @@
       ]
     },
     {
-      "index": 419,
+      "index": 560,
       "slideKey": "em-v2-l19-p010",
       "lesson": 19,
       "localIndex": 10,
@@ -6411,7 +8178,7 @@
       ]
     },
     {
-      "index": 420,
+      "index": 561,
       "slideKey": "em-v2-l20-p001",
       "lesson": 20,
       "localIndex": 1,
@@ -6422,7 +8189,7 @@
       "revealTitles": []
     },
     {
-      "index": 421,
+      "index": 562,
       "slideKey": "em-v2-l20-p002",
       "lesson": 20,
       "localIndex": 2,
@@ -6433,7 +8200,7 @@
       "revealTitles": []
     },
     {
-      "index": 422,
+      "index": 563,
       "slideKey": "em-v2-l20-p003",
       "lesson": 20,
       "localIndex": 3,
@@ -6447,7 +8214,7 @@
       ]
     },
     {
-      "index": 423,
+      "index": 564,
       "slideKey": "em-v2-l20-p004",
       "lesson": 20,
       "localIndex": 4,
@@ -6461,7 +8228,7 @@
       ]
     },
     {
-      "index": 424,
+      "index": 565,
       "slideKey": "em-v2-l20-p005",
       "lesson": 20,
       "localIndex": 5,
@@ -6475,7 +8242,7 @@
       ]
     },
     {
-      "index": 425,
+      "index": 566,
       "slideKey": "em-v2-l20-p006",
       "lesson": 20,
       "localIndex": 6,
@@ -6488,7 +8255,7 @@
       ]
     },
     {
-      "index": 426,
+      "index": 567,
       "slideKey": "em-v2-l20-p007",
       "lesson": 20,
       "localIndex": 7,
@@ -6500,7 +8267,7 @@
       ]
     },
     {
-      "index": 427,
+      "index": 568,
       "slideKey": "em-v2-l20-p008",
       "lesson": 20,
       "localIndex": 8,
@@ -6513,7 +8280,7 @@
       ]
     },
     {
-      "index": 428,
+      "index": 569,
       "slideKey": "em-v2-l20-p009",
       "lesson": 20,
       "localIndex": 9,
@@ -6526,7 +8293,7 @@
       ]
     },
     {
-      "index": 429,
+      "index": 570,
       "slideKey": "em-v2-l20-p010",
       "lesson": 20,
       "localIndex": 10,
@@ -6536,7 +8303,7 @@
       "revealTitles": []
     },
     {
-      "index": 430,
+      "index": 571,
       "slideKey": "em-v2-l21-p001",
       "lesson": 21,
       "localIndex": 1,
@@ -6548,7 +8315,7 @@
       "revealTitles": []
     },
     {
-      "index": 431,
+      "index": 572,
       "slideKey": "em-v2-l21-p002",
       "lesson": 21,
       "localIndex": 2,
@@ -6559,7 +8326,7 @@
       "revealTitles": []
     },
     {
-      "index": 432,
+      "index": 573,
       "slideKey": "em-v2-l21-p003",
       "lesson": 21,
       "localIndex": 3,
@@ -6570,7 +8337,7 @@
       "revealTitles": []
     },
     {
-      "index": 433,
+      "index": 574,
       "slideKey": "em-v2-l21-p004",
       "lesson": 21,
       "localIndex": 4,
@@ -6584,7 +8351,7 @@
       ]
     },
     {
-      "index": 434,
+      "index": 575,
       "slideKey": "em-v2-l21-p005",
       "lesson": 21,
       "localIndex": 5,
@@ -6595,7 +8362,7 @@
       "interactionId": "riemann-sum-lab"
     },
     {
-      "index": 435,
+      "index": 576,
       "slideKey": "em-v2-l21-p006",
       "lesson": 21,
       "localIndex": 6,
@@ -6608,7 +8375,7 @@
       ]
     },
     {
-      "index": 436,
+      "index": 577,
       "slideKey": "em-v2-l21-p007",
       "lesson": 21,
       "localIndex": 7,
@@ -6620,7 +8387,7 @@
       ]
     },
     {
-      "index": 437,
+      "index": 578,
       "slideKey": "em-v2-l21-p008",
       "lesson": 21,
       "localIndex": 8,
@@ -6630,7 +8397,7 @@
       "revealTitles": []
     },
     {
-      "index": 438,
+      "index": 579,
       "slideKey": "em-v2-l21-p009",
       "lesson": 21,
       "localIndex": 9,
@@ -6643,7 +8410,7 @@
       ]
     },
     {
-      "index": 439,
+      "index": 580,
       "slideKey": "em-v2-l21-p010",
       "lesson": 21,
       "localIndex": 10,
@@ -6653,7 +8420,7 @@
       "revealTitles": []
     },
     {
-      "index": 440,
+      "index": 581,
       "slideKey": "em-v2-l22-p001",
       "lesson": 22,
       "localIndex": 1,
@@ -6664,7 +8431,7 @@
       "revealTitles": []
     },
     {
-      "index": 441,
+      "index": 582,
       "slideKey": "em-v2-l22-p002",
       "lesson": 22,
       "localIndex": 2,
@@ -6675,7 +8442,7 @@
       "revealTitles": []
     },
     {
-      "index": 442,
+      "index": 583,
       "slideKey": "em-v2-l22-p003",
       "lesson": 22,
       "localIndex": 3,
@@ -6688,7 +8455,7 @@
       ]
     },
     {
-      "index": 443,
+      "index": 584,
       "slideKey": "em-v2-l22-p004",
       "lesson": 22,
       "localIndex": 4,
@@ -6702,7 +8469,7 @@
       ]
     },
     {
-      "index": 444,
+      "index": 585,
       "slideKey": "em-v2-l22-p005",
       "lesson": 22,
       "localIndex": 5,
@@ -6713,7 +8480,7 @@
       "interactionId": "accumulation-limit-lab"
     },
     {
-      "index": 445,
+      "index": 586,
       "slideKey": "em-v2-l22-p006",
       "lesson": 22,
       "localIndex": 6,
@@ -6726,7 +8493,7 @@
       ]
     },
     {
-      "index": 446,
+      "index": 587,
       "slideKey": "em-v2-l22-p007",
       "lesson": 22,
       "localIndex": 7,
@@ -6739,7 +8506,7 @@
       ]
     },
     {
-      "index": 447,
+      "index": 588,
       "slideKey": "em-v2-l22-p008",
       "lesson": 22,
       "localIndex": 8,
@@ -6749,7 +8516,7 @@
       "revealTitles": []
     },
     {
-      "index": 448,
+      "index": 589,
       "slideKey": "em-v2-l22-p009",
       "lesson": 22,
       "localIndex": 9,
@@ -6762,7 +8529,7 @@
       ]
     },
     {
-      "index": 449,
+      "index": 590,
       "slideKey": "em-v2-l22-p010",
       "lesson": 22,
       "localIndex": 10,
@@ -6776,7 +8543,7 @@
       ]
     },
     {
-      "index": 450,
+      "index": 591,
       "slideKey": "em-v2-l23-p001",
       "lesson": 23,
       "localIndex": 1,
@@ -6787,7 +8554,7 @@
       "revealTitles": []
     },
     {
-      "index": 451,
+      "index": 592,
       "slideKey": "em-v2-l23-p002",
       "lesson": 23,
       "localIndex": 2,
@@ -6798,7 +8565,7 @@
       "revealTitles": []
     },
     {
-      "index": 452,
+      "index": 593,
       "slideKey": "em-v2-l23-p003",
       "lesson": 23,
       "localIndex": 3,
@@ -6812,7 +8579,7 @@
       ]
     },
     {
-      "index": 453,
+      "index": 594,
       "slideKey": "em-v2-l23-p004",
       "lesson": 23,
       "localIndex": 4,
@@ -6825,7 +8592,7 @@
       ]
     },
     {
-      "index": 454,
+      "index": 595,
       "slideKey": "em-v2-l23-p005",
       "lesson": 23,
       "localIndex": 5,
@@ -6838,7 +8605,7 @@
       ]
     },
     {
-      "index": 455,
+      "index": 596,
       "slideKey": "em-v2-l23-p006",
       "lesson": 23,
       "localIndex": 6,
@@ -6851,7 +8618,7 @@
       ]
     },
     {
-      "index": 456,
+      "index": 597,
       "slideKey": "em-v2-l23-p007",
       "lesson": 23,
       "localIndex": 7,
@@ -6865,7 +8632,7 @@
       ]
     },
     {
-      "index": 457,
+      "index": 598,
       "slideKey": "em-v2-l23-p008",
       "lesson": 23,
       "localIndex": 8,
@@ -6878,7 +8645,7 @@
       ]
     },
     {
-      "index": 458,
+      "index": 599,
       "slideKey": "em-v2-l23-p009",
       "lesson": 23,
       "localIndex": 9,
@@ -6890,7 +8657,7 @@
       ]
     },
     {
-      "index": 459,
+      "index": 600,
       "slideKey": "em-v2-l23-p010",
       "lesson": 23,
       "localIndex": 10,
@@ -6902,7 +8669,7 @@
       ]
     },
     {
-      "index": 460,
+      "index": 601,
       "slideKey": "em-v2-l24-p001",
       "lesson": 24,
       "localIndex": 1,
@@ -6913,7 +8680,7 @@
       "revealTitles": []
     },
     {
-      "index": 461,
+      "index": 602,
       "slideKey": "em-v2-l24-p002",
       "lesson": 24,
       "localIndex": 2,
@@ -6924,7 +8691,7 @@
       "revealTitles": []
     },
     {
-      "index": 462,
+      "index": 603,
       "slideKey": "em-v2-l24-p003",
       "lesson": 24,
       "localIndex": 3,
@@ -6938,7 +8705,7 @@
       ]
     },
     {
-      "index": 463,
+      "index": 604,
       "slideKey": "em-v2-l24-p004",
       "lesson": 24,
       "localIndex": 4,
@@ -6948,7 +8715,7 @@
       "revealTitles": []
     },
     {
-      "index": 464,
+      "index": 605,
       "slideKey": "em-v2-l24-p005",
       "lesson": 24,
       "localIndex": 5,
@@ -6962,7 +8729,7 @@
       ]
     },
     {
-      "index": 465,
+      "index": 606,
       "slideKey": "em-v2-l24-p006",
       "lesson": 24,
       "localIndex": 6,
@@ -6976,7 +8743,7 @@
       ]
     },
     {
-      "index": 466,
+      "index": 607,
       "slideKey": "em-v2-l24-p007",
       "lesson": 24,
       "localIndex": 7,
@@ -6989,7 +8756,7 @@
       ]
     },
     {
-      "index": 467,
+      "index": 608,
       "slideKey": "em-v2-l24-p008",
       "lesson": 24,
       "localIndex": 8,
@@ -7003,7 +8770,7 @@
       ]
     },
     {
-      "index": 468,
+      "index": 609,
       "slideKey": "em-v2-l24-p009",
       "lesson": 24,
       "localIndex": 9,
@@ -7016,7 +8783,7 @@
       ]
     },
     {
-      "index": 469,
+      "index": 610,
       "slideKey": "em-v2-l24-p010",
       "lesson": 24,
       "localIndex": 10,
@@ -7028,7 +8795,7 @@
       ]
     },
     {
-      "index": 470,
+      "index": 611,
       "slideKey": "em-v2-l25-p001",
       "lesson": 25,
       "localIndex": 1,
@@ -7039,7 +8806,7 @@
       "revealTitles": []
     },
     {
-      "index": 471,
+      "index": 612,
       "slideKey": "em-v2-l25-p002",
       "lesson": 25,
       "localIndex": 2,
@@ -7050,7 +8817,7 @@
       "revealTitles": []
     },
     {
-      "index": 472,
+      "index": 613,
       "slideKey": "em-v2-l25-p003",
       "lesson": 25,
       "localIndex": 3,
@@ -7064,7 +8831,7 @@
       ]
     },
     {
-      "index": 473,
+      "index": 614,
       "slideKey": "em-v2-l25-p004",
       "lesson": 25,
       "localIndex": 4,
@@ -7074,7 +8841,7 @@
       "revealTitles": []
     },
     {
-      "index": 474,
+      "index": 615,
       "slideKey": "em-v2-l25-p005",
       "lesson": 25,
       "localIndex": 5,
@@ -7085,7 +8852,7 @@
       "interactionId": "consumer-surplus-lab"
     },
     {
-      "index": 475,
+      "index": 616,
       "slideKey": "em-v2-l25-p006",
       "lesson": 25,
       "localIndex": 6,
@@ -7099,7 +8866,7 @@
       ]
     },
     {
-      "index": 476,
+      "index": 617,
       "slideKey": "em-v2-l25-p007",
       "lesson": 25,
       "localIndex": 7,
@@ -7113,7 +8880,7 @@
       ]
     },
     {
-      "index": 477,
+      "index": 618,
       "slideKey": "em-v2-l25-p008",
       "lesson": 25,
       "localIndex": 8,
@@ -7126,7 +8893,7 @@
       ]
     },
     {
-      "index": 478,
+      "index": 619,
       "slideKey": "em-v2-l25-p009",
       "lesson": 25,
       "localIndex": 9,
@@ -7140,7 +8907,7 @@
       ]
     },
     {
-      "index": 479,
+      "index": 620,
       "slideKey": "em-v2-l25-p010",
       "lesson": 25,
       "localIndex": 10,
@@ -7153,7 +8920,7 @@
       ]
     },
     {
-      "index": 480,
+      "index": 621,
       "slideKey": "em-v2-l26-p001",
       "lesson": 26,
       "localIndex": 1,
@@ -7165,7 +8932,7 @@
       "revealTitles": []
     },
     {
-      "index": 481,
+      "index": 622,
       "slideKey": "em-v2-l26-p002",
       "lesson": 26,
       "localIndex": 2,
@@ -7176,7 +8943,7 @@
       "revealTitles": []
     },
     {
-      "index": 482,
+      "index": 623,
       "slideKey": "em-v2-l26-p003",
       "lesson": 26,
       "localIndex": 3,
@@ -7187,7 +8954,7 @@
       "revealTitles": []
     },
     {
-      "index": 483,
+      "index": 624,
       "slideKey": "em-v2-l26-p004",
       "lesson": 26,
       "localIndex": 4,
@@ -7201,7 +8968,7 @@
       ]
     },
     {
-      "index": 484,
+      "index": 625,
       "slideKey": "em-v2-l26-p005",
       "lesson": 26,
       "localIndex": 5,
@@ -7215,7 +8982,7 @@
       ]
     },
     {
-      "index": 485,
+      "index": 626,
       "slideKey": "em-v2-l26-p006",
       "lesson": 26,
       "localIndex": 6,
@@ -7225,7 +8992,7 @@
       "revealTitles": []
     },
     {
-      "index": 486,
+      "index": 627,
       "slideKey": "em-v2-l26-p007",
       "lesson": 26,
       "localIndex": 7,
@@ -7235,7 +9002,7 @@
       "revealTitles": []
     },
     {
-      "index": 487,
+      "index": 628,
       "slideKey": "em-v2-l26-p008",
       "lesson": 26,
       "localIndex": 8,
@@ -7245,7 +9012,7 @@
       "revealTitles": []
     },
     {
-      "index": 488,
+      "index": 629,
       "slideKey": "em-v2-l26-p009",
       "lesson": 26,
       "localIndex": 9,
@@ -7259,7 +9026,7 @@
       ]
     },
     {
-      "index": 489,
+      "index": 630,
       "slideKey": "em-v2-l26-p010",
       "lesson": 26,
       "localIndex": 10,
@@ -7270,7 +9037,7 @@
       "interactionId": "marketing-surface-lab"
     },
     {
-      "index": 490,
+      "index": 631,
       "slideKey": "em-v2-l26-p011",
       "lesson": 26,
       "localIndex": 11,
@@ -7284,7 +9051,7 @@
       ]
     },
     {
-      "index": 491,
+      "index": 632,
       "slideKey": "em-v2-l26-p012",
       "lesson": 26,
       "localIndex": 12,
@@ -7297,7 +9064,7 @@
       ]
     },
     {
-      "index": 492,
+      "index": 633,
       "slideKey": "em-v2-l26-p013",
       "lesson": 26,
       "localIndex": 13,
@@ -7311,7 +9078,7 @@
       ]
     },
     {
-      "index": 493,
+      "index": 634,
       "slideKey": "em-v2-l26-p014",
       "lesson": 26,
       "localIndex": 14,
@@ -7321,7 +9088,7 @@
       "revealTitles": []
     },
     {
-      "index": 494,
+      "index": 635,
       "slideKey": "em-v2-l27-p001",
       "lesson": 27,
       "localIndex": 1,
@@ -7332,7 +9099,7 @@
       "revealTitles": []
     },
     {
-      "index": 495,
+      "index": 636,
       "slideKey": "em-v2-l27-p002",
       "lesson": 27,
       "localIndex": 2,
@@ -7343,7 +9110,7 @@
       "revealTitles": []
     },
     {
-      "index": 496,
+      "index": 637,
       "slideKey": "em-v2-l27-p003",
       "lesson": 27,
       "localIndex": 3,
@@ -7357,7 +9124,7 @@
       ]
     },
     {
-      "index": 497,
+      "index": 638,
       "slideKey": "em-v2-l27-p004",
       "lesson": 27,
       "localIndex": 4,
@@ -7369,7 +9136,7 @@
       ]
     },
     {
-      "index": 498,
+      "index": 639,
       "slideKey": "em-v2-l27-p005",
       "lesson": 27,
       "localIndex": 5,
@@ -7379,7 +9146,7 @@
       "revealTitles": []
     },
     {
-      "index": 499,
+      "index": 640,
       "slideKey": "em-v2-l27-p006",
       "lesson": 27,
       "localIndex": 6,
@@ -7393,7 +9160,7 @@
       ]
     },
     {
-      "index": 500,
+      "index": 641,
       "slideKey": "em-v2-l27-p007",
       "lesson": 27,
       "localIndex": 7,
@@ -7407,7 +9174,7 @@
       ]
     },
     {
-      "index": 501,
+      "index": 642,
       "slideKey": "em-v2-l27-p008",
       "lesson": 27,
       "localIndex": 8,
@@ -7420,7 +9187,7 @@
       ]
     },
     {
-      "index": 502,
+      "index": 643,
       "slideKey": "em-v2-l27-p009",
       "lesson": 27,
       "localIndex": 9,
@@ -7434,7 +9201,7 @@
       ]
     },
     {
-      "index": 503,
+      "index": 644,
       "slideKey": "em-v2-l27-p010",
       "lesson": 27,
       "localIndex": 10,
@@ -7446,7 +9213,7 @@
       ]
     },
     {
-      "index": 504,
+      "index": 645,
       "slideKey": "em-v2-l28-p001",
       "lesson": 28,
       "localIndex": 1,
@@ -7457,7 +9224,7 @@
       "revealTitles": []
     },
     {
-      "index": 505,
+      "index": 646,
       "slideKey": "em-v2-l28-p002",
       "lesson": 28,
       "localIndex": 2,
@@ -7468,7 +9235,7 @@
       "revealTitles": []
     },
     {
-      "index": 506,
+      "index": 647,
       "slideKey": "em-v2-l28-p003",
       "lesson": 28,
       "localIndex": 3,
@@ -7482,7 +9249,7 @@
       ]
     },
     {
-      "index": 507,
+      "index": 648,
       "slideKey": "em-v2-l28-p004",
       "lesson": 28,
       "localIndex": 4,
@@ -7495,7 +9262,7 @@
       ]
     },
     {
-      "index": 508,
+      "index": 649,
       "slideKey": "em-v2-l28-p005",
       "lesson": 28,
       "localIndex": 5,
@@ -7506,7 +9273,7 @@
       "interactionId": "tangent-plane-lab"
     },
     {
-      "index": 509,
+      "index": 650,
       "slideKey": "em-v2-l28-p006",
       "lesson": 28,
       "localIndex": 6,
@@ -7520,7 +9287,7 @@
       ]
     },
     {
-      "index": 510,
+      "index": 651,
       "slideKey": "em-v2-l28-p007",
       "lesson": 28,
       "localIndex": 7,
@@ -7533,7 +9300,7 @@
       ]
     },
     {
-      "index": 511,
+      "index": 652,
       "slideKey": "em-v2-l28-p008",
       "lesson": 28,
       "localIndex": 8,
@@ -7547,7 +9314,7 @@
       ]
     },
     {
-      "index": 512,
+      "index": 653,
       "slideKey": "em-v2-l28-p009",
       "lesson": 28,
       "localIndex": 9,
@@ -7560,7 +9327,7 @@
       ]
     },
     {
-      "index": 513,
+      "index": 654,
       "slideKey": "em-v2-l28-p010",
       "lesson": 28,
       "localIndex": 10,
@@ -7570,7 +9337,7 @@
       "revealTitles": []
     },
     {
-      "index": 514,
+      "index": 655,
       "slideKey": "em-v2-l29-p001",
       "lesson": 29,
       "localIndex": 1,
@@ -7581,7 +9348,7 @@
       "revealTitles": []
     },
     {
-      "index": 515,
+      "index": 656,
       "slideKey": "em-v2-l29-p002",
       "lesson": 29,
       "localIndex": 2,
@@ -7592,7 +9359,7 @@
       "revealTitles": []
     },
     {
-      "index": 516,
+      "index": 657,
       "slideKey": "em-v2-l29-p003",
       "lesson": 29,
       "localIndex": 3,
@@ -7606,7 +9373,7 @@
       ]
     },
     {
-      "index": 517,
+      "index": 658,
       "slideKey": "em-v2-l29-p004",
       "lesson": 29,
       "localIndex": 4,
@@ -7620,7 +9387,7 @@
       ]
     },
     {
-      "index": 518,
+      "index": 659,
       "slideKey": "em-v2-l29-p005",
       "lesson": 29,
       "localIndex": 5,
@@ -7634,7 +9401,7 @@
       ]
     },
     {
-      "index": 519,
+      "index": 660,
       "slideKey": "em-v2-l29-p006",
       "lesson": 29,
       "localIndex": 6,
@@ -7648,7 +9415,7 @@
       ]
     },
     {
-      "index": 520,
+      "index": 661,
       "slideKey": "em-v2-l29-p007",
       "lesson": 29,
       "localIndex": 7,
@@ -7662,7 +9429,7 @@
       ]
     },
     {
-      "index": 521,
+      "index": 662,
       "slideKey": "em-v2-l29-p008",
       "lesson": 29,
       "localIndex": 8,
@@ -7676,7 +9443,7 @@
       ]
     },
     {
-      "index": 522,
+      "index": 663,
       "slideKey": "em-v2-l29-p009",
       "lesson": 29,
       "localIndex": 9,
@@ -7689,7 +9456,7 @@
       ]
     },
     {
-      "index": 523,
+      "index": 664,
       "slideKey": "em-v2-l29-p010",
       "lesson": 29,
       "localIndex": 10,
@@ -7703,7 +9470,7 @@
       ]
     },
     {
-      "index": 524,
+      "index": 665,
       "slideKey": "em-v2-l30-p001",
       "lesson": 30,
       "localIndex": 1,
@@ -7715,7 +9482,7 @@
       "revealTitles": []
     },
     {
-      "index": 525,
+      "index": 666,
       "slideKey": "em-v2-l30-p002",
       "lesson": 30,
       "localIndex": 2,
@@ -7726,7 +9493,7 @@
       "revealTitles": []
     },
     {
-      "index": 526,
+      "index": 667,
       "slideKey": "em-v2-l30-p003",
       "lesson": 30,
       "localIndex": 3,
@@ -7737,7 +9504,7 @@
       "revealTitles": []
     },
     {
-      "index": 527,
+      "index": 668,
       "slideKey": "em-v2-l30-p004",
       "lesson": 30,
       "localIndex": 4,
@@ -7751,7 +9518,7 @@
       ]
     },
     {
-      "index": 528,
+      "index": 669,
       "slideKey": "em-v2-l30-p005",
       "lesson": 30,
       "localIndex": 5,
@@ -7765,7 +9532,7 @@
       ]
     },
     {
-      "index": 529,
+      "index": 670,
       "slideKey": "em-v2-l30-p006",
       "lesson": 30,
       "localIndex": 6,
@@ -7779,7 +9546,7 @@
       ]
     },
     {
-      "index": 530,
+      "index": 671,
       "slideKey": "em-v2-l30-p007",
       "lesson": 30,
       "localIndex": 7,
@@ -7790,7 +9557,7 @@
       "interactionId": "unconstrained-optimum-lab"
     },
     {
-      "index": 531,
+      "index": 672,
       "slideKey": "em-v2-l30-p008",
       "lesson": 30,
       "localIndex": 8,
@@ -7801,7 +9568,7 @@
       "revealTitles": []
     },
     {
-      "index": 532,
+      "index": 673,
       "slideKey": "em-v2-l30-p009",
       "lesson": 30,
       "localIndex": 9,
@@ -7813,7 +9580,7 @@
       ]
     },
     {
-      "index": 533,
+      "index": 674,
       "slideKey": "em-v2-l30-p010",
       "lesson": 30,
       "localIndex": 10,
@@ -7827,7 +9594,7 @@
       ]
     },
     {
-      "index": 534,
+      "index": 675,
       "slideKey": "em-v2-l30-p011",
       "lesson": 30,
       "localIndex": 11,
@@ -7837,7 +9604,7 @@
       "revealTitles": []
     },
     {
-      "index": 535,
+      "index": 676,
       "slideKey": "em-v2-l31-p001",
       "lesson": 31,
       "localIndex": 1,
@@ -7848,7 +9615,7 @@
       "revealTitles": []
     },
     {
-      "index": 536,
+      "index": 677,
       "slideKey": "em-v2-l31-p002",
       "lesson": 31,
       "localIndex": 2,
@@ -7859,7 +9626,7 @@
       "revealTitles": []
     },
     {
-      "index": 537,
+      "index": 678,
       "slideKey": "em-v2-l31-p003",
       "lesson": 31,
       "localIndex": 3,
@@ -7873,7 +9640,7 @@
       ]
     },
     {
-      "index": 538,
+      "index": 679,
       "slideKey": "em-v2-l31-p004",
       "lesson": 31,
       "localIndex": 4,
@@ -7887,7 +9654,7 @@
       ]
     },
     {
-      "index": 539,
+      "index": 680,
       "slideKey": "em-v2-l31-p005",
       "lesson": 31,
       "localIndex": 5,
@@ -7897,7 +9664,7 @@
       "revealTitles": []
     },
     {
-      "index": 540,
+      "index": 681,
       "slideKey": "em-v2-l31-p006",
       "lesson": 31,
       "localIndex": 6,
@@ -7911,7 +9678,7 @@
       ]
     },
     {
-      "index": 541,
+      "index": 682,
       "slideKey": "em-v2-l31-p007",
       "lesson": 31,
       "localIndex": 7,
@@ -7923,7 +9690,7 @@
       ]
     },
     {
-      "index": 542,
+      "index": 683,
       "slideKey": "em-v2-l31-p008",
       "lesson": 31,
       "localIndex": 8,
@@ -7934,7 +9701,7 @@
       "interactionId": "budget-constraint-lab"
     },
     {
-      "index": 543,
+      "index": 684,
       "slideKey": "em-v2-l31-p009",
       "lesson": 31,
       "localIndex": 9,
@@ -7948,7 +9715,7 @@
       ]
     },
     {
-      "index": 544,
+      "index": 685,
       "slideKey": "em-v2-l31-p010",
       "lesson": 31,
       "localIndex": 10,
@@ -7962,7 +9729,7 @@
       ]
     },
     {
-      "index": 545,
+      "index": 686,
       "slideKey": "em-v2-l31-p011",
       "lesson": 31,
       "localIndex": 11,
@@ -7973,7 +9740,7 @@
       "revealTitles": []
     },
     {
-      "index": 546,
+      "index": 687,
       "slideKey": "em-v2-l31-p012",
       "lesson": 31,
       "localIndex": 12,
@@ -7987,7 +9754,7 @@
       ]
     },
     {
-      "index": 547,
+      "index": 688,
       "slideKey": "em-v2-l31-p013",
       "lesson": 31,
       "localIndex": 13,
@@ -8001,7 +9768,7 @@
       ]
     },
     {
-      "index": 548,
+      "index": 689,
       "slideKey": "em-v2-l31-p014",
       "lesson": 31,
       "localIndex": 14,
@@ -8011,7 +9778,7 @@
       "revealTitles": []
     },
     {
-      "index": 549,
+      "index": 690,
       "slideKey": "em-v2-l32-p001",
       "lesson": 32,
       "localIndex": 1,
@@ -8022,7 +9789,7 @@
       "revealTitles": []
     },
     {
-      "index": 550,
+      "index": 691,
       "slideKey": "em-v2-l32-p002",
       "lesson": 32,
       "localIndex": 2,
@@ -8033,7 +9800,7 @@
       "revealTitles": []
     },
     {
-      "index": 551,
+      "index": 692,
       "slideKey": "em-v2-l32-p003",
       "lesson": 32,
       "localIndex": 3,
@@ -8047,7 +9814,7 @@
       ]
     },
     {
-      "index": 552,
+      "index": 693,
       "slideKey": "em-v2-l32-p004",
       "lesson": 32,
       "localIndex": 4,
@@ -8061,7 +9828,7 @@
       ]
     },
     {
-      "index": 553,
+      "index": 694,
       "slideKey": "em-v2-l32-p005",
       "lesson": 32,
       "localIndex": 5,
@@ -8075,7 +9842,7 @@
       ]
     },
     {
-      "index": 554,
+      "index": 695,
       "slideKey": "em-v2-l32-p006",
       "lesson": 32,
       "localIndex": 6,
@@ -8089,7 +9856,7 @@
       ]
     },
     {
-      "index": 555,
+      "index": 696,
       "slideKey": "em-v2-l32-p007",
       "lesson": 32,
       "localIndex": 7,
@@ -8100,7 +9867,7 @@
       "revealTitles": []
     },
     {
-      "index": 556,
+      "index": 697,
       "slideKey": "em-v2-l32-p008",
       "lesson": 32,
       "localIndex": 8,
@@ -8114,7 +9881,7 @@
       ]
     },
     {
-      "index": 557,
+      "index": 698,
       "slideKey": "em-v2-l32-p009",
       "lesson": 32,
       "localIndex": 9,
@@ -8128,7 +9895,7 @@
       ]
     },
     {
-      "index": 558,
+      "index": 699,
       "slideKey": "em-v2-l32-p010",
       "lesson": 32,
       "localIndex": 10,
@@ -8142,7 +9909,7 @@
       ]
     },
     {
-      "index": 559,
+      "index": 700,
       "slideKey": "em-v2-l32-p011",
       "lesson": 32,
       "localIndex": 11,
@@ -8155,7 +9922,7 @@
       ]
     },
     {
-      "index": 560,
+      "index": 701,
       "slideKey": "em-v2-l32-p012",
       "lesson": 32,
       "localIndex": 12,

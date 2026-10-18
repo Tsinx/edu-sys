@@ -1,0 +1,59 @@
+import {build} from 'esbuild';
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {createRequire} from 'node:module';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=fileURLToPath(new URL('../',import.meta.url));
+const bundle=await build({entryPoints:[path.join(root,'packages/course-content/src/economic-mathematics/index.ts')],bundle:true,platform:'node',format:'esm',write:false});
+const c=await import('data:text/javascript;base64,'+Buffer.from(bundle.outputFiles[0].text).toString('base64'));
+const require=createRequire(path.join(root,'apps/teacher-web/package.json')),katex=require('katex');
+const out=path.join(root,'apps/teacher-web/public/course-assets/economic-mathematics/limits');
+await mkdir(out,{recursive:true});
+const esc=x=>String(x).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+const math=x=>katex.renderToString(x,{displayMode:true,throwOnError:true,strict:'error',trust:false});
+const inline=x=>String(x).split(/(\$[^$]+\$)/g).map(s=>s.startsWith('$')&&s.endsWith('$')?katex.renderToString(s.slice(1,-1),{throwOnError:true,strict:'error',trust:false}):esc(s)).join('');
+const sources=[['导数定义与差商','https://openstax.org/books/calculus-volume-1/pages/3-1-defining-the-derivative'],['连续、间断、介值定理','https://openstax.org/books/calculus-volume-1/pages/2-4-continuity'],['闭区间最值定理','https://openstax.org/books/calculus-volume-1/pages/4-3-maxima-and-minima'],['数列收敛与单调有界','https://openstax.org/books/calculus-volume-2/pages/5-1-sequences']];
+const sourceHtml='<h2>核对来源与模型边界</h2>'+sources.map(([t,u])=>`<p><a href="${u}">${t}</a></p>`).join('')+'<p>图形为按显式函数和几何坐标绘制的原生SVG；不以关键词选择曲线。成本函数为给定教学情境，连续产量是明确的模型假设。区分整数实际增量与连续模型的边际成本。</p>';
+const style='body{max-width:1000px;margin:36px auto;padding:0 28px;background:#f6f3e9;color:#202c2d;font:18px/1.7 "Microsoft YaHei",sans-serif}h1,h2{font-family:SimSun,serif}section{border-top:1px solid #a6b9b4;padding:24px 0}table{border-collapse:collapse;width:100%}td,th{text-align:left;padding:12px;border-bottom:1px solid #c6c8be}small{color:#466d6e}.formula{overflow:auto}a{color:#466d6e}details{margin:18px 0}.space{height:100px}@media print{body{background:white;margin:0;font-size:12pt}h1{font-size:22pt}h2{font-size:16pt}section{break-inside:auto}.formula{overflow:visible}.katex{font-size:1em}}';
+const html=(title,body)=>`<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><link rel="stylesheet" href="/course-assets/economic-mathematics/limits/vendor/katex.min.css"><style>${style}</style><body><h1>${esc(title)}</h1>${body}</body></html>`;
+const content=p=>(p.lead?`<p>${inline(p.lead)}</p>`:'')+(p.formula?`<div class="formula">${math(p.formula)}</div>`:'')+(p.body??[]).map(s=>`<p>${inline(s)}</p>`).join('')+(p.table?`<table><thead><tr>${p.table.columns.map(s=>`<th>${inline(s)}</th>`).join('')}</tr></thead><tbody>${p.table.rows.map(r=>`<tr>${r.map(s=>`<td>${inline(s)}</td>`).join('')}</tr>`).join('')}</tbody></table>`:'')+(p.prompt?`<p><strong>${inline(p.prompt)}</strong></p>`:'');
+const exerciseIndex=[];
+for(const number of [6,7]){
+ const lesson=c.ECONOMIC_MATHEMATICS_LESSONS[number-1],pages=c.ECONOMIC_MATHEMATICS_SLIDES.filter(s=>s.lesson===number),narration=number===6?c.lesson06Narration:c.lesson07Narration;
+ const title=`经济数学第${number}讲 · ${lesson.title}`;
+ const route=`<p>两个45分钟。主线${pages.filter(p=>p.routeRole==='core').length}页，拓展${pages.filter(p=>p.routeRole==='optional').length}页另行安排。</p>`+lesson.classHours.map(h=>`<p>第${h.hour}课时：第${h.slideStart}—${h.slideEnd}页，45分钟；${esc(h.activity)}</p>`).join('');
+ const body=pages.map(p=>`<section><h2>${p.localIndex}. ${esc(p.title)}</h2><small>${p.routeRole==='optional'?'拓展，不计入90分钟':`第${p.classHour}课时 · ${p.teachingSeconds}秒`}</small>${content(p)}${(p.steps??[]).map((s,i)=>`<h3>公开步骤${i+1}：${esc(s.title)}</h3>${s.text?`<p>${inline(s.text)}</p>`:''}${s.formula?`<div class="formula">${math(s.formula)}</div>`:''}`).join('')}<h3>逐页讲稿</h3>${narration[p.slideKey].map((s,i)=>`<p><small>${i?'第'+i+'步公开后':'初始状态'}</small><br>${esc(s)}</p>`).join('')}</section>`).join('');
+ await writeFile(path.join(out,`lesson0${number}-script.html`),html(title+' · 完整讲稿与答案',route+body+sourceHtml));
+ const exercises=pages.filter(p=>p.exerciseActivityId?.includes('-personal-calculus-'));
+ await writeFile(path.join(out,`lesson0${number}-worksheet.html`),html(title+' · 课堂练习单','<p>姓名：____________　班级：____________　请独立作答</p>'+exercises.map(p=>`<section><h2>第${p.localIndex}页 · ${esc(p.title)}</h2>${content(p)}<div class="space"></div></section>`).join('')));
+ const md=['# '+title,'',...lesson.classHours.map(h=>`第${h.hour}课时：第${h.slideStart}—${h.slideEnd}页，45分钟；${h.activity}`),''];
+ for(const p of pages)md.push(`## ${p.localIndex}. ${p.title}`,'',p.teachingCue,'',p.lead??'',...(p.body??[]),p.formula?'$$'+p.formula+'$$':'',p.table?'表格：'+JSON.stringify(p.table):'',p.prompt??'',...(p.steps??[]).flatMap((s,i)=>['公开步骤'+(i+1)+'：'+s.title,s.text??'',s.formula?'$$'+s.formula+'$$':'']),'','逐字讲稿：',...narration[p.slideKey].map((s,i)=>(i?'第'+i+'步公开后':'初始状态')+'：'+s),'');
+ md.push('## 来源与模型边界','',...sources.map(([t,u])=>`- [${t}](${u})`),'','成本函数与产能范围均为给定教学假设；完整图形与公开步骤以交互课件和备课PDF为准。');
+ await writeFile(path.join(root,`docs/course/economic-mathematics-lesson0${number}-script.md`),md.join('\n'));
+ exerciseIndex.push(...exercises.map(p=>({lesson:number,page:p.localIndex,slideKey:p.slideKey,id:p.exerciseActivityId,title:p.title,role:p.routeRole,prompt:p.prompt,formula:p.formula,table:p.table,feedback:p.steps})));
+}
+const manifest={deckId:c.ECONOMIC_MATHEMATICS_DECK_ID,versionId:c.ECONOMIC_MATHEMATICS_VERSION_ID,canvas:[1600,1000],hours:64,slideTotal:c.ECONOMIC_MATHEMATICS_SLIDES.length,lessons:c.ECONOMIC_MATHEMATICS_LESSONS,constructivistPages:c.ECONOMIC_MATHEMATICS_SLIDES.filter(s=>s.style==='constructivist').length,pages:c.ECONOMIC_MATHEMATICS_SLIDES.map(s=>({index:s.index,slideKey:s.slideKey,lesson:s.lesson,localIndex:s.localIndex,title:s.title,layout:s.layout,style:s.style,image:s.image,steps:s.steps?.length??0,revealTitles:(s.steps??[]).map(r=>r.title),interactionId:s.interactionId,historyFilm:s.historyFilm,limitLab:s.limitLab,foundationLab:s.foundationLab}))};
+await writeFile(path.join(root,'docs/course/economic-mathematics-deck-v2.json'),JSON.stringify(manifest,null,2)+'\n');
+await writeFile(path.join(root,'docs/course/economic-mathematics-calculus-page-exercises.json'),JSON.stringify(exerciseIndex,null,2)+'\n');
+const files=['calculus-authoring.ts','continuity-derivative-exercises.ts','lesson-06-continuity.ts','lesson-07-derivative.ts','lesson-06-refined.ts','foundations-authoring.ts','authoring.ts','index.ts','next-lesson-plan.ts','foundations-model.ts','types.ts','interactions.ts','curriculum.ts','slides.ts'].map(f=>'packages/course-content/src/economic-mathematics/'+f).concat(['apps/teacher-web/src/features/economic-mathematics/FoundationFigure.tsx','apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx','apps/teacher-web/src/features/economic-mathematics/EconomicPageNarrator.tsx','apps/teacher-web/src/features/economic-mathematics/PresentationChrome.tsx','apps/teacher-web/src/economic-narration.tsx','apps/teacher-web/src/features/economic-mathematics/limits.css']);
+const fingerprints=await Promise.all(files.map(async f=>({path:f,sha256:createHash('sha256').update(await readFile(path.join(root,f))).digest('hex')})));
+await writeFile(path.join(out,'calculus-source-fingerprints.json'),JSON.stringify({version:manifest.versionId,files:fingerprints},null,2)+'\n');
+const bank=c.CONTINUITY_DERIVATIVE_EXERCISES.map(a=>{
+ const p=c.ECONOMIC_MATHEMATICS_SLIDES.find(p=>p.exerciseActivityId===a.id);
+ if(!p)throw new Error('Missing exercise page: '+a.id);
+ return {...a,page:p.localIndex,slideKey:p.slideKey,platformGroup:a.lesson===6?'第六讲·连续性·个人练习（新版）':'第七讲·导数·个人练习（新版）'};
+});
+await writeFile(path.join(root,'docs/course/economic-mathematics-calculus-exercises.json'),JSON.stringify(bank,null,2)+'\n');
+const entry=['# 第六、七讲学习通逐组录入稿','','状态：题库已备齐；本文件不是学习通保存或发布凭据。','每讲单独建组，每组12个随堂测验；每个测验2道单选。学生独立作答2分钟，课件反馈约1分钟。','本稿供人工逐项录入，尚未验证平台批量导入格式。',''];
+for(const number of [6,7]){
+ const part=bank.filter(a=>a.lesson===number);
+ entry.push('## '+part[0].platformGroup,'');
+ for(const a of part){
+  entry.push('### '+a.title,'', '课件第'+a.page+'页；活动标识：'+a.id+'。','');
+  a.questions.forEach((q,i)=>entry.push((i+1)+'. '+q.stem,'',...q.options.map((o,k)=>'   '+'ABCD'[k]+'. '+o),'','答案：'+q.answer,'','解析：'+q.explanation,''));
+ }
+}
+await writeFile(path.join(root,'docs/course/economic-mathematics-calculus-exercises.md'),entry.join('\n'));
+await writeFile(path.join(out,'lessons10-13-plan.json'),JSON.stringify(c.ECONOMIC_MATHEMATICS_NEXT_LESSON_PLAN,null,2)+'\n');
+console.log(JSON.stringify({courseTotal:manifest.slideTotal,lessons:[6,7].map(n=>manifest.lessons[n-1].slideTotal),groups:24,questions:48}));

@@ -1,0 +1,82 @@
+{
+  "version": "release-economic-mathematics-math-first-2026-10-16",
+  "slideTotal": 648,
+  "files": [
+    {
+      "path": "packages/course-content/src/economic-mathematics/lesson-06-refined.ts",
+      "sha256": "e554bba3468c328891382cd42265fdbc3e1135599571d0400739320d0bf4781b"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/v2/lesson-07.ts",
+      "sha256": "10ef3f78570efc9250176f5ad7e1fb6d36bfc16d5a988792e1ce3ea6630328d8"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/derivative-topic-moved.ts",
+      "sha256": "a0f06be7c3df9d3a913286a1da858ab21a436f48852d54f25281a0e2ab2d7737"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "sha256": "f41c20cd8e8e846fe925a9305164deaa3ce87865587aebcff2060e4fd60c282d"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/slides.ts",
+      "sha256": "8da666f941f2a48406f42b17c8ae2112c7f960926cc24e3920d2a5dd8e53d572"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/index.ts",
+      "sha256": "9da4c0f3f627e313719a9ef17c9adc58c2f06e817c31219c1b8a625fd6e818a1"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/types.ts",
+      "sha256": "4d14d64c97985813c22d5f4e1c713cb2695d89d018a66fa8658b0271e3c45443"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/interactions.ts",
+      "sha256": "b50d484b230d817dacc6e352930ec73eeb01478399b5db1572ef9e66ff82e143"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/foundations-model.ts",
+      "sha256": "bdec59af517229c8de7dc9359d26b56570dd17071472ee45bd28d4a2f588357b"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/EconomicPageNarrator.tsx",
+      "sha256": "53a6cc6ae7f5cfccc2ce0c38c85df8d09c0bd944e1fee18b573956b1c27305bb"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/PresentationChrome.tsx",
+      "sha256": "11dc396de26ab74612e23e17ce36bdf35f6f21105f0fccd9d59e50bb6a962a6d"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/FoundationFigure.tsx",
+      "sha256": "853d72ab9074f07d9b6fe41d942e459646a4bfb7adcda1ced29e4d1f62168004"
+    },
+    {
+      "path": "apps/teacher-web/src/economic-narration.tsx",
+      "sha256": "6629cd0bc2ead8874eb6d21bc039886c656eb25e4f3eab34b0c76ac960ea5b5f"
+    },
+    {
+      "path": "docs/course/economic-mathematics-blueprint-v3.md",
+      "sha256": "12553fa5211fffe4daf18af7139fb37b597f7cfac9f811717f52a5b2e6f717a4"
+    },
+    {
+      "path": "docs/course/economic-mathematics-deck-v2.json",
+      "sha256": "2fc503d32b7d4b4c2409be20bc9230f7b9e1c8450c9e7c4940f1969ad72f20f4"
+    },
+    {
+      "path": "docs/course/economic-mathematics-lesson06-script.md",
+      "sha256": "1b78961085418cece8368098b509a19a9145d226c112ba4e44a1d27a183ff4f1"
+    },
+    {
+      "path": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson06-script.html",
+      "sha256": "1a79514c3a9f0c9208e27d88f1545fa6baeca12290936b3629925e79f7cb20bd"
+    },
+    {
+      "path": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson06-worksheet.html",
+      "sha256": "f75c34ce6f637088662162be18bcf0008be53412a8520be4b7482ffa69ed79a9"
+    },
+    {
+      "path": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson06-teacher.pdf",
+      "sha256": "267c2b92a8e52205055618a6c8e1da45620f9372b3a7a7372619e59ec5da240c"
+    }
+  ]
+}

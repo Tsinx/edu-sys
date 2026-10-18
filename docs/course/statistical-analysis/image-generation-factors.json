@@ -1,0 +1,54 @@
+[
+  {
+    "id": "l8-01-service-observation",
+    "prompt": "Create a single photorealistic editorial photograph for a graduate statistics course slide cover, landscape 16:10. A modern Chinese retail service counter, a customer on the far right quietly explaining a receipt to a helpful employee, subtle consultation gestures, no posed smiles. Foreground on right has paper receipt and closed notebook. Broad empty dark ink-blue shadow across left 55 percent for native Chinese title added later. Warm amber practical lights, muted teal details, paper-white materials, cinematic natural light, sober academic quality. No letters, no numbers, no charts, no logos, no watermark. This is a fictional teaching scene, not actual research.",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a129cd-9154-7573-b035-bc962419248d\\exec-1590b3e4-98b3-4b87-9c74-8e8511c08959.png",
+    "tool": "image_gen.imagegen",
+    "display": "Original PNG; native CSS crop and mask; fictional scene, not empirical evidence",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l8-01-service-observation.png",
+    "sha256": "5e41cb7c5f97cfcdc1c8b517a46073f809c7a3ace3a0ebe970f284613c944ccc"
+  },
+  {
+    "id": "l9-01-independent-study",
+    "prompt": "Create a single photorealistic editorial photograph for a graduate statistics lecture cover, landscape 16:10. In a quiet university behavioral research room, on the far right a researcher reviews a paper questionnaire beside a laptop with indistinct non-legible screen, another person blurred beyond glass, thoughtful independent verification atmosphere. Composition leaves left 55 percent in clean deep ink-blue shadow for editable title added later. Warm off-white paper, amber desk light, restrained teal background details, realistic natural textures, elegant and sober. No visible letters or numbers or charts, no logos or watermark. Fictional teaching scene.",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a129cd-9154-7573-b035-bc962419248d\\exec-20d4a38a-4f7a-49b2-833c-8806eefae231.png",
+    "tool": "image_gen.imagegen",
+    "display": "Original PNG; native CSS crop and mask; fictional scene, not empirical evidence",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l9-01-independent-study.png",
+    "sha256": "98d9fcd58a1b8d6cee90292d056db73572e4bc937615f518268736c181d033e9"
+  },
+  {
+    "id": "l8-02-item-review",
+    "prompt": "A single landscape 16:10 photorealistic editorial photograph for an academic statistics slide, quiet Chinese research office. Close-up of two hands comparing blank paper questionnaire sheets and an open manual at a wooden desk on the RIGHT two thirds. A pencil, warm ivory papers, no legible marks or tables. Dark ink-blue background and muted teal fabric, restrained amber daylight. LEFT half very simple dark empty area for native text overlay. Thoughtful careful measurement-instrument review, realistic elegant light. No lettering, numbers, diagrams, logos or watermark. Fictional teaching scene.",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a129cd-9154-7573-b035-bc962419248d\\exec-ec4ebbf4-e074-4401-8daa-0e0cad51f7c3.png",
+    "tool": "image_gen.imagegen",
+    "display": "Original PNG; native CSS crop and mask; fictional scene, not empirical evidence",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l8-02-item-review.png",
+    "sha256": "35867ca99533e1624c8526700426d8d01e97fb119e50cb53aa3c3f693850d236"
+  },
+  {
+    "id": "l9-02-model-review",
+    "prompt": "A single landscape 16:10 photorealistic editorial photograph for a graduate statistics lecture. A thoughtful researcher in side profile at the far RIGHT of a quiet glass-partition university office, comparing two blank printed pages, a closed laptop nearby. A softly focused colleague beyond the glass, understated uncertainty and careful interpretation rather than celebration. LEFT half empty deep ink-blue wall for later native text overlay. Warm white paper, restrained teal and amber accents, realistic editorial photography and natural texture. No legible text, numbers, charts, logos or watermark. Fictional teaching scene.",
+    "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a129cd-9154-7573-b035-bc962419248d\\exec-18027957-aeb5-4375-ae1f-bb8e33c7e090.png",
+    "tool": "image_gen.imagegen",
+    "display": "Original PNG; native CSS crop and mask; fictional scene, not empirical evidence",
+    "dimensions": [
+      1586,
+      992
+    ],
+    "selected": "apps/teacher-web/public/course-assets/statistical-analysis/images/l9-02-model-review.png",
+    "sha256": "df9464578d98e7c5ac30f41d971339d434419cee4cf4311dd7442ed971c8045b"
+  }
+]

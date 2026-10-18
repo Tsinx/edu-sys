@@ -83,7 +83,7 @@ import { PageToolsContribution, PageToolsProvider } from "./PageTools";
 import { TeacherParticipation } from "./ClassroomParticipation";
 import { TeacherRankedPractice } from "../ranked-practice/RankedPractice";
 import { useClassroomFullscreen } from "./useClassroomFullscreen";
-import { classroomSlidePosition } from './classroom-slide-position';
+import { classroomDeckIssue, classroomSlidePosition } from './classroom-slide-position';
 import { ClassroomDeckNotice } from './ClassroomDeckNotice';
 import "./classroom.css";
 import "./classroom-fullscreen.css";
@@ -169,6 +169,7 @@ export function ClassroomSubsystem() {
   const courseDeck = snapshot ? getCourseDeckByCourseId(snapshot.courseId) ?? null : null;
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
+  const replacementRequest = useRef<{ sessionId: string; requestId: string } | undefined>(undefined);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [slidePageDraft, setSlidePageDraft] = useState("");
@@ -933,6 +934,25 @@ export function ClassroomSubsystem() {
     }
   }
 
+  async function startCurrentDeckClassroom() {
+    if (!snapshot || !courseDeck || busy) return;
+    setBusy(true);
+    setError('');
+    if (replacementRequest.current?.sessionId !== snapshot.session.id)
+      replacementRequest.current = { sessionId: snapshot.session.id, requestId: crypto.randomUUID() };
+    try {
+      const lesson = courseDeck.lessons.find(lesson => lesson.number === snapshot.slide.lessonNumber && lesson.status === 'ready')
+        ?? courseDeck.lessons.find(lesson => lesson.status === 'ready');
+      const next = await api.startClass(snapshot.courseId, { mode: 'new', lesson: lesson?.number,
+        room: snapshot.session.room, requestId: replacementRequest.current.requestId });
+      navigate(`/classroom/${next.id}`);
+    } catch (reason) {
+      setError((reason as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
   if (loading || (snapshot && snapshot.session.id !== sessionId)) {
     return (
       <main className="classroom-subsystem classroom-subsystem--centered">
@@ -962,7 +982,9 @@ export function ClassroomSubsystem() {
   const isInternationalMathematics = snapshot.courseId === "course-international-mathematics";
   const isRegisteredCourse = isEconomicMathematics || isStatisticalAnalysis || isManagement || isInternationalMathematics;
   const slidePosition = classroomSlidePosition(snapshot.courseId, snapshot.slide, courseDeck);
-  if (!slidePosition) return <ClassroomDeckNotice courseId={snapshot.courseId} english={isInternationalMathematics} />;
+  if (!slidePosition) return <ClassroomDeckNotice courseId={snapshot.courseId} english={isInternationalMathematics}
+    issue={classroomDeckIssue(snapshot.courseId, snapshot.slide, courseDeck)} lessonNumber={courseDeck?.lessons.find(lesson => lesson.number === snapshot.slide.lessonNumber && lesson.status === 'ready')?.number}
+    onStartNew={() => void startCurrentDeckClassroom()} busy={busy} error={error} />;
 
   const isLive = snapshot.session.status === "live";
   const isSlides = snapshot.activeActivity === "slides";

@@ -1,15 +1,15 @@
 import { createPortSession, advancePortSession, applyPortCommand } from './port-operations-engine.js';
 import { defaultPortPlan, type PortSession, type PortBox } from './port-operations-model.js';
-import { refreshPhysicalRates } from './port-facilities.js';
+import { refreshPhysicalRates, preparePhysicalStaffHandover } from './port-facilities.js';
 import { startPortResourceStatistics } from './port-resource-statistics.js';
-import { terminalMetrics, type TerminalDispatch, type TerminalState } from './terminal-lab.js';
+import { terminalMetrics, validateTerminalSetup, type TerminalDispatch, type TerminalState } from './terminal-lab.js';
 import * as legacy from './port-class-lab-legacy.js';
 import { preparePortIncidentScenario, applyPortIncidentCommand, type PortLabScenario, type PortIncidentScenario, type PortIncidentCommand } from './port-incident-scenarios.js';
 export const PORT_CLASS_LAB_VERSION = 'port-class-lab/2.0' as const;
 export type PortClassLesson=11|12;
 export type PortLabKind='baseline'|'trial'|'incident';
 export type PortLabIncident=legacy.PortLabIncident;
-export type PortLabCommand=legacy.PortLabCommand|PortIncidentCommand|{kind:'tick';seconds:number}|{kind:'start-audit';quarantine:string[]}|{kind:'start-reconcile'};
+export type PortLabCommand=legacy.PortLabCommand|PortIncidentCommand|{kind:'configure-dispatch';value:TerminalDispatch}|{kind:'tick';seconds:number}|{kind:'start-audit';quarantine:string[]}|{kind:'start-reconcile'};
 export type PortLabEvent=legacy.PortLabEvent;
 export interface PortLabTimedTask {kind:'audit'|'reconcile'|'scope'|'logs'|'backup'|'mechanical'|'secure';startedAt:number;completesAt:number}
 export interface PortClassLab extends Omit<legacy.PortClassLab,'version'|'commands'> {
@@ -105,14 +105,26 @@ export function validPortLedger(quarantine:unknown):boolean{
 export function applyPortClassLabCommand(current:PortClassLab,command:PortLabCommand):PortClassLab{
  if(current.scenario&&current.emergency)return applyPortIncidentCommand(current,command,portClassTerminal);
  if(['inspect','repair-team','relief'].includes(command?.kind))throw Error('该指令仅适用于新版第12讲场景。');
- if(current.version==='port-class-lab/1.0'){if(command.kind==='tick'||command.kind==='start-audit'||command.kind==='start-reconcile')throw Error('旧版记录仅支持原始推进指令。');return legacy.applyPortClassLabCommand(current as legacy.PortClassLab,command as legacy.PortLabCommand);}
+ if(current.version==='port-class-lab/1.0'){if(command.kind==='configure-dispatch'||command.kind==='tick'||command.kind==='start-audit'||command.kind==='start-reconcile')throw Error('旧版记录仅支持原始推进指令。');return legacy.applyPortClassLabCommand(current as legacy.PortClassLab,command as legacy.PortLabCommand);}
  if(!command||typeof command!=='object')throw Error('无效实验指令。');if(current.commands.length>=600)throw Error('操作记录已满，请导出后建立新场次。');if(portLabFinished(current))throw Error('观察已结束，可保存成功或失败的复盘，并保留本次记录后重试。');
- const r=clone(current),s=r.simulation!,i=r.incident;
+ const r=clone(current);let s=r.simulation!;const i=r.incident;
  if(r.pendingTask&&command.kind!=='tick'&&command.kind!=='advance')throw Error('核验或对账尚未完成，请连续推进至完成节点后再下达业务指令。');
  if(command.kind==='advance'||command.kind==='tick'){
   if(command.kind==='advance'&&(!Number.isInteger(command.minutes)||command.minutes<1||command.minutes>360)||command.kind==='tick'&&(!Number.isInteger(command.seconds)||command.seconds<1||command.seconds>21600))throw Error('推进量须为有效整数：1至360分钟或1至21600秒。');const paused=advance(r,command.kind==='advance'?command.minutes:command.seconds/60);
   const feedback=portLabFinished(r)?'观察结束，请保存本次实际结果，包括未恢复和未完成事项。':`已到第${r.terminal.minute.toFixed(1)}分钟，设备、道路、交接与费用均按实际作业更新。`;
   if(!paused){if(command.kind==='tick'&&r.events.at(-1)?.text.startsWith('已到第')){r.feedback=feedback;Object.assign(r.events.at(-1)!,{minute:r.terminal.minute,text:feedback});}else note(r,feedback);}
+ }else if(command.kind==='configure-dispatch'){
+  if(r.lesson!==11)throw Error('开局岗位配置仅适用于第11讲试验。');
+  if(r.kind==='baseline')throw Error('基准保持预置配置。');
+  if(s.second!==r.checkpoint*60)throw Error('试验已经开始；请从同一检查点重开试验后修改开局岗位。');
+  const value=command.value,errors=validateTerminalSetup({...s.plan.equipment,dispatch:value});
+  if(errors.length)throw Error(errors.join('；'));
+  for(const [role,max] of [['craneOperators',4],['drivers',8],['yardOperators',3],['gateClerks',2],['technicians',2]] as const)if(value[role]>max)throw Error('岗位人数超过本实验可配置范围。');
+  if(value.berthCranes[0]!==2||value.berthCranes[1]!==2)throw Error('同一检查点试验保持泊位设备分配不变。');
+  // Rebuild only the unadvanced scene. Old Apply actions may have reserved extra
+  // tasks at this same second; no such tentative work belongs to the checkpoint.
+  s=fixture(11);s.plan.equipment.dispatch=clone(value);preparePhysicalStaffHandover(s);r.simulation=s;
+  sync(r);note(r,'开局岗位已保存；开始推进前可继续增减。检查点原有任务安全交接后撤岗，交接期间人工成本照计。');
  }else if(command.kind==='dispatch'){
   if(r.lesson===11&&r.kind==='baseline')throw Error('基准保持预置配置。');if(r.lesson===11&&r.terminal.minute!==r.checkpoint)throw Error('岗位须在同一检查点设置。');if(i&&(i.repairStarted||i.manual||i.testing||i.restoredAt!==null))throw Error('当前恢复阶段岗位已锁定。');
   const value=command.value;const result=applyPortCommand(s,{kind:'dispatch',dispatch:value},false);if(result.outcome!=='applied')throw Error(result.message);sync(r);note(r,'岗位已应用；在途车辆和交接任务保留，后续派工按新配置执行。');

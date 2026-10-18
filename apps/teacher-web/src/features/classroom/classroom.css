@@ -46,6 +46,50 @@
   color: var(--classroom-ink);
 }
 
+.classroom-deck-notice {
+  height: 100dvh;
+  min-height: 0;
+  grid-template-rows: none;
+  align-content: center;
+  gap: 16px;
+  padding: 28px 20px;
+  overflow: auto;
+}
+
+.classroom-deck-notice > * {
+  margin: 0;
+}
+
+.classroom-deck-notice h1 {
+  max-width: 100%;
+  font-size: clamp(24px, 3vw, 34px);
+}
+
+.classroom-deck-notice__body {
+  max-width: 680px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.classroom-deck-notice__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.classroom-deck-notice__actions .classroom-primary-button,
+.classroom-deck-notice__actions .classroom-secondary-button {
+  width: auto;
+  min-height: 44px;
+  font-size: 14px;
+}
+
+.classroom-deck-notice__actions .classroom-primary-button {
+  color: #fff;
+}
+
 .classroom-commandbar {
   position: relative;
   z-index: 20;

@@ -1,0 +1,62 @@
+{
+  "files": [
+    {
+      "path": "packages/course-content/src/economic-mathematics/lesson-04-refined.ts",
+      "sha256": "8cc75bad856c417ac884f5f998597d39be7c084d4855ba52d36800cacd83b433"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/lesson-05-refined.ts",
+      "sha256": "015ad02a2937a0ac15dd707659baf40955a97c6e929a6b11ecef9e963e2d11ad"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/v2/lesson-07.ts",
+      "sha256": "10ef3f78570efc9250176f5ad7e1fb6d36bfc16d5a988792e1ce3ea6630328d8"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/slides.ts",
+      "sha256": "7f90049b61d0f743b9a307de2677ea5c29bd0a25f6f69b69821c144021ea75b7"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "sha256": "6658a5b6b6378775f009bde38306819d7cb2938facdda9017eaa173830092ecb"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/index.ts",
+      "sha256": "0efe180967baab4f5fe8145bf26dd1804804b3bc683cb5a9f93b8901898f72f3"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/limit-exercises.ts",
+      "sha256": "3d74f77915a30e17e3796b8bedc6902a7a7179a5aa8a3568dc20128c1342e3e0"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/limit-group-checks.ts",
+      "sha256": "fa817728bf1e45bb2652af7d8acb4ffdacf6238f4277886df7f5b519a0a08e4d"
+    },
+    {
+      "path": "docs/course/economic-mathematics-lesson04-script.md",
+      "sha256": "93ac4bd82ab62542013a9d13280b0f5a3812cd254125cfd016627dd8a53cefb4"
+    },
+    {
+      "path": "docs/course/economic-mathematics-lesson05-script.md",
+      "sha256": "8a59263c18c2a6795bcd21dcf86a05f0e16c338dcf12799e148c2a6784714de1"
+    },
+    {
+      "path": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson04-script.html",
+      "sha256": "0e725a7b76f9943a74b79666782d8884250325915f4f0c74bcea38c0a903470c"
+    },
+    {
+      "path": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson05-script.html",
+      "sha256": "2802fe28ee6d17419a15392d749f3233dc48ba4fe5315581700a74d101d3f746"
+    },
+    {
+      "path": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson04-teacher.pdf",
+      "sha256": "ab7ca1126f2bc3921a27674a7f4fbab1aec2ac9ec5e36c0ca99111f704278a86"
+    },
+    {
+      "path": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson05-teacher.pdf",
+      "sha256": "df4b224fa769f98109c0142cff779b0963011351c550b2cb530e610e57de5715"
+    }
+  ],
+  "version": "release-economic-mathematics-foundations-depth-2026-10-16",
+  "total": 656
+}

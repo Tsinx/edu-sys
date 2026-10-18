@@ -1,0 +1,98 @@
+{
+  "versionId": "release-economic-mathematics-math-first-2026-10-16",
+  "lessons": [
+    {
+      "lesson": 4,
+      "core": 56,
+      "optional": 4,
+      "hours": [
+        45,
+        45
+      ],
+      "individualSets": 12,
+      "questions": 24
+    },
+    {
+      "lesson": 5,
+      "core": 60,
+      "optional": 6,
+      "hours": [
+        45,
+        45
+      ],
+      "individualSets": 12,
+      "questions": 24
+    }
+  ],
+  "pdfs": [
+    {
+      "lesson": 4,
+      "pages": 60,
+      "file": "lesson04-teacher.pdf",
+      "sha256": "95044ab6f61853ebc2937c1368e1d2ae6848f8883aec0d489c19dcd4f378ee29"
+    },
+    {
+      "lesson": 5,
+      "pages": 66,
+      "file": "lesson05-teacher.pdf",
+      "sha256": "bf1016e28ea0cb4eed57af71d4891e41ded7f18017ab1607e2cb0deaac549c7a"
+    }
+  ],
+  "sources": {
+    "version": "release-economic-mathematics-math-first-2026-10-16",
+    "files": [
+      {
+        "path": "packages/course-content/src/economic-mathematics/limit-mastery-authoring.ts",
+        "sha256": "9cafcaec17c11b762c313e821d57eaf21e9e17b96fad4336895fd3970be29b4f"
+      },
+      {
+        "path": "packages/course-content/src/economic-mathematics/limit-mastery-exercises.ts",
+        "sha256": "4ec7ae06a06fc884d203bf12518676c7c16c7e25765a9669b53228c89089e280"
+      },
+      {
+        "path": "packages/course-content/src/economic-mathematics/lesson-04-math-first.ts",
+        "sha256": "b1f43f6ae2ebfb6f9ad4e265e2c49f08300ce2b66ba58da8279eb0d369c63009"
+      },
+      {
+        "path": "packages/course-content/src/economic-mathematics/lesson-05-math-first.ts",
+        "sha256": "17a8a0b4b0b9ddede118816ac157cb2a5ecf59c48e06589ec6a10b43a04aec74"
+      },
+      {
+        "path": "packages/course-content/src/economic-mathematics/derivative-topic-moved.ts",
+        "sha256": "a0f06be7c3df9d3a913286a1da858ab21a436f48852d54f25281a0e2ab2d7737"
+      },
+      {
+        "path": "packages/course-content/src/economic-mathematics/foundations-model.ts",
+        "sha256": "bdec59af517229c8de7dc9359d26b56570dd17071472ee45bd28d4a2f588357b"
+      },
+      {
+        "path": "packages/course-content/src/economic-mathematics/types.ts",
+        "sha256": "4d14d64c97985813c22d5f4e1c713cb2695d89d018a66fa8658b0271e3c45443"
+      },
+      {
+        "path": "packages/course-content/src/economic-mathematics/interactions.ts",
+        "sha256": "b50d484b230d817dacc6e352930ec73eeb01478399b5db1572ef9e66ff82e143"
+      },
+      {
+        "path": "packages/course-content/src/economic-mathematics/curriculum.ts",
+        "sha256": "f41c20cd8e8e846fe925a9305164deaa3ce87865587aebcff2060e4fd60c282d"
+      },
+      {
+        "path": "packages/course-content/src/economic-mathematics/slides.ts",
+        "sha256": "8da666f941f2a48406f42b17c8ae2112c7f960926cc24e3920d2a5dd8e53d572"
+      },
+      {
+        "path": "apps/teacher-web/src/features/economic-mathematics/FoundationFigure.tsx",
+        "sha256": "853d72ab9074f07d9b6fe41d942e459646a4bfb7adcda1ced29e4d1f62168004"
+      },
+      {
+        "path": "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
+        "sha256": "50c2f48af7cbcfac9457c4140c99f939b0afb10e8e282abf52a07a26297a96a5"
+      },
+      {
+        "path": "apps/teacher-web/src/features/economic-mathematics/limits.css",
+        "sha256": "127178b078ee6ffcac95612574fd1c0e0aab8d86cc5a35240942449842fd39c8"
+      }
+    ]
+  }
+}

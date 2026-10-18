@@ -1,5 +1,6 @@
 /** Teacher exercise bank. Answers are not part of the shared slide context. */
 import { LIMIT_GROUP_CHECKS } from './limit-group-checks.js';
+import { LIMIT_MASTERY_EXERCISES } from './limit-mastery-exercises.js';
 export interface LimitExerciseQuestion {
   type: 'single' | 'short';
   stem: string;
@@ -16,7 +17,7 @@ export interface LimitExerciseActivity {
   minutes: number;
   questions: readonly LimitExerciseQuestion[];
 }
-export const LIMIT_EXERCISE_ACTIVITIES: readonly LimitExerciseActivity[] = [
+const PREVIOUS_LIMIT_EXERCISE_ACTIVITIES: readonly LimitExerciseActivity[] = [
   ...LIMIT_GROUP_CHECKS,
   {
     id: 'l3-convergence', lesson: 3, title: '第三讲·基础判断：收敛与尾部保证', level: '基础', minutes: 3,
@@ -83,4 +84,11 @@ export const LIMIT_EXERCISE_ACTIVITIES: readonly LimitExerciseActivity[] = [
     id: 'l4-exit', lesson: 4, title: '第四讲·课末回顾：不除以零，怎样得到导数？', level: '巩固', minutes: 1,
     questions: [{ type: 'short', stem: '用自己的话写三句：① 每次差商计算时，为什么分母不能取零？② 极限怎样在不除以零的前提下给出确定结果？③ 80元最优为何没有导数，90元处又为何有导数？不只写“因为lim”。', answer: '① 差商是两个增量之比，价格增量h=0时原商没有定义。② 始终检验非零h；给定任意输出误差，都能给一个输入距离范围，保证其中全部非零h的差商靠近同一实数。③ 80元处左右差商极限分别为360和−160，不相等，导数不存在；90元处两侧差商均趋于−340，导数存在。', explanation: '导数是差商的极限，不是在原差商中令分母为零。最优可以出现在折角；函数值的极限与差商极限须分开。此题关注解释完整，允许先用中文说明再写符号。' }]
   }
+];
+
+/** Old fourth-lecture activities remain in the archived source; the active bank follows the new individual route. */
+export const LIMIT_EXERCISE_ACTIVITIES: readonly LimitExerciseActivity[] = [
+  ...PREVIOUS_LIMIT_EXERCISE_ACTIVITIES.filter(a=>a.lesson===3),
+  ...LIMIT_MASTERY_EXERCISES.filter(a=>a.lesson===4).map(a=>({id:a.id,lesson:4 as const,title:a.title,level:'基础' as const,minutes:a.minutes,
+    questions:a.questions.map(q=>({...q,type:'single' as const,correctIndex:'ABCD'.indexOf(q.answer)}))}))
 ];

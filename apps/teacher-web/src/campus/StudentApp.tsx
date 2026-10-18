@@ -36,6 +36,9 @@ const Simulation = lazy(() =>
     default: module.AuthenticatedLocalPortSimulationPage,
   })),
 );
+const DefenseHub = lazy(() => import("../features/defense/DefenseWorkspace").then(m => ({ default: m.DefenseHub })));
+const DefenseAssignmentPage = lazy(() => import("../features/defense/DefenseWorkspace").then(m => ({ default: m.DefenseAssignmentPage })));
+const DefenseSessionPage = lazy(() => import("../features/defense/DefenseWorkspace").then(m => ({ default: m.DefenseSessionPage })));
 const Study = lazy(() =>
   import("../features/study/StudentStudyPage").then((module) => ({
     default: module.StudentStudyPage,
@@ -57,6 +60,7 @@ function StudentRoutes({ identity }: { identity: ClassroomIdentitySession }) {
         <nav aria-label={t("学生主导航", "Student navigation")}>
           <Link to="/">{t("学习", "Learning")}</Link>
           <Link to="/tasks">{t("实验任务", "Tasks")}</Link>
+          <Link to="/defenses">{t("作业答辩", "Defense")}</Link>
           <Link to="/submissions">{t("我的提交", "My submissions")}</Link>
         </nav>
         <Link to="/settings">{identity.actor.displayName}</Link>
@@ -81,6 +85,9 @@ function StudentRoutes({ identity }: { identity: ClassroomIdentitySession }) {
           />
           <Route path="/courses/:courseId/activity-history" element={<ActivityHistory student/>}/>
           <Route path="/tasks" element={<TaskWorkspace />} />
+          <Route path="/defenses" element={<DefenseHub />} />
+          <Route path="/defenses/assignments/:assignmentId" element={<DefenseAssignmentPage />} />
+          <Route path="/defenses/sessions/:sessionId" element={<DefenseSessionPage />} />
           <Route path="/submissions" element={<SubmissionHistory />} />
           <Route path="/settings" element={<PreferencesPage />} />
           <Route path="/simulations" element={<Simulation />} />

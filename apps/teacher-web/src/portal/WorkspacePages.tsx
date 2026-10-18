@@ -141,6 +141,7 @@ export function WorkspaceShell({ onNewCourse }: { onNewCourse: () => void }) {
             ["/", "工作台"],
             ["/courses", "课程"],
             ["/tasks", "实验任务"],
+            ["/defenses", "作业答辩"],
           ].map(([to, label]) => (
             <NavLink
               key={to}
@@ -536,6 +537,7 @@ export function CourseWorkspace() {
         <div>
           <h1>{course?.title ?? t("课程工作区", "Course workspace")}</h1>
           <p>{profile?.description}</p>
+          <Link to={`/defenses?course=${courseId}`}>{t("作业答辩 →", "Assignment defense →")}</Link>
           {profile?.supportsStudy && <Link to={`/study/${courseId}`}>{t("独立阅读课件 →", "Independent reading →")}</Link>}
         </div>
         {deck && (

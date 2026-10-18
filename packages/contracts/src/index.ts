@@ -1886,3 +1886,4 @@ export type { PreparationNote, ReadingProgress, PortalPreferences, StartClassOpt
 
 export * from "./activity-plans.js";
 export * from "./ranked-practice.js";
+export * from "./defense.js";

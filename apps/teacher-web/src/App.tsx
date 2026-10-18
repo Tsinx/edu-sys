@@ -52,6 +52,9 @@ const StudentStudyPage = lazy(() =>
     default: module.StudentStudyPage,
   })),
 );
+const DefenseHub = lazy(() => import("./features/defense/DefenseWorkspace").then(m => ({ default: m.DefenseHub })));
+const DefenseAssignmentPage = lazy(() => import("./features/defense/DefenseWorkspace").then(m => ({ default: m.DefenseAssignmentPage })));
+const DefenseSessionPage = lazy(() => import("./features/defense/DefenseWorkspace").then(m => ({ default: m.DefenseSessionPage })));
 const XiaomaiAnimationPreview = lazy(() =>
   import("./features/avatar/XiaomaiAnimationPreview").then((module) => ({
     default: module.XiaomaiAnimationPreview,
@@ -130,6 +133,9 @@ export function App() {
             }
           />
           <Route path="tasks" element={<TaskWorkspace />} />
+          <Route path="defenses" element={<Suspense fallback={<p>正在打开作业答辩…</p>}><DefenseHub /></Suspense>} />
+          <Route path="defenses/assignments/:assignmentId" element={<Suspense fallback={<p>正在读取答辩作业…</p>}><DefenseAssignmentPage /></Suspense>} />
+          <Route path="defenses/sessions/:sessionId" element={<Suspense fallback={<p>正在恢复答辩…</p>}><DefenseSessionPage /></Suspense>} />
           <Route
             path="evaluations"
             element={<Navigate to="/tasks" replace />}

@@ -36,7 +36,10 @@ import { lesson32 } from "./v2/lesson-32.js";
 import { refinedLesson02 } from './lesson-02-refined.js';
 import { preludeLesson } from './prelude-lesson.js';
 import { refinedLesson03 } from './lesson-03-refined.js';
-import { refinedLesson04 } from './lesson-04-refined.js';
+import { mathFirstLesson04 as refinedLesson04 } from './lesson-04-math-first.js';
+import { mathFirstLesson05 as refinedLesson05 } from './lesson-05-math-first.js';
+import { continuityLesson06 } from './lesson-06-continuity.js';
+import { derivativeLesson07 } from './lesson-07-derivative.js';
 import type {
   EconomicMathematicsLessonDefinition,
   EconomicMathematicsLessonSpec,
@@ -94,11 +97,14 @@ const combinedLesson: EconomicMathematicsLessonDefinition = {
   })))
 };
 export const ECONOMIC_MATHEMATICS_LESSON_DEFINITIONS: readonly EconomicMathematicsLessonDefinition[] = [
-  preludeLesson, refinedLesson02, refinedLesson03, refinedLesson04, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(4)
+  preludeLesson, refinedLesson02, refinedLesson03, refinedLesson04, refinedLesson05, continuityLesson06, derivativeLesson07, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(7)
 ];
 
 /** Historical classroom indices must be interpreted using their own release. */
 export function getEconomicMathematicsHistoricalCounts(version: string): readonly number[] | undefined {
+  if (version === 'release-economic-mathematics-math-first-2026-10-16') return [40,59,85,60,66,60,15,...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(7).map(l=>l.slides.length)];
+  if (version === 'release-economic-mathematics-foundations-depth-2026-10-16') return [40,59,85,76,62,60,...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(6).map(l=>l.slides.length)];
+  if (version === 'release-economic-mathematics-limits-reinforcement-2026-10-13') return [40,59,85,76,...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(4).map(l=>l.slides.length)];
   if (version === 'release-economic-mathematics-v1') return [44,47,45,45,47,46,47,44,46,43,46,44,45,47,45,47,43,44,46,45,47,46,45,46,47,47,45,47,46,47,47,44];
   if (version === 'release-economic-mathematics-editorial-v2') return ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.map(l => l.slides.length);
   if (version === 'release-economic-mathematics-editorial-v2-reordered-2026-10-09') return [40, combinedLesson.slides.length, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(2).map(l => l.slides.length)];

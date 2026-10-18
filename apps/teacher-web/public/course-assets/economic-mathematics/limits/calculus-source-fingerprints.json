@@ -1,0 +1,85 @@
+{
+  "version": "release-economic-mathematics-continuity-derivative-2026-10-17",
+  "files": [
+    {
+      "path": "packages/course-content/src/economic-mathematics/calculus-authoring.ts",
+      "sha256": "300acbcb8612a12acf87244d18913cb19806f951c0d697f397dacb553603c549"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/continuity-derivative-exercises.ts",
+      "sha256": "f4782c8009f9cf4860f6bc150a4778ad758eb299806cd6e34e1f579e9c43b531"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/lesson-06-continuity.ts",
+      "sha256": "793f75761939912300ac2c4f0d6d415daf4208e87eca20324fc3a1104b0d7b40"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/lesson-07-derivative.ts",
+      "sha256": "de7321c159e7d8d8ce7615d1169fc7ea6e7384c3460a47df2cd82b0950bcd71d"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/lesson-06-refined.ts",
+      "sha256": "e554bba3468c328891382cd42265fdbc3e1135599571d0400739320d0bf4781b"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/foundations-authoring.ts",
+      "sha256": "31203a14b69257de7718ae06c34463b5616363f06a1b03e2395a1770908537df"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/authoring.ts",
+      "sha256": "b60f3c1e3f1ee138a61b3b91cbde54844ac2896f8b6c49563c5fa648ef50311e"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/index.ts",
+      "sha256": "8a3c9c3337010dfa392984773bbef9ce3c24e1359cfc7f410b4e347b5994b621"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/next-lesson-plan.ts",
+      "sha256": "f39b2311f33fdaec3ef44f157a14cf015346c737b5974c29180c8705106cbd34"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/foundations-model.ts",
+      "sha256": "a3c8387c288b941e8cb7eec13ae5616c7667ce04410c107473bc8ddf85d60944"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/types.ts",
+      "sha256": "722b85613ac7b6f1d3d5660d90c65dfa7ee88324c7d43c72e9507e161e53491b"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/interactions.ts",
+      "sha256": "b912b46724402dec84db591f3ac0779e8b1faa5a851adfc3667ef84058dc2835"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "sha256": "2fda522e183e3c5b011a57b0b77edbd0663906c28aaf299609b50d71aa60ce24"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/slides.ts",
+      "sha256": "df1b7f5892725af99d6ef1c88a68264c48c51b6639ce49dac2d478b78241c62a"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/FoundationFigure.tsx",
+      "sha256": "a43073aed3ec440a2e55addd3f98c09f47678fc1b71616d9e6fb9ba94ae1ec5d"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
+      "sha256": "5607ae78b776f10c57af9851e09e688ca0df62d4efac11baf11b6cd436f5573d"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/EconomicPageNarrator.tsx",
+      "sha256": "e821d447cc66412718587fa0c7e22a7e4edb4fb8cc52cd56f3955935cddd36dc"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/PresentationChrome.tsx",
+      "sha256": "95664c3be7a071a4372e21382dd46b315ad1e513bd5d56696da400f704387ed3"
+    },
+    {
+      "path": "apps/teacher-web/src/economic-narration.tsx",
+      "sha256": "83317ac457c3b794b0e2e35892144908aea220e0293abb318d336094b2f022ac"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/limits.css",
+      "sha256": "127178b078ee6ffcac95612574fd1c0e0aab8d86cc5a35240942449842fd39c8"
+    }
+  ]
+}

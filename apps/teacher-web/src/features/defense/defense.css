@@ -1,0 +1,60 @@
+.defense { --defense-green:#176451; --defense-border:#dbe5e0; color:#193c33; max-width:1380px; margin-inline:auto; }
+.defense * { box-sizing:border-box; }
+.defense-heading { display:flex; align-items:flex-start; gap:18px; margin:28px 0; }
+.defense-heading h1 { margin:4px 0 10px; font-size:clamp(26px,3vw,38px); letter-spacing:-.03em; }
+.defense-heading p { margin:0; line-height:1.7; color:#5e726a; }
+.defense .defense-eyebrow { font-size:12px; letter-spacing:.12em; color:var(--defense-green); }
+.defense-icon { display:grid; place-items:center; width:54px; height:54px; flex-shrink:0; background:#e2efe8; border-radius:16px; color:var(--defense-green); }
+.defense-actions { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin:14px 0; }
+.defense-actions a { display:inline-flex; align-items:center; gap:6px; }
+.defense button, .defense a.button { min-height:44px; border:1px solid var(--defense-border); border-radius:8px; padding:10px 16px; display:inline-flex; align-items:center; justify-content:center; gap:8px; background:white; color:#254f43; cursor:pointer; font:inherit; text-decoration:none; }
+.defense button.button--primary, .defense a.button--primary { background:var(--defense-green); color:#fff; border-color:var(--defense-green); }
+.defense button:disabled { opacity:.55; cursor:wait; }
+.defense :is(button,a,input,textarea,select,summary):focus-visible { outline:3px solid #cc904b; outline-offset:3px; }
+.defense label { display:grid; gap:8px; font-size:14px; line-height:1.6; min-width:0; }
+.defense :is(input,textarea,select) { width:100%; min-width:0; max-width:100%; padding:12px; border:1px solid #c7d8cf; background:#fff; border-radius:8px; color:#1d3e33; font:inherit; line-height:1.7; }
+.defense textarea { resize:vertical; }
+.defense select { min-height:46px; }
+.defense-form { display:grid; gap:20px; }
+.defense-form .defense-actions { align-items:end; justify-content:start; margin:0; }
+.defense fieldset { min-width:0; margin:0; border:1px solid var(--defense-border); padding:18px; border-radius:10px; display:grid; gap:14px; }
+.defense legend { font-weight:650; padding:0 6px; }
+.defense-criterion { display:grid; grid-template-columns:minmax(100px,1fr) 100px; gap:12px; padding-block:10px; border-bottom:1px solid var(--defense-border); }
+.defense-criterion-description { grid-column:1/-1; }
+.defense-flow { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:#dae5df; border:1px solid #dae5df; border-radius:10px; overflow:hidden; margin:28px 0; }
+.defense-flow span { background:#edf4ef; padding:16px; font-size:14px; color:#476657; }
+.defense-card { border:1px solid var(--defense-border); border-radius:14px; padding:26px; background:#fff; margin-block:18px; box-shadow:0 3px 14px #1c493207; min-width:0; }
+.defense-card h2 { font-size:20px; margin:0 0 14px; line-height:1.7; overflow-wrap:anywhere; }
+.defense-card p { line-height:1.8; }
+.defense-task-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+.defense-task-list .defense-card { margin:0; display:flex; flex-direction:column; }
+.defense-task-list footer { margin-top:auto; padding-top:18px; border-top:1px solid var(--defense-border); font-size:14px; }
+.defense-preview { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; white-space:pre-wrap; overflow-wrap:anywhere; }
+.defense-badge { display:inline-block; padding:5px 10px; border-radius:6px; background:#e9f2ed; color:#21654e; font-size:12px; line-height:1.6; }
+.defense-muted,.defense small { font-size:13px; line-height:1.7; color:#657c70; }
+.defense-note { background:#eef2ed; padding:18px; border-radius:10px; color:#5a7063; font-size:13px; line-height:1.8; margin-top:28px; }
+.defense-empty { text-align:center; padding:60px 20px; border:1px dashed #b9cec0; border-radius:14px; color:#658072; }
+.defense-empty h2 { font-size:20px; }
+.defense-error { border:1px solid #e9c5ad; color:#8f372b; background:#fff2eb; border-radius:8px; padding:14px; overflow-wrap:anywhere; }
+.defense-rubric { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-block:22px; }
+.defense-rubric>div { background:#f4f7f3; padding:16px; border-radius:8px; }
+.defense-rubric p { margin-bottom:0; font-size:14px; color:#5b7265; }
+.defense-rubric span { color:#5b806b; font-weight:400; margin-left:12px; }
+.defense-prose { white-space:pre-wrap; overflow-wrap:anywhere; font-size:15px; line-height:1.9; }
+.defense details { padding-block:12px; }
+.defense summary { cursor:pointer; line-height:1.7; font-size:14px; }
+.defense-session-grid { display:grid; grid-template-columns:minmax(240px,.8fr) minmax(0,1.4fr); gap:24px; align-items:start; }
+.defense-conversation { min-width:0; }
+.defense-question blockquote { margin:16px 0; padding:10px 16px; border-left:3px solid #87b8a3; color:#56776a; background:#f4f8f5; line-height:1.8; font-size:13px; white-space:pre-wrap; overflow-wrap:anywhere; }
+.defense-answer { padding:18px; background:#eff5f0; border-radius:10px; margin-top:20px; }
+.defense-answer p { margin-block:10px; }
+.defense-evaluation { border-top:1px solid var(--defense-border); margin-top:20px; }
+.defense-table-wrap { overflow-x:auto; }
+.defense table { border-collapse:collapse; width:100%; font-size:14px; text-align:left; }
+.defense :is(th,td) { padding:15px 12px; border-bottom:1px solid var(--defense-border); white-space:nowrap; }
+.defense th { color:#63806e; font-weight:500; }
+.defense-checkbox { display:flex!important; align-items:center; }
+.defense-checkbox input { width:20px; height:20px; }
+body:has(.defense) .campus-offline-toggle { position:static; display:block; width:max-content; margin:0 20px 24px auto; }
+@media(min-width:1100px) { .defense-session-grid>aside { position:sticky; top:20px; max-height:85vh; overflow:auto; } }
+@media(max-width:760px) { .defense { padding:20px 16px!important; } .defense-flow { grid-template-columns:repeat(2,1fr); } .defense-flow span { padding:12px; font-size:12px; } .defense-session-grid,.defense-task-list,.defense-rubric { grid-template-columns:1fr; } .defense-card { padding:20px 16px; } .defense-heading { gap:12px; } .defense-icon { width:42px; height:42px; border-radius:12px; } .defense-actions>label { max-width:100%; } .defense-question h2 { font-size:18px; } }

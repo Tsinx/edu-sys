@@ -1,4 +1,5 @@
 import evidence from './measurement-data.json' with {type:'json'};
+import {factorLessonEight,factorLessonNine,factorBlocksEight,factorBlocksNine} from './factor-lessons.js';
 
 /** Projection copy is authored page by page. Notes and questions stay outside the canvas. */
 export interface MeasurementPage {
@@ -62,7 +63,7 @@ export const measurementLessonSix:MeasurementPage[]=[
  p('一种可执行的方案，以及它的边界','先定位顾客经历，再选择合适的测量工具','survey-design-feedback',[],'内容范围还不明确时，先访谈澄清；已有工具只有匹配时才采用。','逐项给出可执行方案：去重名单随机邀请+筛选咨询+追踪结局；先探索费用理解并检索匹配工具；自编单题示例不是成熟量表。补充NA与认知检查，不强求学生复制唯一答案。','这道新题，还需要哪些工作才能成为可解释的指标？',{source:'上页应用练习的一种答案',durationMinutes:2}),
  p('换一份答卷，独立完成计分','S031：R=(4,2,1)，T=(5,5,NA)','survey-score-transfer',[],'高分统一为更正面体验；每领域至少两题有效，按可用题取均值。','迁移计算给原始S031，不公开结果。T3缺失不反向成数值；下一页才给两分数。当前页助手不主动透露数值答案。','分别写出有效题数、分母与两个领域分数。',{source:survey,durationMinutes:2.5}),
  p('S031：响应2.33，透明5.00','两个领域使用的有效题数不同','survey-score-transfer-feedback',[],'这是按既定规则得到的两项描述；NA和内容覆盖的限制仍需保留。','响应7/3，透明10/2，T3NA不参与。透明5来自两道有效题而非完整三题，不能据两数称顾客满意或已验证量表，更不等同复购、利润或因果效果。','为什么“透明5.00”仍需要报告有效题数？',{source:survey,durationMinutes:2}),
- p('有意义的分数，来自有依据的过程','问题 → 对象 → 工具 → 回答 → 计分 → 证据',undefined,['研究体验：明确经历，选择合适工具与问卷流程。','解释分数：保留原答案、计分规则和适用证据。','下一讲：六列公开采购记录，怎样压缩成更少的坐标？'],'采购记录是另一份公开数据；体验测量与数据降维有不同的任务。','以已完成的调查和计分主线收束，再接第7讲独立UCI采购数据。保留原六题以供后续测量结构研究，不承诺PCA能验证构念或第8讲已发布。','一个分数进入回归或PCA之前，为什么仍要知道它怎样得到？',{image:'l6-02-questionnaire-desk',source:'本讲回顾 · 第7讲方法衔接',durationMinutes:2}),
+ p('有意义的分数，来自有依据的过程','问题 → 对象 → 工具 → 回答 → 计分 → 证据',undefined,['研究体验：明确经历，选择合适工具与问卷流程。','解释分数：保留原答案、计分规则和适用证据。','下一讲：六列公开采购记录，怎样压缩成更少的坐标？'],'采购记录是另一份公开数据；体验测量与数据降维有不同的任务。','以已完成的调查和计分主线收束，再接第7讲独立UCI采购数据。保留原六题以供后续测量结构研究，不承诺PCA能验证构念，也不提前提供后页分析结果。','一个分数进入回归或PCA之前，为什么仍要知道它怎样得到？',{image:'l6-02-questionnaire-desk',source:'本讲回顾 · 第7讲方法衔接',durationMinutes:2}),
 ];
 
 export const measurementLessonSeven:MeasurementPage[]=[
@@ -117,10 +118,10 @@ export const measurementLessonSeven:MeasurementPage[]=[
  p('一份完整的PCA报告','数据、处理、k、系数、得分与损失','wholesale-report',[],'本课选k=2用于二维描述，同时披露第三成分和预处理敏感性；没有客户优劣排名。','按原数据与本课派生计算分别归属来源；讲义提供440条得分与全部六方向。','读者能复算71.3%，并知道它是哪种方差吗？',{source:uci}),
  p('三项判断，检验解释边界','保留方差、业务价值与测量结构',undefined,['“保留71.3%方差，所以解释了71.3%利润。”','“PC1最高的客户，一定最值得维护。”','“六题经PCA成两维，所以量表已经有效。”'],'先定位每句话缺失的目标变量、业务标准或测量证据。','保留个人判断，不组织投票或代码运行；下一页给出逐项反馈。','每句话把哪一种统计产出变成了额外结论？',{source:'个人判断 · PCA结果解释'}),
  p('把结论收回到证据范围','一个清楚的描述，保留它的损失与用途','wholesale-feedback',[],'PCA描述指定尺度上的采购变异；业务决策和量表验证各需相应证据。','回应上页三句，重申不是所有成分都要贴现实构念名称。','怎样用一句话报告本课的二维结果而不夸大？',{source:uci}),
- p('共同变化，是否来自共同构念','下一步：探索性因子分析与量表结构探索',undefined,['六列采购记录可以压缩成两个成分坐标。','六道感知题项背后是否有共同构念，是另一类问题。','继续分析之前，保留原始题项与测量依据。'],'下一讲回到共享变异、独特误差与题项结构。','用原题项提出下一讲问题，不预先编造因子数、载荷或已发布内容。','共同变化与共同原因，为什么不能直接画等号？',{image:'l7-04-warehouse-observer',source:'方法衔接 · 第8讲待建设',design:'仓库观察者作为右侧淡背景，左侧保留两类研究问题，以测量结构问题收束。'}),
+ p('共同变化，是否来自共同构念','下一步：探索性因子分析与量表结构探索',undefined,['六列采购记录可以压缩成两个成分坐标。','六道感知题项背后是否有共同构念，是另一类问题。','继续分析之前，保留原始题项与测量依据。'],'下一讲回到共享变异、独特误差与题项结构。','用原题项提出下一讲问题，不预先透露因子数或载荷；第8讲已有独立分析，但只在当前页范围内回应。','共同变化与共同原因，为什么不能直接画等号？',{image:'l7-04-warehouse-observer',source:'方法衔接 · 第8讲EFA',design:'仓库观察者作为右侧淡背景，左侧保留两类研究问题，以测量结构问题收束。'}),
 ];
 
 export const measurementBlocksSix=[[11,21,'调查对象、抽样与实施'],[16,9,'测量与回答格式'],[22,11.5,'成熟量表的选择与适配'],[29,12,'题项、问卷与预测试'],[37,14.5,'原始回答与逐步计分'],[42,9,'信度、效度与报告'],[48,13,'独立设计与计分应用']] as const;
 export const measurementBlocksSeven=[[6,9,'压缩目标'],[16,19,'二维几何'],[24,15,'预处理与输入'],[30,11,'保留多少维'],[38,15,'系数与得分'],[46,13,'损失与敏感性'],[52,8,'方法边界与报告']] as const;
-export const measurementLessons=[measurementLessonSix,measurementLessonSeven];
-export const measurementBlocks=[measurementBlocksSix,measurementBlocksSeven];
+export const measurementLessons=[measurementLessonSix,measurementLessonSeven,factorLessonEight,factorLessonNine];
+export const measurementBlocks=[measurementBlocksSix,measurementBlocksSeven,factorBlocksEight,factorBlocksNine];

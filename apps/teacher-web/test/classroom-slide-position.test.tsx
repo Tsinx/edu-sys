@@ -5,7 +5,7 @@ import { COURSE_DECKS, getCourseDeckByCourseId } from '@edu/course-content/deck-
 import { renderToStaticMarkup } from 'react-dom/server';
 import { MemoryRouter } from 'react-router-dom';
 import React from 'react';
-import { classroomSlidePosition } from '../src/features/classroom/classroom-slide-position';
+import { classroomDeckIssue, classroomSlidePosition } from '../src/features/classroom/classroom-slide-position';
 import { ClassroomDeckNotice } from '../src/features/classroom/ClassroomDeckNotice';
 import { studentFrame } from '../src/features/classroom/student-navigation';
 
@@ -47,4 +47,30 @@ test('version recovery is visible, has reload and return controls, and exposes n
   assert.match(html, /重新加载课堂/);
   assert.match(html, /href="\/courses\/course-port-management-intro"/);
   assert.doesNotMatch(html, /1600|slide-canvas|teachingCue|assistantCue/);
+});
+
+test('recognized archived economics releases have a separate recovery path; unfamiliar versions still reload', () => {
+  const deck = getCourseDeckByCourseId('course-economic-mathematics')!;
+  const current = studentFrame(deck, deck.lessons.find(lesson => lesson.number === 4)!.slideStart!);
+  const old = { ...current, deckId: 'deck-economic-mathematics-2026-limits-reinforcement',
+    versionId: 'release-economic-mathematics-limits-reinforcement-2026-10-13', slideId: 'em-l04-limits-reinforcement-20261013-p016', index: 200, total: 560 };
+  assert.equal(classroomSlidePosition(deck.courseId, old, deck), null);
+  assert.equal(classroomDeckIssue(deck.courseId, old, deck), 'archived');
+  for (const versionId of [deck.versionId, 'release-from-an-unfamiliar-server'])
+    assert.equal(classroomDeckIssue(deck.courseId, { ...old, versionId }, deck), 'sync');
+  assert.equal(classroomDeckIssue(deck.courseId, old, undefined), 'sync');
+  assert.equal(classroomDeckIssue('course-port-management-intro', old, deck), 'sync');
+  const html = renderToStaticMarkup(<MemoryRouter><ClassroomDeckNotice courseId={deck.courseId} issue="archived" lessonNumber={4} onStartNew={() => {}} /></MemoryRouter>);
+  assert.match(html, /此课堂使用的课件已归档/);
+  assert.match(html, /从第4讲首页开始/);
+  assert.match(html, /使用新版新建课堂/);
+  assert.doesNotMatch(html, /重新加载课堂|1600|slide-canvas/);
+  const student = renderToStaticMarkup(<MemoryRouter><ClassroomDeckNotice courseId={deck.courseId} issue="archived" student onStartNew={() => {}} /></MemoryRouter>);
+  assert.match(student, /老师提供的新课堂链接/);
+  assert.match(student, /href="\/study\/course-economic-mathematics"/);
+  assert.doesNotMatch(student, /新建课堂|重新加载课堂|\/courses\//);
+  const english = renderToStaticMarkup(<MemoryRouter><ClassroomDeckNotice courseId={deck.courseId} issue="archived" english lessonNumber={4} busy onStartNew={() => {}} /></MemoryRouter>);
+  assert.match(english, /archived slides/);
+  assert.match(english, /beginning of Lecture 4/);
+  assert.match(english, /disabled=""/);
 });

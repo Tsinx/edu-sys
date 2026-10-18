@@ -1,6 +1,7 @@
 import { MerchantFigure } from './MerchantFigure';
 import { ExerciseTimer } from './ExerciseTimer';
-import { merchantReadout, limitLabReadout } from '@edu/course-content/economic-mathematics';
+import { merchantReadout, limitLabReadout, foundationReadout } from '@edu/course-content/economic-mathematics';
+import { FoundationFigure } from './FoundationFigure';
 import { LimitFigure } from './LimitFigure';
 import { LessonHistoryFilm } from './LessonHistoryFilm';
 import { EconomicPreludeSlide } from './EconomicPreludeSlide';
@@ -60,8 +61,9 @@ export function EconomicMathematicsTeachingSlides({spec,interaction,readOnly,onI
  const visiblePlot=[...visibleSteps].reverse().find(s=>s.plot)?.plot??spec.plot;
  const highlighted=[...visibleSteps].reverse().find(s=>s.highlightRows)?.highlightRows??[];
  const limitFigure=[...visibleSteps].reverse().find(s=>s.limitFigure)?.limitFigure??spec.limitFigure;
- return <article className={"em-slide em-"+(spec.layout??"essay")+" em-style-"+(spec.style??"editorial")+(hasImage?" em-with-image":"")+(spec.slideKey.startsWith("em-l02-refined")?" em-refined":"")+(spec.slideKey.includes("-limits-")?" em-limits":"")+(spec.conceptCheck?" em-concept-check":"")+(limitFigure?" em-has-limit-figure":"")+(spec.limitLab==='sequence-zoom'?' em-sequence-lab':'')+(spec.merchantFigure?" em-has-merchant-figure":"")+(spec.merchantFigure==="mapping-types"?" em-mapping-types":"")} aria-label={spec.title}>
- {cover&&<img className="em-cover-art" src={assetUrl(spec.image!)} alt={spec.imageAlt??""}/>}
+ const foundationFigure=spec.foundationFigure;
+ return <article className={"em-slide em-"+(spec.layout??"essay")+" em-style-"+(spec.style??"editorial")+(hasImage?" em-with-image":"")+(spec.slideKey.startsWith("em-l02-refined")?" em-refined":"")+((spec.slideKey.includes("-limits-")||spec.slideKey.includes("-math-first-")||spec.slideKey.includes("-calculus-")||spec.slideKey.startsWith("em-l07-derivative-extension-"))?" em-limits":"")+(spec.conceptCheck?" em-concept-check":"")+(limitFigure||foundationFigure?" em-has-limit-figure":"")+(spec.limitLab==='sequence-zoom'?' em-sequence-lab':'')+(spec.merchantFigure?" em-has-merchant-figure":"")+(spec.merchantFigure==="mapping-types"?" em-mapping-types":"")} aria-label={spec.title}>
+ {cover&&hasImage&&<img className="em-cover-art" src={assetUrl(spec.image!)} alt={spec.imageAlt??""}/>}
  {spec.style==="constructivist"&&<img className="em-conflict-art" src={"/course-assets/economic-mathematics/v2/l"+String(spec.sourceLesson ?? spec.lesson).padStart(2,"0")+"-scene.png"} alt=""/>}
  <header className="em-header"><div className="em-kicker">{spec.kicker||"经济数学 / 第"+String(spec.lesson).padStart(2,"0")+"讲"}</div><h1>{spec.title}</h1></header>
  <main className="em-content">
@@ -75,6 +77,7 @@ export function EconomicMathematicsTeachingSlides({spec,interaction,readOnly,onI
  </div>
  {spec.merchantFigure&&<MerchantFigure kind={spec.merchantFigure} values={values}/>}
  {limitFigure&&<div className="em-limit-evidence"><LimitFigure config={limitFigure} values={values}/>{spec.limitLab&&<dl className="em-limit-readout">{limitLabReadout(spec.limitLab,values).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl>}</div>}
+ {foundationFigure&&<div className="em-limit-evidence"><FoundationFigure config={foundationFigure} values={values}/>{spec.foundationLab&&<dl className="em-limit-readout">{foundationReadout(spec.foundationLab,values).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl>}</div>}
  {visiblePlot&&!spec.interactionId&&<EconomicPlot config={visiblePlot} values={values}/>}
  {spec.interactionId&&!spec.limitLab&&<div className="em-lab-projection">{spec.merchantLab?<MerchantFigure kind="profit" values={values}/>:<EconomicPlot config={{...labPlots[spec.interactionId]!,...(spec.interactionId==="sequence-limit-lab"?{domain:[1,Math.max(40,Number(values.n))] as const}:{})}} values={values} lab={spec.interactionId}/>}<dl className="em-readout">{(spec.merchantLab?merchantReadout(values):economicLabReadout(spec.interactionId,values)).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl></div>}
  </main>
@@ -84,6 +87,12 @@ export function EconomicMathematicsTeachingSlides({spec,interaction,readOnly,onI
 }
 const labels:Record<string,string>={capacity:"履约能力（件/日）",commission:"抽成比例",fixedCost:"固定成本（元/日）",price:"价格（元/件）",segment:"细分市场",n:"轮次",epsilon:"容许误差",orderAmount:"订单额（元）",approach:"接近方向",basePrice:"基准价格（元/件）",h:"价格间隔（元/件）",deltaPrice:"价格变化（元/件）",partitions:"分段数",sample:"取样位置",upperBound:"时间上限（小时）",advertising:"广告（百元/日）",lockedAxis:"固定变量",baseAdvertising:"基准广告（百元/日）",deltaAdvertising:"广告变化（百元/日）",x:"投入 x",y:"投入 y",budget:"预算（百元）",channelX:"渠道 x（百元）",revealStep:"公开分析",revealOptimum:"公开最优结果",revealClassification:"公开极值判别"};
 labels.delta='输入距离范围δ';
+labels.angle='转角（弧度）';
+labels.nominalRate='名义年利率（小数）';
+labels.compoundCount='每年计息次数';
+labels.pointValue='点处函数值 b';
+labels.bisectionSteps='二分次数';
+labels.increment='输入增量 h';
 labels.n='编号n / 实施周数';
 labels.precision='误差指数k（ε=系数×10⁻ᵏ）';
 labels.epsilonFactor='误差系数';

@@ -29,7 +29,7 @@ const finite = (v: unknown) => typeof v === "number" && Number.isFinite(v) && v 
 function validSnapshot(s: any): boolean {
     if (s === null) return true;
     return s?.version === PORT_LEARNING_VERSION && typeof s.runId === "string" && typeof s.capturedAt === "string"
-        && ["port-operations/3.0", "port-operations/3.1", "port-operations/3.2"].includes(s.schema) && ["practice", "battle"].includes(s.mode)
+        && ["port-operations/3.0", "port-operations/3.1", "port-operations/3.2", "port-operations/3.3"].includes(s.schema) && ["practice", "battle"].includes(s.mode)
         && finite(s.second) && s.config && s.plan?.equipment && Array.isArray(s.plan.yards)
         && Array.isArray(s.vessels) && s.vessels.every((v: any) => typeof v?.id === "string" && finite(v.arrival) && finite(v.elapsedMinutes)
             && (v.departure === null || finite(v.departure)) && (v.turnaroundMinutes === null || finite(v.turnaroundMinutes)))

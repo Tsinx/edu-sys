@@ -1,0 +1,124 @@
+{
+  "verifiedAt": "2026-10-18T02:15:41.628Z",
+  "version": "release-economic-mathematics-continuity-derivative-2026-10-17",
+  "deckId": "deck-economic-mathematics-2026-continuity-derivative",
+  "coursePages": 701,
+  "lessons": [
+    {
+      "number": 6,
+      "mainPages": 60,
+      "optionalPages": 4,
+      "classHours": [
+        45,
+        45
+      ],
+      "individualActivities": 12,
+      "questions": 24,
+      "individualWorkMinutes": 24,
+      "feedbackMinutes": 12
+    },
+    {
+      "number": 7,
+      "mainPages": 60,
+      "optionalPages": 4,
+      "classHours": [
+        45,
+        45
+      ],
+      "individualActivities": 12,
+      "questions": 24,
+      "individualWorkMinutes": 24,
+      "feedbackMinutes": 12
+    }
+  ],
+  "archiveFilesVerified": 19,
+  "sourceFilesVerified": 20,
+  "pdfs": [
+    {
+      "lesson": 6,
+      "pages": 64,
+      "bookmarks": 1,
+      "sha256": "8104513a888a68393a8b307223199e24cbd4ffba0f5ed169653b84a1fa9eab07",
+      "bytes": 1500990
+    },
+    {
+      "lesson": 7,
+      "pages": 64,
+      "bookmarks": 1,
+      "sha256": "2a44757aa06ac48a095b9f3c58428f983e6684f7919bc40fac5cf0ae74b36b58",
+      "bytes": 1344543
+    }
+  ],
+  "routes": [
+    {
+      "lesson": 6,
+      "resource": "script",
+      "status": 200
+    },
+    {
+      "lesson": 6,
+      "resource": "worksheet",
+      "status": 200
+    },
+    {
+      "lesson": 6,
+      "resource": "viewer",
+      "status": 200
+    },
+    {
+      "lesson": 7,
+      "resource": "script",
+      "status": 200
+    },
+    {
+      "lesson": 7,
+      "resource": "worksheet",
+      "status": 200
+    },
+    {
+      "lesson": 7,
+      "resource": "viewer",
+      "status": 200
+    }
+  ],
+  "runtime": {
+    "economicSessionsBefore": 16,
+    "economicSessionsAfter": 16,
+    "changedHistoricalRuntimes": 0
+  },
+  "automatedChecks": {
+    "frontendFull": 242,
+    "frontendFinalTargeted": 23,
+    "api": 10,
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "diffCheck": "passed"
+  },
+  "pdfInspection": {
+    "pages": 128,
+    "contactSheets": 8,
+    "visualReview": "completed",
+    "canvas": [
+      1600,
+      1000
+    ],
+    "blankPages": 0,
+    "textBoundsFlags": 0,
+    "formulaOverflow": 0,
+    "katexErrors": 0,
+    "fonts": "embedded programs or verified Type3 glyph streams"
+  },
+  "chaoxing": {
+    "status": "pending",
+    "activitiesPrepared": 24,
+    "questionsPrepared": 48,
+    "createdThisRun": 0,
+    "reason": "Computer Use stopped for this turn because the current browser URL is not allowed. No platform mutations were attempted after the stop."
+  },
+  "manualAcceptance": {
+    "desktopEdge": "not completed: browser access stopped",
+    "narrowEdge": "not completed: browser access stopped",
+    "liveNarrationAudio": "not listened to in this run",
+    "classroomPacing": "requires trial teaching"
+  }
+}

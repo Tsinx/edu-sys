@@ -1,6 +1,7 @@
 import { registerActivityPlans } from "./activity-plan-routes.js";
 import { registerRankedPractice } from "./ranked-practice-routes.js";
 import { registerPortal } from "./portal-routes.js";
+import { registerDefense } from "./defense-routes.js";
 import { randomUUID } from "node:crypto";
 import { PortSubmissionRepository, registerPortSubmissions } from "./port-submissions.js";
 import { withSpeechVisemes } from "./study/visemes.js";
@@ -288,6 +289,8 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   });
   const assistantProvider =
     options.assistantProvider ?? new OpenAiCompatibleAssistantProvider();
+  registerDefense(app, { dataFile: options.dataFile, resolve: resolveActor, allowed: allowedCourseIds,
+    course: id => store.getCourse(id), provider: assistantProvider, admission: aiAdmission });
   const assistantOrchestrator = new ClassroomAssistantOrchestrator(
     assistantProvider, () => store.getAssistantPromptSettings()
   );

@@ -21,6 +21,8 @@ export interface PortFacilityState {
   gateLimit:number|null;
   waitingBoxSeconds:number;
   drainCommitted?:boolean;
+  /** Opening staffing changes only: inherited work finishes before these resources leave. */
+  staffHandover?:Record<'quay'|'truck'|'yard'|'gate',number[]>;
   closedRoads:{owner:number;keys:string[]}[];
   moves:{job:number;vehicle:number;empty:boolean;from:FacilityPoint;to:FacilityPoint;start:number;end:number;distance:number}[];
   /** Classroom incident only. Protection drains the committed transfer before maintenance. */
@@ -36,6 +38,20 @@ function craneClear(s:PortSession,id:number,target:number){const from=s.faciliti
 export function physicalResourceCapacities(s:PortSession) {
   const e=s.plan.equipment,d=e.dispatch;
   return {quay:Math.min(e.cranes,d.craneOperators,d.berthCranes[0]+d.berthCranes[1]),truck:Math.min(e.vehicles,d.drivers*(e.vehicle==='agv'?4:1),e.vehicle==='tractor'?16:e.facilities.filter(f=>f.kind==='charger').length*8),yard:Math.min(e.yardMachines,d.yardOperators),gate:Math.min(e.gates,d.gateClerks*(e.gateSystem==='smart'?2:1),e.facilities.filter(f=>f.kind==='gate').length*2)};
+}
+/** Preserve checkpoint work without assigning any new cargo to retiring resources. */
+export function preparePhysicalStaffHandover(s:PortSession){
+  const f=s.facilities!,c=physicalResourceCapacities(s);
+  const resources=(kind:'quay'|'yard'|'gate')=>[...new Set(s.jobs.filter(j=>j.kind===kind&&j.resource>=c[kind]).map(j=>j.resource))];
+  const handover={quay:resources('quay'),yard:resources('yard'),gate:resources('gate'),truck:f.vehicles.filter(v=>!v.external&&v.id>=c.truck&&(v.reservedBy!==null||v.loadedBox!==null)).map(v=>v.id)};
+  if(Object.values(handover).some(ids=>ids.length))f.staffHandover=handover;else delete f.staffHandover;
+}
+export function physicalHandoverPersonnel(s:PortSession){
+  const h=s.facilities?.staffHandover;if(!h)return 0;
+  const d=s.plan.equipment.dispatch,e=s.plan.equipment;
+  return h.quay.filter(id=>id>=d.craneOperators).length+h.yard.filter(id=>id>=d.yardOperators).length
+    +new Set(h.truck.map(id=>Math.floor(id/(e.vehicle==='agv'?4:1))).filter(id=>id>=d.drivers)).size
+    +new Set(h.gate.map(id=>Math.floor(id/(e.gateSystem==='smart'?2:1))).filter(id=>id>=d.gateClerks)).size;
 }
 const pointDistance=(a:FacilityPoint,b:FacilityPoint)=>Math.hypot(a.x-b.x,a.z-b.z);
 const berthOf=(s:PortSession,box:PortBox)=>s.calls[s.batches[box.batchId]!.callId]!.berth??0;
@@ -111,13 +127,18 @@ function freeShipSlot(s:PortSession,box:PortBox,resource:number):number|null{
 }
 /** Discrete handling with a physical carrier: no container can leave a ship or a stack by itself. */
 export function schedulePhysicalJobs(s:PortSession,options:Candidate[]){
+  // Release waiting traffic before another stack operation closes the same road.
+  // Keep historical command replays on their original dispatch rules.
+  if(s.schema==='port-operations/3.3')refreshPhysicalRates(s);
   const f=s.facilities!,c=physicalResourceCapacities(s),used=new Set(s.jobs.map(j=>j.boxId));
   const allBoxes=Object.values(s.boxes),shipTop=new Map<string,number>(),stacks=new Map<string,PortBox[]>(),progress=new Map<string,number>();
   for(const b of allBoxes){if(b.location.startsWith('ship:')&&b.shipSlot!==null&&b.shipSlot!==undefined){const key=`${b.location}:${b.shipSlot%32}`;shipTop.set(key,Math.max(shipTop.get(key)??-1,b.shipSlot));}if(b.location.startsWith('yard:')&&b.slot!==null&&b.slot!==undefined){const key=`${b.location}:${b.slot%21}`,stack=stacks.get(key)??[];stack.push(b);stacks.set(key,stack);}if(b.unloadedAt!==null||b.loadedAt!==null){const call=s.batches[b.batchId]!.callId;progress.set(call,(progress.get(call)??0)+1);}}
   const blockers=(box:PortBox)=>(stacks.get(`${box.location}:${box.slot!%21}`)??[]).filter(b=>b.slot!>box.slot!).sort((a,b)=>b.slot!-a.slot!);
   const rehandles:Candidate[]=[];
   for(const n of options.filter(n=>n.kind==='yard'&&n.box.location.startsWith('yard:'))){const top=blockers(n.box)[0];if(top&&!used.has(top.id)&&!options.some(o=>o.box.id===top.id))rehandles.push({box:top,kind:'yard',to:top.location,purpose:'relocate'});}
-  options=[...rehandles,...options];
+  // Retrieving an exposed box must precede another rehandle. Otherwise a blocker
+  // can alternate between two requested stacks forever without either retrieval.
+  options=s.schema==='port-operations/3.3'?[...options,...rehandles]:[...rehandles,...options];
   const craneOrder=Array.from({length:c.quay},(_,i)=>i).sort((a,b)=>{
     const berth=(i:number)=>i<s.plan.equipment.dispatch.berthCranes[0]?0:1;
     const count=(i:number)=>{const call=s.berths[berth(i)];return call?progress.get(call)??0:Infinity;};
@@ -145,7 +166,7 @@ export function schedulePhysicalJobs(s:PortSession,options:Candidate[]){
           if(pointDistance(f.vehicles[carrier]!.pose,physicalQuayPoint(s,resource,box))>.01||box.dock!==resource)continue;
         }
       }else if(kind==='truck'){
-        carrier=box.carrier??null;if(carrier===null||carrier!==resource||f.vehicles[carrier]!.reservedBy!==null||!f.vehicles[carrier]!.external&&carrier>=c.truck)continue;
+        carrier=box.carrier??null;if(carrier===null||carrier!==resource||f.vehicles[carrier]!.reservedBy!==null||!f.vehicles[carrier]!.external&&carrier>=c.truck&&!f.staffHandover?.truck.includes(carrier))continue;
         if(n.to.startsWith('handoff:')){yard=n.to.slice(8);if(f.bays[`yard:${yard}`]!==undefined)continue;}
         if(n.to==='gate:out'){const gates=Math.min(s.plan.equipment.gates,s.plan.equipment.facilities.filter(f=>f.kind==='gate').length*2);const lane=Array.from({length:gates},(_,i)=>i).find(i=>f.bays[`gate:${i}`]===undefined);if(lane===undefined)continue;box.gateLane=lane;f.bays[`gate:${lane}`]=carrier;}
         if(n.to.startsWith('loading:')){
@@ -200,6 +221,12 @@ export function schedulePhysicalJobs(s:PortSession,options:Candidate[]){
 
 export function refreshPhysicalRates(s:PortSession){
   const c=physicalResourceCapacities(s),f=s.facilities!;
+  const h=f.staffHandover;
+  if(h){
+    for(const kind of ['quay','yard','gate'] as const)h[kind]=h[kind].filter(resource=>s.jobs.some(j=>j.kind===kind&&j.resource===resource));
+    h.truck=h.truck.filter(id=>f.vehicles[id]!.reservedBy!==null||f.vehicles[id]!.loadedBox!==null);
+    if(!Object.values(h).some(ids=>ids.length))delete f.staffHandover;
+  }
   const retreat=f.yardIncident?.retreat;
   if(retreat&&s.second>=retreat.end){f.yardMachines[f.yardIncident!.failed]!.pose={...retreat.to};delete f.yardIncident!.retreat;}
   if(f.quayShift&&s.second>=f.quayShift.end){f.quayCranes.forEach((crane,i)=>crane.pose=f.quayShift!.to[i]!);delete f.quayShift;}
@@ -210,7 +237,7 @@ export function refreshPhysicalRates(s:PortSession){
     const moving=['empty','haul','machine'].includes(p.stage);
     const enabled=j.kind==='quay'?f.enabled.quay[berthOf(s,s.boxes[j.boxId]!)]&&s.calls[s.batches[s.boxes[j.boxId]!.batchId]!.callId]!.working:f.enabled[j.kind];
     const safeDrain=f.drainCommitted&&j.kind!=='gate';
-    const staffed=j.kind==='truck'?p.carrier!==null&&(f.vehicles[p.carrier]!.external||p.carrier<c.truck):j.resource<c[j.kind]&&(j.kind!=='quay'||j.resource!==s.failedCrane);
+    const staffed=j.kind==='truck'?p.carrier!==null&&(f.vehicles[p.carrier]!.external||p.carrier<c.truck||!!h?.truck.includes(p.carrier)):(j.resource<c[j.kind]||!!h?.[j.kind].includes(j.resource))&&(j.kind!=='quay'||j.resource!==s.failedCrane);
     if(p.stage==='traffic-wait'){if((p.parking||(enabled||safeDrain)&&staffed)&&p.route&&!roadClosed(s,p.route,j.id))move(s,j,p.route,p.nextStage!);if(p.stage==='traffic-wait'){j.rate=0;j.end=null;continue;}}
     if(p.stage==='service'&&j.kind==='quay')p.duration=Math.max(1,Math.ceil(serviceDuration(s,j)));
     j.rate=j.kind==='gate'&&j.to==='delivered'&&f.gateLimit===0?0:moving||p.parking||(enabled||safeDrain)&&staffed?1/p.duration:0;

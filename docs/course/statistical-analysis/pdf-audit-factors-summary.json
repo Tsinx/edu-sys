@@ -1,0 +1,94 @@
+{
+  "chapters": [
+    {
+      "chapter": 1,
+      "pages": 48,
+      "bytes": 24885775
+    },
+    {
+      "chapter": 2,
+      "pages": 52,
+      "bytes": 18186907
+    },
+    {
+      "chapter": 3,
+      "pages": 48,
+      "bytes": 12228775
+    },
+    {
+      "chapter": 4,
+      "pages": 50,
+      "bytes": 11523029
+    },
+    {
+      "chapter": 5,
+      "pages": 52,
+      "bytes": 8776293
+    },
+    {
+      "chapter": 6,
+      "pages": 48,
+      "bytes": 2472605
+    },
+    {
+      "chapter": 7,
+      "pages": 52,
+      "bytes": 5919675
+    },
+    {
+      "chapter": 8,
+      "pages": 48,
+      "bytes": 2095429
+    },
+    {
+      "chapter": 9,
+      "pages": 52,
+      "bytes": 2133814
+    }
+  ],
+  "totalPages": 450,
+  "bookmarks": 9,
+  "artifactsVerified": 11,
+  "zipEntries": 9,
+  "newLectureTextBoundsAlerts": 0,
+  "legacyFontMetricBoxAlerts": [
+    {
+      "chapter": 5,
+      "page": 4,
+      "word": "调节效应问的是“何时更强”",
+      "box": [
+        66.0,
+        -4.644134521484375,
+        621.0,
+        131.19000244140625
+      ]
+    }
+  ],
+  "legacyAlertVisualInspection": "Lecture 5 page 4 title is fully visible in the rendered PNG; the font-metric bounding rectangle extends above the page. No source change was made.",
+  "resource": {
+    "hardCpuPercent": 10,
+    "hardJobMemoryMiB": 1536,
+    "peakJobMemoryMiB": 928.4,
+    "exitCode": 0
+  },
+  "releaseId": "campus-20261016072343154",
+  "fingerprint": "54fc206c1f5394340c0f0c3c6ec2b5ae9f447351db8af66f24b752561abd181f",
+  "renderedSamples": 17,
+  "uiDownloads": [
+    {
+      "chapter": 8,
+      "pages": 48,
+      "sha256Verified": true
+    },
+    {
+      "chapter": 9,
+      "pages": 52,
+      "sha256Verified": true
+    }
+  ],
+  "uiScopesVerified": [
+    "chapter",
+    "course 450 pages",
+    "ZIP 9 chapter PDFs"
+  ]
+}

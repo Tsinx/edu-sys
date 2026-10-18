@@ -1,6 +1,6 @@
 import {newLocalPortId} from './local-port-id';
 import { useCallback, useEffect, useRef, useState } from "react";
-import { defaultPortConfig, defaultPortPlan, portStorageKey, portObservationAdvance, PORT_HORIZON, type PortCourseUnit, type PortCourseView, type PortCourseStep, type PortBox, type PortCommand, type PortConfig, type PortMode, type PortPlan, type PortResult, type PortView } from "@edu/port-simulation-core";
+import { defaultPortConfig, defaultPortPlan, portStorageKey, portObservationAdvance, PORT_HORIZON, PORT_OPERATIONS_SCHEMA, PORT_STANDARD_OPERATIONS_SCHEMA, type PortCourseUnit, type PortCourseView, type PortCourseStep, type PortBox, type PortCommand, type PortConfig, type PortMode, type PortPlan, type PortResult, type PortView } from "@edu/port-simulation-core";
 import type { LabStorage } from "./useTerminalTraining";
 import type { PortTutorialView } from "@edu/port-simulation-core";
 import type { PortSubmissionPackage } from "@edu/port-simulation-core";
@@ -42,9 +42,10 @@ type Message = {
 };
 function entryRules(e: { raw: string; rules?: PortView["schema"] }): PortView["schema"] {
     if(e.rules) return e.rules;
-    try { const schema=JSON.parse(e.raw).schema; if(schema==="port-operations/3.2")return schema; return ["port-operations/3.0","port-course/1.0"].includes(schema)?"port-operations/3.0":"port-operations/3.1"; } catch { return "port-operations/3.1"; }
+    try { const schema=JSON.parse(e.raw).schema; if(schema==="port-operations/3.2"||schema===PORT_OPERATIONS_SCHEMA)return schema; return ["port-operations/3.0","port-course/1.0"].includes(schema)?"port-operations/3.0":"port-operations/3.1"; } catch { return "port-operations/3.1"; }
 }
 export function usePortOperations(storage: LabStorage | null | undefined, scope: string, initialMode: PortMode, locked: boolean, initialConfig = defaultPortConfig(), course?: { unit: PortCourseUnit; demo: boolean; tutorial?: boolean }, enabled = true) {
+    const [initialSchema] = useState<PortView['schema']>(() => typeof window !== 'undefined' && new URLSearchParams(window.location?.search ?? '').get('model') === 'facilities' ? PORT_OPERATIONS_SCHEMA : PORT_STANDARD_OPERATIONS_SCHEMA);
     const observationKey = `edu-port-operations:observation:${scope}`;
     const [observationEnd, setObservationEndState] = useState<number | null>(() => {
         try {
@@ -65,11 +66,11 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
     speedRef.current = speed;
     const persist = useCallback(() => { if (original.current)
         return; try {
-        for (const rules of ["port-operations/3.0", "port-operations/3.1", "port-operations/3.2"] as const) {
+        for (const rules of ["port-operations/3.0", "port-operations/3.1", "port-operations/3.2", PORT_OPERATIONS_SCHEMA] as const) {
             const entries = book.current.entries.filter(e => entryRules(e) === rules);
             if (entries.length) storage?.setItem(portStorageKey(scope, modeRef.current, rules), JSON.stringify({ entries, active: entries.some(e=>e.id===book.current.active) ? book.current.active : "", final: entries.some(e=>e.id===book.current.final) ? book.current.final : null }));
         }
-        storage?.setItem(`edu-port-operations:active-rules:${scope}:${modeRef.current}`, latest.current?.schema ?? "port-operations/3.2");
+        storage?.setItem(`edu-port-operations:active-rules:${scope}:${modeRef.current}`, latest.current?.schema ?? PORT_OPERATIONS_SCHEMA);
         if (!locked)
             storage?.setItem(`edu-port-operations:selection:${scope}`, modeRef.current);
         const flush = storage?.flush?.();
@@ -83,7 +84,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
         original.current = null;
         const merged: History = { active: "", final: null, entries: [] };
         const preferred = storage?.getItem(`edu-port-operations:active-rules:${scope}:${mode}`);
-        for (const rules of ["port-operations/3.0", "port-operations/3.1", "port-operations/3.2"] as const) {
+        for (const rules of ["port-operations/3.0", "port-operations/3.1", "port-operations/3.2", PORT_OPERATIONS_SCHEMA] as const) {
             const raw = storage?.getItem(portStorageKey(scope, mode, rules));
             if (!raw) continue;
             try {
@@ -133,7 +134,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
                 await post({ type: "command", command: { kind: "pause" } });
         }).finally(() => { clockPending.current = false; });
     }, [post, course?.demo]);
-    const launch = useCallback(async (mode: PortMode, config: PortConfig, plan: PortPlan, raw?: string, id?: string, schema: PortView["schema"] = "port-operations/3.2") => {
+    const launch = useCallback(async (mode: PortMode, config: PortConfig, plan: PortPlan, raw?: string, id?: string, schema: PortView["schema"] = initialSchema) => {
         sealedRef.current = false; sealingRef.current = false; setSealed(false); setSealing(false);
         setBusy(true);
         setError("");
@@ -158,7 +159,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
         if (m.type === "error")
             setError(m.message ?? "载入失败");
         setBusy(false);
-    }, [post, course?.unit, course?.demo]);
+    }, [post, initialSchema, course?.unit, course?.demo]);
     useEffect(() => {
         if (!enabled) { setView(null); setTutorial(null); return; }
         const w = new Worker(new URL("./port-operations.worker.ts", import.meta.url), { type: "module" });
@@ -245,7 +246,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
             tick(); };
         document.addEventListener("visibilitychange", visibility);
         return () => { clearInterval(timer); document.removeEventListener("visibilitychange", visibility); persist(); w.terminate(); benchmark.current?.terminate(); worker.current = null; latest.current = null; clockPending.current = false; benchmarkConfig.current = ""; for (const [id, resolve] of pending.current) resolve({ id, type: "closed" }); pending.current.clear(); };
-    }, [scope, storage, initialMode, course?.unit, course?.demo, course?.tutorial, enabled]); // Identity and learning activities use isolated runtimes.
+    }, [scope, storage, initialMode, initialSchema, course?.unit, course?.demo, course?.tutorial, enabled]); // Identity and learning activities use isolated runtimes.
     const send = useCallback((command: PortCommand) => { tick(); return post({ type: "command", command }); }, [post, tick]);
     const seal = async (): Promise<PortSubmissionPackage> => {
         if (sealingRef.current) throw new Error("正在封存，请稍候。");
@@ -281,7 +282,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
         benchmarkConfig.current = "";
         await post({ type: "configure", mode, config, plan });
     };
-    const retry = async (newSeed = false, entry?: PortHistoryEntry) => {
+    const retry = async (newSeed = false, entry?: PortHistoryEntry, rules?: PortView['schema']) => {
         if (latest.current?.status === "running" || latest.current?.status === "paused")
             await send({ kind: "interrupt" });
         if (original.current) {
@@ -295,7 +296,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
                 return;
             }
         }
-        let schema: PortView["schema"] = latest.current?.schema ?? "port-operations/3.2";
+        let schema: PortView["schema"] = latest.current?.schema ?? initialSchema;
         let config = latest.current?.config ?? initialConfig, plan = latest.current?.plan ?? defaultPortPlan();
         try {
             const raw = entry?.raw ?? book.current.entries.find(e => e.id === active.current)?.raw;
@@ -312,7 +313,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
         }
         if (newSeed)
             config = { ...config, seed: crypto.getRandomValues(new Uint32Array(1))[0]! };
-        await launch(modeRef.current, config, plan, undefined, undefined, newSeed ? "port-operations/3.2" : schema);
+        await launch(modeRef.current, config, plan, undefined, undefined, rules ?? (newSeed || schema === "port-operations/3.2" ? initialSchema : schema));
     };
     const load = async (raw: string) => {
         try {
@@ -329,7 +330,7 @@ export function usePortOperations(storage: LabStorage | null | undefined, scope:
                 await launch(importedMode, initialConfig, defaultPortPlan(), raw);
                 return;
             }
-            if (!["port-operations/3.0", "port-operations/3.1", "port-operations/3.2"].includes(data.schema))
+            if (!["port-operations/3.0", "port-operations/3.1", "port-operations/3.2", PORT_OPERATIONS_SCHEMA].includes(data.schema))
                 throw new Error("这是旧版存档，请打开“8 小时基础实训”导入，旧成绩按原规则重放。");
             if (locked && data.mode !== initialMode)
                 throw new Error("导入场次与教师指定模式不一致。");

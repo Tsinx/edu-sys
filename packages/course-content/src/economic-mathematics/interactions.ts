@@ -176,10 +176,19 @@ export const ECONOMIC_MATHEMATICS_INTERACTIONS: Readonly<
 };
 
 export function getEconomicMathematicsInteractionDefinition(
-  slide: Pick<EconomicMathematicsSlideSpec, "interactionId" | "slideKey" | "steps" | "interactionDefaults" | "merchantLab" | "limitLab" | "historyFilm">
+  slide: Pick<EconomicMathematicsSlideSpec, "interactionId" | "slideKey" | "steps" | "interactionDefaults" | "merchantLab" | "limitLab" | "historyFilm" | "foundationLab">
 ): EconomicMathematicsInteractionDefinition | null {
-  if (!slide.interactionId && !slide.steps?.length && !slide.limitLab && !slide.historyFilm) return null;
-  const definition: EconomicMathematicsInteractionDefinition = slide.historyFilm ? {
+  if (!slide.interactionId && !slide.steps?.length && !slide.limitLab && !slide.historyFilm && !slide.foundationLab) return null;
+  const definition: EconomicMathematicsInteractionDefinition = slide.foundationLab ? {
+    id:'presentation', label:'本页数学实验',
+    ...({
+      angle:{defaults:{angle:.6},rules:{angle:numberRule(.05,.8,.05)}},
+      compounding:{defaults:{nominalRate:.12,compoundCount:'12'},rules:{nominalRate:numberRule(0,1,.01),compoundCount:{type:'enum',values:['1','2','4','12','365','10000']}}},
+      'continuity-repair':{defaults:{pointValue:3},rules:{pointValue:numberRule(0,4,.25)}},
+      bisection:{defaults:{bisectionSteps:0},rules:{bisectionSteps:numberRule(0,12,1,true)}},
+      'derivative-secant':{defaults:{increment:.5},rules:{increment:numberRule(-1,1,.05)}}
+    } satisfies Record<NonNullable<EconomicMathematicsSlideSpec['foundationLab']>,Pick<EconomicMathematicsInteractionDefinition,'defaults'|'rules'>>)[slide.foundationLab]
+  } : slide.historyFilm ? {
     id: 'presentation', label: '微积分历史短片',
     defaults: { filmTime: 0, filmPlaying: false, filmVolume: 100, filmMuted: false },
     rules: { filmTime: numberRule(0,180,1,true), filmPlaying: {type:'boolean'}, filmVolume: numberRule(0,100,1,true), filmMuted: {type:'boolean'} }

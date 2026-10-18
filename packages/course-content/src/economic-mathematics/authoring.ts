@@ -2,6 +2,7 @@ import type { EconomicMathematicsAuthoredSlide as Slide, EconomicMathematicsLess
 import { ECONOMIC_MATHEMATICS_UNITS } from "./curriculum.js";
 import { merchantReadout } from './merchant-model.js';
 import { limitLabReadout } from './limits-model.js';
+import { foundationReadout } from './foundations-model.js';
 
 /** Supplies identities and metadata only. All teaching copy and page choices are authored explicitly. */
 export function authoredLesson(number: number, title: string, coreQuestion: string, prerequisites: readonly string[], outcomes: readonly string[], route: NonNullable<Lesson["route"]>, pages: readonly Partial<Slide>[]): Lesson {
@@ -25,5 +26,5 @@ export function getEconomicMathematicsPresentationStep(slide: Pick<Slide,"steps"
 
 export function economicVisibleCopy(slide: Slide, values?: Readonly<Record<string,number|string|boolean>>): string {
   const count=getEconomicMathematicsPresentationStep(slide,values);
-  return [slide.title,slide.lead,...(slide.body??[]),slide.formula,slide.prompt,...(slide.table?.columns??[]),...(slide.table?.rows.flat()??[]),...(slide.steps??[]).slice(0,count).flatMap(s=>[s.title,s.text,s.formula]),...(slide.merchantLab ? merchantReadout(values ?? {}).map(([k,v])=>`${k}：${v}`) : []),...(slide.limitLab ? limitLabReadout(slide.limitLab,values ?? {}).map(([k,v])=>`${k}：${v}`) : [])].filter(Boolean).join("\n");
+  return [slide.title,slide.lead,...(slide.body??[]),slide.formula,slide.prompt,...(slide.table?.columns??[]),...(slide.table?.rows.flat()??[]),...(slide.steps??[]).slice(0,count).flatMap(s=>[s.title,s.text,s.formula]),...(slide.merchantLab ? merchantReadout(values ?? {}).map(([k,v])=>`${k}：${v}`) : []),...(slide.limitLab ? limitLabReadout(slide.limitLab,values ?? {}).map(([k,v])=>`${k}：${v}`) : []),...(slide.foundationLab ? foundationReadout(slide.foundationLab,values ?? {}).map(([k,v])=>`${k}：${v}`) : [])].filter(Boolean).join("\n");
 }

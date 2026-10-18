@@ -9,6 +9,7 @@
     "./economic-mathematics": "./src/economic-mathematics/index.ts",
     "./international-mathematics": "./src/international-mathematics/index.ts",
     "./statistical-analysis": "./src/statistical-analysis/index.ts",
+    "./statistical-analysis/teacher-scripts": "./src/statistical-analysis/causal-teacher-scripts.ts",
     "./management-principles": "./src/management-principles/index.ts",
     "./management-principles/source-map": "./src/management-principles/source-map.ts"
   },

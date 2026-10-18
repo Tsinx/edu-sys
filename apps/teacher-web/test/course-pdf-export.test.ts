@@ -29,7 +29,7 @@ test('chapter, merged course, and chapter ZIP select distinct files with correct
   const files = validatedPdfFiles(manifest(deck), deck, 'test-release');
   assert.equal(pdfSelection(files, 'chapter', 6).pages, 48);
   assert.match(pdfSelection(files, 'chapter', 6).file.url, /chapter-6\.pdf$/);
-  assert.equal(pdfSelection(files, 'course', 6).pages, 350);
+  assert.equal(pdfSelection(files, 'course', 6).pages, deck.slideTotal);
   assert.match(pdfSelection(files, 'course', 6).file.url, /course\.pdf$/);
   assert.match(pdfSelection(files, 'chapters', 6).filename, /\.zip$/);
   assert.throws(() => pdfSelection(files, 'chapter', 999));

@@ -53,3 +53,17 @@ test('lesson12 records actual gate suspension and loaded safe movements without 
   assert.ok(rows.filter(r => r.resource.kind === 'quay').some(r => r.states.service > 0));
   assert.ok(stats.resources.filter(r => r.resource.kind === 'vehicle').some(r => r.intervals.some(i => i.state === 'loaded')));
 });
+
+test('opening handover keeps a loaded retiring vehicle staffed until the actual handover ends', () => {
+  let run = create(11, 'trial');
+  run = act(run, { kind: 'configure-dispatch', value: { ...run.terminal.setup.dispatch, drivers: 1 } });
+  assert.ok(run.simulation!.facilities!.staffHandover?.truck.includes(1));
+  run = act(run, { kind: 'tick', seconds: 1 });
+  const first = run.simulation!.resourceStatistics!.resources.find(r => r.resource.id === 'vehicle-1')!.intervals[0]!;
+  assert.equal(first.state, 'wait-handoff');
+  assert.equal(first.occupied, true);
+  run = act(run, { kind: 'advance', minutes: 30 });
+  const intervals = run.simulation!.resourceStatistics!.resources.find(r => r.resource.id === 'vehicle-1')!.intervals;
+  assert.ok(intervals.every(i => i.state !== 'unstaffed' || !i.occupied));
+  assert.equal(intervals.at(-1)!.state, 'unstaffed');
+});

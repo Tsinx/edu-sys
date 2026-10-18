@@ -3,8 +3,10 @@ import { createNormalTrainingSetup, type TerminalTrainingMode } from "./terminal
 import { terminalBudget, validateTerminalSetup, type TerminalSetup } from "./terminal-lab.js";
 import type { PortNavigation } from "./port-navigation.js";
 import type { PortFacilityState, PhysicalJob } from './port-facilities.js';
-export const PORT_OPERATIONS_SCHEMA = "port-operations/3.2";
-export type PortOperationsSchema = typeof PORT_OPERATIONS_SCHEMA | "port-operations/3.0" | "port-operations/3.1";
+export const PORT_OPERATIONS_SCHEMA = "port-operations/3.3";
+/** The original 48-hour exercise and its calibrated deadlines use this model. */
+export const PORT_STANDARD_OPERATIONS_SCHEMA = "port-operations/3.1";
+export type PortOperationsSchema = typeof PORT_OPERATIONS_SCHEMA | "port-operations/3.0" | "port-operations/3.1" | "port-operations/3.2";
 export const PORT_ARRIVAL_GENERATOR = "port-arrivals/1.0";
 export const PORT_SHIFT_SECONDS = 8 * 3600;
 export const PORT_HORIZON = 48 * 3600;

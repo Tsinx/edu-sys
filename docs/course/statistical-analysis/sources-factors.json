@@ -1,0 +1,29 @@
+{
+  "reviewed": "2026-10-16",
+  "dataBoundary": "Original six-item simulation: 221 complete records from lecture 6. Independent ordinal confirmation sample: 400 newly simulated rows. Added S1-S3 items are a nine-item SEM extension. No real survey or validated instrument is claimed.",
+  "sources": [
+    {"id":"psych-fa","title":"Revelle, psych: Exploratory Factor analysis using MinRes","url":"https://search.r-project.org/CRAN/refmans/psych/html/fa.html","use":"Lecture 8: common/unique variance, MINRES, rotations, pattern/structure matrices, factor-score uncertainty; computed outputs use pinned package versions."},
+    {"id":"psych-parallel","title":"Revelle, psych: Parallel Analysis Scree Plots","url":"https://search.r-project.org/CRAN/refmans/psych/html/fa.parallel.html","use":"Lecture 8: common-factor versus component retention and random-reference reasoning. Actual example uses an explicitly documented ordinal-permutation, SMC-diagonal implementation, not an undocumented default fa.parallel result."},
+    {"id":"psych-kmo","title":"psych: Kaiser-Meyer-Olkin Measure of Sampling Adequacy","url":"https://search.r-project.org/CRAN/refmans/psych/html/KMO.html","use":"Lecture 8: Pearson KMO/MSA diagnostic; not a model-fit, validity or factor-count test."},
+    {"id":"maccallum1999","title":"MacCallum, Widaman, Zhang, Hong (1999), Sample size in factor analysis","doi":"10.1037/1082-989X.4.1.84","url":"https://www.researchgate.net/profile/Keith-Widaman/publication/254733888_Sample_Size_in_Factor_Analysis/links/548b85ae0cf214269f1dd66f/Sample-Size-in-Factor-Analysis.pdf","use":"Author-hosted research paper: sample planning depends on communalities and factor overdetermination, not a universal subject-to-item ratio."},
+    {"id":"lavaan-efa","title":"lavaan official tutorial: ESEM and EFA","url":"https://www.lavaan.ugent.be/tutorial/efa.html","use":"Lecture 8: exploratory structure versus a priori confirmatory structure; measurement and structural parts."},
+    {"id":"lavaan-cfa","title":"lavaan official tutorial: A CFA example","url":"https://lavaan.ugent.be/tutorial/cfa.html","use":"Lecture 9: specified measurement restrictions, factor scaling, output interpretation. No Holzinger-Swineford empirical results are relabeled as service data."},
+    {"id":"lavaan-categorical","title":"lavaan official tutorial: Categorical data","url":"https://lavaan.ugent.be/tutorial/cat.html","use":"Lecture 9: ordered response thresholds, DWLS estimation with WLSMV corrections, incompatibility of this route with continuous-ML FIML."},
+    {"id":"lavaan-estimators","title":"lavaan official tutorial: Estimators and more","url":"https://www.lavaan.ugent.be/tutorial/est.html","use":"Lecture 9: estimator/SE/test-statistic distinctions, missing-data conditions, avoid ordinary subtraction of scaled chi-square values."},
+    {"id":"lavaan-modification","title":"lavaan official tutorial: Modification indices","url":"https://www.lavaan.ugent.be/tutorial/modindices.html","use":"Lecture 9: MI and EPC diagnostic meaning; no model is automatically modified in this example."},
+    {"id":"lavaan-mediation","title":"lavaan official tutorial: Mediation","url":"https://www.lavaan.ugent.be/tutorial/mediation.html","use":"Lecture 9: labeled path products, totals and delta-method uncertainty. Actual coefficients and intervals are reproduced from the archived simulation."},
+    {"id":"lavaan-groups","title":"lavaan official tutorial: Multiple groups","url":"https://lavaan.ugent.be/tutorial/groups.html","use":"Lecture 9: conceptual introduction to measurement comparability; no empirical group-invariance analysis is claimed."},
+    {"id":"wu-estabrook2016","title":"Wu and Estabrook (2016), Identification of CFA models for ordered categorical outcomes","doi":"10.1007/s11336-016-9506-0","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC5458787/","use":"Lecture 9: ordered-response thresholds, identification, and parameterization-dependent invariance constraints."},
+    {"id":"maxwell-cole2007","title":"Maxwell and Cole (2007), Bias in cross-sectional analyses of longitudinal mediation","doi":"10.1037/1082-989X.12.1.23","url":"https://pubmed.ncbi.nlm.nih.gov/17402810/","use":"Lecture 9: cross-sectional path products do not establish temporal mediation or causal identification."},
+    {"id":"itc-adaptation","title":"International Test Commission, Guidelines for Translating and Adapting Tests, second edition","url":"https://www.intestcom.org/files/guideline_test_adaptation_2ed.pdf","use":"Lectures 8-9: adoption, adaptation, permissions, understanding and equivalence evidence. No copyrighted scale items are reproduced."},
+    {"id":"testing-standards","title":"AERA, APA, NCME: Standards for Educational and Psychological Testing","url":"https://www.testingstandards.net/","use":"Lecture 9: evidence for intended score interpretations and uses; internal structure is one part of the validity argument."},
+    {"id":"ets-validity","title":"Messick (1993), Foundations of Validity: Meaning and Consequences in Psychological Assessment","url":"https://www.ets.org/research/policy_research_reports/publications/report/1993/hxne.html","use":"Lecture 9: construct interpretation, content and use boundaries; no fit threshold is treated as a validity certificate."}
+  ],
+  "implementation": {
+    "script": "scripts/build-statistical-analysis-factors.R",
+    "inputs": "packages/course-content/src/statistical-analysis/measurement-data.json",
+    "archive": "docs/course/statistical-analysis/data/factor-confirmation.csv",
+    "results": "packages/course-content/src/statistical-analysis/factor-data.json",
+    "session": "docs/course/statistical-analysis/data/factor-session-info.txt"
+  }
+}

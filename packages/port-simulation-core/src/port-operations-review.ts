@@ -68,7 +68,7 @@ export function calibratedPortPlan(physical = false) {
     return cleanPortPlan(plan);
 }
 export function runPortReference(config: PortConfig, stepSeconds = 120, schema: PortSession["schema"] = PORT_OPERATIONS_SCHEMA, referenceVersion: 1 | 2 = 1) {
-    const s = createPortSession("battle", config, referenceVersion === 2 ? calibratedPortPlan(schema === 'port-operations/3.2') : defaultPortPlan(), schema);
+    const s = createPortSession("battle", config, referenceVersion === 2 ? calibratedPortPlan(schema === 'port-operations/3.2' || schema === 'port-operations/3.3') : defaultPortPlan(), schema);
     s.referenceVersion = referenceVersion;
     applyPortCommand(s, { kind: "start" });
     while (s.second < PORT_HORIZON) {
@@ -157,7 +157,7 @@ export function restorePortSession(raw: string, suspend = false): PortSession {
     if (raw.length > 20000000)
         throw new Error("复盘文件过大。");
     const data = JSON.parse(raw);
-    if (![PORT_OPERATIONS_SCHEMA, "port-operations/3.1", "port-operations/3.0"].includes(data?.schema) || data.generator !== PORT_ARRIVAL_GENERATOR || !["practice", "battle"].includes(data.mode) || !Array.isArray(data.commands) || data.commands.length > 50000)
+    if (![PORT_OPERATIONS_SCHEMA, "port-operations/3.2", "port-operations/3.1", "port-operations/3.0"].includes(data?.schema) || data.generator !== PORT_ARRIVAL_GENERATOR || !["practice", "battle"].includes(data.mode) || !Array.isArray(data.commands) || data.commands.length > 50000)
         throw new Error("港口综合实训复盘版本或指令记录无效。");
     if (data.schema !== "port-operations/3.0" && data.navigationVersion !== PORT_NAVIGATION_VERSION) throw new Error("航行规则版本无效。");
     const s = createPortSession(data.mode, cleanPortConfig(data.config), cleanPortPlan(data.initialPlan), data.schema);
