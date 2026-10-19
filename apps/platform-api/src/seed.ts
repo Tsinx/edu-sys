@@ -49,7 +49,7 @@ export interface ClassroomRuntimeState {
   globePlayback: GlobePlayback;
   teacherDemo?: TeacherDemo | null;
   lessonFivePresentation?: {slideKey:string;progress:number;revealed:boolean} | null;
-  portExpansionPresentation?: {slideKey:string;progress:number;option:number;revealed:boolean;cinematic?:{clipId:'l11-opening-v2'|'l12-opening-v2';status:'paused'|'playing';elapsedMs:number;startedAt:number|null}}|null;
+  portExpansionPresentation?: {slideKey:string;progress:number;option:number;revealed:boolean;cinematic?:{clipId:'l11-opening-v2'|'l12-opening-v2'|'l13-customs'|'l14-national'|'l14-guoyuan'|'l14-repair';status:'paused'|'playing';elapsedMs:number;startedAt:number|null}}|null;
   lessonSixPresentation?: {slideKey:string;progress:number;revealed:boolean;option:number;camera?:{latitude:number;longitude:number;distance:number};cinematic?:{clipId:string;status:'paused'|'playing';elapsedMs:number;startedAt:number|null;runId:string}} | null;
   lessonFiveExperiment?: {runId:string;plan:"A"|"B"|"C"|"D"|"E";summary:string} | null;
   lessonFourPresentation?: {slideKey:string;progress:number} | null;

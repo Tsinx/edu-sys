@@ -75,7 +75,9 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
       [9, 390, 437],
       [10, 438, 485],
       [11, 486, 517],
-      [12, 518, 549]
+      [12, 518, 549],
+      [13, 550, 581],
+      [14, 582, 621]
     ]
   );
   for (const lesson of readyLessons) {
@@ -89,7 +91,7 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
   const plannedLessons = PORT_MANAGEMENT_LESSONS.filter(
     (lesson) => lesson.status === "planned"
   );
-  assert.equal(plannedLessons.length, 4);
+  assert.equal(plannedLessons.length, 2);
   for (const lesson of plannedLessons) {
     assert.equal(lesson.title, null);
     assert.equal(lesson.slideStart, null);
@@ -97,14 +99,14 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
     assert.equal(lesson.assistantBrief, null);
   }
 
-  assert.equal(PORT_MANAGEMENT_SLIDES.length, 549);
+  assert.equal(PORT_MANAGEMENT_SLIDES.length, 621);
   assert.deepEqual(
     PORT_MANAGEMENT_SLIDES.map((slide) => slide.index),
-    Array.from({ length: 549 }, (_, index) => index + 1)
+    Array.from({ length: 621 }, (_, index) => index + 1)
   );
   assert.equal(
     new Set(PORT_MANAGEMENT_SLIDES.map((slide) => slide.slideKey)).size,
-    549
+    621
   );
   assert.equal(PORT_MANAGEMENT_DECK_VERSION, "release-port-management-facilities-v20");
 });
@@ -139,7 +141,7 @@ test("lesson-local page numbers map cleanly onto the internal global index", () 
   assert.equal(getPortManagementGlobalSlideIndex(2, 53), null);
   assert.equal(getPortManagementGlobalSlideIndex(2, 1.5), null);
   assert.equal(getPortManagementLessonSlidePosition(0), null);
-  assert.equal(getPortManagementLessonSlidePosition(582), null);
+  assert.equal(getPortManagementLessonSlidePosition(622), null);
   assert.equal(getPortManagementGlobalSlideIndex(6,48),293);
 });
 
@@ -160,7 +162,7 @@ test("every slide carries complete narrative and source metadata", () => {
     assert.ok(evidenceStates.has(slide.narrative.evidence));
     assert.ok(storyBeats.has(slide.narrative.storyBeat));
     assert.ok(slide.narrative.progress >= 1);
-    assert.ok(slide.narrative.progress <= 549);
+    assert.ok(slide.narrative.progress <= 621);
     for (const sourceId of slide.sourceIds ?? []) {
       assert.ok(
         PORT_MANAGEMENT_SOURCES[sourceId],
@@ -311,6 +313,9 @@ test("assistant context stays bounded, page-specific and free of authoring notes
       assert.match(context.voyagePrompt, /第一讲历史主线/);
       assert.match(context.voyagePrompt, /现代巨轮从本讲第40页/);
       assert.doesNotMatch(context.voyagePrompt, /教学货物/);
+    } else if(slide.lesson===13||slide.lesson===14) {
+      assert.match(context.voyagePrompt,/澄江机电/);
+      assert.doesNotMatch(context.voyagePrompt,/OOCL Spain|LL3/);
     } else if(slide.lesson===11||slide.lesson===12) {
       assert.match(context.voyagePrompt,/独立绩效记录/);
     } else if(slide.lesson===9||slide.lesson===10) {

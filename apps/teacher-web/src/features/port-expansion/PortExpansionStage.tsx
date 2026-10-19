@@ -6,8 +6,9 @@ import {PageToolsContribution} from '../classroom/PageTools';
 import { Pause, Play } from 'lucide-react';
 import {PortExpansionComposition} from './PortExpansionComposition';
 import {PortElevenOpening} from './PortElevenOpening';
+import {PortTradeFilm} from './PortTradeFilm';
 export const PortExpansionControls=createContext<{scope:string;initial?:(ExpansionPresentation&{slideKey:string})|null;onChange?:(key:string,state:ExpansionPresentation)=>void}>({scope:'reading'});
-export function PortExpansionStage(props:{page:PortExpansionPage;readOnly?:boolean;state?:ExpansionPresentation}){const host=useContext(PortExpansionControls);const key=`${host.scope}:${props.page.slideKey}:${!!props.readOnly}`;return !!portOpeningFilm(props.page.slideKey)?<PortElevenOpening key={key} page={props.page} readOnly={props.readOnly??true} controlled={props.state} initial={host.initial?.slideKey===props.page.slideKey?host.initial:undefined} scope={host.scope} onChange={host.onChange}/>:<Playback key={key} {...props}/>;}
+export function PortExpansionStage(props:{page:PortExpansionPage;readOnly?:boolean;state?:ExpansionPresentation}){const host=useContext(PortExpansionControls);const key=`${host.scope}:${props.page.slideKey}:${!!props.readOnly}`;return props.page.mediaId?<PortTradeFilm key={key} page={props.page} readOnly={props.readOnly??true} controlled={props.state} initial={host.initial?.slideKey===props.page.slideKey?host.initial:undefined} scope={host.scope} onChange={host.onChange}/>:!!portOpeningFilm(props.page.slideKey)?<PortElevenOpening key={key} page={props.page} readOnly={props.readOnly??true} controlled={props.state} initial={host.initial?.slideKey===props.page.slideKey?host.initial:undefined} scope={host.scope} onChange={host.onChange}/>:<Playback key={key} {...props}/>;}
 function Playback({page,readOnly=true,state:controlled}:{page:PortExpansionPage;readOnly?:boolean;state?:ExpansionPresentation}){
  const host=useContext(PortExpansionControls),key=`port-expansion:${host.scope}:${page.slideKey}`;
  const [state,setState]=useState<ExpansionPresentation>(()=>{
