@@ -32,7 +32,7 @@ import {
   getCourseDeckByCourseId,
   getCoursePresentation,
 } from "@edu/course-content/deck-registry";
-import { PORT_COURSE_UNITS } from "@edu/port-simulation-core";
+import { PORT_SUBMISSION_UNITS } from "@edu/port-simulation-core";
 import { api, request } from "../api";
 import { isLocalDevelopment } from "../campus/local-identity";
 import { runtimeConfig } from "../campus/runtime";
@@ -836,7 +836,7 @@ export function TaskWorkspace({ embedded = false }: { embedded?: boolean }) {
       </header>
       <ErrorText text={error} />
       <div className="workspace-grid">
-        {PORT_COURSE_UNITS.map((u) => {
+        {PORT_SUBMISSION_UNITS.map((u) => {
           const task = data?.tasks.find((t) => t.unit === u.id),
             row = results?.rows[0],
             result = row?.results.find((s) => s.unit === u.id),
@@ -868,10 +868,10 @@ export function TaskWorkspace({ embedded = false }: { embedded?: boolean }) {
                       >
                         {task ? "重新发布任务" : "发布任务"}
                       </button>
-                      <Link to={`/simulations?course=${u.id}`}>教师演示</Link>
+                      <Link reloadDocument={u.href.startsWith("/port-class-lab.html")} to={u.href}>教师演示</Link>
                     </>
                   ) : (
-                    <Link to={`/simulations?course=${u.id}`}>
+                    <Link reloadDocument={u.href.startsWith("/port-class-lab.html")} to={u.href}>
                       {task ? "进入实验任务" : "自由练习"}
                     </Link>
                   )}
@@ -929,7 +929,7 @@ export function SubmissionHistory() {
         <article className="workspace-row" key={s.id}>
           <div>
             <strong>
-              {PORT_COURSE_UNITS.find((u) => u.id === s.unit)?.title} ·{" "}
+              {PORT_SUBMISSION_UNITS.find((u) => u.id === s.unit)?.title} ·{" "}
               {submissionStatus[s.status]}
             </strong>
             <p>

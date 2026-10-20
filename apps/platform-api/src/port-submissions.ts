@@ -3,17 +3,17 @@ import { Worker } from "node:worker_threads";
 import { z } from "zod";
 import type { FastifyInstance, FastifyRequest } from "fastify";
 import type { ClassroomActor } from "@edu/contracts";
-import { PORT_SUBMISSION_SCHEMA, PORT_VERIFIER_VERSION, portCourseScoreFromEvidence, type PortSubmissionPackage, type PortSubmissionResult, type verifyPortSubmission } from "@edu/port-simulation-core";
+import { PORT_SUBMISSION_SCHEMA, PORT_CLASS_SUBMISSION_SCHEMA, PORT_SUBMISSION_UNITS, PORT_VERIFIER_VERSION, isPortClassSubmissionUnit, portCourseScoreFromEvidence, type AnyPortSubmissionPackage, type PortSubmissionResult, type verifyPortExperimentSubmission } from "@edu/port-simulation-core";
 import { campusError, openDatabase, transaction } from "./campus/database.js";
 
-const unit = z.enum(["arrival", "cargo", "yard", "planning", "departure", "full"]);
+const unit = z.enum(["arrival", "cargo", "yard", "planning", "departure", "full", "performance", "emergency-system", "emergency-equipment"]);
 const inputSchema = z.object({ requestId: z.string().uuid(), courseId: z.literal("course-port-management-intro"), classSessionId: z.string().max(200).optional(), expectedRevision: z.number().int().min(0),
-  package: z.object({ schema: z.enum([PORT_SUBMISSION_SCHEMA, "port-experiment-submission/1"]), unit, ended: z.enum(["student", "completed"]), record: z.string().max(20_000_000), expected: z.object({ stateHash: z.string().regex(/^[0-9a-f]{64}$/), score: z.number().finite().min(0).max(100) }).strict() }).strict() }).strict();
+  package: z.object({ schema: z.enum([PORT_SUBMISSION_SCHEMA, "port-experiment-submission/1", PORT_CLASS_SUBMISSION_SCHEMA]), unit, ended: z.enum(["student", "completed"]), record: z.string().max(20_000_000), expected: z.object({ stateHash: z.string().regex(/^[0-9a-f]{64}$/), score: z.number().finite().min(0).max(100) }).strict() }).strict() }).strict();
 type SubmissionInput = z.infer<typeof inputSchema>;
-type Verified = Awaited<ReturnType<typeof verifyPortSubmission>>;
+type Verified = Awaited<ReturnType<typeof verifyPortExperimentSubmission>>;
 type Row = { id: string; actor_id: string; display_name: string; course_id: string; class_session_id: string | null; unit: string; status: string; expected_revision: number; revision: number; created_at: string; updated_at: string; error: string | null; package: string; verified: string | null; result: string | null; digest: string };
 const summaryColumns = "id,actor_id,display_name,course_id,class_session_id,unit,status,expected_revision,revision,created_at,updated_at,error,result";
-export function submissionWorker(pkg: PortSubmissionPackage, timeout = 180000): { promise: Promise<Verified>; cancel: () => Promise<number> } {
+export function submissionWorker(pkg: AnyPortSubmissionPackage, timeout = 180000): { promise: Promise<Verified>; cancel: () => Promise<number> } {
   const source = import.meta.url.endsWith(".ts");
   const target = new URL(source ? "./port-submission-worker.ts" : "./port-submission-worker.mjs", import.meta.url);
   const entry = source ? new URL(`data:text/javascript,${encodeURIComponent(`const {register}=await import(${JSON.stringify(import.meta.resolve("tsx/esm/api"))}); register(); await import(${JSON.stringify(target.href)});`)}`) : target;
@@ -57,7 +57,7 @@ export class PortSubmissionRepository {
       // Saved server evidence is authoritative; never use client-attached scores.
       const rows = this.db.prepare("SELECT * FROM port_submissions WHERE status='verified'").all() as Row[];
       for (const row of rows) {
-        if (row.unit === "full" || !row.verified) continue;
+        if (row.unit === "full" || isPortClassSubmissionUnit(row.unit) || !row.verified) continue;
         const verified = JSON.parse(row.verified) as Verified;
         const deductions = verified.nodes.filter(n => n.source === "student").reduce((sum, n) => sum + n.result.deduction, 0);
         const courseScore = portCourseScoreFromEvidence(verified.result.goals, deductions);
@@ -204,8 +204,8 @@ export function registerPortSubmissions(app: FastifyInstance, repository: PortSu
     const teacher = actor.roles.includes("teacher"), data = repository.results(course, teacher ? undefined : actor.actorId);
     const roster = new Map((teacher ? options.roster(course) : [{ actorId: actor.actorId, displayName: actor.displayName, identifier: "" }]).map(r => [r.actorId, r]));
     for (const r of [...data.results, ...data.pending]) if (!roster.has(r.actorId)) roster.set(r.actorId, { actorId: r.actorId, displayName: r.displayName, identifier: "" });
-    const q=z.object({page:z.coerce.number().int().min(1).optional(),search:z.string().max(100).default(''),unit:z.enum(['all','arrival','cargo','yard','planning','departure','full']).default('all'),status:z.enum(['all','missing','verified','pending','rejected']).default('all'),export:z.enum(['true']).optional()}).parse(request.query);
-    const units=q.unit==='all'?['arrival','cargo','yard','planning','departure','full']:[q.unit];
+    const q=z.object({page:z.coerce.number().int().min(1).optional(),search:z.string().max(100).default(''),unit:z.enum(['all','arrival','cargo','yard','planning','departure','full','performance','emergency-system','emergency-equipment']).default('all'),status:z.enum(['all','missing','verified','pending','rejected']).default('all'),export:z.enum(['true']).optional()}).parse(request.query);
+    const units=q.unit==='all'?PORT_SUBMISSION_UNITS.map(u=>u.id):[q.unit];
     const rows=[...roster.values()].map(r=>({...r,results:data.results.filter(s=>s.actorId===r.actorId),pending:data.pending.filter(s=>s.actorId===r.actorId)}))
       .filter(r=>`${r.displayName} ${r.identifier}`.toLowerCase().includes(q.search.toLowerCase()))
       .filter(r=>q.status==='all'||units.some(u=>{const result=r.results.find(s=>s.unit===u),pending=r.pending.find(s=>s.unit===u);return q.status==='missing'?!result&&!pending:q.status==='verified'?!!result:q.status==='pending'?!!pending&&pending.status!=='rejected':pending?.status==='rejected';}))

@@ -1,12 +1,12 @@
-import type { PortCourseSelection, PortSubmissionPackage, PortSubmissionResult, PortEvidenceNode } from "@edu/port-simulation-core";
+import type { PortSubmissionUnit, AnyPortSubmissionPackage, PortSubmissionResult, PortEvidenceNode } from "@edu/port-simulation-core";
 export const PORT_RESULT_COURSE = "course-port-management-intro";
 export interface SubmissionContext { actorId: string; courseId: string; classSessionId?: string }
-export interface SubmissionSummary { courseId: string; classSessionId: string | null; id: string; actorId: string; displayName: string; unit: PortCourseSelection; status: "queued" | "verifying" | "verified" | "rejected"; revision: number; createdAt: string; updatedAt: string; error: string | null; result: PortSubmissionResult | null }
-export interface SubmissionInput { requestId: string; courseId: string; classSessionId?: string; expectedRevision: number; package: PortSubmissionPackage }
+export interface SubmissionSummary { courseId: string; classSessionId: string | null; id: string; actorId: string; displayName: string; unit: PortSubmissionUnit; status: "queued" | "verifying" | "verified" | "rejected"; revision: number; createdAt: string; updatedAt: string; error: string | null; result: PortSubmissionResult | null }
+export interface SubmissionInput { requestId: string; courseId: string; classSessionId?: string; expectedRevision: number; package: AnyPortSubmissionPackage }
 export interface ResultRow { actorId: string; identifier: string; displayName: string; results: SubmissionSummary[]; pending: SubmissionSummary[] }
 export interface ResultsResponse { total?: number; page?: number; teacher: boolean; rows: ResultRow[] }
-export interface TasksResponse { teacher: boolean; tasks: Array<{ unit: PortCourseSelection; publishedAt: string }> }
-export interface ReplayResponse { package: PortSubmissionPackage; result: PortSubmissionResult; nodes: PortEvidenceNode[]; report: unknown }
+export interface TasksResponse { teacher: boolean; tasks: Array<{ unit: PortSubmissionUnit; publishedAt: string }> }
+export interface ReplayResponse { package: AnyPortSubmissionPackage; result: PortSubmissionResult; nodes: PortEvidenceNode[]; report: unknown }
 export const submissionStatus = { queued: "等待核验", verifying: "核验中", verified: "提交成功", rejected: "核验失败" };
 export async function resultRequest<T>(path: string, data?: unknown): Promise<T> {
   const response = await fetch(`/api/port-operations/${path}`, { method: data ? "POST" : "GET", credentials: "same-origin", cache: "no-store", signal: AbortSignal.timeout(30000), headers: data ? { "Content-Type": "application/json" } : undefined, body: data ? JSON.stringify(data) : undefined });

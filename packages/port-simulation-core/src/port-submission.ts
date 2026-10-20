@@ -1,4 +1,5 @@
 import {digestSha256} from './sha256.js';
+import type { PortSubmissionUnit } from './port-class-submission.js';
 import { applyPortCommand, createPortSession } from "./port-operations-engine.js";
 import { applyPortCourseCommand, createPortCourse, isPortCourseUnit, portCourseGoals, portCourseScore, portCoursePerformance, type PortCourseCommand, type PortCourseRun, type PortCourseSelection } from "./port-course.js";
 import { portReport, portScore, portReferenceCost } from "./port-operations-review.js";
@@ -31,7 +32,7 @@ export interface PortSubmissionResult {
   performance?: ReturnType<typeof portCoursePerformance>;
   courseScore?: ReturnType<typeof portCourseScore>;
   score: number;
-  unit: PortCourseSelection;
+  unit: PortSubmissionUnit;
   mode: "practice" | "battle";
   second: number;
   elapsed: number;

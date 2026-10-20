@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import type { PortCourseSelection, PortSubmissionPackage } from "@edu/port-simulation-core";
+import { isPortClassSubmissionUnit, type PortSubmissionUnit, type AnyPortSubmissionPackage } from "@edu/port-simulation-core";
+import { newLocalPortId } from './local-port-id';
 import type { LabStorage } from "./useTerminalTraining";
 import { api } from "../../api";
 import { resultRequest, submissionStatus, type SubmissionInput, type SubmissionSummary, type ResultsResponse, type SubmissionContext, type TasksResponse } from "./submission-api";
 interface Pending { input: SubmissionInput; runId: string; response?: SubmissionSummary }
 export function PortSubmissionPanel({ context, storage, unit, runId, eligible, busy: sealing, sealed, seal }: {
-  context: SubmissionContext; storage?: LabStorage | null; unit: PortCourseSelection; runId: string; eligible: boolean; busy: boolean; sealed: boolean; seal: () => Promise<PortSubmissionPackage>;
+  context: SubmissionContext; storage?: LabStorage | null; unit: PortSubmissionUnit; runId: string; eligible: boolean; busy: boolean; sealed: boolean; seal: () => Promise<AnyPortSubmissionPackage>;
 }) {
-  const key = `edu-port-operations:submission:${context.courseId}:${unit}`;
+  const key = `edu-port-operations:submission:${context.actorId}:${context.courseId}:${unit}`;
   const [pending, setPending] = useState<Pending | null>(() => { try { return JSON.parse(storage?.getItem(key) ?? "null"); } catch { return null; } });
   const [latest, setLatest] = useState<SubmissionSummary>(), [student, setStudent] = useState(false), [error, setError] = useState(""), [busy, setBusy] = useState(false);
   const active = useRef(true), sending = useRef(false);
@@ -60,11 +61,11 @@ export function PortSubmissionPanel({ context, storage, unit, runId, eligible, b
       let next = pending;
       if (!next || next.runId !== runId) {
         const pkg = await seal();
-        next = { runId, input: { requestId: crypto.randomUUID(), courseId: context.courseId, ...(context.classSessionId ? { classSessionId: context.classSessionId } : {}), expectedRevision: latest?.revision ?? 0, package: pkg } };
+        next = { runId, input: { requestId: newLocalPortId(), courseId: context.courseId, ...(context.classSessionId ? { classSessionId: context.classSessionId } : {}), expectedRevision: latest?.revision ?? 0, package: pkg } };
         await persist(next); // durable before network; retry sends the identical request
       } else if (next.response?.status === "rejected") {
         const current = await refresh();
-        next = { ...next, response: undefined, input: { ...next.input, requestId: crypto.randomUUID(), expectedRevision: current?.revision ?? 0 } };
+        next = { ...next, response: undefined, input: { ...next.input, requestId: newLocalPortId(), expectedRevision: current?.revision ?? 0 } };
         await persist(next);
       }
       attempted = next;
@@ -87,7 +88,7 @@ export function PortSubmissionPanel({ context, storage, unit, runId, eligible, b
   const inFlight = state === "queued" || state === "verifying";
   return <section className="port-submission-card" aria-label="实验成绩提交">
     <h3>提交本次实验</h3>
-    <details><summary>提交说明与最高成绩</summary><p>{unit === "full" ? "教学与实战模式均可上传当前成绩。提前结束按当前实际进度计分，并标记为未完成。" : "本段成绩为目标完成比例得分减去实际判定扣分，最低为零。教学模式解释错误不扣分；实战模式计入违规扣分。耗时与成本另列。"} 同一任务可以反复练习并提交，最终保留最高分及该次操作轨迹；低分或同分不覆盖已有结果，历史提交可在“我的提交”查看。</p>
+    <details><summary>提交说明与最高成绩</summary><p>{isPortClassSubmissionUnit(unit) ? "完成分按实际流程目标达成比例计算；复盘只检查材料完整性，分析质量由教师复核。教学与实战模式均明确标注，实战须完成实际恢复验证。" : unit === "full" ? "教学与实战模式均可上传当前成绩。提前结束按当前实际进度计分，并标记为未完成。" : "本段成绩为目标完成比例得分减去实际判定扣分，最低为零。教学模式解释错误不扣分；实战模式计入违规扣分。耗时与成本另列。"} 同一任务可以反复练习并提交，最终保留最高分及该次操作轨迹；低分或同分不覆盖已有结果，历史提交可在“我的提交”查看。</p>
     {!published && <p>等待教师公布本流程任务，当前练习保存在本机。</p>}
     {latest?.result && <p className="port-result-success">当前最高成绩：<strong>{latest.result.score.toFixed(2)} 分</strong> · {new Date(latest.updatedAt).toLocaleString("zh-CN")}</p>}
     </details><p role="status">{sameRun ? state ? submissionStatus[state] : "待上传 · 封存记录已保存在本机" : sealed ? "本次已封存，可重试提交或开始新练习" : "当前这次练习尚未提交"}{sameRun && pending?.response?.error ? `：${pending.response.error}` : ""}</p>

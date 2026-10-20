@@ -1,7 +1,9 @@
 import { PortPerformanceSummary } from "./PortPerformanceSummary";
+import {PortClassLabReplay} from './PortClassLabReplay';
+import {PORT_CLASS_SUBMISSION_SCHEMA,isPortClassSubmissionUnit,type PortClassVerifiedReport} from '@edu/port-simulation-core';
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { PORT_COURSE_UNITS, portTime, type PortEvidenceNode, type PortView } from "@edu/port-simulation-core";
+import { PORT_SUBMISSION_UNITS, portTime, type PortEvidenceNode, type PortView } from "@edu/port-simulation-core";
 import { api } from "../../api";
 import { resultRequest, submissionStatus, downloadRecord, type ReplayResponse, type ResultsResponse, type SubmissionSummary } from "./submission-api";
 import type { PortSceneHandle } from "./PortOperationsScene";
@@ -25,7 +27,7 @@ export function PortResultsPage() {
   useEffect(() => { let live = true; void api.getIdentitySession().then(identity => {
     if (!live) return; if (!identity.actor.roles.includes("teacher")) throw new Error("请使用教师账号查看实验成绩。"); setTeacher(true); return refresh();
   }).catch(reason => { if (live) setError(reason.message); }); return () => { live = false; generation.current++; }; }, [courseId,page,search,unit,status]);
-  const units = PORT_COURSE_UNITS.filter(u => unit === "all" || u.id === unit);
+  const units = PORT_SUBMISSION_UNITS.filter(u => unit === "all" || u.id === unit);
   const rows = data?.rows ?? [];
   async function exportCsv() {
     const exported=await resultRequest<ResultsResponse>(`courses/${courseId}/results?${query}&export=true`);
@@ -35,9 +37,9 @@ export function PortResultsPage() {
     const url = URL.createObjectURL(new Blob(["\ufeff" + lines.map(row => row.map(cell).join(",")).join("\r\n")], { type: "text/csv;charset=utf-8" }));
     const a = document.createElement("a"); a.href = url; a.download = "港口实验成绩.csv"; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
-  return <section className="port-results-page"><Link to="/tasks">← 返回实验任务</Link><header><span>PORT LAB · RESULTS</span><h1>实验成绩</h1><p>分段成绩为目标完成比例得分减去实际判定扣分；综合挑战按综合规则计分。六类任务分别取最高分，复现与导出均对应最高分的那次提交。允许重复提交，低分、同分及核验失败均不替换已有最高分。</p></header>
+  return <section className="port-results-page"><Link to="/tasks">← 返回实验任务</Link><header><span>PORT LAB · RESULTS</span><h1>实验成绩</h1><p>分段成绩为目标完成比例得分减去实际判定扣分；综合挑战按综合规则计分。第11、12讲按实际流程与材料完整性计完成分，复盘分析质量由教师复核。各类任务分别取最高分，复现与导出均对应最高分的那次提交。允许重复提交，低分、同分及核验失败均不替换已有最高分。</p></header>
     {error && <p role="alert">{error}</p>}
-    {teacher && <><div className="port-result-filters"><label>学生<input value={search} onChange={e => {setSearch(e.target.value);setPage(1);}} placeholder="姓名或账号"/></label><label>实验<select value={unit} onChange={e => {setUnit(e.target.value);setPage(1);}}><option value="all">全部实验</option>{PORT_COURSE_UNITS.map(u => <option key={u.id} value={u.id}>{u.title}</option>)}</select></label><label>提交状态<select value={status} onChange={e => {setStatus(e.target.value);setPage(1);}}><option value="all">全部状态</option><option value="verified">已有成绩</option><option value="missing">未提交</option><option value="pending">核验中</option><option value="rejected">核验失败</option></select></label><button onClick={() => void refresh().catch(reason => setError(reason.message))}>刷新</button><button disabled={!data} onClick={()=>void exportCsv().catch(e=>setError(e.message))}>导出全部筛选结果</button></div>
+    {teacher && <><div className="port-result-filters"><label>学生<input value={search} onChange={e => {setSearch(e.target.value);setPage(1);}} placeholder="姓名或账号"/></label><label>实验<select value={unit} onChange={e => {setUnit(e.target.value);setPage(1);}}><option value="all">全部实验</option>{PORT_SUBMISSION_UNITS.map(u => <option key={u.id} value={u.id}>{u.title}</option>)}</select></label><label>提交状态<select value={status} onChange={e => {setStatus(e.target.value);setPage(1);}}><option value="all">全部状态</option><option value="verified">已有成绩</option><option value="missing">未提交</option><option value="pending">核验中</option><option value="rejected">核验失败</option></select></label><button onClick={() => void refresh().catch(reason => setError(reason.message))}>刷新</button><button disabled={!data} onClick={()=>void exportCsv().catch(e=>setError(e.message))}>导出全部筛选结果</button></div>
       <div className="port-result-table-wrap"><table className="port-result-table"><caption>{data?.total??rows.length} 位学生 · 未提交不计为零分</caption><thead><tr><th>学生</th>{units.map(u => <th key={u.id}>{u.short}</th>)}</tr></thead><tbody>{rows.map(row => <tr key={row.actorId}><th>{row.displayName}<small>{row.identifier}</small></th>{units.map(u => {
         const current = row.results.find(s => s.unit === u.id), pending = row.pending.find(s => s.unit === u.id);
         return <td key={u.id}>{current?.result ? <button onClick={() => setSelected(current)} aria-label={`查看${row.displayName}的${u.title}成绩`}><strong>{current.result.score.toFixed(2)}</strong><small>{u.id === "full" ? "最高综合成绩" : "最高任务成绩"} · {(current.result.elapsed / 60).toFixed(1)} 分钟</small><small>{current.result.mode === "battle" ? "实战模式" : "教学模式"} · {current.result.complete ? "已完成" : "未完成"}</small><small>{date(current.updatedAt)}</small></button> : <span>未提交</span>}{pending && <small className="port-result-pending" title={pending.error ?? ""}>{submissionStatus[pending.status]}{pending.error && `：${pending.error}`}</small>}</td>;
@@ -52,8 +54,8 @@ export function PortResultDetail({ selected, onClose }: { selected: SubmissionSu
   const [data, setData] = useState<ReplayResponse>(), [error, setError] = useState(""), [showReplay, setShowReplay] = useState(false);
   useEffect(() => { let live = true; void resultRequest<ReplayResponse>(`submissions/${selected.id}/replay`).then(value => { if (live) setData(value); }).catch(reason => { if (live) setError(reason.message); }); return () => { live = false; }; }, [selected.id]);
   const result = selected.result!;
-  return <section ref={detail} className="port-result-detail" aria-label="实验结果详情"><header><div><h2>{selected.displayName} · {PORT_COURSE_UNITS.find(u => u.id === selected.unit)?.title}</h2><p>{date(selected.createdAt)} · {result.mode === "battle" ? "实战模式" : "教学模式"} · {result.complete ? "已完成" : "提前结束 / 未完成"} · 服务端复算通过</p></div><button onClick={onClose}>关闭详情</button></header>
-    <p>{selected.unit === "full" ? "综合成绩" : "任务成绩（目标得分减去实际扣分）"}</p><strong className="port-final-score">{result.score.toFixed(2)}<small> / 100</small></strong><p>本次运行 {Math.round(result.elapsed / 60)} 分钟（仿真时间） · {result.commands} 条输入记录</p>
+  return <section ref={detail} className="port-result-detail" aria-label="实验结果详情"><header><div><h2>{selected.displayName} · {PORT_SUBMISSION_UNITS.find(u => u.id === selected.unit)?.title}</h2><p>{date(selected.createdAt)} · {result.mode === "battle" ? "实战模式" : "教学模式"} · {result.complete ? "已完成" : "提前结束 / 未完成"} · 服务端复算通过</p></div><button onClick={onClose}>关闭详情</button></header>
+    <p>{isPortClassSubmissionUnit(selected.unit)?'流程与材料完成分（复盘分析质量由教师复核）':selected.unit === "full" ? "综合成绩" : "任务成绩（目标得分减去实际扣分）"}</p><strong className="port-final-score">{result.score.toFixed(2)}<small> / 100</small></strong><p>本次运行 {Math.round(result.elapsed / 60)} 分钟（仿真时间） · {result.commands} 条输入记录</p>
     {result.courseScore && <p>目标得分 {result.courseScore.completion.toFixed(2)} · 扣分 {result.courseScore.deductions.toFixed(2)}</p>}{result.performance && <PortPerformanceSummary value={result.performance}/>}
     {result.goals.length > 0 && <ul>{result.goals.map(g => <li key={g.id}>{g.done ? "✓ 已达成" : "○ 未达成"} · {g.label}</li>)}</ul>}
     {result.breakdown && <div className="port-result-breakdown">{[["货物履约", result.breakdown.cargo], ["船舶流程", result.breakdown.process], ["经营效率", result.breakdown.efficiency], ["交班完整", result.breakdown.handover], ["扣分", result.breakdown.deductions]].map(([name, score]) => <p key={name}>{name}<strong>{Number(score).toFixed(2)}</strong></p>)}</div>}
@@ -61,7 +63,7 @@ export function PortResultDetail({ selected, onClose }: { selected: SubmissionSu
     {result.traceCoverage === "legacy" && <p>旧版记录：可按原指令复现，但旧版本未保存的拒绝操作无法补回。</p>}
     {error && <p role="alert">{error}</p>}
     <div className="port-actions"><button disabled={!data} onClick={() => setShowReplay(v => !v)}>{showReplay ? "收起复现播放" : "复现播放"}</button><button disabled={!data} onClick={() => data && downloadRecord(`港口实验-${selected.unit}-${selected.id}.json`, data)}>下载复现包与证据</button></div>
-    {data && <><PortNodeList nodes={data.nodes}/>{showReplay && <PortReplayPlayer data={data}/>}</>}
+    {data && (data.package.schema===PORT_CLASS_SUBMISSION_SCHEMA?showReplay&&<PortClassLabReplay report={data.report as PortClassVerifiedReport}/>:<><PortNodeList nodes={data.nodes}/>{showReplay && <PortReplayPlayer data={data}/>}</>)}
   </section>;
 }
 function PortNodeList({ nodes, select }: { nodes: PortEvidenceNode[]; select?: (n: PortEvidenceNode) => void }) {

@@ -72,7 +72,7 @@ export function incidentCoach(run: PortClassLab, context: IncidentCoachContext =
     if (!context.sealedAt) return step('save-review', 6, '保存本轮教学复盘', '点击“完成并保存教学复盘”。',
       '保存把本轮实际指令、结果和四项解释留在本机；教学练习不会被标成实战提交。',
       '页面显示“教学复盘已保存”。', 'save-review', 'submission');
-    return step('complete', 6, '教学复盘已保存，可以备份或比较另一方案', '点击“下载完整实验记录 JSON（草稿备份）”保存文件；再从同一开局重开，只改变一项方案进行比较。',
+    return step('complete', 6, '教学复盘已保存，可以提交、备份或比较另一方案', '点击页首“提交教师”定位提交区，登录学生账号后提交本轮教学记录；也可下载草稿备份，再从同一开局比较另一方案。',
       '比较同场景、同终点方案，才能区分维修人数、备用交付或替代调度的收益与代价。独立考核请另开实战。',
       '保留本轮文件；新方案从第90分钟开始，历史结果仍可对照。', 'export-draft', 'metrics', ['restart']);
   }

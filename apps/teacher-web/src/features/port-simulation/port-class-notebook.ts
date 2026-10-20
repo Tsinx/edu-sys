@@ -1,4 +1,5 @@
 import {newLocalPortId} from './local-port-id';
+import type {PortClassSubmissionRecord} from '@edu/port-simulation-core';
 import { PORT_CLASS_LAB_VERSION,createPortClassLab,portLabFinished,restorePortClassLab,serializePortClassLab,type PortClassLab,type PortClassLesson,type PortLabScenario,portIncidentCompletion,portIncidentReportComplete,verifyPortEmergencySubmission,type PortIncidentMode } from '@edu/port-simulation-core';
 import { defaultPortAnalysis, decodePortAnalysis, type PortAnalysisDashboard } from './port-analysis-config';
 import type {TerminalDispatch} from '@edu/port-simulation-core';
@@ -25,6 +26,9 @@ export function incidentSubmission(book:Notebook){return verifyPortEmergencySubm
 export function reportReady(book:Notebook){
  if(book.run.lesson===11)return !!book.baseline&&portLabFinished(book.run)&&currentTrialSaved(book)&&['hypothesis','changes','conclusion','limits'].every(k=>(book.notes[k]??'').trim().length>=15);
  return portIncidentReportComplete(book.notes)&&(incidentMode(book)==='teaching'?portLabFinished(book.run):portIncidentCompletion(book.run).every(x=>x.complete));
+}
+export function classSubmissionRecord(book:Notebook):PortClassSubmissionRecord {
+ return {version:'port-class-report/1',lesson:book.run.lesson,mode:book.run.lesson===11?'teaching':incidentMode(book),run:serializePortClassLab(book.run),baseline:book.baseline?serializePortClassLab(book.baseline):null,trials:book.trials.map(serializePortClassLab),notes:{...book.notes},sealedAt:book.sealedAt??'',findings:{baseline:book.learning?.baseline?.finding??'',trials:book.trials.map((_,i)=>book.learning?.trials[i]?.finding??'')}};
 }
 
 const sameCommands=(a:PortClassLab,b:PortClassLab)=>JSON.stringify(a.commands)===JSON.stringify(b.commands);
