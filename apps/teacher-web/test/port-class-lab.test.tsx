@@ -41,9 +41,8 @@ test('frozen classroom figures reproduce the actual versioned lab commands',()=>
 test('independent entries expose the right task, controls and source boundary without requiring login',()=>{
   for(const lesson of [11,12] as const){
     const html=renderToStaticMarkup(<PortClassLabPage lesson={lesson}/>);
-    assert.match(html,/30分钟任务书/);assert.match(html,/下载完整实验记录 JSON/);
     assert.match(html,/未上传教学平台/);assert.doesNotMatch(html,/teachingCue|assistantCue/);
-    assert.ok(html.includes(`data-lesson="${lesson}"`));
-    assert.ok(html.includes(lesson===11?'保存基准并建立试验':'审查证据并恢复电子交付'));
+    if(lesson===11){assert.match(html,/从基准开始新练习/);assert.match(html,/先看原配置/);assert.doesNotMatch(html,/应用岗位配置/);}
+    else{assert.match(html,/30分钟任务书/);assert.match(html,/下载完整实验记录 JSON/);assert.ok(html.includes('审查证据并恢复电子交付'));assert.ok(html.includes('data-lesson="12"'));}
   }
 });

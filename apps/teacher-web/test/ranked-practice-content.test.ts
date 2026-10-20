@@ -4,14 +4,14 @@ import katex from 'katex';
 import {rankedPracticePacks,publicPack} from '../../platform-api/src/practice-content/index.js';
 import {INTERNATIONAL_MATHEMATICS_LESSONS as lessons,INTERNATIONAL_MATHEMATICS_SLIDES as slides} from '@edu/course-content/international-mathematics';
 test('sixteen textbook choice packs have 160 distinct ranked questions and complete private feedback',()=>{
- assert.equal(rankedPracticePacks.length,16);
- assert.equal(new Set(rankedPracticePacks.flatMap(p=>p.questions.map(q=>q.id))).size,160);
- assert.equal(slides.length,1312);
- for(const [i,p]of rankedPracticePacks.entries()){
+ assert.equal(rankedPracticePacks.length,17);
+ assert.equal(new Set(rankedPracticePacks.flatMap(p=>p.questions.map(q=>q.id))).size,184);
+ assert.equal(slides.length,1352);
+ for(const [i,p]of rankedPracticePacks.filter(p=>p.lesson<=16).entries()){
   assert.equal(p.lesson,i+1);assert.equal(p.questions.length,10);
   assert.deepEqual(p.questions.map(q=>q.rank),[1,1,1,2,2,2,3,3,3,4]);
-  assert.equal(lessons[i]!.practiceQuestionTotal,10);assert.equal(lessons[i]!.practiceDurationMinutes,20);
-  assert.equal(lessons[i]!.teachingSchedule!.reduce((n,b)=>n+b.durationMinutes,0),90);
+  assert.equal(lessons.find(l=>l.number===p.lesson)!.practiceQuestionTotal,10);assert.equal(lessons.find(l=>l.number===p.lesson)!.practiceDurationMinutes,20);
+  assert.equal(lessons.find(l=>l.number===p.lesson)!.teachingSchedule!.reduce((n,b)=>n+b.durationMinutes,0),90);
   for(const q of p.questions){
    assert.deepEqual(q.options.map(o=>o.id),['A','B','C','D']);assert.equal(new Set(q.options.map(o=>o.text)).size,4);
    assert.ok(q.options.some(o=>o.id===q.correctOptionId));assert.equal(q.optional,q.rank===4);

@@ -1,6 +1,9 @@
 import {mkdir,writeFile} from 'node:fs/promises';
-import {rankedPracticePacks,publicPack} from '../apps/platform-api/src/practice-content/index.js';
-import {INTERNATIONAL_MATHEMATICS_SLIDES as slides,INTERNATIONAL_MATHEMATICS_LESSONS as lessons,INTERNATIONAL_MATHEMATICS_FILMS as films,INTERNATIONAL_MATHEMATICS_V1_PAGE_MAP as migration,INTERNATIONAL_MATHEMATICS_DEFINITIONS as definitions} from '../packages/course-content/src/international-mathematics/index.js';
+import {rankedPracticePacks as allPacks,publicPack} from '../apps/platform-api/src/practice-content/index.js';
+import {INTERNATIONAL_MATHEMATICS_CORE_SLIDES as slides,INTERNATIONAL_MATHEMATICS_LESSONS as allLessons,INTERNATIONAL_MATHEMATICS_FILMS as films,INTERNATIONAL_MATHEMATICS_V1_PAGE_MAP as migration,INTERNATIONAL_MATHEMATICS_DEFINITIONS as definitions} from '../packages/course-content/src/international-mathematics/index.js';
+// Preserve the original practice-v1 release. Supplements have their own build and publication.
+const lessons=allLessons.filter(l=>l.kind!=='supplement');
+const rankedPracticePacks=allPacks.filter(p=>definitions.some(l=>l.number===p.lesson));
 const out=process.argv[2] ?? '.runtime/ranked-practice';
 await mkdir(out,{recursive:true});
 await writeFile(`${out}/private-packs.json`,JSON.stringify(rankedPracticePacks,null,2));
@@ -13,7 +16,7 @@ const revisedGuides:Record<number,readonly [string,string]>={
  15:['0–10分钟联立需求与供给并拒绝负数量；10–24分钟辨认支付与愿意支付的面积；24–35分钟逐步计算线性消费者剩余；35–41分钟比较曲线与三角形近似；41–45分钟停顿检查市场价格和单位。话术：“Which area is already paid for?”','0–10分钟在供给图上辨认收入和可变成本；10–23分钟逐步求生产者剩余；23–35分钟区分剩余、固定成本与利润；35–41分钟比较总剩余和价格变化；41–45分钟停顿检查两个剩余的边界。话术：“Which cost is missing from the marginal-cost area?”'],
  16:['0–10分钟确认投资流的时间单位；10–23分钟把流量积分为累计资本；23–35分钟核对时间区间和年末年中；35–41分钟逐年比较累计门槛；41–45分钟停顿检查速率与总量。话术：“Is this number a rate or a total?”','0–12分钟用差额积分比较两种投资；12–25分钟复核经营判断的时间窗口；25–35分钟复用边际成本和可行优化；35–41分钟比较幂增长与指数投资流；41–45分钟停顿完成附单位的出口检查。话术：“Which quantity does this question ask us to find?”']
 };
-const schedules=definitions.map((l,i)=>({lesson:l.number,title:l.title,core:lessons[i]!.coreSlideTotal,optional:2,blocks:l.hours!.map((h,j)=>{
+const schedules=definitions.map((l,i)=>({lesson:l.number,title:l.title,core:lessons.find(s=>s.number===l.number)!.coreSlideTotal,optional:2,blocks:l.hours!.map((h,j)=>{
  const guide=revisedGuides[l.number]?.[j]??h.guide;
  const pairs=[...guide.matchAll(/(\d+)–(\d+)分钟([^；。]+)/g)];
  const segments=pairs.map((m,k)=>({start:j===0?Number(m[1]):Math.round(Number(m[1])*25/45),end:j===0?Number(m[2]):Math.round(Number(m[2])*25/45),cue:m[3],localStart:h.localStart+Math.floor(k*(h.localEnd-h.localStart+1)/pairs.length),localEnd:h.localStart+Math.floor((k+1)*(h.localEnd-h.localStart+1)/pairs.length)-1}));

@@ -1,6 +1,6 @@
 import { advancePortSession, applyPortCommand } from './port-operations-engine.js';
 import { refreshPhysicalRates, returnPhysicalYardMachine } from './port-facilities.js';
-import { PORT_LAB_LEDGER } from './port-class-lab-legacy.js';
+import { portLabBackupCapacity, reviewPortLabLedger } from './port-lab-ledger.js';
 import type { PortSession } from './port-operations-model.js';
 import type { TerminalState } from './terminal-lab.js';
 import type { PortClassLab, PortLabCommand, PortLabEvent, PortLabTimedTask } from './port-class-lab.js';
@@ -91,7 +91,8 @@ function finishTask(r: PortClassLab, kind: PortLabTimedTask['kind']) {
     clue(r, kind, '隔离检查回执', '场桥1已安全清空当前交接并隔离检修区；可派维修人员。教学情境设定独立检修区，替代场桥仍须沿道路实际转场。');
   } else if (kind === 'audit') {
     i.backupVerified = true;
-    clue(r, kind, '独立核验回执', '保留记录满足唯一票号、可信版本及独立数量一致。最多24箱备用交付可按双人复核流程执行。');
+    const limit = portLabBackupCapacity(r);
+    clue(r, kind, '独立核验回执', `保留记录满足唯一票号、可信版本及独立数量一致。最多${limit}箱备用交付可按双人复核流程执行；已隔离票据不计入本轮额度，仍待恢复对账。`);
   } else {
     i.dataChecked = true; e.checkedAt = s.second / 60;
     clue(r, kind, r.scenario === 'equipment' ? '维修后检查回执' : '恢复对账回执', r.scenario === 'equipment'
@@ -145,7 +146,7 @@ function advanceScenario(r: PortClassLab, seconds: number, snapshot: Snapshot) {
       } else i.testDelivered += increase;
       if (f.gateLimit === 0) {
         checkpoint = true;
-        if (i.manual) { i.manual = false; clue(r, 'manual-complete', '备用交付回执', '24箱备用额度已实际交付完毕。后续电子交付仍须满足恢复证据。'); }
+        if (i.manual) { i.manual = false; clue(r, 'manual-complete', '备用交付回执', `${portLabBackupCapacity(r)}箱备用额度已实际交付完毕。后续电子交付仍须满足恢复证据。`); }
         else { i.testing = false; i.testPassed = true; clue(r, 'trial-complete', '试放行回执', '3箱已实际完成提箱、运输及闸口核验；可审查服务恢复。'); }
         f.enabled.gate = false; refreshPhysicalRates(s);
       }
@@ -169,11 +170,6 @@ function advanceScenario(r: PortClassLab, seconds: number, snapshot: Snapshot) {
     if (checkpoint) return;
   }
   note(r, s.second >= r.endpoint * 60 ? '观察结束，请保存实际结果；未恢复也可完成失败处置复盘。' : `已到第${r.terminal.minute.toFixed(1)}分钟；设备、车辆、维修和成本按实际过程更新。`);
-}
-function validLedger(ids: string[]) {
-  if (!Array.isArray(ids) || ids.length !== 2 || new Set(ids).size !== 2 || ids.some(id => !PORT_LAB_LEDGER.some(row => row.id === id))) return false;
-  const retained = PORT_LAB_LEDGER.filter(row => !ids.includes(row.id));
-  return retained.every(row => row.version === 18 && row.declared === row.independent) && ['T01', 'T02', 'T05'].every(ticket => retained.filter(row => row.ticket === ticket).length === 1);
 }
 export function applyPortIncidentCommand(current: PortClassLab, command: PortLabCommand, snapshot: Snapshot): PortClassLab {
   if (!command || typeof command !== 'object') throw Error('无效实验指令。');
@@ -220,12 +216,15 @@ export function applyPortIncidentCommand(current: PortClassLab, command: PortLab
     i.repairStarted = true; note(r, `启动${e.repairTarget}人分钟技术工作；检查、内部作业及备用方案可与维修并行推进。`);
   } else if (system && (command.kind === 'start-audit' || command.kind === 'audit')) {
     if (!i.isolated || !e.evidence.backup || i.backupVerified) throw Error('先隔离接口并调取备用资料，再核验一次。');
-    if (!validLedger(command.quarantine)) throw Error('核验未通过：请逐行检查票号唯一性、版本和独立数量，当前选择仍保留异常或删除有效证据。');
+    if (!Array.isArray(command.quarantine)) throw Error('隔离记录须为编号列表。');
+    const review = reviewPortLabLedger(command.quarantine);
+    if (!review.valid) throw Error('核验未通过：' + review.errors.join(''));
     startTask(r, 'audit', 10);
   } else if (system && command.kind === 'manual') {
-    if (!i.isolated || !i.backupVerified || i.manual || i.manualDelivered >= 24 || i.testing || i.restoredAt !== null) throw Error('备用交付需可信记录、隔离和剩余额度。');
-    i.manual = true; s.plan.equipment.dispatch.gateClerks = 1; setGate(r, true, 24 - i.manualDelivered);
-    note(r, '双人复核备用交付启用：单道、最多24箱，另计2名复核人员成本；每箱须实际提取、运输和核验。');
+    const limit = portLabBackupCapacity(r);
+    if (!i.isolated || !i.backupVerified || i.manual || i.manualDelivered >= limit || i.testing || i.dataChecked || i.restoredAt !== null) throw Error('备用交付需可信记录、隔离和剩余额度，并在恢复对账前启用。');
+    i.manual = true; s.plan.equipment.dispatch.gateClerks = 1; setGate(r, true, limit - i.manualDelivered);
+    note(r, `双人复核备用交付启用：单道、最多${limit}箱，另计2名复核人员成本；每箱须实际提取、运输和核验。`);
   } else if (!system && command.kind === 'relief') {
     if(typeof command.enabled!=='boolean')throw Error('替代调度状态须为布尔值。');
     const outage = f.yardIncident!;

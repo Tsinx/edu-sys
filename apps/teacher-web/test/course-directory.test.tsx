@@ -13,11 +13,11 @@ test("the shared course directory exposes all 16 lectures and 32 hour entry poin
   const html = renderToStaticMarkup(<MemoryRouter><CourseLessonDirectory
     deck={mathematics} activityCounts={[{ lesson: 5, count: 4 }]} onPrepare={() => {}}
   /></MemoryRouter>);
-  assert.match(html, /1,312 slides/);
-  assert.match(html, /1,280 core · 32 optional/);
+  assert.match(html, /1,352 slides/);
+  assert.match(html, /1,320 core · 32 optional/);
   assert.match(html, /32 teaching hours/);
   assert.match(html, /4 planned activities/);
-  assert.equal((html.match(/class="workspace-lesson-row"/g) ?? []).length, 16);
+  assert.equal((html.match(/class="workspace-lesson-row"/g) ?? []).length, 17);
   assert.equal((html.match(/&amp;hour=[12]"/g) ?? []).length, 32);
   assert.doesNotMatch(html, /teachingCue|assistantCue|teacherGuide|answerHidden/);
   assert.doesNotMatch(html, /[\p{Script=Han}]/u);
@@ -26,7 +26,7 @@ test("the shared course directory exposes all 16 lectures and 32 hour entry poin
 test("each published hour link resolves to its authored global start, overriding saved progress", () => {
   const saved = mathematics.getSlide(117).slideKey;
   for (const lesson of mathematics.lessons) {
-    for (const hour of lesson.hourRanges!) {
+    for (const hour of lesson.hourRanges??[]) {
       const index = resolveCourseReaderIndex(mathematics, {
         lesson: String(lesson.number), hour: String(hour.number),
       }, saved);

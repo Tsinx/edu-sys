@@ -1081,3 +1081,4 @@ export function getPortManagementAssistantContext(
     slidePrompt: formatSlidePrompt(slide)
   };
 }
+export * from './port-emergency-handbook.js';

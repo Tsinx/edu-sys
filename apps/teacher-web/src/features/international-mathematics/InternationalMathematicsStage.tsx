@@ -25,6 +25,7 @@ export function MathematicsPlot({plot:p,width:w,height:h,values={}}:{plot:PlotSp
   {tickX.map(x=><g key={`x${x}`}><path d={`M${X(x)} ${top}V${top+ph}`} stroke="#d8ddd9" strokeDasharray="4 6"/><text x={X(x)} y={top+ph+29} textAnchor="middle">{fmt(x)}</text></g>)}
   {tickY.map(y=><g key={`y${y}`}><path d={`M${left} ${Y(y)}H${left+pw}`} stroke="#d8ddd9" strokeDasharray="4 6"/><text x={left-13} y={Y(y)+7} textAnchor="end">{fmt(y)}</text></g>)}
   <g clipPath={`url(#im-clip-${w}-${h}-${p.xLabel.replace(/\W/g,'')})`}>
+   {p.axesAtZero&&<g stroke={IM_COLORS.ink} strokeWidth="2.5">{ymin<=0&&ymax>=0&&<path d={`M${left} ${Y(0)}H${left+pw}`}/>} {xmin<=0&&xmax>=0&&<path d={`M${X(0)} ${top}V${top+ph}`}/>}</g>}
    {p.area&&<path d={`${path(p.area.curve,p.area.from,areaTo)} L${X(areaTo)} ${Y(p.area.baseline??0)} L${X(p.area.from)} ${Y(p.area.baseline??0)}Z`} fill={IM_COLORS.green} opacity=".22"/>}
    {p.rectangles&&Array.from({length:n},(_,i)=>{const r=p.rectangles!,dx=(r.to-r.from)/n,x=r.from+i*dx,y=evaluateCurve(p.curves[r.curve]!,x);return <rect key={i} x={X(x)} y={Math.min(Y(0),Y(y))} width={Math.abs(X(x+dx)-X(x))} height={Math.abs(Y(y)-Y(0))} fill={IM_COLORS.yellow} stroke={IM_COLORS.coral} strokeWidth="1.5" opacity=".65"/>;})}
    {p.curves.map((c,i)=><path key={i} d={path(i)} fill="none" stroke={IM_COLORS[c.color??'blue']} strokeWidth="5"/>)}
@@ -67,7 +68,7 @@ export function MathematicsCanvas({spec,values={},openingMedia}:{spec:Mathematic
   })}
   {spec.question&&<aside className="im-question"><b>?</b><span>{spec.question}</span></aside>}
   {spec.answer&&values.revealed===true&&<aside className="im-answer" aria-live="polite"><b>Check your reasoning</b><p>{spec.answer}</p></aside>}
-  <footer><span>{spec.publicLabel??'Mathematical model'} · Jacques, 9th ed., §{spec.source.section}, pp. {spec.source.printedPages.join('–')}{spec.source.supplement?' · Supplement':''}</span><span>LESSON {String(spec.lesson).padStart(2,'0')} / {String(spec.localIndex).padStart(2,'0')}</span></footer>
+  <footer><span>{spec.publicLabel??'Mathematical model'} · Jacques, 9th ed., §{spec.source.section}, pp. {spec.source.printedPages.join('–')}{spec.source.supplement?' · Supplement':''}</span><span>{spec.lesson===17?'LECTURE 3 SUPPLEMENT':`LESSON ${String(spec.lesson).padStart(2,'0')}`} / {String(spec.localIndex).padStart(2,'0')}</span></footer>
  </article>;
 }
 
@@ -98,7 +99,7 @@ export function InternationalMathematicsStage({frame,interaction,readOnly,onInte
    {control&&Object.keys(defaults).length>0&&<button onClick={()=>{if(local||!onInteractionReset)setLocalValues(defaults);else onInteractionReset();}}>Reset</button>}
    {mediaError&&<span className="im-media-error">{mediaError}</span>}
   </div>;
- return <div className="im-stage" lang="en"><SlideViewport label={`English mathematics, lesson ${spec.lesson}, page ${spec.localIndex} of ${spec.localTotal}`}><MathematicsCanvas spec={spec} values={values} openingMedia={media}/></SlideViewport>
+ return <div className="im-stage" lang="en"><SlideViewport label={`English mathematics, ${INTERNATIONAL_MATHEMATICS_LESSONS.find(l=>l.number===spec.lesson)?.displayLabel??`lesson ${spec.lesson}`}, page ${spec.localIndex} of ${spec.localTotal}`}><MathematicsCanvas spec={spec} values={values} openingMedia={media}/></SlideViewport>
   {(spec.openingFilm || (control && (spec.answer || spec.interaction || onNavigate || Object.keys(defaults).length>0))) && <PageToolsContribution pageKey={spec.slideKey} title={control?'Page tools':'Local sound'} audience={control?'teacher':'local'} actions={spec.openingFilm&&control?[
     {id:'film',label:values.playing?'Pause':'Play introduction',icon:values.playing?<Pause size={18}/>:<Play size={18}/>,onInvoke:()=>patch({playing:!values.playing,positionMs:Math.round(target()*1000),anchorMs:Date.now()+offset.current,runId:String(values.runId??'initial')})}
   ]:[]}>{controls}</PageToolsContribution>}

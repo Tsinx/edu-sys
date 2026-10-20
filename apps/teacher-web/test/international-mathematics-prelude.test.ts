@@ -69,8 +69,8 @@ test('the prelude is a course resource and preserves existing deck and progress 
   assert.equal(resource.url, '/course-assets/international-mathematics/prelude/index.html');
   assert.ok(fs.existsSync(path.join(assetRoot, 'index.html')));
   const deck = getCourseDeckByCourseId(courseId)!;
-  assert.equal(deck.slideTotal, 1312);
-  assert.equal(deck.lessons.length, 16);
+  assert.equal(deck.slideTotal, 1352);
+  assert.equal(deck.lessons.length, 17);
   assert.equal(deck.totalHours, 32);
   assert.equal(deck.versionId, 'release-international-mathematics-jacques-v2');
   assert.equal(deck.getSlideByKey('im-l01-13')?.slideKey, 'im-l01-13');

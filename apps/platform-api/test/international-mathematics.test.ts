@@ -48,7 +48,7 @@ test("international mathematics registration is English with complete lecture ra
   const deck = getCourseDeckByCourseId(id)!;
   assert.equal(deck.locale, "en");
   assert.equal(deck.totalHours, 32);
-  assert.equal(deck.lessons.length, 16);
+  assert.equal(deck.lessons.length, 17);
   assert.equal(deck.slideTotal, slides.length);
   assert.deepEqual(deck.allowedActivities, ["slides"]);
   assert.equal(getCourseLessonLabel({number: 1}, deck.locale), "Lecture 1");
@@ -62,9 +62,9 @@ test("international mathematics registration is English with complete lecture ra
     assert.deepEqual(lesson.pdfPages, lesson.sources!.map(source=>source.pdfPages));
     assert.ok(lesson.outcomes?.length);
     assert.equal(lesson.slideTotal,lesson.coreSlideTotal!+lesson.optionalSlideTotal!);
-    assert.equal(lesson.optionalSlideTotal,2);
-    assert.equal(lesson.hourRanges?.length,2);
-    assert.ok(lesson.hourRanges!.every(h=>h.coreSlides>=36&&h.coreSlides<=45));
+    assert.equal(lesson.optionalSlideTotal,lesson.kind==="supplement"?0:2);
+    assert.equal(lesson.hourRanges?.length??0,lesson.kind==="supplement"?0:2);
+    assert.ok((lesson.hourRanges??[]).every(h=>h.coreSlides>=36&&h.coreSlides<=45));
     const start = lesson.slideStart!;
     assert.equal(deck.getGlobalIndex(lesson.number), start);
     assert.equal(deck.getGlobalIndex(lesson.number, lesson.slideTotal), lesson.slideEnd);

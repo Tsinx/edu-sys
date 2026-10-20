@@ -24,11 +24,12 @@ export const practiceQuestionSchema = z.object({
 });
 export const practicePackSchema = z.object({
   schemaVersion: z.literal(1), id: z.string(), version: z.string(), courseId: z.string(),
-  lesson: z.number().int().min(1).max(16), title: z.string(), locale: z.literal("en"),
-  durationMinutes: z.literal(20), questions: z.array(practiceQuestionSchema).length(10),
+  lesson: z.number().int().min(1).max(17), title: z.string(), locale: z.literal("en"),
+  durationMinutes: z.literal(20), questions: z.array(practiceQuestionSchema).min(1).max(24),
 }).strict().superRefine((p, ctx) => {
-  if (p.questions.map(q => q.rank).join("") !== "1112223334") ctx.addIssue({ code: "custom", message: "Rank distribution must be 3/3/3/1." });
-  if (new Set(p.questions.map(q => q.id)).size !== 10) ctx.addIssue({ code: "custom", message: "Question IDs must be unique." });
+  const expected = p.lesson === 17 ? "111111112222222233333344" : "1112223334";
+  if (p.questions.map(q => q.rank).join("") !== expected) ctx.addIssue({ code: "custom", message: p.lesson === 17 ? "Supplement rank distribution must be 8/8/6/2." : "Rank distribution must be 3/3/3/1." });
+  if (new Set(p.questions.map(q => q.id)).size !== p.questions.length) ctx.addIssue({ code: "custom", message: "Question IDs must be unique." });
 });
 export type PracticeOptionId = z.infer<typeof practiceOptionIdSchema>;
 export type PracticeQuestion = z.infer<typeof practiceQuestionSchema>;
@@ -65,5 +66,5 @@ export interface PracticeRunView {
   summary?: { students: { actorId: string; displayName: string; answered: number; correct: number | null; submission?: PracticeSubmission }[];
     questions: { questionId: string; attempted: number; correct: number | null; choices: Record<PracticeOptionId, number> }[] };
 }
-export const practiceOpenSchema = z.object({ requestId: z.uuid(), lesson: z.number().int().min(1).max(16), durationSeconds: z.number().int().min(10).max(7200).default(1200) }).strict();
+export const practiceOpenSchema = z.object({ requestId: z.uuid(), lesson: z.number().int().min(1).max(17), durationSeconds: z.number().int().min(10).max(7200).default(1200) }).strict();
 export const practiceAnswerSchema = z.object({ selectedOptionId: practiceOptionIdSchema, expectedRevision: z.number().int().nonnegative() }).strict();

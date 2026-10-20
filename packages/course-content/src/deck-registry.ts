@@ -10,6 +10,7 @@ import {
   getInternationalMathematicsSlideByKey,
   getInternationalMathematicsLessonPosition,
   getInternationalMathematicsGlobalIndex,
+  getInternationalMathematicsAdjacentIndex,
   getInternationalMathematicsInteractionDefaults,
   validateInternationalMathematicsInteractionPatch
 } from "./international-mathematics/index.js";
@@ -52,7 +53,7 @@ export interface CourseDeckSlideSummary {
 
 export interface CourseDeckLessonSummary {
   number: number;
-  kind?: "introduction" | "lecture";
+  kind?: "introduction" | "lecture" | "supplement";
   displayLabel?: string;
   title: string;
   slideStart: number | null;
@@ -70,6 +71,8 @@ export interface CourseDeckLessonSummary {
   optionalSlideTotal?: number;
   practiceQuestionTotal?: number;
   practiceDurationMinutes?: number;
+  supplementDurationMinutes?: number;
+  afterLesson?: number;
   teachingSchedule?: readonly {kind:'teaching'|'practice';durationMinutes:number;hour:1|2}[];
   hourRanges?: readonly {number:1|2;title:string;durationMinutes:45;coreSlides:number;localStart:number;localEnd:number;slideStart:number;slideEnd:number}[];
 }
@@ -404,13 +407,14 @@ const internationalMathematicsDescriptor: CourseDeckDescriptor = {
   presentation: {
     shortTitle: "Higher Mathematics",
     categoryLabel: "International programme · English",
-    description: "16 lectures, 32 teaching hours. Build functions, understand derivatives and integrals, and explain economic decisions using Ian Jacques, 9th edition.",
+    description: "16 lectures, 32 teaching hours, plus a factorisation foundation supplement after Lecture 3. Build functions, understand derivatives and integrals, and explain economic decisions using Ian Jacques, 9th edition.",
     heroImage: "/course-assets/international-mathematics/art/module-1.png",
     accent: "international-mathematics",
     assistantName: "Math Guide",
     supportsStudy: true,
     resources: [
       {role: "Course prelude", title: "ONE MORE — kinetic typography prelude", detail: "36 seconds · original music · English captions · downloadable MP4 and editable animation", url: "/course-assets/international-mathematics/prelude/index.html"},
+      {role: "Lecture 3 supplement", title: "Factoring Quadratics: Step by Step", detail: "40 slides · 8 worked examples · 24 ranked choice questions · extra foundation support", url: "/preview/course-international-mathematics?lesson=17"},
       {role: "Core textbook", title: "Mathematics for Economics and Business, 9th edition", detail: "Ian Jacques · Pearson · 2018 · Chapters 1, 2, 4 and 6"}
     ]
   },
@@ -421,6 +425,7 @@ const internationalMathematicsDescriptor: CourseDeckDescriptor = {
   },
   getLessonPosition: getInternationalMathematicsLessonPosition,
   getGlobalIndex: getInternationalMathematicsGlobalIndex,
+  getAdjacentIndex: getInternationalMathematicsAdjacentIndex,
   getInteractionDefaults: getInternationalMathematicsInteractionDefaults,
   validateInteractionPatch: validateInternationalMathematicsInteractionPatch
 };

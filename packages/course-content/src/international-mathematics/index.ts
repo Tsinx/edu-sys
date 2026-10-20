@@ -16,8 +16,10 @@ import {lesson15} from './lessons/lesson-15.js';
 import {lesson16} from './lessons/lesson-16.js';
 import type {MathematicsLesson,MathematicsSlide,OpeningFilm} from './types.js';
 import {expandV2} from './v2/index.js';
+import {FACTORISATION_SUPPLEMENT,FACTORISATION_LABEL} from './factorisation-supplement.js';
 export * from './types.js';
 export * from './models.js';
+export * from './factorisation-supplement.js';
 export const INTERNATIONAL_MATHEMATICS_COURSE_ID='course-international-mathematics';
 export const INTERNATIONAL_MATHEMATICS_DECK_ID='deck-international-mathematics-jacques-2026';
 export const INTERNATIONAL_MATHEMATICS_VERSION_ID='release-international-mathematics-jacques-v2';
@@ -25,8 +27,16 @@ export const INTERNATIONAL_MATHEMATICS_TOTAL_HOURS=32;
 export const INTERNATIONAL_MATHEMATICS_TITLE='Higher Mathematics: Calculus for Economics and Business';
 const BASE_LESSONS:readonly MathematicsLesson[]=[lesson01,lesson02,lesson03,lesson04,lesson05,lesson06,lesson07,lesson08,lesson09,lesson10,lesson11,lesson12,lesson13,lesson14,lesson15,lesson16];
 export const INTERNATIONAL_MATHEMATICS_DEFINITIONS:readonly MathematicsLesson[]=BASE_LESSONS.map(expandV2);
-export const INTERNATIONAL_MATHEMATICS_SLIDES:readonly MathematicsSlide[]=INTERNATIONAL_MATHEMATICS_DEFINITIONS.flatMap((l,i)=>l.slides.map((s,j)=>({...s,index:INTERNATIONAL_MATHEMATICS_DEFINITIONS.slice(0,i).reduce((n,v)=>n+v.slides.length,0)+j+1,lesson:l.number,lessonTitle:l.title,localIndex:j+1,localTotal:l.slides.length})));
-export const INTERNATIONAL_MATHEMATICS_LESSONS=INTERNATIONAL_MATHEMATICS_DEFINITIONS.map(l=>{const slides=INTERNATIONAL_MATHEMATICS_SLIDES.filter(s=>s.lesson===l.number),start=slides[0]!.index;return {number:l.number,kind:'lecture' as const,title:l.title,displayLabel:`Lesson ${l.number}`,slideStart:start,slideEnd:slides.at(-1)!.index,slideTotal:slides.length,coreSlideTotal:slides.filter(s=>!s.optionalChallenge).length,optionalSlideTotal:slides.filter(s=>s.optionalChallenge).length,practiceQuestionTotal:10,practiceDurationMinutes:20,teachingSchedule:[{kind:'teaching' as const,durationMinutes:45,hour:1 as const},{kind:'teaching' as const,durationMinutes:25,hour:2 as const},{kind:'practice' as const,durationMinutes:20,hour:2 as const}],hourRanges:l.hours?.map(h=>({...h,guide:undefined,slideStart:start+h.localStart-1,slideEnd:start+h.localEnd-1})),status:'ready' as const,sources:l.sources,textbookSections:l.sources.map(s=>s.section),printedPages:l.sources.map(s=>s.printedPages),pdfPages:l.sources.map(s=>s.pdfPages),outcomes:l.outcomes,completionStatus:l.hours?'complete' as const:'in-progress' as const};});
+export const INTERNATIONAL_MATHEMATICS_CORE_SLIDES:readonly MathematicsSlide[]=INTERNATIONAL_MATHEMATICS_DEFINITIONS.flatMap((l,i)=>l.slides.map((s,j)=>({...s,index:INTERNATIONAL_MATHEMATICS_DEFINITIONS.slice(0,i).reduce((n,v)=>n+v.slides.length,0)+j+1,lesson:l.number,lessonTitle:l.title,localIndex:j+1,localTotal:l.slides.length})));
+// Keep the original 1,312 indices, keys and version. Teaching order is an independent concern.
+export const INTERNATIONAL_MATHEMATICS_SLIDES:readonly MathematicsSlide[]=[...INTERNATIONAL_MATHEMATICS_CORE_SLIDES,
+ ...FACTORISATION_SUPPLEMENT.slides.map((s,j)=>({...s,index:INTERNATIONAL_MATHEMATICS_CORE_SLIDES.length+j+1,lesson:FACTORISATION_SUPPLEMENT.number,lessonTitle:FACTORISATION_SUPPLEMENT.title,localIndex:j+1,localTotal:FACTORISATION_SUPPLEMENT.slides.length}))];
+const coreLessons=INTERNATIONAL_MATHEMATICS_DEFINITIONS.map(l=>{const slides=INTERNATIONAL_MATHEMATICS_SLIDES.filter(s=>s.lesson===l.number),start=slides[0]!.index;return {number:l.number,kind:'lecture' as const,title:l.title,displayLabel:`Lesson ${l.number}`,slideStart:start,slideEnd:slides.at(-1)!.index,slideTotal:slides.length,coreSlideTotal:slides.filter(s=>!s.optionalChallenge).length,optionalSlideTotal:slides.filter(s=>s.optionalChallenge).length,practiceQuestionTotal:10,practiceDurationMinutes:20,teachingSchedule:[{kind:'teaching' as const,durationMinutes:45,hour:1 as const},{kind:'teaching' as const,durationMinutes:25,hour:2 as const},{kind:'practice' as const,durationMinutes:20,hour:2 as const}],hourRanges:l.hours?.map(h=>({...h,guide:undefined,slideStart:start+h.localStart-1,slideEnd:start+h.localEnd-1})),status:'ready' as const,sources:l.sources,textbookSections:l.sources.map(s=>s.section),printedPages:l.sources.map(s=>s.printedPages),pdfPages:l.sources.map(s=>s.pdfPages),outcomes:l.outcomes,completionStatus:l.hours?'complete' as const:'in-progress' as const,supplementDurationMinutes:undefined as number|undefined,afterLesson:undefined as number|undefined};});
+const factorisationSummary={number:FACTORISATION_SUPPLEMENT.number,kind:'supplement' as const,title:FACTORISATION_SUPPLEMENT.title,displayLabel:FACTORISATION_LABEL,
+ slideStart:INTERNATIONAL_MATHEMATICS_CORE_SLIDES.length+1,slideEnd:INTERNATIONAL_MATHEMATICS_SLIDES.length,slideTotal:40,coreSlideTotal:40,optionalSlideTotal:0,
+ practiceQuestionTotal:24,practiceDurationMinutes:20,supplementDurationMinutes:40,afterLesson:3,teachingSchedule:undefined,hourRanges:undefined,
+ status:'ready' as const,sources:FACTORISATION_SUPPLEMENT.sources,textbookSections:['2.1'],printedPages:FACTORISATION_SUPPLEMENT.sources.map(s=>s.printedPages),pdfPages:FACTORISATION_SUPPLEMENT.sources.map(s=>s.pdfPages),outcomes:FACTORISATION_SUPPLEMENT.outcomes,completionStatus:'complete' as const};
+export const INTERNATIONAL_MATHEMATICS_LESSONS=[...coreLessons.slice(0,3),factorisationSummary,...coreLessons.slice(3)];
 export const INTERNATIONAL_MATHEMATICS_V1_PAGE_MAP=BASE_LESSONS.flatMap((l,i)=>l.slides.map((s,j)=>({v1Index:BASE_LESSONS.slice(0,i).reduce((n,b)=>n+b.slides.length,0)+j+1,slideKey:s.slideKey,lesson:l.number,v2Index:INTERNATIONAL_MATHEMATICS_SLIDES.find(v=>v.slideKey===s.slideKey)!.index})));
 export function resolveInternationalMathematicsSavedPosition(version:string|undefined,index:number,key?:string){
  const byKey=key?INTERNATIONAL_MATHEMATICS_SLIDES.find(s=>s.slideKey===key):undefined;if(byKey)return byKey;
@@ -36,7 +46,13 @@ export function resolveInternationalMathematicsSavedPosition(version:string|unde
 export const INTERNATIONAL_MATHEMATICS_FILMS:readonly OpeningFilm[]=INTERNATIONAL_MATHEMATICS_DEFINITIONS.map(l=>({id:`im-film-${String(l.number).padStart(2,'0')}`,lesson:l.number,title:l.filmTitle,question:l.openingQuestion,durationMs:90000,src:`/course-assets/international-mathematics/film/lesson-${String(l.number).padStart(2,'0')}-intro.mp4`,poster:`/course-assets/international-mathematics/art/lesson-${String(l.number).padStart(2,'0')}-opening.png`,captions:`/course-assets/international-mathematics/film/lesson-${String(l.number).padStart(2,'0')}-intro.vtt`,shots:l.film}));
 export function getInternationalMathematicsSlide(index:number):MathematicsSlide {const safe=Math.max(1,Math.min(INTERNATIONAL_MATHEMATICS_SLIDES.length,Math.round(index)||1));return INTERNATIONAL_MATHEMATICS_SLIDES[safe-1]!;}
 export const getInternationalMathematicsSlideByKey=(key:string)=>INTERNATIONAL_MATHEMATICS_SLIDES.find(s=>s.slideKey===key);
-export function getInternationalMathematicsLessonPosition(index:number){const s=INTERNATIONAL_MATHEMATICS_SLIDES[index-1];if(!s)return null;const l=INTERNATIONAL_MATHEMATICS_LESSONS[s.lesson-1]!;return {globalIndex:index,lessonNumber:s.lesson,lessonStart:l.slideStart,lessonEnd:l.slideEnd,localIndex:s.localIndex,localTotal:s.localTotal};}
+export function getInternationalMathematicsLessonPosition(index:number){const s=INTERNATIONAL_MATHEMATICS_SLIDES[index-1];if(!s)return null;const l=INTERNATIONAL_MATHEMATICS_LESSONS.find(lesson=>lesson.number===s.lesson)!;return {globalIndex:index,lessonNumber:s.lesson,lessonStart:l.slideStart,lessonEnd:l.slideEnd,localIndex:s.localIndex,localTotal:s.localTotal};}
+export function getInternationalMathematicsAdjacentIndex(index:number,direction:-1|1):number|null {
+ const position=getInternationalMathematicsLessonPosition(index);if(!position)return null;
+ const next=index+direction;if(next>=position.lessonStart&&next<=position.lessonEnd)return next;
+ const order=INTERNATIONAL_MATHEMATICS_LESSONS.findIndex(l=>l.number===position.lessonNumber),lesson=INTERNATIONAL_MATHEMATICS_LESSONS[order+direction];
+ return lesson?(direction===1?lesson.slideStart:lesson.slideEnd):null;
+}
 export function getInternationalMathematicsGlobalIndex(lesson:number,localIndex=1){if(!Number.isInteger(lesson)||!Number.isInteger(localIndex))return null;const l=INTERNATIONAL_MATHEMATICS_LESSONS.find(v=>v.number===lesson);return l&&localIndex>=1&&localIndex<=l.slideTotal?l.slideStart+localIndex-1:null;}
 export function getInternationalMathematicsInteractionDefaults(key:string):Readonly<Record<string,string|number|boolean>>|null {
  const s=getInternationalMathematicsSlideByKey(key);if(!s)return null;const values:Record<string,string|number|boolean>={};

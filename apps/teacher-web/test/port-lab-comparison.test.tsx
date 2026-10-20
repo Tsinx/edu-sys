@@ -20,11 +20,13 @@ test('a partial trial is never reported as a delivery or cost improvement agains
     book = submitLabRun(book, true);
     book.run = applyPortClassLabCommand(createPortClassLab(11, 'trial'), { kind: 'advance', minutes: 30 });
     saveNotebook(book, 11, 'partial-comparison');
+    (globalThis as any).location.search = '?lesson=11&session=partial-comparison';
     const partial = renderToStaticMarkup(<PortClassLabPage lesson={11}/>);
     assert.equal((partial.match(/待同终点/g) ?? []).length, 2);
     assert.match(partial, /进行中/);
     book.run = applyPortClassLabCommand(book.run, { kind: 'advance', minutes: 360 });
     saveNotebook(book, 11, 'finished-comparison');
+    (globalThis as any).location.search = '?lesson=11&session=finished-comparison';
     const finished = renderToStaticMarkup(<PortClassLabPage lesson={11}/>);
     assert.doesNotMatch(finished, /待同终点/);
   } finally {

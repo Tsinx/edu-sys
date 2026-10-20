@@ -32,7 +32,7 @@ export function registerRankedPractice(app:FastifyInstance,store:JsonStateStore,
  app.get('/api/courses/:courseId/practice-packs/:lesson/teacher',async r=>{
   const {courseId,lesson}=r.params as {courseId:string;lesson:string};await access(r,courseId,true);
   const p=getRankedPracticePack(courseId,Number(lesson));if(!p)throw practiceError(404,'Practice pack not found.');
-  return {pack:publicPack(p),guidance:{teachingMinutes:[45,25],practiceMinutes:[2,14,4],formative:true},answers:p.questions.map(q=>({questionId:q.id,correctOptionId:q.correctOptionId,solution:q.solution,optionExplanations:q.optionExplanations}))};
+  return {pack:publicPack(p),guidance:{teachingMinutes:p.lesson===17?[40]:[45,25],practiceMinutes:[2,14,4],formative:true,...(p.lesson===17?{additionalFoundationSupport:true}:{} )},answers:p.questions.map(q=>({questionId:q.id,correctOptionId:q.correctOptionId,solution:q.solution,optionExplanations:q.optionExplanations}))};
  });
  app.post('/api/class-sessions/:sessionId/practice/join',async r=>{
   const {a,sessionId,session}=await classroom(r);

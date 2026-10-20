@@ -1,5 +1,7 @@
 import fs from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';
-import {INTERNATIONAL_MATHEMATICS_DEFINITIONS as lessons,INTERNATIONAL_MATHEMATICS_LESSONS as summaries,INTERNATIONAL_MATHEMATICS_SLIDES as slides,INTERNATIONAL_MATHEMATICS_V1_PAGE_MAP as migration,INTERNATIONAL_MATHEMATICS_VERSION_ID as version,INTERNATIONAL_MATHEMATICS_TITLE as title} from '../packages/course-content/src/international-mathematics/index.js';
+import {INTERNATIONAL_MATHEMATICS_DEFINITIONS as lessons,INTERNATIONAL_MATHEMATICS_LESSONS as allSummaries,INTERNATIONAL_MATHEMATICS_CORE_SLIDES as slides,INTERNATIONAL_MATHEMATICS_V1_PAGE_MAP as migration,INTERNATIONAL_MATHEMATICS_VERSION_ID as version,INTERNATIONAL_MATHEMATICS_TITLE as title} from '../packages/course-content/src/international-mathematics/index.js';
+// v2 is the original core package. Build add-on supplements separately.
+const summaries=allSummaries.filter(l=>l.kind!=='supplement');
 const output=path.resolve(process.env.IM_OUTPUT_ROOT||'output/international-mathematics/v2');fs.mkdirSync(path.join(output,'qa'),{recursive:true});
 const write=(name:string,data:unknown)=>fs.writeFileSync(path.join(output,name),JSON.stringify(data,null,2));
 write('course-definitions.json',{title,version,locale:'en',hours:32,lessons,summaries});write('v1-page-mapping.json',migration.map(p=>({...p,conceptAnchor:p.slideKey,conceptTitle:slides[p.v2Index-1]!.title})));

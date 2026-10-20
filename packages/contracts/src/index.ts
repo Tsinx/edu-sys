@@ -1657,14 +1657,14 @@ export const studyAssistantActionSchema = z.discriminatedUnion("type", [
   z
     .object({
       type: z.literal("study.slides.go_to"),
-      lesson: z.number().int().min(1).max(16),
+      lesson: z.number().int().positive(),
       slide: z.number().int().positive()
     })
     .strict(),
   z
     .object({
       type: z.literal("study.lesson.go_to"),
-      lesson: z.number().int().min(1).max(16)
+      lesson: z.number().int().positive()
     })
     .strict()
 ]);

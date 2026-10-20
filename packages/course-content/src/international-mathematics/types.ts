@@ -8,6 +8,7 @@ export interface PlotSpec {
   area?: {curve:number;from:number;to:number;baseline?:number};
   rectangles?: {curve:number;from:number;to:number;n:number};
   annotations?: readonly {x:number;y:number;text:string}[];
+  axesAtZero?: boolean;
 }
 interface Positioned { x: number; y: number; w: number; h: number; }
 export type SlideElement = Positioned & (

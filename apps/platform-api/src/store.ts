@@ -1081,11 +1081,16 @@ export class JsonStateStore {
 
         if (session.courseId === INTERNATIONAL_MATHEMATICS_COURSE_ID) {
           const deck = getCourseDeckByCourseId(session.courseId)!;
-          const target = action.type === "study.slides.next" ? Math.min(deck.slideTotal, session.globalIndex + 1) : action.type === "study.slides.previous" ? Math.max(1, session.globalIndex - 1) : deck.getGlobalIndex(action.lesson, action.type === "study.slides.go_to" ? action.slide : 1);
+          const target = action.type === "study.slides.next"
+            ? getCourseAdjacentIndex(deck, session.globalIndex, 1) ?? session.globalIndex
+            : action.type === "study.slides.previous"
+              ? getCourseAdjacentIndex(deck, session.globalIndex, -1) ?? session.globalIndex
+              : deck.getGlobalIndex(action.lesson, action.type === "study.slides.go_to" ? action.slide : 1);
           if (target === null || target === session.globalIndex) return {action, status: "noop" as const, message: target === null ? "This lesson or page is outside the published course." : "You are already on this page.", session: structuredClone(session)};
           const slide = deck.getSlide(target), position = deck.getLessonPosition(target)!;
           Object.assign(session, {deckVersion: deck.versionId, slideKey: slide.slideKey, globalIndex: slide.index, slideTotal: deck.slideTotal, updatedAt: new Date().toISOString(), presentation: studyAvatarPresentation(session.id)});
-          return {action, status: "applied" as const, message: `Lesson ${position.lessonNumber}, page ${position.localIndex}.`, session: structuredClone(session)};
+          const label = getCourseLessonLabel(deck.lessons.find(lesson => lesson.number === position.lessonNumber)!, deck.locale);
+          return {action, status: "applied" as const, message: `${label}, page ${position.localIndex}.`, session: structuredClone(session)};
         }
         let targetIndex: number | null = null;
         if (action.type === "study.slides.next") {

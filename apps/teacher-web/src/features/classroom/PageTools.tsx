@@ -179,7 +179,7 @@ export function PresentationToolbar({ navigation, utilities, more, end, label = 
     {open && <div ref={panelRef} className="presentation-tool-panel" id={panelId} role="dialog"
       aria-label={selectedPanel?.panel.title ?? moreLabel}>
       <div className="presentation-tool-panel__head"><strong>{selectedPanel?.panel.title ?? moreLabel}</strong>
-        <button type="button" aria-label="关闭工具面板" onClick={() => close(true)}><X size={18}/></button></div>
+        <button type="button" aria-label={english?'Close tools panel':'关闭工具面板'} onClick={() => close(true)}><X size={18}/></button></div>
       <div className="presentation-tool-panel__body">{selectedPanel ? selectedPanel.panel.content : <>
         {secondary.map(item => renderAction(item, true))}{more}
       </>}</div>

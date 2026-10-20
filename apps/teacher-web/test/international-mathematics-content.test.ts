@@ -29,9 +29,9 @@ test('international mathematics contains sixteen bounded single-variable lecture
  assert.equal(INTERNATIONAL_MATHEMATICS_COURSE_ID,'course-international-mathematics');
  assert.equal(INTERNATIONAL_MATHEMATICS_TOTAL_HOURS,32);
  assert.equal(INTERNATIONAL_MATHEMATICS_DEFINITIONS.length,16);
- assert.equal(INTERNATIONAL_MATHEMATICS_SLIDES.length,1312);
- assert.equal(new Set(INTERNATIONAL_MATHEMATICS_SLIDES.map(s=>s.slideKey)).size,1312);
- assert.equal(new Set(INTERNATIONAL_MATHEMATICS_SLIDES.map(s=>s.compositionId)).size,1312);
+ assert.equal(INTERNATIONAL_MATHEMATICS_SLIDES.length,1352);
+ assert.equal(new Set(INTERNATIONAL_MATHEMATICS_SLIDES.map(s=>s.slideKey)).size,1352);
+ assert.equal(new Set(INTERNATIONAL_MATHEMATICS_SLIDES.map(s=>s.compositionId)).size,1352);
  for(const [i,lesson]of INTERNATIONAL_MATHEMATICS_DEFINITIONS.entries()){
   assert.equal(lesson.number,i+1);
   const target=[72,76,80,74,88,78,86,78,78,82,84,78,78,90,82,76][i]!;

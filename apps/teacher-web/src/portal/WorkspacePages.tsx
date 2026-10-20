@@ -1208,7 +1208,9 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
   }
   if (!deck) return <NotFound />;
   const slide = deck.getSlide(index);
-  const lessonHours = deck.lessons.find(lesson => lesson.number === slide.lessonNumber)?.hourRanges;
+  const currentLesson = deck.lessons.find(lesson => lesson.number === slide.lessonNumber);
+  const readerPosition = deck.getLessonPosition(index);
+  const lessonHours = currentLesson?.hourRanges;
   const currentHour = lessonHours?.find(hour => index >= hour.slideStart && index <= hour.slideEnd);
   const frame: SlideFrame = {
     deckId: deck.deckId,
@@ -1298,7 +1300,7 @@ export function CourseReader({ preview = false }: { preview?: boolean }) {
             </label> : null}
           </>} navigation={<nav className="presentation-slide-navigation" aria-label={t("课件翻页","Slide navigation")}>
             <button aria-label={t("上一页","Previous")} title={t("上一页","Previous")} disabled={prev === null} onClick={() => prev !== null && go(prev)}>←</button>
-            <span className="presentation-page-position"><small>{t(`第${slide.lessonNumber}讲`,`Lesson ${slide.lessonNumber}`)}</small><span>{index} / {deck.slideTotal}</span></span>
+            <span className="presentation-page-position"><small>{currentLesson?.displayLabel??t(`第${slide.lessonNumber}讲`,`Lesson ${slide.lessonNumber}`)}</small><span>{currentLesson?.kind==='supplement'&&readerPosition?`${readerPosition.localIndex} / ${readerPosition.localTotal}`:`${index} / ${deck.slideTotal}`}</span></span>
             <button aria-label={t("下一页","Next")} title={t("下一页","Next")} disabled={next === null} onClick={() => next !== null && go(next)}>→</button>
           </nav>}/>
         </PageToolsProvider>

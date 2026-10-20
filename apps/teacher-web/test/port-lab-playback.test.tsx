@@ -11,12 +11,13 @@ test('each laboratory exposes continuous targets, six speeds, pause and a separa
   for(const lesson of [11,12] as const){
     const run=createPortClassLab(lesson);
     const playback={playing:true,targetSecond:run.simulation!.second+300,fromSecond:run.simulation!.second,reason:'idle',generation:1,speed:30,setSpeed:()=>{},start:()=>{},resume:()=>{},pause:()=>{},reset:()=>{}} satisfies ReturnType<typeof usePortLabPlayback>;
-    const html=renderToStaticMarkup(<PortLabPlaybackControls playback={playback} run={run} finished={false} pendingDispatch={false} onAdvance={()=>{}} onQuickCalculate={()=>{}}/>);
+    const html=renderToStaticMarkup(<PortLabPlaybackControls playback={playback} run={run} finished={false} pendingDispatch={false} onAdvance={()=>{}} onQuickCalculate={()=>{}} onReset={()=>{}}/>);
     assert.match(html,/暂停推进/);assert.match(html,/到第\d+分00秒自动暂停/);
     assert.equal((html.match(/<option /g)??[]).length,6);
     assert.match(html,/<details[^>]*><summary>快算 · 跳过过程画面<\/summary>/);
     assert.doesNotMatch(html,/<details[^>]*\bopen/);
     assert.match(html,/<button[^>]*disabled=""[^>]*>快算 5 分钟/);
+    const reset=html.match(/<button[^>]*class="pcl-reset"[^>]*>[\s\S]*?重置本次实验<\/button>/)?.[0];assert.ok(reset);assert.doesNotMatch(reset,/disabled/,'reset remains available during continuous playback in both lessons');
     assert.doesNotMatch(html,/teachingCue|assistantCue/);
   }
 });

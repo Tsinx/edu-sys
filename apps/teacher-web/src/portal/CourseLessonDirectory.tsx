@@ -15,10 +15,11 @@ export function CourseLessonDirectory({
     lesson.coreSlideTotal !== undefined && lesson.optionalSlideTotal !== undefined);
   const core = deck.lessons.reduce((total, lesson) => total + (lesson.coreSlideTotal ?? 0), 0);
   const optional = deck.lessons.reduce((total, lesson) => total + (lesson.optionalSlideTotal ?? 0), 0);
+  const supplements = deck.lessons.filter(lesson => lesson.kind === "supplement").length;
   return (
     <section lang={deck.locale ?? "zh-CN"} aria-label={t("课程课件目录", "Course slide directory")}>
       <div className="workspace-course-summary">
-        <span>{deck.lessons.length} {t("讲", "lectures")}</span>
+        <span>{deck.lessons.length - supplements} {t("讲", "lectures")}{supplements ? ` + ${supplements} ${t("补充单元", "supplement")}` : ""}</span>
         {deck.totalHours !== null && <span>{deck.totalHours} {t("学时", "teaching hours")}</span>}
         <span>{deck.slideTotal.toLocaleString("en-US")} {t("页课件", "slides")}</span>
         {detailedCounts && <span>{core.toLocaleString("en-US")} {t("页核心", "core")} · {optional} {t("页选学", "optional")}</span>}
@@ -29,6 +30,7 @@ export function CourseLessonDirectory({
             <div>
               <span>{lesson.displayLabel ?? t(`第 ${lesson.number} 讲`, `Lecture ${lesson.number}`)} · {lesson.slideTotal} {t("页", "slides")}</span>
               <h2>{lesson.title}</h2>
+              {lesson.supplementDurationMinutes !== undefined && <p>{lesson.supplementDurationMinutes} min foundation support · additional to the {deck.totalHours}-hour course</p>}
               <small>{activityCounts.find(value => value.lesson === lesson.number)?.count ?? 0} {t("项已编排活动", "planned activities")}</small>
               {lesson.status === "ready" ? (
                 <Link to={`/preview/${deck.courseId}?lesson=${lesson.number}`}>{t("查看课件 →", "Preview slides →")}</Link>

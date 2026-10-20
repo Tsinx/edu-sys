@@ -1,0 +1,866 @@
+{
+  "schemaVersion": 1,
+  "id": "im-ranked-practice-17",
+  "version": "1.0.0",
+  "courseId": "course-international-mathematics",
+  "lesson": 17,
+  "title": "Factoring quadratics",
+  "locale": "en",
+  "durationMinutes": 20,
+  "questions": [
+    {
+      "id": "im-practice-17-01",
+      "version": "1.0.0",
+      "rank": 1,
+      "optional": false,
+      "stem": "Calculate $(-2)(-3)$.",
+      "options": [
+        {
+          "id": "A",
+          "text": "$-6$"
+        },
+        {
+          "id": "B",
+          "text": "$6$"
+        },
+        {
+          "id": "C",
+          "text": "$-5$"
+        },
+        {
+          "id": "D",
+          "text": "$5$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F01",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-02",
+      "version": "1.0.0",
+      "rank": 1,
+      "optional": false,
+      "stem": "Calculate $-2+(-3)$.",
+      "options": [
+        {
+          "id": "A",
+          "text": "$1$"
+        },
+        {
+          "id": "B",
+          "text": "$5$"
+        },
+        {
+          "id": "C",
+          "text": "$-5$"
+        },
+        {
+          "id": "D",
+          "text": "$6$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F02",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-03",
+      "version": "1.0.0",
+      "rank": 1,
+      "optional": false,
+      "stem": "In $x^2-x-6$, what is the coefficient $b$ in $x^2+bx+c$?",
+      "options": [
+        {
+          "id": "A",
+          "text": "$-1$"
+        },
+        {
+          "id": "B",
+          "text": "$1$"
+        },
+        {
+          "id": "C",
+          "text": "$-6$"
+        },
+        {
+          "id": "D",
+          "text": "$6$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F03",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-04",
+      "version": "1.0.0",
+      "rank": 1,
+      "optional": false,
+      "stem": "Expand $x(x+5)$.",
+      "options": [
+        {
+          "id": "A",
+          "text": "$x^2+5$"
+        },
+        {
+          "id": "B",
+          "text": "$2x+5$"
+        },
+        {
+          "id": "C",
+          "text": "$6x^2$"
+        },
+        {
+          "id": "D",
+          "text": "$x^2+5x$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F04",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-05",
+      "version": "1.0.0",
+      "rank": 1,
+      "optional": false,
+      "stem": "For the numbers 3 and 4, which ordered pair gives (product, sum)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "$(7,12)$"
+        },
+        {
+          "id": "B",
+          "text": "$(12,7)$"
+        },
+        {
+          "id": "C",
+          "text": "$(12,1)$"
+        },
+        {
+          "id": "D",
+          "text": "$(7,1)$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F05",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-06",
+      "version": "1.0.0",
+      "rank": 1,
+      "optional": false,
+      "stem": "Which pair has product 6 and sum 5?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1 and 6"
+        },
+        {
+          "id": "B",
+          "text": "−2 and −3"
+        },
+        {
+          "id": "C",
+          "text": "2 and 3"
+        },
+        {
+          "id": "D",
+          "text": "−1 and −6"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F06",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-07",
+      "version": "1.0.0",
+      "rank": 1,
+      "optional": false,
+      "stem": "Which pair has product 6 and sum −5?",
+      "options": [
+        {
+          "id": "A",
+          "text": "−2 and −3"
+        },
+        {
+          "id": "B",
+          "text": "2 and 3"
+        },
+        {
+          "id": "C",
+          "text": "−1 and −6"
+        },
+        {
+          "id": "D",
+          "text": "2 and −3"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F07",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-08",
+      "version": "1.0.0",
+      "rank": 1,
+      "optional": false,
+      "stem": "Expand $(x-2)(x-3)$.",
+      "options": [
+        {
+          "id": "A",
+          "text": "$x^2+5x+6$"
+        },
+        {
+          "id": "B",
+          "text": "$x^2-x-6$"
+        },
+        {
+          "id": "C",
+          "text": "$x^2-5x-6$"
+        },
+        {
+          "id": "D",
+          "text": "$x^2-5x+6$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F08",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-09",
+      "version": "1.0.0",
+      "rank": 2,
+      "optional": false,
+      "stem": "Factor $x^2+5x+6$.",
+      "options": [
+        {
+          "id": "A",
+          "text": "$(x+2)(x+3)$"
+        },
+        {
+          "id": "B",
+          "text": "$(x-2)(x-3)$"
+        },
+        {
+          "id": "C",
+          "text": "$(x+1)(x+6)$"
+        },
+        {
+          "id": "D",
+          "text": "$(x-1)(x-6)$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F09",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-10",
+      "version": "1.0.0",
+      "rank": 2,
+      "optional": false,
+      "stem": "Factor $x^2+7x+12$.",
+      "options": [
+        {
+          "id": "A",
+          "text": "$(x+1)(x+12)$"
+        },
+        {
+          "id": "B",
+          "text": "$(x+2)(x+6)$"
+        },
+        {
+          "id": "C",
+          "text": "$(x+3)(x+4)$"
+        },
+        {
+          "id": "D",
+          "text": "$(x-3)(x-4)$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F10",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-11",
+      "version": "1.0.0",
+      "rank": 2,
+      "optional": false,
+      "stem": "Factor $x^2-5x+6$.",
+      "options": [
+        {
+          "id": "A",
+          "text": "$(x+2)(x+3)$"
+        },
+        {
+          "id": "B",
+          "text": "$(x-2)(x-3)$"
+        },
+        {
+          "id": "C",
+          "text": "$(x-1)(x-6)$"
+        },
+        {
+          "id": "D",
+          "text": "$(x-2)(x+3)$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F11",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-12",
+      "version": "1.0.0",
+      "rank": 2,
+      "optional": false,
+      "stem": "Factor $x^2+x-6$.",
+      "options": [
+        {
+          "id": "A",
+          "text": "$(x-3)(x+2)$"
+        },
+        {
+          "id": "B",
+          "text": "$(x+3)(x+2)$"
+        },
+        {
+          "id": "C",
+          "text": "$(x+6)(x-1)$"
+        },
+        {
+          "id": "D",
+          "text": "$(x+3)(x-2)$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F12",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-13",
+      "version": "1.0.0",
+      "rank": 2,
+      "optional": false,
+      "stem": "Factor $x^2-x-6$.",
+      "options": [
+        {
+          "id": "A",
+          "text": "$(x+2)(x-3)$"
+        },
+        {
+          "id": "B",
+          "text": "$(x+3)(x-2)$"
+        },
+        {
+          "id": "C",
+          "text": "$(x-2)(x-3)$"
+        },
+        {
+          "id": "D",
+          "text": "$(x-6)(x+1)$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F13",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-14",
+      "version": "1.0.0",
+      "rank": 2,
+      "optional": false,
+      "stem": "Factor $x^2+6x+9$.",
+      "options": [
+        {
+          "id": "A",
+          "text": "$(x+9)(x+1)$"
+        },
+        {
+          "id": "B",
+          "text": "$(x-3)^2$"
+        },
+        {
+          "id": "C",
+          "text": "$(x+3)^2$"
+        },
+        {
+          "id": "D",
+          "text": "$(x-3)(x+3)$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F14",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-15",
+      "version": "1.0.0",
+      "rank": 2,
+      "optional": false,
+      "stem": "Factor $x^2-9$.",
+      "options": [
+        {
+          "id": "A",
+          "text": "$(x-3)^2$"
+        },
+        {
+          "id": "B",
+          "text": "$(x-3)(x+3)$"
+        },
+        {
+          "id": "C",
+          "text": "$(x+3)^2$"
+        },
+        {
+          "id": "D",
+          "text": "$(x-9)(x+1)$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F15",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-16",
+      "version": "1.0.0",
+      "rank": 2,
+      "optional": false,
+      "stem": "Factor $x^2+5x$.",
+      "options": [
+        {
+          "id": "A",
+          "text": "$x(x-5)$"
+        },
+        {
+          "id": "B",
+          "text": "$(x+5)^2$"
+        },
+        {
+          "id": "C",
+          "text": "$(x+1)(x+5)$"
+        },
+        {
+          "id": "D",
+          "text": "$x(x+5)$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F16",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-17",
+      "version": "1.0.0",
+      "rank": 3,
+      "optional": false,
+      "stem": "Solve $x^2+5x+6=0$.",
+      "options": [
+        {
+          "id": "A",
+          "text": "$x=2$ or $3$"
+        },
+        {
+          "id": "B",
+          "text": "$x=-3$ or $-2$"
+        },
+        {
+          "id": "C",
+          "text": "$x=-6$ or $-1$"
+        },
+        {
+          "id": "D",
+          "text": "$x=-3$ or $2$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F17",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-18",
+      "version": "1.0.0",
+      "rank": 3,
+      "optional": false,
+      "stem": "Solve $x^2-5x+6=0$.",
+      "options": [
+        {
+          "id": "A",
+          "text": "$x=-3$ or $-2$"
+        },
+        {
+          "id": "B",
+          "text": "$x=-3$ or $2$"
+        },
+        {
+          "id": "C",
+          "text": "$x=-2$ or $3$"
+        },
+        {
+          "id": "D",
+          "text": "$x=2$ or $3$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F18",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-19",
+      "version": "1.0.0",
+      "rank": 3,
+      "optional": false,
+      "stem": "Solve $x^2+x-6=0$.",
+      "options": [
+        {
+          "id": "A",
+          "text": "$x=-3$ or $2$"
+        },
+        {
+          "id": "B",
+          "text": "$x=-2$ or $3$"
+        },
+        {
+          "id": "C",
+          "text": "$x=-3$ or $-2$"
+        },
+        {
+          "id": "D",
+          "text": "$x=2$ or $3$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F19",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-20",
+      "version": "1.0.0",
+      "rank": 3,
+      "optional": false,
+      "stem": "Solve $x^2+5x=0$. Include all real solutions.",
+      "options": [
+        {
+          "id": "A",
+          "text": "$x=-5$ only"
+        },
+        {
+          "id": "B",
+          "text": "$x=0$ only"
+        },
+        {
+          "id": "C",
+          "text": "$x=-5$ or $0$"
+        },
+        {
+          "id": "D",
+          "text": "$x=0$ or $5$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F20",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-21",
+      "version": "1.0.0",
+      "rank": 3,
+      "optional": false,
+      "stem": "A proposed factorisation of $x^2-5x+6$ is $(x-1)(x-6)$. What middle coefficient does the proposed product actually produce?",
+      "options": [
+        {
+          "id": "A",
+          "text": "$-5$"
+        },
+        {
+          "id": "B",
+          "text": "$-7$"
+        },
+        {
+          "id": "C",
+          "text": "$5$"
+        },
+        {
+          "id": "D",
+          "text": "$7$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F21",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-22",
+      "version": "1.0.0",
+      "rank": 3,
+      "optional": false,
+      "stem": "For $f(x)=x^2-x-6$, which two points are the horizontal-axis intercepts?",
+      "options": [
+        {
+          "id": "A",
+          "text": "$(-3,0)$ and $(2,0)$"
+        },
+        {
+          "id": "B",
+          "text": "$(-3,0)$ and $(-2,0)$"
+        },
+        {
+          "id": "C",
+          "text": "$(2,0)$ and $(3,0)$"
+        },
+        {
+          "id": "D",
+          "text": "$(-2,0)$ and $(3,0)$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F22",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      },
+      "graph": {
+        "coefficients": [
+          -6,
+          -1,
+          1
+        ],
+        "xMin": -4,
+        "xMax": 4,
+        "yMin": -8,
+        "yMax": 8,
+        "xLabel": "x",
+        "yLabel": "f(x)",
+        "caption": "The graph of f(x)=x²−x−6. Locate the two crossings of y=0."
+      }
+    },
+    {
+      "id": "im-practice-17-23",
+      "version": "1.0.0",
+      "rank": 4,
+      "optional": true,
+      "stem": "Suppose $x^2+kx+12=(x+m)(x+n)$, where m and n are positive integers. What is the smallest possible k?",
+      "options": [
+        {
+          "id": "A",
+          "text": "$5$"
+        },
+        {
+          "id": "B",
+          "text": "$6$"
+        },
+        {
+          "id": "C",
+          "text": "$7$"
+        },
+        {
+          "id": "D",
+          "text": "$12$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F23",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    },
+    {
+      "id": "im-practice-17-24",
+      "version": "1.0.0",
+      "rank": 4,
+      "optional": true,
+      "stem": "Which expression cannot be factored as $(x+m)(x+n)$ with integer m and n?",
+      "options": [
+        {
+          "id": "A",
+          "text": "$x^2+x-6$"
+        },
+        {
+          "id": "B",
+          "text": "$x^2-5x+6$"
+        },
+        {
+          "id": "C",
+          "text": "$x^2+6x+9$"
+        },
+        {
+          "id": "D",
+          "text": "$x^2+x-1$"
+        }
+      ],
+      "source": {
+        "book": "Jacques, Mathematics for Economics and Business, 9th edition (2018)",
+        "section": "2.1",
+        "selection": "Original foundation supplement",
+        "subpart": "F24",
+        "printedPage": 127,
+        "pdfPage": 144,
+        "wordingAdaptation": "Original teaching question extending the factorisation and zero-product explanation on printed pp.127–128 (PDF pp.144–145). It is not a reproduced or renumbered textbook exercise.",
+        "optionAdaptation": "Four original choices with exactly one correct answer."
+      }
+    }
+  ]
+}
