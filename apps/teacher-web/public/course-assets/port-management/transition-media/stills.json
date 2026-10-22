@@ -1,0 +1,14 @@
+[
+  {
+    "file": "qingdao-control.jpg",
+    "sourcePage": "https://tv.cctv.com/2025/05/22/VIDEu7abgnqxjck2rKBqygmP250522.shtml",
+    "sourceSecond": 66,
+    "sha256": "c24f705eb6311382827fdf90b2cf63024e49ebc1f917adf5f98af1d9c57319b3"
+  },
+  {
+    "file": "electric-trucks.jpg",
+    "sourcePage": "https://tv.cctv.com/2025/06/09/VIDEHV4MAQdbeBL4IovSAvuX250609.shtml",
+    "sourceSecond": 106,
+    "sha256": "8b9438b3023144086bd59b39f308870163610f7401dc190dce0a4baf5b5905bc"
+  }
+]

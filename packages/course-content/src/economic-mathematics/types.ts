@@ -63,7 +63,7 @@ export type EconomicMathematicsInteractionId =
 
 export interface EconomicMathematicsAuthoredSlide {
   foundationFigure?: EconomicMathematicsFoundationFigure;
-  foundationLab?: 'angle' | 'compounding' | 'continuity-repair' | 'bisection' | 'derivative-secant';
+  foundationLab?: 'angle' | 'compounding' | 'continuity-repair' | 'bisection' | 'derivative-secant' | 'differential-error';
   /** Two authored concept questions with teacher-controlled feedback. */
   conceptCheck?: boolean;
   limitFigure?: EconomicMathematicsLimitFigure;
@@ -114,7 +114,7 @@ export interface EconomicMathematicsAuthoredSlide {
 }
 
 export interface EconomicMathematicsFoundationFigure {
-  kind: 'angle' | 'sinc' | 'compound' | 'equivalence' | 'continuity' | 'contract' | 'queue' | 'ivt' | 'bisection' | 'extreme' | 'oscillation' | 'sided' | 'far' | 'derivative';
+  kind: 'angle' | 'sinc' | 'compound' | 'equivalence' | 'continuity' | 'contract' | 'queue' | 'ivt' | 'bisection' | 'extreme' | 'oscillation' | 'sided' | 'far' | 'derivative' | 'product-increment' | 'marginal-average' | 'chain' | 'inverse-derivative' | 'implicit-circle' | 'higher-rate' | 'higher-corner' | 'differential-error';
   params?: Readonly<Record<string, number>>;
 }
 

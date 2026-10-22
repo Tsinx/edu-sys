@@ -1,0 +1,42 @@
+[
+  {
+    "id": "smart",
+    "lesson": 15,
+    "start": 34,
+    "seconds": 35,
+    "intro": 4,
+    "outro": 6,
+    "duration": 45,
+    "date": "2025-05-22",
+    "title": "智慧港口与数字协同",
+    "question": "设备怎样接到任务？人员在哪里判断？",
+    "finding": "作业更快之后，货物能否更早交付？",
+    "boundary": "青岛港历史报道；单机作业效率不等于全程交付效率",
+    "sourcePage": "https://tv.cctv.com/2025/05/22/VIDEu7abgnqxjck2rKBqygmP250522.shtml",
+    "sourceTitle": "[新闻直播间]山东 青岛港自动化码头 每小时装卸超62箱 第13次刷新世界纪录",
+    "sourceSha256": "353d0cb87b000e5644503c70ab34dd347d7b5732d934a71acd3d9e260cdd9e6b",
+    "outputSha256": "f9bd98ccc7433638da0ab9192ab530041c75aa9648a7c520fa6fd770118e0231",
+    "captionType": "课程观察提示，非原报道完整转写",
+    "rights": "原报道版权归原权利人，课堂短节选；课程自编提问及剪辑。"
+  },
+  {
+    "id": "green",
+    "lesson": 16,
+    "start": 85,
+    "seconds": 27.4,
+    "intro": 4,
+    "outro": 6,
+    "duration": 37.4,
+    "date": "2025-06-09",
+    "title": "绿色港口与可持续转型",
+    "question": "岸电替代了什么？哪些条件决定实际使用？",
+    "finding": "设施建成以后，怎样核实使用与减排？",
+    "boundary": "原报道含不同港口；历史比例与建设目标不是当前实绩",
+    "sourcePage": "https://tv.cctv.com/2025/06/09/VIDEHV4MAQdbeBL4IovSAvuX250609.shtml",
+    "sourceTitle": "[视频]我国港口加快智慧绿色转型",
+    "sourceSha256": "8e988f5c2b814caea34f3b0f0c2c874e7808a23102df740389c9d27abed8c1cb",
+    "outputSha256": "b9fb1ff517ac6cf3cc93d47ac1668beeaffe50895207e66db5bc11986fb6c889",
+    "captionType": "课程观察提示，非原报道完整转写",
+    "rights": "原报道版权归原权利人，课堂短节选；课程自编提问及剪辑。"
+  }
+]

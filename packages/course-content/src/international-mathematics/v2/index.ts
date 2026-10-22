@@ -2,7 +2,7 @@ import type {MathematicsLesson} from '../types.js';
 import {expandLesson} from './authoring.js';
 import {additions01,guides01} from './lesson-01.js';
 import {additions02,guides02} from './lesson-02.js';
-import {additions03,guides03} from './lesson-03.js';
+import {additions03,guides03,schedule03} from './lesson-03.js';
 import {additions04,guides04} from './lesson-04.js';
 import {additions05,guides05} from './lesson-05.js';
 import {additions06,guides06} from './lesson-06.js';
@@ -16,12 +16,12 @@ import {additions13,guides13} from './lesson-13.js';
 import {additions14,guides14} from './lesson-14.js';
 import {additions15,guides15} from './lesson-15.js';
 import {additions16,guides16} from './lesson-16.js';
-export const CORE_TARGETS=[72,76,80,74,88,78,86,78,78,82,84,78,78,90,82,76] as const;
+export const CORE_TARGETS=[72,76,100,74,88,78,86,78,78,82,84,78,78,90,82,76] as const;
 export function expandV2(lesson:MathematicsLesson):MathematicsLesson{
  switch(lesson.number){
   case 1:return expandLesson(lesson,additions01,72,guides01,['Units, percentages and payment rules','Equations and price boundaries']);
   case 2:return expandLesson(lesson,additions02,76,guides02,['Functions and lines','Demand, supply and agreement']);
-  case 3:return expandLesson(lesson,additions03,80,guides03,['Quadratic revenue and roots','Revenue peaks and profit']);
+  case 3:return schedule03(expandLesson(lesson,additions03,100,guides03,['Completing squares and understanding roots','Coefficients, revenue and practice'],[2700,1500]));
   case 4:return expandLesson(lesson,additions04,74,guides04,['Powers and multiplicative growth','Logarithms and target times']);
   case 5:return expandLesson(lesson,additions05,88,guides05,['From observations to a difference quotient','From a quotient to an instantaneous rate']);
   case 6:return expandLesson(lesson,additions06,78,guides06,['Constants, powers and cost rates','Negative powers and checks']);

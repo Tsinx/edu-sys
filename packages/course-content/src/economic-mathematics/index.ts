@@ -15,6 +15,12 @@ export { mathFirstLesson05Narration as lesson05Narration } from './lesson-05-mat
 export { continuityLesson06Narration as lesson06Narration } from './lesson-06-continuity.js';
 export { derivativeLesson07Narration as lesson07Narration } from './lesson-07-derivative.js';
 export * from './continuity-derivative-exercises.js';
+export * from './differentiation-exercises.js';
+export * from './differentiation-written-exercises.js';
+export * from './differentiation-model.js';
+export {differentiationLesson08Narration as lesson08Narration} from './lesson-08-differentiation.js';
+export {chainLesson09Narration as lesson09Narration} from './lesson-09-chain.js';
+export {differentialsLesson10Narration as lesson10Narration} from './lesson-10-differentials.js';
 export * from './next-lesson-plan.js';
 export * from './limit-mastery-exercises.js';
 export {derivativeAppendixNarration} from './derivative-topic-moved.js';

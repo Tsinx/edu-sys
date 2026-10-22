@@ -95,7 +95,7 @@ test('all new pages have resolvable evidence and public copy free of lesson-auth
 test('current-page context distinguishes samples and withholds later exercise feedback',()=>{
  for(const p of slides.filter(p=>p.lesson>=8&&p.lesson<=9)){
   const w=buildPromptWorkspace('statistical-analysis','统计分析方法',undefined,p.index);
-  assert.equal(w.coverage.slides,546);assert.match(w.compiled,/独立C001—C400/);assert.match(w.compiled,/第12—16讲仍待建设/);
+  assert.equal(w.coverage.slides,642);assert.match(w.compiled,/独立C001—C400/);assert.match(w.compiled,/第14—16讲仍待建设/);
   assert.doesNotMatch(p.assistantCue,/第8讲仍待建设|第9讲仍待建设/);
  }
  const cue=(lesson:number,local:number)=>slides.find(p=>p.lesson===lesson&&p.localIndex===local)!.assistantCue;

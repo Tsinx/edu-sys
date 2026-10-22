@@ -14,7 +14,7 @@ import { buildApp } from "../src/app.js";
 import { createSeedState } from "../src/seed.js";
 import { buildPromptWorkspace } from "../src/assistant/prompts.js";
 import { JsonStateStore } from "../src/store.js";
-import { INTERNATIONAL_MATHEMATICS_V1_PAGE_MAP as legacyMap } from "@edu/course-content/international-mathematics";
+import { INTERNATIONAL_MATHEMATICS_V1_PAGE_MAP as legacyMap, INTERNATIONAL_MATHEMATICS_V2_PAGE_MAP as v2Map } from "@edu/course-content/international-mathematics";
 
 test("v1 classroom, study and reading records migrate by key first and preserve learning history", async()=>{
  const directory=await mkdtemp(join(tmpdir(),"edu-international-v2-migration-")),file=join(directory,"state.json");
@@ -44,6 +44,34 @@ test("v1 classroom, study and reading records migrate by key first and preserve 
  }finally{store.close();await rm(directory,{recursive:true,force:true});}
 });
 
+test("v2 classroom, study and reading records migrate by key first and preserve learning history", async()=>{
+ const directory=await mkdtemp(join(tmpdir(),"edu-international-v3-migration-")),file=join(directory,"state.json");
+ const actor={actorId:'v2-migration-student',displayName:'Student',roles:['student'] as ('student')[],identitySource:'development' as const};
+ let store=new JsonStateStore(file);await store.initialize();
+ const classroom=await store.startClass(id),study=await store.createOrResumeStudySession(id,actor);
+ assert.ok(classroom&&study);store.close();
+ const state=JSON.parse(await readFile(file,'utf8'));
+ const keyTarget=v2Map.find(p=>p.v2Index===1352)!;
+ const indexTarget=v2Map.find(p=>p.v2Index===235)!;
+ const runtime=state.classroomRuntimes[classroom.id];runtime.deckVersion='release-international-mathematics-jacques-v2';runtime.slideIndex=1;runtime.slideKey=keyTarget.slideKey;
+ const savedStudy=state.studySessions.find((s:{id:string})=>s.id===study.id);savedStudy.deckVersion=runtime.deckVersion;savedStudy.globalIndex=indexTarget.v2Index;delete savedStudy.slideKey;savedStudy.slideTotal=v2Map.length;
+ state.portal??={preparations:{},readings:{},preferences:{},startRequests:{},deletedClassrooms:{}};
+ state.portal.readings[JSON.stringify([actor.actorId,id])]={deckVersion:runtime.deckVersion,slideKey:keyTarget.slideKey,slideIndex:1,revision:7,updatedAt:'2026-09-01T00:00:00Z'};
+ state.portal.readings[JSON.stringify(['legacy-index-student',id])]={deckVersion:runtime.deckVersion,slideIndex:indexTarget.v2Index,revision:3};
+ const history=structuredClone(state.activities),courseProgress=state.courses.map((c:{id:string,progress:number})=>[c.id,c.progress]);
+ await writeFile(file,JSON.stringify(state));
+ store=new JsonStateStore(file);await store.initialize();
+ try{
+  assert.equal(store.getClassroomSnapshot(classroom.id)?.slide.index,keyTarget.currentIndex);
+  assert.equal(store.getStudySession(study.id,actor)?.globalIndex,indexTarget.currentIndex);
+  assert.equal(store.getStudySession(study.id,actor)?.slideTotal,slides.length);
+  const migrated=JSON.parse(await readFile(file,'utf8'));
+  const progress=migrated.portal.readings[JSON.stringify([actor.actorId,id])];assert.equal(progress.slideKey,keyTarget.slideKey);assert.equal(progress.revision,7);assert.equal(progress.updatedAt,'2026-09-01T00:00:00Z');
+  assert.equal(migrated.portal.readings[JSON.stringify(['legacy-index-student',id])].slideKey,indexTarget.slideKey);
+  assert.deepEqual(migrated.activities,history);assert.deepEqual(migrated.courses.map((c:{id:string,progress:number})=>[c.id,c.progress]),courseProgress);
+ }finally{store.close();await rm(directory,{recursive:true,force:true});}
+});
+
 test("international mathematics registration is English with complete lecture ranges and public summaries", () => {
   const deck = getCourseDeckByCourseId(id)!;
   assert.equal(deck.locale, "en");
@@ -64,7 +92,7 @@ test("international mathematics registration is English with complete lecture ra
     assert.equal(lesson.slideTotal,lesson.coreSlideTotal!+lesson.optionalSlideTotal!);
     assert.equal(lesson.optionalSlideTotal,lesson.kind==="supplement"?0:2);
     assert.equal(lesson.hourRanges?.length??0,lesson.kind==="supplement"?0:2);
-    assert.ok((lesson.hourRanges??[]).every(h=>h.coreSlides>=36&&h.coreSlides<=45));
+    assert.ok((lesson.hourRanges??[]).every(h=>h.coreSlides>=36&&h.coreSlides<=(lesson.number===3?50:45)));
     const start = lesson.slideStart!;
     assert.equal(deck.getGlobalIndex(lesson.number), start);
     assert.equal(deck.getGlobalIndex(lesson.number, lesson.slideTotal), lesson.slideEnd);

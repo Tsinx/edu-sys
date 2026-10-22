@@ -1,0 +1,92 @@
+{
+  "version": "release-economic-mathematics-continuity-derivative-2026-10-17",
+  "deck": "deck-economic-mathematics-2026-continuity-derivative",
+  "counts": [
+    40,
+    59,
+    85,
+    60,
+    66,
+    64,
+    64,
+    10,
+    10,
+    10,
+    10,
+    11,
+    11,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    14,
+    10,
+    10,
+    10,
+    11,
+    14,
+    12
+  ],
+  "files": [
+    {
+      "path": "packages/course-content/src/economic-mathematics/v2/lesson-08.ts",
+      "sha256": "5c9b5efb229f6044abf4577eba9b5bfafee805254b0a72da38e1c3a990e09d45"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/v2/lesson-09.ts",
+      "sha256": "c8d7ead2a4a6e2136ca55f134ffe4f75759c8536c4dd483abaf808c910a22332"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/v2/lesson-10.ts",
+      "sha256": "b30f68f47f752fe706b84cb849802e80ad7069c576aba1eee9930902c7a8e524"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "sha256": "2fda522e183e3c5b011a57b0b77edbd0663906c28aaf299609b50d71aa60ce24"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/slides.ts",
+      "sha256": "df1b7f5892725af99d6ef1c88a68264c48c51b6639ce49dac2d478b78241c62a"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/index.ts",
+      "sha256": "8a3c9c3337010dfa392984773bbef9ce3c24e1359cfc7f410b4e347b5994b621"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/types.ts",
+      "sha256": "722b85613ac7b6f1d3d5660d90c65dfa7ee88324c7d43c72e9507e161e53491b"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/interactions.ts",
+      "sha256": "b912b46724402dec84db591f3ac0779e8b1faa5a851adfc3667ef84058dc2835"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/next-lesson-plan.ts",
+      "sha256": "f39b2311f33fdaec3ef44f157a14cf015346c737b5974c29180c8705106cbd34"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/EconomicPageNarrator.tsx",
+      "sha256": "e821d447cc66412718587fa0c7e22a7e4edb4fb8cc52cd56f3955935cddd36dc"
+    },
+    {
+      "path": "apps/teacher-web/src/economic-narration.tsx",
+      "sha256": "83317ac457c3b794b0e2e35892144908aea220e0293abb318d336094b2f022ac"
+    },
+    {
+      "path": "docs/course/economic-mathematics-lessons-10-13-plan.md",
+      "sha256": "e8b65670026e6b90cee3774b7b9ff70d588d12a669718cadd1c9092801f32896"
+    },
+    {
+      "path": "docs/course/economic-mathematics-deck-v2.json",
+      "sha256": "a5054cd61e6d9cc0ef6175b28c61a723cbe0783fab4e2c943eb7fa6b100ecf4f"
+    }
+  ]
+}

@@ -342,12 +342,13 @@ const statisticalAnalysisDescriptor: CourseDeckDescriptor = {
   lessons: STATISTICAL_ANALYSIS_LESSONS, allowedActivities: ['slides'],
   presentation: {
     shortTitle: '统计分析', categoryLabel: '商科研究生',
-    description: '从研究问题与数据证据出发，衔接科研可视化、回归、问卷测量、因果推断与时间序列。32课时16讲，前十一讲已建设，共546页，各90分钟。',
+    description: '从研究问题与数据证据出发，衔接科研可视化、回归、问卷测量、因果推断与时间序列。32课时16讲，前十三讲已建设，共642页，各90分钟；第12—13讲使用同一真实资料完成Python项目。',
     heroImage: '/course-assets/statistical-analysis/images/l1-01-retail-night.png',
     accent: 'statistical-analysis', assistantName: '小麦老师', supportsStudy: false,
     resources: [
       {role:'统计推断',title:'ASA关于p值的声明',detail:'2016 · 统计显著性与解释边界',url:'https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf'},
       {role:'数据',title:'Anscombe四重奏',detail:'R datasets · 原始点与统计摘要',url:'https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/anscombe.html'},
+      {role:'项目',title:'第12—13讲真实数据项目',detail:'INPRES · Notebook、数据字典与跟做材料',url:'/course-assets/statistical-analysis/project-12-13/project-12-13.zip'},
       {role:'科研图形',title:'Wilke · Fundamentals of Data Visualization',detail:'图形任务与图形分类',url:'https://clauswilke.com/dataviz/directory-of-visualizations.html'}
     ]
   },

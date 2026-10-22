@@ -1,6 +1,7 @@
 import {PortPerformanceSafetyDiagram} from './PortPerformanceSafetyDiagrams';
 import {PortAdvancedComposition} from './PortAdvancedComposition';
 import {PortTradeComposition} from './PortTradeComposition';
+import {PortTransitionComposition} from './PortTransitionComposition';
 import {PortGovernanceDiagram} from './PortGovernanceDiagrams';
 import {CargoSpace,WarehouseSite} from './PortExpansionDetails';
 import type {ReactNode} from 'react';
@@ -53,6 +54,7 @@ function Phases({page,state}:{page:PortExpansionPage;state:ExpansionPresentation
 function Decision({page,state}:{page:PortExpansionPage;state:ExpansionPresentation}){return <><T x={30} y={140} size={148} fill="#c6c9ad">?</T><path d="M240 75V420" stroke="#bccbbb" strokeWidth="3"/>{(page.labels??[]).map((s,i)=><g key={i} opacity={state.progress>=(i+1)/(page.labels?.length??1)?1:.2}><circle cx="313" cy={102+i*106} r="9" fill={colors[i]}/><T x={350} y={113+i*106} size={34}>{s}</T><path d={`M350 ${145+i*106}H1375`} stroke="#c4cfbf"/></g>)}</>;}
 function Diagram(props:{page:PortExpansionPage;state:ExpansionPresentation}){switch(props.page.visual){case 'evidence':case 'performance':case 'sample':case 'scorecard':case 'barriers':case 'incident':case 'dependency':return <PortPerformanceSafetyDiagram {...props}/>;case 'rights':case 'contract':case 'cashflow':case 'choice':case 'invoice':case 'service':return <PortGovernanceDiagram {...props}/>;case 'terminal':return <Terminal {...props}/>;case 'chain':return <Flow {...props}/>;case 'matrix':return <Matrix {...props}/>;case 'ledger':return <Ledger {...props}/>;case 'bars':case 'scenario':return <Bars {...props}/>;case 'network':return <Network {...props}/>;case 'generations':return <Generation {...props}/>;case 'city':return <City {...props}/>;case 'map':return props.page.slideKey==='l7-conversion'?<WarehouseSite state={props.state}/>:<MapDiagram {...props}/>;case 'section':return <CargoSpace {...props}/>;case 'phases':return <Phases {...props}/>;case 'decision':return <Decision {...props}/>;case 'hero':return null;}}
 export function PortExpansionComposition({page,state}:{page:PortExpansionPage;state:ExpansionPresentation}){
+ if(page.lesson>=15)return <PortTransitionComposition page={page} state={state}/>;
  if(page.lesson>=13)return <PortTradeComposition page={page} state={state}/>;
  if(page.lesson>=11)return <PortAdvancedComposition page={page} state={state}/>;
  const hero=page.visual==='hero',source=PORT_EXPANSION_SOURCES[page.source],points=expansionVisiblePoints(page,state.progress);

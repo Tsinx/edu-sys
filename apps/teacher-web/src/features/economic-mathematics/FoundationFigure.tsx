@@ -1,6 +1,7 @@
 import { useId, type ReactNode } from 'react';
 import { foundationBisection, foundationModels as M, calculusValue, calculusEvidence, type CalculusCurve, type EconomicMathematicsFoundationFigure } from '@edu/course-content/economic-mathematics';
 import type { SlideInteractionValues } from '@edu/contracts';
+import {DifferentiationFigure} from './DifferentiationFigure';
 
 const ink='#202c2d',teal='#466d6e',rust='#a64e35';
 const path=(f:(x:number)=>number,a:number,b:number,X:(n:number)=>number,Y:(n:number)=>number,n=400)=>Array.from({length:n+1},(_,i)=>{const x=a+(b-a)*i/n;return `${i?'L':'M'}${X(x).toFixed(2)},${Y(f(x)).toFixed(2)}`;}).join(' ');
@@ -17,6 +18,7 @@ function Chart({domain,range,children,label,xLabel='x',yLabel='函数值'}:{doma
 }
 const Dot=({x,y,open=false}:{x:number;y:number;open?:boolean})=><circle cx={x} cy={y} r="7" fill={open?'#f6f3e9':rust} stroke={rust} strokeWidth="3"/>;
 export function FoundationFigure({config,values}:{config:EconomicMathematicsFoundationFigure;values:SlideInteractionValues}) {
+  if(['product-increment','marginal-average','chain','inverse-derivative','implicit-circle','higher-rate','higher-corner','differential-error'].includes(config.kind))return <DifferentiationFigure config={config} values={values}/>;
   const p=config.params??{};
   switch(config.kind){
     case 'derivative': {

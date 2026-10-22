@@ -1,12 +1,12 @@
 import { useMemo, type ReactNode } from 'react';
 import type { SlideInteractionState, SlideInteractionValues } from '@edu/contracts';
-import { refinedNarration, lesson03Narration, lesson04Narration, lesson05Narration, lesson06Narration, lesson07Narration, derivativeAppendixNarration, merchantReadout, limitLabReadout, foundationReadout, getEconomicMathematicsInteractionDefinition, getEconomicMathematicsPresentationStep, type EconomicMathematicsSlideSpec } from '@edu/course-content/economic-mathematics';
+import { refinedNarration, lesson03Narration, lesson04Narration, lesson05Narration, lesson06Narration, lesson07Narration, lesson08Narration, lesson09Narration, lesson10Narration, derivativeAppendixNarration, merchantReadout, limitLabReadout, foundationReadout, getEconomicMathematicsInteractionDefinition, getEconomicMathematicsPresentationStep, type EconomicMathematicsSlideSpec } from '@edu/course-content/economic-mathematics';
 import { PageNarrator } from './PageNarrator';
 import { lessonNarration, preludeNarration } from './narration-scripts';
 import { economicLabReadout } from './EconomicMathematicsTeachingSlides';
 
 function narrationFor(spec: EconomicMathematicsSlideSpec) {
-  return refinedNarration[spec.slideKey] ?? lesson03Narration[spec.slideKey] ?? lesson04Narration[spec.slideKey] ?? lesson05Narration[spec.slideKey] ?? lesson06Narration[spec.slideKey] ?? lesson07Narration[spec.slideKey] ?? derivativeAppendixNarration[spec.slideKey] ?? (spec.preludeId ? preludeNarration[spec.preludeId] : lessonNarration[spec.sourceLesson ?? spec.lesson]?.[(spec.sourceLocalIndex ?? spec.localIndex) - 1]);
+  return refinedNarration[spec.slideKey] ?? lesson03Narration[spec.slideKey] ?? lesson04Narration[spec.slideKey] ?? lesson05Narration[spec.slideKey] ?? lesson06Narration[spec.slideKey] ?? lesson07Narration[spec.slideKey] ?? lesson08Narration[spec.slideKey] ?? lesson09Narration[spec.slideKey] ?? lesson10Narration[spec.slideKey] ?? derivativeAppendixNarration[spec.slideKey] ?? (spec.preludeId ? preludeNarration[spec.preludeId] : lessonNarration[spec.sourceLesson ?? spec.lesson]?.[(spec.sourceLocalIndex ?? spec.localIndex) - 1]);
 }
 export function hasEconomicPageNarration(spec: EconomicMathematicsSlideSpec) { return Boolean(narrationFor(spec)); }
 export function EconomicPageNarrator({ spec, interaction, onInteractionPatch, onReset, navigation, tools, toolsLabel }: { spec: EconomicMathematicsSlideSpec; interaction: SlideInteractionState | null; onInteractionPatch?: (patch: SlideInteractionValues) => void; onReset?: () => void; navigation?: ReactNode; tools?: ReactNode; toolsLabel?: string }) {

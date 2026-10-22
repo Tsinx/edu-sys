@@ -1,4 +1,5 @@
 import {CausalPageView} from './CausalPages';
+import {PolicyPageView} from './PolicyPages';
 import type { CSSProperties, ReactNode } from 'react';
 import type { SlideFrame } from '@edu/contracts';
 import { getStatisticalAnalysisSlide, STATISTICAL_ANALYSIS_DATA as D, type StatisticalAnalysisSlide as SlideSpec } from '@edu/course-content/statistical-analysis';
@@ -20,6 +21,7 @@ function Table({headers,rows}:{headers:string[];rows:(string|number)[][]}) {retu
 function Means() {return <div className="sa-means"><div><span>会员</span><strong>650</strong><small>元/人/月 · n=240</small></div><i>vs.</i><div><span>非会员</span><strong>500</strong><small>元/人/月 · n=240</small></div></div>;}
 function Receipt() {return <><Art id="l1-05-receipts" mode="cutout" style={{left:-120,top:90,width:770,height:500,opacity:.7}}/><div className="sa-receipt-records"><span>聚合演示 · C示例01 · 同一观察月</span><p>订单 A <b>120</b></p><p>订单 B <b>180</b></p><p>订单 C <b>200</b></p></div><div className="sa-sum"><span>顾客月消费</span><strong>500<small>元</small></strong><p>一位顾客，仅贡献一行</p></div><svg className="sa-arrow" viewBox="0 0 420 150" aria-hidden="true"><path d="M10 75H370m-30-25 30 25-30 25" fill="none" stroke={amber} strokeWidth="3"/></svg></>;}
 function MainContent({s}:{s:SlideSpec}):ReactNode {
+ if(s.lesson>=12)return <PolicyPageView lesson={s.lesson} page={s.localIndex}/>;
  if(s.lesson>=10)return <CausalPageView lesson={s.lesson} page={s.localIndex}/>;
  if(s.lesson>=6)return <MeasurementPageView lesson={s.lesson} page={s.localIndex}/>;
  if(s.lesson>=3)return <RegressionPageView lesson={s.lesson} page={s.localIndex}/>;

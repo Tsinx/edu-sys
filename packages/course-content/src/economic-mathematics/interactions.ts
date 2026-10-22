@@ -186,7 +186,8 @@ export function getEconomicMathematicsInteractionDefinition(
       compounding:{defaults:{nominalRate:.12,compoundCount:'12'},rules:{nominalRate:numberRule(0,1,.01),compoundCount:{type:'enum',values:['1','2','4','12','365','10000']}}},
       'continuity-repair':{defaults:{pointValue:3},rules:{pointValue:numberRule(0,4,.25)}},
       bisection:{defaults:{bisectionSteps:0},rules:{bisectionSteps:numberRule(0,12,1,true)}},
-      'derivative-secant':{defaults:{increment:.5},rules:{increment:numberRule(-1,1,.05)}}
+      'derivative-secant':{defaults:{increment:.5},rules:{increment:numberRule(-1,1,.05)}},
+      'differential-error':{defaults:{increment:10},rules:{increment:numberRule(-20,20,.5)}}
     } satisfies Record<NonNullable<EconomicMathematicsSlideSpec['foundationLab']>,Pick<EconomicMathematicsInteractionDefinition,'defaults'|'rules'>>)[slide.foundationLab]
   } : slide.historyFilm ? {
     id: 'presentation', label: '微积分历史短片',

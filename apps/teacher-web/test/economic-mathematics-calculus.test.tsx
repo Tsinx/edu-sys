@@ -23,7 +23,7 @@ test('continuity and derivative routes have 90 minutes, sufficient individual wo
  for(const [a,b]of[['输入增量与','平均变化率：'],['导数：差商','右导数：'],['切线由','边际成本：'],['局部极值：','费马定理：']]){const ai=seventh.findIndex(p=>p.title.includes(a)),bi=seventh.findIndex(p=>p.title.includes(b));assert.ok(ai>=0&&bi>ai,a+':'+b);}
  assert.ok(seventh.findIndex(p=>p.foundationLab==='derivative-secant')<seventh.findIndex(p=>p.exerciseActivityId==='l7-personal-calculus-01'),'差商须先定义再练习');
  assert.equal(historical('release-economic-mathematics-math-first-2026-10-16')!.reduce((s,n)=>s+n,0),648);
- assert.deepEqual(plan.map(p=>p.number),[10,11,12,13]);assert.ok(plan.every(p=>p.status==='planned'&&p.minutes===90));
+ assert.deepEqual(plan.map(p=>p.number),[10,11,12,13]);assert.equal(plan[0]!.status,'implemented');assert.ok(plan.slice(1).every(p=>p.status==='planned'&&p.minutes===90));
  assert.match(plan[2]!.title,/洛必达/);assert.match(plan[3]!.title,/泰勒/);
 });
 test('each authored choice and its feedback agree across slide, speech and exercise bank, without premature answers',()=>{

@@ -1,5 +1,6 @@
 /** Teacher-only entrypoint. Never import this module into slide rendering or assistant context. */
 import {causalLessons,causalTiming} from './causal-lessons.js';
+import {policyTeacherScripts} from './policy-teacher-scripts.js';
 export interface StatisticalAnalysisTeacherScript {
  slideKey:string; lesson:number; localIndex:number; paragraphs:string[];
  pauseCue:string; transitionToNext:string; spokenSeconds:number; pauseSeconds:number;
@@ -483,7 +484,7 @@ const eleven:string[]=[
 例如两组在处理前一段时间相似，仍可能在未来受到不同冲击；样本噪声也可能掩盖差异。正式政策评估需要把培训店如果未培训会怎样变化说清楚，并结合实施过程和其他证据论证。时间图是重要的观察材料，而不是一张可以替代全部设计条件的证书。
 
 请保留一个具体问题：在第13月没有启动培训的世界里，参加店之后的销售本来会沿什么路径变化？下一讲将以此组织双重差分和事件研究。本讲先不提前计算，也不把尚未建设的内容说成已经得到的结论。`,
-`第11讲最后把对象、时点和问题连起来：同一批门店，第13月启动方案，结果仍是月净销售额。我们已经学会用组内变化理解稳定门店项，用月份效应处理共同时间水平，并把控制范围、外生性和聚类推断分开说明。
+`第11讲最后把对象、时点和问题连起来：模拟门店在第13月启动方案，结果是月净销售额。第12讲将换用真实的小学建设资料，把反事实变化问题带进一个可跟做的项目；两套资料不会混成同一研究。我们已经学会用组内变化理解稳定门店项，用月份效应处理共同时间水平，并把控制范围、外生性和聚类推断分开说明。
 
 但核心反事实还需要继续论证：参加店没有培训时，后期本来会怎样变化？第12讲会围绕这个问题进入双重差分与事件研究，讨论比较设计和动态证据。它不是把当前模型再换一个名字，也不只是给趋势图画一条线，而是进一步明确时间比较所依赖的假设。
 
@@ -524,10 +525,10 @@ const workedEleven:Record<number,string>={
  41:'完整报告应让别人知道区间对应哪个模型的哪个系数，而非把不同规格的标准误拼接。我们把共同斜率、门店与月份效应、样本和聚类方式放在同一行描述，正是为了让数值与它的计算程序保持可追踪联系。',
  47:'实施前图形还可能揭示培训选择与近期销售走势有关，这与刚才的反馈反例相连。遇到异常不应该先删除月份让曲线更漂亮，而要核查记录、政策流程和其他活动。下一讲的设计讨论会建立在这些资料事实之上。',
 };
-export const statisticalAnalysisTeacherScripts:StatisticalAnalysisTeacherScript[]=[ten,eleven].flatMap((texts,li)=>texts.map((text,i)=>{
+export const statisticalAnalysisTeacherScripts:StatisticalAnalysisTeacherScript[]=[...[ten,eleven].flatMap((texts,li)=>texts.map((text,i)=>{
  const lesson=li+10,localIndex=i+1,page=causalLessons[li]![i]!,time=causalTiming(lesson,localIndex);
  const paragraphs=text.split(/\n\s*\n/),worked=(li===0?workedTen:workedEleven)[localIndex];
  if(worked)paragraphs.splice(paragraphs.length-1,0,worked);
  return {slideKey:`stats-l${lesson}-${String(localIndex).padStart(2,'0')}`,lesson,localIndex,paragraphs,pauseCue:page.question,transitionToNext:paragraphs[paragraphs.length-1]!,spokenSeconds:time.spokenSeconds,pauseSeconds:time.pauseSeconds};
-}));
+})),...policyTeacherScripts];
 export function getStatisticalAnalysisTeacherScript(key:string){return statisticalAnalysisTeacherScripts.find(p=>p.slideKey===key);}

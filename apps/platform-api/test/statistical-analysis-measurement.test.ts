@@ -77,7 +77,7 @@ test('native measurement copy has no authoring instructions, false validation cl
  assert.equal(measurementLessons[0]!.length,48);assert.equal(measurementLessons[1]!.length,52);
  for(const p of slides.filter(s=>s.lesson>=6&&s.lesson<=7)){
   const workspace=buildPromptWorkspace('statistical-analysis','统计分析方法',undefined,p.index);
-  assert.match(workspace.compiled,/六题问卷为独立教学模拟/);assert.match(workspace.compiled,/渠道与地区不进入拟合/);assert.match(workspace.compiled,/第12—16讲仍待建设/);
+  assert.match(workspace.compiled,/六题问卷为独立教学模拟/);assert.match(workspace.compiled,/渠道与地区不进入拟合/);assert.match(workspace.compiled,/第14—16讲仍待建设/);
  }
  assert.match(slides[250]!.assistantCue,/变量如何得到/);
  assert.match(slides[333]!.assistantCue,/贡献z×w/);

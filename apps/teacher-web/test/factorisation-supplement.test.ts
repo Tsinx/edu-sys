@@ -12,8 +12,8 @@ import {publicPack} from '../../platform-api/src/practice-content/index.js';
 
 test('40 authored English pages develop exactly eight correct monic worked examples',()=>{
  assert.equal(FACTORISATION_SLIDES.length,40);assert.equal(FACTORISATION_WORKED_EXAMPLES.length,8);
- assert.equal(INTERNATIONAL_MATHEMATICS_CORE_SLIDES.length,1312);
- assert.equal(INTERNATIONAL_MATHEMATICS_SLIDES.length,1352);
+ assert.equal(INTERNATIONAL_MATHEMATICS_CORE_SLIDES.length,1332);
+ assert.equal(INTERNATIONAL_MATHEMATICS_SLIDES.length,1372);
  for(const example of FACTORISATION_WORKED_EXAMPLES){
   const [m,n]=example.factors;assert.deepEqual([m*n,m+n,1],example.coefficients,example.id);
   assert.ok(example.pages.length>=2);
@@ -37,24 +37,27 @@ test('40 authored English pages develop exactly eight correct monic worked examp
  }
 });
 
-test('teaching order inserts the supplement after Lecture 3 while all old indices stay stable',()=>{
+test('teaching order inserts the supplement after Lecture 3 using computed boundaries',()=>{
  assert.deepEqual(INTERNATIONAL_MATHEMATICS_LESSONS.map(l=>l.number),[1,2,3,17,4,5,6,7,8,9,10,11,12,13,14,15,16]);
- assert.equal(index(4),235);assert.equal(index(17),1313);
- assert.equal(adjacent(234,1),1313);assert.equal(adjacent(1313,-1),234);
- assert.equal(adjacent(1352,1),235);assert.equal(adjacent(235,-1),1352);
- assert.equal(adjacent(1,-1),null);assert.equal(adjacent(1312,1),null);
+ const l3=INTERNATIONAL_MATHEMATICS_LESSONS.find(l=>l.number===3)!;
+ const supplement=INTERNATIONAL_MATHEMATICS_LESSONS.find(l=>l.number===17)!;
+ const l4=INTERNATIONAL_MATHEMATICS_LESSONS.find(l=>l.number===4)!;
+ const last=INTERNATIONAL_MATHEMATICS_LESSONS.at(-1)!.slideEnd;
+ assert.equal(adjacent(l3.slideEnd,1),supplement.slideStart);assert.equal(adjacent(supplement.slideStart,-1),l3.slideEnd);
+ assert.equal(adjacent(supplement.slideEnd,1),l4.slideStart);assert.equal(adjacent(l4.slideStart,-1),supplement.slideEnd);
+ assert.equal(adjacent(1,-1),null);assert.equal(adjacent(last,1),null);
  const visited:number[]=[];let n:number|null=1;
- while(n!==null){visited.push(n);assert.ok(visited.length<=1352);n=adjacent(n,1);}
- assert.equal(new Set(visited).size,1352);
- assert.equal(visited.at(-1),1312);
+ while(n!==null){visited.push(n);assert.ok(visited.length<=INTERNATIONAL_MATHEMATICS_SLIDES.length);n=adjacent(n,1);}
+ assert.equal(new Set(visited).size,INTERNATIONAL_MATHEMATICS_SLIDES.length);
+ assert.equal(visited.at(-1),last);
  for(const [i,s] of INTERNATIONAL_MATHEMATICS_CORE_SLIDES.entries()){
   assert.equal(s.index,i+1);assert.equal(INTERNATIONAL_MATHEMATICS_SLIDES[i]!.slideKey,s.slideKey);
  }
- assert.equal(getInternationalMathematicsLessonPosition(1313)?.lessonNumber,17);
- assert.equal(getInternationalMathematicsLessonPosition(235)?.lessonNumber,4);
+ assert.equal(getInternationalMathematicsLessonPosition(index(17)!)?.lessonNumber,17);
+ assert.equal(getInternationalMathematicsLessonPosition(index(4)!)?.lessonNumber,4);
  const deck=getCourseDeckByCourseId('course-international-mathematics')!;
  assert.equal(deck.totalHours,32);assert.equal(deck.lessons[3]!.kind,'supplement');
- assert.equal(deck.lessons[3]!.supplementDurationMinutes,40);assert.equal(deck.getAdjacentIndex!(234,1),1313);
+ assert.equal(deck.lessons[3]!.supplementDurationMinutes,40);assert.equal(deck.getAdjacentIndex!(l3.slideEnd,1),supplement.slideStart);
 });
 
 test('the 24-question bank has ranks 8/8/6/2 and releases no private feedback',()=>{

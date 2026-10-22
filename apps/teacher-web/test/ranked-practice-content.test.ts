@@ -6,7 +6,7 @@ import {INTERNATIONAL_MATHEMATICS_LESSONS as lessons,INTERNATIONAL_MATHEMATICS_S
 test('sixteen textbook choice packs have 160 distinct ranked questions and complete private feedback',()=>{
  assert.equal(rankedPracticePacks.length,17);
  assert.equal(new Set(rankedPracticePacks.flatMap(p=>p.questions.map(q=>q.id))).size,184);
- assert.equal(slides.length,1352);
+ assert.equal(slides.length,1372);
  for(const [i,p]of rankedPracticePacks.filter(p=>p.lesson<=16).entries()){
   assert.equal(p.lesson,i+1);assert.equal(p.questions.length,10);
   assert.deepEqual(p.questions.map(q=>q.rank),[1,1,1,2,2,2,3,3,3,4]);

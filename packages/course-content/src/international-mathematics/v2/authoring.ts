@@ -14,14 +14,15 @@ export function author(lesson:number,ref:SourceReference){
   d:(at:string,id:string,title:string,labels:string[],values:string[],tex:string,note:string,detail:Detail={})=>put(at,id,title,[diagram('flow',labels,100,300,1350,235,values),math(tex,100,575,1360,105,53),text(note,100,745,1370,75,32)],detail,'CONNECT THE STEPS')
  };
 }
-export function expandLesson(base:MathematicsLesson,insertions:readonly Insertion[],target:number,hourGuides:readonly [string,string],hourTitles:readonly [string,string]):MathematicsLesson{
+export function expandLesson(base:MathematicsLesson,insertions:readonly Insertion[],target:number,hourGuides:readonly [string,string],hourTitles:readonly [string,string],teachingSeconds:readonly [number,number]=[2700,2700]):MathematicsLesson{
  if(!insertions.length)return base;
  const slides=base.slides.flatMap(s=>[...insertions.filter(x=>s.slideKey.endsWith('-'+x.before)).map(x=>x.slide),s]);
  const core=slides.filter(s=>!s.optionalChallenge);if(core.length!==target)throw Error(`Lesson ${base.number}: ${core.length} core pages, expected ${target}`);
  const split=target/2;
  for(let h=0;h<2;h++){
   const block=core.slice(h*split,(h+1)*split),weights=block.map(s=>s.pedagogy?.seconds??(s.openingFilm?105:/exit/i.test(s.kicker)?120:s.answer?70:50)),total=weights.reduce((a,b)=>a+b,0);
-  const durations=weights.map(w=>Math.floor(w*2700/total));let remaining=2700-durations.reduce((a,b)=>a+b,0);for(let j=0;remaining>0;j=(j+1)%durations.length,remaining--)durations[j]!++;
+  const planned=teachingSeconds[h]!;
+  const durations=weights.map(w=>Math.floor(w*planned/total));let remaining=planned-durations.reduce((a,b)=>a+b,0);for(let j=0;remaining>0;j=(j+1)%durations.length,remaining--)durations[j]!++;
   block.forEach((s,j)=>{const pos=slides.indexOf(s);slides[pos]={...s,pedagogy:{...s.pedagogy,role:s.pedagogy?.role??(s.openingFilm?'scene':/exit/i.test(s.kicker)?'exit':'concept'),hour:(h+1) as 1|2,seconds:durations[j]!}};});
  }
  const hours=([1,2] as const).map((h,i)=>({number:h,title:hourTitles[i]!,durationMinutes:45 as const,coreSlides:split,localStart:i*split+1,localEnd:(i+1)*split,guide:hourGuides[i]!}));

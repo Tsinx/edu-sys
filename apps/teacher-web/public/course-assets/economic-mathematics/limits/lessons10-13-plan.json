@@ -2,10 +2,10 @@
   {
     "number": 10,
     "title": "高阶导数、微分与线性近似",
-    "status": "planned",
+    "status": "implemented",
     "minutes": 90,
-    "firstHour": "高阶导数的定义与计算；增量与微分的区别；个人检验",
-    "secondHour": "线性近似、绝对与相对误差；同一模型的变化幅度比较；个人练习",
+    "firstHour": "高阶导数定义、存在性反例、单位；六组个人练习",
+    "secondHour": "微分、线性近似、绝对与相对误差；精确残差实验与六组个人练习",
     "prerequisites": [
       "导数定义",
       "基本求导与链式法则"

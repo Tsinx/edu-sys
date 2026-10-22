@@ -1,19 +1,13 @@
 # 经济数学课程顺序与版本
 
-第1讲为课程引入，40页、45分钟。第2讲为59页、两个45分钟课时，第一课时1–29页、第二课时30–59页，五次独立练习共20分钟。第3–32讲编号与内容保留。当前共421页、32讲。
+2026-10-20：保持32讲、64学时框架；第1讲为45分钟序章，第2—10讲各两个45分钟。第1讲压缩后仍有1学时待课程层面统一安排，本轮不额外增加课时。
 
-大纲64学时：第1讲1学时、第2讲2学时、后续60学时，已分配63学时；剩余1学时待课程层面安排。
+当前课件863页。第1—10讲页数分别为40、59、85、60、66、64、64、64、64、64；第11—32讲保留原内容，不用规划中的新标题冒充已重写的页面。第八至十讲每讲主线60页、课后拓展4页；第1课时1—30页，第2课时31—60页，拓展61—64不计入90分钟。
 
-当前版本 `release-economic-mathematics-lesson02-mapping-2026-10-09`，Deck `deck-economic-mathematics-2026-lesson02-mapping`。第二讲页面键 `em-l02-refined-mapping-p001` 至 `p059`。注册、导航、课堂范围与导出读取清单。
+当前版本`release-economic-mathematics-differentiation-2026-10-20`，Deck为`deck-economic-mathematics-2026-differentiation`。注册、课堂导航、页码和导出从清单读取。独立入口为`/economic-narration.html?lesson=8&page=1`，第9、10讲相应修改lesson。第八至十讲有独立页面键与进度命名空间；数字人只朗读已公开段落。
 
-| 已归档版本 | 第二讲页数 | 课程页数 | 专属归档目录 |
-| --- | --- | --- | --- |
-| 2026-10-09重排版 | 26 | 388 | lesson-02-26pages-2026-10-09 |
-| lesson02-refined | 50 | 412 | lesson-02-50pages-2026-10-09 |
-| lesson02-flow | 60 | 422 | lesson-02-60pages-2026-10-09 |
+前一版`release-economic-mathematics-continuity-derivative-2026-10-17`共701页，第八至十讲各10页。内容和接入快照在`archive/courseware/economic-mathematics/lessons-08-10-before-differentiation-2026-10-20/`，附SHA-256和恢复说明。历史课堂使用自己的页数清单，保留原版本、页码与实验状态，显示归档，禁止自动映射。V1、348页V2和历次精修归档继续保留。
 
-目录位于 `archive/courseware/economic-mathematics/`。60页版连同内容、专属代码、封面、资源清单、文档和三份PDF归档，附SHA-256清单与恢复说明。V1、348页V2及以上各历史版本的课堂保留原版本、页码和互动状态，显示归档提示，禁止自动映射到当前页码。
+第10—13讲顺序：高阶导数与微分→中值定理→洛必达→泰勒与极限综合。第10讲已经制作，第11—13讲尚待逐页重写；凹凸、拐点应用仍留到第14讲。规划见`economic-mathematics-lessons-10-13-plan.md`。
 
-独立讲解入口 `/economic-narration.html?lesson=2&page=1`，缓存命名空间 `economic-narration-lesson02-mapping-v1`。数字人只使用已公开段落；练习计时与答案公开由教师控制。
-
-运行 `pnpm --filter @edu/teacher-web exec tsx scripts/export-economic-refined.tsx` 更新打印页、讲稿、练习和源文件指纹，再按CSS尺寸导出PDF。完整课件与打印页共用React、KaTeX及原生图形。输出位于 `output/pdf/`，本次验收证据位于 `output/pdf/lesson02-mapping-review/`。
+运行`pnpm --filter @edu/teacher-web exec tsx scripts/prepare-economic-differentiation.tsx`更新第八至十讲的逐页讲稿、完整答案打印页、个人练习单、学习通题源、课程清单和源文件指纹。课堂与打印共用React、KaTeX和显式模型图形。

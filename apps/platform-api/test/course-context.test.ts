@@ -77,7 +77,9 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
       [11, 486, 517],
       [12, 518, 549],
       [13, 550, 581],
-      [14, 582, 621]
+      [14, 582, 621],
+      [15, 622, 653],
+      [16, 654, 685]
     ]
   );
   for (const lesson of readyLessons) {
@@ -91,7 +93,7 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
   const plannedLessons = PORT_MANAGEMENT_LESSONS.filter(
     (lesson) => lesson.status === "planned"
   );
-  assert.equal(plannedLessons.length, 2);
+  assert.equal(plannedLessons.length, 0);
   for (const lesson of plannedLessons) {
     assert.equal(lesson.title, null);
     assert.equal(lesson.slideStart, null);
@@ -99,14 +101,14 @@ test("course catalog exposes sixteen honest lesson states and continuous lesson 
     assert.equal(lesson.assistantBrief, null);
   }
 
-  assert.equal(PORT_MANAGEMENT_SLIDES.length, 621);
+  assert.equal(PORT_MANAGEMENT_SLIDES.length, 685);
   assert.deepEqual(
     PORT_MANAGEMENT_SLIDES.map((slide) => slide.index),
-    Array.from({ length: 621 }, (_, index) => index + 1)
+    Array.from({ length: 685 }, (_, index) => index + 1)
   );
   assert.equal(
     new Set(PORT_MANAGEMENT_SLIDES.map((slide) => slide.slideKey)).size,
-    621
+    685
   );
   assert.equal(PORT_MANAGEMENT_DECK_VERSION, "release-port-management-facilities-v20");
 });
@@ -141,7 +143,9 @@ test("lesson-local page numbers map cleanly onto the internal global index", () 
   assert.equal(getPortManagementGlobalSlideIndex(2, 53), null);
   assert.equal(getPortManagementGlobalSlideIndex(2, 1.5), null);
   assert.equal(getPortManagementLessonSlidePosition(0), null);
-  assert.equal(getPortManagementLessonSlidePosition(622), null);
+  assert.deepEqual(getPortManagementLessonSlidePosition(622), {globalIndex:622,lessonNumber:15,lessonStart:622,lessonEnd:653,localIndex:1,localTotal:32});
+  assert.equal(getPortManagementGlobalSlideIndex(16,32),685);
+  assert.equal(getPortManagementLessonSlidePosition(686),null);
   assert.equal(getPortManagementGlobalSlideIndex(6,48),293);
 });
 
@@ -162,7 +166,7 @@ test("every slide carries complete narrative and source metadata", () => {
     assert.ok(evidenceStates.has(slide.narrative.evidence));
     assert.ok(storyBeats.has(slide.narrative.storyBeat));
     assert.ok(slide.narrative.progress >= 1);
-    assert.ok(slide.narrative.progress <= 621);
+    assert.ok(slide.narrative.progress <= 685);
     for (const sourceId of slide.sourceIds ?? []) {
       assert.ok(
         PORT_MANAGEMENT_SOURCES[sourceId],

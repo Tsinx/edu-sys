@@ -1,0 +1,77 @@
+{
+  "version": "release-economic-mathematics-differentiation-2026-10-20",
+  "files": [
+    {
+      "path": "packages/course-content/src/economic-mathematics/differentiation-authoring.ts",
+      "sha256": "b9792ad6b480767352a6054e76b1733e441f087c990c6e5c565decd83e22210e"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/differentiation-exercises.ts",
+      "sha256": "d1ea1078f8e44f0613fc94fe1a6ece39424a5423c718361ece282baefa1280f6"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/differentiation-written-exercises.ts",
+      "sha256": "4d2e49f4c120f2b91f606aea0f1a8b198c76953dd41a0af0b9eef00f56395f91"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/lesson-08-differentiation.ts",
+      "sha256": "09920262c87e4fa12621eea3ab887c0b2a92f114204a5ccd5f13657c45f672a9"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/lesson-09-chain.ts",
+      "sha256": "ed64cdf3c97c5d7808fb14aa9d5a5830ae5c1fdbc7a36160db81094cae7aba7d"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/lesson-10-differentials.ts",
+      "sha256": "73f3e2a8c7f7c7fa399b84612f243f9a1a7c7a20c2420e51cabb4d842cf1a0f0"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/differentiation-model.ts",
+      "sha256": "7d4f5207664095e5b2f8e7b9ad596a44bef11b7a8ddab28e2e086cc5c784abf0"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/foundations-model.ts",
+      "sha256": "fb19157b7421347255bc1a025f515d228b4a7294222d18eaaef589987795edfc"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/types.ts",
+      "sha256": "4b8a2a79a230a478cb74b2bbaf881abb57e749396d0c626bac7785652bb4964f"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/interactions.ts",
+      "sha256": "ff94047d870789e0a0175f493d741ec8d2b631256efb2bca13825ad80567e713"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/slides.ts",
+      "sha256": "1b527ea02b13b0034fe66448f18a11352500741edf645bf9824a40f85f7584bc"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "sha256": "65ff0df4d96848ebfe0965ee6c03e9b2e1e4d37fbfcdefce430283551e1ad782"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/index.ts",
+      "sha256": "e558f200b08eb5d5eb547c98e9007d091ddd85e46d8258a974387f11b2454258"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/DifferentiationFigure.tsx",
+      "sha256": "b1169f7fda8ca1aab015ce7559644a892a6583450201a3fd23b62b1dd1a62e90"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/FoundationFigure.tsx",
+      "sha256": "808d3bcccf995a83cd86593a08ef2e657b6391c2dd291ec9bbbf367ec328501b"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/EconomicPageNarrator.tsx",
+      "sha256": "d981a0e49161845b0451d1fc2df97f694aea5a9778b101954d4ef4854506000a"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/PresentationChrome.tsx",
+      "sha256": "c6cd8823c57fbbb4ef0d6a9a98e6c716f81519c6add5aa070772e2c29640236b"
+    },
+    {
+      "path": "apps/teacher-web/src/economic-narration.tsx",
+      "sha256": "28b61da280d648d63b37e10f2fc73e8acf5b9e1cac1cf96abf65b6c16228ee6a"
+    }
+  ]
+}

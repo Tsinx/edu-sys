@@ -1,4 +1,6 @@
 import {author,type Insertion} from './authoring.js';import {lesson03} from '../lessons/lesson-03.js';
+import {beforeFormula03,afterFirstRoots03} from './lesson-03-foundations.js';
+import type {MathematicsLesson} from '../types.js';
 const {m,c,q,e,t,g}=author(3,lesson03.sources[0]!);
 export const additions03:readonly Insertion[]=[
  c('02','a','A larger quantity can lower the price','The ticket model charges p(q)=100−q dollars per ticket.','Price and quantity change together.'),
@@ -18,22 +20,24 @@ export const additions03:readonly Insertion[]=[
  m('09','a','Read the second zero factor',String.raw`100-q=0\quad\Longrightarrow\quad q=100`,'The price reaches zero at one hundred tickets.',{sequence:'revenue-zeros'}),
  c('09','b','Two zeros can have different meanings','Zero quantity and zero price both make revenue vanish.','Keep the algebraic roots connected to the receipt.',{sequence:'revenue-zeros'}),
  m('09','c','Check the factors in a second equation',String.raw`(x-2)(x-3)=x^2-3x-2x+6`,'The cross terms combine to −5x.'),
- m('10','a','Identify a, b and c before substitution',String.raw`x^2-5x+6=0:\quad a=1,\ b=-5,\ c=6`,'The sign belongs to the coefficient.',{sequence:'quadratic-roots'}),
+ ...beforeFormula03,
+ m('10','a','Signed coefficients in standard form',String.raw`x^2-5x+6=0:\quad a=1,\ b=-5,\ c=6`,'Standard form has zero on the right. Each coefficient includes its sign.',{sequence:'quadratic-roots',cue:'先读a=1，再读b=−5。不可把−5x的系数写成5。对照刚推导的公式逐项定位。'}),
  m('10','b','Calculate the discriminant',String.raw`b^2-4ac=(-5)^2-4(1)(6)=1`,'A positive discriminant permits two real roots.',{sequence:'quadratic-roots'}),
- m('10','c','Calculate the square root',String.raw`\sqrt{1}=1`,'The plus-or-minus sign in the formula supplies the two branches.',{sequence:'quadratic-roots'}),
- q('10','d','Keep the coefficient sign','If b=−5, what is −b in the quadratic formula?','+5.'),
- m('11','a','Use the plus branch',String.raw`x=\frac{5+1}{2}=3`,'The denominator is 2a, here equal to two.',{sequence:'quadratic-roots'}),
- m('11','b','Use the minus branch',String.raw`x=\frac{5-1}{2}=2`,'Both real solutions must be recorded.',{sequence:'quadratic-roots'}),
+ m('10','c','The square root and the two branches',String.raw`\sqrt{1}=1\qquad \pm\sqrt{1}=+1\ \text{or}\ -1`,'√1 names the positive square root. The ± sign supplies both branches.',{sequence:'quadratic-roots'}),
+ q('10','d','The negative of a negative coefficient','If b=−5, what is −b? A: −5   B: +5   C: 25   D: −25','B. −b=−(−5)=+5. Squaring b is a different operation.'),
+ m('11','a','The plus branch divides the whole numerator',String.raw`x_+=\frac{5+1}{2(1)}=\frac62=3`,'Both terms in the numerator share the denominator 2a.',{sequence:'quadratic-roots'}),
+ m('11','b','The minus branch is a second calculation',String.raw`x_-=\frac{5-1}{2(1)}=\frac42=2`,'The ± symbol asks for two separate calculations.',{sequence:'quadratic-roots'}),
  m('11','c','Check one root in the original expression',String.raw`2^2-5(2)+6=4-10+6=0`,'Substitution checks arithmetic and signs.',{sequence:'quadratic-roots'}),
  m('11','d','Check the other root',String.raw`3^2-5(3)+6=9-15+6=0`,'Both returned values solve the equation.',{sequence:'quadratic-roots'}),
+ ...afterFirstRoots03,
  t('12','a','Use test points between and beyond roots',['x','1','2.5','4'],[['x²−5x+6','2','−0.25','2']],'The expression is negative between the two roots.'),
  c('12','b','Roots divide a sign diagram','The factors can change sign only at their zeros.','Test each interval rather than guessing from one point.'),
  m('13','a','Find the midpoint of the revenue zeros',String.raw`\frac{0+100}{2}=50`,'The revenue parabola is symmetric around q=50.'),
  t('13','b','Check a symmetric pair',['q','40','50','60'],[['R(q) ($)','2400','2500','2400']],'Equal distances from the symmetry axis give equal values.'),
  q('13','c','Predict the matching value','If R(30)=2100, what is R(70) by symmetry around q=50?','$2100; both quantities are twenty units from the symmetry axis.'),
- m('14','a','Reorder the revenue polynomial',String.raw`100q-q^2=-(q^2-100q)`,'Factor the negative sign before completing the square.',{sequence:'revenue-peak'}),
- m('14','b','Complete the square inside the bracket',String.raw`q^2-100q=(q-50)^2-2500`,'The middle term is −2×50×q.',{sequence:'revenue-peak'}),
- m('14','c','Return to the original sign',String.raw`R(q)=2500-(q-50)^2`,'A nonnegative square is subtracted from 2500.',{sequence:'revenue-peak'}),
+ m('14','a','The negative leading coefficient stays outside',String.raw`100q-q^2=-(q^2-100q)`,'Distributing the outside minus sign returns −q²+100q.',{sequence:'revenue-peak',cue:'回用a=2例的“先提出首项系数”。这里先提出−1。括号内一次项系数为−100。'}),
+ m('14','b','Half of −100 is −50',String.raw`q^2-100q+2500=(q-50)^2`,'The half-coefficient is −50. Its square is positive 2500.',{sequence:'revenue-peak',cue:'让学生口算−100÷2=−50，再算(−50)²=2500。左式多出的2500需要在下一步减回。'}),
+ m('14','c','The outside minus sign changes both terms',[String.raw`q^2-100q=(q-50)^2-2500`,String.raw`R(q)=-[(q-50)^2-2500]=2500-(q-50)^2`],'The outside minus sign changes −2500 to +2500.',{sequence:'revenue-peak',cue:'先减回补入的2500，再把外部−1乘整个括号。英文：“The outside minus sign applies to both terms.”'}),
  c('14','d','Locate the largest possible value','The square is smallest when q=50.','The model revenue cannot exceed $2500.',{sequence:'revenue-peak'}),
  m('15','a','Recover the price at the peak',String.raw`p(50)=100-50=50`,'The quantity answer determines a price answer.',{sequence:'revenue-peak'}),
  m('15','b','Check the peak receipt directly',String.raw`50\times50=2500`,'The multiplication confirms the completed-square result.',{sequence:'revenue-peak'}),
@@ -58,4 +62,31 @@ export const additions03:readonly Insertion[]=[
  q('23','c','Read an empty-operation profit','At q=0, revenue is zero and fixed cost is $100. What is profit?','−$100 under the stated cost model.'),
  c('23','d','Name the objective before optimizing','Maximum sales, maximum revenue and maximum profit are different questions.','Choose the function that answers the stated decision.')
 ];
-export const guides03=['0–8分钟票价随销量变化；8–20分钟逐步构造收入并识别二次项；20–32分钟因式分解与公式求根；32–40分钟符号和对称性；40–45分钟检查。话术：“Both factors move.” “Keep the sign in the coefficient.”','0–13分钟完成平方并核对收入峰值；13–27分钟逐步计算成本和利润；27–35分钟比较销量与利润；35–41分钟盈亏平衡和可行范围；41–45分钟出口题。话术：“Subtract the whole cost.” “Which objective are we maximizing?”'] as const;
+/** Give the difficult operations their handbook time, rather than spreading time uniformly. */
+export const timing03=[
+ ['im-l03-01','im-l03-09',720],
+ ['im-l03-10-scaffold-square-01','im-l03-10-scaffold-square-08',780],
+ ['im-l03-10-scaffold-origin-01','im-l03-10-scaffold-origin-03',360],
+ ['im-l03-10-a','im-l03-11',600],
+ ['im-l03-12-scaffold-discriminant-01','im-l03-12-scaffold-discriminant-03',240],
+ ['im-l03-12-scaffold-leading-01','im-l03-12-scaffold-leading-02',240],
+ ['im-l03-12-scaffold-book-a-01','im-l03-12-scaffold-book-a-04',300],
+ ['im-l03-12-a','im-l03-14',360],
+ ['im-l03-15-a','im-l03-22',420],
+ ['im-l03-23-a','im-l03-24',180],
+] as const;
+export function schedule03(lesson:MathematicsLesson):MathematicsLesson{
+ const slides=[...lesson.slides],covered=new Set<string>();
+ for(const [first,last,seconds]of timing03){
+  const start=slides.findIndex(s=>s.slideKey===first),end=slides.findIndex(s=>s.slideKey===last);
+  if(start<0||end<start)throw Error(`Lecture 3 timing anchor: ${first}`);
+  const block=slides.slice(start,end+1),total=block.reduce((n,s)=>n+s.pedagogy!.seconds!,0);
+  const durations=block.map(s=>Math.floor(seconds*s.pedagogy!.seconds!/total));
+  let remaining=seconds-durations.reduce((a,b)=>a+b,0);
+  for(let i=0;remaining>0;i=(i+1)%durations.length,remaining--)durations[i]!++;
+  block.forEach((s,i)=>{if(covered.has(s.slideKey)||s.optionalChallenge)throw Error('Overlapping Lecture 3 schedule');covered.add(s.slideKey);slides[start+i]={...s,pedagogy:{...s.pedagogy!,seconds:durations[i]!}};});
+ }
+ if(covered.size!==slides.filter(s=>!s.optionalChallenge).length)throw Error('Incomplete Lecture 3 schedule');
+ return {...lesson,slides};
+}
+export const guides03=['0–12分钟票价、收入、二次项与因式分解复习；12–25分钟从(x+3)²的四格乘法讲系数一半、补9与减9，并解x²+6x+5=0；25–31分钟把同一配方过程连接到通用求根公式；31–41分钟逐项识别a、b、c，核对−b、D与整个分母2a，分开算±两支并代回；41–45分钟检查两实根、重根和无实根。话术：“Why nine?” “The same addition on both sides.” “Divide the whole numerator.”','0–4分钟a=2时先提出系数再配方；4–9分钟逐步算教材2x²+9x+5=0，两根保留到最后再近似并核对残差；9–15分钟符号、对称与收入模型配方，特别解释外部负号；15–22分钟用熟悉表格区分收入、成本、利润与可行范围；22–25分钟错误诊断和出口检查；25–45分钟全班分层选择题练习，其中说明2分钟、独立作答14分钟、反馈4分钟。英文话术：“A real square is nonnegative.” “The outside factor multiplies the whole bracket.” “A rounded root gives a small residual.”'] as const;

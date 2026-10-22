@@ -64,16 +64,17 @@ test('classroom next and previous events follow Lecture 3, supplement, Lecture 4
   const deck=getCourseDeckByCourseId('course-international-mathematics')!;
   const session=await store.startClass(deck.courseId);assert.ok(session);
   // Use the same public classroom events as the teacher, never mutate saved records.
-  const target=deck.getSlide(234);
-  await store.applyClassroomEvent(session.id,{type:'set_slide',index:234});
+  const third=deck.lessons.find(l=>l.number===3)!,supplement=deck.lessons.find(l=>l.number===17)!,fourth=deck.lessons.find(l=>l.number===4)!;
+  const target=deck.getSlide(third.slideEnd!);
+  await store.applyClassroomEvent(session.id,{type:'set_slide',index:third.slideEnd!});
   assert.equal(store.getClassroomSnapshot(session.id)?.slide.slideId,target.slideKey);
   await store.applyClassroomEvent(session.id,{type:'next_slide'});
-  assert.equal(store.getClassroomSnapshot(session.id)?.slide.index,1313);
+  assert.equal(store.getClassroomSnapshot(session.id)?.slide.index,supplement.slideStart);
   await store.applyClassroomEvent(session.id,{type:'previous_slide'});
-  assert.equal(store.getClassroomSnapshot(session.id)?.slide.index,234);
-  await store.applyClassroomEvent(session.id,{type:'set_slide',index:1352});
+  assert.equal(store.getClassroomSnapshot(session.id)?.slide.index,third.slideEnd);
+  await store.applyClassroomEvent(session.id,{type:'set_slide',index:supplement.slideEnd!});
   await store.applyClassroomEvent(session.id,{type:'next_slide'});
-  assert.equal(store.getClassroomSnapshot(session.id)?.slide.index,235);
+  assert.equal(store.getClassroomSnapshot(session.id)?.slide.index,fourth.slideStart);
  }finally{store.close();await rm(dir,{recursive:true,force:true});}
 });
 
@@ -83,13 +84,14 @@ test('independent-study assistant navigation follows the teaching order and acce
  try{
   const student=actor('foundation-student'),session=await store.createOrResumeStudySession('course-international-mathematics',student);
   assert.ok(session);
-  await store.applyStudyAssistantAction(session.id,student,{type:'study.slides.go_to',lesson:3,slide:82});
+  const deck=getCourseDeckByCourseId('course-international-mathematics')!,third=deck.lessons.find(l=>l.number===3)!,supplement=deck.lessons.find(l=>l.number===17)!,fourth=deck.lessons.find(l=>l.number===4)!;
+  await store.applyStudyAssistantAction(session.id,student,{type:'study.slides.go_to',lesson:3,slide:third.slideTotal});
   const next=await store.applyStudyAssistantAction(session.id,student,{type:'study.slides.next'});
-  assert.equal(next?.session.globalIndex,1313);assert.match(next!.message,/Lecture 3 supplement/);
+  assert.equal(next?.session.globalIndex,supplement.slideStart);assert.match(next!.message,/Lecture 3 supplement/);
   await store.applyStudyAssistantAction(session.id,student,studyAssistantActionSchema.parse({type:'study.slides.go_to',lesson:17,slide:40}));
-  assert.equal((await store.applyStudyAssistantAction(session.id,student,{type:'study.slides.next'}))?.session.globalIndex,235);
-  assert.equal((await store.applyStudyAssistantAction(session.id,student,{type:'study.slides.previous'}))?.session.globalIndex,1352);
+  assert.equal((await store.applyStudyAssistantAction(session.id,student,{type:'study.slides.next'}))?.session.globalIndex,fourth.slideStart);
+  assert.equal((await store.applyStudyAssistantAction(session.id,student,{type:'study.slides.previous'}))?.session.globalIndex,supplement.slideEnd);
   const invalid=await store.applyStudyAssistantAction(session.id,student,{type:'study.lesson.go_to',lesson:999});
-  assert.equal(invalid?.status,'noop');assert.equal(invalid?.session.globalIndex,1352);
+  assert.equal(invalid?.status,'noop');assert.equal(invalid?.session.globalIndex,supplement.slideEnd);
  }finally{store.close();await rm(dir,{recursive:true,force:true});}
 });

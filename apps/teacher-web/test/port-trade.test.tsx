@@ -3,7 +3,7 @@ import test from 'node:test';
 import {readFileSync,statSync} from 'node:fs';
 import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
-import {PORT_LESSON_THIRTEEN_SLIDES as thirteen,PORT_LESSON_FOURTEEN_SLIDES as fourteen,PORT_TRADE_FILMS,PORT_TRADE_SOURCES,bondedComparison,tradeReadiness,expansionStateValid,expansionDiagramSummary} from '@edu/course-content';
+import {PORT_LESSON_THIRTEEN_SLIDES as thirteen,PORT_LESSON_FOURTEEN_SLIDES as fourteen,PORT_EXPANSION_FILMS,PORT_TRADE_SOURCES,bondedComparison,tradeReadiness,expansionStateValid,expansionDiagramSummary} from '@edu/course-content';
 import {PortExpansionComposition} from '../src/features/port-expansion/PortExpansionComposition';
 
 test('trade readiness compares parallel conditions without summing their waiting times',()=>{
@@ -34,7 +34,7 @@ test('four brief news edits have local video, native poster, observation caption
  const base=new URL('../public/course-assets/port-management/trade-media/',import.meta.url),edl=JSON.parse(readFileSync(new URL('edl.json',base),'utf8'));
  assert.equal(edl.length,4);
  for(const p of [...thirteen,...fourteen].filter(p=>p.mediaId)){
-  const f=PORT_TRADE_FILMS[p.mediaId!],record=edl.find((e:{id:string})=>f.src.endsWith('/'+e.id+'.mp4'));
+  const f=PORT_EXPANSION_FILMS[p.mediaId!],record=edl.find((e:{id:string})=>f.src.endsWith('/'+e.id+'.mp4'));
   assert.equal(record.duration*1000,f.durationMs);assert.ok(record.seconds<60);assert.match(record.sourcePage,/^https:\/\/tv.cctv.com\//);
   for(const suffix of ['.mp4','.jpg','.vtt'])assert.ok(statSync(new URL(record.id+suffix,base)).size>100);
   assert.equal(expansionStateValid(p,{progress:0,option:0,revealed:false,cinematic:{clipId:f.id,status:'paused',elapsedMs:f.durationMs,startedAt:null}}),true);

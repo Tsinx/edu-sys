@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import {timing03} from '../../../packages/course-content/src/international-mathematics/v2/lesson-03.js';
 import katex from 'katex';
 import {
  INTERNATIONAL_MATHEMATICS_COURSE_ID, INTERNATIONAL_MATHEMATICS_DEFINITIONS,
@@ -9,7 +10,7 @@ import {
  getInternationalMathematicsSlideByKey, getInternationalMathematicsInteractionDefaults,
  validateInternationalMathematicsInteractionPatch, evaluateCurve, derivativeCurve,
  primitiveCurve, definiteIntegral, secantSlope, leftRiemannSum, business,
- demandQuantity, priceElasticity, INTERNATIONAL_MATHEMATICS_V1_PAGE_MAP, resolveInternationalMathematicsSavedPosition, type Curve, type SlideElement
+ demandQuantity, priceElasticity, INTERNATIONAL_MATHEMATICS_V1_PAGE_MAP, INTERNATIONAL_MATHEMATICS_V2_PAGE_MAP, resolveInternationalMathematicsSavedPosition, type Curve, type SlideElement
 } from '@edu/course-content/international-mathematics';
 
 const close=(actual:number,expected:number,tolerance=1e-8)=>assert.ok(
@@ -29,12 +30,12 @@ test('international mathematics contains sixteen bounded single-variable lecture
  assert.equal(INTERNATIONAL_MATHEMATICS_COURSE_ID,'course-international-mathematics');
  assert.equal(INTERNATIONAL_MATHEMATICS_TOTAL_HOURS,32);
  assert.equal(INTERNATIONAL_MATHEMATICS_DEFINITIONS.length,16);
- assert.equal(INTERNATIONAL_MATHEMATICS_SLIDES.length,1352);
- assert.equal(new Set(INTERNATIONAL_MATHEMATICS_SLIDES.map(s=>s.slideKey)).size,1352);
- assert.equal(new Set(INTERNATIONAL_MATHEMATICS_SLIDES.map(s=>s.compositionId)).size,1352);
+ assert.equal(INTERNATIONAL_MATHEMATICS_SLIDES.length,1372);
+ assert.equal(new Set(INTERNATIONAL_MATHEMATICS_SLIDES.map(s=>s.slideKey)).size,1372);
+ assert.equal(new Set(INTERNATIONAL_MATHEMATICS_SLIDES.map(s=>s.compositionId)).size,1372);
  for(const [i,lesson]of INTERNATIONAL_MATHEMATICS_DEFINITIONS.entries()){
   assert.equal(lesson.number,i+1);
-  const target=[72,76,80,74,88,78,86,78,78,82,84,78,78,90,82,76][i]!;
+  const target=[72,76,100,74,88,78,86,78,78,82,84,78,78,90,82,76][i]!;
   assert.equal(lesson.slides.length,target+2,lesson.title);
   assert.equal(lesson.slides.filter(s=>!s.optionalChallenge).length,target,lesson.title);
   assert.deepEqual(lesson.slides.slice(target).map(s=>s.optionalChallenge),[true,true],lesson.title);
@@ -268,7 +269,7 @@ test('surplus calculations separate willingness to pay, variable cost and fixed 
 });
 
 
-test('v2 restores all legacy destinations by keys before indices and schedules two independent hours',()=>{
+test('current release restores all legacy destinations by keys before indices and schedules two independent hours',()=>{
  assert.equal(INTERNATIONAL_MATHEMATICS_V1_PAGE_MAP.length,416);
  for(const mapping of INTERNATIONAL_MATHEMATICS_V1_PAGE_MAP){
   const restored=resolveInternationalMathematicsSavedPosition('release-international-mathematics-jacques-v1',mapping.v1Index);
@@ -282,8 +283,32 @@ test('v2 restores all legacy destinations by keys before indices and schedules t
   for(const hour of lesson.hours!){
    const block=lesson.slides.filter(s=>s.pedagogy?.hour===hour.number);
    assert.equal(block.length,hour.coreSlides);
-   assert.equal(block.reduce((n,s)=>n+s.pedagogy!.seconds!,0),2700);
+   assert.equal(block.reduce((n,s)=>n+s.pedagogy!.seconds!,0),lesson.number===3&&hour.number===2?1500:2700);
    assert.ok(block.every(s=>!s.optionalChallenge));
   }
+ }
+});
+
+
+test('v3 preserves every v2 key and restores index-only destinations, including the supplement',()=>{
+ assert.equal(INTERNATIONAL_MATHEMATICS_V2_PAGE_MAP.length,1352);
+ for(const old of INTERNATIONAL_MATHEMATICS_V2_PAGE_MAP){
+  assert.equal(resolveInternationalMathematicsSavedPosition('release-international-mathematics-jacques-v2',old.v2Index)?.slideKey,old.slideKey);
+  assert.equal(resolveInternationalMathematicsSavedPosition('release-international-mathematics-jacques-v2',1,old.slideKey)?.index,old.currentIndex);
+ }
+ assert.equal(resolveInternationalMathematicsSavedPosition('release-international-mathematics-jacques-v2',1353),undefined);
+ assert.equal(resolveInternationalMathematicsSavedPosition('release-international-mathematics-jacques-v2',1.5),undefined);
+ const lesson=INTERNATIONAL_MATHEMATICS_DEFINITIONS[2]!;
+ assert.equal(lesson.slides[49]?.slideKey,'im-l03-12-scaffold-discriminant-03');
+ assert.equal(lesson.slides[50]?.slideKey,'im-l03-12-scaffold-leading-01');
+ assert.equal(lesson.slides.filter(s=>s.slideKey.includes('-scaffold-')).length,20);
+ const order=lesson.slides.map(s=>s.slideKey);
+ assert.ok(order.indexOf('im-l03-10-scaffold-square-01')<order.indexOf('im-l03-10'));
+ assert.ok(order.indexOf('im-l03-10-scaffold-origin-03')<order.indexOf('im-l03-10'));
+ const seconds=lesson.slides.reduce((n,s)=>n+(s.optionalChallenge?0:s.pedagogy?.seconds??0),0);
+ assert.equal(seconds+20*60,90*60);
+ for(const [first,last,seconds]of timing03){
+  const start=lesson.slides.findIndex(s=>s.slideKey===first),end=lesson.slides.findIndex(s=>s.slideKey===last);
+  assert.equal(lesson.slides.slice(start,end+1).reduce((n,s)=>n+s.pedagogy!.seconds!,0),seconds,first);
  }
 });

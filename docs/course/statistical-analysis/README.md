@@ -1,8 +1,12 @@
 # 统计分析方法 · 原生课件
 
-课程内部标识 `statistical-analysis`。32课时、16讲，面向学过基础统计但尚不能独立实证分析的商科研究生。第1—11讲分别48、52、48、50、52、48、52、48、52、48、48页，共546页，各90分钟；第12—16讲保留正式标题与“待建设”，没有空白播放入口。
+课程内部标识 `statistical-analysis`。32课时、16讲，面向学过基础统计但尚不能独立实证分析的商科研究生。第1—13讲分别48、52、48、50、52、48、52、48、52、48、48、48、48页，共642页，各90分钟；第14—16讲保留正式标题与“待建设”，没有空白播放入口。
 
-第10讲[因果推断与匹配、加权](http://127.0.0.1:5178/statistical-analysis-preview.html?page=451)48页，第11讲[面板与固定效应](http://127.0.0.1:5178/statistical-analysis-preview.html?page=499)48页。两讲使用统一门店培训教学模拟，逐字稿与课件同步设计：[第10讲完整稿](lecture-10-script.md)、[第11讲完整稿](lecture-11-script.md)。正文分别14183与14251汉字，每讲70分钟讲述、20分钟观察/个人判断预算；教师课堂备课区可逐页查看。详见[设计与计算口径](lecture-ten-eleven-design.md)、[来源](sources-causal.json)及[实际验收](acceptance-causal.md)。没有增加语音播放，时间预算不代表完成真人试讲。
+第12讲[双重差分与事件研究](http://127.0.0.1:5181/statistical-analysis-preview.html?page=547)与第13讲[工具变量与两阶段最小二乘](http://127.0.0.1:5181/statistical-analysis-preview.html?page=595)各48页，使用同一份真实INPRES/1995 SUPAS处理版，按项目连续跟做。每讲55分钟讲述、25分钟个人Python/vibe coding、10分钟观察判断；课前另做环境准备。[教学设计](lecture-twelve-thirteen-design.md)、[来源与方法](sources-policy.json)、[实际验收](acceptance-policy.md)。
+
+两份[第12讲完整稿](lecture-12-script.md)、[第13讲完整稿](lecture-13-script.md)与教师备课区同源；96页逐页承接、指图顺序与转场完整。课堂“更多工具 → 项目材料”按钮可下载两个Notebook、数据字典、依赖与AI核查提示；[学生项目说明](../../../apps/teacher-web/public/course-assets/statistical-analysis/project-12-13/README.md)。原始数据按固定hash课前下载，本地缓存后可离线运行，不把微数据夹入再分发ZIP。当前四格入门规格保留不精确DID与弱IV结果，不冒称原论文全部复制；年龄队列剖面与日历事件研究明确区分。
+
+第10讲[因果推断与匹配、加权](http://127.0.0.1:5178/statistical-analysis-preview.html?page=451)48页，第11讲[面板与固定效应](http://127.0.0.1:5178/statistical-analysis-preview.html?page=499)48页。两讲使用统一门店培训教学模拟，逐字稿与课件同步设计：[第10讲完整稿](lecture-10-script.md)、[第11讲完整稿](lecture-11-script.md)。正文分别14183与14294汉字，每讲70分钟讲述、20分钟观察/个人判断预算；教师课堂备课区可逐页查看。详见[设计与计算口径](lecture-ten-eleven-design.md)、[来源](sources-causal.json)及[实际验收](acceptance-causal.md)。没有增加语音播放，时间预算不代表完成真人试讲。
 
 第8讲[探索性因子分析](http://127.0.0.1:5173/statistical-analysis-preview.html?page=351)48页，第9讲[验证性因子分析与结构方程模型入门](http://127.0.0.1:5173/statistical-analysis-preview.html?page=399)52页。[教学设计](lecture-eight-nine-design.md)说明前置知识、逐步证据与应用练习，[来源记录](sources-factors.json)列明官方文档与研究依据，[验收记录](acceptance-factors.md)保存实际测试与PDF核查结果。新增4张配图由内置ImageGen生成，原始文件路径、完整提示、尺寸与校验值保存在[配图记录](image-generation-factors.json)。
 
@@ -16,9 +20,9 @@
 
 ## 打开与授课
 
-本机平台运行时，打开 [课程工作区](http://127.0.0.1:5173/courses/statistical-analysis)，在讲次目录中选择第1—11讲。教师可使用上一页、下一页、讲内页码与讲次选择器；学生从该课堂的加入链接同步观看。刷新保留进度。已结束的课堂不能继续控制。
+本机平台运行时，打开 [课程工作区](http://127.0.0.1:5173/courses/statistical-analysis)，在讲次目录中选择第1—13讲。教师可使用上一页、下一页、讲内页码与讲次选择器；学生从该课堂的加入链接同步观看。刷新保留进度。已结束的课堂不能继续控制。
 
-[独立课件预览](http://127.0.0.1:5173/statistical-analysis-preview.html?page=1) 用于备课；`page` 是1—546的全局页码；各讲从1、49、101、149、199、251、299、351、399、451、499开始。该预览不发布课堂状态。每张投影为1600×1000，在窄屏按比例缩放。方向键与页面按钮可翻页。
+[独立课件预览](http://127.0.0.1:5173/statistical-analysis-preview.html?page=1) 用于备课；`page` 是1—642的全局页码；各讲从1、49、101、149、199、251、299、351、399、451、499、547、595开始。该预览不发布课堂状态。每张投影为1600×1000，在窄屏按比例缩放。方向键与页面按钮可翻页。
 
 LBL由教师讲解、翻页和揭示证据；个人思考只作短暂停顿。教师备注在课堂侧的折叠区域，与学生画布分离。每页提供讲解重点、停顿位置和证据口径；五层助手提示保持当前课程、讲次与页面范围。
 

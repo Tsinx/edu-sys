@@ -1,0 +1,58 @@
+{
+  "checkedAt": "2026-10-21",
+  "dataset": {
+    "name": "1995 SUPAS / INPRES public processed file",
+    "type": "real survey data, publicly linked processed version",
+    "url": "https://raw.githubusercontent.com/droodman/Duflo2001/c3b4868a66ab908f8fd09354e0439fed4cb92085/inpresdata.dta",
+    "commit": "c3b4868a66ab908f8fd09354e0439fed4cb92085",
+    "sha256": "1a0be1709ef2ed7e182b02b13da9791f4300a94818b4f13efea3e6868a984e5a",
+    "discovery": "https://github.com/droodman/Duflo-2001",
+    "rawRows": 152990,
+    "educationSample": 78470,
+    "wageSample": 31061,
+    "clusters": 290,
+    "licenseBoundary": "Raw survey microdata are not included in the redistributed student pack. A pinned downloader with SHA-256 verification is provided. The code license of a different repository is not represented as a microdata license.",
+    "scope": "No primary-survey reconstruction, new district crosswalk, or claim of full original-paper replication. Classroom binary recp-by-cohort model differs from original richer specifications."
+  },
+  "references": [
+    {
+      "title": "Duflo (2001), Schooling and Labor Market Consequences of School Construction in Indonesia",
+      "url": "https://www.aeaweb.org/articles?id=10.1257/aer.91.4.795",
+      "doi": "10.1257/aer.91.4.795",
+      "use": "Policy timing, cohort exposure, region-by-cohort comparisons, and distinction between policy reduced form and returns to education; Tables 3-4 and Sections II-IV as methodological background, not substituted numerical output.",
+      "checkedFullText": "https://www.openphilanthropy.org/wp-content/uploads/Duflo01-1.pdf",
+      "sections": "Section I: program/data/design; Section II: education; Section III: wages; Section IV: returns and sample selection. Tables 3-4 used as design background; classroom outputs are independently computed."
+    },
+    {
+      "title": "Roodman, Schooling and Labor Market Consequences of School Construction in Indonesia: Comment",
+      "url": "https://arxiv.org/abs/2207.09036",
+      "publication": "https://jcr-econ.org/schooling-and-labor-market-consequences-of-school-construction-in-indonesia-comment/",
+      "use": "Data provenance and substantive caution: data reconstruction, weights, age-wage patterns, weak identification. Classroom does not claim to reproduce all revised models."
+    },
+    {
+      "title": "Roodman data and Stata analysis code",
+      "url": "https://github.com/droodman/Duflo-2001",
+      "code": "https://raw.githubusercontent.com/droodman/Duflo-2001/main/Code/Duflo%202001.do",
+      "use": "Variable labels and ages 2-6 / 12-17 / 18-24; Table 3 and 2x2 DID sections; independent Python classroom implementation with declared simplifications."
+    },
+    {
+      "title": "linearmodels IV examples and formula interface",
+      "url": "https://bashtage.github.io/linearmodels/iv/examples/basic-examples.html",
+      "use": "IV2SLS weighted formula syntax, first-stage diagnostics and clustered covariance; displayed conventional intervals explicitly use t(G-1)."
+    },
+    {
+      "title": "Callaway and Sant'Anna, Introduction to DiD with Multiple Time Periods",
+      "url": "https://bcallaway11.github.io/did/articles/multi-period-did.html",
+      "use": "Calendar-time DID assumptions, staggered adoption and TWFE comparison concerns; conceptual boundary because current data lack repeated calendar outcomes."
+    }
+  ],
+  "computation": {
+    "did": "Survey-weighted four-cell mean contrast and saturated WLS with intercept, high, young, high*young.",
+    "inference": "Birth-district CR1 cluster sandwich; 290 groups, t289 conventional 95% intervals; not full survey-design variance.",
+    "iv": "Same complete wage sample, weights and high/young controls in first stage, reduced form and IV2SLS. One excluded instrument; no overidentification test.",
+    "weakInstrument": "Cluster t-squared and package chi2(1) diagnostic are labeled, not represented as a universal critical-value test.",
+    "ar": "Single-instrument AR test inversion via a quadratic using joint cluster covariance and t289 critical value. All-real confidence set retained; direct transformed-outcome regressions independently verify candidate statistics.",
+    "cohort": "Weighted high-by-age interactions with age74=12 reference, ages 2-24; pointwise cluster intervals, not a simultaneous band or calendar event study.",
+    "independentVerification": "scripts/verify-statistical-analysis-policy.py uses direct weighted sums and matrix moments, not the classroom fitting functions."
+  }
+}

@@ -24,6 +24,7 @@ export function foundationReadout(lab:string,values:Readonly<Record<string,numbe
   if(lab==='continuity-repair'){const b=Number(values.pointValue??3);return [['附近极限','2'],['点处函数值',f(b)],['实心点与空心点',b===2?'重合':'不重合']];}
   if(lab==='bisection'){const n=Number(values.bisectionSteps??0),b=foundationBisection(n);return [['二分次数',String(n)],['保留区间','['+f(b.a)+', '+f(b.b)+']'],['两端函数值',f(b.left)+' / '+f(b.right)],['中点误差上界',f(b.error,8)]];}
   if(lab==='derivative-secant'){const h=Number(values.increment??.5),m=calculusEvidence('square',1,h);return [['输入增量h',f(h)],['函数增量',f(m.change)],['差商',m.quotient===null?'未定义：h须非零':f(m.quotient)],['参考直线斜率','2']];}
+  if(lab==='differential-error'){const m=calculusCostEvidence(100,Number(values.increment??10));if(!m)return [['结果','超出模型允许范围']];return [['输入增量h',f(m.h)+'件'],['实际成本增量ΔC',f(m.actual)+'元'],['微分dC',f(m.differential)+'元'],['绝对误差',f(m.absoluteError)+'元'],['相对增量误差',m.relativeError===null?'未定义：真实增量为0':f(100*m.relativeError,4)+'%']];}
   return [];
 }
 
@@ -41,3 +42,9 @@ export function calculusEvidence(model:CalculusCurve,a:number,h:number){
 }
 export function calculusCost(q:number):number|null{return q>=0&&q<=200?2000+20*q+.02*q*q:null;}
 export function calculusCostIncrement(q:number,h:number):number|null{return calculusCost(q)!==null&&calculusCost(q+h)!==null?(20+.04*q)*h+.02*h*h:null;}
+export function calculusCostEvidence(a:number,h:number){
+ if(!Number.isFinite(a)||!Number.isFinite(h))return null;
+ const base=calculusCost(a),actual=calculusCostIncrement(a,h);if(base===null||actual===null)return null;
+ const slope=20+.04*a,differential=slope*h,absoluteError=.02*h*h;
+ return {a,h,base,slope,actual,differential,exactValue:base+actual,linearValue:base+differential,absoluteError,relativeError:actual===0?null:absoluteError/Math.abs(actual)};
+}
