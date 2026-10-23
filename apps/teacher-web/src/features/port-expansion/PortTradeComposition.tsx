@@ -67,7 +67,7 @@ export function MediaCover({page,state}:Props){const film=PORT_EXPANSION_FILMS[p
 export function PortTradeComposition({page,state}:Props){
  const source=PORT_EXPANSION_SOURCES[page.source],points=expansionVisiblePoints(page,state.progress),props={page,state};let body;
  switch(page.visual){case 'trade-cover':body=<TradeCover {...props}/>;break;case 'trade-flow':body=<Flow {...props}/>;break;case 'trade-network':body=<TradeNetwork {...props}/>;break;case 'trade-zones':body=<TradeZones {...props}/>;break;case 'trade-documents':body=<TradeDocuments {...props}/>;break;case 'trade-timeline':body=<TradeReadiness {...props}/>;break;case 'trade-inventory':body=<TradeInventory {...props}/>;break;case 'trade-cost':body=<TradeCost {...props}/>;break;case 'trade-history':body=<TradeHistory {...props}/>;break;case 'trade-media':body=<MediaCover {...props}/>;break;default:body=<Records {...props}/>;}
- return <article className={`port-expansion-slide pt-slide${page.visual==='trade-cover'?' pt-cover':''}${state.revealed?' pt-answered':''}`} aria-label={`第${page.lesson}讲第${page.localPage}页`} data-slide-composition={`port-trade-${page.slideKey}`}>
+ return <article className={`port-expansion-slide pt-slide${page.visual==='trade-cover'?' pt-cover':''}${state.revealed?' pt-answered':''}`} aria-label={`第${page.lesson}讲第${page.localPage}页`}>
  <header className="pt-heading"><div className="pt-eyebrow"><span>港口管理概论 / {page.lesson}</span><span>{page.section}</span></div><h1>{page.title}</h1><p>{page.lead}</p></header>
  <div className={`pt-body pt-body--${page.visual}`}>{body}</div>
  {page.options&&<p className="pt-option">当前教学情境 / {page.options[state.option]}</p>}

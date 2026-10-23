@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第17讲学生手册 · 港口拥堵的非线性</title><style>
+*{box-sizing:border-box}body{margin:0;background:#eef2ed;color:#193f4b;font-family:"Microsoft YaHei",sans-serif;line-height:1.8}main{max-width:1080px;margin:24px auto;padding:40px 48px;background:#fffdf5}nav{display:flex;gap:24px;flex-wrap:wrap;border-bottom:1px solid #b8c8b8;padding-bottom:16px;font-size:14px}a{color:#1e6864}h1{font-size:30px;line-height:1.4}h2{font-size:23px;border-top:1px solid #b8c8b8;padding-top:24px;margin-top:32px}p,li{font-size:17px;overflow-wrap:anywhere}.table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:15px;margin:16px 0}th,td{border:1px solid #afc3bb;padding:8px;min-width:62px;text-align:left}th{background:#e7eee5}td{height:43px}li{margin:7px 0}footer{font-size:14px;border-top:1px solid #b8c8b8;margin-top:32px;padding-top:16px}@media(max-width:600px){main{margin:0;padding:20px}h1{font-size:25px}h2{font-size:21px}nav{gap:12px}}@media print{@page{size:A4;margin:16mm}body{background:#fff;color:#172b30}main{max-width:none;margin:0;padding:0}nav{display:none}h1{font-size:22pt}h2{font-size:16pt;break-after:avoid}p,li{font-size:11pt}table{font-size:9pt;break-inside:avoid}.table-wrap{overflow:visible}tr{break-inside:avoid}thead{display:table-header-group}a{color:inherit;text-decoration:none}}
+</style></head><body><main><nav><a href="/port-expansion-preview.html?lesson=17&amp;page=1&amp;student=1">返回课件</a><a href="/port-queue-lab.html">打开模拟</a><span>浏览器按Ctrl+P可打印或保存PDF</span></nav><h1>港口管理概论 第17讲学生手册</h1>
+<p>主题：港口拥堵的非线性。东湾港及全部车流、能力、价格均为教学设定。</p>
+<p>课件：<a href="/port-expansion-preview.html?lesson=17&amp;page=1&amp;student=1">/port-expansion-preview.html?lesson=17&amp;page=1&amp;student=1</a></p>
+<p>模拟：<a href="/port-queue-lab.html">/port-queue-lab.html</a></p>
+<h2>1. 每辆车先记三个时刻</h2>
+<p>所有时刻以同一个起点的分钟数表示。a是到达，b是开始服务，d是完成，s是实际服务时长。</p>
+<ul><li>bᵢ=max(aᵢ,dᵢ₋₁)：本车已经到达，前车也已经完成，才可以开工。</li><li>dᵢ=bᵢ+sᵢ。</li><li>排队wᵢ=bᵢ−aᵢ；系统停留tᵢ=dᵢ−aᵢ=wᵢ+sᵢ。</li><li>同到按编号，单台先到先服务，初始服务台空闲。</li></ul>
+<p>练习前的示例：四辆车到达0、1、1、4分钟，均服务2分钟。</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">车</th><th scope="col">到达a</th><th scope="col">开始b</th><th scope="col">完成d</th><th scope="col">排队w</th><th scope="col">停留t</th></tr></thead><tbody><tr><td>T01</td><td>0</td><td>0</td><td>2</td><td>0</td><td>2</td></tr><tr><td>T02</td><td>1</td><td>2</td><td>4</td><td>1</td><td>3</td></tr><tr><td>T03</td><td>1</td><td>4</td><td>6</td><td>3</td><td>5</td></tr><tr><td>T04</td><td>4</td><td>6</td><td>8</td><td>2</td><td>4</td></tr></tbody></table></div>
+<p>先用前车完成时刻计算下一辆，再核对每一行的“排队＋服务＝停留”。</p>
+<h2>2. 模拟一：8车手算</h2>
+<p>本节单独采用固定2分钟服务记录，便于手算。统一观察0—24分钟，预设记录在观察窗内全部完成。后续随机模型恢复南闸口100票/小时、平均0.6分钟服务的基准。</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">车</th><th scope="col">A到达</th><th scope="col">A开始</th><th scope="col">A完成</th><th scope="col">A排队</th><th scope="col">B到达</th><th scope="col">B开始</th><th scope="col">B完成</th><th scope="col">B排队</th></tr></thead><tbody><tr><td>T01</td><td>0</td><td> </td><td> </td><td> </td><td>0</td><td> </td><td> </td><td> </td></tr><tr><td>T02</td><td>3</td><td> </td><td> </td><td> </td><td>0</td><td> </td><td> </td><td> </td></tr><tr><td>T03</td><td>6</td><td> </td><td> </td><td> </td><td>6</td><td> </td><td> </td><td> </td></tr><tr><td>T04</td><td>9</td><td> </td><td> </td><td> </td><td>6</td><td> </td><td> </td><td> </td></tr><tr><td>T05</td><td>12</td><td> </td><td> </td><td> </td><td>12</td><td> </td><td> </td><td> </td></tr><tr><td>T06</td><td>15</td><td> </td><td> </td><td> </td><td>12</td><td> </td><td> </td><td> </td></tr><tr><td>T07</td><td>18</td><td> </td><td> </td><td> </td><td>18</td><td> </td><td> </td><td> </td></tr><tr><td>T08</td><td>21</td><td> </td><td> </td><td> </td><td>18</td><td> </td><td> </td><td> </td></tr></tbody></table></div>
+<p>先预测哪种更慢，再在模拟一选择A，开始后逐车推进。换B重新运行。</p>
+<p>写出：两个方案的平均排队、平均停留、忙碌分钟数、24分钟忙碌比例。说明一个平均忙碌比例无法解释的差别。</p>
+<h2>3. Little关系与单位</h2>
+<p>N(t)表示系统中排队加正在服务的车辆数。若观察窗开始和结束都为空，所有n辆车均在窗内完成，曲线下面积A等于逐车停留之和。</p>
+<p>L̄=A/T，λ̂=n/T，W̄=A/n，所以L̄=λ̂W̄。</p>
+<p>一般稳定系统在适当长期条件下写为L=λW。流量、人数和时间必须对应同一系统边界。不要只保留已完成的快车、删除尚未完成的慢车。跨窗记录需要处理边界项。</p>
+<h2>4. 单台随机模型公式卡</h2>
+<p>λ为平均到达票/小时，μ为单台忙时平均服务票/小时，平均服务时间为60/μ分钟。ρ=λ/μ。</p>
+<p>本讲M/M/1假设：独立泊松到达，独立同分布指数服务且与到达独立，一台服务台，无限等候空间，不拒收不离队，先到先服务，λ&lt;μ。预约、批量、多窗口、有限停车区需重新建模。</p>
+<ul><li>平均系统人数L=ρ/(1−ρ)。</li><li>平均系统停留W=60/(μ−λ)分钟。</li><li>平均排队Wq=W−60/μ分钟。</li><li>平均队列人数Lq=λWq/60。</li><li>若W≤g分钟，理想单台模型要求μ≥λ+60/g。</li></ul>
+<p>平均值不等于每辆车的完成承诺。λ≥μ时不使用有限稳态均值公式，有限模拟仍可以有完成记录。</p>
+<p>推导回看课件第13—19页：相邻状态长期跨越平衡、几何递推、比例归一化、加权平均、Little关系。所有求和只需要错位相减。</p>
+<h2>5. 模拟二：随机车流</h2>
+<ol><li>先算μ100、λ80/90/95时的理论W，写下预测。</li><li>使用默认种子20261023，热身500票，正式记录4000票。分别运行三个到达率，保留结果。</li><li>任选一组速率，更换种子再运行。比较样本平均、超过10分钟的比例和样本95分位。</li><li>固定到达底稿和其他参数，把随机服务改为固定时长。说明为什么此时不显示M/M/1公式预测。</li></ol>
+<div class="table-wrap"><table><thead><tr><th scope="col">运行</th><th scope="col">λ</th><th scope="col">μ</th><th scope="col">种子</th><th scope="col">服务分布</th><th scope="col">热身/记录</th><th scope="col">理论W</th><th scope="col">样本W</th><th scope="col">样本Wq</th><th scope="col">超10分钟比例</th></tr></thead><tbody><tr><td>1</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr><tr><td>2</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr><tr><td>3</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr><tr><td>4</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr></tbody></table></div>
+<p>不要只保留最接近理论的一次。默认热身和记录规模不保证近满负荷时已准确达到稳态。CSV保留所有正式记录，包括长等待车辆。</p>
+<h2>6. 能力与成本决策</h2>
+<p>需求90票/小时，目标平均系统停留不超过5分钟。每车每小时排队价值120元。A/B/C均为单台流程，μ为100/105/110，新支出为0/250/650元每运营小时。</p>
+<p>计算W、Wq、Lq、排队成本120Lq及总成本。先筛服务目标，再选列明成本较低的可行方案。</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">方案</th><th scope="col">μ</th><th scope="col">W分钟</th><th scope="col">Wq分钟</th><th scope="col">Lq</th><th scope="col">排队成本元/小时</th><th scope="col">总成本元/小时</th><th scope="col">是否达标</th></tr></thead><tbody><tr><td>A</td><td>100</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr><tr><td>B</td><td>105</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr><tr><td>C</td><td>110</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr></tbody></table></div>
+<p>把需求改到95，再改到99。保留目标5分钟，允许结论为“现有选项均不达标”。说明目标改变为什么会改变能力要求。</p>
+<h2>7. 模拟三：预约与全程</h2>
+<p>12辆车，第0、8、16分钟各4辆具备出发条件，路程暂为0，每车服务2分钟。</p>
+<p>比较原流程、分时预约、两个相同服务台共用队列。预约每批依次在就绪后0、2、4、6分钟入队。</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">平均每车分钟</th><th scope="col">原流程</th><th scope="col">预约</th><th scope="col">双台</th></tr></thead><tbody><tr><td>港外等待：入队−就绪</td><td> </td><td> </td><td> </td></tr><tr><td>闸口排队：开始−入队</td><td> </td><td> </td><td> </td></tr><tr><td>服务：完成−开始</td><td> </td><td> </td><td> </td></tr><tr><td>全程：完成−就绪</td><td> </td><td> </td><td> </td></tr></tbody></table></div>
+<p>用逐车完成时刻检查“闸口等待归零”是否等于更早交付。若基地等待价值30元/车小时、闸口120元，计算本批等待成本差额，再说明还缺哪些组织支出和履约证据。</p>
+<h2>8. 保存、重置与交付</h2>
+<p>三个场景分别保存预测与发现草稿。每次重新运行后，请根据新结果填写简短发现，再点击“保留本次对照记录”。没有运行次数限制，可以随时重置当前场景；重置保留已存的对照记录。</p>
+<p>下载CSV用于逐车复核，下载JSON学习记录保留参数、预测、发现和对照。然后按教师要求提交到指定渠道。本机保存、下载或完成播放不表示教学平台已收到。</p>
+<p>最终说明：你推荐改变什么？哪一条结果支持你？采用了哪些模型条件？什么新证据会使你修订建议？</p><footer>本手册的空表用于个人计算与记录。学习结果按教师指定渠道提交。</footer></main></body></html>

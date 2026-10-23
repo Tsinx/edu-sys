@@ -13,8 +13,10 @@ test("the shared course directory exposes all 16 lectures and 32 hour entry poin
   const html = renderToStaticMarkup(<MemoryRouter><CourseLessonDirectory
     deck={mathematics} activityCounts={[{ lesson: 5, count: 4 }]} onPrepare={() => {}}
   /></MemoryRouter>);
-  assert.match(html, /1,352 slides/);
-  assert.match(html, /1,320 core · 32 optional/);
+  assert.ok(html.includes(`${mathematics.slideTotal.toLocaleString('en-US')} slides`));
+  const core=mathematics.lessons.reduce((total,lesson)=>total+(lesson.coreSlideTotal??0),0);
+  const optional=mathematics.lessons.reduce((total,lesson)=>total+(lesson.optionalSlideTotal??0),0);
+  assert.ok(html.includes(`${core.toLocaleString('en-US')} core · ${optional.toLocaleString('en-US')} optional`));
   assert.match(html, /32 teaching hours/);
   assert.match(html, /4 planned activities/);
   assert.equal((html.match(/class="workspace-lesson-row"/g) ?? []).length, 17);

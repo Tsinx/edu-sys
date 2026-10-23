@@ -39,7 +39,9 @@ export function buildClassroomToolPrompt(snapshot: { courseId: string; slide: { 
   const slidePosition = getPortManagementLessonSlidePosition(
     snapshot.slide.index
   )!;
-  const readyLessonMap = getPortManagementReadyLessons()
+  const readyPortLessons = getPortManagementReadyLessons();
+  const lastPortLesson = Math.max(...readyPortLessons.map(lesson => lesson.number));
+  const readyLessonMap = readyPortLessons
     .map(
       (lesson) => {
         const localTotal =
@@ -67,7 +69,7 @@ export function buildClassroomToolPrompt(snapshot: { courseId: string; slide: { 
     '- {"type":"slides.next"}',
     '- {"type":"slides.previous"}',
     `- {"type":"slides.go_to","slide":1到${snapshot.slide.total}的整数}`,
-    '- {"type":"lesson.go_to","lesson":1到16的整数}',
+    `- {"type":"lesson.go_to","lesson":1到${lastPortLesson}的整数}`,
     '- {"type":"activity.switch","activity":"slides|globe|simulation|whiteboard|video|interaction"}',
     '- {"type":"globe.play_cue","cueId":"课程注册表中的固定cue ID"}',
     '- {"type":"simulation.open_demo","cueId":"l4-arrival|l4-cargo|l4-yard|l4-departure"}',

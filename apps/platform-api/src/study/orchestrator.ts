@@ -52,7 +52,9 @@ function buildSystemPrompt(session: StudySession, settings: AssistantPromptSetti
   const position = getPortManagementLessonSlidePosition(
     session.globalIndex
   )!;
-  const readyLessons = getPortManagementReadyLessons()
+  const readyPortLessons = getPortManagementReadyLessons();
+  const lastPortLesson = Math.max(...readyPortLessons.map(lesson => lesson.number));
+  const readyLessons = readyPortLessons
     .map((lesson) => {
       const localTotal =
         (lesson.slideEnd ?? 0) - (lesson.slideStart ?? 1) + 1;
@@ -67,10 +69,10 @@ function buildSystemPrompt(session: StudySession, settings: AssistantPromptSetti
     "actions只能使用以下个人学习导航动作：",
     '- {"type":"study.slides.next"}',
     '- {"type":"study.slides.previous"}',
-    '- {"type":"study.slides.go_to","lesson":1到16的整数,"slide":讲内页码}',
-    '- {"type":"study.lesson.go_to","lesson":1到16的整数}',
+    `- {"type":"study.slides.go_to","lesson":1到${lastPortLesson}的整数,"slide":讲内页码}`,
+    `- {"type":"study.lesson.go_to","lesson":1到${lastPortLesson}的整数}`,
     "只有用户明确要求翻页或切换课次时才生成动作；普通知识问答必须返回空数组。",
-    `已建设课次：${readyLessons}。第4—16讲待建设，不得虚构标题、页码或内容。`,
+    `已建设课次：${readyLessons}。未列入已建设目录的讲次尚未配置，不得虚构标题、页码或内容。`,
     `当前页面：第${position.localIndex}/${position.localTotal}页`,
     `用户只说“第X页”时，默认指当前第${position.lessonNumber}讲第X页。`,
     "所有导航动作必须等待完整JSON通过Schema校验后才会执行；不得在dialogue中声称动作已经执行。",

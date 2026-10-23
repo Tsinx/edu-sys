@@ -65,7 +65,7 @@ function Photo({page,state}:Props){
 export function PortTransitionComposition({page,state}:Props){
  const source=PORT_EXPANSION_SOURCES[page.source],props={page,state};let body;
  switch(page.visual){case 'trade-media':body=<MediaCover {...props}/>;break;case 'transition-task':body=<Task {...props}/>;break;case 'transition-layers':body=<Layers {...props}/>;break;case 'transition-flow':body=<Flow {...props}/>;break;case 'transition-events':body=<Events {...props}/>;break;case 'transition-handoff':body=<Handoff {...props}/>;break;case 'transition-boundary':body=<Boundary {...props}/>;break;case 'transition-shore':body=<Shore {...props}/>;break;case 'transition-carbon':body=<Carbon {...props}/>;break;case 'transition-intensity':body=<Intensity {...props}/>;break;case 'transition-portfolio':body=<Portfolio {...props}/>;break;case 'transition-photo':body=<Photo {...props}/>;break;default:body=<Records {...props}/>;}
- return <article className={`port-expansion-slide pt-slide px-slide${page.lesson===16?' px-green':''}${state.revealed?' pt-answered':''}`} aria-label={`第${page.lesson}讲第${page.localPage}页`} data-slide-composition={`port-transition-${page.slideKey}`}>
+ return <article className={`port-expansion-slide pt-slide px-slide${page.lesson===16?' px-green':''}${state.revealed?' pt-answered':''}`} aria-label={`第${page.lesson}讲第${page.localPage}页`}>
   <header className="pt-heading"><div className="pt-eyebrow"><span>港口管理概论 / {page.lesson}</span><span>{page.section}</span></div><h1>{page.title}</h1><p>{page.lead}</p></header>
   <div className={`pt-body px-body px-body--${page.visual}`}>{body}</div>
   {page.options&&<p className="pt-option">当前教学情境 / {page.options[state.option]}</p>}

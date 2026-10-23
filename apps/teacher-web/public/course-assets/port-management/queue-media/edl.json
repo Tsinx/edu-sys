@@ -1,0 +1,59 @@
+{
+  "lesson": 17,
+  "title": "港口拥堵的非线性",
+  "duration": 46,
+  "sourcePage": "https://tv.cctv.com/2025/05/22/VIDEu7abgnqxjck2rKBqygmP250522.shtml",
+  "sourceTitle": "[新闻直播间]山东 青岛港自动化码头 每小时装卸超62箱 第13次刷新世界纪录",
+  "sourceDate": "2025-05-22",
+  "sourceSha256": "353d0cb87b000e5644503c70ab34dd347d7b5732d934a71acd3d9e260cdd9e6b",
+  "outputSha256": "8e849b7b85bff468473695b25e3ca61e745a1db06263a5f4dbb44d1df88e2087",
+  "shots": [
+    {
+      "id": "intro",
+      "from": 0,
+      "duration": 4,
+      "text": "港口拥堵，为什么会突然加剧？",
+      "spokenSeconds": 2.966667,
+      "tempo": 1
+    },
+    {
+      "id": "operation",
+      "from": 4,
+      "duration": 9,
+      "sourceStart": 34,
+      "text": "设备持续作业，不能保证每一票业务都能立刻得到服务。等待，也发生在任务接续之间。",
+      "spokenSeconds": 7.966667,
+      "tempo": 1
+    },
+    {
+      "id": "variation",
+      "from": 13,
+      "duration": 9,
+      "sourceStart": 60,
+      "text": "当到达和服务都有波动，即使平均能力大于平均需求，长队仍然可能出现。",
+      "spokenSeconds": 6.8,
+      "tempo": 1
+    },
+    {
+      "id": "boundary",
+      "from": 22,
+      "duration": 8,
+      "sourceStart": 96,
+      "text": "下面把复杂港口缩小为一个核验台，用每辆车的记录，追查等待怎样累积。",
+      "spokenSeconds": 6.966667,
+      "tempo": 1
+    },
+    {
+      "id": "question",
+      "from": 30,
+      "duration": 16,
+      "text": "假设核验台平均每小时能处理一百票，原来平均到达九十票。现在增加到九十九票。还剩一票能力，就可以放心接单吗？请先留下你的预测。",
+      "spokenSeconds": 12.633333,
+      "tempo": 1
+    }
+  ],
+  "audio": "课程合成旁白，使用现有授课音色。镜头原声静音；不归于出镜人物。",
+  "boundary": "青岛港历史作业镜头，非拥堵事件现场；东湾港、到达率和服务率为独立教学设定。",
+  "rights": "原画面版权归原权利人。课堂短节选与课程提问，不代表完整报道的再发行许可。",
+  "verifiedDuration": 46.021333
+}

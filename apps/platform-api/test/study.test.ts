@@ -85,7 +85,7 @@ test("self-study session persists progress and exposes a zero-GPU Lanzhou presen
     assert.equal(first.mode, "student");
     assert.equal(first.globalIndex, 1);
     assert.equal(first.slideKey, "l1-course-cover");
-    assert.equal(first.slideTotal, 549);
+    assert.equal(first.slideTotal, 727);
     assert.equal(first.presentation.mode, "selfstudy_prerecorded");
     assert.equal(first.presentation.requiresGpu, false);
     assert.equal(first.presentation.characterId, "lanzhou");
@@ -223,6 +223,8 @@ test("self-study ASR context, early TTS and validated navigation stream independ
     assert.equal(invalid.statusCode, 400);
     assert.match(assistant.requests[0]?.messages[0]?.content ?? "", /当前页面：第1\/47页/);
     assert.match(assistant.requests[0]?.messages[0]?.content ?? "", /edu\.study\.assistant\.response/);
+    assert.match(assistant.requests[0]?.messages[0]?.content ?? "", /"lesson":1到17的整数/);
+    assert.doesNotMatch(assistant.requests[0]?.messages[0]?.content ?? "", /第4—16讲待建设/);
     assert.doesNotMatch(assistant.requests[0]?.messages[0]?.content ?? "", /teachingCue|assistantCue/);
   } finally {
     await app.close();

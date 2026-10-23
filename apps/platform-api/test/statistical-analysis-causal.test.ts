@@ -21,7 +21,7 @@ test('complete scripts use stable keys, one source, 70 + 20 minutes and substant
   near(items.reduce((n,p)=>n+p.spokenSeconds,0),4200);near(items.reduce((n,p)=>n+p.pauseSeconds,0),1200);
   const chars=items.reduce((n,p)=>n+(p.paragraphs.join('').match(/[\u4e00-\u9fff]/g)?.length??0),0);
   assert.ok(chars>=14000&&chars<=16000,`${lesson}: ${chars}`);
-  const doc=readFileSync(new URL(`../../../docs/course/statistical-analysis/lecture-${lesson}-script.md`,import.meta.url),'utf8');
+  const doc=readFileSync(new URL(`../../../docs/course/statistical-analysis/lecture-${lesson}-script.md`,import.meta.url),'utf8').replaceAll('\r\n','\n');
   for(const s of items){assert.ok(s.paragraphs.length>=3&&s.transitionToNext===s.paragraphs.at(-1));assert.ok(doc.includes(s.paragraphs.join('\n\n')));near((s.spokenSeconds+s.pauseSeconds)/60,causalTiming(lesson,s.localIndex).minutes);}
  }
 });

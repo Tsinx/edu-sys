@@ -34,7 +34,7 @@ test('all 96 project scripts remain complete, separately exported and timed for 
   const items=scripts.filter(s=>s.lesson===lesson);assert.equal(items.length,48);
   const chars=items.reduce((n,s)=>n+(s.paragraphs.join('').match(/[\u4e00-\u9fff]/g)?.length??0),0);
   assert.ok(chars>=9000,`${lesson}: ${chars}`);
-  const doc=readFileSync(new URL(`../../../docs/course/statistical-analysis/lecture-${lesson}-script.md`,import.meta.url),'utf8');
+  const doc=readFileSync(new URL(`../../../docs/course/statistical-analysis/lecture-${lesson}-script.md`,import.meta.url),'utf8').replaceAll('\r\n','\n');
   for(const s of items){assert.equal(s.paragraphs.length,3);assert.equal(s.transitionToNext,s.paragraphs.at(-1));assert.ok(doc.includes(s.paragraphs.join('\n\n')));}
  }
 });

@@ -89,7 +89,8 @@ export type PortManagementLessonNumber =
   | 13
   | 14
   | 15
-  | 16;
+  | 16
+  | 17;
 
 export interface PortSlideColumn {
   heading: string;
@@ -800,7 +801,8 @@ export const PORT_MANAGEMENT_LESSONS: readonly PortManagementLessonSpec[] = [
   ...([9,10] as const).map(number=>({number,label:`第${number}讲`,title:EXPANSION_TITLES[number],status:'ready' as const,slideStart:390+(number-9)*48,slideEnd:437+(number-9)*48,timing:expansionTiming(number),assistantBrief:{objective:number===9?'比较港口治理职能、合同义务与风险监督。':'以同口径成本、时间和可靠性解释客户选港与竞争。',coreClaims:number===9?['所有权、经营与公共监管分别核查。','模式不是效率排行，风险不能因转移而消失。']:['港内收费与全程成本不同。','可行性、时间与可靠性共同限定选择。'],guardrails:['各48页90分钟，教师主导演示和个人判断，无独立仿真提交。','所有金额和数量算例为独立教学设定，不是报价或投资预测。','通用治理概念不构成现行法律或真实合同责任意见。','未揭示解析和教师稿不进入回答。'],responsePolicy:'先回应当前问题，用已公开证据与输入解释，并保留条件和缺项。'}})),
   ...([11,12] as const).map(number=>({number,label:`第${number}讲`,title:EXPANSION_TITLES[number],status:'ready' as const,slideStart:expansionStart(number),slideEnd:expansionStart(number)+expansionTotal(number)-1,timing:expansionTiming(number),assistantBrief:{objective:number===11?'定位损失区段，用同检查点分支比较交付、积压与成本，评价改善及其适用范围。':'从调查证据识别屏障依赖，在信息中断实验中核验备用、技术恢复、对账与服务恢复。',coreClaims:number===11?['规模、效率与用户结果分别核查。','排名、均值与综合分不能替代全部目标或因果证据。']:['效率收益不能补齐必要确认与权限。','确认齐备仍待有权角色审查，不等于现场批准。'],guardrails:['各32页90分钟，含30分钟独立实验；本机草稿与导出不等于已向教学平台提交。','真实案例按原始来源解释；模拟参数与票据为独立教学设定，参考运行不是个人完成记录。','公开指南不替代现行法律、现场制度、专业判断与正式授权。','未揭示解析、未展开材料与教师稿不进入回答。'],responsePolicy:'只按当前公开材料回应，说明对象、单位、期间与证据缺项；不作现场指令或授权判断。'}})),
   ...([13,14] as const).map(number=>({number,label:`第${number}讲`,title:EXPANSION_TITLES[number],status:'ready' as const,slideStart:expansionStart(number),slideEnd:expansionStart(number)+expansionTotal(number)-1,timing:expansionTiming(number),assistantBrief:{objective:number===13?'依据货票、单证和状态记录诊断进口交付，解释海关手续与口岸协同。':'辨析中国保税区域制度与业务流向，比较重庆七区联系和企业路径的收益成本。',coreClaims:['货物流、监管状态和商业交付分别核实。','保税、免税与退税不同；区域名称不证明业务可行或经营划算。'],guardrails:['32/40页各90分钟，案例判断无需新建仿真实验；未收到记录不得声称完成。','新闻视频保留来源和时点，历史数字不是实时状态，海南案例不是重庆现场。','官方法规按对象和条件解释；教学税款、费用和货票不是报关、法律或投资建议。','教师稿、未展开材料与未揭示答案不进入回答。'],responsePolicy:'先核对当前公开的对象、状态、单位、日期和证据；信息不足时提出核查需求，不提供现场授权或实际申报结论。'}})),
-  ...([15,16] as const).map(number=>({number,label:`第${number}讲`,title:EXPANSION_TITLES[number],status:'ready' as const,slideStart:expansionStart(number),slideEnd:expansionStart(number)+expansionTotal(number)-1,timing:expansionTiming(number),assistantBrief:{objective:number===15?'沿业务标识、事件和接收时刻解释数字协同如何改变交付，提出可验证的试点方案。':'区分环境影响、核算边界和实际使用，在预算约束下比较绿色项目并修订投资建议。',coreClaims:number===15?['系统收到、业务接受与实际执行不同。','信息等待缩短后，最后约束可能迁移。','自动化、人员和流程共同决定可用服务。']:['覆盖、使用和效果分别核查。','排放总量与单位强度可能不同向。','环境、成本和服务需要在相同边界及约束下比较。'],guardrails:['各32页90分钟，教师演示与个人任务，无新增独立仿真提交。','新闻保留日期、地点和原声，纪录不是常态效率或技术独立因果证据。','时刻、成本、排放系数和项目卡均为教学设定，非实港测算、法规授权或投资建议。','计算按当前已展开选项和公开假设解释；教师稿、隐藏解析与后续变化卡不进入回答。'],responsePolicy:'先核对当前对象、状态、时刻、单位及边界，再解释数据如何改变动作或计算。缺少实际记录时不声称完成；不给电气或生产现场操作授权。'}}))
+  ...([15,16] as const).map(number=>({number,label:`第${number}讲`,title:EXPANSION_TITLES[number],status:'ready' as const,slideStart:expansionStart(number),slideEnd:expansionStart(number)+expansionTotal(number)-1,timing:expansionTiming(number),assistantBrief:{objective:number===15?'沿业务标识、事件和接收时刻解释数字协同如何改变交付，提出可验证的试点方案。':'区分环境影响、核算边界和实际使用，在预算约束下比较绿色项目并修订投资建议。',coreClaims:number===15?['系统收到、业务接受与实际执行不同。','信息等待缩短后，最后约束可能迁移。','自动化、人员和流程共同决定可用服务。']:['覆盖、使用和效果分别核查。','排放总量与单位强度可能不同向。','环境、成本和服务需要在相同边界及约束下比较。'],guardrails:['各32页90分钟，教师演示与个人任务，无新增独立仿真提交。','新闻保留日期、地点和原声，纪录不是常态效率或技术独立因果证据。','时刻、成本、排放系数和项目卡均为教学设定，非实港测算、法规授权或投资建议。','计算按当前已展开选项和公开假设解释；教师稿、隐藏解析与后续变化卡不进入回答。'],responsePolicy:'先核对当前对象、状态、时刻、单位及边界，再解释数据如何改变动作或计算。缺少实际记录时不声称完成；不给电气或生产现场操作授权。'}})),
+  {number:17,label:'第17讲',title:EXPANSION_TITLES[17],status:'ready',slideStart:expansionStart(17),slideEnd:expansionStart(17)+expansionTotal(17)-1,timing:expansionTiming(17),assistantBrief:{objective:'从逐车记录推导排队关系，计算随机单台拥堵，并比较能力、等待成本和预约的全程效果。',coreClaims:['有限逐车递推与随机稳态均值分别解释。','Little关系要求一致对象、边界和时间口径。','M/M/1平均结果依赖随机单台稳定假设。','预约后的港外等待进入全程核算。'],guardrails:['42页90分钟，含三轮独立简化模拟；本机保存下载不等于平台提交。','所有闸口参数、成本和车流为教学设定，不是现场测量或生产指令。','不把M/M/1公式用于多台、预约、批量或有限空间系统；不把有限样本当精确稳态。','仅解释当前已展开步骤和已揭示答案，不泄露教师稿。'],responsePolicy:'先辨认有限记录或随机模型，核对单位、边界及稳定条件，再逐步计算；缺项时说明所需证据。'}}
 ];
 
 export {
@@ -924,6 +926,7 @@ function appendContextLine(
 }
 
 function formatVoyagePrompt(slide: PortManagementSlideSpec): string {
+  if(slide.lesson===17)return '第17讲为东湾港南闸口独立教学情境。逐车时间以分钟计，λ与μ以票/小时计。Little关系与M/M/1特定公式区分，后者依赖独立泊松到达、指数服务、单台无限等候和λ<μ。平均、样本与尾部分别说明；预约的港外等待不能漏记；无记录不推断完成或提交。';
   if(slide.lesson===13||slide.lesson===14)return '第13—14讲使用澄江机电虚构货票与独立教学金额，官方制度和中国重庆案例按来源时点解释。不能把片中历史数字、海南政策或拓扑示意外推为当前重庆实况；不提供实际申报、法律、税款或投资结论。只解释已展开图解和已揭示解析。';
   if(slide.lesson===11||slide.lesson===12)return '第11—12讲采用独立绩效记录、评分与安全确认教学事件，非OOCL历史航次或实港运行。公开资料按其对象和时期解释；不提供真实排名、因果认定、危险货物操作、应急步骤、攻击实施或现场授权。只解释已展开材料与已揭示解析。';
   if(slide.lesson===9||slide.lesson===10)return '第9—10讲使用独立治理、合同支付、收费和选港教学情境。不是OOCL历史航次、现实合同、报价或个人实训记录。按当前公开条件解释，不推断法律责任、真实盈利或市场份额，不输出未揭示答案。';
