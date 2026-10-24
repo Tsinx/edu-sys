@@ -1,6 +1,6 @@
-# 第15—16讲资料与边界
+# 第15—16讲案例资料与来源
 
-核对日期：2026-10-21。历史报道、政策与独立教学设定分列。
+核对日期：2026-10-23。历史案例、政策与独立教学推演分别标明。
 
 ## px-case · 本课程 · 澄江港改善决策
 
@@ -73,6 +73,48 @@
 [原始资料](https://wap.cq.gov.cn/ywdt/zwhd/bmdt/202412/t20241230_14031084.html)，2024-12-30。
 
 历史材料说明果园港岸电、设备与绿色运输举措；不据此声称全港已实现零排放或零碳认证。
+
+## px-tianjin-energy · 天津港集团 · 北疆C段风光储荷项目
+
+[原始资料](https://www.ptacn.com/contents/17/2642.html)，2023-07-26。
+
+用于2021—2023年能源项目建设背景。风光储荷关系图为概念重绘，昼夜场景为教学推演，不是实测调度或全部港区的生命周期核算。
+
+## px-rotterdam-cruise · 鹿特丹港务局 · 邮轮岸电投运
+
+[原始资料](https://www.portofrotterdam.com/en/news-and-press-releases/cruise-port-rotterdam-shore-power-installation-commissioned)，2025-03-31。
+
+报道支持AIDAnova首次接用、230米电缆沟、移动连接车、1.5公里专线及运营中施工。75%是首年预期，不是实绩；图为关系示意，不按比例或提供接电操作规程。
+
+## px-rotterdam-grid · 鹿特丹港务局 · 岸电战略与电网约束
+
+[原始资料](https://www.portofrotterdam.com/en/news-and-press-releases/city-rotterdam-and-port-rotterdam-authority-present-updated-shore-power)，2025-11-12。
+
+记录2025年战略所述部分区域电网拥堵及拟研究的合同、移动岸电方案，不推定2026年拥堵已解除或未来目标已实现。
+
+## px-la-emissions · 洛杉矶港 · 2024年排放盘查发布
+
+[原始资料](https://portoflosangeles.org/references/2025-news-releases/news_101625_air_emissions)，2025-10-16。
+
+2005—2024年DPM、NOx、GHG降幅与2023—2024年货量及GHG变化分开使用；排放量是盘查估计，不是居民点浓度。GHG与本课CO₂算例口径不同；指数按各自基期归一，不混合相加。
+
+## px-cq-green-detail · 重庆市政府 · 果园港绿色改造实例
+
+[原始资料](https://cq.gov.cn/zt/xblhxtd/tpxw/202509/t20250925_15042316.html)，2025-09-25。
+
+用于封闭皮带廊道、岸电和移动污染物接收实例；未采用报道估算碳减排量作为独立核算值，不能外推全部环境影响为零。
+
+## px-cq-water-level · 重庆市政府 · 果园港大水位差适配
+
+[原始资料](https://www.cq.gov.cn/ywdt/jrcq/202209/t20220913_11101355.html)，2022-09-13。
+
+仅采用设施随水位收放管线的历史实践。高低水位图是非比例概念图，不含真实高程、当日水位或操作步骤；远期规划不当作建成实绩。
+
+## px-cq-intermodal · 重庆市政府 · 果园港汽摩零部件铁海联运
+
+[原始资料](https://cq.gov.cn/ywdt/zwhd/bmdt/202404/t20240423_13150709.html)，2024-04-23。
+
+历史报道支持基地—鱼嘴货运站—钦州港铁海联运联系。课堂端到端图为链路重建，不是地图；未给出该线路实测排放或当前时效承诺。
 
 ## px-video-smart · 央视网 · 青岛港自动化码头
 

@@ -12,6 +12,13 @@ export const PORT_TRANSITION_SOURCES = {
  'px-shore-law':{label:'交通运输部 · 岸电管理办法（2025修正）',url:'https://xxgk.mot.gov.cn/jigou/fgs/202505/t20250521_4169121.html',date:'2025-05-21公布',boundary:'按现行办法解释适用船舶、靠泊时间、设施匹配与例外；概论核对不能代替有资质人员操作及船岸安全确认。'},
  'px-huanghua':{label:'交通运输部 · 绿色港口试点验收',url:'https://xxgk.mot.gov.cn/2020/jigou/zhghs/202404/t20240422_4136924.html',date:'2024-04-22',boundary:'黄骅煤炭港区的粉尘与煤污水治理为特定货种、特定范围成果；不宣称所有港区或全部环境影响为零。'},
  'px-cq-green':{label:'重庆市政府 · 两江新区绿色发展记录',url:'https://wap.cq.gov.cn/ywdt/zwhd/bmdt/202412/t20241230_14031084.html',date:'2024-12-30',boundary:'历史材料说明果园港岸电、设备与绿色运输举措；不据此声称全港已实现零排放或零碳认证。'},
+ 'px-tianjin-energy':{label:'天津港集团 · 北疆C段风光储荷项目',url:'https://www.ptacn.com/contents/17/2642.html',date:'2023-07-26',boundary:'用于2021—2023年能源项目建设背景。风光储荷关系图为概念重绘，昼夜场景为教学推演，不是实测调度或全部港区的生命周期核算。'},
+ 'px-rotterdam-cruise':{label:'鹿特丹港务局 · 邮轮岸电投运',url:'https://www.portofrotterdam.com/en/news-and-press-releases/cruise-port-rotterdam-shore-power-installation-commissioned',date:'2025-03-31',boundary:'报道支持AIDAnova首次接用、230米电缆沟、移动连接车、1.5公里专线及运营中施工。75%是首年预期，不是实绩；图为关系示意，不按比例或提供接电操作规程。'},
+ 'px-rotterdam-grid':{label:'鹿特丹港务局 · 岸电战略与电网约束',url:'https://www.portofrotterdam.com/en/news-and-press-releases/city-rotterdam-and-port-rotterdam-authority-present-updated-shore-power',date:'2025-11-12',boundary:'记录2025年战略所述部分区域电网拥堵及拟研究的合同、移动岸电方案，不推定2026年拥堵已解除或未来目标已实现。'},
+ 'px-la-emissions':{label:'洛杉矶港 · 2024年排放盘查发布',url:'https://portoflosangeles.org/references/2025-news-releases/news_101625_air_emissions',date:'2025-10-16',boundary:'2005—2024年DPM、NOx、GHG降幅与2023—2024年货量及GHG变化分开使用；排放量是盘查估计，不是居民点浓度。GHG与本课CO₂算例口径不同；指数按各自基期归一，不混合相加。'},
+ 'px-cq-green-detail':{label:'重庆市政府 · 果园港绿色改造实例',url:'https://cq.gov.cn/zt/xblhxtd/tpxw/202509/t20250925_15042316.html',date:'2025-09-25',boundary:'用于封闭皮带廊道、岸电和移动污染物接收实例；未采用报道估算碳减排量作为独立核算值，不能外推全部环境影响为零。'},
+ 'px-cq-water-level':{label:'重庆市政府 · 果园港大水位差适配',url:'https://www.cq.gov.cn/ywdt/jrcq/202209/t20220913_11101355.html',date:'2022-09-13',boundary:'仅采用设施随水位收放管线的历史实践。高低水位图是非比例概念图，不含真实高程、当日水位或操作步骤；远期规划不当作建成实绩。'},
+ 'px-cq-intermodal':{label:'重庆市政府 · 果园港汽摩零部件铁海联运',url:'https://cq.gov.cn/ywdt/zwhd/bmdt/202404/t20240423_13150709.html',date:'2024-04-23',boundary:'历史报道支持基地—鱼嘴货运站—钦州港铁海联运联系。课堂端到端图为链路重建，不是地图；未给出该线路实测排放或当前时效承诺。'},
  'px-video-smart':{label:'央视网 · 青岛港自动化码头',url:'https://tv.cctv.com/2025/05/22/VIDEu7abgnqxjck2rKBqygmP250522.shtml',date:'2025-05-22',boundary:'原报道作业现场与采访；单机作业纪录不是常态保证、全程交付时效或自动化的独立因果效果。'},
  'px-video-green':{label:'央视网 · 港口智慧绿色转型',url:'https://tv.cctv.com/2025/06/09/VIDEHV4MAQdbeBL4IovSAvuX250609.shtml',date:'2025-06-09',boundary:'短片保留原声及天津港岸电等报道地点；历史数字不是当前全港数值，受访者减排表述不替代本课独立核算。'},
 } as const;

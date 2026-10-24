@@ -1,5 +1,6 @@
 import {PORT_EXPANSION_SOURCES,expansionTotal,expansionVisiblePoints,digitalHandoff,transitionClock,shoreComparison,greenIntensity,transitionPortfolio,type ExpansionPresentation,type PortExpansionPage} from '@edu/course-content';
 import {MediaCover} from './PortTradeComposition';
+import {PortGreenCase} from './PortGreenCase';
 type Props={page:PortExpansionPage;state:ExpansionPresentation};
 const shown=(n:number,progress:number)=>Math.floor(n*progress+1e-6);
 const palette=['#246c77','#b28044','#547b65','#768fa0'];
@@ -8,11 +9,11 @@ const f=(n:number)=>Number(n.toFixed(2)).toLocaleString('en-US');
 function Records({page,state}:Props){
  const [head,...rows]=page.rows??[];if(!head)return null;
  if(head.length===2)return <div className="px-ledger">{rows.slice(0,shown(rows.length,state.progress)).map((r,i)=><section key={i}><span>{String(i+1).padStart(2,'0')}</span><h2>{r[0]}</h2><p>{r[1]}</p></section>)}</div>;
- return <div className={`px-records${head.length===4?' px-records--numeric':''}`}><table><thead><tr>{head.map((h,i)=><th key={i}>{h}</th>)}</tr></thead><tbody>{rows.slice(0,shown(rows.length,state.progress)).map((r,i)=><tr key={i}>{r.map((s,j)=><td key={j}>{s}</td>)}</tr>)}</tbody></table></div>;
+ return <div className={`px-records${head.length===4?' px-records--numeric':''}${page.slideKey==='l16-defend-decision'?' px-records--case-comparison':''}`}><table><thead><tr>{head.map((h,i)=><th key={i}>{h}</th>)}</tr></thead><tbody>{rows.slice(0,shown(rows.length,state.progress)).map((r,i)=><tr key={i}>{r.map((s,j)=><td key={j}>{s}</td>)}</tr>)}</tbody></table></div>;
 }
 function Task({page,state}:Props){
  const [head,...rows]=page.rows??[];
- return <div className="px-task"><aside><span>个人判断</span><strong>写出依据<br/>保留修订</strong><p>{page.lesson===16&&page.localPage>=24?'预算、服务与环境条件一起核对':'从当前证据中提出可以检查的解释'}</p></aside><div className="px-task-lines" aria-label={head?.join('、')}>{rows.slice(0,shown(rows.length,state.progress)).map((r,i)=><section key={i}><span>{String(i+1).padStart(2,'0')}</span><div><h2>{r[0]}</h2><p>{r[1]}</p></div></section>)}</div></div>;
+ return <div className="px-task"><aside><span>{page.lesson===16?'场景讨论':'个人判断'}</span><strong>{page.lesson===16?<>解释改法<br/>比较代价</>:<>写出依据<br/>保留修订</>}</strong><p>{page.lesson===16?'从这一次作业出发，说清楚选择怎样发挥作用':'从当前证据中提出可以检查的解释'}</p></aside><div className="px-task-lines" aria-label={head?.join('、')}>{rows.slice(0,shown(rows.length,state.progress)).map((r,i)=><section key={i}><span>{String(i+1).padStart(2,'0')}</span><div><h2>{r[0]}</h2><p>{r[1]}</p></div></section>)}</div></div>;
 }
 function Layers({page,state}:Props){
  const [head,...rows]=page.rows??[];
@@ -64,13 +65,13 @@ function Photo({page,state}:Props){
 }
 export function PortTransitionComposition({page,state}:Props){
  const source=PORT_EXPANSION_SOURCES[page.source],props={page,state};let body;
- switch(page.visual){case 'trade-media':body=<MediaCover {...props}/>;break;case 'transition-task':body=<Task {...props}/>;break;case 'transition-layers':body=<Layers {...props}/>;break;case 'transition-flow':body=<Flow {...props}/>;break;case 'transition-events':body=<Events {...props}/>;break;case 'transition-handoff':body=<Handoff {...props}/>;break;case 'transition-boundary':body=<Boundary {...props}/>;break;case 'transition-shore':body=<Shore {...props}/>;break;case 'transition-carbon':body=<Carbon {...props}/>;break;case 'transition-intensity':body=<Intensity {...props}/>;break;case 'transition-portfolio':body=<Portfolio {...props}/>;break;case 'transition-photo':body=<Photo {...props}/>;break;default:body=<Records {...props}/>;}
+ switch(page.visual){case 'trade-media':body=<MediaCover {...props}/>;break;case 'transition-green-case':body=<PortGreenCase {...props}/>;break;case 'transition-task':body=<Task {...props}/>;break;case 'transition-layers':body=<Layers {...props}/>;break;case 'transition-flow':body=<Flow {...props}/>;break;case 'transition-events':body=<Events {...props}/>;break;case 'transition-handoff':body=<Handoff {...props}/>;break;case 'transition-boundary':body=<Boundary {...props}/>;break;case 'transition-shore':body=<Shore {...props}/>;break;case 'transition-carbon':body=<Carbon {...props}/>;break;case 'transition-intensity':body=<Intensity {...props}/>;break;case 'transition-portfolio':body=<Portfolio {...props}/>;break;case 'transition-photo':body=<Photo {...props}/>;break;default:body=<Records {...props}/>;}
  return <article className={`port-expansion-slide pt-slide px-slide${page.lesson===16?' px-green':''}${state.revealed?' pt-answered':''}`} aria-label={`第${page.lesson}讲第${page.localPage}页`}>
   <header className="pt-heading"><div className="pt-eyebrow"><span>港口管理概论 / {page.lesson}</span><span>{page.section}</span></div><h1>{page.title}</h1><p>{page.lead}</p></header>
   <div className={`pt-body px-body px-body--${page.visual}`}>{body}</div>
   {page.options&&<p className="pt-option">当前教学情境 / {page.options[state.option]}</p>}
   <div className="pt-observations">{expansionVisiblePoints(page,state.progress).map((s,i)=><p key={s}><span>{String(i+1).padStart(2,'0')}</span>{s}</p>)}</div>
-  {state.revealed&&page.reveal&&<div className="pt-answer" role="note"><strong>证据与判断</strong><p>{page.reveal}</p></div>}
+  {state.revealed&&page.reveal&&<div className="pt-answer" role="note"><strong>{page.lesson===16?'案例讨论':'证据与判断'}</strong><p>{page.reveal}</p></div>}
   <footer><span>{page.narrative.publicLabel} · <a href={source.url} target="_blank" rel="noreferrer">{source.label}</a> · {source.date}{page.sourceIds?.slice(1).map((id,i)=><a key={id} href={PORT_EXPANSION_SOURCES[id as keyof typeof PORT_EXPANSION_SOURCES].url} target="_blank" rel="noreferrer"> · 补充资料{i+1}</a>)}</span><span>港口管理概论　{String(page.localPage).padStart(2,'0')} / {expansionTotal(page.lesson)}</span></footer>
  </article>;
 }

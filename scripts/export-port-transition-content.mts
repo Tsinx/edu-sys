@@ -12,14 +12,14 @@ const esc=(s:string)=>s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAl
 const css=(await Promise.all(['port-trade.css','port-transition.css'].map(s=>readFile(resolve('apps/teacher-web/src/features/port-expansion',s),'utf8')))).join('\n');
 for(const pages of [PORT_LESSON_FIFTEEN_SLIDES,PORT_LESSON_SIXTEEN_SLIDES]){
  const lesson=pages[0]!.lesson,title=pages[0]!.lessonTitle,times=expansionTiming(lesson);let minute=0;
- let notes=`# 第${lesson}讲 ${title}\n\n32页，90分钟，上下半讲各45分钟。第${lesson===15?'15讲讨论日常业务与数据设计，区别于第12讲中断恢复。':'16讲最后27分钟为个人综合建议与证据修订。'}\n\n| 时间 | 页码 | 内容 |\n|---|---|---|\n`;
+ let notes=`# 第${lesson}讲 ${title}\n\n32页，90分钟，上下半讲各45分钟。第${lesson===15?'15讲讨论日常业务与数据设计，区别于第12讲中断恢复。':'16讲用五座港口的案例贯穿过程解释，再用组合选择和条件变化讨论取舍。案例页用“下一段”手动推进，“回到开头”可以重新讲解。'}\n\n| 时间 | 页码 | 内容 |\n|---|---|---|\n`;
  for(const b of times){notes+=`| ${minute}—${minute+b.minutes}分钟 | ${b.slideStart-expansionStart(lesson)+1}—${b.slideEnd-expansionStart(lesson)+1} | ${b.label} |\n`;minute+=b.minutes;}
  let html='';
  for(const p of pages){
   notes+=`\n## ${p.localPage}. ${p.title}\n\n${p.lead}\n\n${p.teachingCue}\n`;
   if(p.reveal)notes+=`\n参考解析：${p.reveal}\n`;
   if(p.mediaId){const f=PORT_TRANSITION_FILMS[p.mediaId as keyof typeof PORT_TRANSITION_FILMS];notes+=`\n片头：${f.durationMs/1000}秒，视频/${f.src.split('/').at(-1)}。\n`;}
-  notes+=`\n资料：${p.sourceIds?.map(id=>{const s=PORT_EXPANSION_SOURCES[id as keyof typeof PORT_EXPANSION_SOURCES];return `[${s.label}](${s.url})（${s.date}）。${s.boundary}`;}).join('；')}\n`;
+  notes+=`\n资料：${p.sourceIds?.map(id=>{const s=PORT_EXPANSION_SOURCES[id as keyof typeof PORT_EXPANSION_SOURCES];return `[${s.label}](${s.url})（${s.date}）。${lesson===16?'':s.boundary}`;}).join('；')}\n`;
   let markup=renderToStaticMarkup(React.createElement(PortTransitionComposition,{page:p,state:{progress:1,option:0,revealed:false}}));
   const paths=[p.image,p.mediaId?PORT_TRANSITION_FILMS[p.mediaId as keyof typeof PORT_TRANSITION_FILMS].poster:undefined].filter(Boolean) as string[];
   for(const path of paths){const b64=(await readFile(resolve('apps/teacher-web/public'+path))).toString('base64');markup=markup.replaceAll(path,'data:image/jpeg;base64,'+b64);}
@@ -34,7 +34,7 @@ for(const pages of [PORT_LESSON_FIFTEEN_SLIDES,PORT_LESSON_SIXTEEN_SLIDES]){
 }
 for(const f of Object.values(PORT_TRANSITION_FILMS))for(const path of [f.src,f.poster,f.captions])await copyFile(resolve('apps/teacher-web/public'+path),resolve(out,'视频',path.split('/').at(-1)!));
 for(const name of ['index.html','edl.json','stills.json'])await copyFile(resolve('apps/teacher-web/public/course-assets/port-management/transition-media',name),resolve(out,'视频',name));
-let sources='# 第15—16讲资料与边界\n\n核对日期：2026-10-21。历史报道、政策与独立教学设定分列。\n';
+let sources='# 第15—16讲案例资料与来源\n\n核对日期：2026-10-23。历史案例、政策与独立教学推演分别标明。\n';
 for(const [id,s] of Object.entries(PORT_TRANSITION_SOURCES))sources+=`\n## ${id} · ${s.label}\n\n[原始资料](${s.url})，${s.date}。\n\n${s.boundary}\n`;
 await writeFile(resolve('docs/course/port-management-lessons-fifteen-sixteen-sources.md'),sources,'utf8');
 await writeFile(resolve(out,'资料与边界.md'),sources,'utf8');
@@ -42,4 +42,4 @@ console.log(JSON.stringify({lessons:2,pages:64,minutes:180,films:Object.values(P
 
 await copyFile(resolve('docs/course/port-management-lessons-fifteen-sixteen-worksheet.md'),resolve(out,'个人课堂任务单.md'));
 await copyFile(resolve('docs/course/port-management-lessons-fifteen-sixteen-design.md'),resolve(out,'教学安排与计算说明.md'));
-await writeFile(resolve(out,'使用说明.md'),'# 港口管理概论第15—16讲\n\n各32页、90分钟。课程系统提供逐步展开、选项与教师解析；课堂阅读HTML显示完整公开材料和默认情境，不含隐藏解析。保持视频子目录与两份HTML的相对位置，浏览器打开阅读HTML即可使用。\n\n两份逐页教师稿含提问、操作、计算、常见误解与参考解析；个人课堂任务单可打印。视频/index.html汇总片头、原报道、剪辑入出点和校验记录。\n\n第15讲片头45秒，第16讲37.4秒，保留原台标与原声，统一响度；原新闻画面清晰度以源视频为限。原报道版权归原权利人。\n\n已完成64页桌面初审、公开文案及隐藏信息检查、计算和课程上下文测试、全仓类型检查、前端生产构建。两段片头已完整解码并检查音轨、响度、哈希与转写。窄屏、教师实播、投影与全屏验收因浏览器调试连接持续超时而未完成；这些项目不以静态测试替代。\n','utf8');
+await writeFile(resolve(out,'使用说明.md'),'# 港口管理概论第15—16讲\n\n各32页、90分钟。课程系统提供逐步展开、选项与教师解析；课堂阅读HTML显示完整公开材料和默认情境，不含隐藏解析。保持视频子目录与两份HTML的相对位置，浏览器打开阅读HTML即可使用。\n\n两份逐页教师稿含提问、操作、计算、常见误解与参考解析；个人课堂任务单可打印。视频/index.html汇总片头、原报道、剪辑入出点和校验记录。\n\n第15讲片头45秒，第16讲37.4秒，保留原台标与原声，统一响度；原新闻画面清晰度以源视频为限。原报道版权归原权利人。\n\n\n','utf8');
