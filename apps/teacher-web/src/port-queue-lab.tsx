@@ -3,6 +3,7 @@ import {createRoot} from 'react-dom/client';
 import {QUEUE_HAND_ARRIVALS,QUEUE_RANDOM_DEFAULT,queueJobs,runQueue,summarizeQueue,randomQueue,appointmentQueue,queueCostPlans,type QueueRecord,type QueueSummary,type RandomQueueInput} from '@edu/course-content';
 import {QueueTimeline} from './features/port-expansion/PortQueueComposition';
 import {PortQueueProcess,type QueueReplayCommand} from './features/port-expansion/PortQueueProcess';
+import {queueWaitSamples} from './features/port-expansion/queue-process-model';
 import 'katex/dist/katex.min.css';
 import './features/port-expansion/port-queue.css';
 import './features/port-expansion/port-queue-lab.css';
@@ -33,9 +34,9 @@ function csv(records:readonly QueueRecord[]){return [['车辆','就绪分钟','�
 function Metrics({summary,random=false}:{summary:QueueSummary;random?:boolean}){return <dl className="pql-metrics"><div><dt>平均排队 Wq</dt><dd>{format(summary.meanWait)}<small>分钟</small></dd></div><div><dt>{random?'样本平均停留 W':'平均就绪至完成'}</dt><dd>{format(random?summary.meanSojourn:summary.meanTotal)}<small>分钟</small></dd></div><div><dt>平均港外等待</dt><dd>{format(summary.meanOutside)}<small>分钟</small></dd></div><div><dt>记录车辆</dt><dd>{summary.count}<small>辆</small></dd></div></dl>;}
 function DataTable({records,selected,onTrack}:{records:readonly QueueRecord[];selected:string;onTrack:(id:string)=>void}){return <div className="pql-table-wrap"><table><thead><tr>{['车辆（定位过程）','就绪','入队','开始','完成','港外等','排队','服务','全程'].map(t=><th key={t}>{t}</th>)}</tr></thead><tbody>{records.map(r=><tr key={r.id} data-tracked={selected===r.id}><td><button className="pql-track-button" onClick={()=>onTrack(r.id)} aria-label={`在过程图中跟踪${r.id}`}>{r.id} ↗</button></td>{[r.ready,r.arrival,r.start,r.departure,r.outside,r.wait,r.service,r.total].map((v,i)=><td key={i}>{format(v)}</td>)}</tr>)}</tbody></table></div>;}
 function SamplePlot({records}:{records:readonly QueueRecord[]}){
- const stride=Math.max(1,Math.ceil(records.length/100)),sample=records.filter((_,i)=>i%stride===0),max=Math.max(1,...sample.map(r=>r.wait));
- const points=sample.map((r,i)=>(i? 'L':'M')+(60+i/Math.max(1,sample.length-1)*1020)+' '+(235-r.wait/max*190)).join(' ');
- return <figure className="pql-sample"><svg viewBox="0 0 1150 290" role="img" aria-label="按到达次序等距抽样的单车排队时间，非连续队长曲线"><path d="M60 30V235H1080" fill="none" stroke="#8a9e9d"/><path d={points} fill="none" stroke="#247780" strokeWidth="3"/><text x="60" y="20">排队分钟，抽样最大值{format(max)}</text><text x="60" y="270">记录第1票</text><text x="1080" y="270" textAnchor="end">第{records.length}票</text></svg><figcaption>为便于观察，每{stride}票取一条记录绘图。下面的平均数与分位数仍使用全部{records.length}票。</figcaption></figure>;
+ const {stride,sample}=queueWaitSamples(records),max=Math.max(1,...sample.map(({record})=>record.wait));
+ const points=sample.map(({record,index},i)=>(i? 'L':'M')+(60+index/Math.max(1,records.length-1)*1020)+' '+(235-record.wait/max*190)).join(' ');
+ return <figure className="pql-sample"><svg viewBox="0 0 1150 290" role="img" aria-label="按实际记录次序抽样的单车排队时间，非连续队长曲线"><path d="M60 30V235H1080" fill="none" stroke="#8a9e9d"/><path d={points} fill="none" stroke="#247780" strokeWidth="3"/><text x="60" y="20">排队分钟，抽样最大值{format(max)}</text><text x="60" y="270">记录第1票</text><text x="1080" y="270" textAnchor="end">第{records.length}票</text></svg><figcaption>为便于观察，每{stride}票取一条记录，并保留末票，按实际次序绘图。下面的平均数与分位数仍使用全部{records.length}票。</figcaption></figure>;
 }
 function App(){
  const [scene,setScene]=useState<Scene>(initialScene),[guide,setGuide]=useState(cached.guide??true);

@@ -3,8 +3,20 @@ import test from 'node:test';
 import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {QUEUE_HAND_ARRIVALS,QUEUE_RANDOM_DEFAULT,appointmentQueue,queueJobs,randomQueue,runQueue,summarizeQueue,type QueueRecord} from '@edu/course-content';
-import {clampQueueTime,queueClockLabel,queueEventPosition,queuePhaseAt,queueProcessIndex,queueSnapshot} from '../src/features/port-expansion/queue-process-model';
+import {clampQueueTime,queueClockLabel,queueEventPosition,queuePhaseAt,queueProcessIndex,queueSnapshot,queueWaitSamples} from '../src/features/port-expansion/queue-process-model';
 import {PortQueueProcess,QueueProcessMap} from '../src/features/port-expansion/PortQueueProcess';
+
+test('wait sampling retains the final formal job at its actual position without duplicating it',()=>{
+ for(const count of [0,1,99,100,101,1001,4000]){
+  const records=runQueue(queueJobs(Array.from({length:count},(_,i)=>i),.5));
+  const {sample,stride}=queueWaitSamples(records);
+  assert.equal(stride,Math.max(1,Math.ceil(count/100)));
+  assert.equal(new Set(sample.map(p=>p.index)).size,sample.length);
+  assert.ok(sample.every(p=>p.record===records[p.index]));
+  if(count){assert.equal(sample[0]!.index,0);assert.equal(sample.at(-1)!.index,count-1);}
+  else assert.deepEqual(sample,[]);
+ }
+});
 
 test('paired arrivals move through one atomic completion and service transition',()=>{
  const index=queueProcessIndex(runQueue(queueJobs(QUEUE_HAND_ARRIVALS.paired))),first=queueSnapshot(index,0),next=queueSnapshot(index,2);

@@ -4,7 +4,7 @@ import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
-import {PORT_LESSON_SEVENTEEN_SLIDES as pages,PORT_QUEUE_FILMS,queueStartConditions,queueJobs,runQueue,expansionStateValid,expansionDiagramSummary} from '@edu/course-content';
+import {PORT_LESSON_SEVENTEEN_SLIDES as pages,PORT_EXPANSION_SLIDES,PORT_EXPANSION_FILMS,PORT_QUEUE_FILMS,queueStartConditions,queueJobs,runQueue,expansionStateValid,expansionDiagramSummary} from '@edu/course-content';
 import {portExpansionPresentationSchema} from '@edu/contracts';
 import {PortQueueComposition} from '../src/features/port-expansion/PortQueueComposition';
 import {PortTradeFilm} from '../src/features/port-expansion/PortTradeFilm';
@@ -48,7 +48,20 @@ test('the new teaching film uses the existing controller and identifies its auth
  assert.match(teacher,/教学动画进度/);assert.match(teacher,/延误传播 · 01:44/);assert.match(teacher,/动画脚本与模型记录/);assert.doesNotMatch(teacher,/原报道与日期|正在加载新闻/);
  assert.doesNotMatch(teacher,/<track[^>]*default/);assert.match(teacher,/画面已含/);
  const range=teacher.match(/<input[^>]*aria-label="教学动画进度"[^>]*>/)?.[0]??'';
- assert.match(range,/step="40"/);assert.equal(film.durationMs%40,0);
+ assert.match(range,/max="1000"/);assert.match(range,/step="1"/);
  assert.doesNotMatch(student,/教学动画进度|延误传播 · 01:44|teachingCue|assistantCue|storyBeat/);
  assert.match(student,/观看动画／按章节回看/);assert.match(student,new RegExp(film.src));
+});
+
+test('all film sliders include the exact endpoint and resumed positions use normalized progress',()=>{
+ for(const page of PORT_EXPANSION_SLIDES.filter(p=>p.mediaId)){
+  const film=PORT_EXPANSION_FILMS[page.mediaId!];
+  for(const progress of [.5,1]){
+   const initial={progress,option:0,revealed:false,cinematic:{clipId:film.id,status:'paused' as const,elapsedMs:film.durationMs*progress,startedAt:null}};
+   const html=renderToStaticMarkup(<PortTradeFilm page={page} readOnly={false} scope="endpoint-test" initial={initial}/>);
+   const range=html.match(/<input[^>]*aria-label="(?:教学动画|新闻节选)进度"[^>]*>/)?.[0]??'';
+   assert.match(range,/min="0" max="1000" step="1"/);assert.ok(range.includes(`value="${1000*progress}"`),page.slideKey);
+   if(progress===1&&film.id==='l17-queue-explainer')assert.match(html,/<output>02:35 \/ 02:35<\/output>/);
+  }
+ }
 });

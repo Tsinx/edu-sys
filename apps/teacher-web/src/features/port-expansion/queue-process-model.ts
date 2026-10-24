@@ -29,6 +29,11 @@ export function queuePhaseAt(record:QueueRecord,time:number):QueuePhase{
  return 'complete';
 }
 export function clampQueueTime(time:number,end:number){return Number.isFinite(time)?Math.min(end,Math.max(0,time)):0;}
+/** Keep the last formal record and its actual position, even when the stride does not divide the sample. */
+export function queueWaitSamples(records:readonly QueueRecord[]){
+ const stride=Math.max(1,Math.ceil(records.length/100));
+ return {stride,sample:records.flatMap((record,index)=>index%stride===0||index===records.length-1?[{record,index}]:[])};
+}
 /** Upper bound deliberately uses exact clocks: a short genuine event must not be skipped. */
 export function queueEventPosition(events:readonly QueueEvent[],time:number){
  let low=0,high=events.length;

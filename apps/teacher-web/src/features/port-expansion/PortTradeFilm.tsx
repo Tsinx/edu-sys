@@ -21,6 +21,7 @@ export function PortTradeFilm({page,readOnly,controlled,initial,onChange,scope}:
  const [error,setError]=useState(''),[busy,setBusy]=useState(false),[volume,setVolume]=useState(.85),[muted,setMuted]=useState(readOnly);
  current.current=state;callback.current=onChange;
  const shown=readOnly&&controlled&&expansionStateValid(page,controlled)?controlled:state,active=!!shown.cinematic,playing=shown.cinematic?.status==='playing',elapsed=shown.cinematic?.elapsedMs??0;
+ const totalStamp=stamp(Math.round(film.durationMs/1000)*1000);
  const update=useCallback((s:ExpansionPresentation)=>{current.current=s;setState(s);if(!readOnly){callback.current?.(page.slideKey,s);try{sessionStorage.setItem(storage,JSON.stringify(s));}catch{/* Optional persistence. */}}},[storage,readOnly,page.slideKey]);
  const record=useCallback((status:'paused'|'playing',time=(video.current?.currentTime??0)*1000)=>{const elapsedMs=Math.max(0,Math.min(film.durationMs,time));update({progress:elapsedMs/film.durationMs,option:0,revealed:false,cinematic:{clipId:film.id,status,elapsedMs,startedAt:status==='playing'?Date.now():null}});},[film,update]);
  const pause=()=>{token.current++;video.current?.pause();setBusy(false);record('paused');};
@@ -40,7 +41,7 @@ export function PortTradeFilm({page,readOnly,controlled,initial,onChange,scope}:
  </div></SlideViewport>{!readOnly&&<PageToolsContribution pageKey={page.slideKey} title="视频与来源" actions={[{id:'trade-film-play',label:playing?'暂停视频':elapsed>=film.durationMs?'重播视频':'播放视频',icon:playing?<Pause size={18}/>:<Play size={18}/>,disabled:busy,onInvoke:()=>playing?pause():void play()}]} status={error?{text:error,error:true}:undefined}>
   <div className="pt-film-tools">
    <button onClick={()=>{seek(0);void play();}}>从头播放</button><button onClick={pause}>暂停</button>
-   <label>视频进度<input aria-label={`${mediaLabel}进度`} type="range" min="0" max={film.durationMs} step={authored?40:250} value={elapsed} onChange={e=>seek(Number(e.target.value))}/></label><output>{stamp(elapsed)} / {stamp(film.durationMs)}</output>
+   <label>视频进度<input aria-label={`${mediaLabel}进度`} type="range" min="0" max="1000" step="1" value={Math.round(elapsed/film.durationMs*1000)} onChange={e=>seek(Number(e.target.value)/1000*film.durationMs)}/></label><output>{elapsed>=film.durationMs?totalStamp:stamp(elapsed)} / {totalStamp}</output>
    <label><input type="checkbox" checked={muted} onChange={e=>setMuted(e.target.checked)}/>静音</label><label>音量<input aria-label={`${mediaLabel}音量`} type="range" min="0" max="1" step=".05" value={volume} onChange={e=>setVolume(Number(e.target.value))}/></label>
    {chapters.map(chapter=><button key={chapter.startMs} onClick={()=>seek(chapter.startMs)}>{chapter.label} · {stamp(chapter.startMs)}</button>)}
    <button onClick={()=>{pause();update({progress:1,option:0,revealed:false});}}>回到观察卡</button>
