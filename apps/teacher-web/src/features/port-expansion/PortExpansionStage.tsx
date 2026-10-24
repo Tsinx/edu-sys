@@ -22,7 +22,7 @@ function Playback({page,readOnly=true,state:controlled}:{page:PortExpansionPage;
  const cancel=usePortAutoplay(!readOnly&&page.lesson!==17,()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches){update({...current.current,progress:1});return;}if(current.current.progress>=1)update({...current.current,progress:0});setPlaying(true);});
  const jump=(progress:number)=>{cancel();setPlaying(false);update({...current.current,progress});};
  const play=()=>{cancel();if(matchMedia('(prefers-reduced-motion: reduce)').matches){jump(1);return;}if(current.current.progress>=1)update({...current.current,progress:0});setPlaying(v=>!v);};
- const queueSteps:Partial<Record<PortExpansionPage['visual'],number>>={'queue-timeline':8,'queue-area':8,'queue-states':4,'queue-probabilities':5,'queue-curve':5,'queue-rate':4,'queue-cost':3,'queue-appointment':12,'queue-externality':4};
+ const queueSteps:Partial<Record<PortExpansionPage['visual'],number>>={'queue-gates':3,'queue-timeline':8,'queue-area':8,'queue-states':4,'queue-probabilities':5,'queue-curve':5,'queue-rate':4,'queue-cost':3,'queue-appointment':12,'queue-externality':4};
  const steps=page.lesson===17?(page.equations?.length??(page.rows?Math.max(1,page.rows.length-1):queueSteps[page.visual]??1)):6;
  const next=()=>jump(Math.min(1,(Math.floor(current.current.progress*steps+1e-6)+1)/steps));
  useEffect(()=>{if(readOnly)return;const handler=(e:KeyboardEvent)=>{if(e.ctrlKey||e.altKey||e.metaKey||(e.target as HTMLElement).closest('input,select,button,a,textarea'))return;if(e.code==='Space'){e.preventDefault();play();}if(e.key==='.'){e.preventDefault();next();}};addEventListener('keydown',handler);return()=>removeEventListener('keydown',handler);});

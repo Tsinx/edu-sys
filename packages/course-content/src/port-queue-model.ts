@@ -5,10 +5,12 @@ export const PORT_QUEUE_SOURCES = {
   'pq-mm1': {label:'MIT OCW · M/M/1 Queue',url:'https://ocw.mit.edu/courses/2-854-introduction-to-manufacturing-systems-fall-2016/927056a1af54772a587fd84ad4951e71_MIT2_854F16_Mm1Queue.pdf',date:'2016课程；核对2026-10-23',boundary:'M/M/1结果限于独立泊松到达、独立同分布指数服务、单服务台、无限等候空间及稳定条件λ<μ。W含服务，Wq仅排队，不套用于预约或多服务台。'},
   'pq-variability': {label:'MIT OCW · 运输系统排队讲义',url:'https://ocw.mit.edu/courses/1-203j-logistical-and-transportation-planning-methods-fall-2006/4d1277f5c802d299e369cd47e5833b17_lec7.pdf',date:'2006-10-18；核对2026-10-23',boundary:'支持服务时间波动影响等待的机制。本讲用有限模拟比较，不要求M/G/1公式，不声称有限样本一定接近稳态或构成现实因果证明。'},
   'pq-video': {label:'央视网 · 港口作业历史画面',url:'https://tv.cctv.com/2025/05/22/VIDEu7abgnqxjck2rKBqygmP250522.shtml',date:'2025-05-22',boundary:'开场短片中的实拍只支持画面中的作业观察，不是东湾港或拥堵事件现场。课程旁白及90/99票数据为独立教学设定，不归于受访者。'},
+  'pq-animation': {label:'本课程 · 等待形成过程动画',url:'/course-assets/port-management/queue-media/queue-explainer.html',date:'2026-10-23',boundary:'课程原创示意与合成旁白，非实港录像。采用共享FCFS排程：初始空闲、单台、先到先服务、同到按编号；每车基准2分钟，T02慢服务对照为3分钟。车辆位移不另计路程，有限例子不作为一般稳态预测。'},
 } as const;
 
 export const PORT_QUEUE_FILMS = {
   'l17-queue': {id:'l17-queue',title:'容量与等待：多来九票以后',src:'/course-assets/port-management/queue-media/queue-opening.mp4',poster:'/course-assets/port-management/queue-media/queue-opening.jpg',captions:'/course-assets/port-management/queue-media/queue-opening.vtt',durationMs:46000,source:'pq-video'},
+  'l17-queue-explainer': {id:'l17-queue-explainer',title:'等待怎样形成：车、服务台与两道开工条件',src:'/course-assets/port-management/queue-media/queue-explainer.mp4',poster:'/course-assets/port-management/queue-media/queue-explainer.jpg',captions:'/course-assets/port-management/queue-media/queue-explainer.vtt',durationMs:154920,source:'pq-animation',chapters:[{label:'跟踪T03',startMs:8360},{label:'车等台',startMs:55400},{label:'台等车',startMs:71760},{label:'延误传播',startMs:104040},{label:'空闲间隙',startMs:123960}]},
 } as const;
 
 export interface QueueJob {id:string;ready:number;arrival:number;service:number}
@@ -19,6 +21,12 @@ export const QUEUE_HAND_ARRIVALS = {
   paired:[0,0,6,6,12,12,18,18],
 } as const;
 export const QUEUE_SHORT_EXAMPLE = [0,1,1,4] as const;
+export function queueStartConditions(option:number){
+ const cases=[{arrival:1,available:4},{arrival:5,available:3}];
+ const example=cases[option];if(!example)throw new RangeError('start conditions');
+ const start=Math.max(example.arrival,example.available);
+ return {...example,start,wait:start-example.arrival,idle:start-example.available};
+}
 function finite(value:number,label:string){if(!Number.isFinite(value)||value<0)throw new RangeError(label);return value;}
 export function queueJobs(arrivals:readonly number[],service=2):QueueJob[]{
   if(!Number.isFinite(service)||service<=0)throw new RangeError('service');

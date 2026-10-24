@@ -30,7 +30,7 @@ for(let i=0;i<lines.length;){
   while(i<lines.length&&(ordered?/^\d+\. /:/^- /).test(lines[i]!.trim()))items.push('<li>'+escape(lines[i++]!.trim().replace(/^(?:- |\d+\. )/,''))+'</li>');
   blocks.push('<'+tag+'>'+items.join('')+'</'+tag+'>');continue;
  }
- if(/^(课件|模拟)：\//.test(line)){const [label,url]=line.split('：');blocks.push('<p>'+escape(label!)+ '：<a href="'+escape(url!)+'">'+escape(url!)+'</a></p>');i++;continue;}
+ if(/^(课件|模拟|动画)：\//.test(line)){const [label,url]=line.split('：');blocks.push('<p>'+escape(label!)+ '：<a href="'+escape(url!)+'">'+escape(url!)+'</a></p>');i++;continue;}
  const paragraph=[line];i++;while(i<lines.length&&lines[i]!.trim())paragraph.push(lines[i++]!.trim());
  blocks.push('<p>'+escape(paragraph.join(' '))+'</p>');
 }

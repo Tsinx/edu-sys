@@ -49,7 +49,9 @@ test('lessons 7-17: every classroom context follows disclosed material and valid
    await event({type:'set_port_expansion_presentation',slideKey:p.slideKey,...movie});
    await event({type:'set_port_expansion_presentation',slideKey:p.slideKey,...movie,cinematic:{...movie.cinematic,elapsedMs:f.durationMs+1}},400);
    await event({type:'set_port_expansion_presentation',slideKey:p.slideKey,...movie,cinematic:{...movie.cinematic,clipId:'l11-opening-v2'}},400);
-   const context=(await app.inject(root+'/assistant-prompts')).json();assert.ok(!context.compiled.includes('/port-class-lab.html?lesson='+p.lesson));assert.match(context.compiled,p.lesson===17?/第17讲教学短片/:/新闻教学节选/);
+   const context=(await app.inject(root+'/assistant-prompts')).json();assert.ok(!context.compiled.includes('/port-class-lab.html?lesson='+p.lesson));
+   assert.match(context.compiled,p.lesson===17?(f.source==='pq-animation'?/第17讲原创教学动画/:/第17讲历史画面教学短片/):/新闻教学节选/);
+   if(p.lesson===17)assert.ok(context.compiled.includes(`${f.durationMs/1000}秒`));
   }
   const question=pages.find(p=>p.reveal)!;await event({type:'set_slide',index:question.index});await event({type:'set_port_expansion_presentation',slideKey:question.slideKey,progress:0,option:0,revealed:false});
   const prompt=(await app.inject(root+'/assistant-prompts')).json();const override=await app.inject({method:'PATCH',url:`/api/courses/course-port-management-intro/assistant-prompts?index=${question.index}`,payload:{scope:'page',key:`course-port-management-intro:${question.slideKey}`,text:'PRIVATE_UNREVEALED_EXPANSION_ANSWER',expectedRevision:prompt.revision}});assert.equal(override.statusCode,200,override.body);assert.doesNotMatch((await app.inject(root+'/assistant-prompts')).json().compiled,/PRIVATE_UNREVEALED_EXPANSION_ANSWER/);

@@ -1,6 +1,6 @@
 import type {ReactNode} from 'react';
 import katex from 'katex';
-import {PORT_EXPANSION_SOURCES,PORT_EXPANSION_FILMS,expansionVisiblePoints,expansionTotal,queueJobs,runQueue,QUEUE_HAND_ARRIVALS,appointmentQueue,mm1,queueCostPlans,type PortExpansionPage,type ExpansionPresentation,type QueueRecord} from '@edu/course-content';
+import {PORT_EXPANSION_SOURCES,PORT_EXPANSION_FILMS,expansionVisiblePoints,expansionTotal,queueJobs,runQueue,QUEUE_HAND_ARRIVALS,appointmentQueue,mm1,queueCostPlans,queueStartConditions,type PortExpansionPage,type ExpansionPresentation,type QueueRecord} from '@edu/course-content';
 
 type Props={page:PortExpansionPage;state:ExpansionPresentation};
 const shown=(n:number,p:number)=>Math.floor(n*Math.max(0,Math.min(1,p))+1e-6);
@@ -72,10 +72,21 @@ function Task({page,state}:Props){
  return <div className="pq-task"><Records page={page} state={state}/>{lab&&<a className="pq-lab-link" href={'/port-queue-lab.html?scene='+scene} target="_blank" rel="noreferrer">打开独立模拟{scene==='hand'?'一':scene==='random'?'二':'三'} ↗ <small>预测后运行，可随时重置</small></a>}</div>;
 }
 function Cover({page}:Props){const film=PORT_EXPANSION_FILMS[page.mediaId!];return <div className="pq-cover"><img src={film.poster} alt="青岛港历史作业画面，非东湾港拥堵现场"/><div><p>东湾港南闸口 · 独立教学情境</p><strong>90 <span>到</span> 99</strong><p>每小时到达量 / 票</p><h2>服务能力仍为100票/小时</h2><a href={film.src} target="_blank" rel="noreferrer">播放46秒开场短片 ↗</a></div></div>;}
+function ExplainerCover({page}:Props){const film=PORT_EXPANSION_FILMS[page.mediaId!];return <div className="pq-explainer-cover"><img src={film.poster} alt="课程原创动画：T03在单核验台外排队，画面同时显示它的时间记录"/><div><span className="pq-film-duration">教学动画 · 02:35 · 完整旁白与字幕</span><h2>跟住一辆车，追查等待的来源</h2><p>到达以后，哪一项开工条件还没满足？</p><p>一次变慢，怎样传给后车，又在何处中断？</p><a href="/course-assets/port-management/queue-media/queue-explainer.html" target="_blank" rel="noreferrer">观看动画／按章节回看 ↗</a></div></div>;}
+function Gates({state}:Props){
+ const c=queueStartConditions(state.option),first=state.progress>=1/3,started=state.progress>=2/3,rule=state.progress>=1,x=(t:number)=>260+t*170;
+ return <div className="pq-gates"><svg className="pq-chart" viewBox="0 0 1440 350" role="img" aria-label={`本车${c.arrival}分钟到达，核验台${c.available}分钟空闲${started?'，'+c.start+'分钟两条件同时满足':''}`}>
+  {[[c.arrival,'本车已到',103],[c.available,'核验台已空',211]].map(([value,label,y],i)=>{const ready=first&&Number(value)===Math.min(c.arrival,c.available)||started;return <g key={i}>{text(28,Number(y)+8,label,{fontSize:27})}<path d={`M260 ${y}H1280`} stroke="#c5d0c4" strokeWidth="5"/>{ready&&<path d={`M${x(Number(value))} ${y}H1280`} stroke="#73a6a0" strokeWidth="5"/>}<circle cx={x(Number(value))} cy={Number(y)} r="19" fill={ready?'#287780':'#f5f2e8'} stroke="#287780" strokeWidth="3"/>{text(x(Number(value)),Number(y)-38,Number(value)+'分钟',{textAnchor:'middle',fontSize:27})}{ready&&text(1330,Number(y)+8,'✓',{fontSize:33,fill:'#287780'})}</g>;})}
+  {[0,1,2,3,4,5,6].map(n=>text(x(n),286,n,{textAnchor:'middle',fontSize:22,fill:'#6a817a'}))}{text(1380,286,'分钟',{fontSize:23})}
+  {started&&<><path d={`M${x(c.start)} 57V243`} stroke="#b47e3f" strokeWidth="4"/>{text(x(c.start),331,c.start+'分钟：两项条件都满足',{textAnchor:'middle',fontSize:28,fill:'#956c36'})}</>}
+ </svg><div className="pq-gate-rule">{rule?<><QueueMath tex={`b=\\max(${c.arrival},${c.available})=${c.start}`}/><p>{c.wait?'本车等待3分钟。优先核查前序占用与服务。':'本车无需排队。继续提速不改变它的到达时刻。'}</p></>:<p>{started?'开工了：哪一个时刻决定了结果？':first?'一个条件已经满足，为什么还不能开工？':'先判断：车在等台，还是台在等车？'}</p>}</div></div>;
+}
 export function PortQueueComposition({page,state}:Props){
  let body:ReactNode;
  switch(page.visual){
   case 'queue-cover':body=<Cover page={page} state={state}/>;break;
+  case 'queue-film':body=<ExplainerCover page={page} state={state}/>;break;
+  case 'queue-gates':body=<Gates page={page} state={state}/>;break;
   case 'queue-records':body=<Records page={page} state={state}/>;break;
   case 'queue-task':body=<Task page={page} state={state}/>;break;
   case 'queue-clocks':body=<Clocks page={page} state={state}/>;break;

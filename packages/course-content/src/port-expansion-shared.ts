@@ -3,7 +3,7 @@ import {PORT_GOVERNANCE_SOURCES,concessionScenario,portChoiceScenario,storageSce
 import type {PortManagementSlideSpec,PortLessonTimingBlock} from './index.js';
 import {PORT_TRADE_SOURCES,bondedComparison,tradeReadiness,tradeClock} from './port-trade-data.js';
 import {PORT_EXPANSION_FILMS,type PortExpansionFilmId} from './port-expansion-media.js';
-import {PORT_QUEUE_SOURCES,mm1,queueCostPlans,queueJobs,runQueue,QUEUE_HAND_ARRIVALS,appointmentQueue} from './port-queue-model.js';
+import {PORT_QUEUE_SOURCES,mm1,queueCostPlans,queueJobs,runQueue,QUEUE_HAND_ARRIVALS,appointmentQueue,queueStartConditions} from './port-queue-model.js';
 import {PORT_TRANSITION_SOURCES,digitalHandoff,transitionClock,shoreComparison,greenIntensity,transitionPortfolio} from './port-transition-data.js';
 
 export const PORT_EXPANSION_SOURCES = {
@@ -29,7 +29,7 @@ export const PORT_EXPANSION_SOURCES = {
 } as const;
 export type ExpansionSource=keyof typeof PORT_EXPANSION_SOURCES;
 export type CargoKind='container'|'dry'|'grain'|'liquid'|'lng'|'roro'|'project'|'reefer'|'passenger';
-export type ExpansionVisual='hero'|'terminal'|'chain'|'matrix'|'section'|'ledger'|'bars'|'network'|'map'|'generations'|'city'|'scenario'|'phases'|'decision'|'rights'|'contract'|'cashflow'|'choice'|'invoice'|'service'|'evidence'|'performance'|'sample'|'scorecard'|'barriers'|'incident'|'dependency'|'timeline'|'distribution'|'bowtie'|'recovery'|'lab'|'records'|'trade-cover'|'trade-flow'|'trade-documents'|'trade-timeline'|'trade-zones'|'trade-network'|'trade-inventory'|'trade-cost'|'trade-media'|'trade-history'|'transition-records'|'transition-task'|'transition-layers'|'transition-events'|'transition-handoff'|'transition-flow'|'transition-photo'|'transition-boundary'|'transition-shore'|'transition-carbon'|'transition-intensity'|'transition-portfolio'|'queue-cover'|'queue-records'|'queue-task'|'queue-clocks'|'queue-proof'|'queue-timeline'|'queue-area'|'queue-states'|'queue-probabilities'|'queue-curve'|'queue-rate'|'queue-externality'|'queue-cost'|'queue-appointment';
+export type ExpansionVisual='hero'|'terminal'|'chain'|'matrix'|'section'|'ledger'|'bars'|'network'|'map'|'generations'|'city'|'scenario'|'phases'|'decision'|'rights'|'contract'|'cashflow'|'choice'|'invoice'|'service'|'evidence'|'performance'|'sample'|'scorecard'|'barriers'|'incident'|'dependency'|'timeline'|'distribution'|'bowtie'|'recovery'|'lab'|'records'|'trade-cover'|'trade-flow'|'trade-documents'|'trade-timeline'|'trade-zones'|'trade-network'|'trade-inventory'|'trade-cost'|'trade-media'|'trade-history'|'transition-records'|'transition-task'|'transition-layers'|'transition-events'|'transition-handoff'|'transition-flow'|'transition-photo'|'transition-boundary'|'transition-shore'|'transition-carbon'|'transition-intensity'|'transition-portfolio'|'queue-cover'|'queue-film'|'queue-gates'|'queue-records'|'queue-task'|'queue-clocks'|'queue-proof'|'queue-timeline'|'queue-area'|'queue-states'|'queue-probabilities'|'queue-curve'|'queue-rate'|'queue-externality'|'queue-cost'|'queue-appointment';
 export type ExpansionLesson=7|8|9|10|11|12|13|14|15|16|17;
 export interface ExpansionFilmPresentation {clipId:'l11-opening-v2'|'l12-opening-v2'|PortExpansionFilmId;status:'paused'|'playing';elapsedMs:number;startedAt:number|null}
 export interface ExpansionPresentation {progress:number;option:number;revealed:boolean;cinematic?:ExpansionFilmPresentation}
@@ -82,7 +82,8 @@ export function expansionOptionSummary(p:PortExpansionPage,s:ExpansionPresentati
 }
 export function expansionDiagramSummary(p:PortExpansionPage,s:ExpansionPresentation){
   if(p.lesson===17){
-    if(s.cinematic&&p.mediaId)return `第17讲教学短片，46秒；当前${Math.floor(s.cinematic.elapsedMs/1000)}秒。青岛港历史作业画面，课程旁白和数值为独立教学设定，不是拥堵现场或个人完成记录。`;
+    if(s.cinematic&&p.mediaId){const film=PORT_EXPANSION_FILMS[p.mediaId];return `第17讲${film.source==='pq-animation'?'原创教学动画':'历史画面教学短片'}《${film.title}》，${film.durationMs/1000}秒；当前${Math.floor(s.cinematic.elapsedMs/1000)}秒。${PORT_EXPANSION_SOURCES[film.source].boundary} 当前时刻不证明学生已观看或完成。`;}
+    if(p.visual==='queue-gates'){const c=queueStartConditions(s.option);return `本车${c.arrival}分钟到达，服务台${c.available}分钟空闲。`+(s.progress>=2/3?`两条件都满足后${c.start}分钟开工；本车等待${c.wait}分钟，台在本车到达前空闲${c.idle}分钟。`:'开工时刻与判断尚未展开。')+(s.progress===1?'已展开开始取两者较晚值的规则。':'');}
     if(s.progress===0)return '图解尚未展开，不解释未显示步骤。';
     if(s.progress>=.25&&p.visual==='queue-rate'){const [lambda,mu]=[[90,100],[99,100],[99,105]][s.option]!;const r=mm1(lambda!,mu!);return r.stable?`教学单台M/M/1：λ${r.lambda}、μ${r.mu}票/小时，ρ${r.rho}，W${r.W}分钟，Wq${r.Wq}分钟；非现实预测。`:'无有限稳态均值。';}
     if(p.visual==='queue-cost')return queueCostPlans(s.option===0?90:95).slice(0,Math.floor(s.progress*3+1e-6)).map(r=>`${r.id}：W${r.result.stable?r.result.W.toFixed(2):'无稳态'}分钟；总成本${r.totalCost?.toFixed(2)??'不计算'}元/小时；${r.meets?'满足':'未满足'}5分钟目标`).join('；');
