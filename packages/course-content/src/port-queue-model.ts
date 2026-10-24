@@ -82,7 +82,7 @@ export function randomQueue(input:RandomQueueInput){
     jobs.push({id:`R${i+1}`,ready:arrival,arrival,service});
   }
   const all=runQueue(jobs),records=all.slice(warmup),summary=summarizeQueue(records);
-  return {input:{...input,constantService},records,summary,theory:constantService?null:mm1(lambda,mu),warmupEnd:warmup?all[warmup-1]!.arrival:0};
+  return {input:{...input,constantService},records,allRecords:all,summary,theory:constantService?null:mm1(lambda,mu),warmupEnd:warmup?all[warmup-1]!.arrival:0};
 }
 export function appointmentQueue(mode:'burst'|'appointment'|'two-servers'){
   const ready=[0,0,0,0,8,8,8,8,16,16,16,16];
