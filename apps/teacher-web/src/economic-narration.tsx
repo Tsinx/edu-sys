@@ -9,18 +9,18 @@ import { FullscreenButtons } from './features/classroom/FullscreenButtons';
 import './features/economic-mathematics/narration-viewer.css';
 import { PageToolsProvider, PresentationToolbar } from './features/classroom/PageTools';
 const requestedLesson = Number(new URLSearchParams(location.search).get('lesson') ?? 2);
-const selectedLesson = ([2,3,4,5,6,7,8,9,10].includes(requestedLesson) ? requestedLesson : 2) as 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+const selectedLesson = ([2,3,4,5,6,7,8,9,10,11,12].includes(requestedLesson) ? requestedLesson : 2) as 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 const pages = ECONOMIC_MATHEMATICS_SLIDES.filter(p => p.lesson === selectedLesson);
 const optionalPages=pages.filter(p=>p.routeRole==='optional').length;
 document.title = '经济数学 · 第' + selectedLesson + '讲 · ' + pages[0]!.lessonTitle;
-const storage = [8,9,10].includes(selectedLesson) ? 'economic-narration-calculus-20261020-lesson'+selectedLesson : [6,7].includes(selectedLesson) ? 'economic-narration-calculus-20261017-lesson'+selectedLesson : [4,5].includes(selectedLesson) ? 'economic-narration-math-first-20261016-lesson'+selectedLesson : selectedLesson === 2 ? 'economic-narration-lesson02-mapping-v1' : 'economic-narration-limits-reinforcement-20261013-lesson' + selectedLesson;
+const storage = [11,12].includes(selectedLesson) ? 'economic-narration-analysis-20261022-lesson'+selectedLesson : [8,9,10].includes(selectedLesson) ? 'economic-narration-calculus-20261020-lesson'+selectedLesson : [6,7].includes(selectedLesson) ? 'economic-narration-calculus-20261017-lesson'+selectedLesson : [4,5].includes(selectedLesson) ? 'economic-narration-math-first-20261016-lesson'+selectedLesson : selectedLesson === 2 ? 'economic-narration-lesson02-mapping-v1' : 'economic-narration-limits-reinforcement-20261013-lesson' + selectedLesson;
 const reviewMode = new URLSearchParams(location.search).get('review') === '1';
 function restore(): { index: number; values: Record<string, SlideInteractionValues> } {
   if (reviewMode) return { index: 0, values: new URLSearchParams(location.search).get('answers') === '1' ? Object.fromEntries(pages.filter(p=>p.steps?.length||p.limitLab||p.historyFilm).map(p=>[p.slideKey,{...getEconomicMathematicsInteractionDefinition(p)?.defaults,presentationStep:p.steps?.length??0}])) : {} };
   try {
     const raw = JSON.parse(localStorage.getItem(storage) ?? '{}');
     const sameVersion = raw.version === ECONOMIC_MATHEMATICS_VERSION_ID;
-    const compatibleKeys = (selectedLesson<=7 && raw.version==='release-economic-mathematics-continuity-derivative-2026-10-17') || (selectedLesson<=5 && raw.version==='release-economic-mathematics-math-first-2026-10-16') || (selectedLesson<=3 && raw.version==='release-economic-mathematics-limits-reinforcement-2026-10-13');
+    const compatibleKeys = (selectedLesson<=10 && raw.version==='release-economic-mathematics-differentiation-2026-10-20') || (selectedLesson<=7 && raw.version==='release-economic-mathematics-continuity-derivative-2026-10-17') || (selectedLesson<=5 && raw.version==='release-economic-mathematics-math-first-2026-10-16') || (selectedLesson<=3 && raw.version==='release-economic-mathematics-limits-reinforcement-2026-10-13');
     if (!sameVersion && !compatibleKeys && !(selectedLesson === 2 && ['release-economic-mathematics-lesson02-mapping-2026-10-09','release-economic-mathematics-limits-refined-2026-10-10','release-economic-mathematics-limits-sequence-2026-10-11'].includes(raw.version))) return { index: 0, values: {} };
     const values: Record<string, SlideInteractionValues> = {};
     for (const p of pages) { const def = getEconomicMathematicsInteractionDefinition(p); if (def && raw.values?.[p.slideKey] && validateEconomicMathematicsInteractionState(def, raw.values[p.slideKey])) values[p.slideKey] = raw.values[p.slideKey]; }

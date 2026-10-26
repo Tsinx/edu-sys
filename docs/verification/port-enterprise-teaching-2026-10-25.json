@@ -1,0 +1,281 @@
+{
+  "schema": "port-enterprise-teaching-verification/1",
+  "checkedAt": "2026-10-25T14:09:01.587Z",
+  "scope": {
+    "localOnly": true,
+    "platform": "http://127.0.0.1:5173/port-enterprise?tab=learning",
+    "offline": "http://127.0.0.1:8217/?tab=learning",
+    "campusServerModified": false,
+    "officialTasksPublished": false,
+    "officialSubmissionsSent": false
+  },
+  "curriculum": {
+    "chapters": 8,
+    "steps": 40,
+    "years": 3,
+    "teachingVersion": "port-enterprise-teaching/1",
+    "businessVersion": "port-enterprise/1.0",
+    "scoreRulesUnchanged": true,
+    "answersHiddenInFormalOrExamRun": true,
+    "liveDiagnosis": true,
+    "progressSeparateFromBusinessRecord": true
+  },
+  "handsOn": {
+    "browser": "Codex in-app browser, actual form and button interactions",
+    "complete": 40,
+    "total": 40,
+    "hash": "2f43c01fd163552e3d4c83a83f8f085752eb68c6bcc204e0a98c4c7e3166854d",
+    "commands": 145,
+    "rejectedCommands": 2,
+    "hour": 26304,
+    "days": 1096,
+    "months": 36,
+    "sealed": true,
+    "score": 93.28,
+    "cash": 836402726,
+    "debt": 20000000,
+    "incidents": 16,
+    "recovered": 16,
+    "goods": [
+      {
+        "kind": "container",
+        "unit": "TEU",
+        "delivered": 640112,
+        "outstanding": 478353,
+        "lost": 0
+      },
+      {
+        "kind": "bulk",
+        "unit": "吨",
+        "delivered": 867283,
+        "outstanding": 0,
+        "lost": 0
+      },
+      {
+        "kind": "liquid",
+        "unit": "立方米",
+        "delivered": 971523,
+        "outstanding": 0,
+        "lost": 0
+      },
+      {
+        "kind": "general",
+        "unit": "吨",
+        "delivered": 140406,
+        "outstanding": 0,
+        "lost": 6
+      },
+      {
+        "kind": "roro",
+        "unit": "辆",
+        "delivered": 85778,
+        "outstanding": 0,
+        "lost": 0
+      },
+      {
+        "kind": "passenger",
+        "unit": "人",
+        "delivered": 212789,
+        "outstanding": 0,
+        "lost": 7
+      }
+    ],
+    "notes": [
+      {
+        "topic": "经营决策",
+        "hour": 3961,
+        "length": 126
+      },
+      {
+        "topic": "设备投资",
+        "hour": 3961,
+        "length": 139
+      },
+      {
+        "topic": "生产调度",
+        "hour": 3961,
+        "length": 108
+      },
+      {
+        "topic": "异常与边界",
+        "hour": 3961,
+        "length": 129
+      },
+      {
+        "topic": "第1年经营复盘",
+        "hour": 8760,
+        "length": 143
+      },
+      {
+        "topic": "第2年经营复盘",
+        "hour": 17544,
+        "length": 164
+      },
+      {
+        "topic": "第3年经营复盘",
+        "hour": 26304,
+        "length": 180
+      }
+    ],
+    "comparison": {
+      "teaching": "40/40 已验证",
+      "score": "经营诊断量规 · 93.28分",
+      "goodsMatch": true
+    },
+    "knowledgeChecksNotFormalGrades": true,
+    "readOnlyReplay": {
+      "hour": 0,
+      "learningProgress": "40/40",
+      "returnedHour": 26304
+    },
+    "exportedFiles": [
+      "trial-record.json",
+      "trial-months.csv",
+      "learning-report.json"
+    ],
+    "performanceFinding": {
+      "containerOnTimeRatePercent": 49.9,
+      "otherCargoOnTimeRatePercent": "99.5-99.9",
+      "interpretation": "The sample policy is for learning; existing liabilities and unfinished cargo are retained. Coach directs students to inspect cargo, pathways and connecting windows."
+    }
+  },
+  "fixes": [
+    "reference a real available quarterly contract",
+    "repayment HTML amount step permits valid integer values",
+    "AGV and automation chosen to demonstrate actual interface dependency",
+    "milestone waits include the next hourly acceptance tick",
+    "failed commands do not satisfy teaching gates and display nearby feedback",
+    "learning receipts stay intact during read-only replay",
+    "quiz radio inputs remain 18 by 18 pixels",
+    "long-record restore displays computation progress"
+  ],
+  "tests": {
+    "relevantWeb": {
+      "passed": 17,
+      "total": 17
+    },
+    "enterpriseCore": {
+      "passed": 11,
+      "total": 11
+    },
+    "typecheck": true,
+    "viteProductionBuild": true,
+    "existingLargeChunkWarning": true,
+    "gitDiffCheck": true,
+    "scope": "targeted tests; unrelated whole-repository failures documented in the earlier verification are not claimed resolved"
+  },
+  "compatibility": {
+    "engineSourceFilesUnchanged": 7,
+    "oldThreeYearRecordHash": "014e28f92e13b1dfccb6d5e8ce73b8e424898d0b6cfb459afba72b34d85db523",
+    "legacyClassrooms": 115,
+    "legacyRuntimes": 115,
+    "legacyTables": 27,
+    "historyPreserved": true,
+    "browserOriginalSaveRetained": true,
+    "oldAndTeachingLocalSaveCount": 2
+  },
+  "offline": {
+    "externalAndApiBlocked": true,
+    "requestUrls": [
+      "http://127.0.0.1:8217/?tab=learning",
+      "http://127.0.0.1:8217/enterprise.css",
+      "http://127.0.0.1:8217/enterprise.js",
+      "http://127.0.0.1:8217/enterprise.worker.js",
+      "http://127.0.0.1:8217/?tab=learning",
+      "http://127.0.0.1:8217/enterprise.css",
+      "http://127.0.0.1:8217/enterprise.js",
+      "http://127.0.0.1:8217/enterprise.worker.js"
+    ],
+    "networkFailures": [],
+    "errors": [],
+    "finalUi": {
+      "origin": "http://127.0.0.1:8217",
+      "teaching": "2/40 已验证",
+      "radios": [],
+      "toolbars": 1,
+      "errors": []
+    },
+    "draftAfterFullscreenAndModeSwitch": "6000000",
+    "progressAfterReload": "2/40"
+  },
+  "responsive": {
+    "diagnosticWidth": 351,
+    "scrollWidth": 375,
+    "toolbars": 1,
+    "width": 390,
+    "radioPixels": 18,
+    "desktopScreenshot": "output/port-enterprise-teaching/teaching-completed.png",
+    "narrowScreenshot": "output/port-enterprise-teaching/final-narrow-cdp.png"
+  },
+  "studentPackage": {
+    "checkedAt": "2026-10-25T14:06:38.626Z",
+    "fresh": "D:\\codes\\edu-sys\\output\\port-enterprise-teaching-delivery-verified-2026-10-25\\port-enterprise-teaching-delivery-2026-10-25",
+    "live": "D:\\codes\\edu-sys\\output\\port-enterprise-verified-2026-10-25\\port-enterprise-student-2026-10-25",
+    "backup": "D:\\codes\\edu-sys\\.runtime\\backups\\port-enterprise-teaching-css-20261025140638430",
+    "origin": "http://127.0.0.1:8217",
+    "engine": "port-enterprise/1.0",
+    "teaching": "port-enterprise-teaching/1",
+    "verifiedFiles": 13,
+    "workerUnchanged": true,
+    "onlyCssChangedSincePreviousVerification": true,
+    "serviceRestarted": false,
+    "browserDataModified": false,
+    "zip": "output/port-enterprise-teaching-student-windows-x64-2026-10-25.zip",
+    "zipBytes": 38787903,
+    "zipSha256": "2c197d601b258bd21ed9b5df5eefe89e641e462ef12d9ae4b7497b197238df0c"
+  },
+  "sourceFiles": [
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseApp.tsx",
+      "sha256": "fe7ad046740f006e9ff0b3fc091b80197395672f89d670bdddac5c513bd918ee"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseForms.tsx",
+      "sha256": "85a4bbaa02993ebae8077b474ad55ad6672fabb80538d13f7d111b20a1dd504e"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterprisePanels.tsx",
+      "sha256": "ad8e1c7c1785cdbd878825d263eccdea9eb3e6952e88decc4f2f01d26034ea7f"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterprisePortalCard.tsx",
+      "sha256": "e230e626f70e3e6c6690f91648f57b274b658493d9787cda0823762c95d44013"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseTeachingCoach.tsx",
+      "sha256": "6921091f5bd17ef5a2ea558957e98b723aa0164c304128aeffd83e411af9c991"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-teaching.ts",
+      "sha256": "a87dae6e2807791c9b535500d01a5d654b64dfba8b6b11229657a8d381076103"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/useEnterprise.ts",
+      "sha256": "0ee0372f0864fb5e4e79bcadbd2c0e109ddde4d1ee1ce2c96d9272c8cb2adc3b"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-storage.ts",
+      "sha256": "54430c653423a1967b7f9be39ef0e9efade0fc0862b2c99a165c484d5b308390"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/enterprise.css",
+      "sha256": "d1e524eaf691bc47eb871f80d2f25052a1f765772ca1b56111771ae8ed4449c7"
+    },
+    {
+      "path": "apps/teacher-web/test/port-enterprise-teaching.test.tsx",
+      "sha256": "5576eb9db0c93f17584e6715529eee8898958c10c38f98794ba493edbe77d778"
+    },
+    {
+      "path": "scripts/package-port-enterprise.mjs",
+      "sha256": "519420d1c045f842a162980da523f0df55cd1352579902861d49ce1f0c9e3d90"
+    },
+    {
+      "path": "scripts/port-enterprise-teaching-audit.mts",
+      "sha256": "da3a22329b667e693bbd2dad7b759c0c407ccdbc2e461e1d802510aad5c5fb17"
+    },
+    {
+      "path": "docs/port-enterprise-guide.md",
+      "sha256": "dfc0fc09610c09ab019285b0e528f7a3b76a01870f0c4998deae3dd53105f0c3"
+    }
+  ]
+}

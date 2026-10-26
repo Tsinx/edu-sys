@@ -40,6 +40,7 @@ import { runtimeConfig } from "../../campus/runtime";
 import { lessonFiveExperimentUrl } from "../port-lesson-five/navigation";
 import { SlideStage } from "../classroom/TeachingSlides";
 import { PageToolsProvider, PresentationToolbar } from "../classroom/PageTools";
+import { EnterpriseLearningTool } from '../port-simulation/enterprise/EnterpriseLearningTool';
 import "../classroom/classroom.css";
 import { LanzhouAvatarPlayer } from "./LanzhouAvatarPlayer";
 import { useAvatarRenderer, getAvatarVoice } from "../avatar/avatar-preference";
@@ -394,6 +395,7 @@ export function StudentStudyPage() {
           {courseId==="course-port-management-intro"&&frame.lessonNumber===5&&<a className="l5-personal-link" href={lessonFiveExperimentUrl("C",`/study/${courseId}`,session.id,true)}>第5讲个人C实验</a>}
           <div className="study-deck__stage"><PortLessonSixControls.Provider value={{scope:`study:${session.actorId}:${courseId}`}}><PortLessonFourControls.Provider value={{scope:`study:${session.actorId}:${courseId}`,openDemo:cueId=>window.location.assign(lessonFourExperimentUrl(cueId,`/study/${courseId}`,session.id))}}><SlideStage frame={frame} readOnly={courseId==="course-port-management-intro"&&[5,7,8,9,10,11,12].includes(frame.lessonNumber??0)}/></PortLessonFourControls.Provider></PortLessonSixControls.Provider></div>
 
+          <EnterpriseLearningTool courseId={courseId} pageKey={frame.slideId}/>
           <PresentationToolbar label="学习工具栏" navigation={<nav className="presentation-slide-navigation" aria-label="Slides翻页">
             {position.lessonNumber===4&&<a className="study-simulation-link" href={`/simulations?${new URLSearchParams({course:"arrival",returnTo:`/study/${courseId}`})}`}>仿真系统</a>}
             <button disabled={navigationBusy || session.globalIndex <= 1} onClick={() => void goToGlobalIndex(session.globalIndex - 1)}>

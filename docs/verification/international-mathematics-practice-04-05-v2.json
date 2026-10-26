@@ -1,0 +1,109 @@
+{
+  "date": "2026-10-26",
+  "courseId": "course-international-mathematics",
+  "practiceVersion": "2.0.0",
+  "lessons": [
+    4,
+    5
+  ],
+  "questionTotal": 20,
+  "rankDistributionPerLesson": [
+    3,
+    3,
+    3,
+    1
+  ],
+  "companionChoicesPerLesson": 7,
+  "scheduleMinutes": [
+    45,
+    25,
+    20
+  ],
+  "textbookQuestionsPerLesson": 8,
+  "supplementaryQuestionsPerLesson": 2,
+  "browserChecks": [
+    {
+      "lesson": 4,
+      "width": 1600,
+      "questions": 10,
+      "status": "passed"
+    },
+    {
+      "lesson": 4,
+      "width": 820,
+      "questions": 10,
+      "status": "passed"
+    },
+    {
+      "lesson": 4,
+      "width": 390,
+      "questions": 10,
+      "status": "passed"
+    },
+    {
+      "lesson": 5,
+      "width": 390,
+      "questions": 10,
+      "status": "passed"
+    },
+    {
+      "lesson": 5,
+      "width": 820,
+      "questions": 10,
+      "status": "passed"
+    },
+    {
+      "lesson": 5,
+      "width": 1600,
+      "questions": 10,
+      "status": "passed"
+    }
+  ],
+  "verification": {
+    "symbolicMath": {
+      "questions": 160,
+      "status": "passed"
+    },
+    "webTests": {
+      "passed": 19,
+      "failed": 0,
+      "log": "web-tests.log"
+    },
+    "apiTests": {
+      "passed": 23,
+      "failed": 0,
+      "log": "api-tests.log"
+    },
+    "typecheck": "passed",
+    "viteProductionBuild": "passed",
+    "studentCopyAndContext": "passed",
+    "courseValidation": "passed",
+    "legacyPageMappings": 416,
+    "mathematicalExpressions": 1051,
+    "pdfPagesRendered": 32,
+    "gitDiffCheck": "passed"
+  },
+  "boundaries": {
+    "liveActivitiesStarted": false,
+    "liveStudentDeadlineTrial": false,
+    "classroomPacingTrial": false,
+    "applicationDeployed": false,
+    "existingV1ReleaseReplaced": false,
+    "fullOfflineReleaseRegenerated": false
+  },
+  "chaoxingActivities": [
+    {
+      "lesson": 4,
+      "activityId": "7000177007832",
+      "state": "not-started",
+      "reopenedMismatches": 0
+    },
+    {
+      "lesson": 5,
+      "activityId": "7000177009487",
+      "state": "not-started",
+      "reopenedMismatches": 0
+    }
+  ],
+  "evidenceDirectory": "output/chaoxing/lectures-04-05-revision-2026-10-26"
+}

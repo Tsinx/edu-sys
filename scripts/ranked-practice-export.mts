@@ -19,7 +19,8 @@ const revisedGuides:Record<number,readonly [string,string]>={
 const schedules=definitions.map((l,i)=>({lesson:l.number,title:l.title,core:lessons.find(s=>s.number===l.number)!.coreSlideTotal,optional:2,blocks:l.hours!.map((h,j)=>{
  const guide=revisedGuides[l.number]?.[j]??h.guide;
  const pairs=[...guide.matchAll(/(\d+)–(\d+)分钟([^；。]+)/g)];
- const segments=pairs.map((m,k)=>({start:j===0?Number(m[1]):Math.round(Number(m[1])*25/45),end:j===0?Number(m[2]):Math.round(Number(m[2])*25/45),cue:m[3],localStart:h.localStart+Math.floor(k*(h.localEnd-h.localStart+1)/pairs.length),localEnd:h.localStart+Math.floor((k+1)*(h.localEnd-h.localStart+1)/pairs.length)-1}));
+ const sourceDuration=Math.max(1,...pairs.map(m=>Number(m[2]))),targetDuration=j===0?45:25;
+ const segments=pairs.map((m,k)=>({start:Math.round(Number(m[1])*targetDuration/sourceDuration),end:Math.round(Number(m[2])*targetDuration/sourceDuration),cue:m[3],localStart:h.localStart+Math.floor(k*(h.localEnd-h.localStart+1)/pairs.length),localEnd:h.localStart+Math.floor((k+1)*(h.localEnd-h.localStart+1)/pairs.length)-1}));
  return {hour:j+1,duration:j===0?45:25,title:h.title,localStart:h.localStart,localEnd:h.localEnd,segments,guide:guide.split('话术：')[1]??''};
 }),practice:{start:70,end:90,phases:[{start:70,end:72,label:'Instructions / 说明',cue:'Choose one answer for each question. Start wherever you feel ready. Rank 4 is optional.'},{start:72,end:86,label:'Individual work / 独立作答',cue:'Work at your own pace. You may revise your answers while the set is open.'},{start:86,end:90,label:'Feedback / 反馈',cue:'We will discuss two common errors. Not attempted is different from incorrect.'}],feedback:rankedPracticePacks[i]!.questions.filter(q=>q.rank===3).map(q=>q.id)}}));
 await writeFile(`${out}/teaching-schedules.json`,JSON.stringify(schedules,null,2));

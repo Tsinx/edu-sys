@@ -19,6 +19,7 @@ export type SlideElement = Positioned & (
   | {kind:'plot';plot:PlotSpec}
   | {kind:'table';columns:readonly string[];rows:readonly (readonly string[])[];highlightRow?:number}
   | {kind:'diagram';name:'machine'|'receipt'|'number-line'|'flow'|'balance'|'nested'|'steps';labels:readonly string[];values?:readonly string[]}
+  | {kind:'wheat-story';posterMs?:number}
 );
 export interface LessonSlide {
   slideKey: string; compositionId: string; title: string; kicker: string;
@@ -27,6 +28,7 @@ export interface LessonSlide {
   teachingCue: string; assistantCue: string;
   interaction?: {kind:'parameter';key:'x'|'h'|'n'|'price'|'quantity';label:string;min:number;max:number;step:number;initial:number};
   openingFilm?: boolean;
+  storyAnimation?: 'wheat-chessboard';
   /** Teacher planning only; never serialized into student DOM attributes. */
   pedagogy?: {role:'scene'|'concept'|'worked-step'|'checkpoint'|'misconception'|'exit';sequence?:string;seconds?:number;hour?:1|2};
 }

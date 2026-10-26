@@ -1,4 +1,5 @@
 import { PortPerformanceSummary } from "./PortPerformanceSummary";
+import { EnterprisePortalCard } from './enterprise/EnterprisePortalCard';
 import {PortClassLabReplay} from './PortClassLabReplay';
 import {PORT_CLASS_SUBMISSION_SCHEMA,isPortClassSubmissionUnit,type PortClassVerifiedReport} from '@edu/port-simulation-core';
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
@@ -37,7 +38,8 @@ export function PortResultsPage() {
     const url = URL.createObjectURL(new Blob(["\ufeff" + lines.map(row => row.map(cell).join(",")).join("\r\n")], { type: "text/csv;charset=utf-8" }));
     const a = document.createElement("a"); a.href = url; a.download = "港口实验成绩.csv"; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
-  return <section className="port-results-page"><Link to="/tasks">← 返回实验任务</Link><header><span>PORT LAB · RESULTS</span><h1>实验成绩</h1><p>分段成绩为目标完成比例得分减去实际判定扣分；综合挑战按综合规则计分。第11、12讲按实际流程与材料完整性计完成分，复盘分析质量由教师复核。各类任务分别取最高分，复现与导出均对应最高分的那次提交。允许重复提交，低分、同分及核验失败均不替换已有最高分。</p></header>
+  return <section className="port-results-page"><Link to="/tasks">← 返回实验任务</Link><header><span>PORT LAB · RESULTS</span><h1>实验成绩</h1><p>分段成绩为目标完成比例得分减去实际判定扣分；综合挑战按综合规则计分。第11、12讲按实际流程与材料完整性计完成分，复盘分析质量由教师复核。各类短期任务分别取最高分，低分、同分及核验失败均不替换已有最高分。长期经营按任务单独展示最近核验通过的个人场次。</p></header>
+    {teacher && courseId === 'course-port-management-intro' && <EnterprisePortalCard/>}
     {error && <p role="alert">{error}</p>}
     {teacher && <><div className="port-result-filters"><label>学生<input value={search} onChange={e => {setSearch(e.target.value);setPage(1);}} placeholder="姓名或账号"/></label><label>实验<select value={unit} onChange={e => {setUnit(e.target.value);setPage(1);}}><option value="all">全部实验</option>{PORT_SUBMISSION_UNITS.map(u => <option key={u.id} value={u.id}>{u.title}</option>)}</select></label><label>提交状态<select value={status} onChange={e => {setStatus(e.target.value);setPage(1);}}><option value="all">全部状态</option><option value="verified">已有成绩</option><option value="missing">未提交</option><option value="pending">核验中</option><option value="rejected">核验失败</option></select></label><button onClick={() => void refresh().catch(reason => setError(reason.message))}>刷新</button><button disabled={!data} onClick={()=>void exportCsv().catch(e=>setError(e.message))}>导出全部筛选结果</button></div>
       <div className="port-result-table-wrap"><table className="port-result-table"><caption>{data?.total??rows.length} 位学生 · 未提交不计为零分</caption><thead><tr><th>学生</th>{units.map(u => <th key={u.id}>{u.short}</th>)}</tr></thead><tbody>{rows.map(row => <tr key={row.actorId}><th>{row.displayName}<small>{row.identifier}</small></th>{units.map(u => {

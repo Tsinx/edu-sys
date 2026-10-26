@@ -4,6 +4,7 @@ import { registerPortal } from "./portal-routes.js";
 import { registerDefense } from "./defense-routes.js";
 import { randomUUID } from "node:crypto";
 import { PortSubmissionRepository, registerPortSubmissions } from "./port-submissions.js";
+import { EnterpriseRepository, registerEnterprise } from './enterprise-routes.js';
 import { withSpeechVisemes } from "./study/visemes.js";
 import { MANAGEMENT_SOURCE_MAP, MANAGEMENT_SOURCE_DISPOSITIONS } from '@edu/course-content/management-principles/source-map';
 import fastifyStatic from "@fastify/static";
@@ -196,6 +197,9 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   registerPortSubmissions(app, portSubmissions, { resolve: resolveActor, allowed: allowedCourseIds,
     classCourse: id => store.classroomCourse(id),
     roster: course => identityProvider instanceof CampusIdentityProvider ? identityProvider.experimentRoster(course) : [] });
+  const enterprise = new EnterpriseRepository(options.dataFile + '.port-results.sqlite');
+  registerEnterprise(app, enterprise, { resolve: resolveActor, allowed: allowedCourseIds,
+    roster: () => identityProvider instanceof CampusIdentityProvider ? identityProvider.experimentRoster('course-port-management-intro') : [] });
   const aiAdmission = campusMode ? new AiAdmission(`${options.dataFile}.ai.sqlite`, {
     concurrency: 6, queue: 30, dailyRequests: 100, timeoutMs: 120_000, ...options.aiLimits
   }) : undefined;
@@ -284,6 +288,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     participation.close();
     edgeRecords.close();
     await portSubmissions.close();
+    await enterprise.close();
     aiAdmission?.close();
     if (identityProvider instanceof CampusIdentityProvider) identityProvider.close();
   });
@@ -426,7 +431,8 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     return reply.status(204).send();
   });
 
-  registerPortal(app, store, portSubmissions, resolveActor, allowedCourseIds);
+  registerPortal(app, store, portSubmissions, resolveActor, allowedCourseIds,
+    (since, courseIds) => courseIds.includes('course-port-management-intro') ? enterprise.unreadCount(since) : 0);
   if (identityProvider instanceof CampusIdentityProvider) await store.alignTeacherAccounts(identityProvider.db.prepare("SELECT id, display_name AS name FROM campus_accounts WHERE role='teacher' AND enabled=1").all() as Array<{id:string;name:string}>);
 
   app.get("/api/me", async request => {

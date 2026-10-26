@@ -12,6 +12,7 @@ import { StudentParticipation } from "./ClassroomParticipation";
 import { ClassroomRankedPractice } from "../ranked-practice/RankedPractice";
 import { ActivityStage, SlideStage } from "./TeachingSlides";
 import { PageToolsProvider, PresentationToolbar } from "./PageTools";
+import { EnterpriseLearningTool } from '../port-simulation/enterprise/EnterpriseLearningTool';
 import { FullscreenButtons } from './FullscreenButtons';
 import { usePresentationFullscreen } from './usePresentationFullscreen';
 import { useStudentClassroom } from "./useStudentClassroom";
@@ -138,6 +139,7 @@ function StudentWorkspace({sessionId, deck, actor, snapshot, connected, error}: 
           </Suspense>
         </div>
         {snapshot.courseId==="course-port-management-intro"&&position.lessonNumber===5&&<div className="l5-live-note">{following&&snapshot.simulationNavigation?.experiment==="l5-capacity"?`教师正在演示方案${snapshot.simulationNavigation.plan}；个人实验独立保存。`:"第5讲个人任务：从同一起点只增加运输岗位。"}<a className="l5-personal-link" href={lessonFiveExperimentUrl('C',`/join/${sessionId}`,sessionId,true)}>进入个人C实验</a></div>}
+        <EnterpriseLearningTool courseId={snapshot.courseId} pageKey={current.activity === 'slides' ? frame.slideId : `activity:${current.activity}`}/>
         <PresentationToolbar label={t('学习工具栏','Learning toolbar')} moreLabel={t('更多工具','More tools')}
           navigation={<nav className="presentation-slide-navigation" aria-label={t("课件导航", "Slide navigation")}>
           <button aria-label={t("上一页", "Previous")} disabled={syncOnly || getCourseAdjacentIndex(deck,frame.index,-1)===null} onClick={()=>go(getCourseAdjacentIndex(deck,frame.index,-1)??frame.index)}><ChevronLeft size={18}/><span>{t("上一页", "Previous")}</span></button>

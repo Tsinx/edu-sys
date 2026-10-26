@@ -53,6 +53,7 @@ const StudentStudyPage = lazy(() =>
   })),
 );
 const DefenseHub = lazy(() => import("./features/defense/DefenseWorkspace").then(m => ({ default: m.DefenseHub })));
+const EnterprisePage = lazy(() => import('./features/port-simulation/enterprise/EnterpriseApp').then(m => ({ default: m.EnterprisePage })));
 const DefenseAssignmentPage = lazy(() => import("./features/defense/DefenseWorkspace").then(m => ({ default: m.DefenseAssignmentPage })));
 const DefenseSessionPage = lazy(() => import("./features/defense/DefenseWorkspace").then(m => ({ default: m.DefenseSessionPage })));
 const XiaomaiAnimationPreview = lazy(() =>
@@ -87,6 +88,7 @@ export function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/port-enterprise" element={<Suspense fallback={<p>正在打开港口独立经营…</p>}><EnterprisePage/></Suspense>}/>
         <Route path="/preview/:courseId" element={<CourseReader preview />} />
         <Route path="/signed-out" element={<SignedOutPage />} />
         <Route

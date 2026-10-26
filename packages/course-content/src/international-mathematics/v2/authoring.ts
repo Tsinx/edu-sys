@@ -26,6 +26,6 @@ export function expandLesson(base:MathematicsLesson,insertions:readonly Insertio
   block.forEach((s,j)=>{const pos=slides.indexOf(s);slides[pos]={...s,pedagogy:{...s.pedagogy,role:s.pedagogy?.role??(s.openingFilm?'scene':/exit/i.test(s.kicker)?'exit':'concept'),hour:(h+1) as 1|2,seconds:durations[j]!}};});
  }
  const hours=([1,2] as const).map((h,i)=>({number:h,title:hourTitles[i]!,durationMinutes:45 as const,coreSlides:split,localStart:i*split+1,localEnd:(i+1)*split,guide:hourGuides[i]!}));
- const ranges=hours.map(h=>`第${h.number}学时45分钟，核心页${h.localStart}–${h.localEnd}：${h.guide}`).join('\n');
+ const ranges=hours.map((h,i)=>`第${h.number}学时45分钟，其中讲授${teachingSeconds[i]!/60}分钟，核心页${h.localStart}–${h.localEnd}：${h.guide}${teachingSeconds[i]!<2700?'；本学时余下20分钟用于分层单选练习（说明2分钟、作答14分钟、反馈4分钟）。':''}`).join('\n');
  return {...base,slides,hours,teacherGuide:ranges+'\n选学页不计入90分钟核心路线。逐页建议秒数为备课估计；按理解情况调整并记录试讲用时。\n'+base.teacherGuide.replace(/^第\d+讲90分钟。[\s\S]*?用语：/,'英文话术：')};
 }

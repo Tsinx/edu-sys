@@ -62,6 +62,8 @@ export type EconomicMathematicsInteractionId =
   | "budget-constraint-lab";
 
 export interface EconomicMathematicsAuthoredSlide {
+  analysisFigure?: EconomicMathematicsAnalysisFigure;
+  analysisLab?: 'mvt' | 'cost-bound' | 'cauchy' | 'quotient-oscillation';
   foundationFigure?: EconomicMathematicsFoundationFigure;
   foundationLab?: 'angle' | 'compounding' | 'continuity-repair' | 'bisection' | 'derivative-secant' | 'differential-error';
   /** Two authored concept questions with teacher-controlled feedback. */
@@ -125,6 +127,14 @@ export interface EconomicMathematicsRevealStep {
   plot?: EconomicMathematicsPlot;
   highlightRows?: readonly number[];
   limitFigure?: EconomicMathematicsLimitFigure;
+  analysisFigure?: EconomicMathematicsAnalysisFigure;
+}
+
+export type EconomicMathematicsMvtModel = 'square' | 'cubic' | 'cubic-symmetric' | 'absolute' | 'endpoint-jump' | 'root' | 'sine' | 'rolle-parabola' | 'constant';
+export interface EconomicMathematicsAnalysisFigure {
+  kind: 'mvt' | 'auxiliary' | 'cost-bound' | 'domain-gap' | 'cauchy' | 'quotient-oscillation' | 'tail-bound';
+  model?: EconomicMathematicsMvtModel;
+  params?: Readonly<Record<string,number>>;
 }
 
 /** Explicit mathematical evidence; no title/keyword selects a curve. */

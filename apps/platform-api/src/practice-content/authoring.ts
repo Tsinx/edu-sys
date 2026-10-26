@@ -25,7 +25,7 @@ export function publicQuestion(q: PrivatePracticeQuestion): PracticeQuestion {
     options:q.options.map(o => ({id:o.id,text:o.text})), source:{...q.source}, ...(q.graph ? {graph:{...q.graph}} : {}) };
 }
 export function publicPack(p: PrivatePracticePack): PracticePack { return practicePackSchema.parse({...p, questions:p.questions.map(publicQuestion)}); }
-export function pack(lesson: number, title: string, questions: PrivatePracticeQuestion[]): PrivatePracticePack {
-  const p = { schemaVersion:1 as const, id:`im-ranked-practice-${String(lesson).padStart(2,"0")}`, version:"1.0.0", courseId:"course-international-mathematics", lesson,title,locale:"en" as const,durationMinutes:20 as const,questions };
+export function pack(lesson: number, title: string, questions: PrivatePracticeQuestion[], version = '1.0.0'): PrivatePracticePack {
+  const p = { schemaVersion:1 as const, id:`im-ranked-practice-${String(lesson).padStart(2,"0")}`, version, courseId:"course-international-mathematics", lesson,title,locale:"en" as const,durationMinutes:20 as const,questions:questions.map(q=>({...q,version})) };
   publicPack(p); return p;
 }

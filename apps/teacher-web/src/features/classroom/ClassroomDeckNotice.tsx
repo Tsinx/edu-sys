@@ -19,6 +19,7 @@ export function ClassroomDeckNotice({ courseId, english = false, issue = 'sync',
       : (english ? `Start a separate classroom using the current slides${lessonNumber ? ` from the beginning of Lecture ${lessonNumber}` : ''}. The original classroom record will remain available.` : `可使用新版另开课堂${lessonNumber ? `，从第${lessonNumber}讲首页开始` : ''}。原课堂记录继续保留。`)}</p>}
     {error && <p className="classroom-deck-notice__body" role="status">{error}</p>}
     <div className="classroom-deck-notice__actions">
+      {archived && !student && courseId === 'course-economic-mathematics' && lessonNumber && lessonNumber >= 2 && lessonNumber <= 12 && <a className="classroom-primary-button" href={`/economic-narration.html?lesson=${lessonNumber}&page=1`}>直接打开本讲课件</a>}
       {archived ? (!student && onStartNew && <button type="button" className="classroom-primary-button" disabled={busy} onClick={onStartNew}>{busy ? (english ? 'Starting…' : '正在开启…') : (english ? 'Start a new classroom' : '使用新版新建课堂')}</button>)
         : <button type="button" className="classroom-secondary-button" onClick={() => window.location.reload()}>{english ? 'Reload classroom' : '重新加载课堂'}</button>}
       <Link className="classroom-secondary-button" to={student ? `/study/${courseId}` : `/courses/${courseId}`}>{student ? (english ? 'Read current slides' : '独立阅读新版课件') : (english ? 'Return to course' : '返回课程工作区')}</Link>

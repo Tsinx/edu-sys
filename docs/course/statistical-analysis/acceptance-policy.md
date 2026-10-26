@@ -8,7 +8,7 @@
 - 两讲完整逐页稿：10365、9895汉字；96页均含3段正文、承接与转场、停顿提示。教师备课区与独立Markdown同一稿源。
 - 每讲90分钟：讲述55、个人Python/vibe coding25、观察判断10分钟；12个明确检查点。时间为备课预算，没有完成真人朗读计时或实际课堂试讲。
 - 同一真实INPRES/1995 SUPAS公开处理版，固定commit与SHA-256。公开处理版与简化教学规格明确标注，未冒充原论文完整复制。
-- 学生ZIP共11个明确文件，27278字节：两个Notebook、辅助脚本、准备脚本、锁定依赖、字典、说明、跟做提示、备忘录结构与参考数值。ZIP内没有原始微数据或教师逐字稿；完整文件hash逐项核对。
+- 网页提供的代码ZIP共11个明确文件，27278字节：两个Notebook、辅助脚本、准备脚本、锁定依赖、字典、说明、跟做提示、备忘录结构与参考数值。该ZIP内没有原始微数据或教师逐字稿；完整文件hash逐项核对。含数据的本地离线包见下方补充记录。
 
 ## 数值与学生复现
 
@@ -76,3 +76,17 @@
 ## 留待真实授课验证
 
 未声称完成真人逐字朗读、投影音响试讲、全班同时安装环境或学生学习效果评估。55/25/10分钟是备课分配；教师需根据学生环境准备与基础调整现场停顿。原始资料的许可边界与方法识别风险已明示；不以通过代码或浏览器测试替代因果识别或实际教学效果。
+
+## 含数据的本地离线包补发（2026-10-21）
+
+用户指出原学生包缺少数据文件。补发`output/statistical-analysis-policy/INPRES-第12-13讲学生项目包.zip`，共13个文件、1,957,257字节；其中12个内容文件及其SHA-256清单。已加入未经改写的`inpres-project/data/inpresdata.dta`，15,914,038字节、152990行、26列，SHA-256为`1a0be1709ef2ed7e182b02b13da9791f4300a94818b4f13efea3e6868a984e5a`。另提供`output/statistical-analysis-policy/data/inpresdata.dta`供单独读取。
+
+本地包中的README、DATA与Notebook准备说明已改为“包内含数据”；可执行代码单元保持一致，沿用默认相对路径读取与校验。这是公开研究处理版，不是BPS未处理的原始问卷库。没有将其他仓库的代码许可说成数据开放许可；本次没有改变网页代码包、公开资源、课件或PDF。
+
+重建命令：
+
+```powershell
+python -X utf8 scripts/build-statistical-analysis-policy-offline-pack.py --data .runtime/statistics-policy/inpresdata.dta
+```
+
+从新ZIP解压到独立目录，逐项校验12个内容文件、ZIP CRC、数据字节和Notebook代码单元。使用已有Python依赖环境，在两个独立内核中拦截`urllib.request.urlopen`后从头执行两份Notebook：原7与8个代码单元均成功，2与1幅图生成，无下载调用、无代码错误。教育DID、第一阶段、简约式、OLS及IV的样本量、系数和标准误与课件参考结果相符；AR集合仍为全体实数，数值线程池均为1线程。依赖安装仍须课前完成，不把“数据离线可用”说成“免安装”。记录：`output/statistical-analysis-policy/offline-pack-build.json`与`offline-pack-acceptance.json`。

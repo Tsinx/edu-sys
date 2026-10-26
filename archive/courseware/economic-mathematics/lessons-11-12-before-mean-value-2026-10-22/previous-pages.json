@@ -1,0 +1,659 @@
+[
+  {
+    "slideKey": "em-v2-l11-p001",
+    "compositionId": "editorial-v2-l11-p1",
+    "section": "概念与应用",
+    "title": "定价旋钮转动一点",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "教学情境",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "story",
+    "image": "l11-scene.png",
+    "imageAlt": "零售价格调整",
+    "formula": "\\Pi(p)=-10p^2+1400p-26000",
+    "prompt": "从50元调到51元，日利润约改变多少？",
+    "index": 631,
+    "lesson": 11,
+    "lessonTitle": "微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 1,
+    "localTotal": 10
+  },
+  {
+    "slideKey": "em-v2-l11-p002",
+    "compositionId": "editorial-v2-l11-p2",
+    "section": "概念与应用",
+    "title": "切线替代附近曲线",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "essay",
+    "image": "l11-concept.png",
+    "imageAlt": "局部近似的概念插画",
+    "formula": "\\begin{aligned}\\Delta y&=f(x+\\Delta x)-f(x)\\\\dy&=f'(x)\\Delta x\\end{aligned}",
+    "body": [
+      "增量是实际改变。",
+      "微分是一次项给出的局部估算。"
+    ],
+    "index": 632,
+    "lesson": 11,
+    "lessonTitle": "微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 2,
+    "localTotal": 10
+  },
+  {
+    "slideKey": "em-v2-l11-p003",
+    "compositionId": "editorial-v2-l11-p3",
+    "section": "概念与应用",
+    "title": "一次调价的完整核算",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "proof",
+    "formula": "p_0=50,\\quad\\Delta p=1",
+    "steps": [
+      {
+        "title": "微分",
+        "formula": "d\\Pi=400\\cdot1=400"
+      },
+      {
+        "title": "实际增量",
+        "formula": "\\Delta\\Pi=400\\Delta p-10(\\Delta p)^2=390"
+      },
+      {
+        "title": "估算误差",
+        "formula": "\\Delta\\Pi-d\\Pi=-10\\text{元/日}"
+      }
+    ],
+    "index": 633,
+    "lesson": 11,
+    "lessonTitle": "微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 3,
+    "localTotal": 10
+  },
+  {
+    "slideKey": "em-v2-l11-p004",
+    "compositionId": "editorial-v2-l11-p4",
+    "section": "概念与应用",
+    "title": "误差实验",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "lab",
+    "interactionId": "linearization-error-lab",
+    "interactionDefaults": {
+      "basePrice": 50,
+      "deltaPrice": 0
+    },
+    "prompt": "比较1元、5元和10元的调价。误差怎样随幅度变化？",
+    "index": 634,
+    "lesson": 11,
+    "lessonTitle": "微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 4,
+    "localTotal": 10
+  },
+  {
+    "slideKey": "em-v2-l11-p005",
+    "compositionId": "editorial-v2-l11-p5",
+    "section": "概念与应用",
+    "title": "一般线性近似",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "proof",
+    "formula": "f(x_0+h)\\approx f(x_0)+f'(x_0)h",
+    "steps": [
+      {
+        "title": "平方根附近",
+        "formula": "\\sqrt{4.04}\\approx2+\\frac14\\cdot0.04=2.01"
+      },
+      {
+        "title": "适用条件",
+        "text": "基点可导，变化幅度足够小；是否足够小取决于容许误差。"
+      }
+    ],
+    "index": 635,
+    "lesson": 11,
+    "lessonTitle": "微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 5,
+    "localTotal": 10
+  },
+  {
+    "slideKey": "em-v2-l11-p006",
+    "compositionId": "editorial-v2-l11-p6",
+    "section": "概念与应用",
+    "title": "绝对误差与相对误差",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "split",
+    "formula": "E=\\text{实际值}-\\text{近似值},\\qquad E_r=|E|/|\\text{实际值}|",
+    "body": [
+      "同样的绝对误差，对不同规模的结果意义不同。",
+      "实际值接近零时，相对误差可能失去稳定性。"
+    ],
+    "index": 636,
+    "lesson": 11,
+    "lessonTitle": "微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 6,
+    "localTotal": 10
+  },
+  {
+    "slideKey": "em-v2-l11-p007",
+    "compositionId": "editorial-v2-l11-p7",
+    "section": "概念与应用",
+    "title": "微分的运算法则",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "table",
+    "table": {
+      "columns": [
+        "函数",
+        "微分"
+      ],
+      "rows": [
+        [
+          "$u+v$",
+          "$du+dv$"
+        ],
+        [
+          "$uv$",
+          "$v\\,du+u\\,dv$"
+        ],
+        [
+          "$u/v$",
+          "$(v\\,du-u\\,dv)/v^2$"
+        ],
+        [
+          "$f(u)$",
+          "$f'(u)\\,du$"
+        ]
+      ]
+    },
+    "index": 637,
+    "lesson": 11,
+    "lessonTitle": "微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 7,
+    "localTotal": 10
+  },
+  {
+    "slideKey": "em-v2-l11-p008",
+    "compositionId": "editorial-v2-l11-p8",
+    "section": "概念与应用",
+    "title": "误差不能省略",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "compare",
+    "style": "constructivist",
+    "formula": "\\Pi(60)-\\Pi(50)=3000\\ne4000",
+    "prompt": "用50元处的切线估算涨价10元，为什么高估1000元？",
+    "steps": [
+      {
+        "title": "二次项",
+        "formula": "-10(\\Delta p)^2=-1000"
+      }
+    ],
+    "index": 638,
+    "lesson": 11,
+    "lessonTitle": "微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 8,
+    "localTotal": 10
+  },
+  {
+    "slideKey": "em-v2-l11-p009",
+    "compositionId": "editorial-v2-l11-p9",
+    "section": "概念与应用",
+    "title": "独立练习：平方根",
+    "kicker": "",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "exercise",
+    "prompt": "用$x_0=9$附近的线性近似估算$\\sqrt{9.12}$，说明估算方向。",
+    "steps": [
+      {
+        "title": "一次近似",
+        "formula": "\\sqrt{9.12}\\approx3+\\frac16\\cdot0.12=3.02"
+      },
+      {
+        "title": "方向",
+        "text": "平方根函数向下弯曲，切线估算偏大。"
+      }
+    ],
+    "index": 639,
+    "lesson": 11,
+    "lessonTitle": "微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 9,
+    "localTotal": 10
+  },
+  {
+    "slideKey": "em-v2-l11-p010",
+    "compositionId": "editorial-v2-l11-p10",
+    "section": "概念与应用",
+    "title": "迁移：相对变化",
+    "kicker": "",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "sourceLabel": "教学情境",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "exercise",
+    "formula": "R(q)=5q^2,\\quad q>0",
+    "prompt": "销量增加约1%，收入约增加百分之几？",
+    "steps": [
+      {
+        "title": "比例关系",
+        "formula": "dR/R=2\\,dq/q"
+      },
+      {
+        "title": "近似结论",
+        "text": "收入约增加2%；精确增加2.01%。"
+      }
+    ],
+    "index": 640,
+    "lesson": 11,
+    "lessonTitle": "微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 10,
+    "localTotal": 10
+  },
+  {
+    "slideKey": "em-v2-l12-p001",
+    "compositionId": "editorial-v2-l12-p1",
+    "section": "概念与应用",
+    "title": "导数应用、边际与弹性",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "cover",
+    "style": "cover",
+    "image": "unit-04.png",
+    "imageAlt": "比较与决策拼贴",
+    "lead": "把变化率转化为可核验的判断。",
+    "body": [
+      "第四单元 / 第12—16讲"
+    ],
+    "index": 641,
+    "lesson": 12,
+    "lessonTitle": "中值定理：平均与瞬时之间",
+    "unit": 4,
+    "unitTitle": "导数应用、边际与弹性分析",
+    "localIndex": 1,
+    "localTotal": 11
+  },
+  {
+    "slideKey": "em-v2-l12-p002",
+    "compositionId": "editorial-v2-l12-p2",
+    "section": "概念与应用",
+    "title": "一段行程的平均速度",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "教学情境",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "story",
+    "image": "l12-scene.png",
+    "imageAlt": "轨道交通与运行时刻",
+    "lead": "连续行驶2小时，共前进120千米；位移函数在区间内部可导。",
+    "prompt": "是否一定有某一时刻速度恰好60千米/小时？",
+    "index": 642,
+    "lesson": 12,
+    "lessonTitle": "中值定理：平均与瞬时之间",
+    "unit": 4,
+    "unitTitle": "导数应用、边际与弹性分析",
+    "localIndex": 2,
+    "localTotal": 11
+  },
+  {
+    "slideKey": "em-v2-l12-p003",
+    "compositionId": "editorial-v2-l12-p3",
+    "section": "概念与应用",
+    "title": "平均与瞬时的桥梁",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "essay",
+    "image": "l12-concept.png",
+    "imageAlt": "两端与中间位置的概念插画",
+    "formula": "f'(c)=\\frac{f(b)-f(a)}{b-a},\\quad c\\in(a,b)",
+    "body": [
+      "闭区间连续，开区间可导。",
+      "结论保证存在，通常不保证唯一。"
+    ],
+    "index": 643,
+    "lesson": 12,
+    "lessonTitle": "中值定理：平均与瞬时之间",
+    "unit": 4,
+    "unitTitle": "导数应用、边际与弹性分析",
+    "localIndex": 3,
+    "localTotal": 11
+  },
+  {
+    "slideKey": "em-v2-l12-p004",
+    "compositionId": "editorial-v2-l12-p4",
+    "section": "概念与应用",
+    "title": "罗尔定理的水平桥梁",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "proof",
+    "formula": "f(a)=f(b)",
+    "steps": [
+      {
+        "title": "条件",
+        "text": "$f$在$[a,b]$连续、在$(a,b)$可导。"
+      },
+      {
+        "title": "结论",
+        "formula": "\\exists c\\in(a,b),\\quad f'(c)=0"
+      },
+      {
+        "title": "例题",
+        "formula": "f=x^2-2x,\\ [0,2]\\Rightarrow c=1"
+      }
+    ],
+    "index": 644,
+    "lesson": 12,
+    "lessonTitle": "中值定理：平均与瞬时之间",
+    "unit": 4,
+    "unitTitle": "导数应用、边际与弹性分析",
+    "localIndex": 4,
+    "localTotal": 11
+  },
+  {
+    "slideKey": "em-v2-l12-p005",
+    "compositionId": "editorial-v2-l12-p5",
+    "section": "概念与应用",
+    "title": "拉格朗日定理的几何关系",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "proof",
+    "formula": "g(x)=f(x)-\\frac{f(b)-f(a)}{b-a}(x-a)",
+    "steps": [
+      {
+        "title": "两端相等",
+        "formula": "g(a)=g(b)"
+      },
+      {
+        "title": "应用罗尔定理",
+        "formula": "g'(c)=0"
+      },
+      {
+        "title": "还原",
+        "formula": "f'(c)=\\frac{f(b)-f(a)}{b-a}"
+      }
+    ],
+    "index": 645,
+    "lesson": 12,
+    "lessonTitle": "中值定理：平均与瞬时之间",
+    "unit": 4,
+    "unitTitle": "导数应用、边际与弹性分析",
+    "localIndex": 5,
+    "localTotal": 11
+  },
+  {
+    "slideKey": "em-v2-l12-p006",
+    "compositionId": "editorial-v2-l12-p6",
+    "section": "概念与应用",
+    "title": "完整例题：平方函数",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "proof",
+    "formula": "f(x)=x^2,\\quad[a,b]=[1,3]",
+    "steps": [
+      {
+        "title": "平均斜率",
+        "formula": "(9-1)/(3-1)=4"
+      },
+      {
+        "title": "找到c",
+        "formula": "2c=4\\Rightarrow c=2"
+      },
+      {
+        "title": "核对位置",
+        "formula": "2\\in(1,3)"
+      }
+    ],
+    "index": 646,
+    "lesson": 12,
+    "lessonTitle": "中值定理：平均与瞬时之间",
+    "unit": 4,
+    "unitTitle": "导数应用、边际与弹性分析",
+    "localIndex": 6,
+    "localTotal": 11
+  },
+  {
+    "slideKey": "em-v2-l12-p007",
+    "compositionId": "editorial-v2-l12-p7",
+    "section": "概念与应用",
+    "title": "变化幅度的上界",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "proof",
+    "formula": "|f'(x)|\\le M\\quad(x\\in(a,b))",
+    "steps": [
+      {
+        "title": "中值等式",
+        "formula": "f(b)-f(a)=f'(c)(b-a)"
+      },
+      {
+        "title": "上界",
+        "formula": "|f(b)-f(a)|\\le M|b-a|"
+      }
+    ],
+    "prompt": "导数上界为3，输入改变0.2时，输出最多改变多少？",
+    "index": 647,
+    "lesson": 12,
+    "lessonTitle": "中值定理：平均与瞬时之间",
+    "unit": 4,
+    "unitTitle": "导数应用、边际与弹性分析",
+    "localIndex": 7,
+    "localTotal": 11
+  },
+  {
+    "slideKey": "em-v2-l12-p008",
+    "compositionId": "editorial-v2-l12-p8",
+    "section": "概念与应用",
+    "title": "不等式例题",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "proof",
+    "formula": "x>0",
+    "steps": [
+      {
+        "title": "对ln在[1,1+x]应用定理",
+        "formula": "\\ln(1+x)=x/c,\\quad1<c<1+x"
+      },
+      {
+        "title": "夹出界限",
+        "formula": "\\frac{x}{1+x}<\\ln(1+x)<x"
+      }
+    ],
+    "index": 648,
+    "lesson": 12,
+    "lessonTitle": "中值定理：平均与瞬时之间",
+    "unit": 4,
+    "unitTitle": "导数应用、边际与弹性分析",
+    "localIndex": 8,
+    "localTotal": 11
+  },
+  {
+    "slideKey": "em-v2-l12-p009",
+    "compositionId": "editorial-v2-l12-p9",
+    "section": "概念与应用",
+    "title": "条件缺失的反例",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "compare",
+    "style": "constructivist",
+    "formula": "f(x)=|x|,\\quad[-1,1]",
+    "prompt": "两端函数值相等，但区间内有没有导数为零的位置？缺少哪项条件？",
+    "steps": [
+      {
+        "title": "检查",
+        "text": "0处不可导，不能使用罗尔定理。"
+      }
+    ],
+    "index": 649,
+    "lesson": 12,
+    "lessonTitle": "中值定理：平均与瞬时之间",
+    "unit": 4,
+    "unitTitle": "导数应用、边际与弹性分析",
+    "localIndex": 9,
+    "localTotal": 11
+  },
+  {
+    "slideKey": "em-v2-l12-p010",
+    "compositionId": "editorial-v2-l12-p10",
+    "section": "概念与应用",
+    "title": "独立练习",
+    "kicker": "",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "exercise",
+    "formula": "f(x)=\\ln x,\\quad[1,e]",
+    "prompt": "验证条件，求满足中值定理的$c$。",
+    "steps": [
+      {
+        "title": "条件",
+        "text": "在闭区间连续且内部可导。"
+      },
+      {
+        "title": "解c",
+        "formula": "1/c=1/(e-1)\\Rightarrow c=e-1"
+      }
+    ],
+    "index": 650,
+    "lesson": 12,
+    "lessonTitle": "中值定理：平均与瞬时之间",
+    "unit": 4,
+    "unitTitle": "导数应用、边际与弹性分析",
+    "localIndex": 10,
+    "localTotal": 11
+  },
+  {
+    "slideKey": "em-v2-l12-p011",
+    "compositionId": "editorial-v2-l12-p11",
+    "section": "概念与应用",
+    "title": "业务解释的边界",
+    "kicker": "",
+    "kind": "definition",
+    "visual": "formula-board",
+    "sourceLabel": "概念模型",
+    "accent": "ink",
+    "teachingCue": "依据当前公开材料讲解，保留学生独立思考时间。",
+    "assistantCue": "只解释当前公开内容，明确模型假设、变量单位与定义域。",
+    "layout": "essay",
+    "body": [
+      "平均效应对应某个局部效应，需要定理条件成立。",
+      "有跳跃或不可导点时，应检查规则结构。"
+    ],
+    "prompt": "优惠门槛案例为什么不能直接套用同一结论？",
+    "index": 651,
+    "lesson": 12,
+    "lessonTitle": "中值定理：平均与瞬时之间",
+    "unit": 4,
+    "unitTitle": "导数应用、边际与弹性分析",
+    "localIndex": 11,
+    "localTotal": 11
+  }
+]

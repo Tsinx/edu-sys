@@ -1,0 +1,506 @@
+{
+  "schema": "port-enterprise-verification/1",
+  "createdAt": "2026-10-25T06:21:46.363Z",
+  "feature": "single-player local long-horizon port enterprise",
+  "rules": {
+    "engine": "port-enterprise/1.0",
+    "catalogue": "port-assets/1.0",
+    "demand": "port-market/1.0",
+    "finance": "port-finance/1.0",
+    "indicators": "port-enterprise-score/1.0"
+  },
+  "delivery": {
+    "archive": "output/port-enterprise-student-windows-x64-2026-10-25.zip",
+    "bytes": 38765536,
+    "sha256": "3503e753e697e9ab7a17cdb10554f9ba5d2d58d7bc0dfeba1ab11dc439939882",
+    "payloadManifestFiles": 13,
+    "windowsArchitecture": "x64",
+    "bundledNode": "v25.8.1",
+    "launchUrl": "http://127.0.0.1:8217"
+  },
+  "checks": {
+    "finalEnterpriseCore": {
+      "tests": 11,
+      "passed": 11,
+      "failed": 0,
+      "log": "output/port-enterprise-qa/enterprise-core-final.log"
+    },
+    "fullCoreEarlierRun": {
+      "tests": 157,
+      "passed": 157,
+      "failed": 0,
+      "note": "Included nine enterprise tests; two later lease/shift regression cases are included in the final 11-test enterprise run."
+    },
+    "productionApiAndWorker": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0,
+      "note": "Bundled ESM API and worker executed with node --test, no tsx; includes ownership, immutable task conditions, idempotency, forged-score rejection and required-full-period rejection.",
+      "log": "output/port-enterprise-qa/production-api-final.log"
+    },
+    "typecheck": {
+      "passed": true,
+      "scope": "all five typed workspace packages",
+      "log": "output/port-enterprise-qa/typecheck-final.log"
+    },
+    "webBuild": {
+      "passed": true,
+      "command": "pnpm --filter @edu/teacher-web exec vite build",
+      "log": "output/port-enterprise-qa/vite-final.log",
+      "warnings": [
+        "existing oversized shared chunks"
+      ]
+    },
+    "browser": {
+      "renderer": "ready",
+      "checks": [
+        "all-business-panels",
+        "authorized-policy",
+        "one-day-local-production",
+        "indexeddb-reload",
+        "page-fullscreen-continuity",
+        "390px-layout",
+        "webgl-unavailable-fallback"
+      ],
+      "errors": []
+    },
+    "tasks": {
+      "checks": [
+        "teacher-publication",
+        "student-personal-attempt",
+        "two-day-local-run",
+        "four-decision-notes",
+        "export-import-own-attempt-association",
+        "sealed-reload-keeps-binding",
+        "explicit-submit",
+        "independent-worker-verified",
+        "teacher-result",
+        "teacher-sealed-read-only-replay"
+      ],
+      "status": "verified",
+      "score": 0.46,
+      "errors": [],
+      "note": "Two-day partial submission accepted only by a task explicitly allowing partial progress; normal task defaults require a full period."
+    },
+    "offline": {
+      "origin": "http://127.0.0.1:8217",
+      "renderer": "ready",
+      "crossRuntimeHash": "014e28f92e13b1dfccb6d5e8ce73b8e424898d0b6cfb459afba72b34d85db523",
+      "checks": [
+        "clean-extracted-bundle",
+        "all-external-and-api-requests-blocked",
+        "equipment-catalogue",
+        "local-worker-production",
+        "page-fullscreen-keeps-draft",
+        "screen-fullscreen-keeps-clock",
+        "denied-fullscreen-shows-error",
+        "json-export",
+        "indexeddb-reload",
+        "complete-three-year-import",
+        "full-three-year-browser-node-state-hash",
+        "previous-save-preserved",
+        "read-only-checkpoint-return"
+      ],
+      "errors": [],
+      "forbidden": []
+    },
+    "launcher": {
+      "url": "http://127.0.0.1:8217",
+      "manifestFiles": 13,
+      "stop": "verified-own-executable",
+      "cleanPath": "D:\\codes\\edu-sys\\output\\port-enterprise-verified-2026-10-25\\port-enterprise-student-2026-10-25",
+      "zipSha256": "3503e753e697e9ab7a17cdb10554f9ba5d2d58d7bc0dfeba1ab11dc439939882",
+      "shell": "Windows PowerShell 5.1.26100.9711",
+      "repeatedLaunch": "same-process",
+      "restart": "same-origin"
+    },
+    "longRuns": {
+      "cases": [
+        {
+          "seed": 20261025,
+          "years": 3,
+          "scenario": "balanced",
+          "hours": 26304,
+          "commands": 235,
+          "recordBytes": 14148,
+          "simulationAndChecksMs": 13627.0464,
+          "replayMs": 5767.7397,
+          "stateHash": "014e28f92e13b1dfccb6d5e8ce73b8e424898d0b6cfb459afba72b34d85db523",
+          "complete": true,
+          "score": 93.27,
+          "cash": 742523549,
+          "goods": [
+            {
+              "kind": "container",
+              "delivered": 606493,
+              "outstanding": 0,
+              "fulfillment": 0.8790802631969916
+            },
+            {
+              "kind": "bulk",
+              "delivered": 687679,
+              "outstanding": 0,
+              "fulfillment": 0.9241518884132669
+            },
+            {
+              "kind": "liquid",
+              "delivered": 765711,
+              "outstanding": 0,
+              "fulfillment": 0.935921435359848
+            },
+            {
+              "kind": "general",
+              "delivered": 101553,
+              "outstanding": 0,
+              "fulfillment": 0.919137360037849
+            },
+            {
+              "kind": "roro",
+              "delivered": 68166,
+              "outstanding": 0,
+              "fulfillment": 0.9362199171343775
+            },
+            {
+              "kind": "passenger",
+              "delivered": 148170,
+              "outstanding": 0,
+              "fulfillment": 0.9180874671862738
+            }
+          ],
+          "activeCalls": 0,
+          "events": 16124
+        },
+        {
+          "seed": 82027,
+          "years": 5,
+          "scenario": "resilience",
+          "hours": 43824,
+          "commands": 671,
+          "recordBytes": 41478,
+          "simulationAndChecksMs": 55931.027500000004,
+          "replayMs": 32421.346399999995,
+          "stateHash": "0791d15a6697ccea7c05fca4d5007fc9b99e8555d2f7b799b4b7b2e2e10dcf0b",
+          "complete": true,
+          "score": 89.88,
+          "cash": 976044583,
+          "goods": [
+            {
+              "kind": "container",
+              "delivered": 897598,
+              "outstanding": 0,
+              "fulfillment": 0.7413500500654531
+            },
+            {
+              "kind": "bulk",
+              "delivered": 693436,
+              "outstanding": 0,
+              "fulfillment": 0.819816581568945
+            },
+            {
+              "kind": "liquid",
+              "delivered": 773426,
+              "outstanding": 0,
+              "fulfillment": 0.8094264363680602
+            },
+            {
+              "kind": "general",
+              "delivered": 112189,
+              "outstanding": 0,
+              "fulfillment": 0.8124972128325648
+            },
+            {
+              "kind": "roro",
+              "delivered": 69669,
+              "outstanding": 0,
+              "fulfillment": 0.8133974727168294
+            },
+            {
+              "kind": "passenger",
+              "delivered": 169975,
+              "outstanding": 0,
+              "fulfillment": 0.8199530143253316
+            }
+          ],
+          "activeCalls": 0,
+          "events": 26975
+        },
+        {
+          "seed": 73027,
+          "years": 3,
+          "scenario": "growth",
+          "hours": 26304,
+          "commands": 252,
+          "recordBytes": 15260,
+          "simulationAndChecksMs": 16690.510800000004,
+          "replayMs": 8635.049400000018,
+          "stateHash": "28ec719a9556da0c471ce3e60750e5db777bc905db37455cf4eca49b38e7dc02",
+          "complete": true,
+          "score": 92.5,
+          "cash": 1193578425,
+          "goods": [
+            {
+              "kind": "container",
+              "delivered": 1014809,
+              "outstanding": 983,
+              "fulfillment": 0.8882105501940498
+            },
+            {
+              "kind": "bulk",
+              "delivered": 1006290,
+              "outstanding": 0,
+              "fulfillment": 0.9513960126999794
+            },
+            {
+              "kind": "liquid",
+              "delivered": 1119864,
+              "outstanding": 0,
+              "fulfillment": 0.9605980740533984
+            },
+            {
+              "kind": "general",
+              "delivered": 154048,
+              "outstanding": 0,
+              "fulfillment": 0.9453162582071117
+            },
+            {
+              "kind": "roro",
+              "delivered": 101050,
+              "outstanding": 0,
+              "fulfillment": 0.9580126933756445
+            },
+            {
+              "kind": "passenger",
+              "delivered": 233400,
+              "outstanding": 0,
+              "fulfillment": 0.9534217310917881
+            }
+          ],
+          "activeCalls": 2,
+          "events": 16502
+        },
+        {
+          "seed": 62027,
+          "years": 3,
+          "scenario": "green",
+          "hours": 26304,
+          "commands": 228,
+          "recordBytes": 13702,
+          "simulationAndChecksMs": 16860.749100000015,
+          "replayMs": 6964.758999999991,
+          "stateHash": "a0332dfecd98e9deca01a0e1aec0a4210eef0549d6d79dcd371a125872cc1da1",
+          "complete": true,
+          "score": 93.62,
+          "cash": 1269768764,
+          "goods": [
+            {
+              "kind": "container",
+              "delivered": 1125971,
+              "outstanding": 0,
+              "fulfillment": 0.8386424049253908
+            },
+            {
+              "kind": "bulk",
+              "delivered": 886934,
+              "outstanding": 0,
+              "fulfillment": 0.9209673395340541
+            },
+            {
+              "kind": "liquid",
+              "delivered": 990454,
+              "outstanding": 0,
+              "fulfillment": 0.9313680956085657
+            },
+            {
+              "kind": "general",
+              "delivered": 144034,
+              "outstanding": 0,
+              "fulfillment": 0.9364897278131192
+            },
+            {
+              "kind": "roro",
+              "delivered": 88520,
+              "outstanding": 0,
+              "fulfillment": 0.9396937760086846
+            },
+            {
+              "kind": "passenger",
+              "delivered": 219369,
+              "outstanding": 0,
+              "fulfillment": 0.9349692298554922
+            }
+          ],
+          "activeCalls": 0,
+          "events": 16565
+        }
+      ],
+      "checks": [
+        "full-calendar",
+        "six-cargo-delivery",
+        "cargo-conservation",
+        "storage-capacity",
+        "cash-ledger",
+        "independent-replay-hash",
+        "terminal-obligations"
+      ]
+    },
+    "diffCheck": {
+      "passed": true,
+      "command": "git diff --check"
+    }
+  },
+  "knownWorkspaceFailures": [
+    {
+      "command": "pnpm test",
+      "suite": "apps/platform-api/test/economic-mathematics.test.ts:244",
+      "workspaceSuite": {
+        "tests": 179,
+        "passed": 178,
+        "failed": 1
+      },
+      "detail": "Existing concept-check-count assertion expects 97, authored course currently has 113. Course authoring changes were already present and are outside this feature."
+    },
+    {
+      "command": "pnpm --filter @edu/teacher-web test",
+      "suite": "apps/teacher-web/test/economic-mathematics-limits.test.tsx:27",
+      "workspaceSuite": {
+        "tests": 313,
+        "passed": 312,
+        "failed": 1
+      },
+      "detail": "Existing assertion version.includes(differentiation) is false for the current authored course release."
+    },
+    {
+      "command": "pnpm --filter @edu/teacher-web build",
+      "stage": "course PDF export after successful Vite build",
+      "detail": "Whole-course PDF printer stopped at port-management page 127/727 with -32000 Printing failed; this full build pipeline is not recorded as passed. Student simulator ZIP has no PDF-export dependency."
+    }
+  ],
+  "boundaries": {
+    "campusServerDeployed": false,
+    "model": "fictional teaching port; hourly cargo batches, versioned scenario parameters",
+    "assessment": "independent deterministic replay verifies consistency; prose quality and remote authorship require teacher judgement",
+    "oldSystems": "legacy experiment source and interpreters preserved; enterprise uses its own rules, IndexedDB database and additive enterprise_* SQL tables"
+  },
+  "cleanup": {
+    "temporaryPackageCleanup": "automatic approval review rejected the combined cleanup command as blocked by policy; temporary folders retained",
+    "finalPackage": "complete and verified"
+  },
+  "sourceFiles": [
+    {
+      "path": "apps/platform-api/src/app.ts",
+      "sha256": "9dd90259a13f7686ad99814cf9e197193b157d5b87baf244c41ca3b8501a86a8"
+    },
+    {
+      "path": "apps/platform-api/src/campus/access.ts",
+      "sha256": "7b1c41b035ee4098dc3e80a856522f86bbb7fe6012ba9c8f59d8377fbd82bef9"
+    },
+    {
+      "path": "apps/platform-api/src/enterprise-routes.ts",
+      "sha256": "cd5e31f1be6dfbe2b56c216175fccbdad523364fb6785bf872290d0ac0c0e812"
+    },
+    {
+      "path": "apps/platform-api/src/enterprise-submission-worker.ts",
+      "sha256": "984b0ee0939111343d53fdf0c83aadbc4ce169a888c0e328bd945d41d2f07342"
+    },
+    {
+      "path": "apps/teacher-web/port-enterprise.html",
+      "sha256": "4ec66f9468b7202f21e3d667576959a866cc9ece22f4d8b4563ebc13fb16f15b"
+    },
+    {
+      "path": "apps/teacher-web/src/App.tsx",
+      "sha256": "8906d3e051b308a56f42d27d35d818b19ae4a86ba5f243942fd966981bb061fd"
+    },
+    {
+      "path": "apps/teacher-web/src/campus/StudentApp.tsx",
+      "sha256": "676c1e851757b4f14f2d21aba3b292af5a9a8cdcce65d4fd300012a9ac813a7b"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseApp.tsx",
+      "sha256": "eb0ee02a3e0f14dd33c05131209a77e1427655451da61d89e784d1de3ced5be4"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseForms.tsx",
+      "sha256": "56df9a9458c5162637641e44c3a50d93aac67536ce8808b58d8f1a7335e30032"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterprisePanels.tsx",
+      "sha256": "0fcdc43df4d798b33525d80b75ae3335713c11bbfba735545625db82b502a6c9"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseScene.tsx",
+      "sha256": "5a11a033685755eafdf63418411f18c3559fd2bf0da495651d40ca8045d7fd24"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseTasks.tsx",
+      "sha256": "f7046b646fe75f54983a9e3f4309745a7b2b679e43e57ea46565de015bab9e57"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-storage.ts",
+      "sha256": "5ca30006e58c5e970eff8192a939f34b67fec25d09531aca799ea3e698d09697"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/enterprise.css",
+      "sha256": "dce8d6f095ff76a2af2531eb9de59d36e80f7943a90f9539b74c96ed5b1ceae3"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/enterprise.worker.ts",
+      "sha256": "48cee4e697b7aa2a6eedfc9c3c2645e93f453fbba2e786e20471396e10e5aeb8"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/useEnterprise.ts",
+      "sha256": "b5812eb014fe74ca4039722b3f1549747384f80597c3b01e43d9e4c2235c15c9"
+    },
+    {
+      "path": "apps/teacher-web/src/port-enterprise.tsx",
+      "sha256": "f40c3816ce190f61b3f923ccc9b4a60493ad9a05070176eb8bc90cacaf65490d"
+    },
+    {
+      "path": "apps/teacher-web/src/portal/WorkspacePages.tsx",
+      "sha256": "c7a4a251c89e16863b1b80779a70fd49295d7802becf6dd3abc0a824705e6e05"
+    },
+    {
+      "path": "apps/teacher-web/vite.config.ts",
+      "sha256": "ad06e4d3ec98e5d78ca809f9d82a998c69535e8b13c773a507e2bbf7727ee993"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise-catalogue.ts",
+      "sha256": "f148dd33af14dfe632ad92ae731f4c7826c73810d33af9b67b68f5d036022933"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise-engine.ts",
+      "sha256": "c4a07104160b304a084ce47ee7d311583ccfd2971f6fa4a017431fd5fc92ebcd"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise-model.ts",
+      "sha256": "0e8eaa6a988c6f6c9de6e47b9fa9c9e20c93e57cc801e641f9524317ed0a2a80"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise-operations.ts",
+      "sha256": "b4e2255c149f5ee9a2f71b5d3e14888b24200266cb64095ade20ad5746d9aa76"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise-review.ts",
+      "sha256": "da747122a6174a935da55e2558b327a2b840c824dbd5f6bbd906b728e99abeb5"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise-support.ts",
+      "sha256": "7f234f483fb9ee1df1431f9cd1171c6d7d9c6eb401dbd0f2c4498f0cadee0c28"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise.ts",
+      "sha256": "f642e3c5746a7f561113853e2b67780c2a967d6c6299d25f80301b4ff9d57391"
+    },
+    {
+      "path": "packages/port-simulation-core/src/index.ts",
+      "sha256": "c3f9ee7ed038f158ae40ed7829817e2ef1ce7304ee9179ad562238b967cd112b"
+    },
+    {
+      "path": "scripts/build-campus-release.mjs",
+      "sha256": "59a4e18ba7977fabb0f479ae31504c18de136b3afbce172cf7df186d38e9d3db"
+    },
+    {
+      "path": "scripts/package-port-enterprise.mjs",
+      "sha256": "a5be02730808f0b259a63e0f741596e246e7346cd906e22d90132c69ffa585f5"
+    }
+  ]
+}

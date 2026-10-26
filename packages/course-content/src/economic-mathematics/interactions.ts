@@ -176,10 +176,18 @@ export const ECONOMIC_MATHEMATICS_INTERACTIONS: Readonly<
 };
 
 export function getEconomicMathematicsInteractionDefinition(
-  slide: Pick<EconomicMathematicsSlideSpec, "interactionId" | "slideKey" | "steps" | "interactionDefaults" | "merchantLab" | "limitLab" | "historyFilm" | "foundationLab">
+  slide: Pick<EconomicMathematicsSlideSpec, "interactionId" | "slideKey" | "steps" | "interactionDefaults" | "merchantLab" | "limitLab" | "historyFilm" | "foundationLab" | "analysisLab">
 ): EconomicMathematicsInteractionDefinition | null {
-  if (!slide.interactionId && !slide.steps?.length && !slide.limitLab && !slide.historyFilm && !slide.foundationLab) return null;
-  const definition: EconomicMathematicsInteractionDefinition = slide.foundationLab ? {
+  if (!slide.interactionId && !slide.steps?.length && !slide.limitLab && !slide.historyFilm && !slide.foundationLab && !slide.analysisLab) return null;
+  const definition: EconomicMathematicsInteractionDefinition = slide.analysisLab ? {
+    id:'presentation',label:'本页数学实验',
+    ...({
+      mvt:{defaults:{mvtModel:'square',cutFraction:.25},rules:{mvtModel:{type:'enum',values:['square','cubic','cubic-symmetric','absolute','endpoint-jump','root','sine']},cutFraction:numberRule(.01,.99,.01)}},
+      'cost-bound':{defaults:{boundIncrement:10},rules:{boundIncrement:numberRule(0,20,.5)}},
+      cauchy:{defaults:{commonPoint:1.55},rules:{commonPoint:numberRule(1.45,1.6,.001)}},
+      'quotient-oscillation':{defaults:{oscillationScale:'1',witnessN:4},rules:{oscillationScale:{type:'enum',values:['1','10','100','1000']},witnessN:numberRule(1,100,1,true)}}
+    } satisfies Record<NonNullable<EconomicMathematicsSlideSpec['analysisLab']>,Pick<EconomicMathematicsInteractionDefinition,'defaults'|'rules'>>)[slide.analysisLab]
+  } : slide.foundationLab ? {
     id:'presentation', label:'本页数学实验',
     ...({
       angle:{defaults:{angle:.6},rules:{angle:numberRule(.05,.8,.05)}},

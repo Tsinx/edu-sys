@@ -9,7 +9,34 @@ import {ClassroomParticipation} from '../src/classroom-participation.js';
 import {RankedPractice} from '../src/ranked-practice.js';
 import {rankedPracticePacks,publicPack} from '../src/practice-content/index.js';
 import {buildApp} from '../src/app.js';
+import {practice04 as legacy04} from '../src/practice-content/lesson-04.js';
+import {practice05 as legacy05} from '../src/practice-content/lesson-05.js';
 const actor=(id:string,teacher=false):ClassroomActor=>({actorId:id,displayName:id,roles:[teacher?'teacher':'student'],identitySource:'development'});
+
+test('revised lesson packs leave historical v1 classroom snapshots and answers unchanged',async()=>{
+ const dir=await mkdtemp(join(tmpdir(),'edu-ranked-versions-'));
+ const participation=new ClassroomParticipation(join(dir,'state.db'),()=>true),practice=new RankedPractice(participation,()=>true);
+ try{
+  for(const legacy of [legacy04,legacy05]){
+   const revised=rankedPracticePacks.find(p=>p.lesson===legacy.lesson)!,session=`version-check-${legacy.lesson}`,student=actor('reader');
+   participation.join(session,student,'Reader');
+   const oldId=practice.open(session,randomUUID(),legacy);
+   practice.answer(session,oldId,student,legacy.questions[0]!.id,'B',0);
+   practice.action(session,oldId,'close');
+   const newId=practice.open(session,randomUUID(),revised);
+   const oldView=practice.view(session,oldId,student),newView=practice.view(session,newId,student);
+   assert.equal(oldView.pack.version,'1.0.0');assert.equal(newView.pack.version,'2.0.0');
+   assert.equal(oldView.responses[0]!.selectedOptionId,'B');assert.equal(newView.responses.length,0);
+   assert.equal(oldView.pack.questions[4]!.stem,legacy.questions[4]!.stem);
+   assert.deepEqual(oldView.pack,publicPack(legacy));assert.deepEqual(newView.pack,publicPack(revised));
+   assert.equal(oldView.results,null);assert.equal(newView.results,null);
+  }
+ }finally{
+  practice.close();participation.close();
+  assert.ok(dir.startsWith(join(tmpdir(),'edu-ranked-versions-')));
+  await rm(dir,{recursive:true,force:true});
+ }
+});
 test('practice snapshots, partial responses, revisions, duplicate opening, isolation and persisted reveal',async()=>{
  const dir=await mkdtemp(join(tmpdir(),'edu-ranked-practice-'));const file=join(dir,'classroom.sqlite');let live=true;
  let participation=new ClassroomParticipation(file,()=>live),practice=new RankedPractice(participation,()=>live);

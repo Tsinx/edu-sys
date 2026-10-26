@@ -22,8 +22,8 @@ export function expandV2(lesson:MathematicsLesson):MathematicsLesson{
   case 1:return expandLesson(lesson,additions01,72,guides01,['Units, percentages and payment rules','Equations and price boundaries']);
   case 2:return expandLesson(lesson,additions02,76,guides02,['Functions and lines','Demand, supply and agreement']);
   case 3:return schedule03(expandLesson(lesson,additions03,100,guides03,['Completing squares and understanding roots','Coefficients, revenue and practice'],[2700,1500]));
-  case 4:return expandLesson(lesson,additions04,74,guides04,['Powers and multiplicative growth','Logarithms and target times']);
-  case 5:return expandLesson(lesson,additions05,88,guides05,['From observations to a difference quotient','From a quotient to an instantaneous rate']);
+  case 4:return expandLesson(lesson,additions04,74,guides04,['Powers and multiplicative growth','Logarithms and target times'],[2700,1500]);
+  case 5:return expandLesson(lesson,additions05,88,guides05,['From observations to a difference quotient','From a quotient to an instantaneous rate'],[2700,1500]);
   case 6:return expandLesson(lesson,additions06,78,guides06,['Constants, powers and cost rates','Negative powers and checks']);
   case 7:return expandLesson(lesson,additions07,86,guides07,['Linked rates and the chain rule','Two contributions and the product rule']);
   case 8:return expandLesson(lesson,additions08,78,guides08,['Exponential levels and growth rates','Logarithmic rates and domains']);

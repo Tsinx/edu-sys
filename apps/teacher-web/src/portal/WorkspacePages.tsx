@@ -40,6 +40,7 @@ import { SlideStage } from "../features/classroom/TeachingSlides";
 import {EnglishReadingAssistant} from "../features/study/EnglishReadingAssistant";
 import "../features/study/english-reading-assistant.css";
 import { PortResultDetail } from "../features/port-simulation/PortResultsPage";
+import { EnterprisePortalCard } from '../features/port-simulation/enterprise/EnterprisePortalCard';
 import {
   resultRequest,
   submissionStatus,
@@ -412,6 +413,7 @@ function CourseCards({
                 <Link to={`/courses/${c.id}`}>{deck?.locale === "en" ? "Open course workspace →" : "打开课程工作区 →"}</Link>
               )}
               <div className="workspace-course-tools">
+                {c.id === PORT && <><Link to="/port-enterprise">长期独立经营 →</Link><Link to="/port-enterprise?tab=tasks">{student ? '个人经营任务与提交 →' : '长期经营任务与个人结果 →'}</Link></>}
                 {student ? (
                   <Link to={`/courses/${c.id}/activity-history`}>
                     {deck?.locale === "en" ? "Class activity history →" : "课堂活动记录 →"}
@@ -557,6 +559,7 @@ export function CourseWorkspace() {
           ["activities", t("教学活动", "Teaching activities")],
           ["classrooms", t("课堂记录", "Class records")],
           ...(courseId === PORT ? [["experiments", "实验与成绩"]] : []),
+          ...(courseId === PORT ? [["enterprise", "长期经营"]] : []),
           ["settings", t("课程设置", "Course settings")],
         ].map(([id, label]) => (
           <button
@@ -616,6 +619,7 @@ export function CourseWorkspace() {
       {tab === "activities" && (
         <ActivityWorkspace courseId={courseId} embedded />
       )}
+      {tab === 'enterprise' && courseId === PORT && <EnterprisePortalCard/>}
       {tab === "classrooms" && (
         <>
           <details className="workspace-section">
@@ -837,6 +841,7 @@ export function TaskWorkspace({ embedded = false }: { embedded?: boolean }) {
       <ErrorText text={error} />
       <div className="workspace-grid">
         {PORT_SUBMISSION_UNITS.map((u) => {
+          // Long-horizon personal tasks have their own versioned attempt contract.
           const task = data?.tasks.find((t) => t.unit === u.id),
             row = results?.rows[0],
             result = row?.results.find((s) => s.unit === u.id),
@@ -880,6 +885,7 @@ export function TaskWorkspace({ embedded = false }: { embedded?: boolean }) {
             </article>
           );
         })}
+        <EnterprisePortalCard variant="tasks"/>
       </div>
       <p>
         独立实验保存于个人练习空间；课堂内的实验保存于课堂任务空间。演示和练习进度各自保留。
@@ -888,6 +894,7 @@ export function TaskWorkspace({ embedded = false }: { embedded?: boolean }) {
   );
 }
 export function SubmissionHistory() {
+  const workspace = useWorkspace();
   const [data, setData] = useState<{
       rows: SubmissionSummary[];
       total: number;
@@ -924,6 +931,7 @@ export function SubmissionHistory() {
         这里只显示您的正式提交。同步练习存档不会自动提交成绩。核验通过后，教师即可查看。
       </p>
       <Link to="/tasks">返回实验任务</Link>
+      {workspace.data?.courses.some(course => course.id === PORT) && <EnterprisePortalCard variant="history"/>}
       <ErrorText text={error} />
       {data?.rows.map((s) => (
         <article className="workspace-row" key={s.id}>
@@ -950,7 +958,7 @@ export function SubmissionHistory() {
       ))}
       {data && !data.total && (
         <p className="workspace-empty">
-          还没有正式提交。请在实验页使用“结束并提交”。
+          暂无分段或短期实验提交。长期经营提交见上方；实验记录需主动提交后才进入历史。
         </p>
       )}
       <Pager page={page} total={data?.total ?? 0} onPage={setPage} />

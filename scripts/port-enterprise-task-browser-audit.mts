@@ -1,0 +1,134 @@
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+process.chdir(fileURLToPath(new URL('..', import.meta.url)));
+const require = createRequire('C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/entry.js');
+const { chromium } = require('playwright');
+const connection = JSON.parse(await readFile(resolve('apps/platform-api/output/port-enterprise-qa/test-connection.json'), 'utf8'));
+const output = resolve('output/port-enterprise-qa'); await mkdir(output, { recursive: true });
+const browser = await chromium.launch({ headless: true, args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--disable-gpu-sandbox'] });
+const errors: string[] = [], title = '浏览器个人任务验收 ' + Date.now();
+async function login(username: string) {
+  const context = await browser.newContext({ viewport: { width: 1480, height: 1050 }, reducedMotion: 'reduce' });
+  const response = await context.request.post(connection.web + '/api/identity/login', { data: { username, password: connection.password } });
+  assert.equal(response.ok(), true, 'isolated test identity login');
+  const page = await context.newPage(); page.on('pageerror', (e: Error) => errors.push(e.message));
+  await page.goto(connection.web + '/port-enterprise?tab=tasks', { waitUntil: 'domcontentloaded' });
+  await page.locator('.enterprise-app[data-enterprise-hour]').waitFor({ timeout: 60000 });
+  return { context, page };
+}
+try {
+  const teacher = await login('enterprise-teacher');
+  await teacher.page.goto(connection.web+'/courses/course-port-management-intro?tab=enterprise',{waitUntil:'domcontentloaded'});
+  await teacher.page.locator('[data-enterprise-portal="course"]').getByRole('link',{name:'发布长期经营任务与查看个人结果'}).click();
+  await teacher.page.locator('.enterprise-app[data-enterprise-hour]').waitFor();
+  const publish = teacher.page.getByRole('form', { name: '公布新的独立经营任务' });
+  await publish.getByLabel('任务名称').fill(title);
+  await publish.getByLabel('经营年数').selectOption('1');
+  await publish.getByLabel('要求完成全部经营期').uncheck();
+  await publish.getByRole('button', { name: '公布个人任务' }).click();
+  await teacher.page.getByRole('status').filter({ hasText: '已公布任务：' + title }).waitFor();
+  const student = await login('enterprise-student'), page = student.page;
+  await page.goto(connection.web+'/',{waitUntil:'domcontentloaded'});
+  const courseCard=page.locator('.workspace-card').filter({has:page.getByRole('heading',{name:'港口管理概论',exact:true})});
+  await courseCard.getByRole('link',{name:'长期独立经营 →',exact:true}).click();
+  await page.locator('.enterprise-app').waitFor();
+  await page.goto(connection.web+'/tasks',{waitUntil:'domcontentloaded'});
+  await page.locator('[data-enterprise-portal="tasks"]').getByRole('link',{name:'查看长期经营任务与提交',exact:true}).click();
+  await page.locator('.enterprise-app').waitFor();
+  const task = page.locator('.enterprise-task-list article').filter({ hasText: title });
+  await task.getByRole('button', { name: '建立正式个人场次' }).click();
+  await page.getByText('正式任务场次', { exact: true }).waitFor({ timeout: 30000 });
+  const nav = page.getByRole('navigation', { name: '经营工作台' });
+  await nav.getByRole('button', { name: '联合调度', exact: true }).click();
+  const policy = page.getByRole('form', { name: '更新生产与保障策略' });
+  await policy.getByLabel('授权独立资料复核与异常核查').check();
+  await policy.getByRole('button', { name: '应用运行策略' }).click();
+  await page.getByRole('status').filter({ hasText: '运行策略已更新' }).waitFor();
+  await page.getByLabel('每次推进时长').selectOption('24');
+  for (const hour of [24, 48]) {
+    await page.getByRole('button', { name: '推进一次', exact: true }).click();
+    await page.locator('.enterprise-app[data-enterprise-hour="' + hour + '"]').waitFor({ timeout: 30000 });
+  }
+  await nav.getByRole('button', { name: '决策说明', exact: true }).click();
+  for (const topic of ['经营决策', '设备投资', '生产调度', '异常与边界']) {
+    const note = page.getByRole('form', { name: '保存个人决策说明' });
+    await note.getByLabel('决策类别').selectOption(topic);
+    await note.getByLabel('依据、决定与观察').fill('依据本次实际设备状态、库存、回执和现金安排资源，在相同时间观察履约结果，并保留解释条件与局限。' + topic);
+    await note.getByRole('button', { name: '保存到经营记录' }).click();
+    await page.locator('.enterprise-notes article').filter({ hasText: topic }).waitFor();
+  }
+  await page.getByRole('button', { name: '封存本场', exact: true }).click();
+  await page.getByText('本场次已封存。可导出、回放或主动提交；另建练习会保留本记录。', { exact: true }).waitFor();
+  const exportEvent=page.waitForEvent('download');
+  await page.getByRole('button',{name:'导出存档',exact:true}).click();
+  const exported=await exportEvent;
+  await nav.getByRole('button',{name:'存档与回放',exact:true}).click();
+  await page.getByLabel('导入经营记录',{exact:false}).setInputFiles(await exported.path());
+  await page.locator('.enterprise-app[data-enterprise-hour="48"]').waitFor();
+  await page.getByText('自由经营 · 本机存档',{exact:true}).waitFor();
+  await nav.getByRole('button',{name:'任务与提交',exact:true}).click();
+  await page.locator('.enterprise-task-list article').filter({hasText:title}).getByRole('button',{name:'关联当前导入记录'}).click();
+  await page.getByRole('status').filter({hasText:'当前导入记录已关联到自己的正式场次'}).waitFor();
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await page.locator('.enterprise-app[data-enterprise-hour="48"]').waitFor({ timeout: 30000 });
+  await page.getByRole('navigation', { name: '经营工作台' }).getByRole('button', { name: '任务与提交', exact: true }).click();
+  await page.getByRole('button', { name: '主动提交教师', exact: true }).click();
+  await page.getByRole('status').filter({ hasText: '提交已接收' }).waitFor({ timeout: 30000 });
+  const tasks = await student.context.request.get(connection.web + '/api/port-enterprise/tasks');
+  const data = await tasks.json(), published = data.tasks.find((t: { title: string }) => t.title === title);
+  const attempt = data.attempts.find((a: { taskId: string }) => a.taskId === published.id);
+  assert.ok(attempt);
+  let verified;
+  for (let n = 0; n < 100; n++) {
+    verified = await (await student.context.request.get(connection.web + '/api/port-enterprise/attempts/' + attempt.id)).json();
+    if (['verified', 'rejected'].includes(verified.status)) break;
+    await new Promise(r => setTimeout(r, 100));
+  }
+  assert.equal(verified.status, 'verified', verified.error);
+  await page.goto(connection.web+'/submissions',{waitUntil:'domcontentloaded'});
+  const history=page.locator('[data-enterprise-portal="history"]');
+  await history.locator('.workspace-row').filter({hasText:title}).getByRole('link',{name:'查看任务与复盘'}).click();
+  await page.getByRole('heading',{name:title+' · 个人结果',exact:true}).waitFor();
+  await teacher.page.goto(connection.web+'/',{waitUntil:'domcontentloaded'});
+  await teacher.page.getByRole('button',{name:/^新提交.*1/}).click();
+  await teacher.page.getByRole('button',{name:'标记已读',exact:true}).click();
+  await teacher.page.getByRole('button',{name:'新提交',exact:true}).waitFor();
+  await teacher.page.goto(connection.web+'/courses/course-port-management-intro/experiment-results',{waitUntil:'domcontentloaded'});
+  await teacher.page.locator('[data-enterprise-portal="course"] .workspace-row').filter({hasText:title}).getByRole('link',{name:'查看任务与复盘'}).click();
+  const teacherTask = teacher.page.locator('.enterprise-task-list article').filter({ hasText: title });
+  await teacherTask.getByRole('button', { name: '查看个人结果' }).click();
+  await teacher.page.locator('button:enabled').filter({ hasText: /^打开只读复盘$/ }).click();
+  await teacher.page.locator('.enterprise-app[data-enterprise-hour="48"]').waitFor({ timeout: 30000 });
+  await teacher.page.getByRole('heading', { name: '绩效、对照与经营证据' }).waitFor();
+  await teacher.page.screenshot({ path: resolve(output, 'teacher-personal-replay.png'), fullPage: true });
+  assert.equal(await teacher.page.getByRole('button', { name: '推进一次', exact: true }).isDisabled(), true);
+  const all = await (await teacher.context.request.get(connection.web + '/api/port-enterprise/tasks/' + published.id + '/results')).json();
+  assert.equal(all.rows.find((r: { selected?: { id: string } }) => r.selected?.id === attempt.id)?.selected.result.total, verified.result.total);
+  const classroom=await teacher.context.request.post(connection.web+'/api/courses/course-port-management-intro/class-sessions',{data:{mode:'new',lesson:17,requestId:crypto.randomUUID()}});
+  assert.equal(classroom.ok(),true,'isolated port classroom creation');
+  const session=await classroom.json();
+  await teacher.page.goto(connection.web+'/classroom/'+session.id,{waitUntil:'domcontentloaded'});
+  await teacher.page.getByRole('button',{name:'更多工具',exact:true}).click();
+  await teacher.page.getByRole('button',{name:'课程资源',exact:true}).click();
+  await teacher.page.getByRole('link',{name:'港口长期独立经营 ↗',exact:true}).waitFor();
+  assert.equal(await teacher.page.locator('footer.presentation-toolbar').count(),1,'single teacher toolbar');
+  await page.goto(connection.web+'/join/'+session.id,{waitUntil:'domcontentloaded'});
+  await page.getByRole('button',{name:'更多工具',exact:true}).click();
+  await page.getByRole('button',{name:'个人经营',exact:true}).click();
+  await page.getByRole('link',{name:'打开个人长期经营 ↗',exact:true}).waitFor();
+  assert.equal(await page.locator('footer.presentation-toolbar').count(),1,'single student toolbar');
+  assert.equal(await page.getByRole('dialog',{name:'个人经营'}).getByText('发布任务',{exact:false}).count(),0);
+  for(const target of ['/tasks','/submissions']){
+    await page.setViewportSize({width:390,height:844});
+    await page.goto(connection.web+target,{waitUntil:'domcontentloaded'});
+    await page.locator('[data-enterprise-portal]').waitFor();
+    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1),'narrow portal overflow '+target);
+  }
+  await page.screenshot({path:resolve(output,'student-platform-submissions-narrow.png'),fullPage:true});
+  assert.deepEqual(errors, []);
+  const report = { checks: ['course-workspace-entry','student-course-card-entry','task-center-entry','teacher-publication', 'student-personal-attempt', 'two-day-local-run', 'four-decision-notes', 'export-import-own-attempt-association', 'sealed-reload-keeps-binding', 'explicit-submit', 'independent-worker-verified','student-submission-history-deep-link','teacher-unread-notification-and-mark-read','teacher-results-center', 'teacher-result', 'teacher-sealed-read-only-replay','teacher-classroom-resource','student-local-classroom-resource','single-toolbar-per-shell','390px-task-and-history'], status: verified.status, score: verified.result.total, errors };
+  await writeFile(resolve(output, 'task-browser-report.json'), JSON.stringify(report, null, 2)); console.log(JSON.stringify(report));
+} finally { await browser.close(); }

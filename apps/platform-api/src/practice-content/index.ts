@@ -1,8 +1,8 @@
 import { practice01 } from './lesson-01.js';
 import { practice02 } from './lesson-02.js';
 import { practice03 } from './lesson-03.js';
-import { practice04 } from './lesson-04.js';
-import { practice05 } from './lesson-05.js';
+import { practice04 } from './lesson-04-v2.js';
+import { practice05 } from './lesson-05-v2.js';
 import { practice06 } from './lesson-06.js';
 import { practice07 } from './lesson-07.js';
 import { practice08 } from './lesson-08.js';

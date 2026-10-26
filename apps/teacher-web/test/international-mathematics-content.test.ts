@@ -283,7 +283,7 @@ test('current release restores all legacy destinations by keys before indices an
   for(const hour of lesson.hours!){
    const block=lesson.slides.filter(s=>s.pedagogy?.hour===hour.number);
    assert.equal(block.length,hour.coreSlides);
-   assert.equal(block.reduce((n,s)=>n+s.pedagogy!.seconds!,0),lesson.number===3&&hour.number===2?1500:2700);
+   assert.equal(block.reduce((n,s)=>n+s.pedagogy!.seconds!,0),[3,4,5].includes(lesson.number)&&hour.number===2?1500:2700);
    assert.ok(block.every(s=>!s.optionalChallenge));
   }
  }

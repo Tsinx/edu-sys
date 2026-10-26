@@ -140,7 +140,8 @@ test("English page prompts use authored sources and withhold unrevealed answers 
   }
 });
 
-test("additive migration preserves edits and playback controls are authorized, revisioned and persisted", async () => {
+for (const playbackKind of ['opening film','wheat story'] as const)
+test(`additive migration preserves edits and ${playbackKind} controls are authorized, revisioned and persisted`, async () => {
   const directory = await mkdtemp(join(tmpdir(), "edu-international-"));
   const dataFile = join(directory, "state.json");
   const seed = createSeedState();
@@ -151,7 +152,7 @@ test("additive migration preserves edits and playback controls are authorized, r
   const options = {dataFile, logger: false, portSimulationTickMs: 0, allowDevelopmentIdentity: true, allowLegacyDevelopmentIdentity: true};
   let app = await buildApp(options);
   let sessionId = "";
-  const film = slides.find(slide => slide.openingFilm)!;
+  const film = slides.find(slide => playbackKind==='opening film'?slide.openingFilm:slide.storyAnimation==='wheat-chessboard')!;
   assert.ok(film);
   try {
     const cookie = async (role: "teacher" | "student") => String((await app.inject({method: "POST", url: "/api/identity/development/session", payload: {role}})).headers["set-cookie"]).split(";")[0]!;

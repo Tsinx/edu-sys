@@ -1,0 +1,90 @@
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+process.chdir(fileURLToPath(new URL('..', import.meta.url)));
+const require = createRequire('C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/entry.js');
+const { chromium } = require('playwright');
+const origin = process.argv[2] ?? 'http://127.0.0.1:8217', output = resolve('output/port-enterprise-qa');
+await mkdir(output, { recursive: true });
+const browser = await chromium.launch({ headless: true, args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--disable-gpu-sandbox'] });
+const context = await browser.newContext({ viewport: { width: 1480, height: 1050 }, reducedMotion: 'reduce', acceptDownloads: true });
+await context.addInitScript(() => {
+  const NativeWorker = window.Worker;
+  window.Worker = class extends NativeWorker {
+    constructor(url: string | URL, options?: WorkerOptions) {
+      super(url, options);
+      this.addEventListener('message', event => {
+        if (typeof event.data?.hash === 'string') (window as unknown as { enterpriseAuditHash: string }).enterpriseAuditHash = event.data.hash;
+      });
+    }
+  };
+});
+const errors: string[] = [], forbidden: string[] = [];
+await context.route('**/*', route => {
+  const url = new URL(route.request().url());
+  if (url.origin === origin && !url.pathname.startsWith('/api/')) return route.continue();
+  forbidden.push(url.origin + url.pathname); return route.abort();
+});
+const page = await context.newPage(); page.on('pageerror', (e: Error) => errors.push(e.message));
+try {
+  await page.goto(origin, { waitUntil: 'domcontentloaded', timeout: 60000 });
+  await page.locator('.enterprise-app[data-enterprise-hour="0"]').waitFor({ timeout: 60000 });
+  await page.locator('.enterprise-scene[data-renderer="ready"]').waitFor({ timeout: 60000 });
+  const nav = page.getByRole('navigation', { name: '经营工作台' });
+  await nav.getByRole('button', { name: '设备资产', exact: true }).click();
+  await page.getByText('展开设备规格与选型目录', { exact: false }).click();
+  await page.getByRole('cell', { name: /大伸距岸桥/ }).first().waitFor();
+  await nav.getByRole('button', { name: '联合调度', exact: true }).click();
+  const policy = page.getByRole('form', { name: '更新生产与保障策略' });
+  await policy.getByLabel('授权独立资料复核与异常核查').check();
+  await policy.getByRole('button', { name: '应用运行策略' }).click();
+  await page.getByRole('status').filter({ hasText: '运行策略已更新' }).waitFor();
+  await page.getByLabel('每次推进时长').selectOption('24');
+  await page.getByRole('button', { name: '推进一次', exact: true }).click();
+  await page.locator('.enterprise-app[data-enterprise-hour="24"]').waitFor();
+  await nav.getByRole('button', { name: '决策说明', exact: true }).click();
+  const note = page.getByRole('form', { name: '保存个人决策说明' });
+  const draft = '未提交的个人观察：核对设备排班和现金，比较同一时点的库存与到期履约。';
+  await note.getByLabel('依据、决定与观察').fill(draft);
+  await page.getByRole('button', { name: '网页全屏', exact: true }).click();
+  await page.getByRole('button', { name: '退出网页全屏', exact: true }).click();
+  assert.equal(await note.getByLabel('依据、决定与观察').inputValue(), draft);
+  await page.getByRole('button', { name: '屏幕全屏', exact: true }).click();
+  await page.getByRole('button', { name: '退出屏幕全屏', exact: true }).waitFor();
+  assert.equal(await page.locator('.enterprise-app').getAttribute('data-enterprise-hour'), '24');
+  await page.getByRole('button', { name: '退出屏幕全屏', exact: true }).click();
+  await page.evaluate(() => { Element.prototype.requestFullscreen = () => Promise.reject(new Error('Denied for test')); });
+  await page.getByRole('button', { name: '屏幕全屏', exact: true }).click();
+  await page.getByRole('alert').filter({ hasText: '浏览器未允许屏幕全屏' }).waitFor();
+  assert.equal(await page.locator('.presentation-page-fullscreen').count(), 0);
+  assert.equal(await note.getByLabel('依据、决定与观察').inputValue(), draft);
+  const downloaded = page.waitForEvent('download');
+  await page.getByRole('button', { name: '导出存档', exact: true }).click();
+  const download = await downloaded, record = JSON.parse(await readFile(await download.path(), 'utf8'));
+  assert.equal(record.schema, 'port-enterprise/1.0');
+  assert.equal(Object.hasOwn(record, 'actorId'), false); assert.equal(record.commands.at(-1).kind, 'advance');
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await page.locator('.enterprise-app[data-enterprise-hour="24"]').waitFor({ timeout: 30000 });
+  await nav.getByRole('button', { name: '存档与回放', exact: true }).click();
+  const filesBefore = await page.getByRole('button', { name: '恢复该记录' }).count();
+  await page.getByLabel('导入经营记录', { exact: false }).setInputFiles(resolve(output, 'three-year-record.json'));
+  await page.locator('.enterprise-app[data-enterprise-hour="26304"]').waitFor({ timeout: 120000 });
+  await page.locator('.enterprise-header__date').getByText('经营期已结束',{exact:false}).waitFor();
+  const crossRuntimeHash=await page.evaluate(()=>(window as unknown as {enterpriseAuditHash:string}).enterpriseAuditHash);
+  const longRun=JSON.parse(await readFile(resolve(output,'long-run-report.json'),'utf8')).cases.find((c:{scenario:string})=>c.scenario==='balanced');
+  assert.equal(crossRuntimeHash,longRun.stateHash,'full three-year browser worker and independent Node engine state hashes');
+  await nav.getByRole('button', { name: '存档与回放', exact: true }).click();
+  assert.equal(await page.getByRole('button', { name: '恢复该记录' }).count(), filesBefore + 1);
+  await page.getByRole('button', { name: '只读查看检查点' }).first().click();
+  await page.getByText('只读回放 · 当前经营存档保持不变。', { exact: false }).waitFor();
+  assert.equal(await page.getByRole('button', { name: '推进一次', exact: true }).isDisabled(), true);
+  await page.getByRole('button', { name: '返回当前经营现场', exact: true }).first().click();
+  await page.locator('.enterprise-app[data-enterprise-hour="26304"]').waitFor();
+  await nav.getByRole('button', { name: '全港总览', exact: true }).click();
+  await page.screenshot({ path: resolve(output, 'offline-complete-three-years.png'), fullPage: true });
+  assert.deepEqual(errors, []); assert.deepEqual(forbidden, []);
+  const report = { origin, renderer: 'ready', crossRuntimeHash, checks: ['clean-extracted-bundle', 'all-external-and-api-requests-blocked', 'equipment-catalogue', 'local-worker-production', 'page-fullscreen-keeps-draft', 'screen-fullscreen-keeps-clock', 'denied-fullscreen-shows-error', 'json-export', 'indexeddb-reload', 'complete-three-year-import', 'full-three-year-browser-node-state-hash', 'previous-save-preserved', 'read-only-checkpoint-return'], errors, forbidden };
+  await writeFile(resolve(output, 'offline-browser-report.json'), JSON.stringify(report, null, 2)); console.log(JSON.stringify(report));
+} finally { await browser.close(); }

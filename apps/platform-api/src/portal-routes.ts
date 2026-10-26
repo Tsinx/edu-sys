@@ -17,6 +17,7 @@ export function registerPortal(
   submissions: PortSubmissionRepository,
   resolve: (r: FastifyRequest) => Promise<ClassroomActor | null>,
   allowed: (a: ClassroomActor) => string[] | null,
+  additionalVerified?: (since: string, courseIds: string[]) => number,
 ) {
   const actor = async (r: FastifyRequest) => {
     const a = await resolve(r);
@@ -56,13 +57,15 @@ export function registerPortal(
         "SELECT COUNT(*) AS n FROM port_submissions WHERE updated_at>? AND status='verified' AND course_id IN (SELECT value FROM json_each(?))",
       )
       .get(preferences.submissionsReadAt, JSON.stringify(own.map((c) => c.id)));
+    const newEnterpriseSubmissions = teacher ? additionalVerified?.(preferences.submissionsReadAt, courses.map(c => c.id)) ?? 0 : 0;
     return {
       actor: a,
       courses,
       ownCourseIds: own.map((c) => c.id),
       sessions,
       preferences,
-      newSubmissions: teacher ? Number(recent?.n ?? 0) : 0,
+      newSubmissions: teacher ? Number(recent?.n ?? 0) + newEnterpriseSubmissions : 0,
+      newEnterpriseSubmissions,
     };
   });
   app.get("/api/preferences", async (r) => ({

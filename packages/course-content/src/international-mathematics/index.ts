@@ -20,6 +20,7 @@ import {FACTORISATION_SUPPLEMENT,FACTORISATION_LABEL} from './factorisation-supp
 import {LEGACY_V2_SLIDE_KEYS} from './legacy-v2.js';
 export * from './types.js';
 export * from './models.js';
+export * from './wheat-chessboard.js';
 export * from './factorisation-supplement.js';
 export const INTERNATIONAL_MATHEMATICS_COURSE_ID='course-international-mathematics';
 export const INTERNATIONAL_MATHEMATICS_DECK_ID='deck-international-mathematics-jacques-2026';
@@ -61,7 +62,7 @@ export function getInternationalMathematicsInteractionDefaults(key:string):Reado
  const s=getInternationalMathematicsSlideByKey(key);if(!s)return null;const values:Record<string,string|number|boolean>={};
  if(s.question||s.answer)values.revealed=false;
  if(s.interaction)values[s.interaction.key]=s.interaction.initial;
- if(s.openingFilm)Object.assign(values,{playing:false,positionMs:0,anchorMs:0,runId:'initial'});
+ if(s.openingFilm||s.storyAnimation)Object.assign(values,{playing:false,positionMs:0,anchorMs:0,runId:'initial'});
  return Object.keys(values).length?values:null;
 }
 export function validateInternationalMathematicsInteractionPatch(key:string,patch:Readonly<Record<string,string|number|boolean>>,current:Readonly<Record<string,string|number|boolean>>={}) {
@@ -73,6 +74,6 @@ export function validateInternationalMathematicsInteractionPatch(key:string,patc
   else if(typeof v!=='number'||!Number.isFinite(v))return false;
  }
  if(s.interaction){const p=s.interaction,v=values[p.key];if(typeof v!=='number'||v<p.min||v>p.max||(p.key==='n'&&!Number.isInteger(v)))return false;}
- if(s.openingFilm&&(Number(values.positionMs)<0||Number(values.positionMs)>90000||Number(values.anchorMs)<0))return false;
+ if((s.openingFilm||s.storyAnimation)&&(Number(values.positionMs)<0||Number(values.positionMs)>90000||Number(values.anchorMs)<0))return false;
  return true;
 }

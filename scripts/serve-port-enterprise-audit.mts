@@ -1,0 +1,15 @@
+import { mkdir, writeFile } from 'node:fs/promises';
+import { resolve, join } from 'node:path';
+import { randomUUID } from 'node:crypto';
+import { buildApp } from '../apps/platform-api/src/app.js';
+import { CampusIdentityProvider } from '../apps/platform-api/src/campus/accounts.js';
+const root=resolve('output/port-enterprise-qa/server-'+Date.now());await mkdir(root,{recursive:true});
+const dataFile=join(root,'state.json'),identity=new CampusIdentityProvider(dataFile+'.accounts.sqlite'),password=randomUUID();
+await identity.createAccount('enterprise-teacher','经营验收教师','teacher',password);
+await identity.createAccount('enterprise-student','经营验收学生','student',password);
+await identity.createAccount('enterprise-other','其他验收学生','student',password);
+const app=await buildApp({dataFile,identityProvider:identity,campusMode:true,secureIdentityCookie:false});
+await mkdir(resolve('output/port-enterprise-qa'),{recursive:true});
+await writeFile(resolve('output/port-enterprise-qa/test-connection.json'),JSON.stringify({password,root,api:'http://127.0.0.1:4319',web:'http://127.0.0.1:5189'}));
+await app.listen({host:'127.0.0.1',port:4319});console.log('Enterprise QA API: http://127.0.0.1:4319; isolated data: '+root);
+for(const signal of ['SIGINT','SIGTERM'] as const)process.on(signal,()=>void app.close().then(()=>process.exit(0)));

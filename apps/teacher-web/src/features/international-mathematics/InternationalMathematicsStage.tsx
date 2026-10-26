@@ -3,8 +3,9 @@ import { Play, Pause } from 'lucide-react';
 import {useEffect,useLayoutEffect,useMemo,useRef,useState} from 'react';
 import katex from 'katex';
 import type {SlideFrame,SlideInteractionState,SlideInteractionValues} from '@edu/contracts';
-import {getInternationalMathematicsSlide,getInternationalMathematicsInteractionDefaults,INTERNATIONAL_MATHEMATICS_FILMS,INTERNATIONAL_MATHEMATICS_LESSONS,derivativeCurve,evaluateCurve,secantSlope,type MathematicsSlide,type SlideElement,type PlotSpec,type Ink} from '@edu/course-content/international-mathematics';
+import {getInternationalMathematicsSlide,getInternationalMathematicsInteractionDefaults,INTERNATIONAL_MATHEMATICS_FILMS,INTERNATIONAL_MATHEMATICS_LESSONS,WHEAT_STORY_MARKS,wheatSquareAt,wheatTimeForSquare,derivativeCurve,evaluateCurve,secantSlope,type MathematicsSlide,type SlideElement,type PlotSpec,type Ink} from '@edu/course-content/international-mathematics';
 import {SlideViewport} from '../classroom/SlideViewport';
+import {WheatChessboardStory} from './WheatChessboardStory';
 import 'katex/dist/katex.min.css';
 import './international-mathematics.css';
 
@@ -53,7 +54,7 @@ function Formula({e,style}:{e:Extract<SlideElement,{kind:'math'}>;style:React.CS
  useLayoutEffect(()=>{const el=ref.current;if(!el)return;const fit=()=>{el.style.transform='none';const factor=Math.min(1,e.w/el.scrollWidth,e.h/el.scrollHeight);el.style.transform=`scale(${factor})`;el.dataset.fitScale=factor.toFixed(3);};fit();void document.fonts.ready.then(fit);},[e]);
  return <div className="im-math" style={{...style,fontSize:e.size??46,color:IM_COLORS[e.color??'blue']}}><div ref={ref} className="im-formula" dangerouslySetInnerHTML={{__html:katex.renderToString(e.tex,{displayMode:true,throwOnError:true,strict:'ignore'})}}/></div>;
 }
-export function MathematicsCanvas({spec,values={},openingMedia}:{spec:MathematicsSlide;values?:SlideInteractionValues;openingMedia?:React.ReactNode}){
+export function MathematicsCanvas({spec,values={},openingMedia,storyPositionMs}:{spec:MathematicsSlide;values?:SlideInteractionValues;openingMedia?:React.ReactNode;storyPositionMs?:number}){
  return <article className="im-slide" lang="en" data-slide-composition={spec.compositionId} data-im-slide={spec.slideKey}>
   <div className="im-ruling"/><p className="im-kicker">{spec.optionalChallenge&&!/optional challenge/i.test(spec.kicker)?'OPTIONAL CHALLENGE · ':''}{spec.kicker}</p><h1>{spec.title}</h1>
   {spec.elements.map((e,i)=>{
@@ -64,6 +65,7 @@ export function MathematicsCanvas({spec,values={},openingMedia}:{spec:Mathematic
    if(e.kind==='image')return <div key={i} className="im-art" style={{...style,transform:`rotate(${e.rotation??0}deg)`}}>{spec.openingFilm&&e.asset==='opening'&&openingMedia?openingMedia:<img src={e.asset==='module'?`/course-assets/international-mathematics/art/module-${Math.ceil(spec.lesson/4)}.png`:`/course-assets/international-mathematics/art/lesson-${String(spec.lesson).padStart(2,'0')}-${e.asset}.png`} alt={e.alt}/>}</div>;
    if(e.kind==='plot')return <div key={i} style={style}><MathematicsPlot plot={e.plot} width={e.w} height={e.h} values={values}/></div>;
    if(e.kind==='table')return <div key={i} className="im-table-wrap" style={style}><table style={{fontSize:Math.min(27,Math.max(18,(e.h/(e.rows.length+1)-10)*.55))}}><thead><tr>{e.columns.map((v,j)=><th key={j}>{v}</th>)}</tr></thead><tbody>{e.rows.map((r,j)=><tr key={j} className={j===e.highlightRow?'im-highlight':''}>{r.map((v,k)=><td key={k}>{v}</td>)}</tr>)}</tbody></table></div>;
+   if(e.kind==='wheat-story')return <div key={i} style={style}><WheatChessboardStory positionMs={storyPositionMs??e.posterMs??76000}/></div>;
    return <div key={i} style={style}><Diagram e={e}/></div>;
   })}
   {spec.question&&<aside className="im-question"><b>?</b><span>{spec.question}</span></aside>}
@@ -75,6 +77,7 @@ export function MathematicsCanvas({spec,values={},openingMedia}:{spec:Mathematic
 interface Props {frame:SlideFrame;interaction:SlideInteractionState|null;readOnly:boolean;onInteractionPatch?:(patch:SlideInteractionValues)=>void;onInteractionReset?:()=>void;playbackMode?:'teacher'|'student'|'reader'|'offline';serverNowMs?:number;onNavigate?:(index:number)=>void;}
 export function InternationalMathematicsStage({frame,interaction,readOnly,onInteractionPatch,onInteractionReset,playbackMode,serverNowMs,onNavigate}:Props){
  const spec=getInternationalMathematicsSlide(frame.index),mode=playbackMode??(readOnly?'student':'teacher'),local=mode==='reader'||mode==='offline',control=mode!=='student';
+ const hasPlayback=Boolean(spec.openingFilm||spec.storyAnimation);
  const defaults=useMemo(()=>getInternationalMathematicsInteractionDefaults(spec.slideKey)??{},[spec.slideKey]);
  const [localValues,setLocalValues]=useState<SlideInteractionValues>(defaults),[sound,setSound]=useState(false),[mediaError,setMediaError]=useState(''),[displayPosition,setDisplayPosition]=useState(0);
  const video=useRef<HTMLVideoElement>(null),offset=useRef(0),latest=useRef<SlideInteractionValues>({});
@@ -83,6 +86,15 @@ export function InternationalMathematicsStage({frame,interaction,readOnly,onInte
  useEffect(()=>{if(serverNowMs)offset.current=serverNowMs-Date.now();},[serverNowMs]);
  const patch=(p:SlideInteractionValues)=>{if(local||!onInteractionPatch)setLocalValues(v=>({...v,...p}));else onInteractionPatch(p);};
  const target=()=>Math.min(90,Math.max(0,(Number(latest.current.positionMs??0)+(latest.current.playing?Math.max(0,Date.now()+offset.current-Number(latest.current.anchorMs??0)):0))/1000));
+ const togglePlayback=()=>{const t=Math.round(target()*1000),ended=t>=90000;patch({playing:ended||!values.playing,positionMs:ended?0:t,anchorMs:Date.now()+offset.current,runId:ended?`replay-${Date.now()}`:String(values.runId??'initial')});};
+ const seekStory=(positionMs:number)=>patch({playing:false,positionMs,anchorMs:Date.now()+offset.current});
+ const stepSquare=(direction:-1|1)=>seekStory(wheatTimeForSquare(wheatSquareAt(target()*1000)+direction));
+ useEffect(()=>{
+  if(!spec.storyAnimation)return;
+  let animation=0;
+  const update=()=>{const ms=Math.round(target()*1000);setDisplayPosition(ms);if(latest.current.playing&&ms<90000)animation=requestAnimationFrame(update);};
+  update();return()=>cancelAnimationFrame(animation);
+ },[spec.slideKey,spec.storyAnimation,values.playing,values.positionMs,values.anchorMs,values.runId]);
  useEffect(()=>{
   const v=video.current;if(!v||!spec.openingFilm)return;
   const sync=()=>{const t=target();if(Number.isFinite(v.duration)&&Math.abs(v.currentTime-t)>.25)v.currentTime=t;if(latest.current.playing&&t<90){void v.play().catch(()=>setMediaError('Select Enable sound or Play to start playback.'));}else v.pause();};
@@ -92,16 +104,17 @@ export function InternationalMathematicsStage({frame,interaction,readOnly,onInte
  const media=spec.openingFilm?<video ref={video} className="im-video" poster={film.poster} src={film.src} muted={!sound} playsInline preload="metadata" onTimeUpdate={e=>setDisplayPosition(Math.round(e.currentTarget.currentTime*1000))} onLoadedMetadata={()=>{if(video.current)video.current.currentTime=target();}} onError={()=>setMediaError('Video unavailable. Use the illustrated opening question.')}><track kind="captions" src={film.captions} srcLang="en" label="English" default/></video>:undefined;
  const controls = <div className="im-controls">
    {control&&onNavigate&&INTERNATIONAL_MATHEMATICS_LESSONS.find(l=>l.number===spec.lesson)?.hourRanges?.map(h=><button key={h.number} onClick={()=>onNavigate(h.slideStart)}>Hour {h.number}</button>)}
-   {spec.openingFilm&&<>{control&&<><button onClick={()=>patch({playing:!values.playing,positionMs:Math.round(target()*1000),anchorMs:Date.now()+offset.current,runId:String(values.runId??'initial')})}>{values.playing?'Pause':'Play introduction'}</button><button onClick={()=>patch({playing:true,positionMs:0,anchorMs:Date.now()+offset.current,runId:`replay-${Date.now()}`})}>Replay</button><input aria-label="Video position" type="range" min="0" max="90000" step="1000" value={displayPosition} onChange={e=>{setDisplayPosition(Number(e.target.value));patch({positionMs:Number(e.target.value),anchorMs:Date.now()+offset.current,playing:Boolean(values.playing)});}}/></>}
-   <button data-im-audio-control onClick={()=>{setSound(v=>!v);if(video.current){video.current.muted=sound;if(latest.current.playing)void video.current.play().catch(()=>{});}setMediaError('');}}>{sound?'Mute':'Enable sound'}</button></>}
+   {hasPlayback&&control&&<><button onClick={togglePlayback}>{values.playing&&displayPosition<90000?'Pause':spec.storyAnimation?'Play story':'Play introduction'}</button><button onClick={()=>patch({playing:true,positionMs:0,anchorMs:Date.now()+offset.current,runId:`replay-${Date.now()}`})}>Replay</button><input aria-label={spec.storyAnimation?'Story position':'Video position'} type="range" min="0" max="90000" step="1000" value={displayPosition} onChange={e=>{setDisplayPosition(Number(e.target.value));patch({positionMs:Number(e.target.value),anchorMs:Date.now()+offset.current,playing:Boolean(values.playing)});}}/><output>{Math.floor(displayPosition/1000)} / 90 s</output></>}
+   {spec.openingFilm&&<button data-im-audio-control onClick={()=>{setSound(v=>!v);if(video.current){video.current.muted=sound;if(latest.current.playing)void video.current.play().catch(()=>{});}setMediaError('');}}>{sound?'Mute':'Enable sound'}</button>}
+   {spec.storyAnimation&&control&&<><button disabled={wheatSquareAt(displayPosition)<=1} onClick={()=>stepSquare(-1)}>Previous square</button><button disabled={wheatSquareAt(displayPosition)>=64} onClick={()=>stepSquare(1)}>Next square</button><label>Square<select aria-label="Story square" value={wheatSquareAt(displayPosition)} onChange={e=>seekStory(wheatTimeForSquare(Number(e.target.value)))}>{Array.from({length:64},(_,i)=><option key={i+1} value={i+1}>{i+1}</option>)}</select></label><div className="im-story-chapters" role="group" aria-label="Story chapters">{WHEAT_STORY_MARKS.map(mark=><button key={mark.atMs} onClick={()=>seekStory(mark.atMs)}>{mark.label}</button>)}</div></>}
    {spec.interaction&&control&&<label>{spec.interaction.label}<input type="range" aria-label={spec.interaction.label} min={spec.interaction.min} max={spec.interaction.max} step={spec.interaction.step} value={Number(values[spec.interaction.key]??spec.interaction.initial)} onChange={e=>patch({[spec.interaction!.key]:Number(e.target.value)})}/><output>{fmt(Number(values[spec.interaction.key]??spec.interaction.initial))}</output></label>}
    {spec.answer&&control&&<button onClick={()=>patch({revealed:!values.revealed})}>{values.revealed?'Hide reasoning':'Reveal reasoning'}</button>}
    {control&&Object.keys(defaults).length>0&&<button onClick={()=>{if(local||!onInteractionReset)setLocalValues(defaults);else onInteractionReset();}}>Reset</button>}
    {mediaError&&<span className="im-media-error">{mediaError}</span>}
   </div>;
- return <div className="im-stage" lang="en"><SlideViewport label={`English mathematics, ${INTERNATIONAL_MATHEMATICS_LESSONS.find(l=>l.number===spec.lesson)?.displayLabel??`lesson ${spec.lesson}`}, page ${spec.localIndex} of ${spec.localTotal}`}><MathematicsCanvas spec={spec} values={values} openingMedia={media}/></SlideViewport>
-  {(spec.openingFilm || (control && (spec.answer || spec.interaction || onNavigate || Object.keys(defaults).length>0))) && <PageToolsContribution pageKey={spec.slideKey} title={control?'Page tools':'Local sound'} audience={control?'teacher':'local'} actions={spec.openingFilm&&control?[
-    {id:'film',label:values.playing?'Pause':'Play introduction',icon:values.playing?<Pause size={18}/>:<Play size={18}/>,onInvoke:()=>patch({playing:!values.playing,positionMs:Math.round(target()*1000),anchorMs:Date.now()+offset.current,runId:String(values.runId??'initial')})}
+ return <div className="im-stage" lang="en"><SlideViewport label={`English mathematics, ${INTERNATIONAL_MATHEMATICS_LESSONS.find(l=>l.number===spec.lesson)?.displayLabel??`lesson ${spec.lesson}`}, page ${spec.localIndex} of ${spec.localTotal}`}><MathematicsCanvas spec={spec} values={values} openingMedia={media} storyPositionMs={spec.storyAnimation?displayPosition:undefined}/></SlideViewport>
+  {(spec.openingFilm || (control && (spec.answer || spec.interaction || onNavigate || Object.keys(defaults).length>0))) && <PageToolsContribution pageKey={spec.slideKey} title={control?'Page tools':'Local sound'} audience={control?'teacher':'local'} actions={hasPlayback&&control?[
+    {id:spec.storyAnimation?'wheat-story':'film',label:values.playing&&displayPosition<90000?'Pause':spec.storyAnimation?'Play story':'Play introduction',icon:values.playing&&displayPosition<90000?<Pause size={18}/>:<Play size={18}/>,onInvoke:togglePlayback}
   ]:[]}>{controls}</PageToolsContribution>}
  </div>;
 }

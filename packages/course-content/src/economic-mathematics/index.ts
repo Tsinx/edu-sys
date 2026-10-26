@@ -24,3 +24,7 @@ export {differentialsLesson10Narration as lesson10Narration} from './lesson-10-d
 export * from './next-lesson-plan.js';
 export * from './limit-mastery-exercises.js';
 export {derivativeAppendixNarration} from './derivative-topic-moved.js';
+export * from './analysis-model.js';
+export * from './analysis-exercises.js';
+export {meanValueLesson11Narration as lesson11Narration} from './lesson-11-mean-value.js';
+export {lhopitalLesson12Narration as lesson12Narration} from './lesson-12-lhopital.js';

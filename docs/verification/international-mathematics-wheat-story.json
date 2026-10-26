@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-23",
+  "status": "implemented-and-locally-verified",
+  "courseId": "course-international-mathematics",
+  "lesson": 4,
+  "storySlideKey": "im-l04-02-a",
+  "storyLocalPage": 2,
+  "storyGlobalPage": 256,
+  "storyDurationMs": 90000,
+  "revisedLocalPages": [2, 3, 4, 5, 6, 7, 8, 9],
+  "lessonPagesUnchanged": 76,
+  "coursePagesUnchanged": 1372,
+  "studentLanguage": "English",
+  "grainCounts": {
+    "arithmetic": "BigInt",
+    "square64": "9223372036854775808",
+    "total64": "18446744073709551615",
+    "all64SquaresCheckedIndependentlyBySummation": true
+  },
+  "browser": {
+    "desktop": {"width": 1600, "pages": 76},
+    "narrow": {"width": 390, "pages": 76},
+    "tablet": {"width": 820, "pages": 9},
+    "pageChecks": 161,
+    "layoutOrMetadataFailures": 0,
+    "playbackChecks": 8,
+    "playbackFailures": 0,
+    "consoleErrorsOrWarnings": 0,
+    "viewportOverrideReset": true
+  },
+  "checks": {
+    "teacherWebRelevantTests": {"passed": 24, "failed": 0},
+    "apiContextAndCourseTests": {"passed": 16, "failed": 0},
+    "allWorkspaceTypechecks": "passed",
+    "studentCopyAndContextAudit": "passed",
+    "clientProductionBuild": "passed: pnpm --filter @edu/teacher-web exec vite build",
+    "gitDiffCheck": "passed",
+    "teacherAuthorizationStudentReadOnlyAndPersistence": "verified through API integration tests for the new story as well as the existing opening film"
+  },
+  "productionNotes": [
+    "The Vite client production build passed, with existing large-chunk warnings.",
+    "The normal teacher-web build also launches an all-course PDF export. That unrelated export was stopped after the successful client build; no revised PDF or offline ZIP release is claimed."
+  ],
+  "sources": [
+    "Jacques 9e, sections 2.3-2.4: surrounding exponential/logarithmic concepts",
+    "https://nrich.maths.org/content/03/04/penta5/prob.html",
+    "https://mathworld.wolfram.com/WheatandChessboardProblem.html"
+  ],
+  "evidenceDirectory": "output/international-mathematics/lecture-04-wheat-story",
+  "boundaries": [
+    "Traditional legend, not a verified historical event.",
+    "Symbolic large piles, exact integer labels.",
+    "English on-screen narration; no new recorded voice track or MP4 export.",
+    "Actual classroom pacing, projection acceptance and live two-device classroom playback remain separate acceptance work.",
+    "Local source integration only; no campus deployment or Chaoxing content upload was performed."
+  ]
+}

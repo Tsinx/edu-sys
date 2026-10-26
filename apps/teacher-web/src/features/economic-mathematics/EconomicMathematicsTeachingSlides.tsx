@@ -1,6 +1,7 @@
 import { MerchantFigure } from './MerchantFigure';
 import { ExerciseTimer } from './ExerciseTimer';
-import { merchantReadout, limitLabReadout, foundationReadout } from '@edu/course-content/economic-mathematics';
+import { merchantReadout, limitLabReadout, foundationReadout, analysisReadout, visibleAnalysisFigure } from '@edu/course-content/economic-mathematics';
+import {AnalysisFigure} from './AnalysisFigure';
 import { FoundationFigure } from './FoundationFigure';
 import { LimitFigure } from './LimitFigure';
 import { LessonHistoryFilm } from './LessonHistoryFilm';
@@ -56,13 +57,14 @@ export function EconomicMathematicsTeachingSlides({spec,interaction,readOnly,onI
  const values=interaction?.slideId===spec.slideKey?{...def?.defaults,...interaction.values}:{...def?.defaults};
  const step=getEconomicMathematicsPresentationStep(spec,values),cover=spec.layout==="cover",hasImage=Boolean(spec.image);
  if (spec.preludeId) return <EconomicPreludeSlide page={spec.localIndex} step={step}/>;
- if (spec.historyFilm) return <article className="em-slide em-history-slide" aria-label={spec.title}><LessonHistoryFilm pageKey={spec.slideKey} values={values} readOnly={readOnly} onPatch={onInteractionPatch}/></article>;
+ if (spec.historyFilm) return <article className="em-slide em-history-slide" data-slide-composition={spec.slideKey.includes("-analysis-")?spec.compositionId:undefined} aria-label={spec.title}><LessonHistoryFilm pageKey={spec.slideKey} values={values} readOnly={readOnly} onPatch={onInteractionPatch}/></article>;
  const visibleSteps=(spec.steps??[]).slice(0,step);
  const visiblePlot=[...visibleSteps].reverse().find(s=>s.plot)?.plot??spec.plot;
  const highlighted=[...visibleSteps].reverse().find(s=>s.highlightRows)?.highlightRows??[];
  const limitFigure=[...visibleSteps].reverse().find(s=>s.limitFigure)?.limitFigure??spec.limitFigure;
  const foundationFigure=spec.foundationFigure;
- return <article className={"em-slide em-"+(spec.layout??"essay")+" em-style-"+(spec.style??"editorial")+(hasImage?" em-with-image":"")+(spec.slideKey.startsWith("em-l02-refined")?" em-refined":"")+((spec.slideKey.includes("-limits-")||spec.slideKey.includes("-math-first-")||spec.slideKey.includes("-calculus-")||spec.slideKey.startsWith("em-l07-derivative-extension-"))?" em-limits":"")+(spec.conceptCheck?" em-concept-check":"")+(limitFigure||foundationFigure?" em-has-limit-figure":"")+(spec.limitLab==='sequence-zoom'?' em-sequence-lab':'')+(spec.merchantFigure?" em-has-merchant-figure":"")+(spec.merchantFigure==="mapping-types"?" em-mapping-types":"")} aria-label={spec.title}>
+ const analysisFigure=visibleAnalysisFigure(spec,values);
+ return <article className={"em-slide em-"+(spec.layout??"essay")+" em-style-"+(spec.style??"editorial")+(hasImage?" em-with-image":"")+(spec.slideKey.startsWith("em-l02-refined")?" em-refined":"")+((spec.slideKey.includes("-limits-")||spec.slideKey.includes("-math-first-")||spec.slideKey.includes("-calculus-")||spec.slideKey.includes("-analysis-")||spec.slideKey.startsWith("em-l07-derivative-extension-"))?" em-limits":"")+(spec.conceptCheck?" em-concept-check":"")+(spec.slideKey.includes("-analysis-")?" em-analysis":"")+(limitFigure||foundationFigure||analysisFigure?" em-has-limit-figure":"")+(spec.limitLab==='sequence-zoom'?' em-sequence-lab':'')+(spec.merchantFigure?" em-has-merchant-figure":"")+(spec.merchantFigure==="mapping-types"?" em-mapping-types":"")} data-slide-composition={spec.slideKey.includes("-analysis-")?spec.compositionId:undefined} aria-label={spec.title}>
  {cover&&hasImage&&<img className="em-cover-art" src={assetUrl(spec.image!)} alt={spec.imageAlt??""}/>}
  {spec.style==="constructivist"&&<img className="em-conflict-art" src={"/course-assets/economic-mathematics/v2/l"+String(spec.sourceLesson ?? spec.lesson).padStart(2,"0")+"-scene.png"} alt=""/>}
  <header className="em-header"><div className="em-kicker">{spec.kicker||"经济数学 / 第"+String(spec.lesson).padStart(2,"0")+"讲"}</div><h1>{spec.title}</h1></header>
@@ -77,6 +79,7 @@ export function EconomicMathematicsTeachingSlides({spec,interaction,readOnly,onI
  </div>
  {spec.merchantFigure&&<MerchantFigure kind={spec.merchantFigure} values={values}/>}
  {limitFigure&&<div className="em-limit-evidence"><LimitFigure config={limitFigure} values={values}/>{spec.limitLab&&<dl className="em-limit-readout">{limitLabReadout(spec.limitLab,values).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl>}</div>}
+ {analysisFigure&&<div className="em-limit-evidence"><AnalysisFigure config={analysisFigure} values={values}/>{analysisReadout(spec,values).length>0&&<dl className="em-limit-readout">{analysisReadout(spec,values).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl>}</div>}
  {foundationFigure&&<div className="em-limit-evidence"><FoundationFigure config={foundationFigure} values={values}/>{spec.foundationLab&&<dl className="em-limit-readout">{foundationReadout(spec.foundationLab,values).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl>}</div>}
  {visiblePlot&&!spec.interactionId&&<EconomicPlot config={visiblePlot} values={values}/>}
  {spec.interactionId&&!spec.limitLab&&<div className="em-lab-projection">{spec.merchantLab?<MerchantFigure kind="profit" values={values}/>:<EconomicPlot config={{...labPlots[spec.interactionId]!,...(spec.interactionId==="sequence-limit-lab"?{domain:[1,Math.max(40,Number(values.n))] as const}:{})}} values={values} lab={spec.interactionId}/>}<dl className="em-readout">{(spec.merchantLab?merchantReadout(values):economicLabReadout(spec.interactionId,values)).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl></div>}
@@ -99,7 +102,8 @@ labels.epsilonFactor='误差系数';
 labels.tailPower='编号指数t（N=10ᵗ）';
 labels.candidate='被检验目标A';
 labels.zoom='精度级别（每级缩小十倍）';
-const optionLabels:Record<string,string>={left:"左侧",right:"右侧",free:"自由",midpoint:"中点",none:"均不固定",price:"价格",advertising:"广告",A:"市场A",B:"市场B"};
+labels.mvtModel="函数与区间"; labels.cutFraction="切点在区间中的相对位置"; labels.boundIncrement="增产量h（件）"; labels.commonPoint="共同横坐标候选值"; labels.oscillationScale="局部放大倍数"; labels.witnessN="两列输入的序号n";
+const optionLabels:Record<string,string>={left:"左侧",right:"右侧",free:"自由",midpoint:"中点",none:"均不固定",price:"价格",advertising:"广告",A:"市场A",B:"市场B",square:"平方函数[1,3]",cubic:"立方函数[0,1]","cubic-symmetric":"立方函数[−1,1]",absolute:"绝对值函数[−1,1]","endpoint-jump":"右端跳跃[0,1]",root:"根式函数[0,1]",sine:"正弦函数[0,2π]"};
 export function isEconomicMathematicsControlDisabled(key:string,v:SlideInteractionValues){return v.lockedAxis===key;}
 export function buildEconomicMathematicsControlPatch(key:string,value:number|string|boolean,v:SlideInteractionValues):SlideInteractionValues{
  const patch:SlideInteractionValues={[key]:value};

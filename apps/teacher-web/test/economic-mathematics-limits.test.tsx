@@ -24,7 +24,7 @@ test('reinforcement routes keep two 45-minute hours, short group checks and opti
   assert.equal(getEconomicMathematicsHistoricalCounts('release-economic-mathematics-limits-refined-2026-10-10')!.reduce((s,n)=>s+n,0),513);
   assert.equal(getEconomicMathematicsHistoricalCounts('release-economic-mathematics-limits-sequence-2026-10-11')!.reduce((s,n)=>s+n,0),529);
   assert.ok(pages.every(p=>p.slideKey.includes(p.lesson===3?'-limits-reinforcement-20261013-':'-math-first-20261016-')));
-  assert.ok(version.includes('differentiation')); assert.equal(getEconomicMathematicsHistoricalCounts('release-economic-mathematics-limits-reinforcement-2026-10-13')!.reduce((a,b)=>a+b,0),560);
+  assert.ok(version.includes('analysis')); assert.equal(getEconomicMathematicsHistoricalCounts('release-economic-mathematics-limits-reinforcement-2026-10-13')!.reduce((a,b)=>a+b,0),560);
   assert.ok(all.filter(p=>p.routeRole!=='optional').length/all.length>=.9);
 });
 

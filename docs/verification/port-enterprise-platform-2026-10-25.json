@@ -1,0 +1,183 @@
+{
+  "schema": "port-enterprise-local-platform-integration/1",
+  "checkedAt": "2026-10-25T12:48:51.148Z",
+  "scope": "local teaching platform only, as explicitly selected by user",
+  "platform": {
+    "origin": "http://127.0.0.1:5173",
+    "api": "http://127.0.0.1:4300",
+    "entry": "/courses/course-port-management-intro?tab=enterprise",
+    "profile": "development",
+    "identity": "development",
+    "simulation": "local_solo",
+    "health": "ok",
+    "campusServerModified": false
+  },
+  "integration": [
+    "teacher and student course cards",
+    "port course enterprise tab",
+    "task center live status and task links",
+    "teacher experiment results center",
+    "student personal submission history and task deep links",
+    "verified-result notifications with mark-as-read",
+    "teacher classroom resources",
+    "local student classroom and independent-reading tools"
+  ],
+  "history": {
+    "directory": "D:\\codes\\edu-sys\\.runtime\\backups\\port-enterprise-integration-20261025121930650",
+    "createdAt": "2026-10-25T12:19:31.071Z",
+    "sessions": 115,
+    "runtimes": 115,
+    "legacyTables": 27,
+    "checkedAt": "2026-10-25T12:48:50.848Z",
+    "preserved": true,
+    "sqliteIntegrity": "ok",
+    "metadataChanges": [
+      {
+        "table": "port-simulation.sqlite:port_simulation_runs",
+        "fields": [
+          "updated_at"
+        ],
+        "reason": "existing restart persistence refreshes timestamps and transient presence revision; business state and stored state_hash remain identical"
+      },
+      {
+        "table": "port-simulation.sqlite:port_simulation_checkpoints",
+        "fields": [
+          "created_at",
+          "checkpoint.serverTime",
+          "checkpoint.state.presenceRevision"
+        ],
+        "reason": "existing restart persistence refreshes timestamps and transient presence revision; business state and stored state_hash remain identical"
+      }
+    ]
+  },
+  "compatibility": {
+    "engine": "port-enterprise/1.0",
+    "engineSourceFilesUnchanged": 7,
+    "legacyExperimentsRetained": true,
+    "personalSimulationStillRunsOnStudentComputer": true,
+    "platformSchema": "additive verified_at timestamp in enterprise_attempts; other experiment tables retained"
+  },
+  "tests": {
+    "api": {
+      "tests": 2,
+      "passed": 2,
+      "scope": "enterprise access, task ownership, overview, unread notifications, course restriction and existing portal restart"
+    },
+    "productionApiWorker": {
+      "tests": 1,
+      "passed": 1,
+      "scope": "bundled ESM server and independent verification worker"
+    },
+    "teachingUiRegressions": {
+      "tests": 14,
+      "passed": 14,
+      "scope": "page tools permissions, course directory, course language and classroom slide versions"
+    },
+    "typecheck": {
+      "passed": true,
+      "log": "output/port-enterprise-integration/typecheck.log"
+    },
+    "webProductionBuild": {
+      "passed": true,
+      "log": "output/port-enterprise-integration/build.log",
+      "existingChunkSizeWarning": true
+    },
+    "realLocalBrowser": {
+      "origin": "http://127.0.0.1:5173",
+      "actor": "teacher-li-xingzhi",
+      "checks": [
+        "existing-local-login",
+        "course-home-entry",
+        "local-worker-start",
+        "teacher-task-publication-controls",
+        "course-workspace-tab",
+        "same-origin-enterprise-api"
+      ],
+      "noOfficialTaskPublished": true,
+      "errors": []
+    },
+    "isolatedTeacherStudentBrowser": {
+      "checks": [
+        "course-workspace-entry",
+        "student-course-card-entry",
+        "task-center-entry",
+        "teacher-publication",
+        "student-personal-attempt",
+        "two-day-local-run",
+        "four-decision-notes",
+        "export-import-own-attempt-association",
+        "sealed-reload-keeps-binding",
+        "explicit-submit",
+        "independent-worker-verified",
+        "student-submission-history-deep-link",
+        "teacher-unread-notification-and-mark-read",
+        "teacher-results-center",
+        "teacher-result",
+        "teacher-sealed-read-only-replay",
+        "teacher-classroom-resource",
+        "student-local-classroom-resource",
+        "single-toolbar-per-shell",
+        "390px-task-and-history"
+      ],
+      "status": "verified",
+      "score": 0.46,
+      "errors": []
+    }
+  },
+  "bounds": {
+    "noOfficialTaskPublishedInUserData": true,
+    "realTaskFlowUsesIsolatedTestData": true,
+    "offline8217SavesUntouched": true,
+    "globalRepositoryTestBaseline": "unrelated economic-mathematics failures and whole-course PDF exporter limitations remain recorded in port-enterprise-2026-10-25.json; neither was changed by this integration"
+  },
+  "sourceFiles": [
+    {
+      "path": "apps/platform-api/src/app.ts",
+      "sha256": "07d8a2cdcfcb4470802c849ba2762c2720eed9e806924d848c9a8661b7dd4cee"
+    },
+    {
+      "path": "apps/platform-api/src/portal-routes.ts",
+      "sha256": "db30f0d79dcbece9e87b678510b9e9175233e05caa143edc4159acdfd0941224"
+    },
+    {
+      "path": "apps/platform-api/src/campus/access.ts",
+      "sha256": "ca588c2473e3a66193731d570b52260ed73be655c6155af4233d1cfa04389566"
+    },
+    {
+      "path": "apps/platform-api/src/enterprise-routes.ts",
+      "sha256": "cca7902f84e75330c9701f9f0fdcd3ea22885db74a7a44744d78f3719d8f2d18"
+    },
+    {
+      "path": "apps/teacher-web/src/portal/WorkspacePages.tsx",
+      "sha256": "7d70260db950a197f8b8581dc0082ebdcda0eaf14bff26c9326dd04b423096c7"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/PortResultsPage.tsx",
+      "sha256": "d1ea9ae25c31bcd8b9c997ff9e9ba4e45fbb3e0b8bf761a09112ad0bb8655af7"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterprisePortalCard.tsx",
+      "sha256": "b6ed08fbd4932df40a5314fb9b8bb882444d01b1a76459ea42b7ab709091b719"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseLearningTool.tsx",
+      "sha256": "ba22bf0f4b5c5fab0cf9bcf9fcbda4b1dc328fff45ab15b9e428c419a325e397"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseTasks.tsx",
+      "sha256": "a2c3a293995b7d060da0905e537b2e65073e5f5fbc95f4f160ba624f6d68f244"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-lbl/PortClassroomResources.tsx",
+      "sha256": "64dc3c2cf0b8e9f9514e7371eea8b8a340c225315b9a3fed3685d718a64165c0"
+    },
+    {
+      "path": "apps/teacher-web/src/features/classroom/StudentClassroom.tsx",
+      "sha256": "d0532a1cc02892687e503dc26daaaaccd765f1ed10c0a180c7d48cc320de4773"
+    },
+    {
+      "path": "apps/teacher-web/src/features/study/StudentStudyPage.tsx",
+      "sha256": "3ceedb1e20cd70b3bda83b3c90972bdf81f91c104c3f6a13a30a946be64460c2"
+    }
+  ]
+}

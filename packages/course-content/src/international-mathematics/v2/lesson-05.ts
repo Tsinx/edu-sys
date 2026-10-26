@@ -69,4 +69,4 @@ export const additions05:readonly Insertion[]=[
  t('23','a','Approach a corner from either side',['Direction','Slope near 0'],[['From the left','−1'],['From the right','+1']],'A single limiting tangent slope needs the two directions to agree.'),
  c('23','b','Continuity does not guarantee a derivative','The graph of |x| meets at zero, but its two slopes disagree.','The value exists at the corner; the derivative does not.')
 ];
-export const guides05=['0–7分钟分清位置与位移；7–19分钟逐步求区间平均速度；19–30分钟读割线与变换区间；30–40分钟缩小时间步、数值预测；40–45分钟即时检查。话术：“Which two times define the interval?” “Position is a height; rate is a slope.”','0–12分钟展开差商并先因式分解；12–22分钟从非零h的式子理解极限；22–33分钟推导一般时刻的导数函数；33–40分钟符号、线性例与尖点；40–45分钟出口解释。话术：“Simplify before approaching zero.” “A finite estimate is still an estimate.”'] as const;
+export const guides05=['0–7分钟分清位置与位移；7–19分钟逐步求区间平均速度；19–30分钟读割线与变换区间；30–40分钟缩小时间步、数值预测；40–45分钟即时检查。话术：“Which two times define the interval?” “Position is a height; rate is a slope.”','0–4分钟展开差商并提公因式；4–8分钟从非零h理解极限；8–13分钟切线和导数记号；13–18分钟一般时刻与直线对照；18–22分钟教师操控h；22–25分钟比较d(t)=t²+3在t=2的位置、区间平均与瞬时速度。话术：“Simplify before approaching zero.” “A finite estimate is still an estimate.”'] as const;

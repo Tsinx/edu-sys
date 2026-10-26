@@ -37,6 +37,7 @@ const Simulation = lazy(() =>
   })),
 );
 const DefenseHub = lazy(() => import("../features/defense/DefenseWorkspace").then(m => ({ default: m.DefenseHub })));
+const EnterprisePage = lazy(() => import('../features/port-simulation/enterprise/EnterpriseApp').then(m => ({ default: m.EnterprisePage })));
 const DefenseAssignmentPage = lazy(() => import("../features/defense/DefenseWorkspace").then(m => ({ default: m.DefenseAssignmentPage })));
 const DefenseSessionPage = lazy(() => import("../features/defense/DefenseWorkspace").then(m => ({ default: m.DefenseSessionPage })));
 const Study = lazy(() =>
@@ -91,6 +92,7 @@ function StudentRoutes({ identity }: { identity: ClassroomIdentitySession }) {
           <Route path="/submissions" element={<SubmissionHistory />} />
           <Route path="/settings" element={<PreferencesPage />} />
           <Route path="/simulations" element={<Simulation />} />
+          <Route path="/port-enterprise" element={<EnterprisePage/>}/>
           <Route path="/study/:courseId" element={<StudentReader />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

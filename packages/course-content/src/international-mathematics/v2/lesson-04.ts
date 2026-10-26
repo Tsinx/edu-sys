@@ -1,12 +1,16 @@
 import {author,type Insertion} from './authoring.js';import {lesson04} from '../lessons/lesson-04.js';
+import {page} from '../authoring.js';
 const {m,c,q,e,t,g}=author(4,lesson04.sources[0]!);
 export const additions04:readonly Insertion[]=[
- t('02','a','Compare two ways to grow',['Step','0','1','2','3'],[['Add 100','100','200','300','400'],['Multiply by 2','100','200','400','800']],'The first change agrees; later changes reveal the different rules.'),
- c('02','b','A growth factor compares consecutive values','Equal ratios signal multiplication; equal differences signal addition.','Choose a model from the pattern, not the first two values.'),
- m('03','a','Write repeated doubling without shorthand',String.raw`2\times2\times2`,'There are three factors, not three additions.',{sequence:'doubling-model'}),
- m('03','b','Count factors in the exponent',String.raw`2^3=8`,'The exponent counts how many doubling factors are applied.',{sequence:'doubling-model'}),
- m('03','c','Zero steps retain the starting amount',String.raw`2^0=1`,'A multiplier of one leaves a starting amount unchanged.',{sequence:'doubling-model'}),
- e('03','d','An exponent is not a multiplier','“2³ equals 2×3.”','2³ is 2×2×2=8; 2×3=6 is a different calculation.'),
+ {before:'02',slide:page(4,'02-a','The king, the chessboard and the wheat','TRADITIONAL LEGEND · EXPONENTIAL GROWTH',{...lesson04.sources[0]!,supplement:'Traditional legend as a teaching illustration; exact model checked against Wolfram MathWorld, Wheat and Chessboard Problem.'},[{kind:'wheat-story',x:65,y:220,w:1470,h:620,posterMs:76000}],{
+  storyAnimation:'wheat-chessboard',publicLabel:'Teaching scenario',question:'Would you accept the promise before seeing the last square?',answer:'Repeated doubling makes the total 18,446,744,073,709,551,615 grains. The last square alone has 9,223,372,036,854,775,808.',
+  pedagogy:{role:'scene',seconds:180},teachingCue:'先讲国王奖赏发明者的传统传说。播放90秒动画；可在第一行、棋盘过半和最后账单处暂停预测。让学生分别口读单格与累计，不能混为一谈。时间轴只是叙事节奏，不是实际生产时间。原始米粒版本见 https://nrich.maths.org/content/03/04/penta5/prob.html；本页采用麦粒版本，数学依据 https://mathworld.wolfram.com/WheatandChessboardProblem.html 。不虚构年代、国王姓名或真实粮食产量。',
+  assistantCue:'Explain the traditional legend in clear English, not as verified history. Start with one grain, then double on every next square. G_n=2^(n−1) is one square; S_n=2^n−1 is the cumulative total. Large piles are symbolic, while all counts use exact integers. Do not claim indefinite real-world growth or attach an unverified crop-production comparison.'})},
+ c('02','b','The reward follows one rule','One grain on the first square. Twice as many grains on every next square.','A constant ratio of 2 gives exponential growth; the amount added keeps changing.'),
+ m('03','a','Follow three doublings',String.raw`1\xrightarrow{\times2}2\xrightarrow{\times2}4\xrightarrow{\times2}8`,'Three doublings take us from square 1 to square 4.',{sequence:'doubling-model',cue:'把三条箭头分别读作一次翻倍；格号与翻倍次数相差一。'}),
+ m('03','b','The exponent counts the multiplications',String.raw`G_4=1\times2\times2\times2=2^3=8`,'Square 4 has eight grains, after three multiplications by two.',{sequence:'doubling-model'}),
+ m('03','c','The first square needs no doubling',[String.raw`G_n=2^{n-1},\quad n=1,2,\ldots,64`,String.raw`G_1=2^0=1`],'Square n follows n−1 doublings. The starting grain is already there.',{sequence:'doubling-model',cue:'从 n=1 回代，不把64个格子误当64次翻倍；连续时间延拓在后文另讲。'}),
+ e('03','d','One square is not the whole reward','“There are 2⁶⁴ grains on the last square.”','Square 64 has 2⁶³ = 9,223,372,036,854,775,808 grains. The whole board has 2⁶⁴−1 = 18,446,744,073,709,551,615 grains. Keep the single-square amount separate from the cumulative total.'),
  m('04','a','Keep the starting group outside the power',String.raw`N(t)=100\cdot2^t`,'The group begins at one hundred.',{sequence:'doubling-model'}),
  m('04','b','Check the model at time zero',String.raw`N(0)=100\cdot1=100`,'A sensible growth rule reproduces its initial value.',{sequence:'doubling-model'}),
  m('05','a','Apply two doubling steps',String.raw`N(2)=100(2^2)=400`,'The number of steps belongs in the exponent.',{sequence:'doubling-model'}),
@@ -52,4 +56,4 @@ export const additions04:readonly Insertion[]=[
  c('23','a','The growth rule needs a valid time range','The model is intended for a specified planning horizon.','Long extrapolation requires evidence beyond the algebra.'),
  q('23','b','Check the zero-time value','For N(t)=50×2^t, what starting group must the model reproduce?','50 at t=0.')
 ];
-export const guides04=['0–12分钟比较加法与乘法增长；12–25分钟展开因子并核对幂规则；25–35分钟增长因子与衰减；35–41分钟建立目标方程；41–45分钟短问。话术：“The exponent counts steps.” “What is the starting amount?”','0–12分钟幂与对数的互逆关系；12–27分钟逐步反推时间并代回；27–35分钟连续时间与整周观察；35–41分钟另一增长模型和对数错误诊断；41–45分钟出口题。话术：“Use the same logarithm base.” “Which observation first reaches the target?”'] as const;
+export const guides04=['0–5分钟国王、棋盘与麦粒故事：90秒动画并在第一行、半盘暂停预测；5–12分钟对照加一与翻倍，区分单格、累计和n−1次翻倍；12–25分钟展开因子并核对幂规则；25–35分钟增长因子与衰减；35–41分钟建立目标方程；41–45分钟短问。话术：“One grain first. Twice as many next.” “One square, or the whole board?” “The exponent counts doublings.”','0–7分钟幂与对数互逆；7–16分钟反推目标时间并代回；16–21分钟连续交点与整周报告；21–23分钟对数错误诊断；23–25分钟出口检查。话术：“Use the same logarithm base.” “Which whole-week report first reaches the target?”'] as const;
