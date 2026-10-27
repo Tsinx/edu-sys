@@ -90,7 +90,8 @@ export type PortManagementLessonNumber =
   | 14
   | 15
   | 16
-  | 17;
+  | 17
+  | 18;
 
 export interface PortSlideColumn {
   heading: string;
@@ -802,7 +803,8 @@ export const PORT_MANAGEMENT_LESSONS: readonly PortManagementLessonSpec[] = [
   ...([11,12] as const).map(number=>({number,label:`第${number}讲`,title:EXPANSION_TITLES[number],status:'ready' as const,slideStart:expansionStart(number),slideEnd:expansionStart(number)+expansionTotal(number)-1,timing:expansionTiming(number),assistantBrief:{objective:number===11?'定位损失区段，用同检查点分支比较交付、积压与成本，评价改善及其适用范围。':'从调查证据识别屏障依赖，在信息中断实验中核验备用、技术恢复、对账与服务恢复。',coreClaims:number===11?['规模、效率与用户结果分别核查。','排名、均值与综合分不能替代全部目标或因果证据。']:['效率收益不能补齐必要确认与权限。','确认齐备仍待有权角色审查，不等于现场批准。'],guardrails:['各32页90分钟，含30分钟独立实验；本机草稿与导出不等于已向教学平台提交。','真实案例按原始来源解释；模拟参数与票据为独立教学设定，参考运行不是个人完成记录。','公开指南不替代现行法律、现场制度、专业判断与正式授权。','未揭示解析、未展开材料与教师稿不进入回答。'],responsePolicy:'只按当前公开材料回应，说明对象、单位、期间与证据缺项；不作现场指令或授权判断。'}})),
   ...([13,14] as const).map(number=>({number,label:`第${number}讲`,title:EXPANSION_TITLES[number],status:'ready' as const,slideStart:expansionStart(number),slideEnd:expansionStart(number)+expansionTotal(number)-1,timing:expansionTiming(number),assistantBrief:{objective:number===13?'依据货票、单证和状态记录诊断进口交付，解释海关手续与口岸协同。':'辨析中国保税区域制度与业务流向，比较重庆七区联系和企业路径的收益成本。',coreClaims:['货物流、监管状态和商业交付分别核实。','保税、免税与退税不同；区域名称不证明业务可行或经营划算。'],guardrails:['32/40页各90分钟，案例判断无需新建仿真实验；未收到记录不得声称完成。','新闻视频保留来源和时点，历史数字不是实时状态，海南案例不是重庆现场。','官方法规按对象和条件解释；教学税款、费用和货票不是报关、法律或投资建议。','教师稿、未展开材料与未揭示答案不进入回答。'],responsePolicy:'先核对当前公开的对象、状态、单位、日期和证据；信息不足时提出核查需求，不提供现场授权或实际申报结论。'}})),
   ...([15,16] as const).map(number=>({number,label:`第${number}讲`,title:EXPANSION_TITLES[number],status:'ready' as const,slideStart:expansionStart(number),slideEnd:expansionStart(number)+expansionTotal(number)-1,timing:expansionTiming(number),assistantBrief:{objective:number===15?'沿业务标识、事件和接收时刻解释数字协同如何改变交付，提出可验证的试点方案。':'通过天津、鹿特丹、黄骅、重庆果园港和洛杉矶案例，解释绿色改造的运行机制、服务影响及预算取舍。',coreClaims:number===15?['系统收到、业务接受与实际执行不同。','信息等待缩短后，最后约束可能迁移。','自动化、人员和流程共同决定可用服务。']:['绿色措施回应具体货种、能源和空间条件。','电动化需要供电、补能和持续服务相互配套。','排放总量与单位强度可能不同向。','投资收益取决于实际使用及主体之间的协调。'],guardrails:['各32页90分钟，教师演示与个人任务，无新增独立仿真提交。','新闻保留日期、地点和原声，纪录不是常态效率或技术独立因果证据。',number===16?'课堂算例参数和项目卡为教学设定；实港数据按标明年份与来源解释，不给电气或生产现场操作授权。':'时刻、成本、排放系数和项目卡均为教学设定，非实港测算、法规授权或投资建议。','计算按当前已展开选项和公开假设解释；教师稿、隐藏解析与后续变化卡不进入回答。'],responsePolicy:number===16?'先用当前已展开案例讲清场景、措施、作用机制和代价，再回应计算或选择。来源与年份简要交代，不把填写证据清单作为默认任务；不解释隐藏步骤，不臆测完成。':'先核对当前对象、状态、时刻、单位及边界，再解释数据如何改变动作或计算。缺少实际记录时不声称完成；不给电气或生产现场操作授权。'}})),
-  {number:17,label:'第17讲',title:EXPANSION_TITLES[17],status:'ready',slideStart:expansionStart(17),slideEnd:expansionStart(17)+expansionTotal(17)-1,timing:expansionTiming(17),assistantBrief:{objective:'从逐车记录推导排队关系，计算随机单台拥堵，并比较能力、等待成本和预约的全程效果。',coreClaims:['有限逐车递推与随机稳态均值分别解释。','Little关系要求一致对象、边界和时间口径。','M/M/1平均结果依赖随机单台稳定假设。','预约后的港外等待进入全程核算。'],guardrails:['42页90分钟，含三轮独立简化模拟；本机保存下载不等于平台提交。','所有闸口参数、成本和车流为教学设定，不是现场测量或生产指令。','不把M/M/1公式用于多台、预约、批量或有限空间系统；不把有限样本当精确稳态。','仅解释当前已展开步骤和已揭示答案，不泄露教师稿。'],responsePolicy:'先辨认有限记录或随机模型，核对单位、边界及稳定条件，再逐步计算；缺项时说明所需证据。'}}
+  {number:17,label:'第17讲',title:EXPANSION_TITLES[17],status:'ready',slideStart:expansionStart(17),slideEnd:expansionStart(17)+expansionTotal(17)-1,timing:expansionTiming(17),assistantBrief:{objective:'从逐车记录推导排队关系，计算随机单台拥堵，并比较能力、等待成本和预约的全程效果。',coreClaims:['有限逐车递推与随机稳态均值分别解释。','Little关系要求一致对象、边界和时间口径。','M/M/1平均结果依赖随机单台稳定假设。','预约后的港外等待进入全程核算。'],guardrails:['42页90分钟，含三轮独立简化模拟；本机保存下载不等于平台提交。','所有闸口参数、成本和车流为教学设定，不是现场测量或生产指令。','不把M/M/1公式用于多台、预约、批量或有限空间系统；不把有限样本当精确稳态。','仅解释当前已展开步骤和已揭示答案，不泄露教师稿。'],responsePolicy:'先辨认有限记录或随机模型，核对单位、边界及稳定条件，再逐步计算；缺项时说明所需证据。'}},
+  {number:18,label:'第18讲',title:EXPANSION_TITLES[18],status:'ready',slideStart:expansionStart(18),slideEnd:expansionStart(18)+expansionTotal(18)-1,timing:expansionTiming(18),assistantBrief:{objective:'沿新航线扩建情境推导增量现金流、净现值和需求门槛，比较不确定性下的固定与条件投资策略。',coreClaims:['建设付款、施工影响、投产、经营回款和残值按各自时点计入。','净现值与支付约束分别检查。','追加二期比较后续增量，已有一期支出在差额中消去。','信息与等待都有具体条件和代价。'],guardrails:['40页90分钟；六年为教学比较窗口，不是码头寿命。','全部概率、金额、需求、工期和残值为独立设定；真实案例保留原时点。','基准决策树假设第1年末准确辨明稳定需求；压力路径另行重算。','只解释当前公开步骤、选项和解析；独立模拟不自动提交成绩。'],responsePolicy:'先核对时点、增量对象、单位、信息条件与资金约束，再逐步计算；不把事后最佳方案当成事前已知。'}},
 ];
 
 export {
@@ -926,6 +928,7 @@ function appendContextLine(
 }
 
 function formatVoyagePrompt(slide: PortManagementSlideSpec): string {
+  if(slide.lesson===18)return '第18讲为东湾港新增航线的独立分期投资情境。资金万元，能力与需求万TEU每年。比较t0至t6增量项目现金，付款和投产分离，起始资金不计项目收益。折现率10%和需求概率为教学假设，司机等待收益不直接计码头收入。追加判断在t1比较后续差额，基准信息完全准确，压力情境另算；本机导出不等于提交成绩。';
   if(slide.lesson===17)return '第17讲为东湾港南闸口独立教学情境。逐车时间以分钟计，λ与μ以票/小时计。Little关系与M/M/1特定公式区分，后者依赖独立泊松到达、指数服务、单台无限等候和λ<μ。平均、样本与尾部分别说明；预约的港外等待不能漏记；无记录不推断完成或提交。';
   if(slide.lesson===13||slide.lesson===14)return '第13—14讲使用澄江机电虚构货票与独立教学金额，官方制度和中国重庆案例按来源时点解释。不能把片中历史数字、海南政策或拓扑示意外推为当前重庆实况；不提供实际申报、法律、税款或投资结论。只解释已展开图解和已揭示解析。';
   if(slide.lesson===11||slide.lesson===12)return '第11—12讲采用独立绩效记录、评分与安全确认教学事件，非OOCL历史航次或实港运行。公开资料按其对象和时期解释；不提供真实排名、因果认定、危险货物操作、应急步骤、攻击实施或现场授权。只解释已展开材料与已揭示解析。';

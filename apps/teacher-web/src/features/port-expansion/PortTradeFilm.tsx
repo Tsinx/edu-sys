@@ -4,12 +4,13 @@ import {PORT_EXPANSION_FILMS,PORT_EXPANSION_SOURCES,expansionStateValid,expansio
 import {PageToolsContribution} from '../classroom/PageTools';
 import {SlideViewport} from '../classroom/SlideViewport';
 import {PortTradeComposition} from './PortTradeComposition';
+import {PortInvestmentComposition} from './PortInvestmentComposition';
 import {PortQueueComposition} from './PortQueueComposition';
 import {PortTransitionComposition} from './PortTransitionComposition';
 
 const stamp=(ms:number)=>`${String(Math.floor(ms/60000)).padStart(2,'0')}:${String(Math.floor(ms/1000)%60).padStart(2,'0')}`;
 export function PortTradeFilm({page,readOnly,controlled,initial,onChange,scope}:{page:PortExpansionPage;readOnly:boolean;controlled?:ExpansionPresentation;initial?:ExpansionPresentation|null;onChange?:(key:string,state:ExpansionPresentation)=>void;scope:string}){
- const Composition=page.lesson===17?PortQueueComposition:page.lesson>=15?PortTransitionComposition:PortTradeComposition;
+ const Composition=page.lesson===18?PortInvestmentComposition:page.lesson===17?PortQueueComposition:page.lesson>=15?PortTransitionComposition:PortTradeComposition;
  const film=PORT_EXPANSION_FILMS[page.mediaId!],source=PORT_EXPANSION_SOURCES[film.source],storage=`port-trade-film:${scope}:${page.slideKey}:${film.id}`;
  const authored=film.source==='pq-animation',mediaLabel=authored?'教学动画':'新闻节选';
  const chapters='chapters' in film?film.chapters:[];
@@ -47,7 +48,7 @@ export function PortTradeFilm({page,readOnly,controlled,initial,onChange,scope}:
    <button onClick={()=>{pause();update({progress:1,option:0,revealed:false});}}>回到观察卡</button>
    <a href={authored?'/course-assets/port-management/queue-media/queue-explainer.html':film.src} target="_blank" rel="noreferrer">{authored?'独立播放／按章节回看':'独立播放MP4'} ↗</a><a href={film.src} download>{authored?'下载动画':'下载节选'}</a>
    <a href={authored?'/course-assets/port-management/queue-media/queue-explainer-edl.json':source.url} target="_blank" rel="noreferrer">{authored?'动画脚本与模型记录':'原报道与日期'} ↗</a>
-   {!authored&&<a href={page.lesson===17?'/course-assets/port-management/queue-media/index.html':page.lesson>=15?'/course-assets/port-management/transition-media/index.html':'/course-assets/port-management/trade-media/index.html'} target="_blank" rel="noreferrer">全部视频与剪辑记录 ↗</a>}
+   {!authored&&<a href={page.lesson===18?'/course-assets/port-management/investment-media/index.html':page.lesson===17?'/course-assets/port-management/queue-media/index.html':page.lesson>=15?'/course-assets/port-management/transition-media/index.html':'/course-assets/port-management/trade-media/index.html'} target="_blank" rel="noreferrer">全部视频与剪辑记录 ↗</a>}
   </div>
  </PageToolsContribution>}</section>;
 }

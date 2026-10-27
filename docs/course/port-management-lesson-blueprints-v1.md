@@ -1,6 +1,6 @@
 # 《港口管理概论》16 讲教学蓝图（V1.0）
 
-> 实施更新（2026-10-23）：新增第17讲《港口拥堵的非线性》42页、90分钟，含完整推导、三轮简化模拟与46秒片头。第18讲暂缓。原16讲基线保留，新单元见[第17讲建设说明](./port-management-lesson-seventeen-design.md)、[逐页教师稿](./port-management-lesson-seventeen-teacher.md)及[学生手册](./port-management-lesson-seventeen-student.md)。
+> 实施更新（2026-10-23）：新增第17讲《港口拥堵的非线性》42页、90分钟，含完整推导、三轮简化模拟与46秒片头。第18讲《港口扩建与投资决策》已于2026-10-26续建，40页90分钟，含44秒片头和独立分期投资过程模拟，见[第18讲建设说明](./port-management-lesson-eighteen-design.md)。原16讲基线保留，新单元见[第17讲建设说明](./port-management-lesson-seventeen-design.md)、[逐页教师稿](./port-management-lesson-seventeen-teacher.md)及[学生手册](./port-management-lesson-seventeen-student.md)。
 
 > 实施更新（2026-10-19）：第13讲《港口通关与口岸协同》32页、第14讲《中国与重庆的保税区域及港口服务》40页已建设，各90分钟。全国制度、重庆七区、4段新闻教学节选及逐页教师稿见[第13—14讲建设说明](./port-management-lessons-thirteen-fourteen-design.md)。原数字化、绿色主题保留于历史蓝图归档；现行内容以建设说明和逐页教师稿为准。
 

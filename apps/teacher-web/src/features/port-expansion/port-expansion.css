@@ -1,3 +1,4 @@
+@import "./port-investment.css";
 @import "katex/dist/katex.min.css";
 @import "./port-queue.css";
 @import './port-trade.css';

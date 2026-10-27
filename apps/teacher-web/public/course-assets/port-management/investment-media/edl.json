@@ -1,0 +1,50 @@
+{
+  "lesson": 18,
+  "duration": 44,
+  "sourcePage": "https://news.cctv.cn/2024/09/29/ARTI6z6PUrG4m9TrDRnSmfnV240929.shtml",
+  "photoSource": "https://p4.img.cntv.cn/photoworkspace/contentimg/2024/09/29/2024092917563418584.jpg",
+  "sourceDate": "2024-09-29",
+  "sourceTitle": "中国新地标 上海洋山港：打造全球集装箱码头的新标杆",
+  "sourceSha256": "af1e5b7684beebeddabccc8888c155828083a789895b2283f510cc73a11209b3",
+  "outputSha256": "c6a398be4a32297fd4c1240d2e5e55939bc89717f0e9d0574e33ad17680d15e6",
+  "shots": [
+    {
+      "id": "intro",
+      "from": 0,
+      "duration": 6,
+      "text": "港口扩建，什么时候值得开始？",
+      "spokenSeconds": 2.883333,
+      "tempo": 1
+    },
+    {
+      "id": "operation",
+      "from": 6,
+      "duration": 12,
+      "sourceStart": 45,
+      "text": "眼前是洋山港的历史作业画面。已有港区持续运营，新的能力还要经过规划、施工和投产。",
+      "spokenSeconds": 9.466667,
+      "tempo": 1
+    },
+    {
+      "id": "construction",
+      "from": 18,
+      "duration": 12,
+      "sourceStart": 146,
+      "text": "建设期间，资金已经占用，服务能力却不会立刻增加。分期建设，能否少承担一些需求风险？",
+      "spokenSeconds": 7.966667,
+      "tempo": 1
+    },
+    {
+      "id": "decision",
+      "from": 30,
+      "duration": 14,
+      "text": "转入东湾港的教学情境：立即完整建设，先建一期，还是观察一年？请把需求、工期和现金，放在同一条时间线上比较。",
+      "spokenSeconds": 11.383333,
+      "tempo": 1
+    }
+  ],
+  "verifiedDuration": 44.021333,
+  "audio": "原声静音；使用现有课程音色的合成旁白，不归于出镜人物。",
+  "boundary": "洋山港历史运营与建设画面；东湾港与全部投资数字为独立教学设定。",
+  "rights": "原画面权利归原权利人；24秒历史镜头用于课堂讨论，不代表完整报道再发行许可。"
+}

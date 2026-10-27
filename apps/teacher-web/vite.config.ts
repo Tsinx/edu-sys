@@ -64,6 +64,7 @@ export default defineConfig({
         ),
         portClassLab: resolve(teacherWebRoot, "port-class-lab.html"),
         portQueueLab: resolve(teacherWebRoot, "port-queue-lab.html"),
+        portInvestmentLab: resolve(teacherWebRoot, "port-investment-lab.html"),
         portEnterprise: resolve(teacherWebRoot, "port-enterprise.html")
       }
     }
