@@ -1,5 +1,5 @@
 export interface DifferentiationWrittenExercise {
- id:string;lesson:8|9|10;number:number;title:string;minutes:1;
+ id:string;lesson:8|9|10;number:number;title:string;minutes:1|4;
  stem:string;answer:string;explanation:string;scoring:readonly string[];
 }
 /** Main-route individual written tasks; optional extension pages are separate. */
@@ -29,4 +29,14 @@ export const DIFFERENTIATION_WRITTEN_EXERCISES:readonly DifferentiationWrittenEx
   answer:'三者在0处函数值均为0，一阶导数均为1，共同切线为y=x。在x=0.1处，f、g、k的值分别为0.1、0.11、1.1。共同的一阶信息没有给出这个固定输入处统一的误差保证；偏离切线的项分别为0、x²、100x²。',
   explanation:'对每一个给定函数，可导性保证余项相对于h在h→0时趋于0；这不等于不加条件就能选一个对这类函数都有效的数值范围。所谓“足够接近”还需要给定误差标准及函数误差的控制。',
   scoring:['核对三个函数在0处的值、导数和共同切线（3分）。','三个有限输入处的函数值正确（3分）。','用误差项解释没有统一保证，并区分极限与固定输入（4分）。']},
+ {id:'l10-written-product-cross',lesson:10,number:3,title:'第十讲·微分运算短答01：交叉项与二阶导数',minutes:4,
+  stem:'u、v在基点a附近二阶可导，s=uv。①写出乘积的精确增量，并说明为什么一阶微分没有du·dv项。须用一个极限关系解释。②推导s″(a)，说明2u′(a)v′(a)从何而来。③用u(x)=v(x)=x、a=1核对真实增量、一阶微分及二阶导数。',
+  answer:'①Δ(uv)=v(a)Δu+u(a)Δv+ΔuΔv。可导保证Δu/h→u′(a)、Δv→0，故ΔuΔv/h=(Δu/h)Δv→0；一次主部为v(a)du+u(a)dv。②先有s′=u′v+uv′，再分别求导得s″=u″v+u′v′+u′v′+uv″，所以基点处为u″(a)v(a)+2u′(a)v′(a)+u(a)v″(a)。两次乘积求导各产生一个交叉贡献。③s=x²，在a=1时Δs=2h+h²、ds=2h、s″(1)=2。一阶微分与真实增量、二阶导数研究的是不同对象。',
+  explanation:'交叉项没有从真实变化中消失，只是在提取关于同一输入增量h的一次主部时不贡献。求二阶导数则研究一阶导函数随基点的变化，不能把前一步固定基点处的某个数当作函数再求导。',
+  scoring:['精确增量恒等式正确（2分）。','用ΔuΔv/h→0说明一次主部，并给出所需可导条件（3分）。','二阶公式及两个交叉贡献正确（3分）。','x²在1处的三项核验正确（2分）。']},
+ {id:'l10-written-mixed-domain',lesson:10,number:4,title:'第十讲·微分运算短答02：化简、基点与延拓',minutes:4,
+  stem:'原函数y=[(x²−1)e^(2x)]/(x−1)，定义域为x≠1。①保留原定义域，计算dy，可选择先约分或直接使用商法则。②在基点a=0取dx=0.02，写出微分和函数值的线性估算。③能否根据化简后的式子直接宣布原函数在x=1处可微？若另定义延拓函数g(x)=(x+1)e^(2x)（x∈R），求g在1处的微分。',
+  answer:'①共同定义域内y=(x+1)e^(2x)，所以dy=[e^(2x)+2(x+1)e^(2x)]dx=(2x+3)e^(2x)dx，仍要求x≠1。②y(0)=1，y′(0)=3，因此dy=3×0.02=0.06，y(0.02)的线性估算为1.06。③不能，原函数在1处没有定义，因而没有该点的微分。新定义的g在1处可导，dg=g′(1)dx=5e²dx；此时基点改为1，不能继续使用a=0处的系数3。',
+  explanation:'先化简可以减少计算，但函数由规则及定义域共同确定。求一般微分、固定基点代值、估计函数值是三个连续步骤；换一个基点必须重取相应导数系数。延拓是另行定义一个函数，并非约分自动赋值。',
+  scoring:['保留x≠1并正确使用乘积、链式或商法则（4分）。','给出dy=0.06与函数值估算1.06，区分两者（2分）。','指出原函数在1未定义（2分）。','延拓函数在新基点的微分5e²dx正确（2分）。']},
 ];

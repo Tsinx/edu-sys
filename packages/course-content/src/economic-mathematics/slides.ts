@@ -107,6 +107,7 @@ export const ECONOMIC_MATHEMATICS_LESSON_DEFINITIONS: readonly EconomicMathemati
 
 /** Historical classroom indices must be interpreted using their own release. */
 export function getEconomicMathematicsHistoricalCounts(version: string): readonly number[] | undefined {
+  if (version === 'release-economic-mathematics-analysis-2026-10-22') return [40,59,85,60,66,64,64,64,64,64,56,56,11,10,10,10,10,10,10,10,10,10,10,10,10,14,10,10,10,11,14,12];
   if (version === 'release-economic-mathematics-differentiation-2026-10-20') return [40,59,85,60,66,64,64,64,64,64,10,11,11,10,10,10,10,10,10,10,10,10,10,10,10,14,10,10,10,11,14,12];
   if (version === 'release-economic-mathematics-continuity-derivative-2026-10-17') return [40,59,85,60,66,64,64,...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(7).map(l=>l.slides.length)];
   if (version === 'release-economic-mathematics-math-first-2026-10-16') return [40,59,85,60,66,60,15,...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(7).map(l=>l.slides.length)];

@@ -1,0 +1,10 @@
+[
+  {
+    "path": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson10-teacher.html",
+    "sha256": "AE0F29376971B4D463E6414D9E6C2CEB645A54DC8441F299A26C504D1813B179"
+  },
+  {
+    "path": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson10-worksheet.html",
+    "sha256": "3C5738296AC3268E8E66B3F2FD255399E236E9297DCB9F9E06736427136B84A3"
+  }
+]

@@ -241,7 +241,7 @@ test("classroom steps synchronize, reject conflicts, restore on return and resta
 test('all concept group choices reach the assistant, while each unrevealed answer stays excluded',()=>{
  const deck=getCourseDeckByCourseId(courseId)!;
  const checks=slides.filter(p=>p.conceptCheck);
- assert.equal(checks.length,113);
+ assert.equal(checks.length,117);
  for(const p of checks){
   const frame=deck.getSlide(p.index),d=definition(p)!;
   for(const step of [0,1,2]){

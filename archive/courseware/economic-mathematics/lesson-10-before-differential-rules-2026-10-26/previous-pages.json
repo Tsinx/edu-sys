@@ -1,0 +1,2614 @@
+[
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "教学情境",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "边际成本24，还会随着产量改变吗？",
+    "formula": "C(q)=2000+20q+0.02q^2,\\qquad C'(q)=20+0.04q",
+    "body": [
+      "第七讲在100件处得到24元/件；第八讲得到完整导函数。",
+      "产量再增加时，边际成本本身怎样变化？"
+    ],
+    "image": "l10-scene.png",
+    "imageAlt": "生产运营情境，模型产量范围为0至200件",
+    "slideKey": "em-l10-calculus-20261020-p001",
+    "compositionId": "em-l10-differentiation-1",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 567,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 1,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "教学情境",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "同一模型中的三个不同量",
+    "body": [],
+    "table": {
+      "columns": [
+        "q（件）",
+        "C(q)（元）",
+        "C′(q)（元/件）"
+      ],
+      "rows": [
+        [
+          "90",
+          "3962",
+          "23.6"
+        ],
+        [
+          "100",
+          "4200",
+          "24"
+        ],
+        [
+          "110",
+          "4442",
+          "24.4"
+        ]
+      ]
+    },
+    "slideKey": "em-l10-calculus-20261020-p002",
+    "compositionId": "em-l10-differentiation-2",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 568,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 2,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "二阶导数：对导函数再求导",
+    "formula": "f''(a)=\\lim_{h\\to0}\\frac{f'(a+h)-f'(a)}h",
+    "body": [
+      "二阶导数 second derivative：导函数在该点的导数。",
+      "需要f′在a附近有定义，且它的差商有共同有限极限。"
+    ],
+    "steps": [
+      {
+        "title": "同一成本模型的二阶变化",
+        "formula": "C''(q)=0.04\\quad(0<q<200)"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p003",
+    "compositionId": "em-l10-differentiation-3",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 90,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计90秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 569,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 3,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "撇号、括号上标与平方要区分",
+    "formula": "f''=f^{(2)}=\\frac{d^2f}{dx^2},\\qquad [f'(x)]^2\\text{是另一个函数}",
+    "body": [
+      "f⁽²⁾表示求两次导数，括号上标不是乘方。",
+      "二阶导数的莱布尼茨记号也不能当普通分数任意约分。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p004",
+    "compositionId": "em-l10-differentiation-4",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 570,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 4,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "table",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "个人练习 · 两题均为单选",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "个人练习01：二阶导数不是导数平方",
+    "conceptCheck": true,
+    "exerciseMinutes": 2,
+    "exerciseActivityId": "l10-personal-differentiation-01",
+    "table": {
+      "columns": [
+        "1. f(x)=x³。f″(2)与[f′(2)]²分别是：",
+        "2. s(t)以米计、t以秒计。s″(t)的单位是："
+      ],
+      "rows": [
+        [
+          "A. 12与144",
+          "A. 米/秒²"
+        ],
+        [
+          "B. 12与12",
+          "B. 秒/米"
+        ],
+        [
+          "C. 6与36",
+          "C. 米/秒"
+        ],
+        [
+          "D. 144与12",
+          "D. 米"
+        ]
+      ]
+    },
+    "prompt": "请独立作答2分钟，并写一条依据；随后逐题核对。",
+    "steps": [
+      {
+        "title": "第1题：A",
+        "text": "f′=3x²，f″=6x。二阶导数是在导函数上再求导，导数平方则是数值乘方，二者完全不同。"
+      },
+      {
+        "title": "第2题：A",
+        "text": "一次求导给米/秒，再对时间求导再除以秒，得到米/秒²。二阶导数不是位移也不是速度。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p005",
+    "compositionId": "em-l10-differentiation-5",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 180,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计180秒。两分钟个人作答，一分钟反馈；先让每人写依据，再公开答案。基础未稳时延长停留，拓展题另行安排。",
+    "index": 571,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 5,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "水平、斜率、斜率的变化，分别判断",
+    "formula": "f(x)=-x^2,\\qquad x=-1",
+    "body": [],
+    "steps": [
+      {
+        "title": "三个数的符号不同",
+        "formula": "f(-1)=-1,\\qquad f'(-1)=2,\\qquad f''(-1)=-2"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p006",
+    "compositionId": "em-l10-differentiation-6",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 572,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 6,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "教学情境",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "累计销售仍增加，销售速率却可能回落",
+    "formula": "A(t)=120t+12t^2-t^3,\\quad0\\le t\\le8",
+    "body": [
+      "A以件计，t以小时计；A′是件/小时，A″是件/小时²。",
+      "A′(t)=168−3(t−4)²；A″(t)=24−6t。"
+    ],
+    "foundationFigure": {
+      "kind": "higher-rate"
+    },
+    "slideKey": "em-l10-calculus-20261020-p007",
+    "compositionId": "em-l10-differentiation-7",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 573,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 7,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "教学情境",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "负的二阶导数，不等于负的一阶导数",
+    "formula": "A'(6)=156>0,\\qquad A''(6)=-12<0",
+    "body": [
+      "6小时处仍在产生新增销售。",
+      "此时销售速率正在下降；不是累计销售量变成负值。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p008",
+    "compositionId": "em-l10-differentiation-8",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 574,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 8,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "table",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "个人练习 · 两题均为单选",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "个人练习02：函数水平与变化率",
+    "conceptCheck": true,
+    "exerciseMinutes": 2,
+    "exerciseActivityId": "l10-personal-differentiation-02",
+    "table": {
+      "columns": [
+        "1. f(x)=−x²，考察x=−1。f、f′、f″的符号依次为：",
+        "2. s′(t)>0而s″(t)<0描述的可能情形是："
+      ],
+      "rows": [
+        [
+          "A. 负、负、负",
+          "A. 仍向正方向运动，但速度下降"
+        ],
+        [
+          "B. 正、负、正",
+          "B. 位移一定为负"
+        ],
+        [
+          "C. 正、正、负",
+          "C. 累计位移一定减少"
+        ],
+        [
+          "D. 负、正、负",
+          "D. 已经静止"
+        ]
+      ]
+    },
+    "prompt": "请独立作答2分钟，并写一条依据；随后逐题核对。",
+    "steps": [
+      {
+        "title": "第1题：D",
+        "text": "数值分别为−1、2、−2。函数水平为负，当前斜率为正，而斜率随输入增加而下降；三个对象分别判断。"
+      },
+      {
+        "title": "第2题：A",
+        "text": "一阶导数判断此刻位移变化方向，二阶导数判断速度变化方向。减速并不等于倒退。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p009",
+    "compositionId": "em-l10-differentiation-9",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 180,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计180秒。两分钟个人作答，一分钟反馈；先让每人写依据，再公开答案。基础未稳时延长停留，拓展题另行安排。",
+    "index": 575,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 9,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "继续重复，得到高阶导数",
+    "formula": "f^{(n)}=(f^{(n-1)})'\\quad(n\\ge2)",
+    "body": [
+      "高阶导数 higher-order derivatives：逐次对前一阶导函数求导。",
+      "每增加一阶，都要核对前一阶在附近存在及其可导性。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p010",
+    "compositionId": "em-l10-differentiation-10",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 576,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 10,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "多项式为什么最终变成0？",
+    "formula": "f(x)=x^4",
+    "body": [],
+    "steps": [
+      {
+        "title": "前两次",
+        "formula": "f'=4x^3,\\qquad f''=12x^2"
+      },
+      {
+        "title": "继续到常数与零",
+        "formula": "f'''=24x,\\qquad f^{(4)}=24,\\qquad f^{(5)}=0"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p011",
+    "compositionId": "em-l10-differentiation-11",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 90,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计90秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 577,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 11,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "阶乘记录逐次相乘的系数",
+    "formula": "n!=n(n-1)\\cdots2\\cdot1,\\qquad0!=1",
+    "body": [
+      "阶乘 factorial是非负整数的记号。",
+      "对n次幂xⁿ求n阶导数，结果为n!；再求一次为0。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p012",
+    "compositionId": "em-l10-differentiation-12",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 578,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 12,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "table",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "个人练习 · 两题均为单选",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "个人练习03：阶数与阶乘",
+    "conceptCheck": true,
+    "exerciseMinutes": 2,
+    "exerciseActivityId": "l10-personal-differentiation-03",
+    "table": {
+      "columns": [
+        "1. f(x)=x⁴。f⁽⁴⁾与f⁽⁵⁾分别为：",
+        "2. f(x)=e^(2x)。f⁽ⁿ⁾(x)为："
+      ],
+      "rows": [
+        [
+          "A. 24与0",
+          "A. 2n e^(2x)"
+        ],
+        [
+          "B. 4与0",
+          "B. 2ⁿe^(2x)"
+        ],
+        [
+          "C. 0与0",
+          "C. e^(2nx)"
+        ],
+        [
+          "D. 24x与24",
+          "D. n!e^(2x)"
+        ]
+      ]
+    },
+    "prompt": "请独立作答2分钟，并写一条依据；随后逐题核对。",
+    "steps": [
+      {
+        "title": "第1题：A",
+        "text": "逐次求导得到4x³、12x²、24x、24、0。上标括号表示求导次数，不是乘方。"
+      },
+      {
+        "title": "第2题：B",
+        "text": "每求一次导数，链式法则额外带来一个因子2；重复n次得到2的n次方。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p013",
+    "compositionId": "em-l10-differentiation-13",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 180,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计180秒。两分钟个人作答，一分钟反馈；先让每人写依据，再公开答案。基础未稳时延长停留，拓展题另行安排。",
+    "index": 579,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 13,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "指数函数每次留下一个内层系数",
+    "formula": "f(x)=e^{2x}",
+    "body": [
+      "f′=2e²ˣ，f″=4e²ˣ，f‴=8e²ˣ。"
+    ],
+    "steps": [
+      {
+        "title": "由递推核对规律",
+        "formula": "f^{(n)}(x)=2^n e^{2x}",
+        "text": "从第n阶再求导，多乘2，变成第n+1阶。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p014",
+    "compositionId": "em-l10-differentiation-14",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 90,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计90秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 580,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 14,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "三角函数的高阶导数有循环",
+    "body": [],
+    "table": {
+      "columns": [
+        "阶数",
+        "sin x的相应导数"
+      ],
+      "rows": [
+        [
+          "1",
+          "$\\cos x$"
+        ],
+        [
+          "2",
+          "$-\\sin x$"
+        ],
+        [
+          "3",
+          "$-\\cos x$"
+        ],
+        [
+          "4",
+          "$\\sin x$"
+        ]
+      ]
+    },
+    "slideKey": "em-l10-calculus-20261020-p015",
+    "compositionId": "em-l10-differentiation-15",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 90,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计90秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 581,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 15,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "table",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "个人练习 · 两题均为单选",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "个人练习04：高阶规律与取值次序",
+    "conceptCheck": true,
+    "exerciseMinutes": 2,
+    "exerciseActivityId": "l10-personal-differentiation-04",
+    "table": {
+      "columns": [
+        "1. sin x的四阶导数是：",
+        "2. f(x)=x³。求f″(0)应当："
+      ],
+      "rows": [
+        [
+          "A. −cos x",
+          "A. 先求f″(x)=6x，再代入0"
+        ],
+        [
+          "B. −sin x",
+          "B. 由f(0)=0直接得到"
+        ],
+        [
+          "C. cos x",
+          "C. 把[f′(0)]²作为答案"
+        ],
+        [
+          "D. sin x",
+          "D. 先算f′(0)=0，再把常数0求导"
+        ]
+      ]
+    },
+    "prompt": "请独立作答2分钟，并写一条依据；随后逐题核对。",
+    "steps": [
+      {
+        "title": "第1题：D",
+        "text": "依次为cos x、−sin x、−cos x、sin x，周期为4。须核对每一步符号。"
+      },
+      {
+        "title": "第2题：A",
+        "text": "先固定点值会丢掉附近的变化信息。二阶导数需要导函数在该点附近的行为，不能对一个已经固定的数求导来替代。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p016",
+    "compositionId": "em-l10-differentiation-16",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 180,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计180秒。两分钟个人作答，一分钟反馈；先让每人写依据，再公开答案。基础未稳时延长停留，拓展题另行安排。",
+    "index": 582,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 16,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "先代点值，会丢掉附近变化",
+    "formula": "f(x)=x^3,\\qquad f'(0)=0",
+    "body": [
+      "把这个数0再求导，不能得到f″(0)的定义。",
+      "应先保留导函数f′(x)=3x²，再求导为6x，最后代入0。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p017",
+    "compositionId": "em-l10-differentiation-17",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 583,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 17,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "一次可导，二次导数却可能不存在",
+    "formula": "f(x)=x|x|",
+    "body": [],
+    "steps": [
+      {
+        "title": "零处一阶差商",
+        "formula": "\\frac{f(h)-f(0)}h=|h|\\to0"
+      },
+      {
+        "title": "合并一阶导函数",
+        "formula": "f'(x)=2|x|\\quad(x\\in\\mathbb R)"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p018",
+    "compositionId": "em-l10-differentiation-18",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 90,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计90秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 584,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 18,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "二阶不存在的证据就在一阶尖角",
+    "formula": "\\frac{f'(h)-f'(0)}h=\\frac{2|h|}h",
+    "body": [
+      "左侧为−2，右侧为2，没有共同有限极限。",
+      "f在0处可导，f′甚至连续；仍不能保证f″(0)存在。"
+    ],
+    "foundationFigure": {
+      "kind": "higher-corner"
+    },
+    "slideKey": "em-l10-calculus-20261020-p019",
+    "compositionId": "em-l10-differentiation-19",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 90,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计90秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 585,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 19,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "table",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "个人练习 · 两题均为单选",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "个人练习05：一阶存在不保证二阶",
+    "conceptCheck": true,
+    "exerciseMinutes": 2,
+    "exerciseActivityId": "l10-personal-differentiation-05",
+    "table": {
+      "columns": [
+        "1. f(x)=x|x|。f′(0)等于：",
+        "2. 上一题f″(0)："
+      ],
+      "rows": [
+        [
+          "A. 0",
+          "A. 等于2"
+        ],
+        [
+          "B. 1",
+          "B. 不存在，因为f′在0左右斜率不同"
+        ],
+        [
+          "C. 2",
+          "C. 等于无穷"
+        ],
+        [
+          "D. 不存在",
+          "D. 等于0"
+        ]
+      ]
+    },
+    "prompt": "请独立作答2分钟，并写一条依据；随后逐题核对。",
+    "steps": [
+      {
+        "title": "第1题：A",
+        "text": "零处差商为|h|，趋于0。对x≠0分别求导得到f′(x)=2|x|，在0同样取0。"
+      },
+      {
+        "title": "第2题：B",
+        "text": "f′=2|x|的零处差商为2|h|/h，左侧−2、右侧2，不能拼成有限共同极限。一次可导不足以保证二次可导。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p020",
+    "compositionId": "em-l10-differentiation-20",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 180,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计180秒。两分钟个人作答，一分钟反馈；先让每人写依据，再公开答案。基础未稳时延长停留，拓展题另行安排。",
+    "index": 586,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 20,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "教学情境",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "成本水平、边际成本与边际成本的变化",
+    "formula": "C''(q)=0.04\\ \\text{元/件}^2",
+    "body": [
+      "产量在100件附近多1件，边际成本增加0.04元/件。",
+      "这不表示总成本只增加0.04元。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p021",
+    "compositionId": "em-l10-differentiation-21",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 587,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 21,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "连续求两次导数，单位也除两次",
+    "formula": "s\\ [\\text{米}],\\quad s'\\ [\\text{米/秒}],\\quad s''\\ [\\text{米/秒}^2]",
+    "body": [
+      "q用件计时，C′是元/件，C″是元/件²。",
+      "单位不同的量不能因为都含一个撇号而互相替代。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p022",
+    "compositionId": "em-l10-differentiation-22",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 588,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 22,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "教学情境",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "固定成本影响哪一层？",
+    "formula": "\\widetilde C=C+500,\\qquad\\widetilde C'=C',\\qquad\\widetilde C''=C''",
+    "body": [
+      "成本水平整体提高；边际成本与其变化率都不变。",
+      "平均成本仍多500/q，这是另一个函数。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p023",
+    "compositionId": "em-l10-differentiation-23",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 589,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 23,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "table",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "个人练习 · 两题均为单选",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "个人练习06：边际成本的变化率",
+    "conceptCheck": true,
+    "exerciseMinutes": 2,
+    "exerciseActivityId": "l10-personal-differentiation-06",
+    "table": {
+      "columns": [
+        "1. C(q)=2000+20q+0.02q²元，q以件计。C″(q)为：",
+        "2. 固定成本2000改为2500，其他项不变。C′和C″："
+      ],
+      "rows": [
+        [
+          "A. 0.04元",
+          "A. 一阶增加500，二阶不变"
+        ],
+        [
+          "B. 0.02元/件",
+          "B. 一阶不变，二阶增加500"
+        ],
+        [
+          "C. 0.04元/件²",
+          "C. 都增加500"
+        ],
+        [
+          "D. 24元/件",
+          "D. 都不变"
+        ]
+      ]
+    },
+    "prompt": "请独立作答2分钟，并写一条依据；随后逐题核对。",
+    "steps": [
+      {
+        "title": "第1题：C",
+        "text": "C′=20+0.04q元/件，继续对产量求导得0.04元/件²，表示边际成本随产量的局部变化率。"
+      },
+      {
+        "title": "第2题：D",
+        "text": "两次求导都消去新增的常数。固定成本影响成本水平和平均成本，不改变本模型的边际成本及其变化率。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p024",
+    "compositionId": "em-l10-differentiation-24",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 180,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计180秒。两分钟个人作答，一分钟反馈；先让每人写依据，再公开答案。基础未稳时延长停留，拓展题另行安排。",
+    "index": 590,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 24,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "f′(a)=0、f″(a)>0，能立即做全局结论吗？",
+    "formula": "f(x)=x^2-x^4,\\quad f'(0)=0,\\quad f''(0)=2",
+    "body": [
+      "零处的局部信息并未规定远处行为。",
+      "例如f(2)=−12<f(0)，不能据此宣称零处为全局最小。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p025",
+    "compositionId": "em-l10-differentiation-25",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 591,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 25,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "个人短答 · 独立作答1分钟",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "一分钟写出一个“会终止”的规律",
+    "formula": "P(x)=a_0+a_1x+\\cdots+a_mx^m",
+    "body": [
+      "m为非负整数。独立说明：为什么P⁽ᵐ⁺¹⁾恒为0？",
+      "若只知某个函数在一点的若干导数为0，能说它是零函数吗？"
+    ],
+    "exerciseActivityId": "l10-written-polynomial-termination",
+    "exerciseMinutes": 1,
+    "slideKey": "em-l10-calculus-20261020-p026",
+    "compositionId": "em-l10-differentiation-26",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 592,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 26,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "短答反馈：恒等为0与一点为0不同",
+    "formula": "P^{(m+1)}\\equiv0,\\qquad f(x)=x^{m+2}",
+    "body": [
+      "有限个幂函数各自在足够多次求导后变成0。",
+      "xᵐ⁺²在0处前m+1阶导数全为0，但它不是零函数。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p027",
+    "compositionId": "em-l10-differentiation-27",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 593,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 27,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "二阶信息将在哪些问题中发挥作用？",
+    "body": [
+      "斜率自身怎样改变：本讲建立定义和计算。",
+      "凹凸、拐点：后面的导数应用统一判断。",
+      "二次及更高次近似：第十三讲泰勒公式解释系数与余项。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p028",
+    "compositionId": "em-l10-differentiation-28",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 594,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 28,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "高阶求导仍是一阶定义的重复",
+    "body": [
+      "第n阶以前的函数必须在相应范围存在。",
+      "每一步使用合法求导法则，保留定义域。",
+      "求某点的高阶导数：先求相应导函数，再取该点值。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p029",
+    "compositionId": "em-l10-differentiation-29",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 595,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 29,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "只用切线估算，究竟省去了什么？",
+    "formula": "f(1+h)=(1+h)^2=1+2h+h^2",
+    "body": [
+      "第七讲切线给出1+2h。",
+      "剩下的h²是否总能忽略，需要怎样说明？"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p030",
+    "compositionId": "em-l10-differentiation-30",
+    "kicker": "经济数学 / 第十讲 / 第1课时",
+    "classHour": 1,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-1",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 596,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 30,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "同一个基点，曲线与切线给出两个输出",
+    "formula": "f(x)=x^2,\\quad a=1,\\quad L(x)=1+2(x-1)",
+    "body": [
+      "L是基点处切线给出的线性近似 linear approximation。",
+      "它在基点匹配函数值与斜率，但不必与曲线处处重合。"
+    ],
+    "foundationFigure": {
+      "kind": "differential-error",
+      "params": {
+        "mode": 1,
+        "h": 0.3
+      }
+    },
+    "slideKey": "em-l10-calculus-20261020-p031",
+    "compositionId": "em-l10-differentiation-31",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 597,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 31,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "把真实增量与一次部分并排写出",
+    "formula": "\\Delta y=f(1+h)-f(1)=2h+h^2",
+    "body": [
+      "一次部分2h与输入增量成正比。",
+      "剩余h²除以h后趋于0，说明它相对输入尺度更小。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p032",
+    "compositionId": "em-l10-differentiation-32",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 598,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 32,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "可导的等价表达：一次部分加余项",
+    "formula": "\\Delta y=f'(a)h+r(h),\\qquad\\frac{r(h)}h\\to0",
+    "body": [
+      "余项 remainder是精确增量与一次部分的差。",
+      "记r(h)=o(h)，读作“相对于h的高阶无穷小”；定义正是r(h)/h→0。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p033",
+    "compositionId": "em-l10-differentiation-33",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 90,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计90秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 599,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 33,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "微分：固定基点处的一次变化",
+    "formula": "\\boxed{dy=f'(a)\\,dx,\\qquad dx=\\Delta x=h}",
+    "body": [
+      "微分 differential：函数增量关于输入增量的线性主部 linear part。",
+      "基点a固定，dy是所选dx的一次函数；dy通常不等于Δy。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p034",
+    "compositionId": "em-l10-differentiation-34",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 90,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计90秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 600,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 34,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "table",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "个人练习 · 两题均为单选",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "个人练习07：实际增量与微分",
+    "conceptCheck": true,
+    "exerciseMinutes": 2,
+    "exerciseActivityId": "l10-personal-differentiation-07",
+    "table": {
+      "columns": [
+        "1. f(x)=x²，基点a=1，h=0.1。Δy与dy分别为：",
+        "2. 在基点a处，微分dy=f′(a)dx中，dx在本课约定为："
+      ],
+      "rows": [
+        [
+          "A. 0.2、0.21",
+          "A. 必须恒等于0"
+        ],
+        [
+          "B. 0.21、0.2",
+          "B. 函数值f(a)"
+        ],
+        [
+          "C. 0.1、0.2",
+          "C. 输出的精确增量"
+        ],
+        [
+          "D. 0.21、0.21",
+          "D. 选定的输入增量h"
+        ]
+      ]
+    },
+    "prompt": "请独立作答2分钟，并写一条依据；随后逐题核对。",
+    "steps": [
+      {
+        "title": "第1题：B",
+        "text": "Δy=2h+h²=0.21，dy=f′(1)h=2h=0.2。二者相差h²，不能把近似符号改成等号。"
+      },
+      {
+        "title": "第2题：D",
+        "text": "在一元自变量情形，本课取dx=Δx=h；dy是关于这个增量的一次函数，不是把输入增量消灭。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p035",
+    "compositionId": "em-l10-differentiation-35",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 180,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计180秒。两分钟个人作答，一分钟反馈；先让每人写依据，再公开答案。基础未稳时延长停留，拓展题另行安排。",
+    "index": 601,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 35,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "水平切线的微分为0，真实变化仍可能非零",
+    "formula": "f(x)=x^2,\\quad a=0:\\quad dy=0,\\qquad\\Delta y=h^2",
+    "body": [
+      "线性主部为0；函数并不在附近恒定。",
+      "相对输入h，误差h²更小；相对真实增量h²，误差却占全部。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p036",
+    "compositionId": "em-l10-differentiation-36",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 602,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 36,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "余项趋零还不够，必须说明比较尺度",
+    "formula": "r(h)=|h|\\to0,\\qquad\\frac{|h|}{h}=\\begin{cases}-1,&h<0,\\\\1,&h>0\\end{cases}",
+    "body": [
+      "|h|虽趋于0，却不是o(h)。",
+      "要求r(h)/h→0，强于只要求r(h)→0。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p037",
+    "compositionId": "em-l10-differentiation-37",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 603,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 37,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "table",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "个人练习 · 两题均为单选",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "个人练习08：微分系数可以为零",
+    "conceptCheck": true,
+    "exerciseMinutes": 2,
+    "exerciseActivityId": "l10-personal-differentiation-08",
+    "table": {
+      "columns": [
+        "1. f(x)=x²，在a=0处，h≠0。dy和Δy分别为：",
+        "2. 可导时Δy=f′(a)h+r(h)，余项应满足："
+      ],
+      "rows": [
+        [
+          "A. 2h、h²",
+          "A. r(h)=0对所有h成立"
+        ],
+        [
+          "B. 0、h²",
+          "B. r(h)/h→1"
+        ],
+        [
+          "C. h²、h²",
+          "C. r(h)/h→0"
+        ],
+        [
+          "D. 0、0",
+          "D. 只需r(h)有界"
+        ]
+      ]
+    },
+    "prompt": "请独立作答2分钟，并写一条依据；随后逐题核对。",
+    "steps": [
+      {
+        "title": "第1题：B",
+        "text": "基点导数为0，所以线性主部dy=0；真实增量仍为h²。线性主部为0并不意味着函数没有变化。"
+      },
+      {
+        "title": "第2题：C",
+        "text": "可导性等价于误差相对输入增量比零更快地缩小。只要求误差本身趋零对应的信息弱得多。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p038",
+    "compositionId": "em-l10-differentiation-38",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 180,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计180秒。两分钟个人作答，一分钟反馈；先让每人写依据，再公开答案。基础未稳时延长停留，拓展题另行安排。",
+    "index": 604,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 38,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "根式估算：基点选在容易精确计算的位置",
+    "formula": "f(x)=\\sqrt x,\\quad a=4,\\quad h=0.04",
+    "body": [],
+    "steps": [
+      {
+        "title": "函数值加微分",
+        "formula": "\\sqrt{4.04}\\approx f(4)+f'(4)h=2+\\frac14\\cdot0.04=2.01"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p039",
+    "compositionId": "em-l10-differentiation-39",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 90,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计90秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 605,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 39,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "这次近似的误差可以精确核验",
+    "formula": "\\sqrt{4+h}-2-\\frac h4=-\\frac{h^2}{4(\\sqrt{4+h}+2)^2}",
+    "body": [
+      "由两次有理化得到，要求4+h>0。",
+      "h=0.04时，真值约2.00997512，估算高约0.00002488。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p040",
+    "compositionId": "em-l10-differentiation-40",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 606,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 40,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "教学情境",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "同一成本模型的精确增量与微分",
+    "formula": "C(100+h)-C(100)=24h+0.02h^2",
+    "body": [],
+    "steps": [
+      {
+        "title": "微分与残差",
+        "formula": "dC=24h,\\qquad\\Delta C-dC=0.02h^2",
+        "text": "要求0≤100+h≤200；残差非负，不随h的正负改变。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p041",
+    "compositionId": "em-l10-differentiation-41",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 90,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计90秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 607,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 41,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "lab",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "教学情境",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "把增量调大，误差会放大多少？",
+    "formula": "C(q)=2000+20q+0.02q^2,\\quad a=100",
+    "body": [
+      "移动h比较实际增量与微分；图中单独显示两者之差。",
+      "h=0时增量、微分和绝对误差均为0；相对增量误差没有定义。"
+    ],
+    "foundationLab": "differential-error",
+    "foundationFigure": {
+      "kind": "differential-error"
+    },
+    "slideKey": "em-l10-calculus-20261020-p042",
+    "compositionId": "em-l10-differentiation-42",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 608,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 42,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "table",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "个人练习 · 两题均为单选",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "个人练习09：估算与精确误差",
+    "conceptCheck": true,
+    "exerciseMinutes": 2,
+    "exerciseActivityId": "l10-personal-differentiation-09",
+    "table": {
+      "columns": [
+        "1. 用a=4处线性近似估算√4.04，结果是：",
+        "2. C(q)=2000+20q+0.02q²。在q=100附近，h=10时，实际增量减去微分为："
+      ],
+      "rows": [
+        [
+          "A. 2.04",
+          "A. 0.2元"
+        ],
+        [
+          "B. 4.01",
+          "B. 0元"
+        ],
+        [
+          "C. 2.01",
+          "C. 20元"
+        ],
+        [
+          "D. 2.02",
+          "D. 2元"
+        ]
+      ]
+    },
+    "prompt": "请独立作答2分钟，并写一条依据；随后逐题核对。",
+    "steps": [
+      {
+        "title": "第1题：C",
+        "text": "f(4)=2，f′(4)=1/4，h=0.04，所以估算为2+0.04/4=2.01。基点必须是4而不是2。"
+      },
+      {
+        "title": "第2题：D",
+        "text": "精确增量为24h+0.02h²，微分为24h，差为0.02h²。代入10得到2元，正负增量都产生非负残差。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p043",
+    "compositionId": "em-l10-differentiation-43",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 180,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计180秒。两分钟个人作答，一分钟反馈；先让每人写依据，再公开答案。基础未稳时延长停留，拓展题另行安排。",
+    "index": 609,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 43,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "绝对误差：偏离了多少原单位？",
+    "formula": "E_{\\rm abs}=|\\text{估算值}-\\text{真值}|",
+    "body": [
+      "绝对误差 absolute error与被估算量的单位相同。",
+      "成本增量估算若差2元，绝对误差就是2元。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p044",
+    "compositionId": "em-l10-differentiation-44",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 610,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 44,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "相对误差：偏离占真值多大比例？",
+    "formula": "E_{\\rm rel}=\\frac{|\\text{估算值}-\\text{真值}|}{|\\text{真值}|}",
+    "body": [
+      "相对误差 relative error无量纲；本课以非零真值为分母。",
+      "若使用估算值或基准值作分母，必须另行声明。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p045",
+    "compositionId": "em-l10-differentiation-45",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 611,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 45,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "真值接近0，绝对小不代表相对小",
+    "formula": "a=0,\\quad f(x)=x^2:\\quad\\frac{|dy-\\Delta y|}{|\\Delta y|}=1\\quad(h\\ne0)",
+    "body": [
+      "dy=0，Δy=h²。",
+      "绝对误差h²→0，相对真实增量的误差仍为100%。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p046",
+    "compositionId": "em-l10-differentiation-46",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 612,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 46,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "table",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "个人练习 · 两题均为单选",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "个人练习10：绝对误差与相对误差",
+    "conceptCheck": true,
+    "exerciseMinutes": 2,
+    "exerciseActivityId": "l10-personal-differentiation-10",
+    "table": {
+      "columns": [
+        "1. 估算值100，真值101。绝对误差及相对误差（以真值为基准）是：",
+        "2. 在f(x)=x²、a=0处，用dy估算Δy=h²，h≠0。虽然绝对误差→0，但相对Δy的误差："
+      ],
+      "rows": [
+        [
+          "A. 1、1/101",
+          "A. 为|h|"
+        ],
+        [
+          "B. −1、−1/101",
+          "B. 始终为100%"
+        ],
+        [
+          "C. 101、1",
+          "C. 没有误差"
+        ],
+        [
+          "D. 1、1/100",
+          "D. 也趋于0"
+        ]
+      ]
+    },
+    "prompt": "请独立作答2分钟，并写一条依据；随后逐题核对。",
+    "steps": [
+      {
+        "title": "第1题：A",
+        "text": "绝对误差取差的绝对值；相对误差再除以非零真值的绝对值。若改用估算值作分母，必须另作声明。"
+      },
+      {
+        "title": "第2题：B",
+        "text": "估算值dy=0，真实增量h²>0，绝对误差为h²，相对真实增量的误差为1。这说明“绝对误差小”并不自动保证相对精度高。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p047",
+    "compositionId": "em-l10-differentiation-47",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 180,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计180秒。两分钟个人作答，一分钟反馈；先让每人写依据，再公开答案。基础未稳时延长停留，拓展题另行安排。",
+    "index": 613,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 47,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "教学情境",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "增量缩小十倍，二次残差缩小百倍",
+    "body": [],
+    "table": {
+      "columns": [
+        "h（件）",
+        "dC（元）",
+        "真实ΔC（元）",
+        "残差（元）"
+      ],
+      "rows": [
+        [
+          "10",
+          "240",
+          "242",
+          "2"
+        ],
+        [
+          "1",
+          "24",
+          "24.02",
+          "0.02"
+        ],
+        [
+          "0.1",
+          "2.4",
+          "2.4002",
+          "0.0002"
+        ],
+        [
+          "−10",
+          "−240",
+          "−238",
+          "2"
+        ]
+      ]
+    },
+    "slideKey": "em-l10-calculus-20261020-p048",
+    "compositionId": "em-l10-differentiation-48",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 614,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 48,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "教学情境",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "先给误差要求，再确定可用增量范围",
+    "formula": "|\\Delta C-dC|=0.02h^2\\le2",
+    "body": [],
+    "steps": [
+      {
+        "title": "解出误差约束",
+        "formula": "|h|\\le10"
+      },
+      {
+        "title": "再与模型允许范围取交集",
+        "formula": "0\\le100+h\\le200\\quad\\Longrightarrow\\quad -10\\le h\\le10"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p049",
+    "compositionId": "em-l10-differentiation-49",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 90,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计90秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 615,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 49,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "教学情境",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "靠近产能边界，误差小也不能越界",
+    "formula": "a=198,\\qquad 0\\le q\\le200",
+    "body": [
+      "同一二次模型的线性残差仍为0.02h²。",
+      "误差要求|h|≤10还须与−198≤h≤2相交，得到−10≤h≤2。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p050",
+    "compositionId": "em-l10-differentiation-50",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 616,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 50,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "table",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "个人练习 · 两题均为单选",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "个人练习11：局部近似的有效范围",
+    "conceptCheck": true,
+    "exerciseMinutes": 2,
+    "exerciseActivityId": "l10-personal-differentiation-11",
+    "table": {
+      "columns": [
+        "1. 同一成本模型在q=100处，要求微分估算增量的绝对误差≤2元，需要：",
+        "2. 两函数在a处值和一阶导数相同，能推出："
+      ],
+      "rows": [
+        [
+          "A. |h|≤10，并核对产量范围",
+          "A. 在整个定义域相等"
+        ],
+        [
+          "B. h=0即可且只有这一种",
+          "B. 二阶导数一定相同"
+        ],
+        [
+          "C. |h|≤100",
+          "C. 有限增量完全相同"
+        ],
+        [
+          "D. 只需h>0",
+          "D. 局部有同一条线性近似，但远处可差很多"
+        ]
+      ]
+    },
+    "prompt": "请独立作答2分钟，并写一条依据；随后逐题核对。",
+    "steps": [
+      {
+        "title": "第1题：A",
+        "text": "精确误差0.02h²≤2给出|h|≤10，还需0≤100+h≤200。误差要求与模型可行范围同时约束输入。"
+      },
+      {
+        "title": "第2题：D",
+        "text": "例如x与x+x²在0处具有相同的值和一阶导数，但在非零输入处不等。线性信息没有决定所有更高阶项。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p051",
+    "compositionId": "em-l10-differentiation-51",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 180,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计180秒。两分钟个人作答，一分钟反馈；先让每人写依据，再公开答案。基础未稳时延长停留，拓展题另行安排。",
+    "index": 617,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 51,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "微分沿复合关系传递",
+    "formula": "u=g(x),\\quad y=f(u):\\quad du=g'(a)dx,\\quad dy=f'(g(a))du",
+    "body": [
+      "把du代入，得到dy=f′(g(a))g′(a)dx。",
+      "微分形式与链式法则一致；dy仍是一次部分，不是有限真实增量。"
+    ],
+    "steps": [
+      {
+        "title": "平方后取指数的例子",
+        "formula": "u=x^2,\\quad y=e^u:\\quad dy=2ae^{a^2}dx"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p052",
+    "compositionId": "em-l10-differentiation-52",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 90,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计90秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 618,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 52,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "更换输入单位，不会更换真实的一次预测",
+    "formula": "t=60s",
+    "body": [
+      "t以分钟计、s以小时计：dt=60ds。",
+      "若F(t)=G(s)，则G′(s)=60F′(t)，所以dF=F′dt=G′ds。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p053",
+    "compositionId": "em-l10-differentiation-53",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 619,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 53,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "table",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "个人练习 · 两题均为单选",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "个人练习12：微分沿复合关系传递",
+    "conceptCheck": true,
+    "exerciseMinutes": 2,
+    "exerciseActivityId": "l10-personal-differentiation-12",
+    "table": {
+      "columns": [
+        "1. u=x²，y=eᵘ，在固定基点处。正确关系是：",
+        "2. 同一基点处f′(a)=0、f″(a)≠0，线性近似遗漏的重要信息是："
+      ],
+      "rows": [
+        [
+          "A. dy=du/dx",
+          "A. 一阶项消失后的二阶变化"
+        ],
+        [
+          "B. dy=2x du",
+          "B. 函数在a不可导"
+        ],
+        [
+          "C. dy=eᵘdu，du=2x dx",
+          "C. 函数定义域必为空"
+        ],
+        [
+          "D. dy=eᵘdx",
+          "D. 函数在a的值"
+        ]
+      ]
+    },
+    "prompt": "请独立作答2分钟，并写一条依据；随后逐题核对。",
+    "steps": [
+      {
+        "title": "第1题：C",
+        "text": "先分别写两层的一次变化，再相乘得到dy=2x e^(x²)dx。这是链式法则的微分形式，不把dy和真实有限增量混同。"
+      },
+      {
+        "title": "第2题：A",
+        "text": "一阶项为零时仍可有二阶变化，例如x²在0处。如何系统保留下一项，将在泰勒公式中处理；本讲不直接把二阶近似当已证明的一般公式。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p054",
+    "compositionId": "em-l10-differentiation-54",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 180,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计180秒。两分钟个人作答，一分钟反馈；先让每人写依据，再公开答案。基础未稳时延长停留，拓展题另行安排。",
+    "index": 620,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 54,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "可导保证局部误差关系，不自动给出具体精度",
+    "formula": "\\frac{r(h)}h\\to0",
+    "body": [
+      "定义保证：输入足够小时，误差相对输入尺度足够小。",
+      "要回答“h=0.1误差是否小于0.01”，还需精确残差或另外的误差界。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p055",
+    "compositionId": "em-l10-differentiation-55",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 621,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 55,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "个人短答 · 独立作答1分钟",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "一分钟短答：同一切线能对应多少条曲线？",
+    "formula": "f(x)=x,\\quad g(x)=x+x^2,\\quad k(x)=x+100x^2",
+    "body": [
+      "在0处分别核对函数值与一阶导数。",
+      "能否从同一条切线断言三者在x=0.1处足够接近？"
+    ],
+    "exerciseActivityId": "l10-written-shared-tangent",
+    "exerciseMinutes": 1,
+    "slideKey": "em-l10-calculus-20261020-p056",
+    "compositionId": "em-l10-differentiation-56",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 622,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 56,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "短答反馈：同一一阶信息不决定同一误差",
+    "formula": "f(0)=g(0)=k(0)=0,\\qquad f'(0)=g'(0)=k'(0)=1",
+    "body": [
+      "在x=0.1处，三者分别为0.1、0.11、1.1。",
+      "共同切线y=x并未给出统一可用的输入范围。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p057",
+    "compositionId": "em-l10-differentiation-57",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 623,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 57,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "下一讲：从一段平均变化，找到一个局部变化率",
+    "formula": "\\frac{f(b)-f(a)}{b-a}\\quad\\text{与}\\quad f'(c)",
+    "body": [
+      "第六讲准备闭区间最值与连续性。",
+      "第七讲准备内点可导极值的必要条件。",
+      "第十一讲用中值定理连接区间上的平均变化与内部某点的导数。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p058",
+    "compositionId": "em-l10-differentiation-58",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 624,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 58,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "再往后：计算极限与系统控制近似",
+    "body": [
+      "第十二讲：在中值定理基础上讨论洛必达法则。",
+      "第十三讲：用高阶导数建立泰勒公式，并明确余项。",
+      "第五讲的(eˣ−1−x)/x²，将获得两条有条件的解法。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p059",
+    "compositionId": "em-l10-differentiation-59",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 625,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 59,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "definition",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "core",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "一次近似的完整回答应包含什么？",
+    "body": [
+      "基点与所选输入增量。",
+      "原函数的允许范围，以及线性部分。",
+      "被省去的余项、误差基准与能够保证的精度。"
+    ],
+    "slideKey": "em-l10-calculus-20261020-p060",
+    "compositionId": "em-l10-differentiation-60",
+    "kicker": "经济数学 / 第十讲 / 第2课时",
+    "classHour": 2,
+    "teachingSeconds": 60,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "预计60秒。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 626,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 60,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "optional",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "拓展：仅在一点有导数，为什么还不能继续求导？",
+    "formula": "f(x)=\\begin{cases}x^2,&x\\in\\mathbb Q,\\\\0,&x\\notin\\mathbb Q,\\end{cases}",
+    "body": [
+      "ℚ表示有理数集合，ℝℚ表示无理数集合。",
+      "证明f′(0)=0，并观察非零位置的连续性。"
+    ],
+    "steps": [
+      {
+        "title": "只有孤立的一阶可导位置",
+        "text": "零处由夹逼得导数0；非零a处沿有理、无理输入的极限分别为a²与0，因此不连续、不可导，不能在0附近形成二阶导数所需的导函数。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p061",
+    "compositionId": "em-l10-differentiation-61",
+    "kicker": "经济数学 / 第十讲 / 拓展思考",
+    "classHour": 2,
+    "teachingSeconds": 300,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "拓展不计入90分钟。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 627,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 61,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "optional",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "拓展：二阶变化怎样区分同一条切线？",
+    "formula": "f(x)=x+x^2,\\qquad g(x)=x+100x^2",
+    "body": [
+      "在0处比较一阶与二阶导数。",
+      "说明为什么同一条切线看不到二次系数。"
+    ],
+    "steps": [
+      {
+        "title": "二阶导数分辨不同弯曲速度",
+        "formula": "f'(0)=g'(0)=1,\\qquad f''(0)=2,\\qquad g''(0)=200"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p062",
+    "compositionId": "em-l10-differentiation-62",
+    "kicker": "经济数学 / 第十讲 / 拓展思考",
+    "classHour": 2,
+    "teachingSeconds": 240,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "拓展不计入90分钟。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 628,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 62,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "教学情境",
+    "sourceNote": "数学例题",
+    "routeRole": "optional",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "拓展：控制相对成本增量误差",
+    "formula": "\\frac{|\\Delta C-dC|}{|\\Delta C|}=\\frac{0.02|h|}{|24+0.02h|}\\quad(h\\ne0)",
+    "body": [
+      "基点q=100，模型要求−100≤h≤100。",
+      "分别对h>0与h<0求相对误差≤1%的范围。"
+    ],
+    "steps": [
+      {
+        "title": "增产与减产的界略有不同",
+        "formula": "0<h\\le\\frac{400}{33},\\qquad-\\frac{1200}{101}\\le h<0",
+        "text": "分别约为+12.1212件、−11.8812件；h=0时该相对误差不定义。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p063",
+    "compositionId": "em-l10-differentiation-63",
+    "kicker": "经济数学 / 第十讲 / 拓展思考",
+    "classHour": 2,
+    "teachingSeconds": 300,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "拓展不计入90分钟。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 629,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 63,
+    "localTotal": 64
+  },
+  {
+    "section": "高阶导数、微分与线性近似",
+    "kind": "exercise",
+    "visual": "formula-board",
+    "layout": "essay",
+    "style": "editorial",
+    "accent": "ink",
+    "sourceLabel": "概念模型",
+    "sourceNote": "数学例题",
+    "routeRole": "optional",
+    "assistantCue": "仅使用本页已公开材料，未揭示答案和未来推导不得提前泄露。先解释新名词与符号。核对原定义域、可导性、非零分母、反函数对应点及误差基准。法则条件不满足不能反推结论必错。商业情境为给定连续模型，不宣称因果识别或整数增量精确等于导数。尚不使用中值定理、洛必达或泰勒公式。",
+    "title": "拓展：估计ln(1.02)，怎样核对误差？",
+    "formula": "\\ln(1+h)\\approx h\\quad(a=1\\text{处对}\\ln x\\text{线性化})",
+    "body": [
+      "给出h=0.02的估算值。",
+      "第五讲的对数极限保证渐近关系，能否单靠它给出该点的具体误差上界？"
+    ],
+    "steps": [
+      {
+        "title": "估算与保证应分开",
+        "text": "估算为0.02；真值约0.01980263。该差值可数值核验，但若要给严格误差界，必须另给不等式、精确界或适用定理。"
+      }
+    ],
+    "slideKey": "em-l10-calculus-20261020-p064",
+    "compositionId": "em-l10-differentiation-64",
+    "kicker": "经济数学 / 第十讲 / 拓展思考",
+    "classHour": 2,
+    "teachingSeconds": 240,
+    "moduleId": "differentiation-10-2",
+    "teachingCue": "拓展不计入90分钟。按页中条件解释每一步，提问后保留独立判断时间；反馈只在相应步骤公开后讲解。",
+    "index": 630,
+    "lesson": 10,
+    "lessonTitle": "高阶导数、微分与线性近似",
+    "unit": 3,
+    "unitTitle": "导数与微分",
+    "localIndex": 64,
+    "localTotal": 64
+  }
+]

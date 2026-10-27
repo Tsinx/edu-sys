@@ -1,0 +1,76 @@
+{
+  "deckId": "deck-economic-mathematics-2026-mean-value",
+  "versionId": "release-economic-mathematics-analysis-2026-10-22",
+  "counts": [
+    40,
+    59,
+    85,
+    60,
+    66,
+    64,
+    64,
+    64,
+    64,
+    64,
+    56,
+    56,
+    11,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    14,
+    10,
+    10,
+    10,
+    11,
+    14,
+    12
+  ],
+  "files": [
+    {
+      "path": "packages/course-content/src/economic-mathematics/lesson-10-differentials.ts",
+      "sha256": "73f3e2a8c7f7c7fa399b84612f243f9a1a7c7a20c2420e51cabb4d842cf1a0f0"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/differentiation-authoring.ts",
+      "sha256": "b9792ad6b480767352a6054e76b1733e441f087c990c6e5c565decd83e22210e"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/differentiation-exercises.ts",
+      "sha256": "d1ea1078f8e44f0613fc94fe1a6ece39424a5423c718361ece282baefa1280f6"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/differentiation-written-exercises.ts",
+      "sha256": "4d2e49f4c120f2b91f606aea0f1a8b198c76953dd41a0af0b9eef00f56395f91"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "sha256": "fe61f92fceeb1383ab3aa411d59f71df7336fb86ee88cfdf04132bc0cee2e47d"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/slides.ts",
+      "sha256": "e7f174e0d67bb71e7b3251f61810a1378ac662c1d859ada306c01bbd5816a938"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/index.ts",
+      "sha256": "6bc335c622646042a9526c38dee85b368f59c8fc50066020ebfd4bcad06da622"
+    },
+    {
+      "path": "apps/teacher-web/src/economic-narration.tsx",
+      "sha256": "7745ffb5805e4827343559865a814ed549c5a3f4673b19633e65a3f5710e838b"
+    },
+    {
+      "path": "docs/course/economic-mathematics-lessons-08-10-design.md",
+      "sha256": "5d16779357fc4893cc11ba0d6d67c7ef281151c8c783a4e14e3250c8dd5990c1"
+    }
+  ]
+}

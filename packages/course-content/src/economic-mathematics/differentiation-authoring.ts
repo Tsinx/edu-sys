@@ -7,7 +7,7 @@ type Details=Omit<Partial<Slide>,'steps'> & {seconds?:number;steps?:readonly Rev
 export function writtenTask(id:string):Details {
  const a=DIFFERENTIATION_WRITTEN_EXERCISES.find(a=>a.id===id);
  if(!a)throw Error('WRITTEN_TASK:'+id);
- return {kind:'exercise',exerciseActivityId:id,exerciseMinutes:a.minutes,sourceNote:'个人短答 · 独立作答1分钟'};
+ return {kind:'exercise',exerciseActivityId:id,exerciseMinutes:a.minutes,seconds:a.minutes*60,sourceNote:`个人短答 · 独立作答${a.minutes}分钟`};
 }
 /** Convenience for explicit page scripts; this never invents teaching prose or pacing. */
 export function page(title:string,formula:string|undefined,body:readonly string[],speech:string,details:Details={}):DifferentialPage{
@@ -23,11 +23,11 @@ export function differentialPractice(lesson:8|9|10,number:number):DifferentialPa
  teachingCue:'两分钟个人作答，一分钟反馈；先让每人写依据，再公开答案。基础未稳时延长停留，拓展题另行安排。',
  speech:[`请独立完成两道单选题，并给出一条依据。${a.questions.map((q,i)=>`第${i+1}题，${q.stem}${q.options.map((o,k)=>`${'ABCD'[k]}，${o}。`).join('')}`).join('')}先作答，再核对。`,...a.questions.map((q,i)=>`第${i+1}题选${q.answer}。${q.explanation}`)]};
 }
-export function differentialLesson(number:8|9|10,title:string,question:string,outcomes:readonly string[],routes:readonly[string,string],pages:readonly DifferentialPage[]){
- const core=pages.filter(p=>p.routeRole!=='optional'),split=30;
- if(core.length!==60||pages.slice(60).some(p=>p.routeRole!=='optional'))throw Error(`DIFFERENTIATION_ROUTE:${number}:${core.length}`);
+export function differentialLesson(number:8|9|10,title:string,question:string,outcomes:readonly string[],routes:readonly[string,string],pages:readonly DifferentialPage[],options:{corePages?:number;firstHourPages?:number;revision?:string}={}){
+ const core=pages.filter(p=>p.routeRole!=='optional'),split=options.firstHourPages??30,corePages=options.corePages??60;
+ if(core.length!==corePages||pages.slice(corePages).some(p=>p.routeRole!=='optional'))throw Error(`DIFFERENTIATION_ROUTE:${number}:${core.length}`);
  for(const [i,span]of[core.slice(0,split),core.slice(split)].entries()){const seconds=span.reduce((n,p)=>n+p.seconds,0);if(seconds!==2700)throw Error(`DIFFERENTIATION_TIME:${number}:${i+1}:${seconds}`);}
- const name={8:'八',9:'九',10:'十'}[number],key=(i:number)=>`em-l${String(number).padStart(2,'0')}-calculus-20261020-p${String(i+1).padStart(3,'0')}`;
+ const name={8:'八',9:'九',10:'十'}[number],revision=options.revision??'20261020',key=(i:number)=>`em-l${String(number).padStart(2,'0')}-calculus-${revision}-p${String(i+1).padStart(3,'0')}`;
  const slides=pages.map(({speech,seconds,teachingCue,...p},i):Slide=>{
   if(speech.length!==1+(p.steps?.length??0))throw Error(`DIFFERENTIATION_SPEECH:${number}:${i+1}`);
   const hour=i<split?1:2;
@@ -38,6 +38,6 @@ export function differentialLesson(number:8|9|10,title:string,question:string,ou
  });
  const lesson:Lesson={number,title,unit:3,unitTitle:'导数与微分',hours:2,expectedSlides:slides.length,coreQuestion:question,outcomes,exerciseCapability:outcomes.join('；'),
  prerequisites:number===8?['第七讲导数定义、可导与连续','第五讲重要极限']:number===9?['第二讲复合函数与反函数','第八讲基本求导公式与四则法则']:['第八、九讲求导与链式法则','第七讲切线与边际成本'],
- route:routes.map(activity=>({minutes:45,activity})),classHours:[{hour:1,minutes:45,slideStart:1,slideEnd:30,activity:routes[0]},{hour:2,minutes:45,slideStart:31,slideEnd:60,activity:routes[1]}],slides};
+ route:routes.map(activity=>({minutes:45,activity})),classHours:[{hour:1,minutes:45,slideStart:1,slideEnd:split,activity:routes[0]},{hour:2,minutes:45,slideStart:split+1,slideEnd:corePages,activity:routes[1]}],slides};
  return {lesson,narration:Object.fromEntries(pages.map((p,i)=>[key(i),p.speech])) as Readonly<Record<string,readonly string[]>>};
 }

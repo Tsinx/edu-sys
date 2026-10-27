@@ -1,0 +1,188 @@
+[
+  {
+    "id": "l10-personal-differentiation-13",
+    "lesson": 10,
+    "number": 13,
+    "title": "第十讲·个人练习13：微分的常数与和差",
+    "minutes": 2,
+    "questions": [
+      {
+        "stem": "u、v在同一基点可导，c为常数。下列哪个微分恒等式正确？",
+        "options": [
+          "d(3u−2v+c)=3du−2dv",
+          "d(3u−2v+c)=(3u′−2v′)",
+          "d(3u−2v+c)=3du−2dv+c",
+          "d(3u−2v+c)=du−dv"
+        ],
+        "answer": "A",
+        "explanation": "常数的微分为0，固定系数保留，和差分别取微分。右端须保留输入增量；只有导数系数的式子还不是微分。"
+      },
+      {
+        "stem": "y=3x²−2eˣ+7，在基点x=0取dx=h，则dy为：",
+        "options": [
+          "−2h",
+          "−2",
+          "3h²−2(eʰ−1)",
+          "0"
+        ],
+        "answer": "A",
+        "explanation": "dy=(6x−2eˣ)dx，在基点0取系数−2，再乘h。3h²−2(eʰ−1)是真实增量，包含了被线性近似省去的部分。"
+      }
+    ],
+    "type": "single-choice",
+    "page": 41,
+    "routeRole": "core",
+    "slideKey": "em-l10-calculus-rules-20261026-p041",
+    "platformGroup": "第十讲·微分四则与复合·个人练习"
+  },
+  {
+    "id": "l10-personal-differentiation-14",
+    "lesson": 10,
+    "number": 14,
+    "title": "第十讲·个人练习14：乘积微分与交叉项",
+    "minutes": 2,
+    "questions": [
+      {
+        "stem": "y=(x²+1)eˣ。正确的微分是：",
+        "options": [
+          "2xeˣ dx",
+          "eˣ(x²+2x+1) dx",
+          "2xeˣ(dx)²",
+          "(x²+1)eˣ dx"
+        ],
+        "answer": "B",
+        "explanation": "令u=x²+1、v=eˣ，使用d(uv)=vdu+udv，得到eˣ·2x dx+(x²+1)eˣ dx。两个一阶贡献都要保留。"
+      },
+      {
+        "stem": "u=x+1，v=2x，基点a=1，dx=h。乘积uv的微分为：",
+        "options": [
+          "2h²",
+          "6h+2h²",
+          "6h",
+          "4h"
+        ],
+        "answer": "C",
+        "explanation": "基点u=2、v=2，du=h、dv=2h，所以d(uv)=2h+4h=6h。真实增量为6h+2h²，交叉项2h²属于精确增量，未进入一次主部。"
+      }
+    ],
+    "type": "single-choice",
+    "page": 45,
+    "routeRole": "core",
+    "slideKey": "em-l10-calculus-rules-20261026-p045",
+    "platformGroup": "第十讲·微分四则与复合·个人练习"
+  },
+  {
+    "id": "l10-personal-differentiation-15",
+    "lesson": 10,
+    "number": 15,
+    "title": "第十讲·个人练习15：商的微分与原定义域",
+    "minutes": 2,
+    "questions": [
+      {
+        "stem": "y=(x²+1)/(x−1)，x≠1。正确的微分是：",
+        "options": [
+          "2x dx",
+          "(x²−1)/(x−1)² dx",
+          "(x²−2x−1)/(x−1) dx",
+          "(x²−2x−1)/(x−1)² dx"
+        ],
+        "answer": "D",
+        "explanation": "商的分子是(x−1)·2x−(x²+1)·1=x²−2x−1，分母为(x−1)²，最后乘dx；原条件x≠1仍保留。"
+      },
+      {
+        "stem": "原函数f(x)=(x²−1)/(x−1)，定义域为x≠1。约分后在x≠1有f=x+1。关于x=1处的微分，哪句准确？",
+        "options": [
+          "两边导数相同，所以原函数在1处必可导",
+          "原函数在1处的微分就是dx",
+          "约分自动把1加入了原定义域",
+          "原函数在1未定义，不能谈该点微分；另定义g(x)=x+1后可谈g在1处的微分"
+        ],
+        "answer": "D",
+        "explanation": "约分给出共同定义域中的恒等式，不自动补上原函数缺失的点。g是另行定义的延拓函数，g在1处可导，dg=dx；应明确区分两个函数。"
+      }
+    ],
+    "type": "single-choice",
+    "page": 48,
+    "routeRole": "core",
+    "slideKey": "em-l10-calculus-rules-20261026-p048",
+    "platformGroup": "第十讲·微分四则与复合·个人练习"
+  },
+  {
+    "id": "l10-personal-differentiation-16",
+    "lesson": 10,
+    "number": 16,
+    "title": "第十讲·个人练习16：复合微分与固定基点",
+    "minutes": 2,
+    "questions": [
+      {
+        "stem": "u=x²，y=e^(2u)，在基点x=1处取dx=h。dy等于：",
+        "options": [
+          "4e²du",
+          "4e²h",
+          "2e²h",
+          "2h"
+        ],
+        "answer": "B",
+        "explanation": "du=2x dx，在基点x=1得到du=2h；dy=2e^(2u)du，取对应u=1得到4e²h。两个系数须在同一组对应基点取值。"
+      },
+      {
+        "stem": "y=(x²+1)e^(2x)，在基点0处取dx=h，哪一项正确？",
+        "options": [
+          "dy=2h，且真实增量对所有h都等于2h",
+          "dy=2h，但真实增量为(1+h²)e^(2h)−1，通常不同",
+          "dy=2(dx)²，所以误差必为0",
+          "dy=0，因为x²的导数在0为0"
+        ],
+        "answer": "B",
+        "explanation": "乘积与链式法则给y′(0)=2，故dy=2h。这是精确的微分关系；Δy还含非线性变化，不能由微分恒等式断言有限增量也精确相等。"
+      }
+    ],
+    "type": "single-choice",
+    "page": 51,
+    "routeRole": "core",
+    "slideKey": "em-l10-calculus-rules-20261026-p051",
+    "platformGroup": "第十讲·微分四则与复合·个人练习"
+  },
+  {
+    "id": "l10-written-product-cross",
+    "lesson": 10,
+    "number": 3,
+    "title": "第十讲·微分运算短答01：交叉项与二阶导数",
+    "minutes": 4,
+    "stem": "u、v在基点a附近二阶可导，s=uv。①写出乘积的精确增量，并说明为什么一阶微分没有du·dv项。须用一个极限关系解释。②推导s″(a)，说明2u′(a)v′(a)从何而来。③用u(x)=v(x)=x、a=1核对真实增量、一阶微分及二阶导数。",
+    "answer": "①Δ(uv)=v(a)Δu+u(a)Δv+ΔuΔv。可导保证Δu/h→u′(a)、Δv→0，故ΔuΔv/h=(Δu/h)Δv→0；一次主部为v(a)du+u(a)dv。②先有s′=u′v+uv′，再分别求导得s″=u″v+u′v′+u′v′+uv″，所以基点处为u″(a)v(a)+2u′(a)v′(a)+u(a)v″(a)。两次乘积求导各产生一个交叉贡献。③s=x²，在a=1时Δs=2h+h²、ds=2h、s″(1)=2。一阶微分与真实增量、二阶导数研究的是不同对象。",
+    "explanation": "交叉项没有从真实变化中消失，只是在提取关于同一输入增量h的一次主部时不贡献。求二阶导数则研究一阶导函数随基点的变化，不能把前一步固定基点处的某个数当作函数再求导。",
+    "scoring": [
+      "精确增量恒等式正确（2分）。",
+      "用ΔuΔv/h→0说明一次主部，并给出所需可导条件（3分）。",
+      "二阶公式及两个交叉贡献正确（3分）。",
+      "x²在1处的三项核验正确（2分）。"
+    ],
+    "type": "written",
+    "page": 66,
+    "routeRole": "optional",
+    "slideKey": "em-l10-calculus-rules-20261026-p066",
+    "platformGroup": "第十讲·微分四则与复合·个人练习"
+  },
+  {
+    "id": "l10-written-mixed-domain",
+    "lesson": 10,
+    "number": 4,
+    "title": "第十讲·微分运算短答02：化简、基点与延拓",
+    "minutes": 4,
+    "stem": "原函数y=[(x²−1)e^(2x)]/(x−1)，定义域为x≠1。①保留原定义域，计算dy，可选择先约分或直接使用商法则。②在基点a=0取dx=0.02，写出微分和函数值的线性估算。③能否根据化简后的式子直接宣布原函数在x=1处可微？若另定义延拓函数g(x)=(x+1)e^(2x)（x∈R），求g在1处的微分。",
+    "answer": "①共同定义域内y=(x+1)e^(2x)，所以dy=[e^(2x)+2(x+1)e^(2x)]dx=(2x+3)e^(2x)dx，仍要求x≠1。②y(0)=1，y′(0)=3，因此dy=3×0.02=0.06，y(0.02)的线性估算为1.06。③不能，原函数在1处没有定义，因而没有该点的微分。新定义的g在1处可导，dg=g′(1)dx=5e²dx；此时基点改为1，不能继续使用a=0处的系数3。",
+    "explanation": "先化简可以减少计算，但函数由规则及定义域共同确定。求一般微分、固定基点代值、估计函数值是三个连续步骤；换一个基点必须重取相应导数系数。延拓是另行定义一个函数，并非约分自动赋值。",
+    "scoring": [
+      "保留x≠1并正确使用乘积、链式或商法则（4分）。",
+      "给出dy=0.06与函数值估算1.06，区分两者（2分）。",
+      "指出原函数在1未定义（2分）。",
+      "延拓函数在新基点的微分5e²dx正确（2分）。"
+    ],
+    "type": "written",
+    "page": 69,
+    "routeRole": "optional",
+    "slideKey": "em-l10-calculus-rules-20261026-p069",
+    "platformGroup": "第十讲·微分四则与复合·个人练习"
+  }
+]
