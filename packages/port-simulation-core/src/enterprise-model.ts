@@ -1,6 +1,11 @@
 /** Long-horizon, single-player teaching model. Currency is CNY; rates are scenario assumptions. */
-export const ENTERPRISE_VERSION = 'port-enterprise/1.0' as const;
-export const ENTERPRISE_RULES = Object.freeze({ engine: ENTERPRISE_VERSION, catalogue: 'port-assets/1.0', demand: 'port-market/1.0', finance: 'port-finance/1.0', indicators: 'port-enterprise-score/1.0' });
+export const ENTERPRISE_VERSION = 'port-enterprise/2.0' as const;
+export const ENTERPRISE_RULES = Object.freeze({ engine: ENTERPRISE_VERSION, operations:'port-operations/2.0',catalogue: 'port-assets/2.0', demand: 'port-market/1.0', finance: 'port-finance/2.0', indicators: 'port-enterprise-score/2.0' });
+export function enterpriseRulesMatch(value:unknown,expected:Readonly<Record<string,string>>=ENTERPRISE_RULES):boolean{
+  if(!value||typeof value!=='object'||Array.isArray(value))return false;
+  const rules=value as Record<string,unknown>,keys=Object.keys(expected);
+  return Object.keys(rules).length===keys.length&&keys.every(key=>Object.hasOwn(rules,key)&&rules[key]===expected[key]);
+}
 export const ENTERPRISE_NOTE_TOPICS: readonly string[] = ['经营决策', '设备投资', '生产调度', '异常与边界'];
 export type CargoKind = 'container' | 'bulk' | 'liquid' | 'general' | 'roro' | 'passenger';
 export type Stage = 'quay' | 'transport' | 'yard' | 'gate' | 'marine';
@@ -31,6 +36,36 @@ export interface Terminal {
 export interface Crew {
   id: string; role: StaffRole; count: number; shift: Shift | 'reserve'; skill: number; trainingUntil: number;
   trainingGain: number; hiredHour: number; wage: number;
+  cohort?: string;
+}
+export interface YardPlan {
+  allocation:'fixed'|'shared'|'dynamic'; classification:'arrival'|'turnover'|'voyage';
+  importShare:number; sharedShare:number; maxTiers:2|3|4;
+}
+export interface YardLayer {lotId:string;quantity:number;group:string;expectedHour:number;}
+/** One column represents parallel stacks of the same batch, not a rendered individual box. */
+export interface YardColumn {layers:YardLayer[];}
+export interface YardBlock {id:string;terminalId:string;index:number;columns:YardColumn[];}
+export interface ManagementPlan {
+  goal:'balanced'|'service'|'flow'|'green'; staffing:'balanced'|'day-heavy'|'reserve'|'custom';
+  charging:'threshold'|'staggered'|'offpeak'; chargeTarget:number; chargeReserve:number; chargingLimit:number;
+  maintenance:'standard'|'offpeak'|'risk'; escalation:'major'|'all';
+}
+export interface ManagementMetrics {
+  yardStored:number;yardRetrieved:number;yardRehandles:number;travelWork:number;yardBlockedHours:number;
+  sharedUnits:number;chargingHours:number;chargingWaitHours:number;chargingEnergy:number;
+}
+export interface ManagementBaseline {
+  hour:number;cash:number;revenue:number;operating:number;delivered:Record<CargoKind,number>;metrics:ManagementMetrics;energy:number;
+}
+export interface ManagementReview {
+  startHour:number;endHour:number;cashChange:number;cashEnd:number;revenue:number;operating:number;energy:number;
+  delivered:Record<CargoKind,number>;fulfillment:number|null;backlog:Record<CargoKind,number>;
+  metrics:ManagementMetrics;changes:string[];
+}
+export interface EnterpriseManagement {
+  plan:ManagementPlan;yardPlans:Record<string,YardPlan>;blocks:YardBlock[];metrics:ManagementMetrics;
+  baseline:ManagementBaseline;reviews:ManagementReview[];changes:string[];planCount:number;yardPlanCount:number;
 }
 export type DocumentKind = 'entry' | 'manifest' | 'customs' | 'carrier' | 'departure';
 export type DocumentState = 'draft' | 'submitted' | 'approved' | 'correction';
@@ -44,6 +79,8 @@ export interface EnterpriseCall {
   wait: { berth: number; channel: number; documents: number; equipment: number }; price: number;
 }
 export interface CargoLot {
+  /** Export units already received by a train/barge, still awaiting gate-to-yard transfer. */
+  connectionReady:number;
   id: string; callId: string; terminalId: string; goods: CargoKind; flow: 'import' | 'export'; quantity: number;
   ship: number; apron: number; yard: number; land: number; completed: number; lost: number;
   quarantine: boolean; inspectionUntil: number | null; release: boolean; bonded: boolean;
@@ -72,6 +109,8 @@ export interface Incident {
   title: string; terminalId: string | null; started: number; status: 'active' | 'contained' | 'resolved';
   response: 'none' | 'isolate' | 'backup' | 'repair' | 'recover'; resolves: number | null; evidence: boolean;
   loss: number; blockedHours: number;
+  authorization?:'repair'|'continuity';authorizedBudget?:number;authorizedSpent?:number;
+  backupActive?:boolean;authorizationPaused?:boolean;authorizationNote?:string;
 }
 export interface MoneyEntry { hour: number; category: string; amount: number; cash: number; note: string; }
 export interface Receivable { id: string; due: number; amount: number; }
@@ -97,10 +136,15 @@ export interface EnterpriseState {
   gridKw: number; solarKw: number; digitalLevel: number; fuelStock: number; spareParts: number;
   governance: 'integrated' | 'landlord'; concessionRate: number; lastMarketQuarter: number;
   sealed: boolean; nextId: number;
+  management:EnterpriseManagement;
 }
 export type EnterpriseCommand =
   | { kind: 'advance'; hours: number; stopOnIncident?: boolean }
   | { kind: 'policy'; patch: Partial<Policy> }
+  | { kind: 'management-plan'; patch:Partial<ManagementPlan> }
+  | { kind: 'yard-plan'; terminalId:string; patch:Partial<YardPlan> }
+  | { kind: 'staff-plan'; template:'balanced'|'day-heavy'|'reserve' }
+  | { kind: 'incident-plan'; incidentId:string; plan:'repair'|'continuity';budget:number }
   | { kind: 'order-asset'; model: string; terminalId: string; ownership: 'owned' | 'leased' }
   | { kind: 'assign-asset'; assetId: string; terminalId: string }
   | { kind: 'maintain'; assetId: string; overhaul: boolean }

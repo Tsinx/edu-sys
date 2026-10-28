@@ -1,0 +1,43 @@
+[
+  {
+    "file": "chongqing-truck.jpg",
+    "page": "https://www.cq.gov.cn/zt/xblhxtd/jdtp/202503/t20250314_14407887.html",
+    "image": "https://www.cq.gov.cn/zt/xblhxtd/jdtp/202503/W020250314613041467274.jpg",
+    "sha256": "6bb11612f5cbc28a48a54af191d084ce5288c37bb1ed09113e7d6d888ac5f06c",
+    "label": "原页面配图，保持原始文件；文章日期不推定为拍摄日"
+  },
+  {
+    "file": "rotterdam-ai.jpg",
+    "page": "https://www.portofrotterdam.com/en/port-future/innovation/artificial-intelligence-port",
+    "image": "https://www.portofrotterdam.com/sites/default/files/styles/content_default_image/public/2023-09/AI-iStock-1441152719.jpg?h=5b3d5754&itok=irZ8HXG_",
+    "sha256": "5cbf7cfb04a220818f7e17c64da5cf4a320e75ef64790c874f0f7fdae398257c",
+    "label": "原页面配图，保持原始文件；文章日期不推定为拍摄日"
+  },
+  {
+    "file": "tradelens-harbour.jpg",
+    "page": "https://www.maersk.com/news/articles/2022/11/29/maersk-and-ibm-to-discontinue-tradelens",
+    "image": "https://www.maersk.com/~/media_sc9/maersk/news/press-releases/images/2020/05/habour_1024x576_v1.jpg?h=576&w=1024&hash=13F9C0945A1A067536C4DAB35079170D",
+    "sha256": "f6161462e66e2c99219cd4844b2344a5aa4d9dfdbea0785f94bbf75b7a160452",
+    "label": "原页面配图，保持原始文件；文章日期不推定为拍摄日"
+  },
+  {
+    "file": "yard-research.png",
+    "page": "https://hhla.de/fileadmin/module/its/ITS_Tech_Paper-HPC_machine_learning.pdf",
+    "sha256": "5ec5705341a596aca07337a6832e5573fbd08a55d3714f088a09f3aaa493b388",
+    "label": "作者论文第8页训练曲线原图，非港口实测"
+  },
+  {
+    "file": "qingdao-agv.jpg",
+    "page": "https://tv.cctv.com/2025/05/22/VIDEu7abgnqxjck2rKBqygmP250522.shtml",
+    "sourceSecond": 47,
+    "sha256": "4f3d992d2c708d04ffc669733715f0e45d1c472cb0d591e8261db9c5cf8944fe",
+    "label": "2025年青岛港报道原始画面，保留台标和原字幕"
+  },
+  {
+    "file": "apica-twin.jpg",
+    "page": "https://sustainableworldports.org/wp-content/uploads/IAPH-WPSP-POAB-APICA-Digital-Twin_Final.pdf",
+    "pdfPage": 2,
+    "sha256": "24dc1729c584fd98d8bc772b98116ae80579b2c5f781e6deb3a7a05fb20e4cf3",
+    "label": "港方项目材料中的APICA界面与虚拟助手组合示意，非现场实拍"
+  }
+]

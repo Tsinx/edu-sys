@@ -14,7 +14,7 @@ test('96 authored causal pages each resolve evidence and remain projection copy'
  }
 });
 test('complete scripts use stable keys, one source, 70 + 20 minutes and substantive spoken copy',()=>{
- assert.equal(scripts.length,192);assert.equal(new Set(scripts.map(p=>p.slideKey)).size,192);
+ assert.equal(scripts.length,288);assert.equal(new Set(scripts.map(p=>p.slideKey)).size,288);
  for(const lesson of [10,11]){
   const items=scripts.filter(p=>p.lesson===lesson);assert.equal(items.length,48);
   const near=(a:number,b:number)=>assert.ok(Math.abs(a-b)<1e-8);
@@ -28,7 +28,7 @@ test('complete scripts use stable keys, one source, 70 + 20 minutes and substant
 test('current-page context includes only visible causal evidence, no scripts, oracle or future feedback',()=>{
  for(const p of slides.filter(p=>p.lesson>=10&&p.lesson<=11)){
   const w=buildPromptWorkspace('statistical-analysis','统计分析方法',undefined,p.index);
-  assert.equal(w.coverage.slides,642);assert.match(w.compiled,/第14—16讲仍待建设/);
+  assert.equal(w.coverage.slides,738);assert.match(w.compiled,/第16讲仍待建设/);
   assert.doesNotMatch(w.compiled,/trueAssignmentProbability|constantAdditiveEffect|spokenSeconds|pauseSeconds|paragraphs/);
   const script=scripts.find(s=>s.slideKey===p.slideKey)!;assert.ok(!w.compiled.includes(script.paragraphs[0]!));
  }

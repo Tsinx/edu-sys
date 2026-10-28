@@ -47,11 +47,11 @@ function getStudentVisibleCopy(slide: PortManagementSlideSpec): string {
     .join("\n");
 }
 
-test("course catalog exposes eighteen honest lesson states and continuous lesson ranges", () => {
-  assert.equal(PORT_MANAGEMENT_LESSONS.length, 18);
+test("course catalog exposes twenty-one honest lesson states and continuous lesson ranges", () => {
+  assert.equal(PORT_MANAGEMENT_LESSONS.length, 21);
   assert.deepEqual(
     PORT_MANAGEMENT_LESSONS.map((lesson) => lesson.number),
-    Array.from({ length: 18 }, (_, index) => index + 1)
+    Array.from({ length: 21 }, (_, index) => index + 1)
   );
 
   const readyLessons = PORT_MANAGEMENT_LESSONS.filter(
@@ -81,7 +81,10 @@ test("course catalog exposes eighteen honest lesson states and continuous lesson
       [15, 622, 653],
       [16, 654, 685],
       [17, 686, 727],
-      [18, 728, 767]
+      [18, 728, 767],
+      [19, 768, 807],
+      [20, 808, 839],
+      [21, 840, 871]
     ]
   );
   for (const lesson of readyLessons) {
@@ -103,16 +106,16 @@ test("course catalog exposes eighteen honest lesson states and continuous lesson
     assert.equal(lesson.assistantBrief, null);
   }
 
-  assert.equal(PORT_MANAGEMENT_SLIDES.length, 767);
+  assert.equal(PORT_MANAGEMENT_SLIDES.length, 871);
   assert.deepEqual(
     PORT_MANAGEMENT_SLIDES.map((slide) => slide.index),
-    Array.from({ length: 767 }, (_, index) => index + 1)
+    Array.from({ length: 871 }, (_, index) => index + 1)
   );
   assert.equal(
     new Set(PORT_MANAGEMENT_SLIDES.map((slide) => slide.slideKey)).size,
-    767
+    871
   );
-  assert.equal(PORT_MANAGEMENT_DECK_VERSION, "release-port-management-facilities-v20");
+  assert.equal(PORT_MANAGEMENT_DECK_VERSION, "release-port-management-facilities-v22");
 });
 
 test("lesson-local page numbers map cleanly onto the internal global index", () => {
@@ -150,11 +153,11 @@ test("lesson-local page numbers map cleanly onto the internal global index", () 
   assert.deepEqual(getPortManagementLessonSlidePosition(686), {globalIndex:686,lessonNumber:17,lessonStart:686,lessonEnd:727,localIndex:1,localTotal:42});
   assert.equal(getPortManagementGlobalSlideIndex(17,42),727);
   assert.equal(getPortManagementGlobalSlideIndex(17,43),null);
-  assert.equal(getPortManagementGlobalSlideIndex(19,1),null);
+  assert.equal(getPortManagementGlobalSlideIndex(19,1),768);
   assert.equal(getPortManagementGlobalSlideIndex(18,1),728);
   assert.equal(getPortManagementGlobalSlideIndex(18,40),767);
   assert.deepEqual(getPortManagementLessonSlidePosition(728), {globalIndex:728,lessonNumber:18,lessonStart:728,lessonEnd:767,localIndex:1,localTotal:40});
-  assert.equal(getPortManagementLessonSlidePosition(768),null);
+  assert.equal(getPortManagementLessonSlidePosition(872),null);
   assert.equal(getPortManagementGlobalSlideIndex(6,48),293);
 });
 
@@ -175,7 +178,7 @@ test("every slide carries complete narrative and source metadata", () => {
     assert.ok(evidenceStates.has(slide.narrative.evidence));
     assert.ok(storyBeats.has(slide.narrative.storyBeat));
     assert.ok(slide.narrative.progress >= 1);
-    assert.ok(slide.narrative.progress <= 767);
+    assert.ok(slide.narrative.progress <= 871);
     for (const sourceId of slide.sourceIds ?? []) {
       assert.ok(
         PORT_MANAGEMENT_SOURCES[sourceId],
@@ -326,6 +329,14 @@ test("assistant context stays bounded, page-specific and free of authoring notes
       assert.match(context.voyagePrompt, /第一讲历史主线/);
       assert.match(context.voyagePrompt, /现代巨轮从本讲第40页/);
       assert.doesNotMatch(context.voyagePrompt, /教学货物/);
+    } else if(slide.lesson===19) {
+      assert.match(context.voyagePrompt,/CNN|DRL/);
+      assert.match(context.voyagePrompt,/教学/);
+      assert.doesNotMatch(context.voyagePrompt,/OOCL Spain|LL3/);
+    } else if(slide.lesson>=20) {
+      assert.match(context.voyagePrompt,/综合复习/);
+      assert.match(context.voyagePrompt,/没有新增学生操作、模拟或提交要求/);
+      assert.doesNotMatch(context.voyagePrompt,/OOCL Spain|LL3/);
     } else if(slide.lesson===18) {
       assert.match(context.voyagePrompt,/独立分期投资情境/);
       assert.match(context.voyagePrompt,/t0至t6/);

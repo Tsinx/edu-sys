@@ -1,5 +1,7 @@
 import { assetSpec, projectSpec } from './enterprise-catalogue.js';
 import { advanceEnterpriseHour } from './enterprise-operations.js';
+import {applyManagementPlan,applyStaffPlan,applyYardPlan,authorizeIncident,createManagement,needsManagementAttention} from './enterprise-management.js';
+import {assertYards} from './enterprise-yard.js';
 import { ENTERPRISE_RULES, ENTERPRISE_VERSION, CARGO_LABELS, STAFF_LABELS, enterpriseHorizon, enterpriseRandom, quarterIndex, type Asset, type CargoKind, type Crew, type EnterpriseCommand, type EnterpriseConfig, type EnterpriseState, type StaffRole, type Terminal } from './enterprise-model.js';
 import { arrivals, assetValue, bookValue, clamp, event, leaseDeliveryHour, market, money, post, spend, terminal, terminalStock, weather } from './enterprise-support.js';
 
@@ -15,8 +17,8 @@ export function createEnterprise(config: EnterpriseConfig = { seed: 20261025, ye
   const s: EnterpriseState = {
     schema: ENTERPRISE_VERSION, rules: { ...ENTERPRISE_RULES }, config: clean, hour: 0, horizon: enterpriseHorizon(clean.years),
     terminals: [term('T1', '东湾集装箱一作业区', 'container', [0, 0]), term('T2', '东湾集装箱二作业区', 'container', [1, 0], { rail: true, shore: true, distance: 2.1 }), term('T3', '北岸散货码头', 'bulk', [2, 0]), term('T4', '液散储运区', 'liquid', [0, 1]), term('T5', '件杂货码头', 'general', [1, 1]), term('T6', '滚装作业区', 'roro', [2, 1]), term('T7', '客运与渡运站', 'passenger', [3, 1], { length: 180, depth: 8, distance: 1 })],
-    assets: [], crews: [], calls: [], lots: [], customers: [], contracts: [], projects: [], incidents: [],
-    policy: { autoBerth: true, documents: 'automatic', verifiedExceptions: false, priority: 'deadline', maintenance: 'preventive', maintenanceHealth: 65, shorePower: true, roadQuota: 180, railHour: 10, bargeHour: 16, transport: 'road', tariff: 1, reserveCash: 5_000_000, insurance: true, autoSupplies: true },
+    assets: [], crews: [], calls: [], lots: [], customers: [], contracts: [], projects: [], incidents: [],management:createManagement(),
+    policy: { autoBerth: true, documents: 'automatic', verifiedExceptions: true, priority: 'deadline', maintenance: 'preventive', maintenanceHealth: 65, shorePower: true, roadQuota: 240, railHour: 10, bargeHour: 16, transport: 'balanced', tariff: 1, reserveCash: 5_000_000, insurance: true, autoSupplies: true },
     cash: 85_000_000, debt: 20_000_000, initialEquity: 0, initialAssetValue: 0, receivables: [], ledger: [], months: [],
     stats: { generated: 0, delivered: 0, onTime: 0, lost: 0, unloaded: 0, loaded: 0, waitingUnitHours: 0, vesselWaiting: 0, vesselHours: 0, departed: 0, rehandles: 0, energy: 0, fuel: 0, emissions: 0, spillExposure: 0, roadWaiting: 0, maintenance: 0, unsafeAttempts: 0, recovered: 0, decisionNotes: 0 },
     events: [], eventSequence: 0, journal: [], notes: [], gridKw: clean.scenario === 'green' ? 2600 : 4200, solarKw: 0, digitalLevel: 1, fuelStock: 60000, spareParts: 18, governance: 'integrated', concessionRate: .025, lastMarketQuarter: -1, sealed: false, nextId: 1,
@@ -46,8 +48,9 @@ function integer(n: number, min: number, max: number) { if (!Number.isSafeIntege
 function text(value: unknown, limit = 300) { if (typeof value !== 'string' || !value.trim() || value.length > limit) throw Error('文本为空或过长。'); return value.trim(); }
 function findAsset(s: EnterpriseState, id: string) { const a = s.assets.find(a => a.id === id); if (!a || a.status === 'retired') throw Error('设备不存在或已退出运营。'); return a; }
 function findCrew(s: EnterpriseState, id: string): Crew { const c = s.crews.find(c => c.id === id); if (!c) throw Error('班组不存在。'); return c; }
-function availableTechnicians(s: EnterpriseState) { return Math.max(0, s.crews.filter(c => c.role === 'technician' && c.shift === Math.floor(s.hour % 24 / 8) && c.trainingUntil <= s.hour).reduce((n, c) => n + c.count, 0) - s.assets.filter(a=>a.status==='maintenance').length); }
+function availableTechnicians(s: EnterpriseState) { return Math.max(0, s.crews.filter(c => c.role === 'technician' && c.shift === Math.floor(s.hour % 24 / 8) && c.trainingUntil <= s.hour).reduce((n, c) => n + c.count*c.skill/100, 0) - s.assets.filter(a=>a.status==='maintenance').length-s.incidents.filter(i=>i.resolves!==null).length); }
 const commandFields: Record<EnterpriseCommand['kind'], string[]> = {
+  'management-plan':['patch'],'yard-plan':['terminalId','patch'],'staff-plan':['template'],'incident-plan':['incidentId','plan','budget'],
   advance: ['hours', 'stopOnIncident'], policy: ['patch'], 'order-asset': ['model', 'terminalId', 'ownership'], 'assign-asset': ['assetId', 'terminalId'], maintain: ['assetId', 'overhaul'], dispose: ['assetId'], project: ['type', 'terminalId'], hire: ['role', 'count', 'shift'], staff: ['crewId', 'shift'], train: ['crewId'], 'release-staff': ['crewId'], berth: ['callId', 'terminalId'], document: ['callId', 'document', 'reference'], inspect: ['lotId'], route: ['lotId', 'route', 'bonded'], 'accept-contract': ['contractId'], respond: ['incidentId', 'action'], loan: ['amount'], repay: ['amount'], supplies: ['item', 'quantity'], governance: ['value'], note: ['topic', 'text'], seal: [],
 };
 export function validateEnterpriseCommand(value: unknown): asserts value is EnterpriseCommand {
@@ -62,10 +65,15 @@ function apply(s: EnterpriseState, c: EnterpriseCommand, onProgress?: (hour: num
   if (s.sealed) throw Error('场次已经封存，只能回放或另开练习。');
   if (s.hour >= s.horizon && !['note', 'seal', 'repay'].includes(c.kind)) throw Error('经营期已结束，请完成复盘并封存。');
   switch (c.kind) {
+    case 'management-plan':return applyManagementPlan(s,c.patch);
+    case 'yard-plan':return applyYardPlan(s,c.terminalId,c.patch);
+    case 'staff-plan':return applyStaffPlan(s,c.template);
+    case 'incident-plan':return authorizeIncident(s,c.incidentId,c.plan,c.budget);
     case 'advance': {
       integer(c.hours, 1, 24 * 93); if (c.stopOnIncident !== undefined && typeof c.stopOnIncident !== 'boolean') throw Error('观察选项无效。');
-      const end = Math.min(s.horizon, s.hour + c.hours), before = s.hour, incidents = s.incidents.length;
-      while (s.hour < end) { advanceEnterpriseHour(s); if (s.hour % 24 === 0) onProgress?.(s.hour); if (c.stopOnIncident && s.incidents.length > incidents) break; }
+      const end = Math.min(s.horizon, s.hour + c.hours), before = s.hour;
+      const attention=new Set(s.incidents.filter(needsManagementAttention).map(i=>i.id));
+      while (s.hour < end) { advanceEnterpriseHour(s); if (s.hour % 24 === 0) onProgress?.(s.hour); if (c.stopOnIncident && s.incidents.some(i=>needsManagementAttention(i)&&!attention.has(i.id))) break; }
       if (s.hour === s.horizon) event(s, 'complete', '经营期结束', '未完成货物、应收、借款和合同义务保留在期末报表。');
       return '已推进' + (s.hour - before) + '小时；库存、在制业务和资产历史连续保留。';
     }
@@ -134,7 +142,7 @@ function apply(s: EnterpriseState, c: EnterpriseCommand, onProgress?: (hour: num
     case 'staff': {
       const g = findCrew(s, c.crewId); if (![0, 1, 2, 'reserve'].includes(c.shift)) throw Error('班次无效。');
       if (g.trainingUntil > s.hour) throw Error('培训尚未结束，不能调整到生产班次。');
-      g.shift = c.shift; return '班组已分配至一个班次；其余时段休息。';
+      g.shift = c.shift;s.management.plan.staffing='custom'; return '班组已分配至一个班次；其余时段休息。';
     }
     case 'train': {
       const g = findCrew(s, c.crewId); if (g.trainingUntil > s.hour || g.skill >= 100) throw Error('班组正在培训或已达到本情境技能上限。');
@@ -163,6 +171,7 @@ function apply(s: EnterpriseState, c: EnterpriseCommand, onProgress?: (hour: num
       const t = terminal(s, l.terminalId); if (!['road', 'rail', 'barge', 'pipeline'].includes(c.route) || typeof c.bonded !== 'boolean') throw Error('运输路径无效。');
       if (c.route === 'rail' && !t.rail || c.route === 'pipeline' && l.goods !== 'liquid' || c.bonded && !t.bonded) throw Error('缺少铁路、管道货种或监管仓储条件。');
       if(l.rehandleRemaining>0)throw Error('现有路径调整移位尚未完成。');
+      if((l.flow==='import'&&l.land>0||l.connectionReady>0)&&(l.route!==c.route||l.bonded!==c.bonded))throw Error('该货批有已集结或已接车货物，请完成当前接续后再换路径。');
       if (l.yard > 0 && (l.route !== c.route || l.bonded !== c.bonded)) l.rehandleRemaining=l.yard;
       l.route = c.route; l.bonded = c.bonded; return '业务路径已调整，现有监管条件与实际库存继续保留。';
     }
@@ -177,8 +186,8 @@ function apply(s: EnterpriseState, c: EnterpriseCommand, onProgress?: (hour: num
       if (!['isolate', 'backup', 'repair', 'recover'].includes(c.action)) throw Error('请选择有效的处置动作。');
       if (c.action === 'isolate') { i.status = 'contained'; i.response = 'isolate'; return '影响范围已隔离，业务仍受相关限制。'; }
       if (!i.evidence || i.status === 'active') throw Error('请先核查证据并隔离影响，再启动备用或恢复工作。');
-      if (c.action === 'backup') { spend(s, 45000, 'incident', '备用资源启用'); i.response = 'backup'; return '备用已启用，持续费用与能力约束将计入运行。'; }
-      if (c.action === 'repair') { if (!availableTechnicians(s)) throw Error('缺少当班技术人员。'); spend(s, 30000, 'incident', '技术修复'); i.response = 'repair'; i.resolves = s.hour + (i.type === 'system' ? Math.max(4, 18 - s.digitalLevel * 3) : 12); return '技术修复已开始，完成后仍需恢复确认。'; }
+      if (c.action === 'backup') { if(i.backupActive)throw Error('备用资源已启用。');spend(s, 45000, 'incident', '备用资源启用'); i.backupActive=true;if(i.resolves===null)i.response = 'backup'; return '备用已启用，持续费用与能力约束将计入运行。'; }
+      if (c.action === 'repair') { if(i.resolves!==null)throw Error('技术修复已经在进行。');if (availableTechnicians(s)<1) throw Error('缺少当班技术人员。'); spend(s, 30000, 'incident', '技术修复'); i.response = 'repair'; i.resolves = s.hour + (i.type === 'system' ? Math.max(4, 18 - s.digitalLevel * 3) : 12); return '技术修复已开始，完成后仍需恢复确认。'; }
       if (i.resolves !== null || i.response !== 'repair') throw Error('技术修复尚未完成，不能提前恢复。');
       i.status = 'resolved'; s.stats.recovered++; event(s, 'recovery', i.title + '恢复运营', '证据、隔离、技术修复和恢复确认均已记录。', i.id); return '恢复已确认，积压业务继续处理。';
     }
@@ -196,6 +205,7 @@ export function executeEnterprise(current: EnterpriseState, command: EnterpriseC
   const s = inPlace?current:structuredClone(current), at = s.hour;
   try {
     const message = apply(s, command, onProgress);
+    if(!['advance','note','seal'].includes(command.kind))s.management.changes=[...s.management.changes.slice(-5),message];
     s.journal.push({ hour: at, command: structuredClone(command), ok: true, message });
     return s;
   } catch (error) {
@@ -206,12 +216,14 @@ export function executeEnterprise(current: EnterpriseState, command: EnterpriseC
   }
 }
 export function assertEnterprise(s: EnterpriseState) {
+  assertYards(s);
   if (s.hour < 0 || s.hour > s.horizon || !Number.isSafeInteger(s.hour)) throw Error('经营时钟无效。');
   for (const l of s.lots) {
+    if(!Number.isSafeInteger(l.connectionReady)||l.connectionReady<0||l.connectionReady>l.land)throw Error('水陆接续数量无效：'+l.id);
     const values = [l.ship, l.apron, l.yard, l.land, l.completed, l.lost];
     if (values.some(n => !Number.isSafeInteger(n) || n < 0) || values.reduce((a, b) => a + b, 0) !== l.quantity) throw Error('货批守恒失败：' + l.id);
   }
-  for (const t of s.terminals) {if (terminalStock(s, t.id) > t.storageCapacity) throw Error('库场容量超限：' + t.id);if(s.lots.filter(l=>l.terminalId===t.id).reduce((n,l)=>n+l.apron,0)>Math.floor(t.storageCapacity*.15))throw Error('岸边缓冲容量超限：'+t.id);}
+  for (const t of s.terminals) {if (terminalStock(s, t.id) > t.storageCapacity) throw Error('库场容量超限：' + t.id);if(s.lots.filter(l=>l.terminalId===t.id).reduce((n,l)=>n+l.apron,0)>Math.floor(t.storageCapacity*.15))throw Error('岸边缓冲容量超限：'+t.id);for(const route of ['rail','barge'])if(s.lots.filter(l=>l.terminalId===t.id&&l.flow==='import'&&l.route===route).reduce((n,l)=>n+l.land,0)>(route==='rail'?600:500))throw Error('接续集结区容量超限：'+t.id);}
   if (![s.cash, s.debt, s.fuelStock, s.stats.generated, s.stats.delivered].every(Number.isFinite) || s.fuelStock < -.0001) throw Error('资源或资金出现非有限值。');
   if (s.lots.reduce((n, l) => n + l.quantity, 0) !== s.stats.generated || s.lots.reduce((n, l) => n + l.completed, 0) !== s.stats.delivered) throw Error('货物统计与逐批记录不一致。');
   const cash = 85_000_000 + s.ledger.reduce((n, e) => n + e.cash, 0);

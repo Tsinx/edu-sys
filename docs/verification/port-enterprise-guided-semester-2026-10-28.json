@@ -1,0 +1,186 @@
+{
+  "schema": "port-enterprise-guided-semester-verification/1",
+  "verifiedAt": "2026-10-28T16:00:16.290070+00:00",
+  "scope": "Game tutorial for the first six calendar months; single player, local execution; local preview and Windows offline package.",
+  "rules": {
+    "engine": "port-enterprise/2.0",
+    "operations": "port-operations/2.0",
+    "catalogue": "port-assets/2.0",
+    "demand": "port-market/1.0",
+    "finance": "port-finance/2.0",
+    "indicators": "port-enterprise-score/2.0"
+  },
+  "teaching": "port-enterprise-teaching/4",
+  "learningReport": "port-enterprise-learning-report/4",
+  "route": {
+    "hour": 4344,
+    "days": 181,
+    "months": 6,
+    "commands": 28,
+    "successfulCommands": 28,
+    "evidencedTeachingSteps": 27,
+    "handoverVerifiedInBrowser": true,
+    "sealed": false,
+    "remainingHours": 21960,
+    "hash": "9296def1a569e1df54f18e5044b25cd0a35c567728e8f4b06415c8210f826dd7",
+    "cash": 226088832,
+    "recovered": 4,
+    "notes": 0
+  },
+  "modelWorkerUnchangedFromPreviousManagementRelease": true,
+  "browser": {
+    "verifiedAt": "2026-10-28T15:51:42.258Z",
+    "mainUrl": "http://127.0.0.1:8217/",
+    "cleanExtractedUrl": "http://127.0.0.1:8220/",
+    "route": {
+      "days": 181,
+      "hours": 4344,
+      "tasksIncludingHandover": 28,
+      "evidencedReportSteps": 27,
+      "engineCommands": 28,
+      "monthlyReports": 6,
+      "recoveredIncidents": 4,
+      "deliveredContainerTEU": 175520,
+      "continuedOnSamePort": "2027-07-01 01:00"
+    },
+    "checks": {
+      "wrongHeaderClicksBlocked": true,
+      "escapeKeptBusinessWindow": true,
+      "tabOnlyReachedAllowedControls": true,
+      "pausedDraftSurvivedReload": true,
+      "activeTourSurvivedReload": true,
+      "activeIncidentSurvivedReload": true,
+      "desktopTo390x844KeptSameFieldVisible": true,
+      "narrowFieldSelectionAndSubmitSucceeded": true,
+      "pageFullscreenPreservedPurchaseDraft": true,
+      "screenFullscreenPreservedPurchaseDraft": true,
+      "oneToolbar": true,
+      "graduateUnlockedControls": true,
+      "originalSavesRetained": true,
+      "exitImmediatelyAfterAdvanceResumedAtActualClock": true
+    },
+    "network": [
+      {
+        "method": "Network.requestWillBeSent",
+        "url": "http://127.0.0.1:8220/"
+      },
+      {
+        "method": "Network.requestWillBeSent",
+        "url": "http://127.0.0.1:8220/enterprise.css"
+      },
+      {
+        "method": "Network.requestWillBeSent",
+        "url": "http://127.0.0.1:8220/enterprise.js"
+      },
+      {
+        "method": "Network.requestWillBeSent",
+        "url": "http://127.0.0.1:8220/enterprise.worker.js"
+      }
+    ],
+    "mainConsole": [],
+    "cleanConsole": [],
+    "finalPreviewStep": "strategy",
+    "finalConsole": []
+  },
+  "finalExtractedNetwork": {
+    "requests": [
+      "http://127.0.0.1:8220/",
+      "http://127.0.0.1:8220/enterprise.css",
+      "http://127.0.0.1:8220/enterprise.js",
+      "http://127.0.0.1:8220/enterprise.worker.js"
+    ],
+    "consoleWarningsOrErrors": []
+  },
+  "checks": {
+    "teacherWebTypecheck": "passed",
+    "scopedTests": {
+      "passed": 17,
+      "failed": 0,
+      "files": [
+        "port-enterprise-teaching.test.tsx",
+        "port-enterprise-game.test.tsx",
+        "page-tools.test.ts",
+        "presentation-fullscreen.test.tsx"
+      ]
+    },
+    "productionViteBuild": "passed",
+    "monthlyCsvMatchesIndependentReplay": true,
+    "conservation": "passed",
+    "allBusinessCommandsSucceeded": true,
+    "fullRepositoryTests": "not run in this tutorial change",
+    "coursePdfBuild": "not run in this tutorial change",
+    "formalSubmissionApi": "unchanged in this tutorial change"
+  },
+  "correctionsVerified": [
+    "The active tutorial portal reappears on direct reload.",
+    "The same field is scrolled back into view after resizing.",
+    "Safe fullscreen buttons remain usable through the visual mask.",
+    "The ghost click label appears after the cursor reaches the target.",
+    "Incident prompts explain the current response.",
+    "Exiting immediately after starting a calculation preserves resume at the actual clock."
+  ],
+  "offlinePackage": {
+    "archive": "D:\\codes\\edu-sys\\output\\port-enterprise-guided-semester-student-windows-x64-2026-10-28.zip",
+    "sha256": "28d86f7a7e558730177f125b079b3cef827d0ce967d8fdb4c0b4f4d998e52b4b",
+    "bytes": 37806590,
+    "zipEntries": 14,
+    "crcPassed": true,
+    "verifiedManifestFiles": 13,
+    "cleanExtractedDirectory": "D:\\codes\\edu-sys\\output\\port-enterprise-guided-semester-20261028\\final-clean-extraction\\PortEnterprise-Student"
+  },
+  "launcher": {
+    "shell": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "powershellVersion": "5.1.26100.9711",
+    "url": "http://127.0.0.1:8220/",
+    "health": {
+      "app": "port-enterprise",
+      "instance": "bb229d96e882",
+      "version": "port-enterprise/2.0",
+      "pid": 2092
+    },
+    "repeatLaunchReusedPid": true,
+    "stopVerified": true,
+    "temporaryServiceStopped": true
+  },
+  "servedAssetsMatchFinalPackage": [
+    {
+      "url": "http://127.0.0.1:8217/",
+      "sha256": "1e1452a2473669c8cd57812222de18800429790cb9bab4a7aae7d8f1df2c4459"
+    },
+    {
+      "url": "http://127.0.0.1:8217/enterprise.js",
+      "sha256": "3ab737cf9bdbd4156313d420b2b7282af59cddb8a830f62612d862f5a0bc3279"
+    },
+    {
+      "url": "http://127.0.0.1:8217/enterprise.css",
+      "sha256": "76c615a8373ada583eb0df925a55224665f9868db844c479b5e3d7f21d0ac6ea"
+    },
+    {
+      "url": "http://127.0.0.1:8217/enterprise.worker.js",
+      "sha256": "9b1eec75918cee35237e80edad248919b3a8e8612027e25e50b831309c3d3fb4"
+    }
+  ],
+  "evidenceDirectory": "output\\port-enterprise-guided-semester-20261028",
+  "screenshots": [
+    "game-tutorial-scene.png",
+    "narrow-yard-guide.png",
+    "incident-guide.png",
+    "electric-purchase-guide.png",
+    "semester-graduation.png",
+    "continued-after-semester.png"
+  ],
+  "exports": [
+    "semester-record.json",
+    "semester-learning-report.json",
+    "semester-months.csv",
+    "independent-replay.json",
+    "browser-actions.json",
+    "browser-qa.json",
+    "final-extracted-network.json"
+  ],
+  "limits": [
+    "Browser tutorial metadata records learning progress and is not formal grading evidence.",
+    "Half-year handover leaves the same three-year port unsealed; 1/3/5-year independent practice remains available.",
+    "Only the local preview and offline package were updated; no campus-server deployment was performed."
+  ]
+}

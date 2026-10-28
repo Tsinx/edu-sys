@@ -1,7 +1,8 @@
 import { sha256Hex } from './sha256.js';
+import {managementView} from './enterprise-management.js';
 import { assetSpec, ENTERPRISE_PARAMETER_NOTES } from './enterprise-catalogue.js';
 import { assertEnterprise, cleanEnterpriseConfig, createEnterprise, executeEnterprise, validateEnterpriseCommand } from './enterprise-engine.js';
-import { ENTERPRISE_RULES, ENTERPRISE_VERSION, ENTERPRISE_NOTE_TOPICS, CARGO_LABELS, hourLabel, quarterIndex, type EnterpriseRecord, type EnterpriseScore, type EnterpriseState } from './enterprise-model.js';
+import { ENTERPRISE_VERSION, ENTERPRISE_NOTE_TOPICS, enterpriseRulesMatch, CARGO_LABELS, hourLabel, quarterIndex, type EnterpriseRecord, type EnterpriseScore, type EnterpriseState } from './enterprise-model.js';
 import { assetValue, bookValue, clamp, leaseDeliveryHour, money, terminalStock, weather } from './enterprise-support.js';
 
 export const ENTERPRISE_SUBMISSION_SCHEMA = 'port-enterprise-submission/1' as const;
@@ -11,11 +12,12 @@ export function restoreEnterprise(value: unknown, position?: number,onProgress?:
   const raw = JSON.stringify(value);
   if (!raw || new TextEncoder().encode(raw).length > 8_000_000 || !value || typeof value !== 'object' || Array.isArray(value)) throw Error('经营记录为空或超过8MB。');
   const r = value as EnterpriseRecord;
-  if (Object.keys(r).some(k => !['schema', 'rules', 'config', 'commands'].includes(k)) || r.schema !== ENTERPRISE_VERSION || JSON.stringify(r.rules) !== JSON.stringify(ENTERPRISE_RULES)) throw Error('经营记录的引擎、设备目录或规则版本不兼容；原文件应保留。');
+  if (Object.keys(r).some(k => !['schema', 'rules', 'config', 'commands'].includes(k)) || r.schema !== ENTERPRISE_VERSION || !enterpriseRulesMatch(r.rules)) throw Error('经营记录的引擎、设备目录或规则版本不兼容；原文件应保留。');
   const config = cleanEnterpriseConfig(r.config);
   if (!Array.isArray(r.commands) || r.commands.length > 75000) throw Error('指令记录无效或超过75,000条。');
   r.commands.forEach(validateEnterpriseCommand);
-  const stop = position === undefined ? r.commands.length : Math.min(r.commands.length, Math.max(0, Math.floor(position)));
+  if(position!==undefined&&(!Number.isSafeInteger(position)||position<0||position>r.commands.length))throw Error('回放指令位置无效，请选择记录范围内的整数位置。');
+  const stop = position === undefined ? r.commands.length : position;
   let s = createEnterprise(config);
   for (let i = 0; i < stop; i++) s = executeEnterprise(s, r.commands[i]!,onProgress,true);
   assertEnterprise(s); return s;
@@ -58,7 +60,7 @@ export function enterpriseScore(s: EnterpriseState): EnterpriseScore {
   const earned = clamp(progress, 0, 1);
   const components = pieces.map(p => ({ id: p.id, label: p.label, max: p.max, score: Math.round(p.max * p.value * earned * 100) / 100, detail: p.detail }));
   const completedWaiting=s.calls.filter(c=>c.stage==='departed').reduce((n,c)=>n+c.wait.berth+c.wait.channel+c.wait.documents,0);
-  return { total: Math.round(components.reduce((n, p) => n + p.score, 0) * 100) / 100, complete, progress, components, equity, assetValue: value, receivables, futureObligations, profit,prepaidLease,deliveryRate: rate, waitingHours: s.stats.departed ? completedWaiting / s.stats.departed : 0, emissionsPerUnit: intensity, benchmark: '教学诊断量规/1；分项按已完成经营期折算，原实验评分不变。' };
+  return { total: Math.round(components.reduce((n, p) => n + p.score, 0) * 100) / 100, complete, progress, components, equity, assetValue: value, receivables, futureObligations, profit,prepaidLease,deliveryRate: rate, waitingHours: s.stats.departed ? completedWaiting / s.stats.departed : 0, emissionsPerUnit: intensity, benchmark: '教学诊断量规/2；分项按已完成经营期折算，原实验评分不变。' };
 }
 export function enterpriseView(s: EnterpriseState) {
   const visible = s.calls.filter(c => c.eta <= s.hour + 24 && c.stage !== 'departed');
@@ -66,7 +68,7 @@ export function enterpriseView(s: EnterpriseState) {
   const lots = s.lots.filter(l => ids.has(l.callId) || l.completed + l.lost < l.quantity);
   const calls = visible.map(({ arrival, issue, ...c }) => ({ ...c, actualArrival: c.arrivedHour, needsCorrection: c.documents.manifest.status === 'correction' }));
   return {
-    schema: s.schema, rules: s.rules, config: s.config, hour: s.hour, date: hourLabel(s.hour), horizon: s.horizon, sealed: s.sealed,
+    schema: s.schema, rules: s.rules, config: s.config, hour: s.hour, date: hourLabel(s.hour), horizon: s.horizon, sealed: s.sealed,management:managementView(s),
     quarter: quarterIndex(s.hour) + 1, weather: weather(s), cash: s.cash, debt: s.debt, score: enterpriseScore(s), goods: enterpriseGoods(s),
     terminals: s.terminals.map(t => ({ ...t, stock: terminalStock(s, t.id), queued: visible.filter(c => c.terminalId === t.id && c.stage === 'waiting').length })),
     assets: s.assets, crews: s.crews, calls, lots, outstandingLots: lots.length,
@@ -84,14 +86,14 @@ export function makeEnterprisePackage(s: EnterpriseState): EnterprisePackage {
   assertEnterprise(s);
   return { schema: ENTERPRISE_SUBMISSION_SCHEMA, record: enterpriseRecord(s), expected: { hash: enterpriseHash(s), score: enterpriseScore(s).total } };
 }
-export function verifyEnterprisePackage(pkg: EnterprisePackage) {
+export function verifyEnterprisePackage(pkg: EnterprisePackage,onProgress?:(hour:number)=>void) {
   if (!pkg || pkg.schema !== ENTERPRISE_SUBMISSION_SCHEMA || !pkg.expected || !/^[a-f0-9]{64}$/.test(pkg.expected.hash) || !Number.isFinite(pkg.expected.score)) throw Error('经营提交包格式无效。');
-  const s = restoreEnterprise(pkg.record);
+  const s = restoreEnterprise(pkg.record,undefined,onProgress);
   if (!s.sealed || enterpriseHash(s) !== pkg.expected.hash || enterpriseScore(s).total !== pkg.expected.score) throw Error('经营记录、状态或成绩与独立重放不一致。');
   return { result: enterpriseScore(s), stateHash: enterpriseHash(s), config: s.config, hour: s.hour, complete: s.hour === s.horizon, view: enterpriseView(s) };
 }
 export function enterpriseCsv(s: EnterpriseState) {
   const escape = (v: unknown) => '"' + String(v ?? '').replaceAll('"', '""') + '"';
-  const header = ['月份', '收入元', '运营成本元', '投资现金支出元', '利息元', '折旧元', '税费元', '月末现金元', '月末债务元', '购电及充电量kWh', '模型排放kgCO2e'];
+  const header = ['月份', '收入元', '运营成本元', '投资现金支出元', '利息元', '折旧元', '税费元', '月末现金元', '月末债务元', '用电量含补能kWh', '模型排放kgCO2e'];
   return '\ufeff' + [header, ...s.months.map(m => [m.month, m.revenue, m.operating, m.capital, m.interest, m.depreciation, m.tax, m.cashEnd, m.debtEnd, m.energy, m.emissions])].map(row => row.map(escape).join(',')).join('\r\n');
 }

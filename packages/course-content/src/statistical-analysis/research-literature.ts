@@ -1,0 +1,36 @@
+/** Public bibliography. Reading records and teacher scripts live in separate files. */
+export const RESEARCH_MATERIAL_BASE='/course-assets/statistical-analysis/research-14-15';
+export const researchPapers=[
+ {id:'zhang2010',authors:'Xiaomeng Zhang; Kathryn M. Bartol',year:2010,
+  title:'Linking Empowering Leadership and Employee Creativity: The Influence of Psychological Empowerment, Intrinsic Motivation, and Creative Process Engagement',
+  journal:'Academy of Management Journal',volume:'53',issue:'1',pages:'107–128',
+  doi:'10.5465/amj.2010.48037118',url:'https://doi.org/10.5465/amj.2010.48037118',
+  short:'Zhang & Bartol (2010), AMJ',topic:'领导力、心理赋能与员工创造力',method:'CFA、SEM与调节回归',
+  reading:'摘要、Methods、Table 2与Figure 2。沿构念、路径、方程和系数阅读管理解释。'},
+ {id:'eccles2014',authors:'Robert G. Eccles; Ioannis Ioannou; George Serafeim',year:2014,
+  title:'The Impact of Corporate Sustainability on Organizational Processes and Performance',
+  journal:'Management Science',volume:'60',issue:'11',pages:'2835–2857',
+  doi:'10.1287/mnsc.2014.1984',url:'https://doi.org/10.1287/mnsc.2014.1984',
+  short:'Eccles等 (2014), Management Science',topic:'可持续战略、治理与长期表现',method:'倾向得分匹配与后续比较',
+  reading:'摘要、Sample Selection、Table 1与Table 7。先读企业配对，再读四因子绩效模型和月度α。'},
+ {id:'zervas2017',authors:'Georgios Zervas; Davide Proserpio; John W. Byers',year:2017,
+  title:'The Rise of the Sharing Economy: Estimating the Impact of Airbnb on the Hotel Industry',
+  journal:'Journal of Marketing Research',volume:'54',issue:'5',pages:'687–705',
+  doi:'10.1509/jmr.15.0204',url:'https://doi.org/10.1509/jmr.15.0204',
+  short:'Zervas等 (2017), JMR',topic:'共享住宿平台与酒店收入',method:'酒店面板、差分比较与城市聚类',
+  reading:'摘要、Data、Empirical Strategy式(1)与Table 3。核读作者2016-11公开稿，连接供给弹性、定价与收入。'},
+ {id:'bloom2013',authors:'Nicholas Bloom; Benn Eifert; Aprajit Mahajan; David McKenzie; John Roberts',year:2013,
+  title:'Does Management Matter? Evidence from India',
+  journal:'The Quarterly Journal of Economics',volume:'128',issue:'1',pages:'1–51',
+  doi:'10.1093/qje/qjs044',url:'https://doi.org/10.1093/qje/qjs044',
+  short:'Bloom等 (2013), QJE',topic:'工厂管理实践与生产率',method:'公司随机分配、ITT、面板与IV',
+  reading:'摘要、III.C–D、脚注18、V.A式(1)、Table II与Appendix Table A.II。连接实验、TFP、ITT与实践采纳。'},
+ {id:'bloom2024',authors:'Nicholas Bloom; Ruobing Han; James Liang',year:2024,
+  title:'Hybrid working from home improves retention without damaging performance',
+  journal:'Nature',volume:'630',issue:'8018',pages:'920–925',
+  doi:'10.1038/s41586-024-07500-2',url:'https://www.nature.com/articles/s41586-024-07500-2',
+  short:'Bloom、Han与Liang (2024), Nature',topic:'混合办公、离职与绩效',method:'员工随机实验与结果评价',
+  reading:'摘要、The experiment、Fig.2、Methods与Discussion。连接资格分配、离职、工作表现和招聘培训成本。'}
+] as const;
+export type ResearchPaperId=typeof researchPapers[number]['id'];
+export function getResearchPaper(id:ResearchPaperId){return researchPapers.find(p=>p.id===id)!;}

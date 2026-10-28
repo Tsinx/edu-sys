@@ -1,9 +1,15 @@
 import { assetSpec } from './enterprise-catalogue.js';
+import {chargingWanted,finishManagementWeek,plannedMaintenanceAllowed,processIncidentAuthorizations} from './enterprise-management.js';
+import {discardYard,retrieveYard,storeYard} from './enterprise-yard.js';
 import { CARGO_LABELS, STAFF_LABELS, enterpriseRandom, hourDate, monthKey, type Asset, type CargoLot, type EnterpriseState, type EnterpriseCall, type StaffRole, type Stage } from './enterprise-model.js';
 import { arrivals, assetValue, clamp, collectAndSettle, event, isBlocked, leaseDeliveryHour, market, money, month, post, terminal, terminalStock, updateAssets, updateProjects, weather } from './enterprise-support.js';
 
 interface Slot { asset: Asset; stage: Stage; terminalId: string; capacity: number; remaining: number; usage: number; }
-interface Frame { slots: Slot[]; power: number; fuel: number; charging: number; roles: Record<StaffRole, number>; }
+interface Frame { slots: Slot[]; power: number; fuel: number; charging: number; roles: Record<StaffRole, number>; blocks:Map<string,boolean>; }
+function blocked(s:EnterpriseState,f:Frame,terminalId:string,stage:string){
+  const key=terminalId+':'+stage,known=f.blocks.get(key);if(known!==undefined)return known;
+  const value=isBlocked(s,terminalId,stage);f.blocks.set(key,value);return value;
+}
 interface Index {callCount:number;lotCount:number;calls:Map<string,EnterpriseCall>;lots:Map<string,CargoLot>;activeCalls:Map<string,EnterpriseCall>;activeLots:Map<string,CargoLot>;}
 const localIndexes=new WeakMap<EnterpriseState,Index>();
 function indexes(s:EnterpriseState):Index{
@@ -19,24 +25,29 @@ function crews(s: EnterpriseState) {
     if (c.trainingUntil > 0 && c.trainingUntil <= s.hour) { c.skill = Math.min(100, c.skill + c.trainingGain); c.trainingUntil = 0; c.trainingGain = 0; event(s, 'staff', '培训完成', STAFF_LABELS[c.role] + '技能提升', c.id); }
     if (c.shift === shift && c.trainingUntil <= s.hour) roles[c.role] += c.count * c.skill / 100;
   }
-  roles.technician = Math.max(0, roles.technician - s.assets.filter(a => a.status === 'maintenance').length);
+  roles.technician = Math.max(0, roles.technician - s.assets.filter(a => a.status === 'maintenance').length-s.incidents.filter(i=>i.resolves!==null).length);
   return roles;
 }
 function resources(s: EnterpriseState): Frame {
   const roles = crews(s), h = s.hour % 24, w = weather(s), solar = Math.max(0, Math.sin((h - 6) / 12 * Math.PI)) * s.solarKw * (w.raining ? .45 : 1);
-  const f: Frame = { slots: [], power: Math.max(0, s.gridKw + solar - 180), fuel: s.fuelStock, charging: 0, roles };
+  const f: Frame = { slots: [], power: Math.max(0, s.gridKw + solar - 180), fuel: s.fuelStock, charging: 0, roles,blocks:new Map() };
   const deadlines = new Map<string, number>();
   for (const c of indexes(s).activeCalls.values()) if (c.stage !== 'announced') deadlines.set(c.terminalId, Math.min(deadlines.get(c.terminalId) ?? Number.MAX_SAFE_INTEGER, c.deadline));
   const ordered = [...s.assets].sort((a, b) => (deadlines.get(a.terminalId) ?? Number.MAX_SAFE_INTEGER) - (deadlines.get(b.terminalId) ?? Number.MAX_SAFE_INTEGER) || a.id.localeCompare(b.id));
   let chargers = Math.max(2, s.terminals.reduce((n, t) => n + t.gridLevel * 2, 0));
+  const fleet=s.assets.filter(a=>assetSpec(a.model).battery>0&&a.status!=='retired'),ready=fleet.filter(a=>a.status==='active');
+  let chargingCount=0;const proactiveLimit=Math.max(1,Math.floor(fleet.length*s.management.plan.chargingLimit/100));
   for (const a of ordered) {
     const spec = assetSpec(a.model), t = terminal(s, a.terminalId);
     a.lastWork = 0;
     if (a.status !== 'active') { if (a.status !== 'retired' && a.status !== 'ordered') a.downtimeHours++; continue; }
-    if (!t.enabled || isBlocked(s, t.id, spec.stage)) { a.note = '区域或系统受阻'; a.downtimeHours++; continue; }
-    if (a.battery < spec.kw * 1.1 && spec.battery > 0) {
-      const power = Math.min(90, f.power, spec.battery * a.batteryHealth - a.battery);
-      if (chargers > 0 && power > 0) { a.battery += power * .94; f.power -= power; f.charging += power; chargers--; a.note = '充电中'; } else a.note = '等待充电容量';
+    if (!t.enabled || blocked(s,f,t.id, spec.stage)) { a.note = '区域或系统受阻'; a.downtimeHours++; continue; }
+    const critical=spec.battery>0&&a.battery<spec.kw*1.1;
+    if ((critical||chargingCount<proactiveLimit)&&chargingWanted(s,a,ready.length,fleet.length,chargingCount)) {
+      const target=spec.battery*a.batteryHealth*(critical?1:s.management.plan.chargeTarget/100);
+      const power = Math.min(90, f.power, Math.max(0,target-a.battery)/.94);
+      if (chargers > 0 && power > 0) { a.battery += power * .94; f.power -= power; f.charging += power; chargers--;chargingCount++;s.management.metrics.chargingHours++;s.management.metrics.chargingEnergy+=power; a.note = critical?'低电量补能':'按充电计划补能'; }
+      else {a.note = '等待充电容量';s.management.metrics.chargingWaitHours++;}
       continue;
     }
     if (roles[spec.staff] < spec.staffRequired) { a.note = '缺少合格' + STAFF_LABELS[spec.staff] + '人员'; continue; }
@@ -59,6 +70,7 @@ function capacity(f: Frame, stage: Stage, id: string, goods: CargoLot['goods'], 
 }
 function take(f: Frame, stage: Stage, id: string, goods: CargoLot['goods'], quantity: number, rows = 0) {
   let remaining = Math.max(0, Math.floor(quantity));
+  if(remaining===0)return Math.floor(quantity);
   for (const q of f.slots) {
     if (q.stage !== stage || stage !== 'marine' && q.terminalId !== id || !assetSpec(q.asset.model).goods.includes(goods) || stage === 'quay' && assetSpec(q.asset.model).reach > 0 && assetSpec(q.asset.model).reach < rows) continue;
     const n = Math.min(q.remaining, remaining); q.remaining -= n; q.usage += q.capacity ? n / q.capacity : 0; remaining -= n;
@@ -71,6 +83,8 @@ function handleDocuments(s: EnterpriseState) {
   const needed=new Set([...index.activeCalls.keys(),...Array.from(index.activeLots.values(),l=>l.callId)]);
   for (const id of needed) {const c=index.calls.get(id)!;
     if (c.stage === 'departed' && [c.importLot,c.exportLot].every(id=>{const l=lotMap.get(id)!;return l.completed+l.lost===l.quantity;})) continue;
+    const incoming=lotMap.get(c.importLot)!,outgoing=lotMap.get(c.exportLot)!;
+    if(c.documents.entry.status==='approved'&&c.documents.manifest.status==='approved'&&c.documents.customs.status==='approved'&&c.documents.carrier.status==='approved'&&c.documents.departure.status==='approved'&&incoming.release&&outgoing.release&&!incoming.quarantine&&!outgoing.quarantine&&incoming.inspectionUntil===null&&outgoing.inspectionUntil===null)continue;
     for (const [kind, d] of Object.entries(c.documents)) {
       if (s.policy.documents === 'automatic' && d.status === 'draft' && c.eta <= s.hour + 24) {
         d.status = 'submitted'; d.readyHour = s.hour + Math.max(1, 4 - s.digitalLevel); d.reason = '按已批准核验策略提交';
@@ -102,9 +116,10 @@ function moveShips(s: EnterpriseState, f: Frame) {
     if (c.stage === 'waiting') {
       if (c.documents.entry.status !== 'approved' || c.documents.manifest.status !== 'approved') { c.wait.documents++; s.stats.vesselWaiting++; continue; }
       if ((!s.policy.autoBerth && !c.plannedTerminal) || t.berthCall || t.constructionUntil > s.hour || !t.enabled || t.goods !== c.goods || t.length < c.length || t.depth + w.tide < c.draft) { c.wait.berth++; s.stats.vesselWaiting++; continue; }
-      if (!channel || w.wind < .5 || w.visibility < .5 || capacity(f, 'marine', t.id, c.goods) < 1 || isBlocked(s, t.id, 'marine')) { c.wait.channel++; s.stats.vesselWaiting++; continue; }
-      if (c.terminalId !== t.id && s.lots.some(l => l.callId === c.id && (l.yard > 0 || l.apron > 0))) { c.wait.berth++; s.stats.vesselWaiting++; continue; }
-      c.terminalId = t.id; for (const l of s.lots) if (l.callId === c.id) l.terminalId = t.id;
+      if (!channel || w.wind < .5 || w.visibility < .5 || capacity(f, 'marine', t.id, c.goods) < 1 || blocked(s,f,t.id, 'marine')) { c.wait.channel++; s.stats.vesselWaiting++; continue; }
+      const incoming=lotMap.get(c.importLot)!,outgoing=lotMap.get(c.exportLot)!;
+      if (c.terminalId !== t.id && (incoming.yard>0||incoming.apron>0||outgoing.yard>0||outgoing.apron>0)) { c.wait.berth++; s.stats.vesselWaiting++; continue; }
+      c.terminalId = t.id; incoming.terminalId=t.id;outgoing.terminalId=t.id;
       t.berthCall = c.id; c.stage = 'entering'; c.moveUntil = s.hour + 1; channel--; take(f, 'marine', t.id, c.goods, 1);
     }
     if (c.stage === 'berthed') {
@@ -142,52 +157,63 @@ function production(s: EnterpriseState, f: Frame) {
   for (const l of index.activeLots.values()) { stocks.set(l.terminalId, (stocks.get(l.terminalId) ?? 0) + l.yard); buffers.set(l.terminalId, (buffers.get(l.terminalId) ?? 0) + l.apron); }
   const lots = [...index.activeLots.values()].sort((a, b) => s.policy.priority === 'export' ? (a.flow === 'export' ? -1 : 1) - (b.flow === 'export' ? -1 : 1) || a.deadline - b.deadline : s.policy.priority === 'deadline' ? a.deadline - b.deadline : a.firstHour - b.firstHour);
   const routeUsed = new Map<string, number>();
-  for(const l of lots)if(l.rehandleRemaining>0&&!isBlocked(s,l.terminalId,'transport')){
+  const staged=new Map<string,number>();
+  for(const l of lots)if(l.flow==='import')staged.set(l.terminalId+':'+l.route,(staged.get(l.terminalId+':'+l.route)??0)+l.land);
+  // A train/barge arrives once per window. Its received export cargo can clear the gate over later hours.
+  for(const l of lots)if(l.flow==='export'&&['rail','barge'].includes(l.route)&&l.firstHour<=s.hour&&!blocked(s,f,l.terminalId,'transport')){
+    const key=l.terminalId+':'+l.route,n=Math.min(l.land-l.connectionReady,Math.max(0,routeCapacity(s,l)-(routeUsed.get(key)??0)));
+    l.connectionReady+=n;routeUsed.set(key,(routeUsed.get(key)??0)+n);
+  }
+  for(const l of lots)if(l.rehandleRemaining>0&&!blocked(s,f,l.terminalId,'transport')){
     const n=Math.min(l.rehandleRemaining,capacity(f,'transport',l.terminalId,l.goods),capacity(f,'yard',l.terminalId,l.goods));
     take(f,'transport',l.terminalId,l.goods,n);take(f,'yard',l.terminalId,l.goods,n);l.rehandleRemaining-=n;l.rehandles+=n;s.stats.rehandles+=n;month(s).rehandles+=n;if(n)post(s,'rehandling',n*55,-n*55,'路径调整实际移位');
   }
   // Downstream-to-upstream order gives every transfer at least one hourly boundary.
   for (const l of lots) {
     const c = callMap.get(l.callId)!, t = terminal(s, l.terminalId);if(l.rehandleRemaining>0)continue;
-    if (l.flow === 'export' && c.stage === 'berthed' && l.release && !isBlocked(s, t.id, 'quay')) {
+    if (l.flow === 'export' && c.stage === 'berthed' && l.release && !blocked(s,f,t.id, 'quay')) {
       const n = take(f, 'quay', t.id, l.goods, Math.min(l.apron, capacity(f, 'quay', t.id, l.goods, c.rows)), c.rows);
       l.apron -= n; buffers.set(t.id, (buffers.get(t.id) ?? 0) - n); s.stats.loaded += n; bill(s, l, n, c);
       if (!n && l.apron > 0) c.wait.equipment++;
     }
-    if (l.flow === 'import' && l.release && !l.bonded && !isBlocked(s, t.id, 'gate')) {
-      const key = l.terminalId + ':' + l.route, limit = Math.max(0, routeCapacity(s, l) - (routeUsed.get(key) ?? 0));
-      const n = Math.min(l.yard, capacity(f, 'gate', t.id, l.goods), capacity(f, 'yard', t.id, l.goods), limit);
-      take(f, 'gate', t.id, l.goods, n); take(f, 'yard', t.id, l.goods, n); l.yard -= n; stocks.set(t.id, (stocks.get(t.id) ?? 0) - n); routeUsed.set(key, (routeUsed.get(key) ?? 0) + n); bill(s, l, n, c);
-      if (n) { const cost = money(n * (l.route === 'road' ? 24 : l.route === 'rail' ? 15 : 12)); post(s, 'logistics', cost, -cost, '腹地运输接续'); }
+    if (l.flow === 'import' && (l.yard>0||l.land>0) && l.release && !l.bonded && !blocked(s,f,t.id, 'gate')) {
+      const key = l.terminalId + ':' + l.route, timed=l.route==='rail'||l.route==='barge';
+      const limit = Math.max(0, routeCapacity(s, l) - (routeUsed.get(key) ?? 0));
+      if(timed&&!isBlocked(s,t.id,'transport')){const n=Math.min(l.land,limit);l.land-=n;staged.set(key,(staged.get(key)??0)-n);routeUsed.set(key,(routeUsed.get(key)??0)+n);bill(s,l,n,c);if(n)post(s,'logistics',n*(l.route==='rail'?15:12),-n*(l.route==='rail'?15:12),'按窗口实际发运');}
+      const intake=timed?Math.max(0,(l.route==='rail'?600:500)-(staged.get(key)??0)):isBlocked(s,t.id,'transport')?0:limit;
+      const pulled=retrieveYard(s,l,Math.min(l.yard,capacity(f,'gate',t.id,l.goods),intake),capacity(f,'yard',t.id,l.goods),capacity(f,'yard',t.id,l.goods),capacity(f,'transport',t.id,l.goods));
+      const n=pulled.quantity;
+      take(f, 'gate', t.id, l.goods, n); take(f, 'yard', t.id, l.goods, pulled.movement+pulled.rehandles);take(f,'transport',t.id,l.goods,pulled.relocationTransport); l.yard -= n; stocks.set(t.id, (stocks.get(t.id) ?? 0) - n);
+      if(timed){l.land+=n;staged.set(key,(staged.get(key)??0)+n);}else {routeUsed.set(key,(routeUsed.get(key)??0)+n);bill(s,l,n,c);if(n){const cost=money(n*(l.route==='road'?24:12));post(s,'logistics',cost,-cost,'腹地运输接续');}}
       if (l.yard && !n) s.stats.roadWaiting += l.yard;
     }
   }
   for (const l of lots) {
     const t = terminal(s, l.terminalId);if(l.rehandleRemaining>0)continue;
-    if (isBlocked(s, t.id, 'transport')) continue;
-    if (l.flow === 'export') {
+    if (blocked(s,f,t.id, 'transport')) continue;
+    if (l.flow === 'export'&&l.yard>0) {
       const call=callMap.get(l.callId)!;
       if(call.stage!=='berthed')continue;
       const freeBuffer=Math.max(0,Math.floor(t.storageCapacity*.15)-(buffers.get(t.id)??0));
-      const n = Math.min(l.yard, freeBuffer, capacity(f, 'transport', t.id, l.goods), capacity(f, 'yard', t.id, l.goods));
-      take(f, 'transport', t.id, l.goods, n); take(f, 'yard', t.id, l.goods, n); l.yard -= n; l.apron += n; stocks.set(t.id, (stocks.get(t.id) ?? 0) - n); buffers.set(t.id, (buffers.get(t.id) ?? 0) + n);
-    } else {
+      const pulled=retrieveYard(s,l,Math.min(l.yard,freeBuffer),capacity(f,'yard',t.id,l.goods),capacity(f,'transport',t.id,l.goods),capacity(f,'transport',t.id,l.goods),true),n=pulled.quantity;
+      take(f, 'transport', t.id, l.goods, pulled.movement+pulled.relocationTransport); take(f, 'yard', t.id, l.goods, pulled.movement+pulled.rehandles); l.yard -= n; l.apron += n; stocks.set(t.id, (stocks.get(t.id) ?? 0) - n); buffers.set(t.id, (buffers.get(t.id) ?? 0) + n);
+    } else if(l.flow==='import'&&l.apron>0) {
       const free = Math.max(0, t.storageCapacity - (stocks.get(t.id) ?? 0));
-      const n = Math.min(l.apron, free, capacity(f, 'transport', t.id, l.goods), capacity(f, 'yard', t.id, l.goods));
-      take(f, 'transport', t.id, l.goods, n); take(f, 'yard', t.id, l.goods, n); l.apron -= n; l.yard += n; stocks.set(t.id, (stocks.get(t.id) ?? 0) + n); buffers.set(t.id, (buffers.get(t.id) ?? 0) - n);
+      const stored=storeYard(s,l,Math.min(l.apron,free),Math.min(capacity(f,'transport',t.id,l.goods),capacity(f,'yard',t.id,l.goods))),n=stored.quantity;
+      take(f, 'transport', t.id, l.goods, stored.movement); take(f, 'yard', t.id, l.goods, stored.movement); l.apron -= n; l.yard += n; stocks.set(t.id, (stocks.get(t.id) ?? 0) + n); buffers.set(t.id, (buffers.get(t.id) ?? 0) - n);
     }
   }
   for (const l of lots) {
     const c = callMap.get(l.callId)!, t = terminal(s, l.terminalId);if(l.rehandleRemaining>0)continue;
-    if (l.flow === 'import' && c.stage === 'berthed' && !isBlocked(s, t.id, 'quay')) {
+    if (l.flow === 'import' && l.ship>0 && c.stage === 'berthed' && !blocked(s,f,t.id, 'quay')) {
       const buffer = Math.max(0, Math.floor(t.storageCapacity * .15) - (buffers.get(t.id) ?? 0));
       const n = take(f, 'quay', t.id, l.goods, Math.min(l.ship, buffer, capacity(f, 'quay', t.id, l.goods, c.rows)), c.rows);
       l.ship -= n; l.apron += n; buffers.set(t.id, (buffers.get(t.id) ?? 0) + n); s.stats.unloaded += n; if (!n && l.ship > 0) c.wait.equipment++;
     }
-    if (l.flow === 'export' && l.release && l.firstHour <= s.hour && !isBlocked(s, t.id, 'gate')) {
-      const key = l.terminalId + ':' + l.route, limit = Math.max(0, routeCapacity(s, l) - (routeUsed.get(key) ?? 0)), free = Math.max(0, t.storageCapacity - (stocks.get(t.id) ?? 0));
-      const n = Math.min(l.land, free, capacity(f, 'gate', t.id, l.goods), capacity(f, 'yard', t.id, l.goods), limit);
-      take(f, 'gate', t.id, l.goods, n); take(f, 'yard', t.id, l.goods, n); l.land -= n; l.yard += n; stocks.set(t.id, (stocks.get(t.id) ?? 0) + n); routeUsed.set(key, (routeUsed.get(key) ?? 0) + n);
+    if (l.flow === 'export' && l.land>0 && l.release && l.firstHour <= s.hour && !blocked(s,f,t.id, 'gate')) {
+      const key = l.terminalId + ':' + l.route,timed=l.route==='rail'||l.route==='barge',limit = timed?l.connectionReady:Math.max(0, routeCapacity(s, l) - (routeUsed.get(key) ?? 0)), free = Math.max(0, t.storageCapacity - (stocks.get(t.id) ?? 0));
+      const stored=storeYard(s,l,Math.min(l.land,free,capacity(f,'gate',t.id,l.goods),limit),capacity(f,'yard',t.id,l.goods)),n=stored.quantity;
+      take(f, 'gate', t.id, l.goods, n); take(f, 'yard', t.id, l.goods, stored.movement); l.land -= n; l.yard += n; stocks.set(t.id, (stocks.get(t.id) ?? 0) + n);if(timed)l.connectionReady-=n;else routeUsed.set(key, (routeUsed.get(key) ?? 0) + n);
       if (l.land) s.stats.roadWaiting += l.land;
     }
   }
@@ -214,14 +240,14 @@ function assetWork(s: EnterpriseState, f: Frame) {
     if (use && enterpriseRandom(s.config.seed, 'failure-' + a.id, s.hour) < probability) {
       a.status = 'failed'; a.note = '故障，等待维修'; event(s, 'fault', spec.name + '发生故障', a.id, a.id);
     }
-    if (s.policy.maintenance === 'preventive' && a.status === 'active' && (a.health < s.policy.maintenanceHealth || a.serviceHours > spec.maintenanceHours) && s.spareParts > 0 && f.roles.technician >= 1 && s.cash > s.policy.reserveCash) {
+    if (s.policy.maintenance === 'preventive' && a.status === 'active' && plannedMaintenanceAllowed(s,a) && s.spareParts > 0 && f.roles.technician >= 1 && s.cash > s.policy.reserveCash) {
       const cost = money(spec.price * .0006); post(s, 'maintenance', cost + 4000, -cost, '计划维护与领用备件'); s.spareParts--; f.roles.technician--;
       a.status = 'maintenance'; a.repairUntil = s.hour + 16; s.stats.maintenance++; event(s, 'maintenance', spec.name + '进入计划维护', '停机16小时；已领用备件与技术岗位。', a.id);
     }
   }
   for (const c of indexes(s).activeCalls.values()) {if(c.stage!=='berthed')continue;
     const t = terminal(s, c.terminalId);
-    if (s.policy.shorePower && t.shore && f.power >= 180 && !isBlocked(s, t.id, 'power')) { energy += 180; f.power -= 180; }
+    if (s.policy.shorePower && t.shore && f.power >= 180 && !blocked(s,f,t.id, 'power')) { energy += 180; f.power -= 180; }
     else shipEmissions += 150;
   }
   if (fuel > s.fuelStock + .0001) throw Error('燃料资源分配失衡。');
@@ -232,12 +258,15 @@ function assetWork(s: EnterpriseState, f: Frame) {
   s.stats.energy += energy; s.stats.fuel += fuel; const emissions = Math.max(0, energy - clean) * .52 + fuel * 2.68 + shipEmissions;
   s.stats.emissions += emissions; month(s).energy += energy; month(s).emissions += emissions;
   let wages = 0;
-  for (const c of s.crews) if (c.shift === Math.floor(s.hour % 24 / 8)) wages += c.count * c.wage;
+  for (const c of s.crews) {if (c.shift === Math.floor(s.hour % 24 / 8)) wages += c.count * c.wage;else if(c.shift==='reserve')wages+=c.count*c.wage/3;}
   post(s, 'wages', wages, -wages, '当班及培训人员工资');
   for (const a of s.assets) if (a.ownership === 'leased' && a.status !== 'retired' && leaseDeliveryHour(a) <= s.hour) { const n = money(assetSpec(a.model).leaseDaily / 24),credit=Math.min(a.leaseCredit,n);a.leaseCredit-=credit; post(s, 'lease', n, -(n-credit), '设备租赁费用'); }
   if (s.policy.insurance) post(s, 'insurance', 380, -380, '风险保障费用');
-  const backup = s.incidents.filter(i => i.status !== 'resolved' && i.response === 'backup').length;
-  if (backup) { post(s, 'backup', backup * 1200, -backup * 1200, '备用系统与供能'); s.stats.emissions += backup * 90; month(s).emissions += backup * 90; }
+  for(const i of s.incidents)if(i.status!=='resolved'&&i.backupActive){
+    // Reserve the next hour's cost before allowing the next production frame to use backup.
+    post(s,'backup',1200,-1200,'备用系统与供能');s.stats.emissions+=90;month(s).emissions+=90;
+    if(i.authorization){i.authorizedSpent=(i.authorizedSpent??0)+1200;if(i.authorizedSpent+1200>(i.authorizedBudget??0)||s.cash<1200){i.backupActive=false;i.authorizationPaused=true;i.authorizationNote='备用预算已耗尽，请增加授权或等待修复。';event(s,'decision',i.title+'备用预算到限',i.authorizationNote,i.id);}}
+  }
 }
 function incidents(s: EnterpriseState) {
   for (const i of s.incidents) if (i.status !== 'resolved') {
@@ -259,7 +288,7 @@ function incidents(s: EnterpriseState) {
   if (s.policy.insurance) s.receivables.push({ id: 'insurance-' + id, due: s.hour + 30 * 24, amount: Math.round(loss * .7) });
   if (type === 'spill') {
     const lot = s.lots.find(l => l.terminalId === t.id && l.yard > 0);
-    if (lot) { const n = Math.min(lot.yard, Math.max(1, Math.round(lot.yard * .05))); lot.yard -= n; lot.lost += n; s.stats.lost += n; }
+    if (lot) { const n = Math.min(lot.yard, Math.max(1, Math.round(lot.yard * .05)));discardYard(s,lot.id,n); lot.yard -= n; lot.lost += n; s.stats.lost += n; }
     s.stats.spillExposure += 1;
   }
   event(s, 'incident', title, t.name + '：需要核查、控制、技术处置与恢复确认。', id);
@@ -273,7 +302,7 @@ export function advanceEnterpriseHour(s: EnterpriseState) {
       if (s.spareParts < 6) { s.spareParts += 12; post(s, 'inventory', 48000, -48000, '按补给策略采购备件'); }
     }
   }
-  updateProjects(s); updateAssets(s); handleDocuments(s); incidents(s);
+  updateProjects(s); updateAssets(s); handleDocuments(s); incidents(s);processIncidentAuthorizations(s);
   const value = assetValue(s), f = resources(s);
   moveShips(s, f); production(s, f); assetWork(s, f);
   const nextValue = assetValue({ ...s, hour: s.hour + 1 });
@@ -286,4 +315,5 @@ export function advanceEnterpriseHour(s: EnterpriseState) {
     if (s.cash < 0) event(s, 'finance', '出现现金缺口', '应付支出仍然结转，采购与建设将受限制。');
   }
   s.hour++;
+  if(s.hour%168===0||s.hour===s.horizon)finishManagementWeek(s);
 }

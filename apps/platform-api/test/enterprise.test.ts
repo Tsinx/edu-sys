@@ -30,7 +30,8 @@ test('personal enterprise tasks enforce identity, immutable conditions, ownershi
     assert.equal((await post('tasks/'+task.id+'/attempts',{requestId:randomUUID()},teacher)).statusCode,403);
     let run=createEnterprise(config);run=executeEnterprise(run,{kind:'policy',patch:{verifiedExceptions:true}});run=executeEnterprise(run,{kind:'advance',hours:48});
     for(const topic of ['经营决策','设备投资','生产调度','异常与边界'])run=executeEnterprise(run,{kind:'note',topic,text:'依据本次实际库存、现金、回执和设备状态作出决定，并在相同观察时点复核结果和适用边界。'});
-    run=executeEnterprise(run,{kind:'seal'});const pkg=makeEnterprisePackage(run);
+    run=executeEnterprise(run,{kind:'seal'});const originalPackage=makeEnterprisePackage(run);
+    const pkg={...originalPackage,record:{...originalPackage.record,rules:Object.fromEntries(Object.entries(originalPackage.record.rules).reverse()) as typeof originalPackage.record.rules}};
     const wrong={...pkg,record:{...pkg.record,config:{...config,seed:1}}};
     assert.equal((await post('attempts/'+attempt.id+'/submit',{requestId:randomUUID(),package:wrong})).statusCode,400);
     assert.equal((await post('attempts/'+attempt.id+'/submit',{requestId:randomUUID(),package:pkg},other)).statusCode,404);

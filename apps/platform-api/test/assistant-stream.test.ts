@@ -135,9 +135,9 @@ test("assistant SSE suppresses legacy control acknowledgements and validates act
     assert.equal(provider.requests.length, 2);
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
-      /当前 Slides：第 1\/47 页（内部全局第 1\/767 页）/
+      /当前 Slides：第 1\/47 页（内部全局第 1\/871 页）/
     );
-    assert.match(provider.requests[0]?.messages[0]?.content ?? "", /"lesson":1到18的整数/);
+    assert.match(provider.requests[0]?.messages[0]?.content ?? "", /"lesson":1到21的整数/);
     assert.match(
       provider.requests[0]?.messages[0]?.content ?? "",
       /用户只说“第X页”时，默认指当前第1讲的第X页/

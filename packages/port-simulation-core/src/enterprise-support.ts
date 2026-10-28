@@ -10,8 +10,12 @@ export function event(s: EnterpriseState, kind: string, title: string, detail = 
   s.events.push({ id: ++s.eventSequence, hour: s.hour, kind, title, detail, object });
   if (s.events.length > 1200) s.events.splice(0, s.events.length - 1200);
 }
+const monthKeys=new WeakMap<EnterpriseState,{hour:number;key:string}>();
 export function month(s: EnterpriseState): MonthReport {
-  const key = monthKey(Math.min(s.hour, s.horizon - 1));
+  const hour=Math.min(s.hour,s.horizon-1);
+  let cached=monthKeys.get(s);
+  if(!cached||cached.hour!==hour){cached={hour,key:monthKey(hour)};monthKeys.set(s,cached);}
+  const key=cached.key;
   let m = s.months.at(-1);
   if (!m || m.month !== key) { m = { month: key, revenue: 0, operating: 0, capital: 0, interest: 0, depreciation: 0, tax: 0, handled: 0, onTime: 0, generated: 0, energy: 0, emissions: 0, waiting: 0, rehandles: 0, cashEnd: s.cash, debtEnd: s.debt }; s.months.push(m); }
   return m;
@@ -53,7 +57,7 @@ export function weather(s: EnterpriseState) {
 export function terminalStock(s: EnterpriseState, id: string) { return s.lots.filter(l => l.terminalId === id).reduce((n, l) => n + l.yard, 0); }
 export function isBlocked(s: EnterpriseState, terminalId: string, stage: string) {
   return s.incidents.some(i => i.status !== 'resolved' && (i.terminalId === null || i.terminalId === terminalId) &&
-    (i.type === 'flood' || i.type === 'spill' || i.type === 'security' || i.type === 'power' && i.response !== 'backup' || i.type === 'system' && i.response !== 'backup' || i.type === 'road' && stage === 'transport'));
+    (i.type === 'flood' || i.type === 'spill' || i.type === 'security' || i.type === 'power' && !i.backupActive || i.type === 'system' && !i.backupActive || i.type === 'road' && stage === 'transport'));
 }
 export function updateProjects(s: EnterpriseState) {
   for (const p of s.projects) if (p.status === 'building' && p.completes <= s.hour) {
@@ -76,7 +80,7 @@ export function updateProjects(s: EnterpriseState) {
   }
 }
 export function updateAssets(s: EnterpriseState) {
-  let technicians = Math.max(0, s.crews.filter(c => c.role === 'technician' && c.shift === Math.floor(s.hour % 24 / 8) && c.trainingUntil <= s.hour).reduce((n, c) => n + c.count, 0) - s.assets.filter(a => a.status === 'maintenance').length);
+  let technicians = Math.max(0, s.crews.filter(c => c.role === 'technician' && c.shift === Math.floor(s.hour % 24 / 8) && c.trainingUntil <= s.hour).reduce((n, c) => n + c.count*c.skill/100, 0) - s.assets.filter(a => a.status === 'maintenance').length-s.incidents.filter(i=>i.resolves!==null).length);
   for (const a of s.assets) {
     const t = terminal(s, a.terminalId), spec = assetSpec(a.model);
     if (a.status === 'ordered' && a.readyHour <= s.hour) { a.status = 'commissioning'; event(s, 'asset', spec.name + '已交付', '检查基础、供电、接口和人员条件。', a.id); }
@@ -88,7 +92,7 @@ export function updateAssets(s: EnterpriseState) {
     if (a.status === 'maintenance' && a.repairUntil !== null && a.repairUntil <= s.hour) {
       a.status = 'active'; a.repairUntil = null; a.serviceHours = 0; a.health = Math.max(a.health, 92); a.batteryHealth = Math.max(a.batteryHealth, .85); a.note = '维修验收完成'; event(s, 'maintenance', spec.name + '恢复可用', a.id, a.id);
     }
-    if (a.status === 'failed' && s.policy.maintenance === 'preventive' && technicians > 0 && s.spareParts > 0 && s.cash > s.policy.reserveCash) {
+    if (a.status === 'failed' && s.policy.maintenance === 'preventive' && technicians >= 1 && s.spareParts > 0 && s.cash > s.policy.reserveCash) {
       const fee = Math.round(spec.price * .0015); post(s, 'maintenance', fee + 4000, -fee, '按维修策略修复故障设备');
       s.spareParts--; technicians--; a.status = 'maintenance'; a.repairUntil = s.hour + spec.repairDays * 24; s.stats.maintenance++;
       event(s, 'maintenance', spec.name + '故障维修已排程', '领用备件并占用技术岗位；完成前保持停机。', a.id);
@@ -132,7 +136,7 @@ export function arrivals(s: EnterpriseState) {
     const incoming = Math.round(size * .6), outgoing = size - incoming;
     for (const flow of ['import', 'export'] as const) {
       const quantity = flow === 'import' ? incoming : outgoing;
-      s.lots.push({ id: flow === 'import' ? c.importLot : c.exportLot, callId: id, terminalId: t.id, goods: t.goods, flow, quantity, ship: flow === 'import' ? quantity : 0, apron: 0, yard: 0, land: flow === 'export' ? quantity : 0, completed: 0, lost: 0, quarantine: c.issue && flow === 'import', inspectionUntil: null, release: false, bonded: false, route: t.goods === 'liquid' ? 'pipeline' : s.policy.transport === 'balanced' ? t.rail ? 'rail' : 'road' : s.policy.transport, deadline: flow === 'export' ? c.deadline : c.deadline + 12, firstHour: flow==='export'?eta-6:eta, lastHour: s.hour, waitingUnitHours: 0, completedTimeSum:0,rehandleRemaining:0,lateUnits: 0, revenue: 0, storageFees: 0, rehandles: 0 });
+      s.lots.push({ connectionReady:0,id: flow === 'import' ? c.importLot : c.exportLot, callId: id, terminalId: t.id, goods: t.goods, flow, quantity, ship: flow === 'import' ? quantity : 0, apron: 0, yard: 0, land: flow === 'export' ? quantity : 0, completed: 0, lost: 0, quarantine: c.issue && flow === 'import', inspectionUntil: null, release: false, bonded: false, route: t.goods === 'liquid' ? 'pipeline' : s.policy.transport === 'balanced' ? t.rail ? 'rail' : 'road' : s.policy.transport, deadline: flow === 'export' ? c.deadline : c.deadline + 12, firstHour: flow==='export'?eta-6:eta, lastHour: s.hour, waitingUnitHours: 0, completedTimeSum:0,rehandleRemaining:0,lateUnits: 0, revenue: 0, storageFees: 0, rehandles: 0 });
     }
     if (contract) contract.promised += size;
     s.stats.generated += size; month(s).generated += size;

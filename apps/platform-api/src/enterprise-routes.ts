@@ -3,14 +3,14 @@ import { Worker } from 'node:worker_threads';
 import { z } from 'zod';
 import type { FastifyInstance, FastifyRequest } from 'fastify';
 import type { ClassroomActor } from '@edu/contracts';
-import { ENTERPRISE_RULES, ENTERPRISE_NOTE_TOPICS, ENTERPRISE_SUBMISSION_SCHEMA, cleanEnterpriseConfig, type EnterpriseTask, type EnterpriseAttemptSummary, type EnterprisePackage, type verifyEnterprisePackage } from '@edu/port-simulation-core';
+import { ENTERPRISE_RULES, ENTERPRISE_NOTE_TOPICS, ENTERPRISE_SUBMISSION_SCHEMA, cleanEnterpriseConfig, enterpriseRulesMatch, type EnterpriseTask, type EnterpriseAttemptSummary, type EnterprisePackage, type verifyEnterprisePackage } from '@edu/port-simulation-core';
 import { openDatabase, campusError, transaction } from './campus/database.js';
 
 const COURSE = 'course-port-management-intro';
 type Verified = ReturnType<typeof verifyEnterprisePackage>;
 type AttemptRow = { id: string; task_id: string; actor_id: string; display_name: string; start_request: string; config: string; status: EnterpriseAttemptSummary['status']; created_at: string; submitted_at: string | null; submit_request: string | null; digest: string | null; package: string | null; verified: string | null; result: string | null; error: string | null };
 type TaskRow = { id: string; payload: string; closed: number };
-export function enterpriseVerificationWorker(pkg: EnterprisePackage) {
+export function enterpriseVerificationWorker(pkg: EnterprisePackage,limits:{idleTimeoutMs?:number;maxDurationMs?:number}={}) {
   const source = import.meta.url.endsWith('.ts');
   const target = new URL(source ? './enterprise-submission-worker.ts' : './enterprise-submission-worker.mjs', import.meta.url);
   const bootstrap = source ? 'const {register}=await import(' + JSON.stringify(import.meta.resolve('tsx/esm/api')) + '); register(); await import(' + JSON.stringify(target.href) + ');' : '';
@@ -18,10 +18,17 @@ export function enterpriseVerificationWorker(pkg: EnterprisePackage) {
   const worker = new Worker(entry, { workerData: pkg, execArgv: [], resourceLimits: { maxOldGenerationSizeMb: 768 } });
   const promise = new Promise<Verified>((resolve, reject) => {
     let finished = false;
-    const timeout = setTimeout(() => { reject(Error('长期经营核验超时，请保留本机封存包。')); void worker.terminate(); }, 240000);
-    worker.once('message', (m: { ok: boolean; value: Verified; error?: string }) => { finished = true; clearTimeout(timeout); if (m.ok) resolve(m.value); else reject(Error(m.error ?? '重放核验失败。')); void worker.terminate(); });
-    worker.once('error', e => { clearTimeout(timeout); reject(e); });
-    worker.once('exit', () => { clearTimeout(timeout); if (!finished) reject(Error('核验工作线程已退出。')); });
+    const clear=()=>{clearTimeout(idle);clearTimeout(maximum);};
+    const timeout=(message:string)=>{if(finished)return;finished=true;clear();reject(Error(message));void worker.terminate();};
+    const idle=setTimeout(()=>timeout('长期经营核验长时间没有进展，请保留本机封存包后重试。'),limits.idleTimeoutMs??90000);
+    const maximum=setTimeout(()=>timeout('长期经营核验超过最长时限，请保留本机封存包后重试。'),limits.maxDurationMs??900000);
+    worker.on('message', (m: {type?:string;hour?:number;ok?: boolean; value: Verified; error?: string }) => {
+      if(finished)return;
+      if(m.type==='progress'&&Number.isSafeInteger(m.hour)&&m.hour!>=0){idle.refresh();return;}
+      finished=true;clear();if(m.ok)resolve(m.value);else reject(Error(m.error??'重放核验失败。'));void worker.terminate();
+    });
+    worker.once('error', e => { if(finished)return;finished=true;clear();reject(e); });
+    worker.once('exit', () => {clear();if(!finished){finished=true;reject(Error('核验工作线程已退出。'));} });
   });
   return { promise, cancel: () => worker.terminate() };
 }
@@ -33,6 +40,7 @@ export class EnterpriseRepository {
   constructor(path: string) {
     this.db = openDatabase(path);
     this.db.exec("CREATE TABLE IF NOT EXISTS enterprise_tasks(id TEXT PRIMARY KEY,payload TEXT NOT NULL,closed INTEGER NOT NULL DEFAULT 0); CREATE TABLE IF NOT EXISTS enterprise_attempts(id TEXT PRIMARY KEY,task_id TEXT NOT NULL,actor_id TEXT NOT NULL,display_name TEXT NOT NULL,start_request TEXT NOT NULL,config TEXT NOT NULL,status TEXT NOT NULL,created_at TEXT NOT NULL,submitted_at TEXT,submit_request TEXT,digest TEXT,package TEXT,verified TEXT,result TEXT,error TEXT,UNIQUE(actor_id,start_request),UNIQUE(actor_id,submit_request)); CREATE INDEX IF NOT EXISTS enterprise_queue ON enterprise_attempts(status,created_at); UPDATE enterprise_attempts SET status='queued' WHERE status='verifying';");
+    this.db.exec("CREATE TABLE IF NOT EXISTS enterprise_start_requests(actor_id TEXT NOT NULL,request_id TEXT NOT NULL,task_id TEXT NOT NULL,attempt_id TEXT NOT NULL,PRIMARY KEY(actor_id,request_id)); INSERT OR IGNORE INTO enterprise_start_requests SELECT actor_id,start_request,task_id,id FROM enterprise_attempts; CREATE INDEX IF NOT EXISTS enterprise_actor_task ON enterprise_attempts(actor_id,task_id);");
     if (!this.db.prepare('PRAGMA table_info(enterprise_attempts)').all().some(column => column.name === 'verified_at')) this.db.exec('ALTER TABLE enterprise_attempts ADD COLUMN verified_at TEXT');
     this.db.exec("UPDATE enterprise_attempts SET verified_at=COALESCE(submitted_at,created_at) WHERE status='verified' AND verified_at IS NULL");
     this.pump();
@@ -47,17 +55,25 @@ export class EnterpriseRepository {
   }
   get(id: string) { return this.db.prepare('SELECT * FROM enterprise_attempts WHERE id=?').get(id) as AttemptRow | undefined; }
   summary(row: AttemptRow): EnterpriseAttemptSummary { return { id: row.id, taskId: row.task_id, actorId: row.actor_id, displayName: row.display_name, config: JSON.parse(row.config), status: row.status, createdAt: row.created_at, submittedAt: row.submitted_at, error: row.error, result: row.result ? JSON.parse(row.result) : null }; }
-  start(actor: ClassroomActor, taskId: string, requestId: string) {
+  start(actor: ClassroomActor, taskId: string, requestId: string,attemptIndex?:number) {
     return transaction(this.db, () => {
-      const prior = this.db.prepare('SELECT * FROM enterprise_attempts WHERE actor_id=? AND start_request=?').get(actor.actorId, requestId) as AttemptRow | undefined;
-      if (prior) { if (prior.task_id !== taskId) throw campusError(409, 'REQUEST_CONFLICT', '该开始编号已经用于其他任务。'); return this.summary(prior); }
+      if(attemptIndex!==undefined&&(!Number.isSafeInteger(attemptIndex)||attemptIndex<0||attemptIndex>4))throw campusError(400,'ATTEMPT_INDEX_INVALID','个人场次序号无效，请刷新任务列表。');
+      const rank=(id:string)=>Number(this.db.prepare('SELECT COUNT(*) AS n FROM enterprise_attempts WHERE actor_id=? AND task_id=? AND rowid<(SELECT rowid FROM enterprise_attempts WHERE id=?)').get(actor.actorId,taskId,id)?.n??0);
+      const attach=(row:AttemptRow)=>{this.db.prepare('INSERT INTO enterprise_start_requests VALUES(?,?,?,?)').run(actor.actorId,requestId,taskId,row.id);return this.summary(row);};
+      const prior = this.db.prepare('SELECT a.* FROM enterprise_attempts a JOIN enterprise_start_requests r ON r.attempt_id=a.id WHERE r.actor_id=? AND r.request_id=?').get(actor.actorId, requestId) as AttemptRow | undefined;
+      if (prior) { if (prior.task_id !== taskId||attemptIndex!==undefined&&rank(prior.id)!==attemptIndex) throw campusError(409, 'REQUEST_CONFLICT', '该开始编号已经用于其他任务或场次。'); return this.summary(prior); }
       const task = this.task(taskId); if (!task) throw campusError(404, 'TASK_NOT_FOUND', '任务不存在。');
+      if(attemptIndex!==undefined){const existing=this.db.prepare('SELECT * FROM enterprise_attempts WHERE actor_id=? AND task_id=? ORDER BY rowid LIMIT 1 OFFSET ?').get(actor.actorId,taskId,attemptIndex) as AttemptRow|undefined;if(existing)return attach(existing);}
+      if(!enterpriseRulesMatch(task.rules))throw campusError(409,'TASK_RULES_ARCHIVED','该任务使用已归档规则，请教师另发当前版本任务；已有记录保留。');
       if (task.closed || task.deadline && Date.parse(task.deadline) < Date.now()) throw campusError(409, 'TASK_CLOSED', '任务已关闭或超过截止时间。');
+      const ongoing=this.db.prepare("SELECT * FROM enterprise_attempts WHERE actor_id=? AND task_id=? AND status='started' ORDER BY rowid DESC LIMIT 1").get(actor.actorId,taskId) as AttemptRow|undefined;
+      if(ongoing){if(attemptIndex!==undefined&&rank(ongoing.id)!==attemptIndex)throw campusError(409,'ATTEMPT_IN_PROGRESS','已有进行中的个人场次，请恢复该场次。');return attach(ongoing);}
       const count = Number(this.db.prepare('SELECT COUNT(*) AS n FROM enterprise_attempts WHERE actor_id=? AND task_id=?').get(actor.actorId, taskId)?.n ?? 0);
       if (count >= task.maxAttempts) throw campusError(409, 'ATTEMPT_LIMIT', '已达到该任务允许的正式场次数。已有场次可继续恢复。');
+      if(attemptIndex!==undefined&&attemptIndex!==count)throw campusError(409,'ATTEMPT_SEQUENCE','个人场次列表已变化，请刷新后重试。');
       const id = randomUUID(), now = new Date().toISOString();
       this.db.prepare("INSERT INTO enterprise_attempts(id,task_id,actor_id,display_name,start_request,config,status,created_at) VALUES(?,?,?,?,?,?,'started',?)").run(id, taskId, actor.actorId, actor.displayName, requestId, JSON.stringify(task.config), now);
-      return this.summary(this.get(id)!);
+      return attach(this.get(id)!);
     });
   }
   submit(actor: ClassroomActor, id: string, requestId: string, pkg: EnterprisePackage) {
@@ -70,8 +86,9 @@ export class EnterpriseRepository {
         return this.summary(row);
       }
       const task = this.task(row.task_id)!;
+      if(!enterpriseRulesMatch(task.rules))throw campusError(409,'TASK_RULES_ARCHIVED','该任务使用已归档规则，请教师另发当前版本任务；本机记录仍可导出。');
       if (task.closed || task.deadline && Date.parse(task.deadline) < Date.now()) throw campusError(409, 'TASK_CLOSED', '任务已关闭或超过截止时间；本机记录仍可导出。');
-      if (JSON.stringify(cleanEnterpriseConfig(pkg.record.config)) !== row.config || JSON.stringify(pkg.record.rules) !== JSON.stringify(task.rules)) throw campusError(400, 'TASK_VERSION_MISMATCH', '提交的初始条件或规则与正式场次不一致。');
+      if (JSON.stringify(cleanEnterpriseConfig(pkg.record.config)) !== row.config || !enterpriseRulesMatch(pkg.record.rules,task.rules)) throw campusError(400, 'TASK_VERSION_MISMATCH', '提交的初始条件或规则与正式场次不一致。');
       const sameRequest = this.db.prepare('SELECT id FROM enterprise_attempts WHERE actor_id=? AND submit_request=?').get(actor.actorId, requestId);
       if (sameRequest) throw campusError(409, 'REQUEST_CONFLICT', '提交编号已用于其他场次。');
       const queue = Number(this.db.prepare("SELECT COUNT(*) AS n FROM enterprise_attempts WHERE actor_id=? AND status IN ('queued','verifying')").get(actor.actorId)?.n ?? 0);
@@ -133,8 +150,8 @@ export function registerEnterprise(app: FastifyInstance, repo: EnterpriseReposit
     const input = z.object({ title: z.string().trim().min(2).max(100), config: z.unknown(), deadline: z.string().datetime().nullable().optional(), maxAttempts: z.number().int().min(1).max(5), completeRequired: z.boolean() }).strict().parse(request.body);
     return repo.publish(input);
   });
-  app.patch('/api/port-enterprise/tasks/:id', async request => { await teacher(request); const { closed } = z.object({ closed: z.boolean() }).strict().parse(request.body), id = (request.params as { id: string }).id; if (!repo.task(id)) throw campusError(404, 'TASK_NOT_FOUND', '任务不存在。'); repo.db.prepare('UPDATE enterprise_tasks SET closed=? WHERE id=?').run(closed ? 1 : 0, id); return repo.task(id); });
-  app.post('/api/port-enterprise/tasks/:id/attempts', async request => { const actor = await student(request); const { requestId } = z.object({ requestId: z.string().uuid() }).strict().parse(request.body); return repo.start(actor, (request.params as { id: string }).id, requestId); });
+  app.patch('/api/port-enterprise/tasks/:id', async request => { await teacher(request); const { closed } = z.object({ closed: z.boolean() }).strict().parse(request.body), id = (request.params as { id: string }).id; const task=repo.task(id);if(!task)throw campusError(404,'TASK_NOT_FOUND','任务不存在。');if(!closed&&!enterpriseRulesMatch(task.rules))throw campusError(409,'TASK_RULES_ARCHIVED','该任务使用已归档规则，请另发当前版本任务。'); repo.db.prepare('UPDATE enterprise_tasks SET closed=? WHERE id=?').run(closed ? 1 : 0, id); return repo.task(id); });
+  app.post('/api/port-enterprise/tasks/:id/attempts', async request => { const actor = await student(request); const {requestId,attemptIndex}=z.object({requestId:z.string().uuid(),attemptIndex:z.number().int().min(0).max(4).optional()}).strict().parse(request.body);return repo.start(actor,(request.params as {id:string}).id,requestId,attemptIndex); });
   app.get('/api/port-enterprise/attempts/:id', async request => repo.summary((await owned(request)).row));
   app.post('/api/port-enterprise/attempts/:id/submit', { bodyLimit: 10_000_000 }, async (request, reply) => {
     const actor = await student(request);

@@ -1,5 +1,6 @@
 import {CausalPageView} from './CausalPages';
 import {PolicyPageView} from './PolicyPages';
+import {ResearchPageView} from './ResearchPages';
 import type { CSSProperties, ReactNode } from 'react';
 import type { SlideFrame } from '@edu/contracts';
 import { getStatisticalAnalysisSlide, STATISTICAL_ANALYSIS_DATA as D, type StatisticalAnalysisSlide as SlideSpec } from '@edu/course-content/statistical-analysis';
@@ -21,6 +22,7 @@ function Table({headers,rows}:{headers:string[];rows:(string|number)[][]}) {retu
 function Means() {return <div className="sa-means"><div><span>会员</span><strong>650</strong><small>元/人/月 · n=240</small></div><i>vs.</i><div><span>非会员</span><strong>500</strong><small>元/人/月 · n=240</small></div></div>;}
 function Receipt() {return <><Art id="l1-05-receipts" mode="cutout" style={{left:-120,top:90,width:770,height:500,opacity:.7}}/><div className="sa-receipt-records"><span>聚合演示 · C示例01 · 同一观察月</span><p>订单 A <b>120</b></p><p>订单 B <b>180</b></p><p>订单 C <b>200</b></p></div><div className="sa-sum"><span>顾客月消费</span><strong>500<small>元</small></strong><p>一位顾客，仅贡献一行</p></div><svg className="sa-arrow" viewBox="0 0 420 150" aria-hidden="true"><path d="M10 75H370m-30-25 30 25-30 25" fill="none" stroke={amber} strokeWidth="3"/></svg></>;}
 function MainContent({s}:{s:SlideSpec}):ReactNode {
+ if(s.lesson>=14)return <ResearchPageView lesson={s.lesson} page={s.localIndex}/>;
  if(s.lesson>=12)return <PolicyPageView lesson={s.lesson} page={s.localIndex}/>;
  if(s.lesson>=10)return <CausalPageView lesson={s.lesson} page={s.localIndex}/>;
  if(s.lesson>=6)return <MeasurementPageView lesson={s.lesson} page={s.localIndex}/>;
@@ -129,7 +131,7 @@ function LessonTwoPage({page}:{page:number}):ReactNode {
   case 35:return <><TimeSeries/><Note>模拟中包含上升项与年度周期项；观察到两轮起伏，尚不足以验证稳定季节规律。</Note></>;
   case 36:return <><div className="sa-two"><div><h2>月总额 · 24点</h2><TimeSeries metric="total"/></div><div><h2>季度总额 · 8点</h2><TimeSeries quarter/></div></div><Note>季度销售额是三个月总额之和；季度人均需用匹配口径的分子与分母重新计算。</Note></>;
   case 37:return <><TimeSeries missing/><Note>缺失演示：隐藏第8、9月，原始模拟数据保留。断口表达未知；不补零、不默认插值。</Note></>;
-  case 38:return <><Art id="l2-10-clock" mode="window"/><Words style={{top:60,width:840}}><p>按时间先后划分训练与评价窗口。</p><p>与简单基准比较预测误差。</p><p>给出预测范围，检查结构是否改变。</p><hr/><p><strong>已有走势，是预测的起点。</strong></p></Words><Note>动态建模与预测评价将在第15、16讲展开。</Note></>;
+  case 38:return <><Art id="l2-10-clock" mode="window"/><Words style={{top:60,width:840}}><p>按时间先后划分训练与评价窗口。</p><p>与简单基准比较预测误差。</p><p>给出预测范围，检查结构是否改变。</p><hr/><p><strong>已有走势，是预测的起点。</strong></p></Words><Note>动态建模与预测评价将在第16讲展开。</Note></>;
   case 39:return <><Difference/><Note>点为均值差估计；线为该差值的95%置信区间；零线表示无均值差。</Note></>;
   case 40:return <><ErrorBars/><Note>相同会员均值650元，三种线段含义不同。图注不可只写“误差线”。</Note></>;
   case 41:return <><div className="sa-two"><div><h2>分别估计两个组的均值</h2><Groups mode="means" interval/></div><div style={{paddingTop:40}}><p className="sa-report" style={{fontSize:29}}>是否重叠，不能替代对<strong>差值</strong>的推断。<br/><br/>差值方差还取决于两个估计之间的协方差。</p><div style={{fontSize:26,marginTop:45}}>本例两组独立：SE差=√(SE₁²+SE₀²)</div></div></div><Note>不能一般性地用两条95% CI是否重叠判断差异是否显著。</Note></>;

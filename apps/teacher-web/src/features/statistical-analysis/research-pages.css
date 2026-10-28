@@ -1,0 +1,89 @@
+.sar-page{position:absolute;inset:0;color:#152e3e}
+.sar-evidence{height:485px;overflow:visible}
+.sar-figure{width:100%;height:470px;display:block;overflow:visible;font-family:StatsSans,sans-serif;font-size:27px;fill:#152e3e}
+.sar-svg-main{font-size:33px;font-weight:650}.sar-svg-small{font-size:25px;fill:#71848b}.sar-svg-number{font-size:59px;font-weight:700}
+.sar-page .sa-caption{font-size:24px;line-height:1.5;max-width:1424px}
+.sar-table{width:100%;border-collapse:collapse;font-size:25px;line-height:1.5;table-layout:fixed}
+.sar-table th{text-align:left;font-weight:650;color:#197f7a;border-bottom:2px solid #152e3e;padding:15px 19px 18px}
+.sar-table td{padding:18px 19px;border-bottom:1px solid #152e3e28;vertical-align:top}
+.sar-table tr:last-child td{border-bottom:0}
+.sar-table th:first-child,.sar-table td:first-child{width:27%}
+.sar-table th:last-child:nth-child(2),.sar-table td:last-child:nth-child(2){width:66%}
+.sar-statements{padding:20px 15px 0;font-size:35px;line-height:1.75}
+.sar-statements p{display:flex;gap:32px;margin:0 0 30px;align-items:baseline}
+.sar-statements p>span{font-size:22px;color:#b87921;flex:0 0 35px}
+.sar-page--question .sar-statements{font-size:38px;padding-top:48px}
+.sar-page--feedback .sar-statements p>span{color:#197f7a}
+.sar-formula{font-size:33px;text-align:left;height:125px;padding-top:4px}
+.sar-page--formula .sar-evidence{height:350px}
+.sar-page--formula .sar-statements{font-size:30px;line-height:1.6;padding-top:0}
+.sar-page--formula .sar-statements p{margin-bottom:22px}
+.sar-page--formula .sar-weight{height:330px}
+.sar-page--iv .sar-figure{height:350px}
+.sar-iv-top{height:110px;display:flex;align-items:baseline;gap:45px;font-size:30px;border-bottom:1px solid #152e3e30}
+.sar-iv-top strong{color:#197f7a}.sar-iv-top b{font-size:45px}
+.sar-side-text{position:absolute;right:0;top:370px;font-size:22px}
+.sar-side-text p{margin:8px 0}
+.sar-cover{position:absolute;inset:0;background:#152e3e;color:#f4f0e7;padding:85px 100px;overflow:hidden}
+.sar-cover>span{font-size:20px;letter-spacing:3px;position:relative;z-index:1}
+.sar-cover h1{font-family:StatsSerif,serif;font-size:84px;line-height:1.38;font-weight:500;margin:100px 0 32px;position:relative;z-index:1}
+.sar-cover>p{font-size:30px;position:relative;z-index:1}
+.sar-cover-line{width:650px;height:1px;background:#f4f0e74d;margin:68px 0 25px}
+.sar-cover>small{font-size:25px;position:relative;z-index:1}
+.sar-cover>b{position:absolute;right:-20px;bottom:125px;font-size:188px;writing-mode:vertical-rl;letter-spacing:14px;color:#f4f0e70a;font-weight:600}
+.sar-study-map>div{display:flex;align-items:baseline;gap:30px;border-bottom:1px solid #152e3e26;padding:9px 12px 12px}
+.sar-study-map>div:last-child{border:0}.sar-study-map>div>span{font-size:23px;color:#b87921}.sar-study-map section{flex:1}
+.sar-study-map strong{font-size:29px;font-weight:650}.sar-study-map p{margin:5px 0;font-size:25px}.sar-study-map small{font-size:18px;color:#71848b;width:215px}
+.sar-reading{display:flex;gap:0;padding-top:35px}
+.sar-reading section{width:20%;padding:12px 25px 0;border-right:1px solid #152e3e33;min-height:320px}
+.sar-reading section:first-child{padding-left:5px}.sar-reading section:last-child{border:0}.sar-reading span{color:#b87921;font-size:22px}
+.sar-reading h3{font-family:StatsSerif,serif;font-size:45px;margin:30px 0 25px}
+.sar-reading strong{font-size:25px;font-weight:500}.sar-reading p{font-size:23px;color:#71848b;line-height:1.8;margin-top:25px}
+.sar-chain{display:grid;grid-template-columns:repeat(4,1fr);column-gap:35px;row-gap:55px;padding:30px 0}
+.sar-chain>div{border-top:2px solid #197f7a;padding:18px 0;position:relative}
+.sar-chain span{font-size:20px;color:#b87921}.sar-chain strong{display:block;font-family:StatsSerif,serif;font-size:38px;margin:14px 0}
+.sar-chain small{font-size:22px;line-height:1.6;color:#71848b}
+.sar-quantity{display:flex;align-items:center;justify-content:space-around;padding-top:70px;text-align:left}
+.sar-quantity section{display:flex;flex-direction:column;gap:26px}.sar-quantity span{font-size:29px}.sar-quantity strong{font-size:105px;font-weight:550;color:#197f7a}.sar-quantity small{font-size:25px;color:#71848b}.sar-quantity>b{font-size:60px;color:#b87921}
+.sar-practices{display:grid;grid-template-columns:40% 60%;padding-top:35px}.sar-practices>strong{font-size:130px;color:#197f7a;font-weight:500}.sar-practices>strong span{display:block;font-size:28px;color:#152e3e}
+.sar-practices p{font-size:32px;border-bottom:1px solid #152e3e28;padding:0 0 20px;margin:0 0 22px}.sar-practices p span{font-size:21px;color:#b87921;margin-right:35px}.sar-practices>small{grid-column:1/-1;font-size:24px;color:#71848b;padding-top:25px}
+.sar-transform>span{font-size:26px;color:#71848b}.sar-transform>div{display:flex;align-items:baseline;justify-content:space-between;margin:55px 0}.sar-transform strong{font-size:100px;color:#197f7a;font-weight:500}.sar-transform b{font-size:50px;color:#b87921}.sar-transform p{font-size:34px}.sar-transform small{font-size:25px;color:#71848b}
+.sar-project{display:grid;grid-template-columns:1fr 1fr;gap:90px;padding:25px 0}.sar-project section{border-top:3px solid #197f7a;padding-top:25px}.sar-project span{color:#b87921;font-size:25px}.sar-project h3{font-family:StatsSerif,serif;font-size:48px;font-weight:500;margin:30px 0}.sar-project p{font-size:29px;line-height:1.7}.sar-project strong{font-size:25px;display:block;margin-top:40px;font-weight:500;color:#197f7a}
+.sar-logit{display:flex;gap:55px;align-items:center;flex-wrap:wrap;padding-top:20px}.sar-logit section{flex:1}.sar-logit span{display:block;font-size:27px}.sar-logit strong{font-size:90px;font-weight:500;color:#197f7a}.sar-logit p{font-size:24px}.sar-logit>b{font-size:34px;color:#b87921}.sar-logit footer{width:100%;font-size:25px;margin-top:30px}
+.sar-weight{display:flex;gap:130px;height:450px;align-items:stretch}.sar-weight section{flex:1}.sar-weight section>span{font-size:26px}.sar-weight section>div{display:flex;align-items:flex-end;gap:50px;height:185px;margin:22px 0 28px;border-bottom:1px solid #152e3e55}.sar-weight i{display:block;width:70px;background:#197f7a;font-style:normal;position:relative}.sar-weight b{position:absolute;top:-27px;left:27px;font-size:20px;font-weight:500}.sar-weight strong{font-size:36px;font-weight:500;color:#197f7a}
+.sar-fe{display:flex;gap:65px;padding:50px 0;flex-wrap:wrap}.sar-fe section{width:28%;border-top:2px solid #197f7a;padding-top:25px}.sar-fe span{color:#b87921;font-size:22px}.sar-fe strong{display:block;font-size:40px;margin-top:30px;font-weight:550}.sar-fe p{font-size:29px}.sar-fe footer{width:100%;font-size:29px;padding-top:25px}
+.sar-ratio{display:flex;align-items:center;justify-content:space-between;padding:70px 0;flex-wrap:wrap}.sar-ratio span{font-size:27px;display:block}.sar-ratio strong{font-size:62px;color:#197f7a;font-weight:500;display:block;margin-top:35px}.sar-ratio>b{font-size:50px;color:#b87921}.sar-ratio footer{width:100%;font-size:25px;padding-top:70px}
+.sar-files{display:flex;justify-content:space-between;align-items:center;padding-top:5px}.sar-files pre{font-family:StatsSans,sans-serif;font-size:29px;line-height:1.9;margin:0;color:#197f7a}.sar-files p{font-size:31px;line-height:2.25;width:300px}
+.sar-resources{padding:8px;line-height:1.6}.sar-resources a{display:flex;align-items:center;gap:10px;padding:10px 0;color:var(--accent,#197f7a);text-decoration:none}.sar-resources a:hover{text-decoration:underline}.sar-resources p{margin-top:0}
+.sar-paper-entry h2{font:500 34px/1.24 StatsSans,sans-serif;margin:0 0 14px;max-width:1400px}
+.sar-paper-entry .sar-paper-authors{font-size:22px;line-height:1.4;margin:0 0 6px;color:#53646b}
+.sar-paper-entry .sar-paper-citation{display:flex;justify-content:space-between;gap:25px;font-size:20px;line-height:1.4;color:#71848b;margin:0 0 19px;padding-bottom:16px;border-bottom:1px solid #152e3e33}
+.sar-paper-citation a{color:#197f7a;text-decoration:none;white-space:nowrap}
+.sar-abstract>strong{font-size:22px;font-weight:550;color:#197f7a;display:block;margin-bottom:9px}
+.sar-paper-entry .sar-abstract p{font-size:28px;line-height:1.55;margin:0 0 9px}
+.sar-model .sar-model-provenance{font-size:21px;line-height:1.5;color:#197f7a;margin:0 0 18px}
+.sar-model-content{display:grid;grid-template-columns:62% 38%;align-items:start}
+.sar-model-equations{font-size:30px;padding-right:30px}
+.sar-model-equations .katex-display{margin:17px 0;text-align:left}
+.sar-model-symbols{margin:0;padding-left:30px;border-left:1px solid #152e3e33}
+.sar-model-symbols>div{display:grid;grid-template-columns:95px 1fr;gap:16px;margin:0 0 18px;align-items:baseline}
+.sar-model-symbols dt{font-size:23px}.sar-model-symbols dt .katex-display{margin:0}
+.sar-model-symbols dd{margin:0;font-size:24px;line-height:1.55}
+.sar-model-focus{margin-top:18px;padding-top:15px;border-top:1px solid #152e3e26;font-size:24px;line-height:1.5}
+.sar-model--wide .sar-model-content{display:block}
+.sar-model--wide .sar-model-equations{padding:0;font-size:30px}
+.sar-model--wide .sar-model-equations .katex-display{margin:12px 0;text-align:center}
+.sar-model--wide .sar-model-symbols{border:0;padding:18px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px 28px}
+.sar-model--wide .sar-model-symbols>div{display:block;margin:0}
+.sar-model--wide .sar-model-symbols dt{font-size:22px}
+.sar-model--wide .sar-model-symbols dt .katex-display{text-align:left}
+.sar-model--wide .sar-model-symbols dd{font-size:23px;line-height:1.5;margin-top:8px}
+.sar-pricing{display:grid;grid-template-columns:repeat(4,1fr);gap:35px;padding-top:45px}
+.sar-pricing section{border-top:2px solid #197f7a;padding-top:20px}.sar-pricing span{font-size:22px;color:#b87921}
+.sar-pricing strong{display:block;font-family:StatsSerif,serif;font-size:35px;font-weight:500;margin-top:30px}.sar-pricing p{font-size:26px;line-height:1.7;margin-top:25px}
+.sar-pricing footer{grid-column:1/-1;font-size:28px;padding-top:48px}
+.sar-cost{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:18px;align-items:center;padding-top:80px}
+.sar-cost span{font-size:24px;display:block;color:#71848b}
+.sar-cost strong{font-size:94px;color:#197f7a;font-weight:500;display:block;margin:30px 0}
+.sar-cost small{font-size:29px;margin-left:8px}.sar-cost p{font-size:22px;line-height:1.6}
+.sar-cost>b{font-size:22px;color:#b87921;font-weight:500}

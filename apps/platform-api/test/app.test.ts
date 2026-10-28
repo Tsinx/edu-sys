@@ -79,7 +79,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     assert.equal(initialSnapshot.slide.logicalHeight, 1000);
     assert.equal(initialSnapshot.slide.aspectRatio, "16:10");
     assert.equal(initialSnapshot.slide.index, 1);
-    assert.equal(initialSnapshot.slide.total, 767);
+    assert.equal(initialSnapshot.slide.total, 871);
     assert.equal(
       initialSnapshot.slide.title,
       "港口管理概论"
@@ -87,7 +87,7 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     assert.equal(initialSnapshot.slide.slideId, "l1-course-cover");
     assert.equal(
       initialSnapshot.slide.versionId,
-      "release-port-management-facilities-v20"
+      "release-port-management-facilities-v22"
     );
     assert.equal(initialSnapshot.globePlayback.status, "idle");
     assert.equal(initialSnapshot.participantsOnline, 0);
@@ -306,8 +306,8 @@ test("seeded teacher portal supports course creation, classroom start and avatar
       payload: {
         protocol: "edu.classroom.control",
         version: "1.0",
-        requestId: "lam-control-lesson-19",
-        actions: [{ type: "lesson.go_to", lesson: 19 }]
+        requestId: "lam-control-lesson-22",
+        actions: [{ type: "lesson.go_to", lesson: 22 }]
       }
     });
     assert.equal(plannedLessonResponse.statusCode, 200);
@@ -315,8 +315,13 @@ test("seeded teacher portal supports course creation, classroom start and avatar
     assert.equal(plannedLessonResponse.json().snapshot.slide.index, 48);
     assert.match(
       plannedLessonResponse.json().results[0].message,
-      /第19讲内容待建设/
+      /第22讲内容待建设/
     );
+
+    for(const [lesson,index] of [[19,768],[20,808],[21,840]]){
+      const reviewResponse=await app.inject({method:'POST',url:`/api/class-sessions/${liveSession.id}/avatar/control`,payload:{protocol:'edu.classroom.control',version:'1.0',requestId:`lam-control-ready-lesson-${lesson}`,actions:[{type:'lesson.go_to',lesson}]}});
+      assert.equal(reviewResponse.statusCode,200);assert.equal(reviewResponse.json().status,'applied');assert.equal(reviewResponse.json().snapshot.slide.index,index);
+    }
 
     const eighteenthLessonResponse = await app.inject({
       method:'POST',url:`/api/class-sessions/${liveSession.id}/avatar/control`,

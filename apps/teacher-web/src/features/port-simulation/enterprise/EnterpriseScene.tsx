@@ -4,9 +4,10 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { CARGO_LABELS, assetSpec, type EnterpriseView } from '@edu/port-simulation-core';
 
 const colors = [0xdfa544, 0x168f8a, 0x8399a5, 0xb899bf, 0xcb8c63, 0x6da7ab, 0x6d96c8];
-export function EnterpriseScene({ view, selected, onSelect, animate = false }: { view: EnterpriseView; selected: string; onSelect: (id: string) => void; animate?: boolean }) {
-  const host = useRef<HTMLDivElement>(null), latest = useRef({ view, selected, onSelect, animate });
-  latest.current = { view, selected, onSelect, animate };
+export interface EnterpriseSceneSelection {kind:'ship'|'asset';id:string;terminalId:string;}
+export function EnterpriseScene({ view, selected, onSelect, onObjectSelect, animate = false }: { view: EnterpriseView; selected: string; onSelect: (id: string) => void; onObjectSelect?:(selection:EnterpriseSceneSelection)=>void; animate?: boolean }) {
+  const host = useRef<HTMLDivElement>(null), latest = useRef({ view, selected, onSelect, onObjectSelect, animate });
+  latest.current = { view, selected, onSelect, onObjectSelect, animate };
   const [fallback, setFallback] = useState(false), [ready, setReady] = useState(false);
   useEffect(() => {
     const el = host.current; if (!el) return;
@@ -60,7 +61,7 @@ export function EnterpriseScene({ view, selected, onSelect, animate = false }: {
     const observer = new ResizeObserver(resize); observer.observe(el); resize();
     const ray = new THREE.Raycaster(), pointer = new THREE.Vector2(); let down = { x: 0, y: 0 };
     const start = (e: PointerEvent) => { down = { x: e.clientX, y: e.clientY }; };
-    const choose = (e: PointerEvent) => { if (Math.hypot(e.clientX - down.x, e.clientY - down.y) > 6) return; const r = renderer.domElement.getBoundingClientRect(); pointer.set((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1); ray.setFromCamera(pointer, camera); for (const hit of ray.intersectObjects(scene.children, true)) { let p: THREE.Object3D | null = hit.object; while (p) { if (p.userData.terminalId) { latest.current.onSelect(String(p.userData.terminalId)); return; } p = p.parent; } } };
+    const choose = (e: PointerEvent) => { if (Math.hypot(e.clientX - down.x, e.clientY - down.y) > 6) return; const r = renderer.domElement.getBoundingClientRect(); pointer.set((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1); ray.setFromCamera(pointer, camera); for (const hit of ray.intersectObjects(scene.children, true)) { let p: THREE.Object3D | null = hit.object; while (p) { if(latest.current.onObjectSelect&&p.userData.callId){latest.current.onObjectSelect({kind:'ship',id:String(p.userData.callId),terminalId:String(p.userData.terminalId)});return;} if(latest.current.onObjectSelect&&p.userData.assetId){latest.current.onObjectSelect({kind:'asset',id:String(p.userData.assetId),terminalId:String(p.userData.terminalId)});return;} if (p.userData.terminalId) { latest.current.onSelect(String(p.userData.terminalId)); return; } p = p.parent; } } };
     renderer.domElement.addEventListener('pointerdown', start); renderer.domElement.addEventListener('pointerup', choose);
     const draw = () => {
       if (disposed) return;
@@ -72,26 +73,33 @@ export function EnterpriseScene({ view, selected, onSelect, animate = false }: {
           zone.stocks.clear(); zone.machines.clear();
           const t = v.terminals.find(t => t.id === zone.id)!;
           const stock = Math.min(36, Math.ceil(t.stock / Math.max(1, t.storageCapacity) * 36));
-          if(t.goods==='bulk')for(let i=0;i<Math.ceil(stock/6);i++)cylinder(zone.stocks,48+i%3*12,6,zone.z-12+Math.floor(i/3)*17,8,12,0x665d50,0);
+          if(t.goods==='container')for(const b of v.management.yardBlocks.filter(b=>b.terminalId===t.id)){
+            const x=45+b.index%5*7,z=zone.z-14+Math.floor(b.index/5)*22,color=b.purpose==='shared'?0xc5a65e:b.purpose==='import'?0x4b8f7a:0x668eae;
+            box(zone.stocks,x,1.4,z,6,.7,17,color);
+            const height=b.used?Math.max(1,b.layers):0;
+            for(let level=0;level<height;level++)box(zone.stocks,x,3+level*3,z,5.5,2.6,15,color);
+          }
+          else if(t.goods==='bulk')for(let i=0;i<Math.ceil(stock/6);i++)cylinder(zone.stocks,48+i%3*12,6,zone.z-12+Math.floor(i/3)*17,8,12,0x665d50,0);
           else if(t.goods==='liquid')for(let i=0;i<3;i++)box(zone.stocks,114+i*18,4+Math.min(14,stock*.4)/2,zone.z+8.1,11,Math.max(1,Math.min(14,stock*.4)),.5,0x55a3a4);
           else if(t.goods==='roro')for(let i=0;i<Math.min(24,stock);i++){box(zone.stocks,48+i%4*8,3,zone.z-17+Math.floor(i/4)*6,5,3,3,i%2?0xe4e1d1:0x517d8b);}
           else for (let i = 0; i < stock; i++) box(zone.stocks, 46 + i % 4 * 8, 4 + Math.floor(i / 12) * 5, zone.z - 17 + Math.floor(i % 12 / 4) * 12, 6, 5, 10, colors[v.terminals.indexOf(t)]!);
           const assets = v.assets.filter(a => a.terminalId === zone.id && a.status !== 'retired' && a.status !== 'ordered');
           const quay = assets.filter(a => assetSpec(a.model).stage === 'quay');
           quay.slice(0, 4).forEach((a, i) => {
+            const assetGroup=new THREE.Group();assetGroup.userData={assetId:a.id,terminalId:t.id};zone.machines.add(assetGroup);
             const x = 10, z = zone.z - 16 + i * 13, color = a.status === 'failed' ? 0xb55746 : a.status === 'maintenance' ? 0xc39441 : 0xe0a84d;
-            if(t.goods==='container'||t.goods==='general'){box(zone.machines, x, 13, z, 3, 25, 3, color); box(zone.machines, x + 16, 13, z, 3, 25, 3, color); box(zone.machines, x + 4, 27, z, 45, 3, 3, color); box(zone.machines, -6, 17, z, 1, 18, 1, 0x43565e);}
-            else if(t.goods==='bulk'){box(zone.machines,16,10,z,8,18,8,0xa6b6ac);const belt=box(zone.machines,-1,19,z,45,4,5,color);belt.rotation.z=.13;}
-            else if(t.goods==='liquid'){cylinder(zone.machines,13,7,z,2,14,color);box(zone.machines,0,14,z,28,2,2,color);box(zone.machines,-12,10,z,2,8,2,color);}
-            else box(zone.machines,9,4,z,35,3,12,t.goods==='passenger'?0xf0e5c6:0x90a9a6);
+            if(t.goods==='container'||t.goods==='general'){box(assetGroup, x, 13, z, 3, 25, 3, color); box(assetGroup, x + 16, 13, z, 3, 25, 3, color); box(assetGroup, x + 4, 27, z, 45, 3, 3, color); box(assetGroup, -6, 17, z, 1, 18, 1, 0x43565e);}
+            else if(t.goods==='bulk'){box(assetGroup,16,10,z,8,18,8,0xa6b6ac);const belt=box(assetGroup,-1,19,z,45,4,5,color);belt.rotation.z=.13;}
+            else if(t.goods==='liquid'){cylinder(assetGroup,13,7,z,2,14,color);box(assetGroup,0,14,z,28,2,2,color);box(assetGroup,-12,10,z,2,8,2,color);}
+            else box(assetGroup,9,4,z,35,3,12,t.goods==='passenger'?0xf0e5c6:0x90a9a6);
           });
           if(t.goods==='container')assets.filter(a=>assetSpec(a.model).stage==='yard').slice(0,2).forEach((a,i)=>{const z=zone.z-10+i*21;box(zone.machines,49,10,z,2,19,2,0x4e8881);box(zone.machines,76,10,z,2,19,2,0x4e8881);box(zone.machines,62,20,z,30,3,4,0x4e8881);});
           const c = v.calls.find(c => c.id === t.berthCall); zone.ship.visible = !!c;
-          if (c) zone.ship.position.set(c.stage === 'entering' || c.stage === 'leaving' ? -50 : -18, 0, zone.z);
+          if (c) {zone.ship.position.set(c.stage === 'entering' || c.stage === 'leaving' ? -50 : -18, 0, zone.z);zone.ship.userData={callId:c.id,terminalId:t.id};}
           zone.highlight.material = material(pick === zone.id ? 0xe8c97c : 0xc5c9bb);
           zone.truck.visible = assets.some(a => a.lastWork > 0 && assetSpec(a.model).stage === 'transport');
         }
-        const queued = v.calls.filter(c => c.stage === 'waiting'); waiting.forEach((g, i) => { g.visible = i < queued.length; });
+        const queued = v.calls.filter(c => c.stage === 'waiting'); waiting.forEach((g, i) => { g.visible = i < queued.length;if(queued[i])g.userData={callId:queued[i]!.id,terminalId:queued[i]!.terminalId}; });
       }
       for (const z of zones) { z.highlight.material = material(pick === z.id ? 0xe8c97c : 0xc5c9bb); if (running) z.truck.position.z = z.z + Math.sin(performance.now() / 1600 + z.z) * 18; }
       controls.update(); renderer.render(scene, camera); frame = requestAnimationFrame(draw);

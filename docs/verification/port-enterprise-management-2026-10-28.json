@@ -1,0 +1,176 @@
+{
+  "schema": "port-enterprise-management-acceptance/1",
+  "date": "2026-10-28",
+  "scope": "local single-player enterprise simulator only",
+  "entry": "http://127.0.0.1:8217/",
+  "rules": {
+    "engine": "port-enterprise/2.0",
+    "operations": "port-operations/2.0",
+    "catalogue": "port-assets/2.0",
+    "demand": "port-market/1.0",
+    "finance": "port-finance/2.0",
+    "indicators": "port-enterprise-score/2.0"
+  },
+  "teaching": "port-enterprise-teaching/3",
+  "changes": [
+    "policy-driven routine operations",
+    "yard zoning, classification and physical relocations",
+    "cohort-preserving shift templates",
+    "finite charging and maintenance plans",
+    "budgeted incident authorization",
+    "weekly feedback and nine earned milestones",
+    "historical one-factor experiments",
+    "21-task management curriculum",
+    "rail and barge staging regression repair",
+    "sealed verification-package export"
+  ],
+  "checks": [
+    {
+      "name": "enterprise core and management regressions",
+      "command": "pnpm --filter @edu/port-simulation-core exec tsx --test test/enterprise.test.ts test/enterprise-management.test.ts",
+      "passed": 20
+    },
+    {
+      "name": "enterprise teaching, UI, permissions and fullscreen",
+      "command": "pnpm --filter @edu/teacher-web exec tsx --test test/port-enterprise-teaching.test.tsx test/port-enterprise-game.test.tsx test/page-tools.test.ts test/presentation-fullscreen.test.tsx",
+      "passed": 14
+    },
+    {
+      "name": "formal task identity, immutable conditions and replay",
+      "command": "pnpm --filter @edu/platform-api exec tsx --test test/enterprise.test.ts",
+      "passed": 1
+    }
+  ],
+  "typechecks": [
+    "@edu/port-simulation-core",
+    "@edu/teacher-web",
+    "@edu/platform-api"
+  ],
+  "productionBuild": {
+    "command": "pnpm --filter @edu/teacher-web exec vite build",
+    "passed": true,
+    "log": "output\\port-enterprise-management-20261028\\vite-build.log",
+    "warnings": [
+      "existing large-chunk warnings"
+    ],
+    "includesCoursePdfGeneration": false
+  },
+  "diffCheckPassed": true,
+  "repositoryWideSuiteClaimed": false,
+  "browser": {
+    "runner": "cua_repl, real browser controls",
+    "fullRun": {
+      "days": 1096,
+      "months": 36,
+      "commands": 64,
+      "allCommandsSuccessful": true,
+      "teachingTasks": 21,
+      "allTeachingComplete": true,
+      "incidents": 16,
+      "recovered": 16,
+      "score": 94.51,
+      "hash": "1f29735b2a2a15067c479e976917475018548cb332bc38c54afcd05be3daff22",
+      "containerOutstandingTEU": 139655
+    },
+    "realDownloads": [
+      "three-year-record.json",
+      "three-year-package.json",
+      "three-year-months.csv",
+      "teaching-report.json"
+    ],
+    "readOnlyReplay": {
+      "startHour": 0,
+      "returnedHour": 26304,
+      "beforeAndAfterPackagesIdentical": true
+    },
+    "refresh": {
+      "fullThreeYearRecordRestored": true,
+      "teaching21Of21Retained": true
+    },
+    "desktop": {
+      "width": 1280,
+      "height": 720,
+      "singleToolbar": true,
+      "sceneCanvasCount": 1
+    },
+    "narrow": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "horizontalPageOverflow": false,
+      "singleToolbar": true,
+      "actualControlHighlightVisible": true
+    },
+    "keyboard": {
+      "trimmedCaseInsensitiveMenuSearch": true,
+      "escapeClosesModal": true,
+      "focusReturnsToMenu": true
+    },
+    "fullscreen": {
+      "pageModeAndDraftContinuityVerified": true,
+      "nativeEntryVerified": false,
+      "nativeRequestsDeniedIn": [
+        "IAB",
+        "Edge automation"
+      ],
+      "denialReportedExplicitly": true,
+      "noSilentPageFallbackVerified": true
+    },
+    "finalPackageSmoke": {
+      "freshExtractedPackageRunsOneWeek": true,
+      "sealSucceeds": true,
+      "historicalExperimentEnabledAfterSeal": true,
+      "fixedT1DeliveredTEU": 3000,
+      "dynamicT1DeliveredTEU": 2990,
+      "currentRecordNotMutatedByExperiment": true
+    },
+    "consoleErrors": []
+  },
+  "independentReplay": {
+    "coreReplayMs": 52306,
+    "apiWorkerReplayMs": 61942,
+    "stateHashMatched": true,
+    "scoreMatched": true,
+    "monthlyCsvIdentical": true,
+    "cargoCashAndCapacityConserved": true,
+    "allAuthorizedBudgetsRespected": true
+  },
+  "studentPackage": {
+    "file": "output\\port-enterprise-management-student-windows-x64-2026-10-28.zip",
+    "bytes": 38911034,
+    "sha256": "470231abf1c1539a0dd87ae5a3db1eaa51fda1d5722f44a461b352876a9aa794",
+    "payloadsVerified": 13,
+    "crcVerified": true,
+    "fullRunWorkerIdentical": true,
+    "windowsPowerShellVersion": "5.1.26100.9711",
+    "cleanLaunchUrl": "http://127.0.0.1:8219/",
+    "repeatLaunchSameProcessVerified": true,
+    "offlineRequests": [
+      "/",
+      "/enterprise.css",
+      "/enterprise.js",
+      "/enterprise.worker.js"
+    ],
+    "externalRuntimeRequestsObserved": false
+  },
+  "versionBoundary": {
+    "oldEnterpriseSaveMigration": false,
+    "oldBrowserRecordsDeleted": false,
+    "legacyShortSimulationsChanged": false
+  },
+  "deliveryBoundary": {
+    "campusServerDeployed": false,
+    "gitCommittedOrPushedThisTurn": false
+  },
+  "artifacts": {
+    "guide": "docs/port-enterprise-guide.md",
+    "evidenceDirectory": "output\\port-enterprise-management-20261028",
+    "screenshots": [
+      "harbor-main.png",
+      "management-review.png",
+      "three-year-sealed.png",
+      "narrow-teaching.png",
+      "fullscreen-feedback.png"
+    ]
+  }
+}

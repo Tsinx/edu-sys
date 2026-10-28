@@ -59,7 +59,7 @@ test('all film sliders include the exact endpoint and resumed positions use norm
   for(const progress of [.5,1]){
    const initial={progress,option:0,revealed:false,cinematic:{clipId:film.id,status:'paused' as const,elapsedMs:film.durationMs*progress,startedAt:null}};
    const html=renderToStaticMarkup(<PortTradeFilm page={page} readOnly={false} scope="endpoint-test" initial={initial}/>);
-   const range=html.match(/<input[^>]*aria-label="(?:教学动画|新闻节选)进度"[^>]*>/)?.[0]??'';
+   const range=html.match(/<input[^>]*aria-label="(?:教学动画|新闻节选|课程片头)进度"[^>]*>/)?.[0]??'';
    assert.match(range,/min="0" max="1000" step="1"/);assert.ok(range.includes(`value="${1000*progress}"`),page.slideKey);
    if(progress===1&&film.id==='l17-queue-explainer')assert.match(html,/<output>02:35 \/ 02:35<\/output>/);
   }

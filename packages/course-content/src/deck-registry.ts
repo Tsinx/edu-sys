@@ -1,3 +1,4 @@
+import {relocatedPortReviewKey} from './port-review-migration.js';
 import { PORT_MANAGEMENT_SLIDES } from "./slides.js";
 import {
   INTERNATIONAL_MATHEMATICS_COURSE_ID,
@@ -180,7 +181,7 @@ const portDescriptor: CourseDeckDescriptor = {
   slug: "gangkou-guanli-gailun",
   code: "PM-INTRO-001",
   deckId: "deck-course-port-management-intro-foundations",
-  versionId: "release-port-management-facilities-v20",
+  versionId: "release-port-management-facilities-v22",
   title: "港口管理概论",
   totalHours: 32,
   slideTotal: PORT_MANAGEMENT_SLIDES.length,
@@ -208,7 +209,7 @@ const portDescriptor: CourseDeckDescriptor = {
     const resolvedKey=PORT_LBL_LEGACY_KEYS[slideKey]??slideKey;
     const slide = PORT_MANAGEMENT_SLIDES.find(
       (candidate) => candidate.slideKey === resolvedKey
-    );
+    )??PORT_MANAGEMENT_SLIDES.find(candidate=>candidate.slideKey===relocatedPortReviewKey(resolvedKey));
     return slide ? summarizePortSlide(slide.index) : undefined;
   },
   getLessonPosition(index) {
@@ -342,7 +343,7 @@ const statisticalAnalysisDescriptor: CourseDeckDescriptor = {
   lessons: STATISTICAL_ANALYSIS_LESSONS, allowedActivities: ['slides'],
   presentation: {
     shortTitle: '统计分析', categoryLabel: '商科研究生',
-    description: '从研究问题与数据证据出发，衔接科研可视化、回归、问卷测量、因果推断与时间序列。32课时16讲，前十三讲已建设，共642页，各90分钟；第12—13讲使用同一真实资料完成Python项目。',
+    description: '从研究问题与数据证据出发，衔接科研可视化、回归、问卷测量、因果推断与时间序列。32课时16讲，前十五讲已建设，共738页，各90分钟；第12—13讲使用同一真实资料完成Python项目，第14讲研读工商管理论文，第15讲综合复习。',
     heroImage: '/course-assets/statistical-analysis/images/l1-01-retail-night.png',
     accent: 'statistical-analysis', assistantName: '小麦老师', supportsStudy: false,
     resources: [

@@ -1,0 +1,120 @@
+[
+  {
+    "lesson": 19,
+    "title": "从码头作业到可靠交付",
+    "duration": 32,
+    "verifiedDuration": 32.021333,
+    "sources": {
+      "smart": {
+        "page": "https://tv.cctv.com/2025/05/22/VIDEu7abgnqxjck2rKBqygmP250522.shtml",
+        "date": "2025-05-22",
+        "label": "青岛港历史报道",
+        "sha256": "353d0cb87b000e5644503c70ab34dd347d7b5732d934a71acd3d9e260cdd9e6b"
+      }
+    },
+    "shots": [
+      {
+        "id": "intro",
+        "from": 0,
+        "duration": 5,
+        "text": "一艘船靠上码头，交付过程才刚刚开始。",
+        "spokenSeconds": 3.966667,
+        "tempo": 1
+      },
+      {
+        "id": "flow",
+        "from": 5,
+        "duration": 9,
+        "source": "smart",
+        "sourceStart": 34,
+        "text": "岸桥、水平运输与堆场共同组织箱流。一个环节提速，完整系统未必同步变快。",
+        "spokenSeconds": 8.216667,
+        "tempo": 1
+      },
+      {
+        "id": "delivery",
+        "from": 14,
+        "duration": 9,
+        "source": "smart",
+        "sourceStart": 43,
+        "text": "同样的吞吐量，可能对应不同的等待、交付可靠性与风险承担。",
+        "spokenSeconds": 6.133333,
+        "tempo": 1
+      },
+      {
+        "id": "close",
+        "from": 23,
+        "duration": 9,
+        "text": "沿着完整案例，重新连接贸易、作业、绩效与恢复，解释可靠交付如何形成。",
+        "spokenSeconds": 7.466667,
+        "tempo": 1
+      }
+    ],
+    "outputSha256": "edb7d50584d6b960df4d26aaed5ebe3ce177f40f0edefb77fa3ae7673dfdaae1",
+    "audio": "原报道声音静音；现有课程音色的合成旁白，不归于出镜人物。",
+    "boundary": "每段历史影像分别注明地点、报道日期；第20讲后段为中国港口绿色转型报道，不推定其镜头均在重庆。后续案例为独立教学设定。",
+    "rights": "历史片段供课堂讨论，画面权利归原权利人。"
+  },
+  {
+    "lesson": 20,
+    "title": "从交付承诺到长期经营",
+    "duration": 32,
+    "verifiedDuration": 32.021333,
+    "sources": {
+      "guoyuan": {
+        "page": "https://tv.cctv.com/2023/03/16/VIDEE8NoWdAPxzAoyF22kdjX230316.shtml",
+        "date": "2023-03-16",
+        "label": "重庆果园港历史报道",
+        "sha256": "a7e7e8f21aa7d992af35a58a192f4c6e90b43d2fdc6635acd146d4eebf56b909"
+      },
+      "green": {
+        "page": "https://tv.cctv.com/2025/06/09/VIDEHV4MAQdbeBL4IovSAvuX250609.shtml",
+        "date": "2025-06-09",
+        "label": "中国港口绿色转型历史报道",
+        "sha256": "8e988f5c2b814caea34f3b0f0c2c874e7808a23102df740389c9d27abed8c1cb"
+      }
+    },
+    "shots": [
+      {
+        "id": "intro",
+        "from": 0,
+        "duration": 5,
+        "text": "一批货物的交付，连接着一座港口的长期经营。",
+        "spokenSeconds": 3.966667,
+        "tempo": 1
+      },
+      {
+        "id": "flow",
+        "from": 5,
+        "duration": 9,
+        "source": "guoyuan",
+        "sourceStart": 230,
+        "text": "通关与保税安排改变业务条件，数字协同连接信息与执行。",
+        "spokenSeconds": 5.55,
+        "tempo": 1
+      },
+      {
+        "id": "delivery",
+        "from": 14,
+        "duration": 9,
+        "source": "green",
+        "sourceStart": 85,
+        "text": "绿色改造需要实际使用，扩建投资需要需求、工期与资金共同支持。",
+        "spokenSeconds": 6.55,
+        "tempo": 1
+      },
+      {
+        "id": "close",
+        "from": 23,
+        "duration": 9,
+        "text": "从重庆备件到岸电与扩建，案例的计算保留对象、时点和每项选择成立的条件。",
+        "spokenSeconds": 7.883333,
+        "tempo": 1
+      }
+    ],
+    "outputSha256": "b1837453036018f66316eed988c9ef870aca3f73f10f9ef0bcb8fac18d53e929",
+    "audio": "原报道声音静音；现有课程音色的合成旁白，不归于出镜人物。",
+    "boundary": "每段历史影像分别注明地点、报道日期；第20讲后段为中国港口绿色转型报道，不推定其镜头均在重庆。后续案例为独立教学设定。",
+    "rights": "历史片段供课堂讨论，画面权利归原权利人。"
+  }
+]

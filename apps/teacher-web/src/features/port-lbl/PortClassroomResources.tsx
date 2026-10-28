@@ -7,7 +7,7 @@ export function PortClassroomResources({ courseId, frame, localIndex, disabled, 
   { courseId: string; frame: SlideFrame; localIndex: number; disabled: boolean; onSimulation: () => void }) {
   const lesson = frame.lessonNumber ?? 0;
   if (courseId !== 'course-port-management-intro') return null;
-  const url = lesson >= 7 && lesson <= 18 ? `/port-expansion-preview.html?lesson=${lesson}&page=${localIndex}`
+  const url = lesson >= 7 && lesson <= 21 ? `/port-expansion-preview.html?lesson=${lesson}&page=${localIndex}`
     : lesson >= 4 && lesson <= 6 ? `/port-lesson-${({4:'four',5:'five',6:'six'} as const)[lesson as 4|5|6]}-preview.html?page=${localIndex}` : undefined;
   return <PageToolsContribution pageKey={frame.slideId} title="课程资源" priority="secondary">
     {url && <a href={url} target="_blank" rel="noreferrer">第{lesson}讲授课台 ↗</a>}

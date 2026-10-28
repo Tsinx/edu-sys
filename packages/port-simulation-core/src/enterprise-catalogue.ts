@@ -45,7 +45,7 @@ export const ENTERPRISE_PROJECTS: ProjectSpec[] = [
   { id: 'rail-link', name: '铁路及轨道接口', price: 18_000_000, days: 180, target: 'terminal', effect: 'rail', description: '接通铁路发运，并提供轨道场桥基础条件。' },
   { id: 'shore-power', name: '船舶岸电工程', price: 6_000_000, days: 90, target: 'terminal', effect: 'shore', description: '具备岸电连接条件；使用时消耗全港供电容量。' },
   { id: 'grid-upgrade', name: '供电扩容与充电设施', price: 9_000_000, days: 120, target: 'port', effect: 'grid', description: '全港增加2500kW供电和充电容量，目标码头接入升级。' },
-  { id: 'solar-storage', name: '光伏与储能组合', price: 7_000_000, days: 90, target: 'port', effect: 'solar', description: '增加白天可用清洁供电；发电随时段和天气变化。' },
+  { id: 'solar-storage', name: '光伏与日间供电', price: 7_000_000, days: 90, target: 'port', effect: 'solar', description: '增加白天可用清洁供电；发电随时段和天气变化，本情境不模拟夜间储能放电。' },
   { id: 'automation', name: '自动化与人员转型', price: 14_000_000, days: 150, target: 'terminal', effect: 'automation', description: '提供AGV和智能闸口的系统接口；仍需合格操作和监管人员。' },
   { id: 'port-community', name: '港口信息协同平台', price: 4_000_000, days: 60, target: 'port', effect: 'digital', description: '缩短单证反馈延迟，改善信息核验与网络恢复。' },
   { id: 'security', name: '保安与监测改造', price: 2_500_000, days: 40, target: 'terminal', effect: 'security', description: '降低侵入和危险事件暴露，改善应急监测。' },
@@ -57,6 +57,8 @@ export const ENTERPRISE_PROJECTS: ProjectSpec[] = [
 ];
 export const projectSpec = (id: string) => { const found = ENTERPRISE_PROJECTS.find(p => p.id === id); if (!found) throw Error('未知建设项目。'); return found; };
 export const ENTERPRISE_PARAMETER_NOTES = [
+  { group: '堆场与管理规则', provenance: '批次堆垛教学模型', unit: 'TEU；TEU次；设备小时', boundary: '每集装箱作业区10个区块，每区块5组并行堆垛，最多4层。ABC按预计周转分类；动态分配不保证更优。' },
+  { group: '水陆接续', provenance: '固定窗口与集结区教学模型', unit: '各货种独立单位；小时', boundary: '铁路每作业区共享600单位/日窗口，驳船500；进口可提前集结，出口到车后逐小时过闸。进口集结容量分别为600/500，仍占用场桥和闸口。' },
   { group: '能力与适配', provenance: '教学设定', unit: '各货种单位/设备小时；米；千瓦', boundary: '用于同情境决策比较，不代表真实厂商生产承诺。' },
   { group: '财务与交期', provenance: '教学设定', unit: '人民币元；日；年', boundary: '价格、工资、利率、税率和交期均为固定版本情境参数。' },
   { group: '监管与信息', provenance: '教学抽象', unit: '仿真小时', boundary: '规则区分物理、单证、监管和交付状态，不替代现实监管规定。' },

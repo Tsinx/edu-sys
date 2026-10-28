@@ -1,0 +1,60 @@
+{
+  "lesson": 19,
+  "duration": 36,
+  "verifiedDuration": 36.021333,
+  "sources": {
+    "smart": {
+      "page": "https://tv.cctv.com/2025/05/22/VIDEu7abgnqxjck2rKBqygmP250522.shtml",
+      "date": "2025-05-22",
+      "label": "青岛港历史报道",
+      "sha256": "353d0cb87b000e5644503c70ab34dd347d7b5732d934a71acd3d9e260cdd9e6b"
+    },
+    "green": {
+      "page": "https://tv.cctv.com/2025/06/09/VIDEHV4MAQdbeBL4IovSAvuX250609.shtml",
+      "date": "2025-06-09",
+      "label": "中国港口绿色转型历史报道",
+      "sha256": "8e988f5c2b814caea34f3b0f0c2c874e7808a23102df740389c9d27abed8c1cb"
+    }
+  },
+  "shots": [
+    {
+      "id": "intro",
+      "from": 0,
+      "duration": 5,
+      "text": "港口的智能，发生在哪一步？",
+      "spokenSeconds": 2.8,
+      "tempo": 1
+    },
+    {
+      "id": "vision",
+      "from": 5,
+      "duration": 9,
+      "source": "smart",
+      "sourceStart": 34,
+      "text": "相机从图像中形成线索，调度系统选择下一步，多家机构还要确认共同的业务状态。",
+      "spokenSeconds": 7.3,
+      "tempo": 1
+    },
+    {
+      "id": "methods",
+      "from": 14,
+      "duration": 9,
+      "source": "green",
+      "sourceStart": 85,
+      "text": "从卷积神经网络到深度强化学习，从区块链到数字孪生，每种技术都面对不同的问题。",
+      "spokenSeconds": 8.883333,
+      "tempo": 1.0269749132947976
+    },
+    {
+      "id": "close",
+      "from": 23,
+      "duration": 13,
+      "text": "沿着一票教学货物，讲清模型怎样计算、错误怎样影响业务，以及技术为什么仍需要真实使用和持续经营。",
+      "spokenSeconds": 9.633333,
+      "tempo": 1
+    }
+  ],
+  "outputSha256": "b8138b0fb2f25a85ed9b6216a6010d6bd92c85e39074198879bd724870a71537",
+  "audio": "历史报道原音静音；现有课程音色的合成旁白，不归于出镜人物。",
+  "boundary": "2025年青岛港与中国港口历史画面，不能推定未披露的CNN或DRL结构；C-01与后续计算为教学设定。"
+}

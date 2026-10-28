@@ -1,6 +1,7 @@
 /** Teacher-only entrypoint. Never import this module into slide rendering or assistant context. */
 import {causalLessons,causalTiming} from './causal-lessons.js';
 import {policyTeacherScripts} from './policy-teacher-scripts.js';
+import {researchTeacherScripts} from './research-teacher-scripts.js';
 export interface StatisticalAnalysisTeacherScript {
  slideKey:string; lesson:number; localIndex:number; paragraphs:string[];
  pauseCue:string; transitionToNext:string; spokenSeconds:number; pauseSeconds:number;
@@ -530,5 +531,5 @@ export const statisticalAnalysisTeacherScripts:StatisticalAnalysisTeacherScript[
  const paragraphs=text.split(/\n\s*\n/),worked=(li===0?workedTen:workedEleven)[localIndex];
  if(worked)paragraphs.splice(paragraphs.length-1,0,worked);
  return {slideKey:`stats-l${lesson}-${String(localIndex).padStart(2,'0')}`,lesson,localIndex,paragraphs,pauseCue:page.question,transitionToNext:paragraphs[paragraphs.length-1]!,spokenSeconds:time.spokenSeconds,pauseSeconds:time.pauseSeconds};
-})),...policyTeacherScripts];
+})),...policyTeacherScripts,...researchTeacherScripts];
 export function getStatisticalAnalysisTeacherScript(key:string){return statisticalAnalysisTeacherScripts.find(p=>p.slideKey===key);}

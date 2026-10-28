@@ -1,4 +1,5 @@
 import {useCallback,useEffect,useRef,useState} from 'react';
+import {usePortAutoplay} from '../classroom/usePortAutoplay';
 import {Pause,Play} from 'lucide-react';
 import {portOpeningFilm,expansionStateValid,type ExpansionPresentation,type PortExpansionPage} from '@edu/course-content';
 import {SlideViewport} from '../classroom/SlideViewport';
@@ -15,22 +16,23 @@ export function PortElevenOpening({page,readOnly,controlled,initial,onChange,sco
   return {progress:1,option:0,revealed:false};
  });
  const video=useRef<HTMLVideoElement>(null),current=useRef(state),callback=useRef(onChange),intent=useRef(0),last=useRef(0),alive=useRef(true);
- const [error,setError]=useState(''),[loading,setLoading]=useState(false),[volume,setVolume]=useState(.85),[muted,setMuted]=useState(readOnly);
+ const [error,setError]=useState(''),[notice,setNotice]=useState(''),[loading,setLoading]=useState(false),[volume,setVolume]=useState(.85),[muted,setMuted]=useState(readOnly);
  current.current=state;callback.current=onChange;
  const shown=readOnly&&controlled&&expansionStateValid(page,controlled)?controlled:state,playing=shown.cinematic?.status==='playing',active=!!shown.cinematic;
  const update=useCallback((s:ExpansionPresentation)=>{current.current=s;setState(s);if(!readOnly){callback.current?.(page.slideKey,s);try{sessionStorage.setItem(storageKey,JSON.stringify(s));}catch{/* Optional local persistence. */}}},[readOnly,page.slideKey,storageKey]);
  const record=useCallback((status:'playing'|'paused',time?:number)=>{const elapsedMs=Math.min(duration,Math.max(0,time??(video.current?.currentTime??0)*1000));update({progress:elapsedMs/duration,option:0,revealed:false,cinematic:{clipId:film.id,status,elapsedMs,startedAt:status==='playing'?Date.now():null}});},[update,film.id]);
- const pause=()=>{intent.current++;video.current?.pause();setLoading(false);record('paused');};
- const play=async()=>{const element=video.current;if(!element)return;const token=++intent.current;setError('');setLoading(true);
-  try{if(element.currentTime>=179.9)element.currentTime=0;await element.play();if(token!==intent.current||!alive.current){element.pause();return;}record('playing');}
+ const cancelAutoplay=usePortAutoplay(!readOnly,()=>{void play(true);});
+ const pause=()=>{cancelAutoplay();intent.current++;video.current?.pause();setLoading(false);record('paused');};
+ const play=async(automatic=false)=>{if(!automatic)cancelAutoplay();const element=video.current;if(!element)return;const token=++intent.current;setError('');setNotice('');setLoading(true);
+  try{if(element.currentTime>=179.9)element.currentTime=0;try{await element.play();}catch(reason){if(!automatic||(reason as DOMException)?.name!=='NotAllowedError'||token!==intent.current||!alive.current)throw reason;element.muted=true;setMuted(true);await element.play();setNotice('已静音自动播放，可在“影片控制”中取消静音。');}if(token!==intent.current||!alive.current){element.pause();return;}record('playing');}
   catch{if(token===intent.current&&alive.current)setError('短片未能开始。请再次点击播放；也可打开独立播放器或下载MP4。');}
   finally{if(token===intent.current&&alive.current)setLoading(false);}
  };
- const seek=(ms:number)=>{intent.current++;const element=video.current;if(element){element.pause();element.currentTime=ms/1000;}setLoading(false);record('paused',ms);};
+ const seek=(ms:number)=>{cancelAutoplay();intent.current++;const element=video.current;if(element){element.pause();element.currentTime=ms/1000;}setLoading(false);record('paused',ms);};
  useEffect(()=>{alive.current=true;const element=video.current;return()=>{alive.current=false;intent.current++;element?.pause();};},[]);
  useEffect(()=>{if(!readOnly)callback.current?.(page.slideKey,current.current);},[page.slideKey,readOnly]);
  useEffect(()=>{const v=video.current;if(v){v.volume=volume;v.muted=readOnly||muted;}},[volume,muted,readOnly]);
- // An initial seek waits for metadata; reloads resume paused and never unexpectedly play sound.
+ // Restore the saved position after metadata; the page-entry timer owns playback.
  useEffect(()=>{if(readOnly)return;const v=video.current;if(!v)return;const apply=()=>{const c=current.current.cinematic;if(c&&Math.abs(v.currentTime-c.elapsedMs/1000)>.6)v.currentTime=c.elapsedMs/1000;};if(v.readyState)apply();else v.addEventListener('loadedmetadata',apply,{once:true});return()=>v.removeEventListener('loadedmetadata',apply);},[readOnly]);
  // The teacher is authoritative. Projection/student media is silent and follows the shared clock.
  useEffect(()=>{if(!readOnly)return;const v=video.current;if(!v)return;let timer=0;const sync=()=>{const c=shown.cinematic;if(!c){v.pause();return;}const target=Math.min(duration,c.elapsedMs+(c.status==='playing'?Math.max(0,Date.now()-(c.startedAt??Date.now())):0))/1000;
@@ -44,7 +46,7 @@ export function PortElevenOpening({page,readOnly,controlled,initial,onChange,sco
     <track kind="captions" src={film.captions} srcLang="zh" label="中文字幕（画面已含字幕）"/>
    </video>{(loading||error)&&<p className="ps-film-loading" role="status">{error||'正在加载开场片…'}</p>}
   </div></SlideViewport>
-  {!readOnly&&<PageToolsContribution pageKey={page.slideKey} title="影片控制" actions={[{id:'opening-play',label:playing?'暂停短片':elapsed>=duration?'重播开场片':'播放开场片',icon:playing?<Pause size={18}/>:<Play size={18}/>,disabled:loading,onInvoke:()=>playing?pause():void play()}]} status={error?{text:error,error:true}:undefined}>
+  {!readOnly&&<PageToolsContribution pageKey={page.slideKey} title="影片控制" actions={[{id:'opening-play',label:playing?'暂停短片':elapsed>=duration?'重播开场片':'播放开场片',icon:playing?<Pause size={18}/>:<Play size={18}/>,disabled:loading,onInvoke:()=>playing?pause():void play()}]} status={error||notice?{text:error||notice,error:!!error}:undefined}>
    <div className="ps-film-tools"><button onClick={()=>{seek(0);void play();}}>从头播放</button><button onClick={pause}>暂停</button><label>影片进度<input type="range" min="0" max={duration} step="1000" value={elapsed} aria-label="开场片进度" onChange={e=>seek(Number(e.target.value))}/></label><output>{stamp(elapsed)} / 03:00</output><label><input type="checkbox" checked={muted} onChange={e=>setMuted(e.target.checked)}/>静音</label><label>音量<input type="range" min="0" max="1" step="0.05" aria-label="开场片音量" value={volume} onChange={e=>setVolume(Number(e.target.value))}/></label><button onClick={()=>{pause();update({progress:1,option:0,revealed:false});}}>回到封面</button><a href={film.player} target="_blank" rel="noreferrer">独立播放器 ↗</a><a href={film.src} download={`港口管理概论-第${page.lesson}讲-开场片.mp4`}>下载MP4</a></div>
   </PageToolsContribution>}
  </section>;

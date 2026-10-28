@@ -6,9 +6,9 @@ import {statisticalAnalysisTeacherScripts as scripts} from '@edu/course-content/
 import {buildPromptWorkspace} from '../src/assistant/prompts.js';
 
 test('the real project extends the course to lectures 12–13 without creating blank later lessons',()=>{
- assert.equal(slides.length,642);assert.equal(lessons.filter(l=>l.status==='ready').length,13);
+ assert.equal(slides.length,738);assert.equal(lessons.filter(l=>l.status==='ready').length,15);
  assert.deepEqual(lessons.slice(11,13).map(l=>[l.slideStart,l.slideEnd,l.slideTotal]),[[547,594,48],[595,642,48]]);
- assert.ok(lessons.slice(13).every(l=>l.status==='planned'&&l.slideStart===null));
+ assert.ok(lessons.slice(15).every(l=>l.status==='planned'&&l.slideStart===null));
  for(const lesson of [12,13]){
   const pages=policyLessons[lesson-12]!;assert.equal(pages.length,48);assert.equal(pages.filter(p=>p.checkpoint).length,6);
   const times=pages.map((_,i)=>policyTiming(lesson,i+1));
@@ -41,7 +41,7 @@ test('all 96 project scripts remain complete, separately exported and timed for 
 test('the assistant permits project work while protecting scripts, future evidence and future feedback',()=>{
  for(const slide of slides.filter(s=>s.lesson>=12)){
   const w=buildPromptWorkspace('statistical-analysis','统计分析方法',undefined,slide.index);
-  assert.equal(w.coverage.slides,642);assert.match(w.compiled,/个人Python/);assert.match(w.compiled,/第14—16讲仍待建设/);
+  assert.equal(w.coverage.slides,738);assert.match(w.compiled,/个人Python/);assert.match(w.compiled,/第16讲仍待建设/);
   assert.doesNotMatch(w.compiled,/不要求投票提交或课上代码运行|因子分析、因果推断和时间序列仍按目录待建设|spokenSeconds|paragraphs|transitionToNext/);
   for(const script of scripts.filter(s=>s.lesson>=12))assert.ok(!w.compiled.includes(script.paragraphs[0]!));
  }

@@ -1,0 +1,339 @@
+{
+  "schema": "port-enterprise-game-verification/2",
+  "checkedAt": "2026-10-27T07:22:33.192717+00:00",
+  "scope": {
+    "localOnly": true,
+    "platformRoute": "http://127.0.0.1:5173/port-enterprise",
+    "offlinePreview": "http://127.0.0.1:8217",
+    "campusServerModified": false,
+    "officialTasksPublished": false,
+    "officialSubmissionsSent": false,
+    "singlePlayer": true,
+    "oldSaveMigrationRequired": false,
+    "previewUrl": "http://127.0.0.1:8217/?tab=overview",
+    "previewPanelRequestStatus": "queued"
+  },
+  "design": {
+    "sceneStaysMounted": true,
+    "primaryEntrances": [
+      "经营菜单",
+      "事件",
+      "统计"
+    ],
+    "workspaces": 18,
+    "years": [
+      1,
+      3,
+      5
+    ],
+    "chapters": 8,
+    "teachingSteps": 41,
+    "stepEvidence": "engine commands and actual business results",
+    "teachingVersion": "port-enterprise-teaching/2",
+    "businessVersion": "port-enterprise/1.0",
+    "drafts": "per personal save, stored locally outside engine records"
+  },
+  "manualTeachingRun": {
+    "schema": "port-enterprise-game-replay-check/1",
+    "hour": 26304,
+    "days": 1096,
+    "sealed": true,
+    "months": 36,
+    "commands": 145,
+    "failedCommands": [],
+    "incidents": 16,
+    "recovered": 16,
+    "notes": 7,
+    "cash": 846140719,
+    "debt": 20000000,
+    "score": 93.19,
+    "deliveryRate": 0.9144391448501894,
+    "goods": [
+      {
+        "kind": "container",
+        "name": "集装箱",
+        "unit": "TEU",
+        "rate": 1200,
+        "footprint": 1,
+        "generated": 1118465,
+        "due": 1116889,
+        "delivered": 640112,
+        "onTime": 557452,
+        "lost": 0,
+        "outstanding": 478353,
+        "revenue": 806488860,
+        "averageTime": 1417.7409156522608,
+        "systemUnitHours": 6061317063,
+        "fulfillment": 0.49911137095987157
+      },
+      {
+        "kind": "bulk",
+        "name": "干散货",
+        "unit": "吨",
+        "rate": 110,
+        "footprint": 1,
+        "generated": 867283,
+        "due": 866274,
+        "delivered": 867283,
+        "onTime": 863574,
+        "lost": 0,
+        "outstanding": 0,
+        "revenue": 100598144,
+        "averageTime": 9.122106624942493,
+        "systemUnitHours": 7911448,
+        "fulfillment": 0.9968832032359277
+      },
+      {
+        "kind": "liquid",
+        "name": "液体散货",
+        "unit": "立方米",
+        "rate": 125,
+        "footprint": 1,
+        "generated": 971523,
+        "due": 969403,
+        "delivered": 971523,
+        "onTime": 965031,
+        "lost": 0,
+        "outstanding": 0,
+        "revenue": 127966950,
+        "averageTime": 9.318519479209447,
+        "systemUnitHours": 9053156,
+        "fulfillment": 0.9954900077676673
+      },
+      {
+        "kind": "general",
+        "name": "件杂货",
+        "unit": "吨",
+        "rate": 280,
+        "footprint": 1,
+        "generated": 140412,
+        "due": 140275,
+        "delivered": 140406,
+        "onTime": 140203,
+        "lost": 6,
+        "outstanding": 0,
+        "revenue": 41276774,
+        "averageTime": 7.829836331780693,
+        "systemUnitHours": 1099416,
+        "fulfillment": 0.9994867225093567
+      },
+      {
+        "kind": "roro",
+        "name": "滚装车辆",
+        "unit": "辆",
+        "rate": 460,
+        "footprint": 1,
+        "generated": 85778,
+        "due": 85656,
+        "delivered": 85778,
+        "onTime": 85475,
+        "lost": 0,
+        "outstanding": 0,
+        "revenue": 41427738,
+        "averageTime": 6.743733824523771,
+        "systemUnitHours": 578464,
+        "fulfillment": 0.997886896422901
+      },
+      {
+        "kind": "passenger",
+        "name": "客运",
+        "unit": "人",
+        "rate": 75,
+        "footprint": 1,
+        "generated": 212796,
+        "due": 212294,
+        "delivered": 212789,
+        "onTime": 211822,
+        "lost": 7,
+        "outstanding": 0,
+        "revenue": 16808931,
+        "averageTime": 7.781219893885492,
+        "systemUnitHours": 1655786,
+        "fulfillment": 0.9977766682054132
+      }
+    ],
+    "hash": "469f2e9fab9524a944710092693c2b0c7b2cd896f294368bcddc5be86f8d667c",
+    "teachingSteps": 41,
+    "allTeachingComplete": true,
+    "csvMatches": true
+  },
+  "finalBrowserRegressions": {
+    "refresh": {
+      "canvas": 1,
+      "documents": "manual",
+      "focus": "autoBerth",
+      "guide": "操作 2/4 · 将高亮位置设为参考值，核对后继续。",
+      "step": "manual",
+      "toolbars": 1
+    },
+    "fullscreen": {
+      "canvas": 1,
+      "documents": "manual",
+      "hour": "0",
+      "screenFullscreen": true,
+      "toolbars": 1
+    },
+    "narrow": {
+      "bodyHeight": 326.25,
+      "height": 720,
+      "highlight": {
+        "bottom": 421.3125,
+        "height": 21,
+        "left": 39,
+        "right": 60,
+        "top": 400.3125,
+        "width": 21,
+        "x": 39,
+        "y": 400.3125
+      },
+      "pageWidth": 390,
+      "width": 390,
+      "window": {
+        "bottom": 644,
+        "height": 571,
+        "left": 8,
+        "right": 382,
+        "top": 73,
+        "width": 374,
+        "x": 8,
+        "y": 73
+      }
+    },
+    "network": {
+      "blocked": [
+        "external HTTPS",
+        "API",
+        "localhost",
+        "campus HTTP"
+      ],
+      "requests": [
+        {
+          "url": "http://127.0.0.1:8217/",
+          "type": "Document"
+        },
+        {
+          "url": "http://127.0.0.1:8217/enterprise.css",
+          "type": "Stylesheet"
+        },
+        {
+          "url": "http://127.0.0.1:8217/enterprise.js",
+          "type": "Script"
+        },
+        {
+          "url": "http://127.0.0.1:8217/enterprise.worker.js",
+          "type": "Script"
+        }
+      ],
+      "onlyLocalRequests": true
+    },
+    "menuNavigation": {
+      "deepAssetScrollBefore": 1477,
+      "menuScrollAfter": 0,
+      "searchVisible": true,
+      "focus": "关闭窗口，返回港口"
+    },
+    "draftIsolation": {
+      "originalLoanDraft": "5000000",
+      "retryLoanDraft": "600000"
+    },
+    "retry": {
+      "resetToFirstField": true,
+      "originalRecordKept": true,
+      "oldOutcomeCleared": true
+    }
+  },
+  "additionalManualChecks": [
+    "actual ship click opened the selected ship documents",
+    "actual quay crane click selected asset-12 in T2",
+    "asset list and purchase destination follow the clicked terminal",
+    "incompatible berths disabled with explicit reason",
+    "AGV 60-day delivery stayed commissioning until 150-day project completion",
+    "hire/training and shift coverage reflect temporary absence",
+    "all 16 incidents audited, isolated, repaired, awaited and recovered",
+    "three annual reviews and four decision notes saved",
+    "sealed record, 36-month CSV and learning report downloaded",
+    "read-only replay reached hour 0 then returned to hour 26304",
+    "Tab trap and Escape close a window before leaving page fullscreen",
+    "draft correction clears stale errors; changing an earlier field rewinds the coach",
+    "branch retry retains original save, resets fields, and clears previous outcome",
+    "invalid search shows an empty state; reopening the menu restores all 18 entries"
+  ],
+  "checks": {
+    "frontendTests": {
+      "passed": 14,
+      "failed": 0
+    },
+    "coreTests": {
+      "passed": 11,
+      "failed": 0
+    },
+    "apiTests": {
+      "passed": 1,
+      "failed": 0
+    },
+    "workspaceTypecheck": "passed",
+    "finalWebTypecheck": "passed",
+    "productionBuild": "passed",
+    "buildNote": "Vite reports bundle-size advisories for existing large chunks",
+    "gitDiffCheck": "passed",
+    "sourceWhitespaceCheck": "passed",
+    "finalFrontendRerun": {
+      "passed": 14,
+      "failed": 0
+    }
+  },
+  "package": {
+    "files": 13,
+    "zip": "D:\\codes\\edu-sys\\output\\port-enterprise-game-student-windows-x64-2026-10-27.zip",
+    "bytes": 38852321,
+    "sha256": "dd830cb678a30b7a7e150d4033cf3f9ad26ec8152c3c564132dc46a7b2673544",
+    "verifiedRoot": "D:\\codes\\edu-sys\\output\\port-enterprise-game-20261027\\final-verified"
+  },
+  "launcher": {
+    "url": "http://127.0.0.1:8217",
+    "pid": 125908,
+    "instance": "b9d39e7528f0",
+    "repeatLaunchReusedProcess": true,
+    "shell": "Windows PowerShell 5.1.26100.9711"
+  },
+  "evidenceDirectory": "D:\\codes\\edu-sys\\output\\port-enterprise-game-20261027",
+  "sourceSha256": {
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseApp.tsx": "8135e0f25da0334b52a149c9f56fdc8d8a1b60f3246b432bd1e540f93d0f2b1f",
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseForms.tsx": "dcfa83572aff3d795b0187dfb4af77b7b7bf2c4ca2587472e85d7bb62cd44689",
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterprisePanels.tsx": "76dcb0e106344cf2d754511f22fbdc5c6a1aa52a950f190245bdb95dd51e90d4",
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseScene.tsx": "7e62e3ea752cbf7582c3d622191a2615161e9dfd40e2e3353df34106adbaa353",
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseTeachingCoach.tsx": "f67393c8a716cc6934eea341069868e3582047185b7121d86649a5f2c0259f5b",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-teaching.ts": "87ea7a55863005b6497e97e65a5a3212f12b6911903f8acbe765e2909184073c",
+    "apps/teacher-web/src/features/port-simulation/enterprise/useEnterprise.ts": "9c44ba4832f55e51e337b24df47f97a13258a53ef4b231de3c3a6391d74c0096",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-game.ts": "95e4f33f72099b273cfce5b3792b5fa8963bf985570c4178c359875ed0469c33",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-game.css": "fc9a7b78ead0c21325c8ed6f550537cf625fb1af005d9d89b03e67e43d7b99fb",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-guidance.ts": "370715fcb1f036dbd5a1146049e18434f0be5ae4ab1a83151010d1a6a8f96d01",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-drafts.ts": "ce42b37d66ffdb7307a5afa3f15e02d02edb38c92f323eae9ef70f18d341b53a",
+    "apps/teacher-web/test/port-enterprise-game.test.tsx": "90c11ab576d47c38cced18b0d95d8bf060e60a7ca78c9472b8b520362e3071e8",
+    "apps/teacher-web/test/port-enterprise-teaching.test.tsx": "76bdce2f9ce1d40a3ce8db600591581eccf33139f1f6615007f3ff12cafe3d99",
+    "scripts/package-port-enterprise.mjs": "39c4632f986445f2458fff908b4d4b55cec45f1ba7e5bd855ec48423e8c9f3a3",
+    "docs/port-enterprise-guide.md": "f14de06b5284c46a2e47928f63a45d205b1af4be299684a720ea1181c34934ea"
+  },
+  "finalHome": {
+    "home": {
+      "canvasCount": 1,
+      "class": "enterprise-app enterprise-game ",
+      "hour": "0",
+      "menus": [
+        "经营菜单",
+        "事件",
+        "统计"
+      ],
+      "openDialogs": 0,
+      "overflow": false,
+      "sceneCount": 1,
+      "task": "manual",
+      "toolbarCount": 1,
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    "consoleErrors": []
+  }
+}

@@ -4,6 +4,7 @@ import { PORT_LESSON_SIX_SLIDES, lessonSixStateValid } from '@edu/course-content
 import { CampusStateRepository } from "./campus/state-repository.js";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
+import {relocatedPortReviewClip,relocatedPortReviewIndex} from '@edu/course-content';
 import {
   SLIDE_ASPECT_RATIO,
   SLIDE_LOGICAL_HEIGHT,
@@ -298,6 +299,9 @@ export class JsonStateStore {
         }
 
         if (runtimeCourseId === "course-port-management-intro") {
+          if (!slideSpec && ["release-port-management-facilities-v20","release-port-management-facilities-v21"].includes(sanitizedRuntime.deckVersion ?? "") && Number.isInteger(rawSlideIndex) && rawSlideIndex >= 1 && rawSlideIndex <= (sanitizedRuntime.deckVersion === "release-port-management-facilities-v21" ? 831 : 767)) {
+            slideSpec = runtimeDeck.getSlide(relocatedPortReviewIndex(sanitizedRuntime.deckVersion,rawSlideIndex));
+          }
           if (!slideSpec && ["release-port-management-lab-v9","release-port-management-authored-v9"].includes(sanitizedRuntime.deckVersion ?? "") && rawSlideIndex >= 1 && rawSlideIndex <= 181) {
             slideSpec = runtimeDeck.getSlide(rawSlideIndex <= 153 ? rawSlideIndex : 153 + PORT_LESSON_FOUR_LEGACY_POSITIONS[rawSlideIndex - 154]!);
           }
@@ -700,6 +704,13 @@ export class JsonStateStore {
             }
           }
         }
+        if(runtimeCourseId === 'course-port-management-intro' && sanitizedRuntime.portExpansionPresentation){
+          const saved=sanitizedRuntime.portExpansionPresentation, moved=runtimeDeck.getSlideByKey(saved.slideKey);
+          if(moved && moved.slideKey!==saved.slideKey){
+            sanitizedRuntime.portExpansionPresentation={...saved,slideKey:moved.slideKey,...(saved.cinematic?{cinematic:{...saved.cinematic,clipId:relocatedPortReviewClip(saved.cinematic.clipId),status:'paused',startedAt:null}}:{})};
+            runtimeStateChanged=true;
+          }
+        }
         classroomRuntimes[sessionId] = {
           ...fallbackRuntime,
           ...sanitizedRuntime,
@@ -741,7 +752,7 @@ export class JsonStateStore {
           getPortManagementSlide(
             Math.min(
               PORT_MANAGEMENT_SLIDE_TOTAL,
-              Math.max(1, session.globalIndex ?? 1)
+              Math.max(1, relocatedPortReviewIndex(session.deckVersion,session.globalIndex ?? 1))
             )
           );
         const presentation = studyAvatarPresentation(session.id);
@@ -767,6 +778,14 @@ export class JsonStateStore {
       for (const [identity, progress] of Object.entries(parsed.portal?.readings ?? {})) {
         let courseId: unknown;
         try { courseId = JSON.parse(identity)[1]; } catch { continue; }
+        if(courseId==='course-port-management-intro'){
+          const deck=getCourseDeckByCourseId(courseId)!,legacy=progress as typeof progress&{globalIndex?:number;slideIndex?:number};
+          const slide=deck.getSlideByKey(progress.slideKey)??(progress.deckVersion==='release-port-management-facilities-v21'&&Number.isInteger(legacy.globalIndex??legacy.slideIndex)?deck.getSlide(relocatedPortReviewIndex(progress.deckVersion,legacy.globalIndex??legacy.slideIndex!)):undefined);
+          if(slide&&(progress.slideKey!==slide.slideKey||progress.deckVersion!==deck.versionId)){
+            parsed.portal!.readings[identity]={...progress,deckVersion:deck.versionId,slideKey:slide.slideKey};runtimeStateChanged=true;
+          }
+          continue;
+        }
         if (courseId !== INTERNATIONAL_MATHEMATICS_COURSE_ID) continue;
         const legacy = progress as typeof progress & {slideIndex?: number; globalIndex?: number};
         const restored = resolveInternationalMathematicsSavedPosition(progress.deckVersion, legacy.globalIndex ?? legacy.slideIndex ?? 1, progress.slideKey);
