@@ -44,7 +44,13 @@ import { differentiationLesson08 } from './lesson-08-differentiation.js';
 import { chainLesson09 } from './lesson-09-chain.js';
 import { differentialsLesson10 } from './lesson-10-differentials.js';
 import { meanValueLesson11 } from './lesson-11-mean-value.js';
-import { lhopitalLesson12 } from './lesson-12-lhopital.js';
+import { applicationsLesson12 } from './lesson-12-applications.js';
+import { shapeLesson13 } from './lesson-13-shape.js';
+import {marginalLesson14} from './lesson-14-marginal.js';
+import {elasticityLesson15} from './lesson-15-elasticity.js';
+import {antiderivativesLesson16} from './lesson-16-antiderivatives.js';
+import {substitutionLesson17} from './lesson-17-substitution.js';
+import {integrationByPartsLesson18} from './lesson-18-integration-by-parts.js';
 import type {
   EconomicMathematicsLessonDefinition,
   EconomicMathematicsLessonSpec,
@@ -101,12 +107,33 @@ const combinedLesson: EconomicMathematicsLessonDefinition = {
     ...(source.number === 1 && i === lesson01.slides.length - 1 ? {body: ['接下来把价格、销量与成本连接起来。']} : {})
   })))
 };
+function renumberCurrentLabels<T>(value:T):T {
+  const current=(n:string)=>Number(n)>=18?Number(n)-2:Number(n)>=14?Number(n)-1:Number(n)===13?12:Number(n);
+  if(typeof value==='string')return value.replace(/第(\d{1,2})([—–-])(\d{1,2})讲/g,(_whole,a:string,dash:string,b:string)=>'第'+current(a)+dash+current(b)+'讲').replace(/第(\d{1,2})讲/g,(_whole,n:string)=>'第'+current(n)+'讲') as T;
+  if(Array.isArray(value))return value.map(v=>renumberCurrentLabels(v)) as T;
+  if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,renumberCurrentLabels(v)])) as T;
+  return value;
+}
 export const ECONOMIC_MATHEMATICS_LESSON_DEFINITIONS: readonly EconomicMathematicsLessonDefinition[] = [
-  preludeLesson, refinedLesson02, refinedLesson03, refinedLesson04, refinedLesson05, continuityLesson06, derivativeLesson07, differentiationLesson08, chainLesson09, differentialsLesson10, meanValueLesson11, lhopitalLesson12, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(12)
+  preludeLesson, refinedLesson02, refinedLesson03, refinedLesson04, refinedLesson05, continuityLesson06, derivativeLesson07, differentiationLesson08, chainLesson09, differentialsLesson10, meanValueLesson11, applicationsLesson12, shapeLesson13, marginalLesson14, elasticityLesson15,
+  antiderivativesLesson16,
+  substitutionLesson17, integrationByPartsLesson18,
+  ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(20).map(source=>{
+    const number=source.number-2;
+    return {...source,number,slides:source.slides.map((s,i)=>({...renumberCurrentLabels(s),sourceLesson:source.number,sourceLocalIndex:i+1}))};
+  })
 ];
 
 /** Historical classroom indices must be interpreted using their own release. */
 export function getEconomicMathematicsHistoricalCounts(version: string): readonly number[] | undefined {
+  if (version === 'release-economic-mathematics-integral-merged-2026-11-01') return [40,59,85,60,66,64,64,64,64,107,56,30,44,56,54,35,10,10,10,10,10,10,10,14,10,10,10,11,14,12];
+  if (version === 'release-economic-mathematics-integral-foundations-2026-11-01') return [40,59,85,60,66,64,64,64,64,107,56,30,44,56,54,34,40,10,10,10,10,10,10,10,14,10,10,10,11,14,12];
+  if (version === 'release-economic-mathematics-antiderivatives-2026-10-31') return [40,59,85,60,66,64,64,64,64,107,56,30,44,56,54,56,10,10,10,10,10,10,10,10,14,10,10,10,11,14,12];
+  if (version === 'release-economic-mathematics-market-2026-10-31') return [40,59,85,60,66,64,64,64,64,107,56,30,44,56,54,10,10,10,10,10,10,10,10,10,14,10,10,10,11,14,12];
+  if (version === 'release-economic-mathematics-business-2026-10-30') return [40,59,85,60,66,64,64,64,64,107,56,30,44,48,48,10,10,10,10,10,10,10,10,10,14,10,10,10,11,14,12];
+  if (version === 'release-economic-mathematics-applications-2026-10-30') return [40,59,85,60,66,64,64,64,64,107,56,30,44,10,10,10,10,10,10,10,10,10,10,10,14,10,10,10,11,14,12];
+  if (version === 'release-economic-mathematics-operators-2026-10-29') return [40,59,85,60,66,64,64,64,64,107,56,56,11,10,10,10,10,10,10,10,10,10,10,10,10,14,10,10,10,11,14,12];
+  if (version === 'release-economic-mathematics-differential-rules-2026-10-26') return [40,59,85,60,66,64,64,64,64,75,56,56,11,10,10,10,10,10,10,10,10,10,10,10,10,14,10,10,10,11,14,12];
   if (version === 'release-economic-mathematics-analysis-2026-10-22') return [40,59,85,60,66,64,64,64,64,64,56,56,11,10,10,10,10,10,10,10,10,10,10,10,10,14,10,10,10,11,14,12];
   if (version === 'release-economic-mathematics-differentiation-2026-10-20') return [40,59,85,60,66,64,64,64,64,64,10,11,11,10,10,10,10,10,10,10,10,10,10,10,10,14,10,10,10,11,14,12];
   if (version === 'release-economic-mathematics-continuity-derivative-2026-10-17') return [40,59,85,60,66,64,64,...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(7).map(l=>l.slides.length)];
@@ -122,6 +149,15 @@ export function getEconomicMathematicsHistoricalCounts(version: string): readonl
   if (version === 'release-economic-mathematics-limits-refined-2026-10-10') return [40, 59, 58, 56, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(4).map(l => l.slides.length)];
   if (version === 'release-economic-mathematics-limits-sequence-2026-10-11') return [40, 59, 72, 58, ...ECONOMIC_MATHEMATICS_V2_LESSON_DEFINITIONS.slice(4).map(l => l.slides.length)];
   return undefined;
+}
+
+/** Explicit mapping used only when a teacher chooses to open a new classroom. Old records stay unchanged. */
+export function getEconomicMathematicsCurrentLesson(oldVersion:string,oldLesson:number):number {
+  if(oldVersion==='release-economic-mathematics-integral-merged-2026-11-01')return oldLesson;
+  const integralMerge=(n:number)=>n===17?16:n>=18?n-1:n;
+  if(oldVersion==='release-economic-mathematics-applications-2026-10-30'||oldVersion==='release-economic-mathematics-business-2026-10-30'||oldVersion==='release-economic-mathematics-market-2026-10-31'||oldVersion==='release-economic-mathematics-antiderivatives-2026-10-31'||oldVersion==='release-economic-mathematics-integral-foundations-2026-11-01')return integralMerge(oldLesson);
+  if(getEconomicMathematicsHistoricalCounts(oldVersion))return integralMerge(oldLesson===13?12:oldLesson>=14?oldLesson-1:oldLesson);
+  return oldLesson;
 }
 
 export const ECONOMIC_MATHEMATICS_EXPECTED_SLIDES = ECONOMIC_MATHEMATICS_LESSON_DEFINITIONS.reduce((sum, lesson) => sum + lesson.slides.length, 0);

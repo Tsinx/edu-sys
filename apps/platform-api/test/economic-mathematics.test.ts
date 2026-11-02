@@ -9,7 +9,7 @@ import {buildApp} from "../src/app.js";
 import {buildPromptWorkspace} from "../src/assistant/prompts.js";
 import {getCourseDeckByCourseId} from "@edu/course-content/deck-registry";
 test("current curriculum, models, geometric evidence and interaction domains",()=>{
- assert.equal(lessons.length,32);assert.equal(lessons.reduce((s,l)=>s+l.hours,0)+ECONOMIC_MATHEMATICS_UNALLOCATED_HOURS,64);
+ assert.equal(lessons.length,30);assert.equal(lessons.reduce((s,l)=>s+l.hours,0)+ECONOMIC_MATHEMATICS_UNALLOCATED_HOURS,64);
  assert.equal(slides.length,lessons.reduce((s,l)=>s+l.slideTotal,0));assert.deepEqual([lessons[4]!.slideTotal,lessons[5]!.slideTotal],[66,64]);
  assert.equal(new Set(slides.map(s=>s.slideKey)).size,slides.length);assert.equal(Object.keys(labs).length,13);
  assert.ok(slides.filter(s=>s.style==="constructivist").length/slides.length<=.15);
@@ -24,6 +24,33 @@ test("current curriculum, models, geometric evidence and interaction domains",()
  assert.equal(M.consumerSurplus(60),18000);
  const seq=definition(slides.find(s=>s.limitLab==='capacity')!)!;assert.equal(valid(seq,{...seq.defaults,n:0}),true);assert.equal(valid(seq,{...seq.defaults,n:.5}),false);
  const budget=definition(slides.find(s=>s.interactionId==="budget-constraint-lab")!)!;assert.equal(valid(budget,{...budget.defaults,budget:"25",channelX:26}),false);
+});
+
+test('business page parameters remain teacher controlled, page scoped and persistent across reconnect and restart',async()=>{
+ const dir=await mkdtemp(join(tmpdir(),'econ-business-')),dataFile=join(dir,'state.json');
+ let app=await buildApp({dataFile,portSimulationTickMs:0,allowLegacyDevelopmentIdentity:false});
+ try{
+  const login=async(role:string)=>{const r=await app.inject({method:'POST',url:'/api/identity/development/session',payload:{role,participantId:'business-'+role,displayName:'测试'}});assert.equal(r.statusCode,201);return{cookie:String(r.headers['set-cookie']).split(';')[0]!};};
+  let teacher=await login('teacher');const student=await login('student');
+  const started=await app.inject({method:'POST',url:'/api/courses/'+courseId+'/class-sessions',headers:teacher,payload:{mode:'new',lesson:14}});assert.equal(started.statusCode,201);
+  const url='/api/class-sessions/'+started.json().id;
+  const control=(payload:Record<string,unknown>,headers=teacher)=>app.inject({method:'POST',url:url+'/events',headers,payload});
+  for(const kind of['menu','market-elasticity'] as const){
+   const p=slides.find(p=>p.businessLab===kind)!;assert.equal((await control({type:'set_slide',index:p.index})).statusCode,201);
+   const patch=kind==='menu'?{menuSlowPrice:99,menuFastPrice:299,menuUrgentSlowValue:150}:{marketPrice:200};
+   const event={type:'set_slide_interaction',slideId:p.slideKey,expectedRevision:1,patch};
+   assert.equal((await control(event,student)).statusCode,403);
+   assert.equal((await control({...event,patch:{presentationStep:1}})).statusCode,400);
+   assert.equal((await control({...event,patch:kind==='menu'?{marketPrice:100}:{marketPrice:300}})).statusCode,400);
+   assert.equal((await control(event)).statusCode,201);assert.equal((await control(event)).statusCode,409);
+   await control({type:'next_slide'});const returned=await control({type:'previous_slide'});
+   for(const [key,value]of Object.entries(patch))assert.equal(returned.json().slideInteraction.values[key],value);
+   const shared=classroomSnapshotSchema.parse((await app.inject({method:'GET',url:url+'/snapshot',headers:student})).json());
+   assert.deepEqual(shared.slideInteraction?.values,returned.json().slideInteraction.values);
+  }
+  await app.close();app=await buildApp({dataFile,portSimulationTickMs:0,allowLegacyDevelopmentIdentity:false});teacher=await login('teacher');
+  const restored=classroomSnapshotSchema.parse((await app.inject({method:'GET',url:url+'/snapshot',headers:teacher})).json());assert.equal(restored.slideInteraction?.values.marketPrice,200);assert.equal(restored.slide.lessonNumber,15);
+ }finally{await app.close();await rm(dir,{recursive:true,force:true});}
 });
 test("embedded history film uses bounded teacher controls and persists its paused position",async()=>{
  const dir=await mkdtemp(join(tmpdir(),"econ-limits-film-")),dataFile=join(dir,"state.json");
@@ -105,9 +132,9 @@ test("SSE sends public steps to both viewers and restores the authoritative step
  }finally{controllers.forEach(c=>c.abort());await app.close();await rm(dir,{recursive:true,force:true});}
 });
 test("assistant receives only the cumulative public steps, including override protection",()=>{
- const s=slides.find(s=>s.lesson===32&&s.title==="驻点、端点与证据")!;
+ const s=slides.find(s=>s.lesson===30&&s.title==="驻点、端点与证据")!;
  const deck=getCourseDeckByCourseId(courseId)!,frame=deck.getSlide(s.index),d=definition(s)!;
- const context=(step:number)=>({courseId,courseTitle:"经济数学",activeActivity:"slides" as const,slide:{deckId,versionId:version,slideId:s.slideKey,index:s.index,total:slides.length,logicalWidth:1600 as const,logicalHeight:1000 as const,aspectRatio:"16:10" as const,title:s.title,lessonNumber:32,lessonTitle:s.lessonTitle,section:s.section,summary:frame.summary},slideInteraction:{deckId,slideId:s.slideKey,revision:1,values:{...d.defaults,presentationStep:step}},simulation:null,globePlayback:{cueId:null,runId:null,stepIndex:0,status:"idle" as const,stepStartedAt:null,stepElapsedMs:0}});
+ const context=(step:number)=>({courseId,courseTitle:"经济数学",activeActivity:"slides" as const,slide:{deckId,versionId:version,slideId:s.slideKey,index:s.index,total:slides.length,logicalWidth:1600 as const,logicalHeight:1000 as const,aspectRatio:"16:10" as const,title:s.title,lessonNumber:30,lessonTitle:s.lessonTitle,section:s.section,summary:frame.summary},slideInteraction:{deckId,slideId:s.slideKey,revision:1,values:{...d?.defaults,presentationStep:step}},simulation:null,globePlayback:{cueId:null,runId:null,stepIndex:0,status:"idle" as const,stepStartedAt:null,stepElapsedMs:0}});
  const settings={revision:1,overrides:{[JSON.stringify(["page",courseId+":"+s.slideKey])]:"PRIVATE_OVERRIDE_SECRET"}};
  const hidden=buildPromptWorkspace(courseId,"经济数学",settings,s.index,"slides",context(0)).compiled;
  assert.ok(!hidden.includes("PRIVATE_OVERRIDE_SECRET"));assert.ok(!hidden.includes("U(4,4)=56"));assert.ok(!hidden.includes("56-5"));
@@ -233,22 +260,40 @@ test("classroom steps synchronize, reject conflicts, restore on return and resta
  assert.equal(oldSequence.slide.total,529);assert.equal(oldSequence.slide.lessonNumber,3);assert.equal(oldSequence.slide.versionId,'release-economic-mathematics-limits-sequence-2026-10-11');
  assert.equal(oldSequence.slideInteraction?.revision,10);assert.equal(oldSequence.slideInteraction?.values.precision,9);
  assert.equal((await control({type:'next_slide'})).statusCode,409);
- const fresh=await app.inject({method:"POST",url:"/api/courses/"+courseId+"/class-sessions",payload:{mode:"new"}});assert.equal(fresh.statusCode,201);
- const freshFrame=(await app.inject({method:"GET",url:"/api/class-sessions/"+fresh.json().id+"/snapshot"})).json().slide;assert.equal(freshFrame.versionId,version);
+ await app.close();
+ const savedOperators=JSON.parse(await readFile(dataFile,'utf8')),operatorVersion='release-economic-mathematics-operators-2026-10-29',operatorCounts=historicalCounts(operatorVersion)!;
+ const operatorIndex=operatorCounts.slice(0,13).reduce((n,c)=>n+c,0)+1;
+ Object.assign(savedOperators.classroomRuntimes[id],{deckId:'deck-economic-mathematics-2026-operators',deckVersion:operatorVersion,slideIndex:operatorIndex,slideKey:'em-v2-l14-p001'});
+ savedOperators.classroomRuntimes[id].slideInteractions['em-v2-l14-p001']={revision:11,values:{presentationStep:0}};
+ await writeFile(dataFile,JSON.stringify(savedOperators));app=await buildApp({dataFile,portSimulationTickMs:0});
+ const oldOperators=classroomSnapshotSchema.parse((await app.inject({method:'GET',url:url+'/snapshot'})).json());
+ assert.equal(oldOperators.slide.versionId,operatorVersion);assert.equal(oldOperators.slide.lessonNumber,14);assert.equal(oldOperators.slide.index,operatorIndex);assert.equal(oldOperators.slide.total,operatorCounts.reduce((n,c)=>n+c,0));assert.equal(oldOperators.slideInteraction?.revision,11);
+ assert.equal((await control({type:'next_slide'})).statusCode,409);
+ await app.close();
+ const savedBusiness=JSON.parse(await readFile(dataFile,'utf8')),businessVersion='release-economic-mathematics-business-2026-10-30',businessCounts=historicalCounts(businessVersion)!;
+ const businessIndex=businessCounts.slice(0,14).reduce((n,c)=>n+c,0)+42,businessKey='em-l15-business-20261030-p042';
+ Object.assign(savedBusiness.classroomRuntimes[id],{deckId:'deck-economic-mathematics-2026-business',deckVersion:businessVersion,slideIndex:businessIndex,slideKey:businessKey});
+ savedBusiness.classroomRuntimes[id].slideInteractions[businessKey]={revision:12,values:{presentationStep:0,businessPrice:115}};
+ await writeFile(dataFile,JSON.stringify(savedBusiness));app=await buildApp({dataFile,portSimulationTickMs:0});
+ const oldBusiness=classroomSnapshotSchema.parse((await app.inject({method:'GET',url:url+'/snapshot'})).json());
+ assert.equal(oldBusiness.slide.versionId,businessVersion);assert.equal(oldBusiness.slide.total,1070);assert.equal(oldBusiness.slide.index,businessIndex);assert.equal(oldBusiness.slide.lessonNumber,15);assert.equal(oldBusiness.slide.slideId,businessKey);assert.equal(oldBusiness.slideInteraction?.values.businessPrice,115);assert.equal(oldBusiness.slideInteraction?.revision,12);assert.match(oldBusiness.slide.title,/已归档/);
+ assert.equal((await control({type:'next_slide'})).statusCode,409);
+ const fresh=await app.inject({method:"POST",url:"/api/courses/"+courseId+"/class-sessions",payload:{mode:"new",lesson:13}});assert.equal(fresh.statusCode,201);
+ const freshFrame=(await app.inject({method:"GET",url:"/api/class-sessions/"+fresh.json().id+"/snapshot"})).json().slide;assert.equal(freshFrame.versionId,version);assert.equal(freshFrame.lessonNumber,13);
  }finally{await app.close();await rm(dir,{recursive:true,force:true});}
 });
 
 test('all concept group choices reach the assistant, while each unrevealed answer stays excluded',()=>{
  const deck=getCourseDeckByCourseId(courseId)!;
  const checks=slides.filter(p=>p.conceptCheck);
- assert.equal(checks.length,117);
+ assert.equal(checks.length,138);
  for(const p of checks){
   const frame=deck.getSlide(p.index),d=definition(p)!;
-  for(const step of [0,1,2]){
-   const ctx={courseId,courseTitle:'经济数学',activeActivity:'slides' as const,slide:{...frame,slideId:p.slideKey,deckId,versionId:version,total:slides.length,logicalWidth:1600 as const,logicalHeight:1000 as const,aspectRatio:'16:10' as const},slideInteraction:{deckId,slideId:p.slideKey,revision:1,values:{...d.defaults,presentationStep:step}},simulation:null,globePlayback:{cueId:null,runId:null,stepIndex:0,status:'idle' as const,stepStartedAt:null,stepElapsedMs:0}};
+  for(const step of Array.from({length:(p.steps?.length??0)+1},(_,i)=>i)){
+   const ctx={courseId,courseTitle:'经济数学',activeActivity:'slides' as const,slide:{...frame,slideId:p.slideKey,deckId,versionId:version,total:slides.length,logicalWidth:1600 as const,logicalHeight:1000 as const,aspectRatio:'16:10' as const},slideInteraction:{deckId,slideId:p.slideKey,revision:1,values:{...d?.defaults,presentationStep:step}},simulation:null,globePlayback:{cueId:null,runId:null,stepIndex:0,status:'idle' as const,stepStartedAt:null,stepElapsedMs:0}};
    const prompt=buildPromptWorkspace(courseId,'经济数学',undefined,p.index,'slides',ctx).compiled;
    for(const question of p.table!.columns)assert.ok(prompt.includes(question));
-   for(const [i,reveal] of p.steps!.entries())assert.equal(prompt.includes(reveal.text!),i<step,p.slideKey+':'+step+':'+i);
+   for(const [i,reveal] of (p.steps??[]).entries())assert.equal(prompt.includes(reveal.text!),i<step,p.slideKey+':'+step+':'+i);
    for(const privateKey of ['exerciseActivityId','teachingCue','conceptCheck','routeRole'])assert.ok(!prompt.includes(privateKey));
   }
  }

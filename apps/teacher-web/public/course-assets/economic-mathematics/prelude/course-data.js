@@ -6,18 +6,18 @@
     { n: 1, title: '引入与函数模型', hours: 4, lessons: '01—02', question: '怎样描述数量关系？' },
     { n: 2, title: '极限与连续', hours: 8, lessons: '03—06', question: '不断靠近，会走向哪里？' },
     { n: 3, title: '导数与微分', hours: 10, lessons: '07—11', question: '此刻变化有多快？' },
-    { n: 4, title: '边际与弹性', hours: 10, lessons: '12—16', question: '再改变一点，值得吗？' },
-    { n: 5, title: '不定积分', hours: 8, lessons: '17—20', question: '能从变化找回原函数吗？' },
-    { n: 6, title: '定积分与累计', hours: 10, lessons: '21—25', question: '一段时间，总共多少？' },
-    { n: 7, title: '多元函数微分', hours: 8, lessons: '26—29', question: '多个因素怎样共同作用？' },
-    { n: 8, title: '约束与决策', hours: 6, lessons: '30—32', question: '资源有限，如何分配？' }
+    { n: 4, title: '边际与弹性', hours: 10, lessons: '12—15', question: '再改变一点，值得吗？' },
+    { n: 5, title: '不定积分', hours: 8, lessons: '16—19', question: '能从变化找回原函数吗？' },
+    { n: 6, title: '定积分与累计', hours: 10, lessons: '20—24', question: '一段时间，总共多少？' },
+    { n: 7, title: '多元函数微分', hours: 8, lessons: '25—28', question: '多个因素怎样共同作用？' },
+    { n: 8, title: '约束与决策', hours: 6, lessons: '29—31', question: '资源有限，如何分配？' }
   ];
   const pages = [
     { id: 'film', layout: 'film', section: '序章', title: '经济数学', subtitle: '从一个点，进入一个变化的世界。', source: '原创几何动画与电子配乐' },
     { id: 'welcome', layout: 'hero', section: '课程地图', title: '看见变化，\n做出选择。', subtitle: '经济数学 · 2026', visual: 'orbit', lines: ['一个价格，一次点击，一份有限的预算。', '把直觉变成可以检查的判断。'] },
     { id: 'four-shapes', layout: 'four', section: '课程地图', title: '刚才的形状，也是问题的形状。', items: [['点', '一个人的选择'], ['曲线', '变化的方向'], ['面积', '累计的结果'], ['曲面', '多个因素的作用']], source: '几何隐喻' },
     { id: 'receipt', layout: 'ledger', section: '课程地图', title: '一家店，两周收入。', subtitle: '哪一周卖得更好？先说清“好”指什么。', columns: ['周次', '单价', '销量', '收入'], rows: [['第一周', '20 元/杯', '500 杯', '10,000 元'], ['第二周', '18 元/杯', '550 杯', '9,900 元']], reveals: ['销量增加了，收入却减少了。', '收入 = 单价 × 销量；利润还需要成本。'], source: '教学情境' },
-    { id: 'scope', layout: 'numbers', section: '课程地图', title: '这门课的坐标', items: [['64', '学时'], ['32', '讲'], ['8', '单元'], ['4', '学分']], lines: ['市场营销专业 · 大一年级 · 第一学期', '中文授课，课堂教学；课外资源用于复习。'], source: '2026版课程教学大纲' },
+    { id: 'scope', layout: 'numbers', section: '课程地图', title: '这门课的坐标', items: [['64', '学时'], ['31', '讲'], ['8', '单元'], ['4', '学分']], lines: ['市场营销专业 · 大一年级 · 第一学期', '中文授课，课堂教学；课外资源用于复习。'], source: '2026版教学大纲；讲次按合并后安排' },
     { id: 'map', layout: 'map', section: '课程地图', title: '八个单元，一条问题链。', subtitle: '描述关系 → 研究变化 → 计算累计 → 做出决策' },
     { id: 'unit-1', layout: 'unit', section: '课程地图', unit: 1, title: '给现实中的量一个名字。', subtitle: '价格改变时，销量怎样回应？', lines: ['分清自变量、因变量和单位。', '在数据、图形与公式之间转换。'], visual: 'function', source: '单元一 · 函数与营销定量模型' },
     { id: 'unit-2', layout: 'unit', section: '课程地图', unit: 2, title: '越来越近，\n不等于已经到达。', subtitle: '“趋近”能支持怎样的判断？', lines: ['观察函数在某点附近的行为。', '区分函数值、极限与连续。'], visual: 'limit', source: '单元二 · 极限与连续' },

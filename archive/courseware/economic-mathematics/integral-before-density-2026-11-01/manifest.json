@@ -1,0 +1,159 @@
+{
+  "deckId": "deck-economic-mathematics-2026-antiderivatives",
+  "version": "release-economic-mathematics-antiderivatives-2026-10-31",
+  "counts": [
+    40,
+    59,
+    85,
+    60,
+    66,
+    64,
+    64,
+    64,
+    64,
+    107,
+    56,
+    30,
+    44,
+    56,
+    54,
+    56,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    14,
+    10,
+    10,
+    10,
+    11,
+    14,
+    12
+  ],
+  "files": [
+    {
+      "file": "packages/course-content/src/economic-mathematics/lesson-16-antiderivatives.ts",
+      "sha256": "e23fa8fd3bfabf946abf2a96968c918617292a0862c895c6a2365b72e6fc580b"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/integral-authoring.ts",
+      "sha256": "1bb04b2d19479dfcefb6e208b290259374230aeac8bd5ec23efa93b6cf243a9d"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/integral-exercises.ts",
+      "sha256": "e3246199d0cc1398935fee2d19a5d9461baff7f25bcd54921959d65decd0b0fe"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/integral-model.ts",
+      "sha256": "15b234f7f9b1c054ccd0f27275fd359398f381099642631b630d0b894277da1d"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/v2/lesson-18.ts",
+      "sha256": "19be4c35aec649d75b8e517f93120ea57faad5e69a52937e123f656e51ba05bf"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/authoring.ts",
+      "sha256": "bfcbdc950f68096a65c59f5c2634036e89a1dbfff6b927603d86aacf9c33f0ea"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "sha256": "99e79421273510e7fbb3fc56911cc324a705868e4f901a894bcd620567581387"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/slides.ts",
+      "sha256": "3c1bb51f41099ec2ab0f4f92fff06338561b211f4d918b720baf62d920873872"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/index.ts",
+      "sha256": "8f21a291264346bd0d9545296add48c10a5e31c4f454ec34cfef4ab8b7f5fef0"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/types.ts",
+      "sha256": "e86a73b0e18b1cb1036ae529bf06fb1e08e0e92f44fbee9a9020775eb54332ae"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/interactions.ts",
+      "sha256": "19c2490344a83d0ab154e35352c04f895164527adfe93c157088b3f81137f0fb"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/next-lesson-plan.ts",
+      "sha256": "ab72294f958002152d8b796bb990544746e48c636df7f63a6568bf55aa25f316"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/IntegralFigure.tsx",
+      "sha256": "10c00d67f1dd8ccce96d3c1d4e96a52b1797e56430bff3252dae51ec407bb3bd"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
+      "sha256": "5ae86099a893c59786394952b149f0021abdd56b9ca07b6c8499be80a6e5d21e"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/EconomicPageNarrator.tsx",
+      "sha256": "8e9f051ad3ecd68612b0c009b6362336202ca90c12280dcca3fff1c0cdba4122"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/PresentationChrome.tsx",
+      "sha256": "e862de740adef260032b26f13a559d60eb0d65b046c75271902c9e1ac673b6ba"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/limits.css",
+      "sha256": "5d45b5eeb1e1f6ce65e64e53aa864f22c1c6b6b7694db82858c327880eaeec22"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/economic-mathematics.css",
+      "sha256": "67026477cd31009fc17c88abba553e6bd0508d0edf56dc3fd226cfabf20c726a"
+    },
+    {
+      "file": "apps/teacher-web/src/economic-narration.tsx",
+      "sha256": "4964f0de94df2473b1e68fd21df51a17e404ebf8153efee439278b2013266976"
+    },
+    {
+      "file": "scripts/prepare-economic-antiderivatives.mjs",
+      "sha256": "fc44bbb5d63f6a740ec4bac58a91cbc91f742c12e5b490602d206535b72fa029"
+    },
+    {
+      "file": "scripts/verify-economic-antiderivatives.mjs",
+      "sha256": "165e8ba7710293fd7eff93b4b93a4d7ad7afc0738595977a768808211b9355ff"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson16-design-2026-10-31.md",
+      "sha256": "26623ff148b263b3866c208fdffbc7d98be85907a18db094bf397b87600a1035"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson16-exercises.json",
+      "sha256": "d460da7ac02bfa31950da6ed4454384e557f49b48fd0f0f17f1f1a32f1ea6d9e"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson16-script.md",
+      "sha256": "3dcfc9035556dd86a0599672333a5a594dfc8ce4cbfbd5f1f27b8c2866712410"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson16-validation-2026-10-31.md",
+      "sha256": "c6db0e273dc51f9a1d2f192012f21b008a984c17b274189b7d720f2f40432f18"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-answers.html",
+      "sha256": "8db39ef300acb612dbbcdc3c80e7dc97d412cf516033af911ac5e13b8db97a52"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-script.html",
+      "sha256": "dc6711fbf45ec621593911d8833470f9fe0ab092424d492a00a66a5db4d9843b"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-teacher.html",
+      "sha256": "5158abbbc7f5e3c72c5a084146145e8956c192316ccbf041a7cf87199cdec249"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-teacher.pdf",
+      "sha256": "ad90f32d3b2a4454a8abcc994e40568cf02e9560f70a37d47e1d7f9202579a08"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-worksheet.html",
+      "sha256": "7d8a33fce461b1333759a1e65c0033f0d92bdc5b7808a3596fa7beb89f1cd521"
+    }
+  ]
+}

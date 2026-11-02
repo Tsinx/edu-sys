@@ -1,0 +1,99 @@
+{
+  "deckId": "deck-economic-mathematics-2026-applications",
+  "version": "release-economic-mathematics-applications-2026-10-30",
+  "counts": [
+    40,
+    59,
+    85,
+    60,
+    66,
+    64,
+    64,
+    64,
+    64,
+    107,
+    56,
+    30,
+    44,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    14,
+    10,
+    10,
+    10,
+    11,
+    14,
+    12
+  ],
+  "files": [
+    {
+      "file": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "sha256": "c5ff2e4b5f7c268ffaef3ffa923755c78e34e7439d0f3e583e582074151a1421"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/slides.ts",
+      "sha256": "66bbbce49777f38137762bd275cd4ceaf91f21d25b3acd57c48419c3dfdcecc8"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/index.ts",
+      "sha256": "536b14fbb9c781e2d4124087d79da5666716b99bdb17395053148cd435612588"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/types.ts",
+      "sha256": "eaf3ba2eacdb5f6bf9c2de38385965483eab409048392fa63209d566f539ec50"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/interactions.ts",
+      "sha256": "06077234925827ea891b1b4f0e6c5820641c08464d571f77b0d560ec276c4dec"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/next-lesson-plan.ts",
+      "sha256": "3f6219d74195b796f3a62f8a831a8fadb824a1eda182c526d6162f897f5f066b"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/v2/lesson-15.ts",
+      "sha256": "5ca048694b26c7064b093c03fc7eef0da14efe2e692a4c602d6641f77f03318f"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/v2/lesson-16.ts",
+      "sha256": "fce313c80840c50a74c2c27b87655ff89af8eae8b2206922f78cee92fc0b9355"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
+      "sha256": "72be54e034d8a2394d6ea4f0f773c36e812ab01cca6a2a6c8210a3ebe0fba46e"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/EconomicPageNarrator.tsx",
+      "sha256": "a318d3a96e7e532040a3aaa87a79aafd2e44a2e4d4d1a19b1b9595602f12befe"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/PresentationChrome.tsx",
+      "sha256": "1d4dc97fd43564cd31ea257ebab9049b6f58dc8a269f7db0250899e3a2ccb840"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/economic-mathematics.css",
+      "sha256": "67026477cd31009fc17c88abba553e6bd0508d0edf56dc3fd226cfabf20c726a"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/limits.css",
+      "sha256": "dd82ba5f7c93c894eacb1db3b624983920296bb0eec0a287b587bf841764942a"
+    },
+    {
+      "file": "apps/teacher-web/src/economic-narration.tsx",
+      "sha256": "778e2cdc39f3f2d6aee7026d4bd7f1fbe60dca8981ba550be71178cea1843094"
+    },
+    {
+      "file": "packages/course-content/src/deck-registry.ts",
+      "sha256": "3b59172c29cfe11a469986466a75c62e14363b2c99c112ea73bcdf555782f7a3"
+    }
+  ]
+}

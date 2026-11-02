@@ -1,0 +1,180 @@
+{
+  "status": "descriptive screening, not policy treatment or causal inference",
+  "source_sha256": "52e8be6fb83749f1df049c7c33640d14411cd1ad01bfbacd2c509e9786e192d8",
+  "as_of": "2026-11-01",
+  "window": "starts January 1-7, ends June 25-30; 150-215 days",
+  "unit": "company-year, latest dated report after company-period deduplication",
+  "repeated_company_year_rows_before_last_selection": 4,
+  "baseline": "observed in each of the two previous same-half calendar windows",
+  "procurement": "exact identifier; compiled release before 2024; no covered-contract certification",
+  "history": [
+    {
+      "year": 2020,
+      "two_prior_year_firms": 3906,
+      "absent": 502,
+      "absence_rate": 0.12852022529441884,
+      "prior_mean_days_remaining": 36.68515549855723,
+      "prior_mean_days_absent": 38.59375,
+      "remaining_valid_days_n": 3119,
+      "absent_valid_days_n": 448
+    },
+    {
+      "year": 2021,
+      "two_prior_year_firms": 3752,
+      "absent": 373,
+      "absence_rate": 0.0994136460554371,
+      "prior_mean_days_remaining": 37.72081867604733,
+      "prior_mean_days_absent": 39.44839857651245,
+      "remaining_valid_days_n": 3127,
+      "absent_valid_days_n": 281
+    },
+    {
+      "year": 2022,
+      "two_prior_year_firms": 3604,
+      "absent": 328,
+      "absence_rate": 0.09100998890122086,
+      "prior_mean_days_remaining": 37.01583113456464,
+      "prior_mean_days_absent": 38.362989323843415,
+      "remaining_valid_days_n": 3032,
+      "absent_valid_days_n": 281
+    },
+    {
+      "year": 2023,
+      "two_prior_year_firms": 3563,
+      "absent": 298,
+      "absence_rate": 0.08363738422677519,
+      "prior_mean_days_remaining": 35.67614011896894,
+      "prior_mean_days_absent": 38.96992481203007,
+      "remaining_valid_days_n": 3026,
+      "absent_valid_days_n": 266
+    },
+    {
+      "year": 2024,
+      "two_prior_year_firms": 3493,
+      "absent": 259,
+      "absence_rate": 0.07414829659318638,
+      "prior_mean_days_remaining": 35.902317880794705,
+      "prior_mean_days_absent": 36.73732718894009,
+      "remaining_valid_days_n": 3020,
+      "absent_valid_days_n": 217
+    },
+    {
+      "year": 2025,
+      "two_prior_year_firms": 3460,
+      "absent": 383,
+      "absence_rate": 0.11069364161849711,
+      "prior_mean_days_remaining": 34.97200138264777,
+      "prior_mean_days_absent": 37.265671641791045,
+      "remaining_valid_days_n": 2893,
+      "absent_valid_days_n": 335
+    },
+    {
+      "year": 2026,
+      "two_prior_year_firms": 3417,
+      "absent": 405,
+      "absence_rate": 0.11852502194907814,
+      "prior_mean_days_remaining": 34.849535382416015,
+      "prior_mean_days_absent": 34.8328611898017,
+      "remaining_valid_days_n": 2798,
+      "absent_valid_days_n": 353
+    }
+  ],
+  "procurement_groups": [
+    {
+      "year": 2024,
+      "exposure": "prior_recorded_government_award",
+      "value": false,
+      "n": 3098,
+      "absent": 235,
+      "absence_rate": 0.07585539057456424
+    },
+    {
+      "year": 2024,
+      "exposure": "prior_recorded_government_award",
+      "value": true,
+      "n": 395,
+      "absent": 24,
+      "absence_rate": 0.060759493670886074
+    },
+    {
+      "year": 2024,
+      "exposure": "prior_recorded_central_award",
+      "value": false,
+      "n": 3383,
+      "absent": 250,
+      "absence_rate": 0.07389890629618681
+    },
+    {
+      "year": 2024,
+      "exposure": "prior_recorded_central_award",
+      "value": true,
+      "n": 110,
+      "absent": 9,
+      "absence_rate": 0.08181818181818182
+    },
+    {
+      "year": 2025,
+      "exposure": "prior_recorded_government_award",
+      "value": false,
+      "n": 3069,
+      "absent": 350,
+      "absence_rate": 0.11404366243075921
+    },
+    {
+      "year": 2025,
+      "exposure": "prior_recorded_government_award",
+      "value": true,
+      "n": 391,
+      "absent": 33,
+      "absence_rate": 0.08439897698209718
+    },
+    {
+      "year": 2025,
+      "exposure": "prior_recorded_central_award",
+      "value": false,
+      "n": 3353,
+      "absent": 376,
+      "absence_rate": 0.11213838353713093
+    },
+    {
+      "year": 2025,
+      "exposure": "prior_recorded_central_award",
+      "value": true,
+      "n": 107,
+      "absent": 7,
+      "absence_rate": 0.06542056074766354
+    },
+    {
+      "year": 2026,
+      "exposure": "prior_recorded_government_award",
+      "value": false,
+      "n": 3017,
+      "absent": 382,
+      "absence_rate": 0.12661584355319855
+    },
+    {
+      "year": 2026,
+      "exposure": "prior_recorded_government_award",
+      "value": true,
+      "n": 400,
+      "absent": 23,
+      "absence_rate": 0.0575
+    },
+    {
+      "year": 2026,
+      "exposure": "prior_recorded_central_award",
+      "value": false,
+      "n": 3310,
+      "absent": 403,
+      "absence_rate": 0.12175226586102719
+    },
+    {
+      "year": 2026,
+      "exposure": "prior_recorded_central_award",
+      "value": true,
+      "n": 107,
+      "absent": 2,
+      "absence_rate": 0.018691588785046728
+    }
+  ]
+}

@@ -1,43 +1,13 @@
 import { assetSpec, projectSpec } from './enterprise-catalogue.js';
 import { CARGO_LABELS, enterpriseRandom, hourDate, monthKey, quarterIndex, type Asset, type CargoKind, type EnterpriseState, type MonthReport, type EnterpriseCall, type Terminal } from './enterprise-model.js';
+import {preferredRoute,priceResponse} from './enterprise-strategy.js';
 
-export const money = (n: number) => Math.round(n);
+export {money,event,month,post,spend,liquidateDeposits,queuePayable} from './enterprise-accounting.js';
+import {money,event,month,post,spend} from './enterprise-accounting.js';
 /** Original delivery date is immutable; later transfers must not restart a lease. */
 export const leaseDeliveryHour = (a: Asset) => a.orderedHour + assetSpec(a.model).leadDays * 24;
 export const clamp = (n: number, low: number, high: number) => Math.min(high, Math.max(low, n));
-export function terminal(s: EnterpriseState, id: string): Terminal { const t = s.terminals.find(t => t.id === id); if (!t) throw Error('作业区不存在。'); return t; }
-export function event(s: EnterpriseState, kind: string, title: string, detail = '', object = '') {
-  s.events.push({ id: ++s.eventSequence, hour: s.hour, kind, title, detail, object });
-  if (s.events.length > 1200) s.events.splice(0, s.events.length - 1200);
-}
-const monthKeys=new WeakMap<EnterpriseState,{hour:number;key:string}>();
-export function month(s: EnterpriseState): MonthReport {
-  const hour=Math.min(s.hour,s.horizon-1);
-  let cached=monthKeys.get(s);
-  if(!cached||cached.hour!==hour){cached={hour,key:monthKey(hour)};monthKeys.set(s,cached);}
-  const key=cached.key;
-  let m = s.months.at(-1);
-  if (!m || m.month !== key) { m = { month: key, revenue: 0, operating: 0, capital: 0, interest: 0, depreciation: 0, tax: 0, handled: 0, onTime: 0, generated: 0, energy: 0, emissions: 0, waiting: 0, rehandles: 0, cashEnd: s.cash, debtEnd: s.debt }; s.months.push(m); }
-  return m;
-}
-export function post(s: EnterpriseState, category: string, amount: number, cash: number, note: string) {
-  const a = money(amount), c = money(cash), m = month(s);
-  if (category === 'revenue') m.revenue += a;
-  else if (category === 'capital') m.capital += a;
-  else if (category === 'interest') m.interest += a;
-  else if (category === 'depreciation') m.depreciation += a;
-  else if (category === 'tax') m.tax += a;
-  else if (!['collection', 'loan', 'repay', 'inventory', 'disposal','prepaid'].includes(category)) m.operating += a;
-  s.cash += c;
-  const day = Math.floor(s.hour / 24);
-  const prior = s.ledger.slice(-36).find(e => Math.floor(e.hour / 24) === day && e.category === category && e.note === note);
-  if (prior) { prior.amount += a; prior.cash += c; } else s.ledger.push({ hour: s.hour, category, amount: a, cash: c, note });
-  m.cashEnd = s.cash; m.debtEnd = s.debt;
-}
-export function spend(s: EnterpriseState, amount: number, category: string, note: string) {
-  if (!Number.isFinite(amount) || amount < 0 || s.cash < amount) throw Error('可用现金不足，请调整规模、延期或安排融资。');
-  post(s, category, amount, -amount, note);
-}
+export function terminal(s: EnterpriseState, id: string): Terminal { const t=s.terminals.find(t=>t.id===id);if(!t)throw Error('作业区不存在。');return t; }
 export function bookValue(s: EnterpriseState, a: Asset) {
   if (a.status === 'retired' || a.ownership === 'leased') return 0;
   if (a.commissionedHour === null) return a.purchasePrice;
@@ -90,9 +60,11 @@ export function updateAssets(s: EnterpriseState) {
       else a.note = '等待配套：' + ({ none: '', rail: '轨道与铁路接口', grid: '供电扩容', automation: '自动化接口' }[spec.required]);
     }
     if (a.status === 'maintenance' && a.repairUntil !== null && a.repairUntil <= s.hour) {
-      a.status = 'active'; a.repairUntil = null; a.serviceHours = 0; a.health = Math.max(a.health, 92); a.batteryHealth = Math.max(a.batteryHealth, .85); a.note = '维修验收完成'; event(s, 'maintenance', spec.name + '恢复可用', a.id, a.id);
+      a.status = 'active'; a.repairUntil = null; a.serviceHours = 0; a.health = Math.max(a.health, a.overhauled?98:92); a.batteryHealth = Math.max(a.batteryHealth, a.overhauled?1:.85);
+      if(a.overhauled){const book=bookValue(s,a);a.oldAgeYears=Math.max(0,a.oldAgeYears-2);a.bookAtStart=book;a.commissionedHour=s.hour;a.overhauled=false;}
+      a.note = '维修验收完成'; event(s, 'maintenance', spec.name + '恢复可用', a.id, a.id);
     }
-    if (a.status === 'failed' && s.policy.maintenance === 'preventive' && technicians >= 1 && s.spareParts > 0 && s.cash > s.policy.reserveCash) {
+    if (a.status === 'failed' && technicians >= 1 && s.spareParts > 0 && s.cash > s.policy.reserveCash) {
       const fee = Math.round(spec.price * .0015); post(s, 'maintenance', fee + 4000, -fee, '按维修策略修复故障设备');
       s.spareParts--; technicians--; a.status = 'maintenance'; a.repairUntil = s.hour + spec.repairDays * 24; s.stats.maintenance++;
       event(s, 'maintenance', spec.name + '故障维修已排程', '领用备件并占用技术岗位；完成前保持停机。', a.id);
@@ -104,8 +76,9 @@ export function market(s: EnterpriseState) {
   if (q === s.lastMarketQuarter) return;
   s.lastMarketQuarter = q;
   for (const customer of s.customers) {
-    const late = customer.served ? customer.late / customer.served : 0;
-    customer.loyalty = clamp(customer.loyalty + (late < .15 ? 3 : -8), 35, 100);
+    const calls=new Set(s.calls.filter(c=>c.customerId===customer.id).map(c=>c.id)),due=s.lots.filter(l=>calls.has(l.callId)&&l.deadline<=s.hour&&l.deadline>s.hour-90*24);
+    const quantity=due.reduce((n,l)=>n+l.quantity,0),onTime=due.reduce((n,l)=>n+l.completed-l.lateUnits,0),rate=quantity?onTime/quantity:1;
+    customer.loyalty = clamp(customer.loyalty + (rate>=.92?3:rate>=.8?-2:-8)-Math.max(0,s.policy.tariff-1.2)*8,35,100);
   }
   const kinds: CargoKind[] = ['container', 'bulk', 'liquid', 'general', 'roro', 'passenger'];
   for (let i = 0; i < 3; i++) {
@@ -121,24 +94,30 @@ export function arrivals(s: EnterpriseState) {
   const day = Math.floor(s.hour / 24), at = day * 24;
   if (s.calls.some(c => c.id === 'call-' + day + '-T1')) return;
   const year = hourDate(s.hour).getUTCFullYear() - 2027;
-  const trend = s.config.scenario === 'growth' ? 1 + year * .18 : 1 + year * .045;
-  const season = 1 + .15 * Math.sin(day / 365 * 2 * Math.PI), tariff = clamp(1.5 - s.policy.tariff * .5, .65, 1.15);
+  const trend = s.config.scenario === 'growth' ? 1.15 + year * .18 : 1 + year * .045;
+  const season = 1 + .15 * Math.sin(day / 365 * 2 * Math.PI);
   const volume: Record<CargoKind, number> = { container: 420, bulk: 1300, liquid: 1450, general: 210, roro: 130, passenger: 320 };
   for (const [index, t] of s.terminals.entries()) {
     if (!t.enabled || t.goods !== 'container' && day % 2 === 1) continue;
     const customer = s.customers.find(c => c.goods === t.goods)!;
     const contract = s.contracts.find(c => c.accepted && c.customerId === customer.id && c.startHour <= at && c.endHour > at);
-    const random = enterpriseRandom(s.config.seed, 'demand-' + t.id, day), size = Math.max(20, Math.round(volume[t.goods] * trend * season * tariff * (.8 + random * .4) * customer.loyalty / 80 + (contract?.volume ?? 0)));
+    const random=enterpriseRandom(s.config.seed,'demand-'+t.id,day),organic=Math.max(20,Math.round(volume[t.goods]*trend*season*priceResponse(s,t.goods)*(.8+random*.4)*customer.loyalty/80)),extra=contract?.volume??0,size=organic+extra;
     const eta = at + 6 + index % 4 * 3, arrival = Math.max(at + 1, eta + Math.round(enterpriseRandom(s.config.seed, 'eta-' + t.id, day) * 6 - 2));
     const id = 'call-' + day + '-' + t.id, large = t.goods === 'container' && random > .68;
-    const c: EnterpriseCall = { id, terminalId: t.id, customerId: customer.id, name: ['东湾', '海联', '江运', '远航'][day % 4] + '-' + (day + 1) + t.id, goods: t.goods, eta, arrival, arrivedHour: null, berthedHour: null, workHour: null, departedHour: null, stage: 'announced', moveUntil: 0, plannedTerminal: null, contractId: contract?.id ?? null, length: large ? 310 : t.goods === 'passenger' ? 120 : 210, draft: large ? 13.8 : t.goods === 'passenger' ? 5 : 10, rows: large ? 22 : 16, importLot: id + '-I', exportLot: id + '-E', deadline: eta + 36, documents: documents(id), issue: enterpriseRandom(s.config.seed, 'papers-' + t.id, day) < .065, inspected: false, wait: { berth: 0, channel: 0, documents: 0, equipment: 0 }, price: contract?.price ?? Math.round(customer.rate * s.policy.tariff) };
+    const mega=['container','bulk'].includes(t.goods)&&(s.config.scenario==='growth'?day>=120:year>=2)&&random>.8;
+    const c: EnterpriseCall = { id, terminalId: t.id, customerId: customer.id, name: ['东湾', '海联', '江运', '远航'][day % 4] + '-' + (day + 1) + t.id, goods: t.goods, eta, arrival, arrivedHour: null, berthedHour: null, workHour: null, departedHour: null, stage: 'announced', moveUntil: 0, plannedTerminal: null, contractId: contract?.id ?? null, length: mega?360:large ? 310 : t.goods === 'passenger' ? 120 : 210, draft: mega?(t.goods==='container'?15.7:14.7):large ? 13.8 : t.goods === 'passenger' ? 5 : 10, rows: mega&&t.goods==='container'?24:large ? 22 : 16, importLot: id + '-I', exportLot: id + '-E', deadline: eta + 36, documents: documents(id), issue: enterpriseRandom(s.config.seed, 'papers-' + t.id, day) < .065, inspected: false, wait: { berth: 0, channel: 0, documents: 0, equipment: 0 }, price:Math.round((organic*customer.rate*s.policy.tariff+extra*(contract?.price??0))/size),contractShare:extra/size };
+    if(mega||t.constructionUntil>eta){const alternatives=s.terminals.filter(x=>x.goods===t.goods&&x.length>=c.length&&x.depth+1.6>=c.draft&&x.constructionUntil<=eta&&x.enabled);const assigned=alternatives.sort((a,b)=>s.calls.filter(c=>c.terminalId===a.id&&c.stage!=='departed').length-s.calls.filter(c=>c.terminalId===b.id&&c.stage!=='departed').length)[0];if(assigned)c.terminalId=assigned.id;else{s.management.missedDemand[t.goods]+=size;if(contract)contract.promised+=extra;event(s,'opportunity',mega?'大型船业务未承接':'施工期间业务未承接',t.name+'缺少当期可用的适配泊位；机会量'+size+CARGO_LABELS[t.goods].unit+'，合同增量承诺仍保留。',t.id);continue;}}
+    const destination=terminal(s,c.terminalId);
     s.calls.push(c);
     const incoming = Math.round(size * .6), outgoing = size - incoming;
     for (const flow of ['import', 'export'] as const) {
       const quantity = flow === 'import' ? incoming : outgoing;
-      s.lots.push({ connectionReady:0,id: flow === 'import' ? c.importLot : c.exportLot, callId: id, terminalId: t.id, goods: t.goods, flow, quantity, ship: flow === 'import' ? quantity : 0, apron: 0, yard: 0, land: flow === 'export' ? quantity : 0, completed: 0, lost: 0, quarantine: c.issue && flow === 'import', inspectionUntil: null, release: false, bonded: false, route: t.goods === 'liquid' ? 'pipeline' : s.policy.transport === 'balanced' ? t.rail ? 'rail' : 'road' : s.policy.transport, deadline: flow === 'export' ? c.deadline : c.deadline + 12, firstHour: flow==='export'?eta-6:eta, lastHour: s.hour, waitingUnitHours: 0, completedTimeSum:0,rehandleRemaining:0,lateUnits: 0, revenue: 0, storageFees: 0, rehandles: 0 });
+      const storageRequestHours=flow==='import'&&['container','general'].includes(t.goods)&&enterpriseRandom(s.config.seed,'warehouse-'+id,0)<.3?24:0;
+      const pickupHour=storageRequestHours?eta+36:0,bonded=storageRequestHours>0&&destination.bonded&&s.management.logisticsPlans[destination.id]?.warehousing==='bonded';
+      const route=s.policy.transport!=='balanced'?(t.goods==='liquid'?'pipeline':s.policy.transport==='rail'&&!destination.rail?'road':s.policy.transport):preferredRoute(s,destination,flow==='export'?eta-6:eta,quantity);
+      s.lots.push({ connectionReady:0,id: flow === 'import' ? c.importLot : c.exportLot, callId: id, terminalId: destination.id, goods: t.goods, flow, quantity, ship: flow === 'import' ? quantity : 0, apron: 0, yard: 0, land: flow === 'export' ? quantity : 0, completed: 0, lost: 0, quarantine: c.issue && flow === 'import', inspectionUntil: null, release: false, bonded, route, deadline: flow === 'export' ? c.deadline : c.deadline + 12, firstHour: flow==='export'?eta-6:eta, lastHour: s.hour, waitingUnitHours: 0, completedTimeSum:0,rehandleRemaining:0,lateUnits: 0, revenue: 0, storageFees: 0, rehandles: 0,pickupHour,storageRequestHours });
     }
-    if (contract) contract.promised += size;
+    if (contract) contract.promised += extra;
     s.stats.generated += size; month(s).generated += size;
   }
 }

@@ -1,8 +1,10 @@
+import {textDescriptions} from './text-lessons.js';
 import {POLICY_DATA as D} from './policy-evidence.js';
 import type {ResearchPage} from './research-lessons.js';
 import {researchPapers} from './research-literature.js';
 /** Public descriptions of current-page evidence. Teacher scripts are separate. */
 export const researchDescriptions:Record<string,string>={
+ ...textDescriptions,
  'study-map':'五个问题：授权怎样连接创造力；可持续战略与长期表现；Airbnb扩张与酒店月收入；咨询实施与工厂生产率；混合办公资格与员工离职。',
  'paper-catalog':'Zhang与Bartol，2010，AMJ，CFA/SEM；Eccles等，2014，Management Science，匹配；Zervas等，2017，JMR，面板差分；Bloom等，2013，QJE，现场实验与IV；Bloom等，2024，Nature，混合办公实验。',
  'paper-route':'每篇阅读顺序：完整题目与摘要→问题与资料→正文主要模型→估计结果→管理解释。围绕同一项摘要主张连续阅读。',
@@ -37,7 +39,7 @@ export const researchDescriptions:Record<string,string>={
 export function researchEvidenceText(page:ResearchPage){
  if(page.visual&&!researchDescriptions[page.visual])throw new Error('Missing research evidence: '+page.visual);
  const paper=page.abstract?researchPapers.find(p=>p.id===page.source):undefined;
- return [page.formula?'本页公式：'+page.formula:'',page.visual?researchDescriptions[page.visual]:'',
+ return [page.code?'本页代码：'+page.code:'',page.formula?'本页公式：'+page.formula:'',page.visual?researchDescriptions[page.visual]:'',
   paper?paper.title+'；'+paper.authors+'；'+paper.journal+' '+paper.year+'；DOI '+paper.doi+'。摘要中文提要：'+page.abstract!.paragraphs.join('；')+'。摘要位置：'+page.abstract!.locator:'',
   page.model?'本页模型：'+page.model.equations.join('；')+'。符号：'+page.model.symbols.map(s=>s.join('：')).join('；')+'。公式出处：'+page.model.provenance:'',
   page.table?page.table.headers.join(' / ')+'；'+page.table.rows.map(r=>r.join(' / ')).join('；'):''].filter(Boolean).join('\n');

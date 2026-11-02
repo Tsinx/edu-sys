@@ -1,0 +1,125 @@
+{
+  "version": "release-economic-mathematics-operators-2026-10-29",
+  "deck": "deck-economic-mathematics-2026-operators",
+  "counts": [
+    40,
+    59,
+    85,
+    60,
+    66,
+    64,
+    64,
+    64,
+    64,
+    107,
+    56,
+    56,
+    11,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    14,
+    10,
+    10,
+    10,
+    11,
+    14,
+    12
+  ],
+  "files": [
+    {
+      "path": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "bytes": 2997,
+      "sha256": "de36016170503e24e15d646a062438b4e6fb1161472e104d1440090abfdf55c1"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/slides.ts",
+      "bytes": 12843,
+      "sha256": "b90670f8baef1ab4db11e05d56b685fe8f12614e6e933472d58f2ae6ed67b066"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/index.ts",
+      "bytes": 1874,
+      "sha256": "26801b5c58e02f1ba59d21bed1e13f5d769faf618a84156d097b7e221e37f50e"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/types.ts",
+      "bytes": 7168,
+      "sha256": "472c05fb8dd5ea7a22c1aab0a352719e0977ad9d9b6e50764bc8f57b0f0e43ba"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/analysis-authoring.ts",
+      "bytes": 5035,
+      "sha256": "f8808be8364687f383b44ff94a932f2eaa437c9a6b14bb077e006c786d1832e8"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/analysis-exercises.ts",
+      "bytes": 37194,
+      "sha256": "9670e97f1662f106a440f6798b330cf6c85d35d6c2c41f05a36984b0383a2c77"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/lesson-12-lhopital.ts",
+      "bytes": 28218,
+      "sha256": "f71a435aba1b7a7491f59d9daee7fd8c338b2353cfb7d203616a2d3edad22728"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/next-lesson-plan.ts",
+      "bytes": 2007,
+      "sha256": "343d6c8d431924841ff5e926157e21f948d35a5764afefc8f6857fddc8e15a9a"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/v2/lesson-13.ts",
+      "bytes": 3193,
+      "sha256": "17beabb47fb8df8263dd13e88902475bf252b96250db8b7bb8ca139bc3f865c6"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/v2/lesson-14.ts",
+      "bytes": 3185,
+      "sha256": "864384d3e025e96d7d2c668be71fbae07db4c94797c66a6232dd1455a695da2d"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
+      "bytes": 18215,
+      "sha256": "58389798aa8ef18b242f61821953a26ceb04a74e75fa86faa0ad81de9024b223"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/EconomicPageNarrator.tsx",
+      "bytes": 3342,
+      "sha256": "05da2e182ee74965574845eb68fd0828cc7aa4ba7ce3284c8b756ed35fdff2d7"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/PresentationChrome.tsx",
+      "bytes": 5427,
+      "sha256": "ad29e1d22f5ca01d6d11282dcaf032c54596b3c188923ef37286be0f2ef275e4"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/economic-mathematics.css",
+      "bytes": 7528,
+      "sha256": "67026477cd31009fc17c88abba553e6bd0508d0edf56dc3fd226cfabf20c726a"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/limits.css",
+      "bytes": 5657,
+      "sha256": "dd82ba5f7c93c894eacb1db3b624983920296bb0eec0a287b587bf841764942a"
+    },
+    {
+      "path": "apps/teacher-web/src/economic-narration.tsx",
+      "bytes": 8193,
+      "sha256": "f5b31ce97cabb1f711041112ea681b3dbff061ffc8febd87735110ed7889789a"
+    },
+    {
+      "path": "docs/course/economic-mathematics-lessons-10-13-plan.md",
+      "bytes": 4041,
+      "sha256": "33a2caabe2a5dbbeb4d0e2ad9377d674b320c4464ea97a56bc94ca6d7d9c5ca9"
+    }
+  ]
+}

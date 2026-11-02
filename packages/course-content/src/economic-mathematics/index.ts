@@ -26,5 +26,26 @@ export * from './limit-mastery-exercises.js';
 export {derivativeAppendixNarration} from './derivative-topic-moved.js';
 export * from './analysis-model.js';
 export * from './analysis-exercises.js';
+export * from './operator-exercises.js';
+export * from './operator-model.js';
+export {OPERATOR_SUPPLEMENT_ROUTE} from './lesson-10-operators.js';
 export {meanValueLesson11Narration as lesson11Narration} from './lesson-11-mean-value.js';
-export {lhopitalLesson12Narration as lesson12Narration} from './lesson-12-lhopital.js';
+export {applicationsLesson12Narration as lesson12Narration} from './lesson-12-applications.js';
+export {shapeLesson13Narration as lesson13Narration} from './lesson-13-shape.js';
+export * from './shape-model.js';
+export * from './applications-exercises.js';
+
+export * from './homework-02.js';
+
+export {marginalLesson14Narration as lesson14Narration} from './lesson-14-marginal.js';
+export {elasticityLesson15Narration as lesson15Narration} from './lesson-15-elasticity.js';
+export * from './business-exercises.js';
+export * from './business-model.js';
+export * from './market-model.js';
+export * from './integral-model.js';
+export * from './integral-exercises.js';
+export {lesson16Narration} from './lesson-16-antiderivatives.js';
+export {lesson17Narration} from './lesson-17-substitution.js';
+export {lesson18Narration} from './lesson-18-integration-by-parts.js';
+export * from './integral-method-exercises.js';
+export * from './integral-method-model.js';

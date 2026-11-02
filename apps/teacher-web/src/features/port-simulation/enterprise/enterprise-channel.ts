@@ -15,7 +15,7 @@ export class EnterpriseChannel<Context=undefined>{
     if(this.pending)return Promise.reject(Error('正在完成上一项操作，请稍候；本次点击未重复执行。'));
     if(request.type==='command'&&request.command){
       const key=JSON.stringify(request.command),at=this.now();
-      if(this.lastCommand?.key===key&&at-this.lastCommand.at<600)return Promise.reject(Error('已收到这项操作，本次快速重复点击未再次执行。'));
+      if(request.command.kind!=='advance'&&this.lastCommand?.key===key&&at-this.lastCommand.at<600)return Promise.reject(Error('已收到这项操作，本次快速重复点击未再次执行。'));
       this.lastCommand={key,at};
     }else if(request.type==='create'||request.type==='restore')this.lastCommand=undefined;
     const id=++this.seq;

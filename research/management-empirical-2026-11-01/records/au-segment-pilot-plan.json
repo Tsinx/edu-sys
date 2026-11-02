@@ -1,0 +1,36 @@
+{
+  "recorded": "2026-11-01",
+  "stage": "frozen before first segment-persistence model and chronological holdout",
+  "question": "Does the organizational level of payment reporting retain persistent supplier-relevant variation?",
+  "source": "Actual 30 October 2026 register, unchanged original and extraction receipts retained",
+  "unit": "ABN by exactly normalized published segment name by calendar half-year",
+  "periods": ["2024-07-01/2024-12-31", "2025-01-01/2025-06-30", "2025-07-01/2025-12-31", "2026-01-01/2026-06-30"],
+  "primary_sample": [
+    "Latest parent report per valid ABN and period from existing audit",
+    "Unredacted AASB8 report with nonblank unique segment names within report",
+    "Each three-band distribution is finite, in [0,100], and sums to 100 within 0.020001 percentage points",
+    "All-zero segment distributions are nil, excluded from performance comparisons",
+    "Group and segment mean and percentiles nonnegative, median <= P80 <= P95",
+    "At least two valid active segments in each included group-period",
+    "Stable-segment primary analysis requires identical active segment keys across all four periods and all group and active segment metrics valid"
+  ],
+  "primary_outcome": "Published percentage of payment transactions discharged within 30 days, not late-relative-to-contract share",
+  "descriptive_statistics": ["Within-period segment range", "Unweighted segment-minus-group deviations", "Share of groups with persistent within-group variation"],
+  "primary_model": "next_segment_P30 - current_group_P30 = intercept + beta_group * (current_group_P30 - 50) + beta_local * (current_segment_P30 - current_group_P30)",
+  "benchmark": "Same model with beta_local omitted; both fit on the identical training rows",
+  "training": "First two consecutive half-year transitions; each group gets equal total weight and its segment transitions equal weight within group",
+  "holdout": "Third transition only, 2025H2 to 2026H1; no retuning based on held-out results",
+  "evaluation": "Group-equal mean absolute error primary; mean squared error secondary; paired differences averaged within ABN",
+  "inference": "ABN-clustered OLS sandwich for training coefficients and percentile block bootstrap of held-out group-level loss differences, fixed seed 20261101, 1999 draws",
+  "additional_predeclared_checks": [
+    "Simple current group P30 and current segment P30 persistence benchmarks",
+    "Report equal segment versus equal group weighting separately",
+    "Rounding tolerance 0.015001 and 0.050001 pp sensitivity",
+    "Exclude extreme P30 of 0 or 100 sensitivity",
+    "Leave one group out influence diagnostic",
+    "Contemporaneous local deviation association across adjacent periods, separately from forecasting",
+    "Check complete distributions against coordinate bounds; any unallocated share is only a conditional lower bound, not observed invoice weights"
+  ],
+  "interpretation": "Temporal diagnostic using a single revised snapshot; submission time is not publication time. No claimed real-time backtest, supplier behavior response, causal reform effect, or invoice-weighted population loss.",
+  "selection": "This plan uses no held-out outcomes or significance to choose features, period or primary metric; prior work inspected only schema and contemporaneous ranges."
+}

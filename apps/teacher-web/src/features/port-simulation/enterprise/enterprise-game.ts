@@ -1,6 +1,11 @@
+import {ENTERPRISE_HUBS} from './EnterpriseStrategyPanels';
 import { assetSpec, hourDate, hourLabel, type EnterpriseCommand, type EnterpriseView } from '@edu/port-simulation-core';
 
 export const ENTERPRISE_WORKSPACES = [
+  ...ENTERPRISE_HUBS.map(h=>({id:h.id,label:h.label,group:'经营管理',description:h.description})),
+  {id:'director',label:'巡港日程',group:'日常管理',description:'每月现场观察、日常简报与重大事故到场'},
+  {id:'cranes',label:'岸桥岗位分配',group:'日常管理',description:'泊位基础保障、工作量比例与真实人员缺口'},
+  {id:'trends',label:'经营趋势与日结',group:'统计与记录',description:'按日折线、资金、等待、履约和设备运行历史'},
   {id:'management',label:'经营方针',group:'日常管理',description:'选择目标、日常授权、维护与异常升级规则'},
   {id:'yard',label:'堆场规划',group:'日常管理',description:'进口出口分区、ABC分类、共享与动态货位'},
   {id:'review',label:'经营周报与收获',group:'统计与记录',description:'交付、成本、翻箱、同条件试验与经营足迹'},
@@ -14,7 +19,6 @@ export const ENTERPRISE_WORKSPACES = [
   {id:'staff',label:'人员与排班',group:'资源与投资',description:'班次覆盖、招聘、技能培训与人员安排'},
   {id:'energy',label:'能源与环境',group:'资源与投资',description:'供电、岸电、排放与风险保障'},
   {id:'digital',label:'数字协同',group:'资源与投资',description:'接口、资料协同与共享条件'},
-  {id:'market',label:'客户与合同',group:'经营与保障',description:'报价、季度机会与履约责任'},
   {id:'finance',label:'财务与资金',group:'经营与保障',description:'现金、借款、投资、利润与月报'},
   {id:'emergency',label:'风险与恢复',group:'经营与保障',description:'核查、隔离、备用、修复与恢复确认'},
   {id:'analysis',label:'经营统计',group:'统计与记录',description:'分货种绩效、约束与同条件对照'},
@@ -24,9 +28,9 @@ export const ENTERPRISE_WORKSPACES = [
   {id:'handbook',label:'经营手册',group:'统计与记录',description:'设备参数、模型规则与统计口径'},
   {id:'learning',label:'教练与训练',group:'统计与记录',description:'从经营规则开始，逐步读懂港口与长期决策'},
 ] as const;
-export const ENTERPRISE_MAIN_WORKSPACES=new Set(['management','yard','staff','energy','technology','market','review','storage','learning','tasks']);
+export const ENTERPRISE_MAIN_WORKSPACES=new Set(['operations','resources','investment','market','funds','reports']);
 export type EnterpriseWorkspace = typeof ENTERPRISE_WORKSPACES[number]['id'];
-export const ENTERPRISE_COMMAND_LABELS:Record<EnterpriseCommand['kind'],string>={advance:'推进经营',policy:'生产规则','management-plan':'经营方针','yard-plan':'堆场规则','staff-plan':'应用班表','incident-plan':'授权处置','order-asset':'设备订购','assign-asset':'设备调拨',maintain:'设备检修',dispose:'设备退出',project:'工程开工',hire:'人员招聘',staff:'班次调整',train:'技能培训','release-staff':'人员退出',berth:'泊位计划',document:'资料核对',inspect:'货批核查',route:'接续路径','accept-contract':'承接合同',respond:'现场处置',loan:'取得借款',repay:'偿还本金',supplies:'采购补给',governance:'经营协议',note:'个人复盘',seal:'封存记录'};
+export const ENTERPRISE_COMMAND_LABELS:Record<EnterpriseCommand['kind'],string>={'finance-plan':'资金规则','redeem-deposits':'取回定存','settle-payables':'支付到期款',restructure:'债务重组',advance:'推进经营',policy:'生产规则','management-plan':'经营方针','yard-plan':'堆场规则','logistics-plan':'接续政策','staff-plan':'应用班表','incident-plan':'授权处置','order-asset':'设备订购','assign-asset':'设备调拨',maintain:'设备检修',dispose:'设备退出',project:'工程开工',hire:'人员招聘',staff:'班次调整',train:'技能培训','release-staff':'人员退出',berth:'泊位计划',document:'资料核对',inspect:'货批核查',route:'接续路径','accept-contract':'承接合同',respond:'现场处置',loan:'取得借款',repay:'偿还本金',supplies:'采购补给',governance:'经营协议',note:'个人复盘',seal:'封存记录'};
 export function workspaceLabel(id: string) { return ENTERPRISE_WORKSPACES.find(w=>w.id===id)?.label ?? '港口现场'; }
 
 /** Only published plans are used. This is an observation point, not a forecast of hidden arrivals. */
@@ -36,6 +40,8 @@ export function nextEnterpriseObservation(v: EnterpriseView) {
   for(const c of v.calls){if(c.stage==='announced')add(c.eta,c.name+'预计到港');if(c.moveUntil>v.hour)add(c.moveUntil,c.name+'通行节点');for(const d of Object.values(c.documents))if(d.status==='submitted')add(d.readyHour+1,c.name+'回执核对');}
   for(const a of v.assets){if(a.status==='ordered')add(a.readyHour+1,'设备交付验收');if(a.repairUntil!==null)add(a.repairUntil+1,'设备检修验收');}
   for(const p of v.projects)if(p.status==='building')add(p.completes+1,'建设项目验收');
+  for(const d of v.finance.deposits)add(d.matures,'定存到期');
+  for(const l of v.finance.loans){add(l.nextInterestDue,'贷款付息');for(const i of l.installments)if(i.paid<i.principal)add(i.due,'贷款还本');}
   for(const c of v.crews)if(c.trainingUntil>v.hour)add(c.trainingUntil+1,'班组培训验收');
   for(const i of v.incidents)if(i.resolves!==null)add(i.resolves+1,'技术修复验收');
   const d=hourDate(v.hour);add(v.hour+(24-d.getUTCHours()),'生产日复核');
@@ -48,7 +54,7 @@ export function berthCompatibility(v: EnterpriseView, callId: string, terminalId
   if(!c||!t)return '对象已不在当前现场';
   if(c.goods!==t.goods)return '货种不匹配';
   if(c.length>t.length)return '岸线长度不足';
-  if(c.draft>t.depth)return '水深不足';
+  if(c.draft>t.depth+1.6)return '水深与潮位条件不足';
   if(!t.enabled)return '作业区未开放';
   return null;
 }
@@ -79,6 +85,7 @@ export function enterpriseDecisionFeedback(before: EnterpriseView, after: Enterp
   }else if(command.kind==='berth'){title='泊位计划已登记';workspace='ships';changes.push('计划不预占泊位；实际到达、有效手续、航道与拖轮仍决定能否靠泊');
   }else if(command.kind==='policy'){title='后续运行策略已更新';workspace='dispatch';changes.push('已发生的业务保持原记录，新策略用于后续执行');
   }else if(command.kind==='respond'){title='应急处置已记录';workspace='emergency';changes.push('核对事件实际状态；隔离、技术完成和确认恢复分别记录');
+  }else if(['finance-plan','redeem-deposits','settle-payables','restructure'].includes(command.kind)){title='资金安排已记录';workspace='finance';changes.push('本金、利息和到期责任分别记账，实际缺口继续保留');
   }else if(command.kind==='loan'||command.kind==='repay'){title=command.kind==='loan'?'借款已到账':'本金已偿付';workspace='finance';changes.push('融资与偿还本金不计为经营收入或经营利润');
   }else if(['maintain','dispose','assign-asset'].includes(command.kind)){workspace='assets';title='设备安排已记录';}
   return {title,message:after.result.message,changes,workspace};

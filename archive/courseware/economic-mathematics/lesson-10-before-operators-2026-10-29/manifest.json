@@ -1,0 +1,115 @@
+{
+  "deckId": "deck-economic-mathematics-2026-differential-rules",
+  "versionId": "release-economic-mathematics-differential-rules-2026-10-26",
+  "counts": [
+    40,
+    59,
+    85,
+    60,
+    66,
+    64,
+    64,
+    64,
+    64,
+    75,
+    56,
+    56,
+    11,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    14,
+    10,
+    10,
+    10,
+    11,
+    14,
+    12
+  ],
+  "files": [
+    {
+      "path": "packages/course-content/src/economic-mathematics/lesson-10-differentials.ts",
+      "sha256": "21d3fdabcc1c6234b63dde758ed516027a6999a220d990f9df369df909557497"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/differential-rules-pages.ts",
+      "sha256": "bf062726485f37e843e17d0187f52ecde528f8ad427e886f45845a19c1f9b65b"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/differentiation-authoring.ts",
+      "sha256": "ef5d629303bfad89406cc76be4756d3ddd0c8385fdcd68db4988acdd0d9ab08c"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/differentiation-exercises.ts",
+      "sha256": "a65efd7a5ac0168da870df2a3029ea26a7ef045c0b5d440a1e06ef90629fd946"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/differentiation-written-exercises.ts",
+      "sha256": "5a5b7e06f9fccbc72bbc2b52220f346420f8d72ec7991388f286164c54f0764a"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "sha256": "5982f8a9a0a19b21397b4c709517e5b136c22d6bd7a0950282bb94c4dfaaacdc"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/slides.ts",
+      "sha256": "a062c180ca6933d4fb1ad99d922bb06caaa6ad9c65a0be5e04efd992ae20889b"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/index.ts",
+      "sha256": "6bc335c622646042a9526c38dee85b368f59c8fc50066020ebfd4bcad06da622"
+    },
+    {
+      "path": "apps/teacher-web/src/economic-narration.tsx",
+      "sha256": "e3054a994b69d5b6f86f770a971106deaf0c9d68628683083dbf9b3517d47be9"
+    },
+    {
+      "path": "scripts/prepare-economic-differential-rules.mjs",
+      "sha256": "060e4a7bd79b2960d322c1d4d81ac50f464ce56f5d908d5b989914b836671b26"
+    },
+    {
+      "path": "docs/course/economic-mathematics-lesson10-script.md",
+      "sha256": "1e23bdb19818ff788d52b2cec345f737b5eff78a0bf16cde4e9df5462351764b"
+    },
+    {
+      "path": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson10-teacher.html",
+      "sha256": "a19e4e4fe02ad2cf3fba226cdd2573969cad143db73bdaad6585ee2b68c25335"
+    },
+    {
+      "path": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson10-worksheet.html",
+      "sha256": "d3031b11a2e10832cd156a14c4dbd0e9c3a023e95cb9e0b1fbf2d4f587d0a43d"
+    },
+    {
+      "path": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson10-script.html",
+      "sha256": "cbbe171a0e31f6e684755628c061bc89b77e92916d5eee58bd2e96febb57497e"
+    },
+    {
+      "path": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson10-rules-worksheet.html",
+      "sha256": "63c98a6a09925d929de462d50a9162e869ff6a0405cf0476a09185b45ce842c6"
+    },
+    {
+      "path": "packages/course-content/src/economic-mathematics/types.ts",
+      "sha256": "d003990b03fbcbe009bcd6222ba9d6dd72c8dc0a5d86ae61c2fcc86d51a99e41",
+      "source": "HEAD at the initially clean checkout"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
+      "sha256": "b2dbea7dcd1edd07ec9c7ce2d040baf46f641bbf7e483652945b4c4c6dc1d05c",
+      "source": "HEAD at the initially clean checkout"
+    },
+    {
+      "path": "apps/teacher-web/src/features/economic-mathematics/PresentationChrome.tsx",
+      "sha256": "1304f6de148a5f379461ac2e07679299c9f17124a067d55c5dcbf997e7fd9bf0",
+      "source": "HEAD at the initially clean checkout"
+    }
+  ]
+}

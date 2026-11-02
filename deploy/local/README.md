@@ -18,7 +18,7 @@
 | 本地入口 | 转发目标 | 用途 |
 | --- | --- | --- |
 | `https://localhost/api/*` | `http://127.0.0.1:4300` | API、课堂事件和 AI 流式回复 |
-| `https://localhost/*` | `http://127.0.0.1:5173` | 网页、资源、Vite HMR WebSocket |
+| `https://localhost/*` | 启动器选中的网页端口，默认 `http://127.0.0.1:5173` | 网页、资源、Vite HMR WebSocket |
 | `https://localhost/openavatarchat-runtime/*` | Vite 的现有 8282 代理 | 按需启动的 LAM |
 | `http://127.0.0.1:2020` | 项目 Caddy 管理端口 | 仅供脚本重载和停止 |
 
@@ -38,6 +38,9 @@ HTTPS 调试不切换到校园生产模式，也不导入服务器账号、学�
 .\scripts\caddy-dev.ps1 reload
 .\scripts\caddy-dev.ps1 stop
 ```
+
+若教学网页因端口占用改在5174运行，单独启动或重载Caddy时传入
+`-WebPort 5174`；一键启动器会自动传递实际端口。
 
 `start` 对已有项目进程执行配置重载；`stop` 只停止此项目记录且核对过身份的 Caddy，
 保留 API 和 Vite。端口 80、443 或 2020 被其他服务占用时会报错并保留原服务。

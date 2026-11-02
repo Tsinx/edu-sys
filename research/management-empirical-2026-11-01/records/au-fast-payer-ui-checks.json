@@ -1,0 +1,27 @@
+{
+  "observed": "2026-11-01",
+  "page": "https://register.paymenttimes.gov.au/fast.html",
+  "dashboard_updated": "01/11/26",
+  "method": "Two focused manual UI searches in the official embedded list; no endpoint extraction or full-list collection",
+  "home_total_current_entities": 122,
+  "cases": [
+    {
+      "business_name": "COG FINANCIAL SERVICES LIMITED",
+      "abn": "58100854788",
+      "actual_list_entry_observed": true,
+      "second_qualifying_report_p95_days": 20,
+      "displayed_small_business_procurement_percent": 84.89,
+      "screenshot": "records/au-fast-payer-cog-page.jpg"
+    },
+    {
+      "business_name": "Suncorp Group Limited",
+      "abn": "66145290124",
+      "actual_list_entry_observed": true,
+      "second_qualifying_report_p95_days": 20,
+      "displayed_small_business_procurement_percent": 38.72,
+      "screenshot": "records/au-fast-payer-suncorp-page.jpg",
+      "ui_text": "records/au-fast-payer-suncorp-ui.txt"
+    }
+  ],
+  "distinctions": "These two actual statuses are separately verified from computed numeric eligibility. No claim is made that other calculated candidates are actually designated, that a segment is itself a legal entity, or that any company made a misleading public representation."
+}

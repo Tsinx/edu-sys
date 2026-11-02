@@ -1,0 +1,685 @@
+{
+  "schema": "port-enterprise-finance-verification/1",
+  "verifiedAt": "2026-11-01T02:45:03.239445+00:00",
+  "clientDate": "2026-10-31",
+  "scope": "Local single-player enterprise finance 4.0 and guided semester 6. Synthetic test records only; no campus deployment or real student grade changes.",
+  "rules": {
+    "engine": "port-enterprise/4.0",
+    "operations": "port-operations/4.0",
+    "catalogue": "port-assets/3.0",
+    "demand": "port-market/2.0",
+    "finance": "port-finance/4.0",
+    "indicators": "port-enterprise-score/4.0"
+  },
+  "teaching": "port-enterprise-teaching/6",
+  "teachingTasks": 38,
+  "tests": {
+    "regression": [
+      {
+        "log": "output/port-enterprise-finance-20261031/core-all-final.log",
+        "pass": 197,
+        "fail": 0
+      },
+      {
+        "log": "output/port-enterprise-finance-20261031/web-final-verified.log",
+        "pass": 42,
+        "fail": 0
+      },
+      {
+        "log": "output/port-enterprise-finance-20261031/api-final-verified.log",
+        "pass": 6,
+        "fail": 0
+      }
+    ],
+    "totalDistinct": 245,
+    "strengthenedHandoverRecheck": {
+      "log": "output/port-enterprise-finance-20261031/finance-handover-final.log",
+      "pass": 15,
+      "fail": 0
+    },
+    "typechecks": [
+      "port-simulation-core",
+      "platform-api",
+      "teacher-web"
+    ],
+    "viteProductionBuild": true,
+    "portableBundle": true,
+    "diffCheck": true
+  },
+  "financialRules": {
+    "reserveDays": [
+      15,
+      30,
+      60
+    ],
+    "depositDays": [
+      0,
+      30,
+      90
+    ],
+    "rates": {
+      "demand": 0.003,
+      "deposit30": 0.015,
+      "deposit90": 0.02,
+      "project": 0.065,
+      "working": 0.075,
+      "late": 0.12
+    },
+    "projectTermsMonths": [
+      12,
+      24,
+      36
+    ],
+    "workingTermDays": 90,
+    "paymentPeriodDays": 30,
+    "projectOriginationFee": 0.005,
+    "graceDays": 14,
+    "payrollEnergyHaltHours": 24,
+    "newLoanFreezeArrearsDays": 7,
+    "guidedUntilHours": 4344,
+    "guidedPlan": {
+      "reserveDays": 30,
+      "depositDays": 30,
+      "creditLimit": 5000000
+    },
+    "noNegativeCash": true,
+    "interestBaseNetOfDebtAndLiabilities": true,
+    "borrowBlockedWithDeposits": true,
+    "automaticFacilityNoMaturityExtension": true,
+    "noAutomaticPrincipalRefinance": true,
+    "oneRestructureFee": 0.01,
+    "oneRestructureRateIncrease": 0.01
+  },
+  "scenarios": [
+    {
+      "name": "cash-0-1y",
+      "config": {
+        "seed": 20261031,
+        "years": 1,
+        "scenario": "balanced",
+        "mode": "practice"
+      },
+      "hour": 8760,
+      "outcome": "completed",
+      "profit": 82267688,
+      "cash": 109053874,
+      "deposits": 0,
+      "debt": 13333328,
+      "unpaid": 0,
+      "depositInterest": 0,
+      "demandInterest": 150640,
+      "loanInterest": 1098173,
+      "principalPaid": 6666672,
+      "forfeited": 0,
+      "loans": 1,
+      "months": 12,
+      "preSeal": "b175516b6adf5d3b622f98d8c46e724844583d7795009fd4551092aff8cd03a2",
+      "hash": "fd6492b780e8b9f6ef9936d4a1dddac53cdd61652f3eaa04bcf2e5989c48c3cd"
+    },
+    {
+      "name": "cash-30-1y",
+      "config": {
+        "seed": 20261031,
+        "years": 1,
+        "scenario": "balanced",
+        "mode": "practice"
+      },
+      "hour": 8760,
+      "outcome": "completed",
+      "profit": 82731726,
+      "cash": 109517781,
+      "deposits": 0,
+      "debt": 13333328,
+      "unpaid": 0,
+      "depositInterest": 683900,
+      "demandInterest": 14276,
+      "loanInterest": 1098173,
+      "principalPaid": 6666672,
+      "forfeited": 0,
+      "loans": 1,
+      "months": 12,
+      "preSeal": "4e19ecf73b825ccf9f4c964dc6d99d33df5be29ed7a06fad3de45aeadfd3722d",
+      "hash": "779b419a808eac9d18346032319dc5b5d44d8a2c979f8d68c24c636cdc3d746b"
+    },
+    {
+      "name": "cash-90-1y",
+      "config": {
+        "seed": 20261031,
+        "years": 1,
+        "scenario": "balanced",
+        "mode": "practice"
+      },
+      "hour": 8760,
+      "outcome": "completed",
+      "profit": 82827462,
+      "cash": 109635747,
+      "deposits": 0,
+      "debt": 13333328,
+      "unpaid": 0,
+      "depositInterest": 791383,
+      "demandInterest": 32350,
+      "loanInterest": 1098173,
+      "principalPaid": 6666672,
+      "forfeited": 0,
+      "loans": 1,
+      "months": 12,
+      "preSeal": "6a1eda2559e43dfe3cb1d5800e3c8e1e46538769bbbf3a3eede8cebc50298c2f",
+      "hash": "2b6733220e387b7548e0d0879d507278dee2513142bb8ec9a0180074b50b7681"
+    },
+    {
+      "name": "working-loan-1y",
+      "config": {
+        "seed": 20261031,
+        "years": 1,
+        "scenario": "balanced",
+        "mode": "practice"
+      },
+      "hour": 8760,
+      "outcome": "completed",
+      "profit": 82156960,
+      "cash": 108994439,
+      "deposits": 0,
+      "debt": 13333328,
+      "unpaid": 0,
+      "depositInterest": 0,
+      "demandInterest": 150417,
+      "loanInterest": 1190638,
+      "principalPaid": 11666672,
+      "forfeited": 0,
+      "loans": 2,
+      "months": 12,
+      "preSeal": "380128e44835da778828687fc57a99344d31abfd034500e172548a674bcf84ae",
+      "hash": "9a6a589b87e10cc75bbf89c6059cd8c67eb535ebf65a936a85ebd43bf9988b7b"
+    },
+    {
+      "name": "cash-exhaustion-none",
+      "config": {
+        "seed": 20261031,
+        "years": 1,
+        "scenario": "balanced",
+        "mode": "practice"
+      },
+      "hour": 336,
+      "outcome": "bankrupt",
+      "profit": -816356,
+      "cash": 0,
+      "deposits": 0,
+      "debt": 20000000,
+      "unpaid": 487813,
+      "depositInterest": 0,
+      "demandInterest": 0,
+      "loanInterest": 49863,
+      "principalPaid": 0,
+      "forfeited": 0,
+      "loans": 1,
+      "months": 1,
+      "preSeal": "16d90a3f8f383c95369de58af0f3dbbf1948456f9ddb695101f56672000a3291",
+      "hash": "821ee118c44f87360154db3d3dd31b37d9df462a9025084ea3b23e654a31a867"
+    },
+    {
+      "name": "cash-exhaustion-approved",
+      "config": {
+        "seed": 20261031,
+        "years": 1,
+        "scenario": "balanced",
+        "mode": "practice"
+      },
+      "hour": 8760,
+      "outcome": "completed",
+      "profit": 11230222,
+      "cash": 14484030,
+      "deposits": 0,
+      "debt": 13333328,
+      "unpaid": 0,
+      "depositInterest": 0,
+      "demandInterest": 109,
+      "loanInterest": 1175804,
+      "principalPaid": 11666672,
+      "forfeited": 0,
+      "loans": 2,
+      "months": 12,
+      "preSeal": "27521fd04fca3e64c696d88b196ec5163ec2b0638f91da50bd9791a8cdb63665",
+      "hash": "7f7ba272dea38b064eda44d65460c1b8b72cb6347bde42a9c1b1312a43cedbce"
+    },
+    {
+      "name": "cash-exhaustion-manual",
+      "config": {
+        "seed": 20261031,
+        "years": 1,
+        "scenario": "balanced",
+        "mode": "practice"
+      },
+      "hour": 2520,
+      "outcome": "bankrupt",
+      "profit": -2664909,
+      "cash": 0,
+      "deposits": 0,
+      "debt": 21473075,
+      "unpaid": 3872264,
+      "depositInterest": 0,
+      "demandInterest": 0,
+      "loanInterest": 463762,
+      "principalPaid": 3526925,
+      "forfeited": 0,
+      "loans": 2,
+      "months": 4,
+      "preSeal": "501e6fa7ae84fa82f020cf7f3458eb67cfed31f5b2e527b5f59bf0486ec5ff45",
+      "hash": "192fef460dcbe8bea9db9bb9de67bdc5bdf6054d53496c7c84bbf96368d6b416"
+    },
+    {
+      "name": "long-3y",
+      "config": {
+        "seed": 20261031,
+        "years": 3,
+        "scenario": "balanced",
+        "mode": "practice"
+      },
+      "hour": 26304,
+      "outcome": "completed",
+      "profit": 278002800,
+      "cash": 324558689,
+      "deposits": 0,
+      "debt": 0,
+      "unpaid": 0,
+      "depositInterest": 6953047,
+      "demandInterest": 58857,
+      "loanInterest": 1976711,
+      "principalPaid": 20000000,
+      "forfeited": 0,
+      "loans": 1,
+      "months": 36,
+      "preSeal": "4e7c7e257687fd3c924c52a949fe5e516249b88d9e9bbc154d2d7bd210ee1c00",
+      "hash": "624a865d717be69682c7c05fc722f0d63682b7b30fbe0cd0fe006ba376d0e4be"
+    },
+    {
+      "name": "long-5y",
+      "config": {
+        "seed": 20261031,
+        "years": 5,
+        "scenario": "balanced",
+        "mode": "practice"
+      },
+      "hour": 43824,
+      "outcome": "completed",
+      "profit": 475875507,
+      "cash": 555598656,
+      "deposits": 0,
+      "debt": 0,
+      "unpaid": 0,
+      "depositInterest": 25194845,
+      "demandInterest": 331499,
+      "loanInterest": 1976711,
+      "principalPaid": 20000000,
+      "forfeited": 0,
+      "loans": 1,
+      "months": 60,
+      "preSeal": "532b1be65e7c302840de2af1989b026109e53d3d17ce31f40d4bcb8f1783e95d",
+      "hash": "3522690b4b6ce60bf6118f1369a0ec3c4e077a24ad0c5e550b9f8e86185273b9"
+    },
+    {
+      "name": "guided-semester-default",
+      "config": {
+        "seed": 20261025,
+        "years": 3,
+        "scenario": "balanced",
+        "mode": "practice",
+        "tutorial": true
+      },
+      "hour": 4344,
+      "outcome": "operating",
+      "profit": 45094449,
+      "cash": 15454647,
+      "deposits": 41810000,
+      "debt": 16666664,
+      "unpaid": 0,
+      "depositInterest": 112994,
+      "demandInterest": 2303,
+      "loanInterest": 599543,
+      "principalPaid": 3333336,
+      "forfeited": 0,
+      "loans": 1,
+      "months": 6,
+      "preSeal": "3188cba79b6e284678792b3647f3ac3ae32b22c0356d0f67ee54807d3035c4f4",
+      "hash": "ac20d387cc2303b7612adaa02054a62812f637399a1401b162fad7b2a42e321d"
+    },
+    {
+      "name": "guided-semester-alternative",
+      "config": {
+        "seed": 20261025,
+        "years": 3,
+        "scenario": "balanced",
+        "mode": "practice",
+        "tutorial": true
+      },
+      "hour": 4344,
+      "outcome": "operating",
+      "profit": 37626006,
+      "cash": 15886792,
+      "deposits": 35030000,
+      "debt": 16666664,
+      "unpaid": 0,
+      "depositInterest": 105027,
+      "demandInterest": 1867,
+      "loanInterest": 599543,
+      "principalPaid": 3333336,
+      "forfeited": 0,
+      "loans": 1,
+      "months": 6,
+      "preSeal": "f2179ef5127deb932394a4ede70048dfc5b71ad6d8a1f20fe421109806446b7c",
+      "hash": "bb84fdbf9e011a251dea91ab84e3099f763b153cac2d9236ce1bb152ef094af8"
+    }
+  ],
+  "browser": {
+    "receipt": "output/port-enterprise-finance-20261031/browser-finance-receipt.json",
+    "completedSemesterTaskCount": 38,
+    "semesterHandoverHour": 4344,
+    "autonomousRuleChangeAndSealHour": 4345,
+    "independentReplay": {
+      "passed": true,
+      "results": [
+        {
+          "file": "browser-cash-transactions-record.json",
+          "hour": 24,
+          "cash": 32313495,
+          "deposits": 0,
+          "debt": 20500000,
+          "unpaid": 0,
+          "interestIncome": 97,
+          "principalPaid": 500000,
+          "restructured": false,
+          "hash": "2fbd2727142fb6a71362f3b2dee4e9c962a8d49567701d7bd8613123dcbd93bb",
+          "outcome": "healthy"
+        },
+        {
+          "file": "browser-distress-hour1-record.json",
+          "hour": 1,
+          "cash": 0,
+          "deposits": 0,
+          "debt": 20000000,
+          "unpaid": 9238,
+          "interestIncome": 0,
+          "principalPaid": 0,
+          "restructured": false,
+          "hash": "95fb52f0d75845cbfd389143971071813ae40809260cab5333e7eafec0c4ac21",
+          "outcome": "distress"
+        },
+        {
+          "file": "browser-rescue-record.json",
+          "hour": 1,
+          "cash": 4990762,
+          "deposits": 0,
+          "debt": 25000000,
+          "unpaid": 0,
+          "interestIncome": 0,
+          "principalPaid": 0,
+          "restructured": false,
+          "hash": "1a2dadb51068937c9da06711810a48d4606aaebb39742551e1f8a04960536295",
+          "outcome": "healthy"
+        },
+        {
+          "file": "browser-bankruptcy-package.json",
+          "hour": 336,
+          "cash": 0,
+          "deposits": 0,
+          "debt": 20000000,
+          "unpaid": 480439,
+          "interestIncome": 0,
+          "principalPaid": 0,
+          "restructured": false,
+          "hash": "83f759019d3053f61edaa2c4f9988de8c85fb8325de730cfdbd00d8dd717777d",
+          "outcome": "bankrupt"
+        },
+        {
+          "file": "browser-semester-record.json",
+          "hour": 4345,
+          "cash": 15866313,
+          "deposits": 41570000,
+          "debt": 16666664,
+          "unpaid": 0,
+          "interestIncome": 113454,
+          "principalPaid": 3333336,
+          "restructured": false,
+          "hash": "373397358267962240c7d49c81f86e8b1cec8038d6f57c3d3decced9bfae6b98",
+          "outcome": "healthy"
+        },
+        {
+          "file": "browser-semester-package.json",
+          "hour": 4345,
+          "cash": 15866313,
+          "deposits": 41570000,
+          "debt": 16666664,
+          "unpaid": 0,
+          "interestIncome": 113454,
+          "principalPaid": 3333336,
+          "restructured": false,
+          "hash": "373397358267962240c7d49c81f86e8b1cec8038d6f57c3d3decced9bfae6b98",
+          "outcome": "operating"
+        }
+      ]
+    },
+    "bankruptcy": {
+      "hour": "336",
+      "alert": "经营失败 · 破产复盘 · 距14日宽限结束0日\n\n到期付款缺口持续14日，宽限期内未完成偿付或纾困。 经营时钟已停在2027-01-15 00:00；资产、欠款和业务记录继续保留。",
+      "advanceDisabled": true
+    },
+    "exitLock": {
+      "hour": "0",
+      "loanForm": false,
+      "options": [
+        [
+          "30"
+        ],
+        [
+          "30"
+        ],
+        [
+          "5000000"
+        ]
+      ]
+    },
+    "handoverOptions": [
+      {
+        "options": [
+          "15",
+          "30",
+          "60"
+        ],
+        "value": "30"
+      },
+      {
+        "options": [
+          "0",
+          "30",
+          "90"
+        ],
+        "value": "30"
+      },
+      {
+        "options": [
+          "0",
+          "5000000",
+          "10000000"
+        ],
+        "value": "5000000"
+      }
+    ],
+    "narrow": {
+      "canvas": 1,
+      "card": {
+        "height": 259.328125,
+        "width": 320,
+        "x": 12,
+        "y": 497.8125
+      },
+      "height": 844,
+      "hour": "0",
+      "overflow": false,
+      "target": {
+        "height": 42,
+        "width": 166,
+        "x": 39,
+        "y": 428.8125
+      },
+      "width": 390
+    },
+    "pageFullscreenContinuity": true,
+    "screenFullscreenAX": {
+      "observedButton": "退出屏幕全屏 [pressed]",
+      "hour": "4345",
+      "canvas": 1,
+      "continuity": true
+    },
+    "fiveYearRestoreHour": 43824,
+    "readOnlyDoesNotOverwriteLiveRecord": true,
+    "consoleErrors": [],
+    "additionalIndependentReplay": {
+      "passed": true,
+      "results": [
+        {
+          "file": "browser-restructure-record.json",
+          "hour": 1,
+          "cash": 0,
+          "debt": 20000000,
+          "unpaid": 209238,
+          "restructured": true,
+          "forfeitedInterest": 0,
+          "hash": "d8d7b18771b4a23e0cfc64959f8c7ee52d1bc21a9c77a6510e28c3c818c7f46e"
+        },
+        {
+          "file": "browser-redemption-record.json",
+          "hour": 48,
+          "cash": 31681657,
+          "debt": 20000000,
+          "unpaid": 0,
+          "restructured": false,
+          "forfeitedInterest": 482,
+          "hash": "3e0761d3f50e85fdf28c11e0e437d6919754b2c9d3f6e0f44f27c695874cc273"
+        }
+      ]
+    },
+    "restructureOneUseObserved": true,
+    "preciseInterestReceipt": "已到账活期利息97元、定存利息0元；提前取回放弃的未入账利息482元。本金返回不是收入。",
+    "finalCleanFiveYearHour": "43824",
+    "finalReadOnlyHour": "0",
+    "finalCleanReloadHour": "43824"
+  },
+  "package": {
+    "zip": "D:\\codes\\edu-sys\\output\\东湾港-长期经营4.0-资金管理-20261031.zip",
+    "sha256": "41d4c683ab0a38e132687731d5621de1587f022514424dff060b62c4cfdca3c7",
+    "bytes": 37904508,
+    "files": 14,
+    "manifestVerified": 13,
+    "rules": "port-enterprise/4.0",
+    "teaching": "port-enterprise-teaching/6",
+    "releaseDirectory": "D:\\codes\\edu-sys\\output\\port-enterprise-finance-20261031\\release-3",
+    "workerUnchangedAfterInterestDisplayFix": true
+  },
+  "servedAcceptance": {
+    "cleanPackageExactMatch": true,
+    "readonlyExportPreservesFullRecord": true,
+    "ports": {
+      "8217": {
+        "health": {
+          "app": "port-enterprise",
+          "instance": "97edac34f13f",
+          "version": "port-enterprise/4.0",
+          "pid": 28844
+        },
+        "webHashes": {
+          "index.html": "1e1452a2473669c8cd57812222de18800429790cb9bab4a7aae7d8f1df2c4459",
+          "enterprise.js": "61c26f79269939994361e6f38f518556528dc264194ef82b85eb158509b51892",
+          "enterprise.css": "833f4400e0a6120b63755c381771a6212fa3f3d00cd51dca8e8cca579b9a8dbb",
+          "enterprise.worker.js": "ad216992a1aa5cb5e6bae9082a8a78aa9e1c4a98c165bd9d1b7570e484e752c5"
+        }
+      },
+      "8218": {
+        "health": {
+          "app": "port-enterprise",
+          "instance": "d4879c689269",
+          "version": "port-enterprise/4.0",
+          "pid": 65544
+        },
+        "webHashes": {
+          "index.html": "1e1452a2473669c8cd57812222de18800429790cb9bab4a7aae7d8f1df2c4459",
+          "enterprise.js": "61c26f79269939994361e6f38f518556528dc264194ef82b85eb158509b51892",
+          "enterprise.css": "833f4400e0a6120b63755c381771a6212fa3f3d00cd51dca8e8cca579b9a8dbb",
+          "enterprise.worker.js": "ad216992a1aa5cb5e6bae9082a8a78aa9e1c4a98c165bd9d1b7570e484e752c5"
+        }
+      }
+    }
+  },
+  "environment": {
+    "authorShell": "PowerShell 7.6.5",
+    "studentLauncherShell": "Windows PowerShell 5.1.26100.9711",
+    "launcherFreshExtraction": true,
+    "repeatedStartSameInstance": true,
+    "cleanServiceStopped": true,
+    "localTeachingService": "http://127.0.0.1:8217/"
+  },
+  "sourceSha256": {
+    "apps/platform-api/src/enterprise-routes.ts": "2cf78f255d67444dcfaa2dfff1e7d2f277f393661ae148e3311a03c947065a7b",
+    "apps/platform-api/test/enterprise-finance.test.ts": "7fdfd24dc34fe7a2380ec9329574677e9d2e40eef38d50cf05a4f4ec1a69e84e",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-channel.ts": "b5498c97a5e3d61cd84c6118f800532d5f49e8a2fae6bbfe483bdbdf46e27403",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-drafts.ts": "ce42b37d66ffdb7307a5afa3f15e02d02edb38c92f323eae9ef70f18d341b53a",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-game.css": "1fe138857ee07a89c9ea39bcc5fdd8653fb9f15db080c39f27e454cfc900eb41",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-game.ts": "90c1655c42362c5875d5bcf8108ba44b1a981e87f956e9dd5918bbd291c36d0e",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-guidance.ts": "abe27a9512c09dfd387fc92bbfd9a321a9f6359805e1ee832a9f9f32656599f2",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-import.ts": "5eb61cb89499e3e8da6ecf7515bbd4bffd5a5e8f461b4f4752c9e94cacb53392",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-management.css": "d33c45e605787dde250ebd50d81dea8780eb02b1d16b80a71bbfdd4374751acc",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-storage.ts": "13b68490ab4238e4f41dd1bdd9eab7775302d8db4044ac383e654f2b2eb3dfec",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-teaching.ts": "abf9ffbdb1114c1b9bb6cc158367c013450e92cc9d860d9c3676af48056f1ab9",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-tour-lock.ts": "577dce1e269a4d1c4e00b05e471e32d24588d7bde36d729fd4b8c5e189a46aaf",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-tour.css": "8988c8060952944f3216cfdea6f011515ef6e904693360feef15e7c46d12b441",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise.css": "d1e524eaf691bc47eb871f80d2f25052a1f765772ca1b56111771ae8ed4449c7",
+    "apps/teacher-web/src/features/port-simulation/enterprise/enterprise.worker.ts": "adce1d79880cf07ae3b572e3c18d5edb0e6f0f0753ce9ad71d8e5a48e4b1063d",
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseApp.tsx": "3de1080d7b11ebe635738f94f531bebdf9bb34bf603120f85adc864825ecf108",
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseFinancePanel.tsx": "212f1cc7cdd45c082c8f00cbce24386537c82976d7ca1ca86c9e9fd181ebec3c",
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseForms.tsx": "5c0f8b495b9a69b339ca09da71cea26b39d12f3823c9db677d04a19937ecd357",
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseLearningTool.tsx": "ba22bf0f4b5c5fab0cf9bcf9fcbda4b1dc328fff45ab15b9e428c419a325e397",
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseManagement.tsx": "712100e3c0fef27c11e79ecd28c87a3e3e460b4976ebc380ed8777602b4ecba4",
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterprisePanels.tsx": "fc09fec2f6d76b198fc6d4d38d85f5ab56948c6cec32f2149cf8e7232b488a86",
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterprisePortalCard.tsx": "e230e626f70e3e6c6690f91648f57b274b658493d9787cda0823762c95d44013",
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseRecoveryNotice.tsx": "1423278096509b994c64df7a9f467681697f9fdf29ee8a201a17b3d3cc142c82",
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseScene.tsx": "839b6fb016b21c9675c12e57bdfc5ac4aa1593e845cadced7223731074d448b6",
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseStrategyPanels.tsx": "11494468d0f9441ffd66f6ffcf9cc72b49f9ac5294f9e7e0bbf983cfe0901732",
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseTasks.tsx": "34b0d7761c55db981694850215d02c88126d378e4a6557b620a519a2d750f809",
+    "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseTeachingCoach.tsx": "04b0486398dc2172513317c96bac05a686f79ff1345e54a8579a7c1a0b518a0c",
+    "apps/teacher-web/src/features/port-simulation/enterprise/useEnterprise.ts": "14ad467e1270c3a6e0aa05782cff44e7129d0149850fa0dd477ad1f12c29f621",
+    "apps/teacher-web/test/port-enterprise-finance.test.tsx": "de39ac911ce9d902837ed5df01008824a721833a83269915ed05f3c978889f93",
+    "docs/port-enterprise-guide.md": "2c503e9f5326ef7ac4786e8e64fb51a847e43c7a6ea298429e364e5abf1dc296",
+    "packages/port-simulation-core/src/enterprise-accounting.ts": "39948625fa97108060b8e511b217f40cae20539ea29369b917f47f867e38935b",
+    "packages/port-simulation-core/src/enterprise-catalogue.ts": "3ce0c34424b6b9905746f95c816d12eaa9f148cb9fb2153fd88b476cab6bacd2",
+    "packages/port-simulation-core/src/enterprise-engine.ts": "5eaa22be394773cdd7f10c6e080fd59b879823c8741dddd36c7f28550bceb573",
+    "packages/port-simulation-core/src/enterprise-experiment.ts": "6080c8eea00feed632dd959aa66f93cae4b61c85816197e211e17f82927cbb87",
+    "packages/port-simulation-core/src/enterprise-finance.ts": "8f577907e878ec21acfc265160d7e2628c54c6d43df8defad4ca9fd1a4a34fa3",
+    "packages/port-simulation-core/src/enterprise-management.ts": "fb8616ea3b7218079885b5a018ab861cd4f718c2104bc4633d7e9d29f78a4996",
+    "packages/port-simulation-core/src/enterprise-model.ts": "63553bf18e8e9b690a18201f3879670513a6ee7500f9f7680b4f9c2413f11b7d",
+    "packages/port-simulation-core/src/enterprise-operations.ts": "c250166650ecbe10007d2ad910597739c8a81e60341074dda39f668da8406bbf",
+    "packages/port-simulation-core/src/enterprise-review.ts": "f45ca77daebc4916e48cacfe79f5137c2e9ba7b1e1973e4a38611d2e6a9c2b68",
+    "packages/port-simulation-core/src/enterprise-strategy.ts": "dab9bd524cffe1ed73715efd5bb1fec38180e88dbfe8c8639cd7a4cd0c32facd",
+    "packages/port-simulation-core/src/enterprise-supplies.ts": "063647ac426fdf08686aad01df4331e16927cad5e4144a89b6c960cb9f8b456a",
+    "packages/port-simulation-core/src/enterprise-support.ts": "df6509c8cdf1cb47f5a37f87f8b865d5ed83cd85fcfe4e5f806c610d94fbf349",
+    "packages/port-simulation-core/src/enterprise-yard.ts": "2935080bbd60a33e19d9396fa152f280716cc453d0761d8f4908495858108605",
+    "packages/port-simulation-core/src/enterprise.ts": "aecf56cb6dcb837f36c785b7fb385997be9641f934282d83c92c6f353b8b843b",
+    "packages/port-simulation-core/test/enterprise-finance.test.ts": "eb90ed2af4436c5a312990da9ef9cd3a021c6565a095642ed3528d8242733140",
+    "scripts/package-port-enterprise.mjs": "8d605e972b29add08dc737adbc5b7f3de0a047a689b8d6310d2756d431294c15",
+    "scripts/port-enterprise-finance-audit.mts": "85ebdcf7f76fe14feba1640317af9535821098bfcf82b3e82bbd17d34dc4fa79"
+  },
+  "screenshots": [
+    "tutorial-finance-desktop.png",
+    "tutorial-finance-narrow.png",
+    "tutorial-semester-complete.png",
+    "finance-half-year.png",
+    "bankruptcy.png",
+    "cash-transactions.png",
+    "restructure.png",
+    "interest-yuan-receipt.png"
+  ],
+  "limits": [
+    "All rates and failure thresholds are versioned teaching rules.",
+    "The 90-day forecast excludes unconfirmed future business income.",
+    "Old enterprise versions are retained rather than migrated.",
+    "The Windows x64 portable package was tested locally; no campus server deployment occurred.",
+    "The earlier 3.2 strategy matrix is historical evidence, not a substitute for finance 4.0 acceptance."
+  ]
+}

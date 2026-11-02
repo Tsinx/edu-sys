@@ -1,0 +1,40 @@
+{
+  "repository": "https://github.com/Meituan-Dianping/asap",
+  "commit": "975122a60065240124df62cb4d5dbfd19ed9ef2c",
+  "paper": "https://aclanthology.org/2021.naacl-main.167/",
+  "license": "Apache-2.0 (repository LICENSE)",
+  "files": {
+    "train": {
+      "rows": 36850,
+      "bytes": 36475033,
+      "sha256": "30912f5e2a866a4c0f654ec3461215f008b8b90d208f2c410f03369f43655de9",
+      "git_blob": "8f0cc5500a37a0552e9fb45b1539d2fca7cd8752"
+    },
+    "dev": {
+      "rows": 4940,
+      "bytes": 4891291,
+      "sha256": "54efc8f6bc26d63a9f87e3418cd68e47f2eb13a19085e85abe63f3eafafe2b44",
+      "git_blob": "0d2d15dd3452d109bcc526da22ec05bc46e4832f"
+    },
+    "test": {
+      "rows": 4940,
+      "bytes": 4850010,
+      "sha256": "217dd27c1d5699067952474e40824935d56ecf8b5047950d6da3d1222976a2bd",
+      "git_blob": "5c02ff90be63f5e8b09b0c9e492a4ea6b72d60c0"
+    },
+    "combined": {
+      "rows": 46730,
+      "columns": 21,
+      "unique_ids": 46730,
+      "duplicate_texts": 0,
+      "missing_cells": 0,
+      "stars": {
+        "1.0": 1535,
+        "2.0": 1597,
+        "3.0": 6742,
+        "4.0": 16963,
+        "5.0": 19893
+      }
+    }
+  }
+}

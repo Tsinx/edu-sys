@@ -1,0 +1,62 @@
+[
+  {
+    "id": "61b9ee16fdcf48e0a124c5c5dd386cacb7097dc1",
+    "org": "Humana",
+    "url": "https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachM13823.pdf",
+    "file": "literature\\notice-61b9ee16fd.pdf",
+    "bytes": 438436,
+    "sha256": "ded4704aec3feeb1236cfa7fdd92d9c9d8ba64521207d21ddb6dbb625cb1da70",
+    "pages": 6,
+    "characters": 15563
+  },
+  {
+    "id": "42c8289e268b6818cf6a721f679bb4e2d4035684",
+    "org": "Corebridge Financial",
+    "url": "https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA25976.pdf",
+    "file": "literature\\notice-42c8289e26.pdf",
+    "bytes": 301158,
+    "sha256": "64a8ce5a5d2f32d50e07d9640b652e661ed3e436499ae045254ce124e8f1f1ef",
+    "pages": 5,
+    "characters": 13563
+  },
+  {
+    "id": "ff50435a59052729e0c9960176a3d314ca37a530",
+    "org": "Unum Group",
+    "url": "https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA26267.pdf",
+    "file": "literature\\notice-ff50435a59.pdf",
+    "bytes": 298668,
+    "sha256": "3e8ffd3e0036a0e3219d8db595865fb6b5be7d936cc846162a630ce8bc7269e5",
+    "pages": 8,
+    "characters": 22515
+  },
+  {
+    "id": "ccaa76b909da587744fcc9fc00b8d844091cc093",
+    "org": "Lemonade, Inc.",
+    "url": "https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA32981.pdf",
+    "file": "literature\\notice-ccaa76b909.pdf",
+    "bytes": 239545,
+    "sha256": "b1b76b0e63e9bced594cbd6519752c72280ad124f3374d50b966ce3d4ea52186",
+    "pages": 5,
+    "characters": 12732
+  },
+  {
+    "id": "dc68f53058560dac5a67a00b30491ae23f555230",
+    "org": "Henry Schein",
+    "url": "https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA27714.pdf",
+    "file": "literature\\notice-dc68f53058.pdf",
+    "bytes": 601997,
+    "sha256": "8b3d74fdb6d5cf9a780c08645854d8d0681a226e37b303a940543b787bb4285b",
+    "pages": 9,
+    "characters": 29758
+  },
+  {
+    "id": "77d9827a6a9ec5c089e119f9694915cd570294e4",
+    "org": "Incyte Corporation",
+    "url": "https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA29236.pdf",
+    "file": "literature\\notice-77d9827a6a.pdf",
+    "bytes": 256108,
+    "sha256": "016323ea3fa4f84227c4eba7b7c60c447c04a76e5a552ef29f20c94b05403eff",
+    "pages": 4,
+    "characters": 13755
+  }
+]

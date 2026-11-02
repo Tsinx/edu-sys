@@ -1,0 +1,171 @@
+{
+  "source_definition": "Common term min/max are extrema of individual legal entities' modes, not a forecast confidence interval or the range of all invoice terms",
+  "plan_sha256": "6a4445c89f7f992bfb60c1a0212b055119b14672f321f320ca7df2ee25dd515e",
+  "counts": {
+    "raw_calendar_parent_versions": 12201,
+    "distinct_group_periods": 11507,
+    "source_groups": 3225,
+    "adjacent_earliest_latest_rows": 8253,
+    "valid_original_current_forecast_next_ranges": 4354,
+    "primary_unrevised_90day_lead_rows": 2402,
+    "primary_groups": 1441,
+    "primary_period_counts": {
+      "1": 1130,
+      "2": 1272
+    },
+    "secondary150day_lead_rows": 38
+  },
+  "plan_groups": [
+    {
+      "plan": "contraction_ge7",
+      "rows": 185,
+      "groups": 159,
+      "actual_contraction_fraction": 0.518918918918919,
+      "actual_contraction_ge7_fraction": 0.43783783783783786,
+      "spread_exact_forecast_fraction": 0.15135135135135136,
+      "median_planned_spread_change_days": -30.0,
+      "median_actual_spread_change_days": -1.0,
+      "forecast_information_gain": {
+        "group_equal_mean": -15.647798742138365,
+        "groups": 159,
+        "ci95_abn_block_percentile": [
+          -37.87845911949685,
+          0.11399371069182318
+        ]
+      },
+      "actual_min_raised_rows": 44,
+      "actual_max_lowered_rows": 78
+    },
+    {
+      "plan": "expansion_ge7",
+      "rows": 55,
+      "groups": 48,
+      "actual_contraction_fraction": 0.14545454545454545,
+      "actual_contraction_ge7_fraction": 0.12727272727272726,
+      "spread_exact_forecast_fraction": 0.2,
+      "median_planned_spread_change_days": 23.0,
+      "median_actual_spread_change_days": 1.0,
+      "forecast_information_gain": {
+        "group_equal_mean": -2.96875,
+        "groups": 48,
+        "ci95_abn_block_percentile": [
+          -10.616666666666667,
+          4.823958333333333
+        ]
+      },
+      "actual_min_raised_rows": 8,
+      "actual_max_lowered_rows": 9
+    },
+    {
+      "plan": "no_spread_change",
+      "rows": 2090,
+      "groups": 1308,
+      "actual_contraction_fraction": 0.15550239234449761,
+      "actual_contraction_ge7_fraction": 0.12009569377990431,
+      "spread_exact_forecast_fraction": 0.6732057416267943,
+      "median_planned_spread_change_days": 0.0,
+      "median_actual_spread_change_days": 0.0,
+      "forecast_information_gain": {
+        "group_equal_mean": 0.0,
+        "groups": 1308,
+        "ci95_abn_block_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "actual_min_raised_rows": 251,
+      "actual_max_lowered_rows": 229
+    },
+    {
+      "plan": "any_contraction",
+      "rows": 233,
+      "groups": 196,
+      "actual_contraction_fraction": 0.48497854077253216,
+      "actual_contraction_ge7_fraction": 0.37339055793991416,
+      "spread_exact_forecast_fraction": 0.15879828326180256,
+      "median_planned_spread_change_days": -19.0,
+      "median_actual_spread_change_days": 0.0,
+      "forecast_information_gain": {
+        "group_equal_mean": -12.89795918367347,
+        "groups": 196,
+        "ci95_abn_block_percentile": [
+          -29.844897959183672,
+          -0.06364795918367591
+        ]
+      },
+      "actual_min_raised_rows": 57,
+      "actual_max_lowered_rows": 90
+    }
+  ],
+  "overall_forecast_information_gain": {
+    "group_equal_mean": -1.768563497571131,
+    "groups": 1441,
+    "ci95_abn_block_percentile": [
+      -4.28088133240805,
+      -0.12526023594725885
+    ]
+  },
+  "revisions": {
+    "group_periods_multiple_retained_versions": 637,
+    "valid_forecast_range_endpoint_changes": 75
+  },
+  "associative_regressions": [
+    {
+      "status": "baseline-adjusted association, not causal policy effect",
+      "outcome": "mean_days",
+      "n": 2402,
+      "groups": 1441,
+      "planned_contraction_coefficient": -0.28556893790412674,
+      "cluster_se": 0.5476945054964566,
+      "ci95_t_clusters_minus1": [
+        -1.35993346689688,
+        0.7887955910886265
+      ],
+      "rank": 7,
+      "parameters": 7,
+      "observed_periods": [
+        1,
+        2
+      ],
+      "period_reference": 1
+    },
+    {
+      "status": "baseline-adjusted association, not causal policy effect",
+      "outcome": "on_time_pp",
+      "n": 2402,
+      "groups": 1441,
+      "planned_contraction_coefficient": -1.778881720547703,
+      "cluster_se": 1.569706546204232,
+      "ci95_t_clusters_minus1": [
+        -4.858038106534966,
+        1.3002746654395607
+      ],
+      "rank": 7,
+      "parameters": 7,
+      "observed_periods": [
+        1,
+        2
+      ],
+      "period_reference": 1
+    }
+  ],
+  "latest_2026h1_policy_execution_cross_section": [
+    {
+      "type": "uniform_legal_entity_modal_terms",
+      "groups": 17,
+      "median_segment_on_time_range_pp": 16.880000000000003,
+      "groups_segment_on_time_range_over20pp": 7,
+      "same_segment_modal_terms_groups": 15,
+      "same_segment_modes_but_on_time_range_over20pp": 5
+    },
+    {
+      "type": "different_legal_entity_modal_terms",
+      "groups": 116,
+      "median_segment_on_time_range_pp": 21.229999999999997,
+      "groups_segment_on_time_range_over20pp": 59,
+      "same_segment_modal_terms_groups": 46,
+      "same_segment_modes_but_on_time_range_over20pp": 20
+    }
+  ],
+  "interpretation": "Submitted forecasts have at least90days of remaining target period, but submission is not public availability and the target period has already begun. Endogenous anticipated policies and changing corporate perimeters prevent a causal harmonization interpretation."
+}

@@ -5,3 +5,7 @@ export * from './enterprise-review.js';
 export * from './enterprise-management.js';
 export * from './enterprise-yard.js';
 export * from './enterprise-experiment.js';
+export * from './enterprise-strategy.js';
+export * from './enterprise-supplies.js';
+export * from './enterprise-finance.js';
+export * from './enterprise-director.js';

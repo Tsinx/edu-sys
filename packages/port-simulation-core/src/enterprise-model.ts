@@ -1,6 +1,7 @@
 /** Long-horizon, single-player teaching model. Currency is CNY; rates are scenario assumptions. */
-export const ENTERPRISE_VERSION = 'port-enterprise/2.0' as const;
-export const ENTERPRISE_RULES = Object.freeze({ engine: ENTERPRISE_VERSION, operations:'port-operations/2.0',catalogue: 'port-assets/2.0', demand: 'port-market/1.0', finance: 'port-finance/2.0', indicators: 'port-enterprise-score/2.0' });
+export const ENTERPRISE_INITIAL_CASH=32_000_000;
+export const ENTERPRISE_VERSION = 'port-enterprise/5.0' as const;
+export const ENTERPRISE_RULES = Object.freeze({ engine: ENTERPRISE_VERSION, operations:'port-operations/5.0',catalogue: 'port-assets/3.0', demand: 'port-market/2.0', finance: 'port-finance/4.0', indicators: 'port-enterprise-score/4.0',director:'port-director/1',telemetry:'port-enterprise-telemetry/1' });
 export function enterpriseRulesMatch(value:unknown,expected:Readonly<Record<string,string>>=ENTERPRISE_RULES):boolean{
   if(!value||typeof value!=='object'||Array.isArray(value))return false;
   const rules=value as Record<string,unknown>,keys=Object.keys(expected);
@@ -12,7 +13,18 @@ export type Stage = 'quay' | 'transport' | 'yard' | 'gate' | 'marine';
 export type StaffRole = 'crane' | 'driver' | 'yard' | 'gate' | 'technician' | 'marine' | 'digital' | 'handling';
 export type Shift = 0 | 1 | 2;
 export type Scenario = 'balanced' | 'growth' | 'green' | 'resilience';
-export interface EnterpriseConfig { seed: number; years: 1 | 3 | 5; scenario: Scenario; mode: 'practice' | 'exam'; }
+export interface EnterpriseConfig { seed: number; years: 1 | 3 | 5 | 10; scenario: Scenario; mode: 'practice' | 'exam'; tutorial?:true; }
+export const ENTERPRISE_GUIDED_FINANCE_END=181*24;
+export interface FinancePlan {reserveDays:15|30|60;depositDays:0|30|90;creditLimit:0|5_000_000|10_000_000;}
+export interface LoanInstallment {due:number;principal:number;paid:number;}
+export interface EnterpriseLoan {id:string;product:'project'|'working';automatic:boolean;opened:number;rate:number;balance:number;original:number;termMonths:number;installments:LoanInstallment[];accruedInterest:number;interestRemainder:number;nextInterestDue:number;}
+export interface EnterpriseDeposit {id:string;principal:number;opened:number;matures:number;days:30|90;rate:number;interest:number;remainder:number;}
+export interface EnterprisePayable {id:string;category:string;note:string;created:number;due:number;amount:number;paid:number;loanId?:string;installmentDue?:number;principal?:boolean;}
+export interface EnterpriseFinance {
+  plan:FinancePlan;published:boolean;loans:EnterpriseLoan[];deposits:EnterpriseDeposit[];payables:EnterprisePayable[];
+  status:'healthy'|'warning'|'distress'|'bankrupt';distressSince:number|null;failedAt:number|null;failureReason:string;tutorialPaused:boolean;
+  restructured:boolean;depositInterest:number;demandInterest:number;demandRemainder:number;forfeitedInterest:number;principalPaid:number;lateRemainder:number;
+}
 export interface AssetSpec {
   id: string; name: string; stage: Stage; goods: CargoKind[]; rate: number; price: number; leaseDaily: number;
   leadDays: number; lifeYears: number; staff: StaffRole; staffRequired: number; kw: number; fuel: number;
@@ -26,6 +38,7 @@ export interface Asset {
   repairUntil: number | null; purchasePrice: number; residual: number; bookAtStart: number; oldAgeYears: number;
   downtimeHours: number; lastWork: number; note: string;
   leaseCredit: number;
+  overhauled: boolean;
 }
 export interface Terminal {
   id: string; name: string; goods: CargoKind; length: number; depth: number; rail: boolean; shore: boolean;
@@ -50,10 +63,14 @@ export interface ManagementPlan {
   goal:'balanced'|'service'|'flow'|'green'; staffing:'balanced'|'day-heavy'|'reserve'|'custom';
   charging:'threshold'|'staggered'|'offpeak'; chargeTarget:number; chargeReserve:number; chargingLimit:number;
   maintenance:'standard'|'offpeak'|'risk'; escalation:'major'|'all';
+  fuelDays:3|7|14; partsTarget:6|12|24;
+  routineResponse:'ask'|'repair'|'continuity'; routineBudget:number;
 }
+export interface LogisticsPlan {road:'basic'|'reserved'|'surge';routing:'road'|'balanced'|'rail-first'|'barge-first';warehousing:'direct'|'bonded';}
 export interface ManagementMetrics {
   yardStored:number;yardRetrieved:number;yardRehandles:number;travelWork:number;yardBlockedHours:number;
   sharedUnits:number;chargingHours:number;chargingWaitHours:number;chargingEnergy:number;
+  reserveCoverHours:number;absenceHours:number;warehouseRevenue:number;roadReservationCost:number;
 }
 export interface ManagementBaseline {
   hour:number;cash:number;revenue:number;operating:number;delivered:Record<CargoKind,number>;metrics:ManagementMetrics;energy:number;
@@ -65,6 +82,7 @@ export interface ManagementReview {
 }
 export interface EnterpriseManagement {
   plan:ManagementPlan;yardPlans:Record<string,YardPlan>;blocks:YardBlock[];metrics:ManagementMetrics;
+  logisticsPlans:Record<string,LogisticsPlan>;missedDemand:Record<CargoKind,number>;reserveDay:number;reserveUsed:Record<string,number>;dutyUsed:Record<string,number>;
   baseline:ManagementBaseline;reviews:ManagementReview[];changes:string[];planCount:number;yardPlanCount:number;
 }
 export type DocumentKind = 'entry' | 'manifest' | 'customs' | 'carrier' | 'departure';
@@ -76,7 +94,7 @@ export interface EnterpriseCall {
   stage: 'announced' | 'waiting' | 'entering' | 'berthed' | 'leaving' | 'departed'; moveUntil: number;
   plannedTerminal: string | null; contractId: string | null; length: number; draft: number; rows: number; importLot: string; exportLot: string;
   deadline: number; documents: Record<DocumentKind, CallDocument>; issue: boolean; inspected: boolean;
-  wait: { berth: number; channel: number; documents: number; equipment: number }; price: number;
+  wait: { berth: number; channel: number; documents: number; equipment: number }; price: number;contractShare:number;
 }
 export interface CargoLot {
   /** Export units already received by a train/barge, still awaiting gate-to-yard transfer. */
@@ -86,6 +104,7 @@ export interface CargoLot {
   quarantine: boolean; inspectionUntil: number | null; release: boolean; bonded: boolean;
   route: 'road' | 'rail' | 'barge' | 'pipeline'; deadline: number; firstHour: number; lastHour: number;
   waitingUnitHours: number; completedTimeSum: number; rehandleRemaining: number; lateUnits: number; revenue: number; storageFees: number; rehandles: number;
+  pickupHour:number; storageRequestHours:number;
 }
 export interface Customer { id: string; name: string; goods: CargoKind; loyalty: number; served: number; late: number; rate: number; }
 export interface Contract {
@@ -109,40 +128,53 @@ export interface Incident {
   title: string; terminalId: string | null; started: number; status: 'active' | 'contained' | 'resolved';
   response: 'none' | 'isolate' | 'backup' | 'repair' | 'recover'; resolves: number | null; evidence: boolean;
   loss: number; blockedHours: number;
+  severity:1|2;
   authorization?:'repair'|'continuity';authorizedBudget?:number;authorizedSpent?:number;
   backupActive?:boolean;authorizationPaused?:boolean;authorizationNote?:string;
 }
 export interface MoneyEntry { hour: number; category: string; amount: number; cash: number; note: string; }
 export interface Receivable { id: string; due: number; amount: number; }
+export interface SupplyOrder {id:string;item:'fuel'|'parts';quantity:number;price:number;ordered:number;ready:number;delayed:boolean;status:'transit'|'received';}
 export interface MonthReport {
   month: string; revenue: number; operating: number; capital: number; interest: number; depreciation: number;
   tax: number; handled: number; onTime: number; generated: number; energy: number; emissions: number;
   waiting: number; rehandles: number; cashEnd: number; debtEnd: number;
+  interestIncome:number;principalPaid:number;depositEnd:number;payablesEnd:number;
 }
 export interface EnterpriseEvent { id: number; hour: number; kind: string; title: string; detail: string; object: string; }
 export interface EnterpriseStats {
   generated: number; delivered: number; onTime: number; lost: number; unloaded: number; loaded: number;
   waitingUnitHours: number; vesselWaiting: number; vesselHours: number; departed: number; rehandles: number;
   energy: number; fuel: number; emissions: number; spillExposure: number; roadWaiting: number; maintenance: number;
+  insurancePremium:number;insuranceClaims:number;
   unsafeAttempts: number; recovered: number; decisionNotes: number;
 }
+export type AssetHourReason='working'|'waiting'|'staff'|'power'|'fuel'|'charging'|'blocked'|'maintenance'|'failed'|'inactive'|'finance';
+export interface AssetHourSample {hour:number;work:number;staffed:boolean;available:boolean;reason:AssetHourReason;}
+export interface BerthCraneAllocation {terminalId:string;workHours:number;workUnits:number;eligible:number;assigned:number;baseline:number;extra:number;assetIds:string[];reason:string;}
+export interface EnterpriseDailyReport {hour:number;cash:number;debt:number;deposits:number;unpaid:number;revenue:number;operating:number;waitingShips:number;meanBerthWait:number|null;deliveryRate:number|null;energy:number;emissions:number;workingHours:number;availableHours:number;}
+export interface EnterpriseTelemetry {assets:Record<string,AssetHourSample[]>;cranes:BerthCraneAllocation[];days:EnterpriseDailyReport[];}
 export interface EnterpriseState {
   schema: typeof ENTERPRISE_VERSION; rules: typeof ENTERPRISE_RULES; config: EnterpriseConfig; hour: number; horizon: number;
   terminals: Terminal[]; assets: Asset[]; crews: Crew[]; calls: EnterpriseCall[]; lots: CargoLot[]; customers: Customer[];
   contracts: Contract[]; projects: Project[]; incidents: Incident[]; policy: Policy;
   cash: number; debt: number; initialEquity: number; initialAssetValue: number; receivables: Receivable[];
+  supplyOrders:SupplyOrder[];
   ledger: MoneyEntry[]; months: MonthReport[]; stats: EnterpriseStats; events: EnterpriseEvent[]; eventSequence: number;
   journal: EnterpriseJournal[]; notes: { hour: number; topic: string; text: string }[];
   gridKw: number; solarKw: number; digitalLevel: number; fuelStock: number; spareParts: number;
   governance: 'integrated' | 'landlord'; concessionRate: number; lastMarketQuarter: number;
   sealed: boolean; nextId: number;
   management:EnterpriseManagement;
+  finance:EnterpriseFinance;
+  telemetry:EnterpriseTelemetry;
 }
 export type EnterpriseCommand =
-  | { kind: 'advance'; hours: number; stopOnIncident?: boolean }
+  | { kind: 'advance'; hours: number; stopOnIncident?: boolean; stopAtVisit?:boolean }
   | { kind: 'policy'; patch: Partial<Policy> }
   | { kind: 'management-plan'; patch:Partial<ManagementPlan> }
   | { kind: 'yard-plan'; terminalId:string; patch:Partial<YardPlan> }
+  | { kind: 'logistics-plan'; terminalId:string; patch:Partial<LogisticsPlan> }
   | { kind: 'staff-plan'; template:'balanced'|'day-heavy'|'reserve' }
   | { kind: 'incident-plan'; incidentId:string; plan:'repair'|'continuity';budget:number }
   | { kind: 'order-asset'; model: string; terminalId: string; ownership: 'owned' | 'leased' }
@@ -152,7 +184,7 @@ export type EnterpriseCommand =
   | { kind: 'project'; type: string; terminalId: string }
   | { kind: 'hire'; role: StaffRole; count: number; shift: Shift | 'reserve' }
   | { kind: 'staff'; crewId: string; shift: Shift | 'reserve' }
-  | { kind: 'train'; crewId: string }
+  | { kind: 'train'; crewId: string;count?:number }
   | { kind: 'release-staff'; crewId: string }
   | { kind: 'berth'; callId: string; terminalId: string }
   | { kind: 'document'; callId: string; document: DocumentKind; reference: string }
@@ -160,7 +192,11 @@ export type EnterpriseCommand =
   | { kind: 'route'; lotId: string; route: CargoLot['route']; bonded: boolean }
   | { kind: 'accept-contract'; contractId: string }
   | { kind: 'respond'; incidentId: string; action: Incident['response'] | 'audit' }
-  | { kind: 'loan'; amount: number }
+  | { kind: 'finance-plan'; patch:FinancePlan }
+  | { kind: 'redeem-deposits' }
+  | { kind: 'settle-payables' }
+  | { kind: 'restructure' }
+  | { kind: 'loan'; amount: number;product?:'project'|'working';termMonths?:3|12|24|36 }
   | { kind: 'repay'; amount: number }
   | { kind: 'supplies'; item: 'fuel' | 'parts'; quantity: number }
   | { kind: 'governance'; value: EnterpriseState['governance'] }
@@ -177,6 +213,7 @@ export interface EnterpriseScore {
   equity: number; assetValue: number; receivables: number; futureObligations: number; profit: number;
   deliveryRate: number; waitingHours: number; emissionsPerUnit: number; benchmark: string;
   prepaidLease: number;
+  outcome:'operating'|'completed'|'bankrupt';failureReason:string;
 }
 export interface EnterpriseTask {
   id: string; title: string; courseId: string; config: EnterpriseConfig; rules: typeof ENTERPRISE_RULES;
@@ -201,12 +238,12 @@ export function enterpriseRandom(seed: number, stream: string, at: number): numb
   return (h >>> 0) / 4294967296;
 }
 export const CARGO_LABELS: Record<CargoKind, { name: string; unit: string; rate: number; footprint: number }> = {
-  container: { name: '集装箱', unit: 'TEU', rate: 1200, footprint: 1 },
-  bulk: { name: '干散货', unit: '吨', rate: 110, footprint: 1 },
-  liquid: { name: '液体散货', unit: '立方米', rate: 125, footprint: 1 },
-  general: { name: '件杂货', unit: '吨', rate: 280, footprint: 1 },
-  roro: { name: '滚装车辆', unit: '辆', rate: 460, footprint: 1 },
-  passenger: { name: '客运', unit: '人', rate: 75, footprint: 1 },
+  container: { name: '集装箱', unit: 'TEU', rate: 420, footprint: 1 },
+  bulk: { name: '干散货', unit: '吨', rate: 55, footprint: 1 },
+  liquid: { name: '液体散货', unit: '立方米', rate: 68, footprint: 1 },
+  general: { name: '件杂货', unit: '吨', rate: 150, footprint: 1 },
+  roro: { name: '滚装车辆', unit: '辆', rate: 240, footprint: 1 },
+  passenger: { name: '客运', unit: '人', rate: 42, footprint: 1 },
 };
 export const STAFF_LABELS: Record<StaffRole, string> = { crane: '起重操作', driver: '车辆操作', yard: '堆存操作', gate: '闸口与物流', technician: '维修技术', marine: '引航与拖轮', digital: '数字系统', handling: '专业装卸' };
 export const SCENARIOS: Record<Scenario, { name: string; description: string }> = {

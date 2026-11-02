@@ -5,7 +5,7 @@ import {createEnterprise,enterpriseRecord} from '@edu/port-simulation-core';
 import {listEnterpriseSaves,saveEnterprise,type EnterpriseSave} from '../src/features/port-simulation/enterprise/enterprise-storage';
 
 const fresh=()=>{globalThis.indexedDB=new IDBFactory();};
-const save=(id='run-a',scope='student:a'):EnterpriseSave=>({id,scope,title:'个人练习',savedAt:new Date().toISOString(),schema:'port-enterprise/2.0',record:enterpriseRecord(createEnterprise()),checkpoints:[]});
+const save=(id='run-a',scope='student:a'):EnterpriseSave=>({id,scope,title:'个人练习',savedAt:new Date().toISOString(),schema:'port-enterprise/4.0',record:enterpriseRecord(createEnterprise()),checkpoints:[]});
 test('autosaves use atomic revisions and never let an older window overwrite a newer port',async()=>{
   fresh();const original=save();await saveEnterprise(original);const first=(await listEnterpriseSaves(original.scope))[0]!;
   await saveEnterprise({...first,title:'窗口一的新进度'});

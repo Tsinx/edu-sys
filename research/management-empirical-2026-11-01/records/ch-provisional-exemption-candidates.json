@@ -1,0 +1,158 @@
+[
+  {
+    "member": "Prod224_2609_00164692_20251231.html",
+    "company_number": "00164692",
+    "facts": [
+      {
+        "date": "2024-12-31",
+        "current_assets": 20430464.0,
+        "employees": 216.0,
+        "fixed_assets": 14402389.0,
+        "turnover": 43310671.0,
+        "assets": 34832853.0,
+        "old": true,
+        "new": false
+      },
+      {
+        "date": "2025-12-31",
+        "current_assets": 20992334.0,
+        "employees": 219.0,
+        "fixed_assets": 14483551.0,
+        "turnover": 44123065.0,
+        "assets": 35475885.0,
+        "old": true,
+        "new": false
+      }
+    ]
+  },
+  {
+    "member": "Prod224_2609_00259388_20251231.html",
+    "company_number": "00259388",
+    "facts": [
+      {
+        "date": "2024-12-31",
+        "current_assets": 17819052.0,
+        "employees": 406.0,
+        "fixed_assets": 6350374.0,
+        "turnover": 36629921.0,
+        "assets": 24169426.0,
+        "old": true,
+        "new": false
+      },
+      {
+        "date": "2025-12-31",
+        "current_assets": 17533642.0,
+        "employees": 384.0,
+        "fixed_assets": 6638231.0,
+        "turnover": 35853751.0,
+        "assets": 24171873.0,
+        "old": true,
+        "new": false
+      }
+    ]
+  },
+  {
+    "member": "Prod224_2609_00931537_20251231.html",
+    "company_number": "00931537",
+    "facts": [
+      {
+        "date": "2024-12-31",
+        "current_assets": 18509000.0,
+        "employees": 72.0,
+        "fixed_assets": 4636000.0,
+        "turnover": 52838000.0,
+        "assets": 23145000.0,
+        "old": true,
+        "new": false
+      },
+      {
+        "date": "2025-12-31",
+        "current_assets": 16177000.0,
+        "employees": 60.0,
+        "fixed_assets": 4812000.0,
+        "turnover": 52312000.0,
+        "assets": 20989000.0,
+        "old": true,
+        "new": false
+      }
+    ]
+  },
+  {
+    "member": "Prod224_2609_01134488_20251231.html",
+    "company_number": "01134488",
+    "facts": [
+      {
+        "date": "2024-12-31",
+        "current_assets": 39892871.0,
+        "employees": 78.0,
+        "fixed_assets": 7657839.0,
+        "turnover": 52134298.0,
+        "assets": 47550710.0,
+        "old": true,
+        "new": false
+      },
+      {
+        "date": "2025-12-31",
+        "current_assets": 37188593.0,
+        "employees": 85.0,
+        "fixed_assets": 7057537.0,
+        "turnover": 48796889.0,
+        "assets": 44246130.0,
+        "old": true,
+        "new": false
+      }
+    ]
+  },
+  {
+    "member": "Prod224_2609_01481923_20260331.html",
+    "company_number": "01481923",
+    "facts": [
+      {
+        "date": "2025-03-31",
+        "current_assets": 19488485.0,
+        "employees": 120.0,
+        "fixed_assets": 10521024.0,
+        "turnover": 44806298.0,
+        "assets": 30009509.0,
+        "old": true,
+        "new": false
+      },
+      {
+        "date": "2026-03-31",
+        "current_assets": 21142600.0,
+        "employees": 130.0,
+        "fixed_assets": 16793654.0,
+        "turnover": 52951553.0,
+        "assets": 37936254.0,
+        "old": true,
+        "new": false
+      }
+    ]
+  },
+  {
+    "member": "Prod224_2609_01873269_20251231.html",
+    "company_number": "01873269",
+    "facts": [
+      {
+        "date": "2024-12-31",
+        "current_assets": 24153000.0,
+        "employees": 209.0,
+        "fixed_assets": 17970000.0,
+        "turnover": 43115000.0,
+        "assets": 42123000.0,
+        "old": true,
+        "new": false
+      },
+      {
+        "date": "2025-12-31",
+        "current_assets": 22472000.0,
+        "employees": 204.0,
+        "fixed_assets": 18203000.0,
+        "turnover": 39695000.0,
+        "assets": 40675000.0,
+        "old": true,
+        "new": false
+      }
+    ]
+  }
+]

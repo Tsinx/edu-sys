@@ -1,0 +1,183 @@
+{
+  "deckId": "deck-economic-mathematics-2026-business",
+  "version": "release-economic-mathematics-business-2026-10-30",
+  "counts": [
+    40,
+    59,
+    85,
+    60,
+    66,
+    64,
+    64,
+    64,
+    64,
+    107,
+    56,
+    30,
+    44,
+    48,
+    48,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    14,
+    10,
+    10,
+    10,
+    11,
+    14,
+    12
+  ],
+  "files": [
+    {
+      "file": "packages/course-content/src/economic-mathematics/lesson-14-marginal.ts",
+      "sha256": "059ba3ecd5e72b46f56656a8615dfd922e29cf80e6f91141e76081c91ed258e9"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/lesson-15-elasticity.ts",
+      "sha256": "bd81f1e0eea478720bbb672227bbd8fd80720635fdadf48e52af9b4d66d9ed11"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/business-authoring.ts",
+      "sha256": "7555b249a68e262168ad69a4337fe034c6ceaace0284477be4f576a72dcab433"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/business-exercises.ts",
+      "sha256": "05e0b130d01b57e6a0342ed5b77ae4ffee71764f0d0de5335f780b86f405db4f"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/business-model.ts",
+      "sha256": "d1dd9888dd2ad307ca36665043ae9ff1bcc6f03fe9b604e5997b7200c7dff762"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "sha256": "f4f807d78e3e7e25439ffd3e47cd9a4c507665afaf87b5e81864b703dfe196c3"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/slides.ts",
+      "sha256": "2da1ddb1565043cf0f7c4533a880aafaafbcdae9e1019e63c7a4a090a3ca1d7e"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/index.ts",
+      "sha256": "38561edeefd042e20246bc18eb643d1dde7755d83cf3481332eaba12a6a26d51"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/types.ts",
+      "sha256": "c64492587a44a9bc37ad8c8341ed6c1b5aa6ad4d739882eb7123181779eb540b"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/interactions.ts",
+      "sha256": "919dfa2df0068ad498d74ab5bc2d397a7b2d8335a6b49de1c6e0ec00e20832fe"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/authoring.ts",
+      "sha256": "7c710eaae0aa91e837fce48794dfd3370952b75e88b271c331540b24b24f60dc"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/next-lesson-plan.ts",
+      "sha256": "8f9a447b059ea938a2b24b5566f041ff5faa7669fc1b669acd1be4a839c53b32"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/BusinessFigure.tsx",
+      "sha256": "924dcc906cc0155a6b7128c6d54e543483e951b9e5128481661a3b111122a979"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/EconomicMathematicsTeachingSlides.tsx",
+      "sha256": "be42ef2bf77246418c6dfe72ce7af9c48ee9e7f3b020fe9a13f754f71f9da048"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/EconomicPageNarrator.tsx",
+      "sha256": "9053ac391e2a75d4581606cdfaffb5dcd09a15d6dac05a3818ab1db420f87bd9"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/PresentationChrome.tsx",
+      "sha256": "64d107e37c0d168ca56a43abe92a4154817677c9c6dcf719446785a22ccb6078"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/economic-mathematics.css",
+      "sha256": "67026477cd31009fc17c88abba553e6bd0508d0edf56dc3fd226cfabf20c726a"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/limits.css",
+      "sha256": "d08ab77afc142c14ed4d33809275a62f59f1a8816fac97215e1d2dc5b9f6d594"
+    },
+    {
+      "file": "apps/teacher-web/src/economic-narration.tsx",
+      "sha256": "f5d3c1db3d05b75cbdf7f33cb61357b03375ec1a962c477485d6f179ae4b7556"
+    },
+    {
+      "file": "packages/course-content/src/deck-registry.ts",
+      "sha256": "732004e9430e928d10a9ba1befe1456991700b9c56ce8f7b0d7a993ad9ad1898"
+    },
+    {
+      "file": "scripts/prepare-economic-business.mjs",
+      "sha256": "29c369ace42bb27e1894dfae18fd3ad29f9e8a37dcf40c181a293f45ff5eb1b0"
+    },
+    {
+      "file": "docs/course/economic-mathematics-business-design-2026-10-30.md",
+      "sha256": "cbd43b4a8ef64b365db00cd98a9b33246bf243ab5a0f66aa55d00677e0ea3abc"
+    },
+    {
+      "file": "docs/course/economic-mathematics-business-exercises.json",
+      "sha256": "fe5090e607276ce5e92b90abf4d174b25ef7a729a72adc262104265426300df2"
+    },
+    {
+      "file": "docs/course/economic-mathematics-business-validation-2026-10-30.md",
+      "sha256": "32584e7a2792bd9a66483cafb8704900f3b991b0144bae3eb3791c9ddbafaf1f"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson14-script.md",
+      "sha256": "24d1922141784e917f92183d53c9927155b19e596511820939b1a78789f6abde"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson15-script.md",
+      "sha256": "bbac9fa578dcaa1031517cc842435adf91e8af05797acf7f6970cdfee2d1eb83"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson14-answers.html",
+      "sha256": "f5671563288f53e21a44343dc8515347b2732ca38144d0b0448e209f0791dee2"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson14-script.html",
+      "sha256": "8f4f6b862100f4c250c3608f4ca5890a082f0346ce8ab71ba27e7e61e5f8590c"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson14-teacher.html",
+      "sha256": "80f2f5b3710283d7a44b8359589949494c60af78670cd932c95050a083ec612d"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson14-teacher.pdf",
+      "sha256": "ec0ffca34710bdc6b70c74a2b1d9229c948a2caa9482281c865ea0e8100a2302"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson14-worksheet.html",
+      "sha256": "01ac1d2581b930eee3e95714b0a09b982e7d889daf92bbcb1929e65fc7ac6889"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson15-answers.html",
+      "sha256": "7225f4fe97db269a69ec30b46273f75f4155822fbf79c4606927ff275cb207fc"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson15-script.html",
+      "sha256": "2cf0e8b1e3ec9977313651cdf3108232cebf05a514b002511ea84d7289085f5c"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson15-teacher.html",
+      "sha256": "626458a9537287daab34bd3895cec896ac65075bcb6572803fb8ef7098e67a68"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson15-teacher.pdf",
+      "sha256": "04cd2ee28833ec3cef89fd70633a97db009687d1c63f273d6a4de1c77be8f523"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson15-worksheet.html",
+      "sha256": "53b5892fefffaf5446309b96dde6ebf9ea28fd254585179201ff572364babbe9"
+    }
+  ]
+}

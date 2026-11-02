@@ -3,15 +3,15 @@ import type { EconomicMathematicsUnitNumber } from "./types.js";
 export const ECONOMIC_MATHEMATICS_COURSE_ID = "course-economic-mathematics";
 export const ECONOMIC_MATHEMATICS_COURSE_SLUG = "economic-mathematics";
 export const ECONOMIC_MATHEMATICS_COURSE_CODE = "14210850";
-export const ECONOMIC_MATHEMATICS_DECK_ID = "deck-economic-mathematics-2026-differential-rules";
+export const ECONOMIC_MATHEMATICS_DECK_ID = "deck-economic-mathematics-2026-integral-methods";
 export const ECONOMIC_MATHEMATICS_VERSION_ID =
-  "release-economic-mathematics-differential-rules-2026-10-26";
+  "release-economic-mathematics-integral-methods-2026-11-01";
 export const ECONOMIC_MATHEMATICS_CANVAS_WIDTH = 1600;
 export const ECONOMIC_MATHEMATICS_CANVAS_HEIGHT = 1000;
 export const ECONOMIC_MATHEMATICS_TOTAL_HOURS = 64;
-/** One hour remains for course-level practice scheduling after the 90-minute Lesson 2 redesign. */
-export const ECONOMIC_MATHEMATICS_UNALLOCATED_HOURS = 1;
-export const ECONOMIC_MATHEMATICS_TOTAL_LESSONS = 32;
+/** One existing hour plus two hours each from the L'Hopital and integral-foundations merges. */
+export const ECONOMIC_MATHEMATICS_UNALLOCATED_HOURS = 5;
+export const ECONOMIC_MATHEMATICS_TOTAL_LESSONS = 30;
 export const ECONOMIC_MATHEMATICS_ARCHIVED_DECK_ID = "deck-economic-mathematics-2026";
 export const ECONOMIC_MATHEMATICS_ARCHIVED_VERSION_ID = "release-economic-mathematics-v1";
 
@@ -45,11 +45,23 @@ export const ECONOMIC_MATHEMATICS_UNITS: readonly {
   { number: 1, title: "函数与营销定量模型", hours: 4, lessonStart: 1, lessonEnd: 2 },
   { number: 2, title: "极限与连续", hours: 8, lessonStart: 3, lessonEnd: 6 },
   { number: 3, title: "导数与微分", hours: 10, lessonStart: 7, lessonEnd: 11 },
-  { number: 4, title: "导数应用、边际与弹性分析", hours: 10, lessonStart: 12, lessonEnd: 16 },
-  { number: 5, title: "不定积分", hours: 8, lessonStart: 17, lessonEnd: 20 },
-  { number: 6, title: "定积分及累计量应用", hours: 10, lessonStart: 21, lessonEnd: 25 },
-  { number: 7, title: "多元函数微分", hours: 8, lessonStart: 26, lessonEnd: 29 },
-  { number: 8, title: "无约束、约束优化与营销决策", hours: 6, lessonStart: 30, lessonEnd: 32 }
+  { number: 4, title: "导数应用、边际与弹性分析", hours: 10, lessonStart: 12, lessonEnd: 15 },
+  { number: 5, title: "不定积分", hours: 8, lessonStart: 16, lessonEnd: 18 },
+  { number: 6, title: "定积分及累计量应用", hours: 10, lessonStart: 19, lessonEnd: 23 },
+  { number: 7, title: "多元函数微分", hours: 8, lessonStart: 24, lessonEnd: 27 },
+  { number: 8, title: "无约束、约束优化与营销决策", hours: 6, lessonStart: 28, lessonEnd: 30 }
+] as const;
+
+/** Frozen authoring ranges for legacy V2 sources, before the 2026-10-30 merge. */
+export const ECONOMIC_MATHEMATICS_V2_UNITS=[
+ {number:1,title:'函数与营销定量模型',hours:4,lessonStart:1,lessonEnd:2},
+ {number:2,title:'极限与连续',hours:8,lessonStart:3,lessonEnd:6},
+ {number:3,title:'导数与微分',hours:10,lessonStart:7,lessonEnd:11},
+ {number:4,title:'导数应用、边际与弹性分析',hours:10,lessonStart:12,lessonEnd:16},
+ {number:5,title:'不定积分',hours:8,lessonStart:17,lessonEnd:20},
+ {number:6,title:'定积分及累计量应用',hours:10,lessonStart:21,lessonEnd:25},
+ {number:7,title:'多元函数微分',hours:8,lessonStart:26,lessonEnd:29},
+ {number:8,title:'无约束、约束优化与营销决策',hours:6,lessonStart:30,lessonEnd:32}
 ] as const;
 
 export const ECONOMIC_MATHEMATICS_MODEL_LEDGER = {

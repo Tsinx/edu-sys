@@ -1,13 +1,15 @@
 import type { EconomicMathematicsAuthoredSlide as Slide, EconomicMathematicsLessonDefinition as Lesson } from "./types.js";
-import { ECONOMIC_MATHEMATICS_UNITS } from "./curriculum.js";
+import { ECONOMIC_MATHEMATICS_V2_UNITS } from "./curriculum.js";
 import { merchantReadout } from './merchant-model.js';
 import { limitLabReadout } from './limits-model.js';
 import { foundationReadout } from './foundations-model.js';
 import { analysisReadout } from './analysis-model.js';
+import {businessReadout} from './business-model.js';
+import {integralReadout} from './integral-model.js';
 
 /** Supplies identities and metadata only. All teaching copy and page choices are authored explicitly. */
 export function authoredLesson(number: number, title: string, coreQuestion: string, prerequisites: readonly string[], outcomes: readonly string[], route: NonNullable<Lesson["route"]>, pages: readonly Partial<Slide>[]): Lesson {
-  const unit=ECONOMIC_MATHEMATICS_UNITS.find(u=>number>=u.lessonStart && number<=u.lessonEnd)!;
+  const unit=ECONOMIC_MATHEMATICS_V2_UNITS.find(u=>number>=u.lessonStart && number<=u.lessonEnd)!;
   if(route.reduce((s,r)=>s+r.minutes,0)!==90) throw new Error(`ECONOMIC_ROUTE_MINUTES:${number}`);
   const slides: Slide[]=pages.map((page,i)=>({
     slideKey:`em-v2-l${String(number).padStart(2,"0")}-p${String(i+1).padStart(3,"0")}`,
@@ -27,5 +29,5 @@ export function getEconomicMathematicsPresentationStep(slide: Pick<Slide,"steps"
 
 export function economicVisibleCopy(slide: Slide, values?: Readonly<Record<string,number|string|boolean>>): string {
   const count=getEconomicMathematicsPresentationStep(slide,values);
-  return [slide.title,slide.lead,...(slide.body??[]),slide.formula,slide.prompt,...(slide.table?.columns??[]),...(slide.table?.rows.flat()??[]),...(slide.steps??[]).slice(0,count).flatMap(s=>[s.title,s.text,s.formula]),...(slide.merchantLab ? merchantReadout(values ?? {}).map(([k,v])=>`${k}：${v}`) : []),...(slide.limitLab ? limitLabReadout(slide.limitLab,values ?? {}).map(([k,v])=>`${k}：${v}`) : []),...(slide.foundationLab ? foundationReadout(slide.foundationLab,values ?? {}).map(([k,v])=>`${k}：${v}`) : []),...analysisReadout(slide,values??{}).map(([k,v])=>`${k}：${v}`)].filter(Boolean).join("\n");
+  return [slide.title,slide.lead,...(slide.body??[]),slide.formula,slide.prompt,...(slide.table?.columns??[]),...(slide.table?.rows.flat()??[]),...(slide.steps??[]).slice(0,count).flatMap(s=>[s.title,s.text,s.formula]),...(slide.merchantLab ? merchantReadout(values ?? {}).map(([k,v])=>`${k}：${v}`) : []),...(slide.limitLab ? limitLabReadout(slide.limitLab,values ?? {}).map(([k,v])=>`${k}：${v}`) : []),...(slide.foundationLab ? foundationReadout(slide.foundationLab,values ?? {}).map(([k,v])=>`${k}：${v}`) : []),...(slide.businessLab?businessReadout(slide.businessLab,values??{}).map(([k,v])=>`${k}：${v}`):[]),...(slide.integralLab?integralReadout(values??{},slide.integralLab).map(([k,v])=>`${k}：${v}`):[]),...analysisReadout(slide,values??{}).map(([k,v])=>`${k}：${v}`)].filter(Boolean).join("\n");
 }

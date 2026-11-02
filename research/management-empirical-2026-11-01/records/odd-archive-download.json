@@ -1,0 +1,11 @@
+{
+  "status": "complete original archive downloaded; members not yet inspected",
+  "source": "https://drive.google.com/file/d/1_nZOYhYfOu0zeu6m6etyFH8z3mwWzEl1/view",
+  "source_folder": "https://drive.google.com/drive/folders/1qN9jndr5lJBym8nrKhsKbItZnb5dZ5S-",
+  "path": "data\\odd\\data.tar.gz",
+  "bytes": 1971012271,
+  "sha256": "af2ff2252c555d2f238465822e9a2414ec51360f8b8fc33b547da91aab70cf00",
+  "method": "serial public HTTPS download via ordinary Google Drive download form",
+  "large_file_confirmation": true,
+  "retrieved": "2026-11-01"
+}

@@ -1,3 +1,10 @@
+import {MarketFigure} from './MarketFigure';
+import {IntegralFigure} from './IntegralFigure';
+import {integralReadout} from '@edu/course-content/economic-mathematics';
+import {OperatorFigure} from './OperatorFigure';
+import {ShapeFigure} from './ShapeFigure';
+import {BusinessFigure} from './BusinessFigure';
+import {businessReadout} from '@edu/course-content/economic-mathematics';
 import { MerchantFigure } from './MerchantFigure';
 import { ExerciseTimer } from './ExerciseTimer';
 import { merchantReadout, limitLabReadout, foundationReadout, analysisReadout, visibleAnalysisFigure } from '@edu/course-content/economic-mathematics';
@@ -57,14 +64,15 @@ export function EconomicMathematicsTeachingSlides({spec,interaction,readOnly,onI
  const values=interaction?.slideId===spec.slideKey?{...def?.defaults,...interaction.values}:{...def?.defaults};
  const step=getEconomicMathematicsPresentationStep(spec,values),cover=spec.layout==="cover",hasImage=Boolean(spec.image);
  if (spec.preludeId) return <EconomicPreludeSlide page={spec.localIndex} step={step}/>;
- if (spec.historyFilm) return <article className="em-slide em-history-slide" data-slide-composition={(spec.slideKey.includes("-analysis-")||spec.slideKey.includes("-calculus-rules-"))?spec.compositionId:undefined} aria-label={spec.title}><LessonHistoryFilm pageKey={spec.slideKey} values={values} readOnly={readOnly} onPatch={onInteractionPatch}/></article>;
+ if (spec.historyFilm) return <article className="em-slide em-history-slide" data-slide-composition={((spec.slideKey.includes("-analysis-")||(spec.slideKey.includes("-applications-")||spec.slideKey.includes("-business-")))||(spec.slideKey.includes("-calculus-rules-")||spec.slideKey.includes("-calculus-operators-")))?spec.compositionId:undefined} aria-label={spec.title}><LessonHistoryFilm pageKey={spec.slideKey} values={values} readOnly={readOnly} onPatch={onInteractionPatch}/></article>;
  const visibleSteps=(spec.steps??[]).slice(0,step);
  const visiblePlot=[...visibleSteps].reverse().find(s=>s.plot)?.plot??spec.plot;
  const highlighted=[...visibleSteps].reverse().find(s=>s.highlightRows)?.highlightRows??[];
  const limitFigure=[...visibleSteps].reverse().find(s=>s.limitFigure)?.limitFigure??spec.limitFigure;
  const foundationFigure=spec.foundationFigure;
  const analysisFigure=visibleAnalysisFigure(spec,values);
- return <article className={"em-slide em-"+(spec.layout??"essay")+" em-style-"+(spec.style??"editorial")+(hasImage?" em-with-image":"")+(spec.slideKey.startsWith("em-l02-refined")?" em-refined":"")+((spec.slideKey.includes("-limits-")||spec.slideKey.includes("-math-first-")||spec.slideKey.includes("-calculus-")||spec.slideKey.includes("-analysis-")||spec.slideKey.startsWith("em-l07-derivative-extension-"))?" em-limits":"")+(spec.conceptCheck?" em-concept-check":"")+(spec.slideKey.includes("-analysis-")?" em-analysis":"")+(limitFigure||foundationFigure||analysisFigure?" em-has-limit-figure":"")+(spec.limitLab==='sequence-zoom'?' em-sequence-lab':'')+(spec.merchantFigure?" em-has-merchant-figure":"")+(spec.merchantFigure==="mapping-types"?" em-mapping-types":"")} data-slide-composition={(spec.slideKey.includes("-analysis-")||spec.slideKey.includes("-calculus-rules-"))?spec.compositionId:undefined} aria-label={spec.title}>
+ const integralClasses=spec.slideKey.includes('-integral-')?'em-limits em-analysis em-integral '+(spec.integralLab?'em-integral-lab ':''):'';
+ return <article className={"em-slide "+integralClasses+"em-"+(spec.layout??"essay")+" em-style-"+(spec.style??"editorial")+(hasImage?" em-with-image":"")+(spec.slideKey.startsWith("em-l02-refined")?" em-refined":"")+((spec.slideKey.includes("-limits-")||spec.slideKey.includes("-math-first-")||spec.slideKey.includes("-calculus-")||(spec.slideKey.includes("-analysis-")||(spec.slideKey.includes("-applications-")||spec.slideKey.includes("-business-")))||spec.slideKey.startsWith("em-l07-derivative-extension-"))?" em-limits":"")+(spec.conceptCheck?" em-concept-check":"")+((spec.slideKey.includes("-analysis-")||(spec.slideKey.includes("-applications-")||spec.slideKey.includes("-business-")))?" em-analysis":"")+(limitFigure||foundationFigure||analysisFigure||spec.operatorFigure||spec.shapeFigure||spec.businessFigure||spec.marketFigure||spec.integralFigure?" em-has-limit-figure":"")+(spec.businessLab?" em-business-lab":"")+(spec.limitLab==='sequence-zoom'?' em-sequence-lab':'')+(spec.merchantFigure?" em-has-merchant-figure":"")+(spec.merchantFigure==="mapping-types"?" em-mapping-types":"")} data-slide-composition={((spec.slideKey.includes("-analysis-")||(spec.slideKey.includes("-applications-")||spec.slideKey.includes("-business-")))||(spec.slideKey.includes("-calculus-rules-")||spec.slideKey.includes("-calculus-operators-")))?spec.compositionId:undefined} aria-label={spec.title}>
  {cover&&hasImage&&<img className="em-cover-art" src={assetUrl(spec.image!)} alt={spec.imageAlt??""}/>}
  {spec.style==="constructivist"&&<img className="em-conflict-art" src={"/course-assets/economic-mathematics/v2/l"+String(spec.sourceLesson ?? spec.lesson).padStart(2,"0")+"-scene.png"} alt=""/>}
  <header className="em-header"><div className="em-kicker">{spec.kicker||"经济数学 / 第"+String(spec.lesson).padStart(2,"0")+"讲"}</div><h1>{spec.title}</h1></header>
@@ -77,6 +85,11 @@ export function EconomicMathematicsTeachingSlides({spec,interaction,readOnly,onI
  {spec.table&&<table className="em-table"><thead><tr>{spec.table.columns.map((c,i)=><th key={i}><MathText text={c}/></th>)}</tr></thead><tbody>{spec.table.rows.map((row,i)=><tr key={i} className={highlighted.includes(i)?"em-table-highlight":undefined}>{row.map((c,j)=><td key={j}><MathText text={c}/></td>)}</tr>)}</tbody></table>}
  {(spec.steps??[]).slice(0,step).map((s,i)=><section className="em-reveal" key={i}><span className="em-step-number">{String(i+1).padStart(2,"0")}</span><div><h2>{s.title}</h2>{s.text&&<p><MathText text={s.text}/></p>}{s.formula&&<MathText text={s.formula} display/>}</div></section>)}
  </div>
+ {spec.operatorFigure&&<div className="em-limit-evidence"><OperatorFigure kind={spec.operatorFigure}/></div>}
+ {spec.integralFigure&&<div className="em-limit-evidence"><IntegralFigure config={spec.integralFigure} values={values} step={step} pageKey={spec.slideKey}/>{spec.integralLab&&<dl className="em-limit-readout">{integralReadout(values,spec.integralLab).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl>}</div>}
+ {spec.businessFigure&&<div className="em-limit-evidence"><BusinessFigure config={spec.businessFigure} values={values} lab={spec.businessLab}/>{spec.businessLab&&<dl className="em-limit-readout">{businessReadout(spec.businessLab,values).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl>}</div>}
+ {spec.marketFigure&&<div className="em-limit-evidence"><MarketFigure config={spec.marketFigure} values={values}/>{spec.businessLab&&<dl className="em-limit-readout">{businessReadout(spec.businessLab,values).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl>}</div>}
+ {spec.shapeFigure&&<div className="em-limit-evidence"><ShapeFigure config={spec.shapeFigure} step={getEconomicMathematicsPresentationStep(spec,values)}/></div>}
  {spec.merchantFigure&&<MerchantFigure kind={spec.merchantFigure} values={values}/>}
  {limitFigure&&<div className="em-limit-evidence"><LimitFigure config={limitFigure} values={values}/>{spec.limitLab&&<dl className="em-limit-readout">{limitLabReadout(spec.limitLab,values).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl>}</div>}
  {analysisFigure&&<div className="em-limit-evidence"><AnalysisFigure config={analysisFigure} values={values}/>{analysisReadout(spec,values).length>0&&<dl className="em-limit-readout">{analysisReadout(spec,values).map(([label,result])=><div key={label}><dt>{label}</dt><dd>{result}</dd></div>)}</dl>}</div>}
@@ -89,6 +102,10 @@ export function EconomicMathematicsTeachingSlides({spec,interaction,readOnly,onI
  </article>;
 }
 const labels:Record<string,string>={capacity:"履约能力（件/日）",commission:"抽成比例",fixedCost:"固定成本（元/日）",price:"价格（元/件）",segment:"细分市场",n:"轮次",epsilon:"容许误差",orderAmount:"订单额（元）",approach:"接近方向",basePrice:"基准价格（元/件）",h:"价格间隔（元/件）",deltaPrice:"价格变化（元/件）",partitions:"分段数",sample:"取样位置",upperBound:"时间上限（小时）",advertising:"广告（百元/日）",lockedAxis:"固定变量",baseAdvertising:"基准广告（百元/日）",deltaAdvertising:"广告变化（百元/日）",x:"投入 x",y:"投入 y",budget:"预算（百元）",channelX:"渠道 x（百元）",revealStep:"公开分析",revealOptimum:"公开最优结果",revealClassification:"公开极值判别"};
+labels.primitiveC='平移常数 C';labels.primitiveX='观察位置 x₀';
+labels.arctanX='正切值／横坐标 x₀';
+labels.menuSlowPrice='慢机价格（元/台）';labels.menuFastPrice='快机价格（元/台）';labels.menuUrgentSlowValue='急用用户对慢机的愿付金额（元）';labels.marketPrice='办公市场价格（元/台）';
+labels.businessQuantity='计划销量（件/周）';labels.businessCapacity='产能上限（件/周）';labels.businessFixed='已承担固定成本（元/周）';labels.businessTax='每件税费（元/件）';labels.businessPrice='价格（元/件）';
 labels.delta='输入距离范围δ';
 labels.angle='转角（弧度）';
 labels.nominalRate='名义年利率（小数）';

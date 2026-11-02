@@ -1,0 +1,842 @@
+/** Individually authored questions shared by slides, teacher notes and platform entry. */
+export interface AnalysisQuestion {id:string;stem:string;options:Readonly<Record<'A'|'B'|'C'|'D',string>>;correctAnswer:string;explanation:string;distractorDiagnosis:string;feedbackFollowup:string;level:string}
+export interface AnalysisExercise {id:string;lesson:number;page:number;hour:number;title:string;individualSeconds:number;feedbackSeconds:number;type:string;questions:readonly AnalysisQuestion[]}
+export interface AnalysisWrittenExercise {id:string;lesson:number;label:string;title:string;task:string;requiredSteps:readonly string[];rubric:readonly (readonly [string,number])[];optionalRubric?:readonly (readonly [string,number])[];commonError:string;deeperQuestion:string;deeperAnswer:string;page:number;feedbackPage:number;individualSeconds:number;feedbackSeconds:number}
+export const ANALYSIS_EXERCISES:readonly AnalysisExercise[]=[
+  {
+    "id": "l11-check-01",
+    "lesson": 11,
+    "page": 7,
+    "hour": 1,
+    "title": "罗尔定理的条件",
+    "individualSeconds": 120,
+    "feedbackSeconds": 60,
+    "type": "single-choice",
+    "questions": [
+      {
+        "stem": "下列哪个函数在[−1,1]上满足罗尔定理的全部条件？",
+        "options": {
+          "A": "f(x)=|x|",
+          "B": "f(x)=x²",
+          "C": "f(x)=x",
+          "D": "f(x)=1/x"
+        },
+        "correctAnswer": "B",
+        "explanation": "x²在闭区间连续、内部可导，且f(−1)=f(1)=1，所以满足全部条件。",
+        "distractorDiagnosis": "A在0不可导；C两端不等值；D在0未定义，不能说在整个闭区间连续。",
+        "feedbackFollowup": "把A的图形换成光滑的x²后，补上的究竟是哪项条件？",
+        "level": "基础识别",
+        "id": "l11-check-01-q1"
+      },
+      {
+        "stem": "f(x)=|x|在[−1,1]上两端等值，却在内部找不到f′(ξ)=0。准确解释是哪一项？",
+        "options": {
+          "A": "罗尔定理不允许负数输入",
+          "B": "端点导数必须为0",
+          "C": "函数值不能为0",
+          "D": "内部可导条件失效，所以不能调用该定理"
+        },
+        "correctAnswer": "D",
+        "explanation": "0处不可导；两侧导数分别为−1和1。这个函数展示了仅有两端等值与连续还不够。",
+        "distractorDiagnosis": "A与定义域无关；B把结论错放在端点；C无此要求。不能说这是满足条件后推翻定理的反例。",
+        "feedbackFollowup": "若只核对f(−1)=f(1)，还遗漏了什么？",
+        "level": "条件识别",
+        "id": "l11-check-01-q2"
+      }
+    ]
+  },
+  {
+    "id": "l11-check-02",
+    "lesson": 11,
+    "page": 12,
+    "hour": 1,
+    "title": "不能调用定理，不等于结论为假",
+    "individualSeconds": 120,
+    "feedbackSeconds": 60,
+    "type": "single-choice",
+    "questions": [
+      {
+        "stem": "f(x)=x²在[−1,2]上两端不等值。关于“存在内部点使f′=0”，哪句话准确？",
+        "options": {
+          "A": "罗尔定理的条件不足，但x=0处确有f′(0)=0",
+          "B": "两端不等值，内部导数一定不为0",
+          "C": "该函数在端点不可导",
+          "D": "存在一个零导数点，便证明两端一定等值"
+        },
+        "correctAnswer": "A",
+        "explanation": "不能用罗尔的充分条件得到结论，但可直接算出f′(0)=0。条件不足和结论不成立是两个判断。",
+        "distractorDiagnosis": "B和D把充分条件当成必要条件；C对多项式的可导性判断错误。",
+        "feedbackFollowup": "“没有证明存在”与“已经证明不存在”能否互换？",
+        "level": "条件识别",
+        "id": "l11-check-02-q1"
+      },
+      {
+        "stem": "f(x)=sin x在[0,2π]上满足罗尔条件。内部满足f′(ξ)=0的点有哪些？",
+        "options": {
+          "A": "只有π",
+          "B": "只有π/2",
+          "C": "π/2与3π/2",
+          "D": "每一个内部点"
+        },
+        "correctAnswer": "C",
+        "explanation": "f′(x)=cos x，在该开区间有两个零点。定理承诺至少一个，并未承诺唯一。",
+        "distractorDiagnosis": "A把中值点当成区间中点；B漏了第二个点；D把存在量词改成全称量词。",
+        "feedbackFollowup": "常函数的中值点又会有多少个？",
+        "level": "基础计算",
+        "id": "l11-check-02-q2"
+      }
+    ]
+  },
+  {
+    "id": "l11-check-03",
+    "lesson": 11,
+    "page": 18,
+    "hour": 1,
+    "title": "开闭区间的分工",
+    "individualSeconds": 120,
+    "feedbackSeconds": 60,
+    "type": "single-choice",
+    "questions": [
+      {
+        "stem": "f(x)=√x在[0,1]上的情况是：",
+        "options": {
+          "A": "0处没有有限导数，因此不能用中值定理",
+          "B": "可用拉格朗日中值定理，且ξ=1/4",
+          "C": "必须先要求f′在[0,1]连续",
+          "D": "中值点只能取0"
+        },
+        "correctAnswer": "B",
+        "explanation": "闭区间连续、开区间可导已经足够。平均变化率为1，1/(2√ξ)=1给ξ=1/4。",
+        "distractorDiagnosis": "A和C额外要求端点导数；D选了不允许的端点，而且0处没有有限导数。",
+        "feedbackFollowup": "定理把“连续”写在[a,b]、把“可导”写在(a,b)，各自管什么？",
+        "level": "条件识别",
+        "id": "l11-check-03-q1"
+      },
+      {
+        "stem": "拉格朗日中值定理的结论应怎样读？",
+        "options": {
+          "A": "每个内部点的导数都等于割线斜率",
+          "B": "只有区间中点的导数等于割线斜率",
+          "C": "恰有一个内部点满足等式",
+          "D": "至少有一个内部点，其导数等于割线斜率"
+        },
+        "correctAnswer": "D",
+        "explanation": "结论是存在性陈述。函数不同，可以出现一个、多个乃至所有内部点都满足的情况。",
+        "distractorDiagnosis": "A换成了“所有”；B与C添加了位置或唯一性要求。",
+        "feedbackFollowup": "用一次函数检验“恰有一个”是否合理。",
+        "level": "基础识别",
+        "id": "l11-check-03-q2"
+      }
+    ]
+  },
+  {
+    "id": "l11-check-04",
+    "lesson": 11,
+    "page": 22,
+    "hour": 1,
+    "title": "平均变化率与定理前提",
+    "individualSeconds": 120,
+    "feedbackSeconds": 60,
+    "type": "single-choice",
+    "questions": [
+      {
+        "stem": "f(x)=x²在[1,3]上，割线斜率m与满足f′(ξ)=m的内部点分别为：",
+        "options": {
+          "A": "m=4，ξ=2",
+          "B": "m=8，ξ=4",
+          "C": "m=2，ξ=1",
+          "D": "m=4，ξ=4"
+        },
+        "correctAnswer": "A",
+        "explanation": "m=(9−1)/(3−1)=4；2ξ=4，所以ξ=2，且2∈(1,3)。",
+        "distractorDiagnosis": "B漏除区间长度；C使用了左端点导数；D虽然平均斜率正确，但解方程错误且点在区间外。",
+        "feedbackFollowup": "这一次碰巧得到中点，能否推成一般结论？",
+        "level": "基础计算",
+        "id": "l11-check-04-q1"
+      },
+      {
+        "stem": "已知f在[a,b]连续且在(a,b)可导，a<b。要使用拉格朗日中值定理，还必须增加哪项条件？",
+        "options": {
+          "A": "f′在整个闭区间连续",
+          "B": "f(a)=f(b)",
+          "C": "无需增加这三项中的任何一项",
+          "D": "f在区间内严格单调"
+        },
+        "correctAnswer": "C",
+        "explanation": "给定的条件已经足够。导函数连续、两端等值和严格单调都不是该定理的额外前提。",
+        "distractorDiagnosis": "A把可导加强成不必要的条件；B混用罗尔与拉格朗日的前提；D把一种可能推论当成前提。",
+        "feedbackFollowup": "若添加两端等值，定理的结论如何退化成罗尔定理？",
+        "level": "条件识别",
+        "id": "l11-check-04-q2"
+      }
+    ]
+  },
+  {
+    "id": "l11-check-05",
+    "lesson": 11,
+    "page": 30,
+    "hour": 2,
+    "title": "一点信息与区间信息",
+    "individualSeconds": 120,
+    "feedbackSeconds": 60,
+    "type": "single-choice",
+    "questions": [
+      {
+        "stem": "f在[2,5]连续、在(2,5)可导，且其中处处有1≤f′(x)≤3。可保证的是：",
+        "options": {
+          "A": "1≤f(5)−f(2)≤3",
+          "B": "f(5)−f(2)=3",
+          "C": "f(5)−f(2)=9",
+          "D": "3≤f(5)−f(2)≤9"
+        },
+        "correctAnswer": "D",
+        "explanation": "中值定理给Δf=3f′(ξ)，把导数上下界同乘区间长度3即可。",
+        "distractorDiagnosis": "A遗漏区间长度；B和C把一个边界误说成精确值。",
+        "feedbackFollowup": "若区间长度减半，能保证的增量范围怎样改变？",
+        "level": "定量应用",
+        "id": "l11-check-05-q1"
+      },
+      {
+        "stem": "只知道f在包含[2,5]的开区间内可导，且f′(2)=1，能否仍保证上一题的增量范围？",
+        "options": {
+          "A": "能，因为中值点一定是2",
+          "B": "不能；f(x)=(x−2)+(x−2)²就是反例",
+          "C": "能，因为一点导数决定全部函数值",
+          "D": "不能，因为多项式不满足连续条件"
+        },
+        "correctAnswer": "B",
+        "explanation": "此多项式在2处导数为1，但f(5)−f(2)=3+9=12，超出[3,9]。单点值不给整个区间的导数界。",
+        "distractorDiagnosis": "A的中值点不能取端点，也不由题意指定；C夸大一点信息；D对多项式的判断错误。",
+        "feedbackFollowup": "还需补充怎样的区间信息，才可恢复上一题的保证？",
+        "level": "条件识别",
+        "id": "l11-check-05-q2"
+      }
+    ]
+  },
+  {
+    "id": "l11-check-06",
+    "lesson": 11,
+    "page": 33,
+    "hour": 2,
+    "title": "导数为零与区间缺口",
+    "individualSeconds": 120,
+    "feedbackSeconds": 60,
+    "type": "single-choice",
+    "questions": [
+      {
+        "stem": "f在某个区间I内可导，且对所有x∈I有f′(x)=0。正确结论是：",
+        "options": {
+          "A": "f(x)必须恒等于0",
+          "B": "f只能在一个点取0",
+          "C": "f在I上是某个常数，但不一定为0",
+          "D": "f在I上严格递增"
+        },
+        "correctAnswer": "C",
+        "explanation": "任取u<v且均在I内，[u,v]仍在I中。中值定理给f(v)−f(u)=0，因此所有函数值相同。",
+        "distractorDiagnosis": "A混淆零斜率与零高度；B无依据；D与任意两点函数值相等相冲突。",
+        "feedbackFollowup": "f(x)≡7满足这个条件吗？",
+        "level": "基础识别",
+        "id": "l11-check-06-q1"
+      },
+      {
+        "stem": "D为除去0的全体实数，定义f(x)=0（x<0）、f(x)=1（x>0）。每个定义域内点都有f′=0，却不是同一个常数，原因是：",
+        "options": {
+          "A": "D不是一个区间，跨过0的闭区间不在定义域内",
+          "B": "0处导数不为0",
+          "C": "导数为零不能推出区间内常数",
+          "D": "函数在每一个正数点都不连续"
+        },
+        "correctAnswer": "A",
+        "explanation": "它在两个区间(−∞,0)和(0,+∞)上分别恒定。跨过0时，中值定理需要的整个区间不属于D。",
+        "distractorDiagnosis": "B中0根本不在定义域，不能给它一个导数值；C否定了正确的区间推论；D是错误事实。",
+        "feedbackFollowup": "在(0,+∞)内任意取两点，常数推论还能使用吗？",
+        "level": "条件识别",
+        "id": "l11-check-06-q2"
+      }
+    ]
+  },
+  {
+    "id": "l11-check-07",
+    "lesson": 11,
+    "page": 37,
+    "hour": 2,
+    "title": "单调、存在与唯一",
+    "individualSeconds": 120,
+    "feedbackSeconds": 60,
+    "type": "single-choice",
+    "questions": [
+      {
+        "stem": "“区间内f′>0”能推出严格递增。以下哪项正确说明其逆命题？",
+        "options": {
+          "A": "严格递增必定处处f′>0",
+          "B": "x³严格递增而f′(0)=0，说明逆命题不成立",
+          "C": "严格递增函数必定恰有一个零点",
+          "D": "f′(0)=0足以推出整个函数恒定"
+        },
+        "correctAnswer": "B",
+        "explanation": "x³在ℝ上严格递增，但0处导数为0。处处正导数是充分条件，不能反过来当成必要条件。",
+        "distractorDiagnosis": "A被此反例直接否定；C把“至多一个”误说成“必定恰有一个”；D把单点和区间条件混淆。",
+        "feedbackFollowup": "eˣ严格递增，但在ℝ上有没有零点？",
+        "level": "逻辑辨析",
+        "id": "l11-check-07-q1"
+      },
+      {
+        "stem": "h(x)=x+ln x−2在[1,2]内有且只有一个零点。哪一组论证分工正确？",
+        "options": {
+          "A": "h′>0直接证明零点存在；端点异号证明唯一",
+          "B": "h(1)<0直接证明恰好一个零点",
+          "C": "连续且端点异号证明存在；区间内h′>0证明至多一个",
+          "D": "只算h′(1)>0就同时证明存在与唯一"
+        },
+        "correctAnswer": "C",
+        "explanation": "h(1)=−1、h(2)=ln2>0，加上连续性，由介值定理得存在；h′=1+1/x>0给严格递增，从而排除第二个零点。",
+        "distractorDiagnosis": "A把存在与唯一的职责颠倒；B缺少另一端与区间信息；D只有一个点的信息。",
+        "feedbackFollowup": "若删去端点异号，只剩严格递增，零点还一定存在吗？",
+        "level": "综合推理",
+        "id": "l11-check-07-q2"
+      }
+    ]
+  },
+  {
+    "id": "l11-check-08",
+    "lesson": 11,
+    "page": 46,
+    "hour": 2,
+    "title": "柯西中值定理的共同位置",
+    "individualSeconds": 120,
+    "feedbackSeconds": 60,
+    "type": "single-choice",
+    "questions": [
+      {
+        "stem": "分别对f、g使用拉格朗日中值定理，得到Δf=f′(ξ_f)(b−a)、Δg=g′(ξ_g)(b−a)。哪句正确？",
+        "options": {
+          "A": "一定有ξ_f=ξ_g",
+          "B": "可以直接把两个符号都改成区间中点",
+          "C": "只要Δg≠0，两点就必相同",
+          "D": "不能直接认定两点相同；共同位置需要另作论证"
+        },
+        "correctAnswer": "D",
+        "explanation": "分别存在不等于共同存在。柯西定理用同一个辅助函数得到一个共同ξ，填补的正是这处逻辑缺口。",
+        "distractorDiagnosis": "A、B擅自指定点；C中分母增量非零与两点重合没有这种因果联系。",
+        "feedbackFollowup": "用f=x³、g=x²在[1,2]上算出的两个点核对。",
+        "level": "条件识别",
+        "id": "l11-check-08-q1"
+      },
+      {
+        "stem": "f、g在[a,b]连续、内部可导。若另知整个(a,b)内g′≠0，哪项结论及理由正确？",
+        "options": {
+          "A": "g(b)≠g(a)；否则罗尔定理会给一个g′=0的内部点",
+          "B": "g(b)−g(a)一定等于1",
+          "C": "g必须是一次函数",
+          "D": "无需检查g′就可保证柯西比值形式成立"
+        },
+        "correctAnswer": "A",
+        "explanation": "由反证可得Δg≠0，再将柯西乘积形式除以Δg与g′(ξ)。这是比值形式的一组充分条件。",
+        "distractorDiagnosis": "B和C给出不受前提支持的定量或形状结论；D遗漏了导数商的分母问题。乘积形式本身不需要除法。",
+        "feedbackFollowup": "仅有Δg≠0能否反推出整个内部g′≠0？用g=x²+x³在[−1,1]检验。",
+        "level": "条件推理",
+        "id": "l11-check-08-q2"
+      }
+    ]
+  },
+  {
+    "id": "l12-check-01",
+    "lesson": 12,
+    "page": 5,
+    "hour": 1,
+    "title": "未定形式与求导对象",
+    "individualSeconds": 120,
+    "feedbackSeconds": 60,
+    "type": "single-choice",
+    "questions": [
+      {
+        "stem": "x→0时，下列哪个原式属于0/0型？",
+        "options": {
+          "A": "(1+x)/(2+x)",
+          "B": "1/x",
+          "C": "(eˣ−1)/x",
+          "D": "(2+x)/(3+x)"
+        },
+        "correctAnswer": "C",
+        "explanation": "C的分子和分母均趋0。未定式说的是两个极限趋势，原函数在x≠0时仍是普通商。",
+        "distractorDiagnosis": "A、D分别趋1/2和2/3；B是非零数除趋零量，不能按0/0型使用法则。",
+        "feedbackFollowup": "非零数除趋零量时，为何还要看左右方向和符号？",
+        "level": "基础识别",
+        "id": "l12-check-01-q1"
+      },
+      {
+        "stem": "核对适用条件之后，洛必达法则要研究哪个新极限？",
+        "options": {
+          "A": "lim(f′g−fg′)/g²",
+          "B": "lim f′/g′",
+          "C": "lim(f′−g′)",
+          "D": "lim f/g²"
+        },
+        "correctAnswer": "B",
+        "explanation": "研究导数商f′/g′的极限，以此为原商极限提供依据；不是对原商整体求导。",
+        "distractorDiagnosis": "A是商的导数公式；C和D也改变了目标对象，却不是法则规定的比较方式。",
+        "feedbackFollowup": "把商的导数公式与导数商分别写在两行，核对是否相同。",
+        "level": "基础识别",
+        "id": "l12-check-01-q2"
+      }
+    ]
+  },
+  {
+    "id": "l12-check-02",
+    "lesson": 12,
+    "page": 10,
+    "hour": 1,
+    "title": "去心范围与中间位置",
+    "individualSeconds": 120,
+    "feedbackSeconds": 60,
+    "type": "single-choice",
+    "questions": [
+      {
+        "stem": "x→0时用法则处理x³/x²。关于g(x)=x²，哪项准确？",
+        "options": {
+          "A": "g′(0)=0，因此必定不能使用",
+          "B": "分母导数在0附近的每个点都必须包括0在内非零",
+          "C": "因为原式在0未定义，所以不能讨论极限",
+          "D": "g′(0)=0不妨碍使用；需要的是充分近且x≠0时g及g′非零"
+        },
+        "correctAnswer": "D",
+        "explanation": "去心条件排除目标点。g=x²、g′=2x都在x≠0时非零，导数商3x/2→0。",
+        "distractorDiagnosis": "A、B把去心条件移到目标点；C混淆函数值与附近过程。",
+        "feedbackFollowup": "若目标点处根本没有定义，只要附近条件齐全，证明还能进行吗？",
+        "level": "条件识别",
+        "id": "l12-check-02-q1"
+      },
+      {
+        "stem": "从有限端点a出发，已得a<ξ_x<x，且x→a⁺。能够直接推出的是：",
+        "options": {
+          "A": "ξ_x→a⁺，不必先解出ξ_x的显式公式",
+          "B": "ξ_x恒等于(a+x)/2",
+          "C": "ξ_x恒等于x",
+          "D": "ξ_x与x无关，所以不能判断"
+        },
+        "correctAnswer": "A",
+        "explanation": "0<ξ_x−a<x−a，右端趋0。中间点也被夹向a，这是有限端点证明的关键。",
+        "distractorDiagnosis": "B和C指定了不存在的等式；D忽略了区间对ξ_x的限制。",
+        "feedbackFollowup": "若改成固定r<ξ_x<x且x→∞，还能照搬这个推理吗？",
+        "level": "条件识别",
+        "id": "l12-check-02-q2"
+      }
+    ]
+  },
+  {
+    "id": "l12-check-03",
+    "lesson": 12,
+    "page": 15,
+    "hour": 1,
+    "title": "方向一致与原形式",
+    "individualSeconds": 120,
+    "feedbackSeconds": 60,
+    "type": "single-choice",
+    "questions": [
+      {
+        "stem": "lim(x→0)|x|/x的正确判断是：",
+        "options": {
+          "A": "左右都为0，所以极限为0",
+          "B": "导数商恒为1，所以极限为1",
+          "C": "右极限1、左极限−1，双侧极限不存在",
+          "D": "只要0/0型，双侧极限必存在"
+        },
+        "correctAnswer": "C",
+        "explanation": "x>0时原商为1，x<0时为−1。单侧各有极限，并不代表两侧相同。",
+        "distractorDiagnosis": "A把分子分母各自趋0误当成商趋0；B漏了负侧导数；D把未定形式当成存在性保证。",
+        "feedbackFollowup": "若题目改为x→0⁺，答案和论证需要怎样改变？",
+        "level": "基础识别",
+        "id": "l12-check-03-q1"
+      },
+      {
+        "stem": "有人把lim(x→0)(1+x)/(2+x)改算成lim 1/1=1。问题出在哪里？",
+        "options": {
+          "A": "原商是普通商，极限为1/2，并不满足所用未定式前提",
+          "B": "求导公式1+x的导数不是1",
+          "C": "分母必须先为0才可以定义函数",
+          "D": "洛必达一律不能用于有理函数"
+        },
+        "correctAnswer": "A",
+        "explanation": "原分子趋1、原分母趋2，连续性已给1/2。新导数商的极限不能替代不满足前提的原问题。",
+        "distractorDiagnosis": "B是错误求导判断；C把函数定义与未定形式混淆；D是不必要的函数类型限制。",
+        "feedbackFollowup": "判断法则前，应看原式还是只看求导后比较容易的式子？",
+        "level": "条件识别",
+        "id": "l12-check-03-q2"
+      }
+    ]
+  },
+  {
+    "id": "l12-check-04",
+    "lesson": 12,
+    "page": 20,
+    "hour": 1,
+    "title": "重复应用与方法选择",
+    "individualSeconds": 120,
+    "feedbackSeconds": 60,
+    "type": "single-choice",
+    "questions": [
+      {
+        "stem": "处理(eˣ−1−x)/x²的0点极限，第一次得到(eˣ−1)/(2x)。下一步正确的是：",
+        "options": {
+          "A": "原来是0/0，所以以后无需再查任何条件",
+          "B": "先确认当前仍为0/0且分母导数2非零，再研究eˣ/2的极限",
+          "C": "立刻得到0/0=0",
+          "D": "分子已求导过，所以只能停止"
+        },
+        "correctAnswer": "B",
+        "explanation": "第二次应用是一项新的推理。当前分子、分母均趋0，导数商eˣ/2→1/2，才可逐层回代。",
+        "distractorDiagnosis": "A把一次核验当作无限许可；C把未定形式当成数值；D误把重复应用一律禁止。",
+        "feedbackFollowup": "如果第一次求导后不再是未定式，接下来应做什么？",
+        "level": "条件识别",
+        "id": "l12-check-04-q1"
+      },
+      {
+        "stem": "lim(x→0)(x²+x)/x，哪种方法和理由准确？",
+        "options": {
+          "A": "必须连续用两次洛必达",
+          "B": "先把0代入，原式就等于0",
+          "C": "在x≠0时化成1+x，极限为1，无需使用洛必达",
+          "D": "先约成x²，极限为0"
+        },
+        "correctAnswer": "C",
+        "explanation": "因式分解x²+x=x(x+1)，在去心范围约去x。选方法可以依据原结构，法则可用不代表必须用。",
+        "distractorDiagnosis": "A不必要，且第一次后是2x+1并非继续使用的未定式；B原式在0未定义；D错误约分。",
+        "feedbackFollowup": "第一次导数商为2x+1时，为什么应改用普通连续性？",
+        "level": "基础计算",
+        "id": "l12-check-04-q2"
+      }
+    ]
+  },
+  {
+    "id": "l12-check-05",
+    "lesson": 12,
+    "page": 30,
+    "hour": 2,
+    "title": "输入方向、趋无穷与无界",
+    "individualSeconds": 120,
+    "feedbackSeconds": 60,
+    "type": "single-choice",
+    "questions": [
+      {
+        "stem": "x→0⁺时，ln x/(1/x)的原形式是：",
+        "options": {
+          "A": "非零常数/0",
+          "B": "0/0",
+          "C": "不能判断，因为x没有趋∞",
+          "D": "分子趋−∞、分母趋+∞，属于∞/∞型"
+        },
+        "correctAnswer": "D",
+        "explanation": "分类依据分子和分母各自的趋势。输入趋有限端点，并不妨碍函数值趋无穷。",
+        "distractorDiagnosis": "A、B误判了ln x与1/x；C把输入方向当成输出趋势。",
+        "feedbackFollowup": "该商在充分小的正x处是正数还是负数？",
+        "level": "基础识别",
+        "id": "l12-check-05-q1"
+      },
+      {
+        "stem": "x→+∞时，x sin x在正负方向都无界。能否仅据此把x sin x/x认作已核验的∞/∞型？",
+        "options": {
+          "A": "不能；无界不等于趋+∞或−∞，应先核对实际趋势",
+          "B": "能；只要出现x就是∞/∞",
+          "C": "能；无界函数必趋+∞",
+          "D": "不能；任何含sin的函数都不能用法则"
+        },
+        "correctAnswer": "A",
+        "explanation": "分子反复变号并有无穷多个零点，没有趋向某个符号的无穷。原商就是sin x，也不收敛。",
+        "distractorDiagnosis": "B和C混淆无界与趋无穷；D用函数名称代替条件判断。",
+        "feedbackFollowup": "找两列越来越大的输入，让分子分别取0和很大的正值。",
+        "level": "条件识别",
+        "id": "l12-check-05-q2"
+      }
+    ]
+  },
+  {
+    "id": "l12-check-06",
+    "lesson": 12,
+    "page": 34,
+    "hour": 2,
+    "title": "增长比较与再次核验",
+    "individualSeconds": 120,
+    "feedbackSeconds": 60,
+    "type": "single-choice",
+    "questions": [
+      {
+        "stem": "x→+∞时，ln x/x与x/ln x的极限依次为：",
+        "options": {
+          "A": "+∞与0",
+          "B": "1与1",
+          "C": "0与+∞",
+          "D": "都不存在"
+        },
+        "correctAnswer": "C",
+        "explanation": "前者导数商1/x→0；后者为x→+∞。充分大时两商为正且互为倒数。",
+        "distractorDiagnosis": "A颠倒了增长比较；B把同为无穷当成同速；D忽略了可用的比较依据。",
+        "feedbackFollowup": "ln x仍趋+∞，与ln x/x趋0是否冲突？",
+        "level": "基础计算",
+        "id": "l12-check-06-q1"
+      },
+      {
+        "stem": "x²/eˣ在x→+∞时第一次得2x/eˣ。继续求极限的正确依据是：",
+        "options": {
+          "A": "分子次数大于1，所以一定再求一次",
+          "B": "新比值仍是∞/∞，分母导数eˣ非零，再得2/eˣ→0",
+          "C": "分子与分母相消成2",
+          "D": "第一次可用，之后自然永远可用"
+        },
+        "correctAnswer": "B",
+        "explanation": "当前形式、可导性、非零分母导数与新导数商极限均需重新成立。于是第二个商趋0，进而原商趋0。",
+        "distractorDiagnosis": "A只看次数不看分母与条件；C不是合法恒等式；D取消了逐次核验。",
+        "feedbackFollowup": "到2/eˣ时还需继续使用∞/∞型法则吗？",
+        "level": "条件识别",
+        "id": "l12-check-06-q2"
+      }
+    ]
+  },
+  {
+    "id": "l12-check-07",
+    "lesson": 12,
+    "page": 38,
+    "hour": 2,
+    "title": "先保持等价，再应用工具",
+    "individualSeconds": 120,
+    "feedbackSeconds": 60,
+    "type": "single-choice",
+    "questions": [
+      {
+        "stem": "x→0⁺时，为把x ln x转成商，哪个恒等改写正确？",
+        "options": {
+          "A": "ln x/(1/x)",
+          "B": "ln x/x",
+          "C": "x/ln x",
+          "D": "(ln x)′/x′"
+        },
+        "correctAnswer": "A",
+        "explanation": "除以1/x就是乘以x。这个商的导数商为(1/x)/(−1/x²)=−x→0。",
+        "distractorDiagnosis": "B与C改变原函数；D将函数直接替换为导数，既非恒等变形，也未形成对应的合法法则步骤。",
+        "feedbackFollowup": "此题极限为0，能否据此把所有“0乘无穷”的结果都说成0？",
+        "level": "基础计算",
+        "id": "l12-check-07-q1"
+      },
+      {
+        "stem": "lim(x→+∞)[√(x²+x)−x]的首步，哪项合法且有助于求值？",
+        "options": {
+          "A": "把两个趋无穷的量直接消成0",
+          "B": "直接把差改成两个导数的差",
+          "C": "先将根号拆成x+√x",
+          "D": "乘共轭，化成x/[√(x²+x)+x]"
+        },
+        "correctAnswer": "D",
+        "explanation": "有理化是原函数在该范围内的恒等变形，再除以x得1/[√(1+1/x)+1]→1/2。",
+        "distractorDiagnosis": "A把未定形式当作运算；B不是洛必达允许的商；C错误使用根式法则。",
+        "feedbackFollowup": "为什么此处把√(x²)写成x时，需要注明x→+∞？",
+        "level": "条件识别",
+        "id": "l12-check-07-q2"
+      }
+    ]
+  },
+  {
+    "id": "l12-check-08",
+    "lesson": 12,
+    "page": 43,
+    "hour": 2,
+    "title": "对数层与原函数层",
+    "individualSeconds": 120,
+    "feedbackSeconds": 60,
+    "type": "single-choice",
+    "questions": [
+      {
+        "stem": "x→0⁺时xˣ的极限为：",
+        "options": {
+          "A": "0，因为底数趋0",
+          "B": "1，因为ln(xˣ)=x ln x→0，最后取指数",
+          "C": "不存在，因为0⁰没有作为此处的数值定义",
+          "D": "e，因为指数中出现x"
+        },
+        "correctAnswer": "B",
+        "explanation": "正输入保证可以取对数。对数层极限为0，由指数函数连续性，原量趋e⁰=1。",
+        "distractorDiagnosis": "A仅看底数；C混淆未定形式与极限是否存在；D没有对应计算。",
+        "feedbackFollowup": "若只算出对数层的答案0，原题答案应填0还是1？",
+        "level": "基础计算",
+        "id": "l12-check-08-q1"
+      },
+      {
+        "stem": "y=u(x)^{v(x)}，在所研究范围内u(x)>0。若v(x)ln u(x)→有限实数L，则：",
+        "options": {
+          "A": "y→L",
+          "B": "分别对u与v求导便得y的极限",
+          "C": "y→eᴸ，由指数函数连续性得到",
+          "D": "无论L多少都有y→1"
+        },
+        "correctAnswer": "C",
+        "explanation": "ln y=v ln u，因此y=exp(v ln u)→exp(L)。正底数和回到指数两步都不能省。",
+        "distractorDiagnosis": "A漏了返回步骤；B无这样的幂型洛必达公式；D只在L=0时给出1。",
+        "feedbackFollowup": "如果底数在研究范围中为负，为什么不能直接照搬实对数路线？",
+        "level": "条件识别",
+        "id": "l12-check-08-q2"
+      }
+    ]
+  }
+];
+export const ANALYSIS_WRITTEN_EXERCISES:readonly AnalysisWrittenExercise[]=[
+  {
+    "id": "l11-written-A",
+    "lesson": 11,
+    "label": "11-A",
+    "title": "中值点是否是中点，是否唯一？",
+    "task": "对f(x)=x³在[−1,1]上：①核对拉格朗日中值定理条件；②求平均变化率；③求出所有满足定理等式的内部点；④检验区间中点，并判断定理是否保证唯一。",
+    "requiredSteps": [
+      "多项式闭区间连续、开区间可导，且−1<1。",
+      "m=[1−(−1)]/[1−(−1)]=1。",
+      "3ξ²=1，解得ξ=±1/√3；两点均在(−1,1)。",
+      "中点0的导数为0而非1；定理只保证至少一个，不保证中点或唯一。"
+    ],
+    "rubric": [
+      [
+        "条件与区间",
+        2
+      ],
+      [
+        "平均变化率",
+        2
+      ],
+      [
+        "全部中值点及内部核验",
+        4
+      ],
+      [
+        "中点与存在量词",
+        2
+      ]
+    ],
+    "commonError": "只写正根，或因中点不满足就说定理不成立。",
+    "deeperQuestion": "f=x³在[0,1]上有几个这样的点？为何不同区间可以改变中值点的个数？",
+    "deeperAnswer": "此时平均变化率为1，正根1/√3是唯一处于(0,1)的解；“至少存在”允许这些不同结果。",
+    "page": 23,
+    "feedbackPage": 24,
+    "individualSeconds": 240,
+    "feedbackSeconds": 120
+  },
+  {
+    "id": "l11-written-B",
+    "lesson": 11,
+    "label": "11-B",
+    "title": "把近似、保证与精确值分开",
+    "task": "产量q按连续变量建模，成本单位为元。在[100,110]上连续、内部可导，且整个内部有24≤C′(q)≤24.4（元/件）。①给出增产10件的成本增量保证。②若进一步给定C(q)=2000+20q+0.02q²，算精确增量并找出中值点。③只知道C′(100)=24是否足够得到①？给出理由。",
+    "requiredSteps": [
+      "由中值定理ΔC=10C′(ξ)，故240≤ΔC≤244元。",
+      "精确代入或展开得ΔC=20×10+0.02×(110²−100²)=242元。",
+      "24.2=20+0.04ξ，故ξ=105件，确在(100,110)。",
+      "单点信息不足。例如D_K(q)=4200+24(q−100)+K(q−100)²，均有D_K′(100)=24；K=1时增量340元，超出①的保证。该模型没有满足①的区间导数界。"
+    ],
+    "rubric": [
+      [
+        "条件、导数界与区间长度",
+        3
+      ],
+      [
+        "240至244元及单位",
+        2
+      ],
+      [
+        "242元与ξ=105",
+        3
+      ],
+      [
+        "单点不足及反例依据",
+        2
+      ]
+    ],
+    "commonError": "把C′(100)×10=240说成精确值，或把一点条件冒充整个区间的导数界。",
+    "deeperQuestion": "中值点105碰巧为中点，是否就能说所有成本模型的中值点都在中点？",
+    "deeperAnswer": "不能；这里导函数为一次函数才得到该结果。更一般模型的中值点位置由它的导函数及区间共同决定。",
+    "page": 38,
+    "feedbackPage": 39,
+    "individualSeconds": 240,
+    "feedbackSeconds": 120
+  },
+  {
+    "id": "l12-written-A",
+    "lesson": 12,
+    "label": "12-A",
+    "title": "相消之后，先查当前结构",
+    "task": "计算lim(x→0)[ln(1+x)−x]/x²。写明附近定义域、原形式与分母导数条件；给出合法计算，并说明是否必须用两次洛必达。",
+    "requiredSteps": [
+      "取|x|<1/2且x≠0，ln(1+x)有定义，原分子、分母均趋0；分母x²非零、导数2x非零。",
+      "导数商=[1/(1+x)−1]/(2x)。",
+      "在x≠0时化简为−1/[2(1+x)]，它的极限为−1/2。",
+      "由洛必达法则，原商极限也为−1/2。一次求导后代数已解决，无需再求导；若选择第二次，也须重新核验条件。"
+    ],
+    "rubric": [
+      [
+        "附近范围及0/0型",
+        2
+      ],
+      [
+        "g、g′非零条件",
+        2
+      ],
+      [
+        "正确导数商与化简",
+        3
+      ],
+      [
+        "极限、回代与方法说明",
+        3
+      ]
+    ],
+    "commonError": "先用ln(1+x)∼x相减得到0；或化简约x时忘了所研究的是去心范围。",
+    "deeperQuestion": "把一次等价关系相减为何不够？",
+    "deeperAnswer": "ln(1+x)/x→1只控制相对x的误差趋零，不能直接给出相对x²的误差。这里需要进一步比较相消后的量。",
+    "page": 21,
+    "feedbackPage": 22,
+    "individualSeconds": 240,
+    "feedbackSeconds": 120
+  },
+  {
+    "id": "l12-written-B",
+    "lesson": 12,
+    "label": "12-B",
+    "title": "选对方法，并指出不合法的捷径",
+    "task": "必做：求lim(x→+∞)[√(x²+4x)−x]，解释为何不能直接把原差改成导数之差并当成洛必达。进阶选做：求lim(x→0)(1+3x)^(2/x)，写明底数条件及最后返回步骤。",
+    "requiredSteps": [
+      "必做：原式为两个无穷量的差，不是法则直接处理的商。",
+      "有理化为4x/[√(x²+4x)+x]；充分大时x>0，化成4/[√(1+4/x)+1]→2。",
+      "选做：取|x|<1/6且x≠0保证正底数。设y=(1+3x)^(2/x)，则ln y=2ln(1+3x)/x。",
+      "对数层可用重要极限或一次合法的0/0型洛必达，得到6；原量趋e⁶。"
+    ],
+    "rubric": [
+      [
+        "必做：识别差与商的区别",
+        3
+      ],
+      [
+        "必做：合法有理化与正x处理",
+        4
+      ],
+      [
+        "必做：极限2",
+        3
+      ]
+    ],
+    "optionalRubric": [
+      [
+        "选做：正底数、取对数",
+        2
+      ],
+      [
+        "选做：合法求得对数极限6",
+        2
+      ],
+      [
+        "选做：返回e⁶",
+        1
+      ]
+    ],
+    "commonError": "把导数之差的极限当成原极限；或算到对数层的6便停止。",
+    "deeperQuestion": "√(x²+4x)−x在x→−∞时还趋2吗？",
+    "deeperAnswer": "不趋2；此时√(x²)=|x|=−x，原式大致为−2x，趋+∞。题目方向是不可删去的条件。",
+    "page": 44,
+    "feedbackPage": 45,
+    "individualSeconds": 240,
+    "feedbackSeconds": 120
+  }
+];

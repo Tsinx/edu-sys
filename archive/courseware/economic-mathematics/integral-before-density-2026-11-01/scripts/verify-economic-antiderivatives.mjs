@@ -1,0 +1,31 @@
+import {readFile,writeFile,readdir} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {isDeepStrictEqual} from 'node:util';
+import assert from 'node:assert/strict';
+const out='output/courseware/economic-antiderivatives-2026-10-31',archive='archive/courseware/economic-mathematics/lesson16-before-antiderivatives-2026-10-31';
+const read=async file=>JSON.parse(await readFile(file,'utf8'));
+const hash=async file=>createHash('sha256').update(await readFile(file)).digest('hex');
+const manifest=await read(out+'/manifest.json'),oldManifest=await read(archive+'/manifest.json');
+assert.equal(manifest.pages,56);assert.equal(manifest.exerciseMinutes,25);assert.equal(manifest.activities,10);assert.equal(manifest.questions,18);
+for(const file of manifest.hashes)assert.equal(await hash(file.path),file.sha256,file.path);
+for(const file of oldManifest.files)assert.equal(await hash(archive+'/'+file.file),file.sha256,file.file);
+const before=await read(out+'/runtime-before.json'),after=await read('.runtime/platform-api/state.json');
+const existing=Object.values(before.classSessions).filter(s=>s.courseId==='course-economic-mathematics');
+const current=new Map(Object.values(after.classSessions).map(s=>[s.id,s]));
+for(const session of existing)assert.ok(isDeepStrictEqual(session,current.get(session.id)),'class session '+session.id);
+let runtimeCount=0;
+for(const session of existing)if(before.classroomRuntimes[session.id]){assert.ok(isDeepStrictEqual(before.classroomRuntimes[session.id],after.classroomRuntimes[session.id]),'class runtime '+session.id);runtimeCount++;}
+const pdfAudit=await read(out+'/pdf-audit.json'),pdf='output/pdf/economic-mathematics-lesson16-teacher.pdf',pub='apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-teacher.pdf',dist='apps/teacher-web/dist/course-assets/economic-mathematics/limits/lesson16-teacher.pdf';
+assert.equal(await hash(pdf),pdfAudit.sha256);assert.equal(await hash(pub),pdfAudit.sha256);assert.equal(await hash(dist),pdfAudit.sha256);
+assert.equal(await hash('apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-teacher.html'),pdfAudit.printHtmlSha256);
+const download=await read(out+'/pdf-download-path.json');assert.ok(download.path);assert.equal(await hash(download.path),pdfAudit.sha256);
+const bank=await read('docs/course/economic-mathematics-lesson16-exercises.json');assert.equal(bank.status,'prepared-not-synchronized');assert.equal(bank.activities.length,10);
+const paths=['/economic-narration.html?lesson=16&page=1','/api/health',...['teacher.html','teacher.pdf','script.html','worksheet.html','answers.html'].map(f=>'/course-assets/economic-mathematics/limits/lesson16-'+f),'/course-assets/economic-mathematics/limits/lesson14-teacher.pdf','/course-assets/economic-mathematics/limits/lesson15-teacher.pdf'];
+const health=await Promise.all(paths.map(async path=>{const r=await fetch('http://127.0.0.1:5174'+path);assert.equal(r.status,200,path);return{path,status:r.status};}));
+const api=await fetch('http://127.0.0.1:4300/api/health');assert.equal(api.status,200);
+const assets=await readdir('apps/teacher-web/dist/assets');let containsRelease=false;
+for(const file of assets.filter(f=>f.endsWith('.js'))){if((await readFile('apps/teacher-web/dist/assets/'+file,'utf8')).includes('release-economic-mathematics-antiderivatives-2026-10-31'))containsRelease=true;}
+assert.ok(containsRelease,'production assets include current release');
+const receipt={version:manifest.version,lesson:16,pages:56,hours:manifest.hours,exerciseMinutes:25,activities:10,questions:18,preservedSessions:existing.length,preservedRuntimes:runtimeCount,archiveFilesVerified:oldManifest.files.length,sourceFilesVerified:manifest.hashes.length,pdf:pdfAudit,browserDownload:download.path,health,productionAssetsCurrent:true,chaoxing:{status:'prepared-not-synchronized',remoteChanged:false},actualProjectionAndTeachingPace:'pending classroom trial'};
+await writeFile(out+'/final-receipt.json',JSON.stringify(receipt,null,2)+'\n');
+console.log(JSON.stringify({...receipt,pdf:{pages:pdfAudit.pages,sha256:pdfAudit.sha256},healthChecks:health.length,health:undefined},null,2));

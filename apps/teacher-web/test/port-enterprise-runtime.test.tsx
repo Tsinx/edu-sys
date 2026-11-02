@@ -1,3 +1,4 @@
+import {ENTERPRISE_INITIAL_CASH} from '@edu/port-simulation-core';
 import test,{before,after,afterEach} from 'node:test';
 import assert from 'node:assert/strict';
 import React from 'react';
@@ -52,17 +53,17 @@ async function mounted(scope:string){
 test('an injected quota failure rejects required persistence, retains exportable progress, and retry saves without repeating the business command',{timeout:30000},async()=>{
   globalThis.indexedDB=new IDBFactory();const scope='quota:'+randomUUID(),{result}=await mounted(scope),id=result.current.currentSave!.id;
   failWrites=true;
-  await act(async()=>{await result.current.command({kind:'loan',amount:500000});await assert.rejects(result.current.waitForSave(),/injected quota/);});
-  assert.equal(result.current.view!.cash,85500000);assert.match(result.current.storageError,/尚未写入/);
-  const exported=await result.current.send({type:'record'});assert.equal(restoreEnterprise(exported.record).cash,85500000);
+  await act(async()=>{await result.current.command({kind:'loan',amount:500000,product:'working',termMonths:3});await assert.rejects(result.current.waitForSave(),/injected quota/);});
+  assert.equal(result.current.view!.cash,(ENTERPRISE_INITIAL_CASH+500000));assert.match(result.current.storageError,/尚未写入/);
+  const exported=await result.current.send({type:'record'});assert.equal(restoreEnterprise(exported.record).cash,(ENTERPRISE_INITIAL_CASH+500000));
   await assert.rejects(result.current.create({...config,seed:1}),/尚未保存/);assert.equal(result.current.currentSave!.id,id);
-  assert.equal(restoreEnterprise((await listEnterpriseSaves(scope))[0]!.record).cash,85000000);
+  assert.equal(restoreEnterprise((await listEnterpriseSaves(scope))[0]!.record).cash,ENTERPRISE_INITIAL_CASH);
   failWrites=false;await act(async()=>{await result.current.saveNow();await result.current.waitForSave();});
-  const stored=(await listEnterpriseSaves(scope))[0]!;assert.equal(stored.id,id);assert.equal(stored.record.commands.filter(c=>c.kind==='loan').length,1);assert.equal(restoreEnterprise(stored.record).cash,85500000);assert.equal(result.current.storageError,'');
+  const stored=(await listEnterpriseSaves(scope))[0]!;assert.equal(stored.id,id);assert.equal(stored.record.commands.filter(c=>c.kind==='loan').length,1);assert.equal(restoreEnterprise(stored.record).cash,(ENTERPRISE_INITIAL_CASH+500000));assert.equal(result.current.storageError,'');
 });
 test('a worker crash retains the last confirmed record and recovery restores it without a new save or duplicate command',{timeout:30000},async()=>{
   globalThis.indexedDB=new IDBFactory();const scope='worker:'+randomUUID(),{result}=await mounted(scope);
-  await act(async()=>{await result.current.command({kind:'loan',amount:500000});await result.current.waitForSave();});
+  await act(async()=>{await result.current.command({kind:'loan',amount:500000,product:'working',termMonths:3});await result.current.waitForSave();});
   const before=result.current.currentSave!;
   await act(async()=>{workers.at(-1)!.crash();});assert.equal(result.current.workerFailed,true);
   assert.deepEqual((await result.current.send({type:'record'})).record,before.record);
@@ -81,23 +82,23 @@ test('overlapping activations cannot mix a new record identity with another port
 });
 test('an initial read failure does not silently create a replacement port or change the remembered run',{timeout:30000},async()=>{
   globalThis.indexedDB=new IDBFactory();const scope='read:'+randomUUID(),id=randomUUID();
-  const record=enterpriseRecord(executeEnterprise(createEnterprise(config),{kind:'loan',amount:500000}));
-  const existing:EnterpriseSave={id,scope,title:'已有场次',savedAt:new Date().toISOString(),schema:'port-enterprise/2.0',record,checkpoints:[]};await saveEnterprise(existing);
+  const record=enterpriseRecord(executeEnterprise(createEnterprise(config),{kind:'loan',amount:500000,product:'working',termMonths:3}));
+  const existing:EnterpriseSave={id,scope,title:'已有场次',savedAt:new Date().toISOString(),schema:'port-enterprise/4.0',record,checkpoints:[]};await saveEnterprise(existing);
   dom.window.sessionStorage.setItem('edu-enterprise-active-run:'+scope,id);failReads=true;
   const {result}=renderHook(()=>useEnterprise(scope));
   await waitFor(()=>assert.ok(result.current.view||result.current.listError),{timeout:10000});
   assert.equal(result.current.view,undefined,'a failed read must not look like lost progress or a new game');
   failReads=false;await act(async()=>{await result.current.retryStorage();await result.current.waitForSave();});
-  assert.equal(result.current.currentSave!.id,id);assert.equal(result.current.view!.cash,85500000);assert.equal((await listEnterpriseSaves(scope)).length,1);
+  assert.equal(result.current.currentSave!.id,id);assert.equal(result.current.view!.cash,(ENTERPRISE_INITIAL_CASH+500000));assert.equal((await listEnterpriseSaves(scope)).length,1);
 });
 test('a committed save is still successful when refreshing the list fails, and list retry keeps the active port',{timeout:30000},async()=>{
   globalThis.indexedDB=new IDBFactory();const scope='list:'+randomUUID(),{result}=await mounted(scope),id=result.current.currentSave!.id;
   failReads=true;
-  await act(async()=>{await result.current.command({kind:'loan',amount:500000});await result.current.waitForSave();});
+  await act(async()=>{await result.current.command({kind:'loan',amount:500000,product:'working',termMonths:3});await result.current.waitForSave();});
   assert.equal(result.current.storageError,'');assert.match(result.current.listError,/列表/);
   failReads=false;await act(async()=>{await result.current.retryStorage();});
-  assert.equal(result.current.currentSave!.id,id);assert.equal(result.current.view!.cash,85500000);assert.equal(result.current.listError,'');
-  assert.equal(restoreEnterprise((await listEnterpriseSaves(scope))[0]!.record).cash,85500000);
+  assert.equal(result.current.currentSave!.id,id);assert.equal(result.current.view!.cash,(ENTERPRISE_INITIAL_CASH+500000));assert.equal(result.current.listError,'');
+  assert.equal(restoreEnterprise((await listEnterpriseSaves(scope))[0]!.record).cash,(ENTERPRISE_INITIAL_CASH+500000));
 });
 test('a failed pending-package write retains the retry id and persists that exact package after recovery',{timeout:30000},async()=>{
   globalThis.indexedDB=new IDBFactory();const scope='pending:'+randomUUID(),{result}=await mounted(scope),oldId=result.current.currentSave!.id;
@@ -116,11 +117,11 @@ test('a missed cross-window notification still cannot overwrite a newer port, an
   globalThis.indexedDB=new IDBFactory();const scope='missed-notice:'+randomUUID(),{result}=await mounted(scope),original=result.current.currentSave!;
   const changed=executeEnterprise(createEnterprise(original.record.config),{kind:'management-plan',patch:{goal:'green'}});
   const newer=await saveEnterprise({...original,title:'另一窗口',record:enterpriseRecord(changed)});
-  await act(async()=>{await result.current.command({kind:'loan',amount:500000});await assert.rejects(result.current.waitForSave(),/其他窗口/);});
+  await act(async()=>{await result.current.command({kind:'loan',amount:500000,product:'working',termMonths:3});await assert.rejects(result.current.waitForSave(),/其他窗口/);});
   assert.equal(result.current.conflict,true);assert.deepEqual((await listEnterpriseSaves(scope))[0]!.record,newer.record);
   await assert.rejects(result.current.saveNow(),/其他窗口/);
   await act(async()=>{await result.current.keepConflictCopy();await result.current.waitForSave();});
-  assert.equal(result.current.conflict,false);assert.notEqual(result.current.currentSave!.id,original.id);assert.equal(result.current.view!.cash,85500000);
+  assert.equal(result.current.conflict,false);assert.notEqual(result.current.currentSave!.id,original.id);assert.equal(result.current.view!.cash,(ENTERPRISE_INITIAL_CASH+500000));
   const entries=await listEnterpriseSaves(scope);assert.equal(entries.length,2);assert.deepEqual(entries.find(s=>s.id===original.id)!.record,newer.record);
 });
 test('React strict effect replay does not create two initial ports or leave a stale worker active',{timeout:30000},async()=>{

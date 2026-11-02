@@ -1,5 +1,6 @@
 import {page as p,differentialPractice as practice,differentialLesson,writtenTask,type DifferentialPage} from './differentiation-authoring.js';
 import {differentialRulesPages,differentialRulesOptionalPages} from './differential-rules-pages.js';
+import {operatorSupplementPages} from './lesson-10-operators.js';
 const pages:readonly DifferentialPage[]=[
  p('边际成本24，还会随着产量改变吗？',String.raw`C(q)=2000+20q+0.02q^2,\qquad C'(q)=20+0.04q`,['第七讲在100件处得到24元/件；第八讲得到完整导函数。','产量再增加时，边际成本本身怎样变化？'],'前面三讲从差商走到导函数，再学会沿复合关系求导。现在把同一个成本模型的导函数当作新的函数，研究变化率的变化。',{sourceLabel:'教学情境',image:'l10-scene.png',imageAlt:'生产运营情境，模型产量范围为0至200件'}),
  p('同一模型中的三个不同量',undefined,[], '表里每一列都由同一个明确模型计算。请先分清总成本与边际成本，再观察边际成本相邻变化相同的现象。',{sourceLabel:'教学情境',table:{columns:['q（件）','C(q)（元）','C′(q)（元/件）'],rows:[['90','3962','23.6'],['100','4200','24'],['110','4442','24.4']]}}),
@@ -37,6 +38,7 @@ const pages:readonly DifferentialPage[]=[
  p('拓展：二阶变化怎样区分同一条切线？',String.raw`f(x)=x+x^2,\qquad g(x)=x+100x^2`,['在0处比较一阶与二阶导数。','说明为什么同一条切线看不到二次系数。'],'这道题不要求一般泰勒公式，只对两个精确多项式求导，检查二阶信息增加了什么。',{routeRole:'optional',seconds:240,kind:'exercise',steps:[{title:'二阶导数分辨不同弯曲速度',formula:String.raw`f'(0)=g'(0)=1,\qquad f''(0)=2,\qquad g''(0)=200`,speech:'一阶信息相同，二阶导数分别为二和二百，反映斜率变化差异。正式的二次近似系数与误差将在泰勒公式中统一说明。'}]}),
  p('拓展：控制相对成本增量误差',String.raw`\frac{|\Delta C-dC|}{|\Delta C|}=\frac{0.02|h|}{|24+0.02h|}\quad(h\ne0)`,['基点q=100，模型要求−100≤h≤100。','分别对h>0与h<0求相对误差≤1%的范围。'],'分母是真实增量，不能不看正负就把绝对值去掉。请在允许范围中分别处理两侧。',{routeRole:'optional',seconds:300,sourceLabel:'教学情境',kind:'exercise',steps:[{title:'增产与减产的界略有不同',formula:String.raw`0<h\le\frac{400}{33},\qquad-\frac{1200}{101}\le h<0`,text:'分别约为+12.1212件、−11.8812件；h=0时该相对误差不定义。',speech:'正侧解出h不超过四百除以三十三，负侧解出绝对值不超过一千二百除以一百零一。两侧真实增量不同，因而相对误差范围略有不同。'}]}),
  p('拓展：估计ln(1.02)，怎样核对误差？',String.raw`\ln(1+h)\approx h\quad(a=1\text{处对}\ln x\text{线性化})`,['给出h=0.02的估算值。','第五讲的对数极限保证渐近关系，能否单靠它给出该点的具体误差上界？'],'先完成局部估算，再说明仅凭极限定义不能直接读出某个固定增量的数值界。下一讲的中值定理与后面的泰勒余项会补充可量化的工具。',{routeRole:'optional',seconds:240,kind:'exercise',steps:[{title:'估算与保证应分开',text:'估算为0.02；真值约0.01980263。该差值可数值核验，但若要给严格误差界，必须另给不等式、精确界或适用定理。',speech:'数值核验能告诉这一次的偏差，不能把观察直接升级成对整个范围的保证。严格误差界需要额外依据。'}]})
+ ,...operatorSupplementPages
 ];
 const built=differentialLesson(10,'高阶导数、微分与线性近似','变化率怎样继续变化，一次近似省去了什么，怎样说明可用范围？',['区分函数值、一阶与二阶导数并核对存在条件','计算高阶导数并避免先代值再求导','用余项区分微分与真实增量，推导并运用微分四则和复合法则','固定基点计算微分，明确误差基准及近似适用范围'],['高阶导数的定义、存在性反例、变化率单位；六组个人练习','微分定义、四则与复合计算、估算与误差；六组个人练习与一次短答'],pages,{corePages:61,firstHourPages:30,revision:'rules-20261026'});
 export const differentialsLesson10=built.lesson;

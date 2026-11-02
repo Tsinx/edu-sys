@@ -1,0 +1,278 @@
+{
+  "schema": "port-enterprise-director-verification/1",
+  "at": "2026-11-01T08:16:38.571Z",
+  "scope": {
+    "localOnly": true,
+    "singlePlayer": true,
+    "campusDeployment": false,
+    "gitCommitOrPush": false,
+    "realStudentGradesChanged": false,
+    "olderEngineMigration": false
+  },
+  "rules": {
+    "engine": "port-enterprise/5.0",
+    "operations": "port-operations/5.0",
+    "catalogue": "port-assets/3.0",
+    "demand": "port-market/2.0",
+    "finance": "port-finance/4.0",
+    "indicators": "port-enterprise-score/4.0",
+    "director": "port-director/1",
+    "telemetry": "port-enterprise-telemetry/1"
+  },
+  "tests": {
+    "core": {
+      "pass": 207,
+      "fail": 0,
+      "log": "output/port-enterprise-director-20261101/core-final.log"
+    },
+    "web": {
+      "pass": 408,
+      "fail": 0,
+      "log": "output/port-enterprise-director-20261101/web-final2.log"
+    },
+    "enterpriseApi": {
+      "pass": 6,
+      "fail": 0,
+      "log": "output/port-enterprise-director-20261101/api-first.log"
+    },
+    "fullApi": {
+      "pass": 194,
+      "fail": 1,
+      "log": "output/port-enterprise-director-20261101/api-final2.log",
+      "failure": "Legacy 48-hour experiment exceeded its existing 180-second server replay limit under concurrent test load"
+    },
+    "isolatedLegacyDeadline": {
+      "pass": 1,
+      "fail": 0,
+      "log": "output/port-enterprise-director-20261101/api-deadline-isolated.log"
+    },
+    "workspaceTypes": {
+      "ok": true,
+      "log": "output/port-enterprise-director-20261101/types-delivery.log"
+    },
+    "productionBuild": {
+      "ok": true,
+      "log": "output/port-enterprise-director-20261101/build-final2.log"
+    },
+    "whitespace": {
+      "ok": true,
+      "log": "output/port-enterprise-director-20261101/diff-check-delivery-final.log"
+    }
+  },
+  "browser": {
+    "completeTutorial": {
+      "ok": true,
+      "teachingSteps": 43,
+      "hour": 4344,
+      "years": 10,
+      "days": 181,
+      "months": 6,
+      "commands": 340,
+      "cash": 15404545,
+      "debt": 16666664,
+      "unpaid": 0,
+      "financeUnlocked": true,
+      "hash": "aae130c3844fd39e3010467a8658a2da086cb150fb843de7a1035ffedc326f81",
+      "sealedHash": "8df272d3f9c1b03324e8d04dbaaa7bc5b0784553b9f4b0033604f182e754fd9b"
+    },
+    "observedSteps": 43,
+    "actualSiteDay": {
+      "startHour": 168,
+      "endHour": 192
+    },
+    "tenYearPackageRoundTripExact": true,
+    "mainCharts": 0,
+    "selected3DAsset": "asset-2",
+    "narrowWidth": 390,
+    "fullScreenDraftSurvived": true,
+    "consoleErrors": 0,
+    "log": "output/port-enterprise-director-20261101/personal-tutorial-actions.json"
+  },
+  "replays": [
+    {
+      "name": "director-1y-daily",
+      "hour": 8760,
+      "years": 1,
+      "outcome": "completed",
+      "cash": 110586682,
+      "debt": 13333328,
+      "unpaid": 0,
+      "days": 365,
+      "months": 12,
+      "commands": 644,
+      "profit": 83568803,
+      "businessHash": "0c8fcde7ca99be98d124424bd78b3100ba5f4423991df8f81fc64e3818fb8a06",
+      "hash": "ddfd268d693fb6f79098f3bbe86e3566c32cffdb39040106a24ce65f2aacfa43",
+      "milliseconds": 9236
+    },
+    {
+      "name": "director-1y-batched",
+      "hour": 8760,
+      "years": 1,
+      "outcome": "completed",
+      "cash": 110586682,
+      "debt": 13333328,
+      "unpaid": 0,
+      "days": 365,
+      "months": 12,
+      "commands": 7,
+      "profit": 83568803,
+      "businessHash": "0c8fcde7ca99be98d124424bd78b3100ba5f4423991df8f81fc64e3818fb8a06",
+      "hash": "ddfd268d693fb6f79098f3bbe86e3566c32cffdb39040106a24ce65f2aacfa43",
+      "milliseconds": 7672
+    },
+    {
+      "name": "director-bankruptcy",
+      "hour": 336,
+      "years": 1,
+      "outcome": "bankrupt",
+      "cash": 0,
+      "debt": 20000000,
+      "unpaid": 476968,
+      "days": 14,
+      "months": 1,
+      "commands": 41,
+      "profit": -873429,
+      "businessHash": "5b773db2334024600b28c7eb5509d11112749a4b8c814de947dd130290567032",
+      "hash": "c07316ff89c1ebcdd603d454a2d789a3b69956d3eabfb795970caaa9d0d3629c",
+      "milliseconds": 286
+    },
+    {
+      "name": "semester-default",
+      "hour": 4344,
+      "years": 10,
+      "outcome": "operating",
+      "cash": 15452288,
+      "debt": 16666664,
+      "unpaid": 0,
+      "days": 181,
+      "months": 6,
+      "commands": 341,
+      "profit": 45115134,
+      "businessHash": "3badc19c483e4f9b4d1b4a63ff4d3a7750d7cee4dbddf97a607f61a1dc13b33a",
+      "hash": "bf4d699747948d88021874bdccf02639b0ed7d0e90c29e4c600fb54def5295fa",
+      "milliseconds": 5933
+    },
+    {
+      "name": "semester-alternative",
+      "hour": 4344,
+      "years": 10,
+      "outcome": "operating",
+      "cash": 15886111,
+      "debt": 16666664,
+      "unpaid": 0,
+      "days": 181,
+      "months": 6,
+      "commands": 341,
+      "profit": 37601489,
+      "businessHash": "9d06209a409d0d50e31ea656d9c28619143eb957672246213635d46f6e91d19e",
+      "hash": "8362a2d8da42fae645bc8830d733c8ae0061345103020591e68087875e6ec863",
+      "milliseconds": 5294
+    },
+    {
+      "name": "director-10y",
+      "hour": 87672,
+      "years": 10,
+      "outcome": "completed",
+      "cash": 1134821107,
+      "debt": 0,
+      "unpaid": 0,
+      "days": 3653,
+      "months": 120,
+      "commands": 6457,
+      "profit": 975043315,
+      "businessHash": "c3e25b9de3039912b561d1710b16619a7094c0b8e630e038c71cb1ad0035b1b9",
+      "hash": "13766e8a8897355ad19a8d866ff201891e9aa87140adc8565b13ead2d189aed2",
+      "milliseconds": 208495
+    }
+  ],
+  "package": {
+    "path": "output/东湾港-长期经营5.0-总经理巡港-20261101.zip",
+    "bytes": 39018978,
+    "sha256": "b83c1c95dc88e9a92449654fac2573929516d52c643b336dc214026736720582",
+    "integrity": {
+      "ok": true,
+      "rules": "port-enterprise/5.0",
+      "teaching": "port-enterprise-teaching/7",
+      "files": [
+        {
+          "path": "web/index.html",
+          "sha256": "1e1452a2473669c8cd57812222de18800429790cb9bab4a7aae7d8f1df2c4459",
+          "bytes": 462
+        },
+        {
+          "path": "web/enterprise.js",
+          "sha256": "2c8146d697e04f85a4cb7362e0d6026511469e9c85376a9e8a5b804c2d0ac91c",
+          "bytes": 9400485
+        },
+        {
+          "path": "web/enterprise.css",
+          "sha256": "942c56a511bc250bd8ec2f6f21250a84b844d4ca59adf5628cede48db851cd0e",
+          "bytes": 83349
+        },
+        {
+          "path": "web/enterprise.worker.js",
+          "sha256": "6742730388f1dbe65d73cf85bf0979584c574e40e26e29f91f78b08c237cf9ef",
+          "bytes": 156695
+        },
+        {
+          "path": "runtime/node.exe",
+          "sha256": "8ccfc9b16942fd1f4154e160a249805dd88eb0d253b789aa669b91cf0ade6e57",
+          "bytes": 95271424
+        },
+        {
+          "path": "runtime/server.mjs",
+          "sha256": "e18f110a59882af6d6fdb2afc00fd27b53c6ce6cf891d62daa8c2f76f9fcfa88",
+          "bytes": 1419
+        },
+        {
+          "path": "runtime/NODE-LICENSE.txt",
+          "sha256": "d94dd7496d4de9cd130f1eb6e661e43422483663fd48cf3a450d244b9cda6fdc",
+          "bytes": 156972
+        },
+        {
+          "path": "Start-PortEnterprise.ps1",
+          "sha256": "752a93ea6e084ec404031403fef789798d5c3452004f62b2af99554beb61231f",
+          "bytes": 1962
+        },
+        {
+          "path": "Start-PortEnterprise.cmd",
+          "sha256": "75aff0dd4a6cfc560cd13b2362f6c567a795452b25a9598e692821e1fe5e135a",
+          "bytes": 100
+        },
+        {
+          "path": "Stop-PortEnterprise.ps1",
+          "sha256": "207f291405efa0fc43fdf82e3e062a1388cf0e8a3b9ace648d7a18eb071de6be",
+          "bytes": 1404
+        },
+        {
+          "path": "Stop-PortEnterprise.cmd",
+          "sha256": "3b586f97192c6d4c65368125903b239c894e449b0a767c036ca5bbd2e5bc3673",
+          "bytes": 106
+        },
+        {
+          "path": "THIRD-PARTY-NOTICES.txt",
+          "sha256": "8e36b302af86159a1c5d8febc383a7dd12846d96e37691a8f605a88b014252e2",
+          "bytes": 8936
+        },
+        {
+          "path": "使用说明.txt",
+          "sha256": "fe3c755af1ccc586fb8cae31da1949df682d4682156cd3086df834dbe7a2edc1",
+          "bytes": 2818
+        }
+      ]
+    },
+    "windowsPowerShell51StartAndRepeat": true
+  },
+  "runtime": {
+    "app": "port-enterprise",
+    "instance": "5617a8d23be3",
+    "version": "port-enterprise/5.0",
+    "pid": 76592
+  },
+  "sourceSnapshot": {
+    "path": "output/port-enterprise-director-20261101/source-hashes.json",
+    "files": 51
+  },
+  "evidenceRoot": "output/port-enterprise-director-20261101/"
+}

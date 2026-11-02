@@ -1,0 +1,8 @@
+{
+  "path": "data/odd/company_name.dta",
+  "bytes": 190417228,
+  "sha256": "9b24e859de2c4898acbdfbed63acc35431db4ab7b56939984ccfe0a38e2a84e9",
+  "source": "https://drive.google.com/file/d/1tDSq0mrjHXhGQuz8qc7TUvWQ69Ylgxmg/view?usp=drivesdk",
+  "drive_id": "1tDSq0mrjHXhGQuz8qc7TUvWQ69Ylgxmg",
+  "method": "Google Drive connector raw file; streamed to disk"
+}

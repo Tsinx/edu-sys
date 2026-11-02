@@ -62,6 +62,13 @@ export type EconomicMathematicsInteractionId =
   | "budget-constraint-lab";
 
 export interface EconomicMathematicsAuthoredSlide {
+  integralFigure?: EconomicMathematicsIntegralFigure;
+  integralLab?: 'primitive-family'|'arctan';
+  businessFigure?: {kind:'inverse-demand'|'marginal-lines'|'profit'|'revenue-profit'|'capacity-value'|'average-cost'|'elasticity'|'price-revenue'|'unit-elastic-minimum'|'price-objectives'|'constant-elasticity'|'power-profit'|'same-local-elasticity';quantity?:number;capacity?:number;fixed?:number};
+  businessLab?: 'marginal'|'elasticity'|'menu'|'market-elasticity';
+  marketFigure?: {kind:'uniform-price'|'utility'|'menu-choice'|'production-cost'|'market-demand'|'market-revenue'|'revenue-minimum'|'same-tangent'|'market-marginals'|'market-profit';price?:number;capacity?:number};
+  shapeFigure?: {kind:'stationary'|'family'|'chord-convex'|'chord-concave'|'tangent'|'inflection-cubic'|'inflection-absolute';a?:number;x1?:number;x2?:number;lambda?:number;chordAt?:number;showWeight?:boolean;inflections?:boolean};
+  operatorFigure?: 'absolute' | 'function-absolute' | 'differential' | 'zero-chain';
   analysisFigure?: EconomicMathematicsAnalysisFigure;
   analysisLab?: 'mvt' | 'cost-bound' | 'cauchy' | 'quotient-oscillation';
   foundationFigure?: EconomicMathematicsFoundationFigure;
@@ -113,6 +120,12 @@ export interface EconomicMathematicsAuthoredSlide {
   routeRole?: "core" | "optional";
   teachingSeconds?: number;
   moduleId?: string;
+}
+
+/** Explicit models for the pure-mathematics antiderivative lesson. */
+export interface EconomicMathematicsIntegralFigure {
+  kind:'family'|'point-match'|'domain-gap'|'gap-family'|'fixed-point'|'same-family'|'absolute-integrand'|'absolute-primitive'|'positive-derivative'|'tangent-branch'|'arctan'|'arcsin'|'substitution-fold'|'substitution-branch';
+  constant?:number;
 }
 
 export interface EconomicMathematicsFoundationFigure {

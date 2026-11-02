@@ -1,0 +1,41 @@
+{
+  "status": "expanded source-support profile, no incident-effect estimate",
+  "original_cell_rows": 1206067,
+  "observed_company_ids": 3410,
+  "unique_firmyears": 53459,
+  "duplicate_keys": 0,
+  "cross_file_alignment": {
+    "promotion": {
+      "all_keys_and_source_ordinals_equal": true,
+      "counts_above_cell_stock": 0
+    },
+    "turnover": {
+      "all_keys_and_source_ordinals_equal": true,
+      "counts_above_cell_stock": 0
+    }
+  },
+  "government_candidate_companies": 1445,
+  "three_pre_firmyears": 1440,
+  "pre_support_50_total_5_computer": 475,
+  "of_pre_qualified_two_post_firmyears": 475,
+  "post_coverage_rule": "Post-event availability is reported, not used to select the pre-supported candidate set.",
+  "definition": "SOC15-1 computer occupations, not a security-specialist or identified individual cohort.",
+  "candidate_dates": "Earliest government-linked record in the 2010-2021 corpus window; all require source timing and perimeter checks.",
+  "cohort_counts": {
+    "2010": 1,
+    "2012": 22,
+    "2013": 24,
+    "2014": 33,
+    "2015": 34,
+    "2016": 38,
+    "2017": 47,
+    "2018": 65,
+    "2019": 52,
+    "2020": 92,
+    "2021": 67
+  },
+  "files": {
+    "workforce-candidates-firmyear-role-counts.csv": "258fb49d6a6e6a33cfcce48011a7d2ff1dfb215e1407cf151f56d5a65b2f61f1",
+    "workforce-candidates-source-support.csv": "fe52ca2207a88cd25c2b846fcffa557fb10576b67e727c830253864809cfeb46"
+  }
+}

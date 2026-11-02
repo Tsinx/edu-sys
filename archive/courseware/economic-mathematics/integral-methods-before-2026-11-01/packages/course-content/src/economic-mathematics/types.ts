@@ -1,0 +1,216 @@
+export type EconomicMathematicsUnitNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+
+export type EconomicMathematicsSlideKind =
+  | "scene"
+  | "evidence"
+  | "question"
+  | "definition"
+  | "derivation"
+  | "worked-example"
+  | "exercise"
+  | "solution"
+  | "error-audit"
+  | "interaction"
+  | "manager-brief"
+  | "transition";
+
+export type EconomicMathematicsVisual =
+  | "editorial-scene"
+  | "decision-split"
+  | "data-ledger"
+  | "variable-map"
+  | "formula-board"
+  | "coordinate-plot"
+  | "comparison-board"
+  | "worked-grid"
+  | "exercise-desk"
+  | "error-lens"
+  | "model-boundary"
+  | "manager-memo"
+  | "chapter-bridge"
+  | "area-studio"
+  | "surface-studio"
+  | "optimization-studio";
+
+export type EconomicMathematicsPublicLabel =
+  | "教学情境"
+  | "概念模型"
+  | "自制图形"
+  | "公开资料"
+  | "教材框架";
+
+export type EconomicMathematicsAccent =
+  | "vermilion"
+  | "cyan"
+  | "green"
+  | "amber"
+  | "ink";
+
+export type EconomicMathematicsInteractionId =
+  | "price-profit-lab"
+  | "sequence-limit-lab"
+  | "continuity-threshold-lab"
+  | "secant-tangent-lab"
+  | "linearization-error-lab"
+  | "elasticity-profit-lab"
+  | "riemann-sum-lab"
+  | "accumulation-limit-lab"
+  | "consumer-surplus-lab"
+  | "marketing-surface-lab"
+  | "tangent-plane-lab"
+  | "unconstrained-optimum-lab"
+  | "budget-constraint-lab";
+
+export interface EconomicMathematicsAuthoredSlide {
+  integralFigure?: EconomicMathematicsIntegralFigure;
+  integralLab?: 'primitive-family'|'arctan';
+  businessFigure?: {kind:'inverse-demand'|'marginal-lines'|'profit'|'revenue-profit'|'capacity-value'|'average-cost'|'elasticity'|'price-revenue'|'unit-elastic-minimum'|'price-objectives'|'constant-elasticity'|'power-profit'|'same-local-elasticity';quantity?:number;capacity?:number;fixed?:number};
+  businessLab?: 'marginal'|'elasticity'|'menu'|'market-elasticity';
+  marketFigure?: {kind:'uniform-price'|'utility'|'menu-choice'|'production-cost'|'market-demand'|'market-revenue'|'revenue-minimum'|'same-tangent'|'market-marginals'|'market-profit';price?:number;capacity?:number};
+  shapeFigure?: {kind:'stationary'|'family'|'chord-convex'|'chord-concave'|'tangent'|'inflection-cubic'|'inflection-absolute';a?:number;x1?:number;x2?:number;lambda?:number;chordAt?:number;showWeight?:boolean;inflections?:boolean};
+  operatorFigure?: 'absolute' | 'function-absolute' | 'differential' | 'zero-chain';
+  analysisFigure?: EconomicMathematicsAnalysisFigure;
+  analysisLab?: 'mvt' | 'cost-bound' | 'cauchy' | 'quotient-oscillation';
+  foundationFigure?: EconomicMathematicsFoundationFigure;
+  foundationLab?: 'angle' | 'compounding' | 'continuity-repair' | 'bisection' | 'derivative-secant' | 'differential-error';
+  /** Two authored concept questions with teacher-controlled feedback. */
+  conceptCheck?: boolean;
+  limitFigure?: EconomicMathematicsLimitFigure;
+  limitLab?: 'error-band' | 'capacity' | 'sequence-zoom';
+  /** Links the teacher exercise bank; never rendered in the shared canvas. */
+  exerciseActivityId?: string;
+  historyFilm?: boolean;
+  merchantFigure?: 'mapping' | 'mapping-types' | 'many-one' | 'demand' | 'sales' | 'inverse' | 'profit' | 'grid' | 'composition' | 'expansion';
+  merchantLab?: boolean;
+  exerciseMinutes?: number;
+  /** Original public prelude page ID; rendered with the existing geometric artwork. */
+  preludeId?: string;
+  /** Original source coordinates keep assets and narration stable after regrouping. */
+  sourceLesson?: number;
+  sourceLocalIndex?: number;
+  slideKey: string;
+  compositionId: string;
+  section: string;
+  title: string;
+  kicker: string;
+  kind: EconomicMathematicsSlideKind;
+  visual: EconomicMathematicsVisual;
+  lead?: string;
+  body?: readonly string[];
+  formula?: string;
+  formulaLabel?: string;
+  data?: readonly string[];
+  prompt?: string;
+  sourceLabel: EconomicMathematicsPublicLabel;
+  sourceNote?: string;
+  accent: EconomicMathematicsAccent;
+  interactionId?: EconomicMathematicsInteractionId;
+  teachingCue: string;
+  assistantCue: string;
+  layout?: "cover" | "story" | "essay" | "split" | "proof" | "plot" | "table" | "exercise" | "lab" | "compare";
+  style?: "editorial" | "constructivist" | "cover";
+  image?: string;
+  imageAlt?: string;
+  steps?: readonly EconomicMathematicsRevealStep[];
+  plot?: EconomicMathematicsPlot;
+  table?: { columns: readonly string[]; rows: readonly (readonly string[])[] };
+  interactionDefaults?: Readonly<Record<string, number | string | boolean>>;
+  /** Teacher-only pacing metadata; never project or attach to student DOM. */
+  classHour?: 1 | 2;
+  routeRole?: "core" | "optional";
+  teachingSeconds?: number;
+  moduleId?: string;
+}
+
+/** Explicit models for the pure-mathematics antiderivative lesson. */
+export interface EconomicMathematicsIntegralFigure {
+  kind:'family'|'point-match'|'domain-gap'|'gap-family'|'fixed-point'|'same-family'|'absolute-integrand'|'absolute-primitive'|'positive-derivative'|'tangent-branch'|'arctan'|'arcsin';
+  constant?:number;
+}
+
+export interface EconomicMathematicsFoundationFigure {
+  kind: 'angle' | 'sinc' | 'compound' | 'equivalence' | 'continuity' | 'contract' | 'queue' | 'ivt' | 'bisection' | 'extreme' | 'oscillation' | 'sided' | 'far' | 'derivative' | 'product-increment' | 'marginal-average' | 'chain' | 'inverse-derivative' | 'implicit-circle' | 'higher-rate' | 'higher-corner' | 'differential-error';
+  params?: Readonly<Record<string, number>>;
+}
+
+export interface EconomicMathematicsRevealStep {
+  title: string;
+  text?: string;
+  formula?: string;
+  plot?: EconomicMathematicsPlot;
+  highlightRows?: readonly number[];
+  limitFigure?: EconomicMathematicsLimitFigure;
+  analysisFigure?: EconomicMathematicsAnalysisFigure;
+}
+
+export type EconomicMathematicsMvtModel = 'square' | 'cubic' | 'cubic-symmetric' | 'absolute' | 'endpoint-jump' | 'root' | 'sine' | 'rolle-parabola' | 'constant';
+export interface EconomicMathematicsAnalysisFigure {
+  kind: 'mvt' | 'auxiliary' | 'cost-bound' | 'domain-gap' | 'cauchy' | 'quotient-oscillation' | 'tail-bound';
+  model?: EconomicMathematicsMvtModel;
+  params?: Readonly<Record<string,number>>;
+}
+
+/** Explicit mathematical evidence; no title/keyword selects a curve. */
+export interface EconomicMathematicsLimitFigure {
+  kind: 'profit' | 'quotient' | 'square-area' | 'hole' | 'error-band' | 'sign' | 'oscillation-samples' | 'sequence' | 'sequence-comparison' | 'sequence-zoom' | 'capacity' | 'counter-sequences' | 'contract' | 'average-cost' | 'reciprocal' | 'squeeze' | 'unit-circle' | 'derivative-bridge';
+  params?: Readonly<Record<string, number>>;
+}
+
+export type EconomicMathematicsCurveModel = "demand" | "profit" | "sequence" | "hole" | "sinc" | "threshold" | "secant" | "linear-error" | "elasticity" | "power" | "log" | "exponential" | "cubic" | "riemann" | "accumulation" | "surplus" | "surface" | "plane" | "profit-contours" | "budget" | "unit-circle" | "exhibition-budget";
+
+export interface EconomicMathematicsPlot {
+  model: EconomicMathematicsCurveModel;
+  xLabel: string;
+  yLabel: string;
+  domain?: readonly [number, number];
+  params?: Readonly<Record<string, number>>;
+}
+
+export interface EconomicMathematicsSlideSpec
+  extends EconomicMathematicsAuthoredSlide {
+  index: number;
+  lesson: number;
+  lessonTitle: string;
+  unit: EconomicMathematicsUnitNumber;
+  unitTitle: string;
+  localIndex: number;
+  localTotal: number;
+}
+
+export interface EconomicMathematicsLessonDefinition {
+  number: number;
+  unit: EconomicMathematicsUnitNumber;
+  unitTitle: string;
+  title: string;
+  hours: 1 | 2 | 3;
+  expectedSlides: number;
+  coreQuestion: string;
+  exerciseCapability: string;
+  slides: readonly EconomicMathematicsAuthoredSlide[];
+  prerequisites?: readonly string[];
+  outcomes?: readonly string[];
+  route?: readonly { minutes: number; activity: string }[];
+  classHours?: readonly { hour: 1 | 2; minutes: 45; slideStart: number; slideEnd: number; activity: string }[];
+}
+
+export interface EconomicMathematicsLessonSpec
+  extends Omit<EconomicMathematicsLessonDefinition, "slides"> {
+  slideStart: number;
+  slideEnd: number;
+  slideTotal: number;
+}
+
+export interface EconomicMathematicsSlidePosition {
+  globalIndex: number;
+  lessonNumber: number;
+  lessonStart: number;
+  lessonEnd: number;
+  localIndex: number;
+  localTotal: number;
+}
+
+export function defineEconomicMathematicsLesson(
+  lesson: EconomicMathematicsLessonDefinition
+): EconomicMathematicsLessonDefinition {
+  return lesson;
+}

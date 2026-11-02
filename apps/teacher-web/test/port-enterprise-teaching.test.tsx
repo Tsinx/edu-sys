@@ -11,9 +11,9 @@ import {EnterpriseTeachingCoach} from '../src/features/port-simulation/enterpris
 import type {useEnterprise} from '../src/features/port-simulation/enterprise/useEnterprise';
 
 test('the semester route teaches six months through real actions and does not credit defaults or failures',()=>{
-  let s=createEnterprise();const p=newEnterpriseTeaching(),steps=()=>enterpriseTeachingSteps(enterpriseView(s),enterpriseRecord(s),p);
-  assert.equal(p.schema,'port-enterprise-teaching/4');assert.equal(p.selected,'strategy');assert.equal(ENTERPRISE_TEACHING_END_HOUR,4344);
-  assert.equal(steps().length,28);assert.equal(steps()[0]!.complete,false);assert.ok(steps().every(x=>!Object.hasOwn(x,'quiz')));
+  let s=createEnterprise({...createEnterprise().config,tutorial:true});const p=newEnterpriseTeaching(),steps=()=>enterpriseTeachingSteps(enterpriseView(s),enterpriseRecord(s),p);
+  assert.equal(p.schema,'port-enterprise-teaching/7');assert.equal(p.selected,'strategy');assert.equal(ENTERPRISE_TEACHING_END_HOUR,4344);
+  assert.equal(steps().length,43);assert.equal(steps()[0]!.complete,false);assert.ok(steps().every(x=>!Object.hasOwn(x,'quiz')));
   s=executeEnterprise(s,{kind:'management-plan',patch:{chargeTarget:99}});assert.equal(steps()[0]!.complete,false);
   s=executeEnterprise(s,{kind:'management-plan',patch:{goal:'balanced'}});assert.equal(steps()[0]!.complete,true);
   p.receipts['vehicle-accept']={hour:2000,position:999,evidence:['future']};assert.equal(steps().find(x=>x.id==='vehicle-accept')!.complete,false);
@@ -24,8 +24,8 @@ test('game guidance walks through real menus and fields, automatically passing a
   const v=enterpriseView(createEnterprise()),p=newEnterpriseTeaching(),step=enterpriseTeachingSteps(v,undefined,p).find(x=>x.id==='yard-zones')!;
   const values:Record<string,string>={importShare:'50',sharedShare:'10',maxTiers:'4'};
   const read=(selector:string)=>values[/data-enterprise-field="([^"]+)"/.exec(selector)?.[1]??''];
-  assert.match(resolveEnterpriseGuideAction(step,'overview',v,read).selector,/hud-menu/);
-  assert.match(resolveEnterpriseGuideAction(step,'menu',v,read).selector,/menu-yard/);
+  assert.match(resolveEnterpriseGuideAction(step,'overview',v,read).selector,/top-operations/);
+  assert.match(resolveEnterpriseGuideAction(step,'menu',v,read).selector,/menu-operations/);
   assert.match(resolveEnterpriseGuideAction(step,'finance',v,read).selector,/window-close/);
   assert.equal(resolveEnterpriseGuideAction(step,'yard',v,read).value,'20');
   values.sharedShare='20';assert.equal(resolveEnterpriseGuideAction(step,'yard',v,read).value,'3');
@@ -33,7 +33,7 @@ test('game guidance walks through real menus and fields, automatically passing a
 });
 
 test('guided command enforcement rejects unrelated or extra decisions and prevents repeated completed actions',()=>{
-  let s=createEnterprise();const p=newEnterpriseTeaching();
+  let s=createEnterprise({...createEnterprise().config,tutorial:true});const p=newEnterpriseTeaching();
   const allowed=(c:EnterpriseCommand)=>teachingAllowsCommand(enterpriseView(s),enterpriseRecord(s),p,c);
   assert.ok(allowed({kind:'management-plan',patch:{goal:'balanced'}}));
   assert.equal(allowed({kind:'management-plan',patch:{goal:'balanced',charging:'offpeak'}}),false);
@@ -41,16 +41,16 @@ test('guided command enforcement rejects unrelated or extra decisions and preven
   s=executeEnterprise(s,{kind:'management-plan',patch:{goal:'balanced'}});assert.equal(allowed({kind:'management-plan',patch:{goal:'balanced'}}),false);
 });
 
-test('all 28 management tasks reach a real half-year handover and preserve deterministic enterprise replay',()=>{
-  let s=createEnterprise();const p=newEnterpriseTeaching();
+test('all 43 management tasks reach a real half-year handover and preserve deterministic enterprise replay',()=>{
+  let s=createEnterprise({...createEnterprise().config,tutorial:true});const p=newEnterpriseTeaching();
   const act=(c:EnterpriseCommand)=>{assert.ok(teachingAllowsCommand(enterpriseView(s),enterpriseRecord(s),p,c),JSON.stringify(c));s=executeEnterprise(s,c);assert.ok(s.journal.at(-1)!.ok,s.journal.at(-1)!.message);};
-  for(let n=0;n<28;n++){
+  for(let n=0;n<enterpriseTeachingSteps(enterpriseView(s),enterpriseRecord(s),p).length;n++){
     const step=enterpriseTeachingSteps(enterpriseView(s),enterpriseRecord(s),p)[n]!;p.selected=step.id;p.starts[step.id]={hour:s.hour,position:s.journal.length};
     if(step.kind==='command')act(step.expected!);
     if(step.kind==='advance')while(s.hour<step.planHour!){const incident=enterpriseIncidentLesson(enterpriseView(s));if(incident)act(incident.expected);else act({kind:'advance',hours:Math.min(24*93,step.planHour!-s.hour),stopOnIncident:true});}
     if(step.id==='vehicle-accept')assert.equal(s.assets.at(-1)!.model,'electric-tractor');
     if(step.id==='digital-accept')assert.equal(s.digitalLevel,2);
-    if(step.id==='road-accept')assert.ok(Math.abs(s.terminals[0]!.distance-1.28)<1e-8);
+    if(step.id==='road-accept')assert.ok(s.projects.some(p=>p.status==='completed'&&['road-upgrade','yard-extension'].includes(p.type)));
     p.receipts[step.id]={hour:s.hour,position:s.journal.length,evidence:step.evidence};
     assert.ok(enterpriseTeachingSteps(enterpriseView(s),enterpriseRecord(s),p)[n]!.complete,step.id);
   }
@@ -65,6 +65,19 @@ test('spotlight cards remain on screen and leave the target clear on desktop and
     const p=placeTourCard(target,width!,height!,320,210);assert.ok(p.left>=0&&p.top>=0);assert.ok(p.left+p.width<=width!);assert.ok(p.top+210<=height!);
     assert.ok(p.left+p.width<=target.left||p.left>=target.left+target.width||p.top+210<=target.top||p.top>=target.top+target.height);
   }
+});
+test('a different set of real management choices completes the same semester and replays with its own outcomes',()=>{
+  let s=createEnterprise({...createEnterprise().config,tutorial:true});const p=newEnterpriseTeaching();
+  const act=(c:EnterpriseCommand)=>{assert.ok(teachingAllowsCommand(enterpriseView(s),enterpriseRecord(s),p,c));s=executeEnterprise(s,c);assert.ok(s.journal.at(-1)!.ok,s.journal.at(-1)!.message);};
+  for(let n=0;n<enterpriseTeachingSteps(enterpriseView(s),enterpriseRecord(s),p).length;n++){
+    const step=enterpriseTeachingSteps(enterpriseView(s),enterpriseRecord(s),p)[n]!;p.selected=step.id;p.starts[step.id]={hour:s.hour,position:s.journal.length};
+    if(step.kind==='command')act(step.alternatives?.at(-1)??step.expected!);
+    if(step.kind==='advance')while(s.hour<step.planHour!){const incident=enterpriseIncidentLesson(enterpriseView(s));if(incident)act(incident.expected);else act({kind:'advance',hours:Math.min(24*93,step.planHour!-s.hour),stopOnIncident:true});}
+    p.receipts[step.id]={hour:s.hour,position:s.journal.length,evidence:step.evidence};assert.ok(enterpriseTeachingSteps(enterpriseView(s),enterpriseRecord(s),p)[n]!.complete);
+  }
+  assert.equal(s.hour,4344);assert.equal(s.terminals[0]!.storageCapacity,3900);assert.equal(s.policy.tariff,1.5);assert.equal(s.management.plan.charging,'offpeak');
+  assert.equal(s.management.logisticsPlans.T2!.routing,'barge-first');assert.ok(s.management.metrics.reserveCoverHours>0);assertEnterprise(s);
+  assert.equal(enterpriseHash(restoreEnterprise(enterpriseRecord(s))),enterpriseHash(s));
 });
 
 test('the entry is a game tour without reference-document panels, and exams start teaching only in a separate practice',()=>{

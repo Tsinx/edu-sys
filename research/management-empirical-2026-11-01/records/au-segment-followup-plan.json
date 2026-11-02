@@ -1,0 +1,15 @@
+{
+  "recorded": "2026-11-01",
+  "stage": "follow-up after observing the frozen 42-group P30 pilot",
+  "purpose": "Strengthen the group-information comparator, inspect contract-relative reliability and days-to-pay, and describe sample selection",
+  "disclosure": "These checks are exploratory follow-up, not an untouched confirmation sample",
+  "outcomes": ["Payments 30 days or less", "Average Payment Time (days)", "Percentage of SB invoices paid within Payment Term"],
+  "group_information": ["Outcome at current group", "Group P30", "Group average payment days", "Group median", "Group P80", "Group P95", "Group contract-relative on-time share", "Group most common contractual payment term"],
+  "local_information": ["Current segment-minus-group outcome", "Segment-minus-group most common contractual term"],
+  "estimation": "Ridge regression with intercept; training-fold standardization, group-equal weights. Penalty chosen by deterministic ABN-grouped five-fold cross-validation on the first two chronological transitions only, grid [0,0.01,0.1,1,10,100]. Identical test rows for both information sets.",
+  "holdout": "2025H2 to 2026H1 as before. P30 and on-time-share predictions clipped to [0,100] for both models; mean days clipped at zero.",
+  "samples": ["Previously frozen four-period stable-segment sample", "Secondary: adjacent exact-name matches across complete valid multi-active-segment reports, allowing segment sets to vary; training on first two transitions, evaluation on third"],
+  "bounds": "Re-run rounding-relaxation LP with the strict 0.015001pp distribution-sum filter and 0.5pp component rounding sensitivity; validate feasibility residuals and known analytic examples",
+  "historical_link": "Require all six old number bands to sum to 100 within 0.030001pp; remove nil/all-zero rows, retain only groups with at least two active reporters. Report relation to new report type as disclosure allocation, not treatment assignment or stable ownership certification.",
+  "interpretation": "Error gains quantify published segment information content in a revised snapshot, not credit losses or the causal effect of mandatory disclosure. Rich group-only models can improve, match or beat local models."
+}

@@ -1,0 +1,172 @@
+{
+  "source": "https://raw.githubusercontent.com/thesubtlety/breach-tracker/e13395831b6cf8f1a373343ba7af285dfac4f38b/data/incidents.jsonl",
+  "commit": "e13395831b6cf8f1a373343ba7af285dfac4f38b",
+  "bytes": 33944748,
+  "sha256": "079107a88410c650903e5d910c658e6975b81c76d31bccab1301dc11eae6ac58",
+  "license": "CC BY-SA 4.0; see saved publisher LICENSE; underlying source terms also apply",
+  "rows": 19771,
+  "unique_ids": 19771,
+  "human_reviewed": 0,
+  "models": {
+    "openai:gpt-6-luna": 9281,
+    "import:vcdb": 7356,
+    "deterministic": 3134
+  },
+  "imported": 7356,
+  "source_groups_overlap": {
+    "CA": {
+      "rows": 4983,
+      "with_discovery_date": 2383,
+      "disclosure_years": {
+        "2023": 544,
+        "2024": 502,
+        "2025": 479,
+        "2021": 454,
+        "2026": 435,
+        "2022": 396,
+        "2020": 371,
+        "2017": 291,
+        "2018": 262,
+        "2019": 241,
+        "2016": 241,
+        "2015": 226,
+        "2013": 186,
+        "2014": 183,
+        "2012": 167,
+        "2011": 4,
+        "2010": 1
+      }
+    },
+    "HHS": {
+      "rows": 949,
+      "with_discovery_date": 61,
+      "disclosure_years": {
+        "2026": 426,
+        "2025": 320,
+        "2014": 72,
+        "2024": 38,
+        "2013": 36,
+        "2012": 17,
+        "2011": 17,
+        "2015": 15,
+        "2017": 2,
+        "2016": 2,
+        "2010": 2,
+        "2020": 1,
+        "2018": 1
+      }
+    },
+    "OR": {
+      "rows": 1438,
+      "with_discovery_date": 1043,
+      "disclosure_years": {
+        "2025": 235,
+        "2023": 193,
+        "2021": 157,
+        "2024": 142,
+        "2022": 140,
+        "2026": 118,
+        "2020": 103,
+        "2019": 99,
+        "2018": 95,
+        "2017": 90,
+        "2016": 62,
+        "2015": 4
+      }
+    },
+    "SC": {
+      "rows": 606,
+      "with_discovery_date": 189,
+      "disclosure_years": {
+        "2024": 83,
+        "2023": 82,
+        "2025": 69,
+        "2021": 63,
+        "2026": 58,
+        "2022": 56,
+        "2017": 36,
+        "2018": 33,
+        "2016": 33,
+        "2015": 32,
+        "2019": 31,
+        "2020": 30
+      }
+    },
+    "SEC": {
+      "rows": 145,
+      "with_discovery_date": 88,
+      "disclosure_years": {
+        "2024": 34,
+        "2023": 30,
+        "2026": 28,
+        "2025": 23,
+        "2021": 14,
+        "2022": 9,
+        "2020": 6,
+        "2015": 1
+      }
+    },
+    "TX": {
+      "rows": 712,
+      "with_discovery_date": 577,
+      "disclosure_years": {
+        "2026": 570,
+        "2025": 141,
+        "2024": 1
+      }
+    },
+    "VT": {
+      "rows": 483,
+      "with_discovery_date": 122,
+      "disclosure_years": {
+        "2026": 474,
+        "2023": 3,
+        "2018": 2,
+        "2019": 1,
+        "2016": 1,
+        "2015": 1,
+        "2014": 1
+      }
+    },
+    "WA": {
+      "rows": 1398,
+      "with_discovery_date": 758,
+      "disclosure_years": {
+        "2023": 195,
+        "2020": 193,
+        "2024": 179,
+        "2025": 163,
+        "2021": 149,
+        "2022": 135,
+        "2026": 130,
+        "2017": 75,
+        "2018": 56,
+        "2019": 53,
+        "2016": 46,
+        "2015": 24
+      }
+    }
+  },
+  "negative_candidate_lag": 110,
+  "name_candidates_2021_2025_independent_regulator": {
+    "rows": 137,
+    "current_ciks": 105,
+    "years": {
+      "2024": 43,
+      "2023": 40,
+      "2021": 20,
+      "2022": 18,
+      "2025": 16
+    },
+    "discovery_date_present": 75,
+    "SEC_source_also_present_not_disclosure_rate": 9
+  },
+  "interpretation": [
+    "Sources overlap; families are not mutually exclusive observations.",
+    "Imported VCDB disclosure dates are incident dates and are excluded from timing candidates.",
+    "Current ticker names omit delisted firms and do not validate historical parent ownership or issuer status.",
+    "A missing SEC source is not evidence of no SEC disclosure; retrieve issuer filings independently.",
+    "Merged dates/counts can refer to different audiences. Reconstruct original notices before inference.",
+    "Vendor flags and affected counts are automatically coded candidates, not validated mechanism evidence."
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "pilot_rows": 353630,
+  "firms": 1998,
+  "firmyears": 35535,
+  "occupation_count_min": 1.0,
+  "coverage_varies_by_occupation_firmyears": 31874,
+  "promotion_exceeds_current_occupation_count_rows": 0,
+  "turnover_exceeds_current_occupation_count_rows": 0,
+  "firmyear_counts": {
+    "count": 35535.0,
+    "mean": 50.676375404530745,
+    "std": 254.4904341079109,
+    "min": 1.0,
+    "10%": 3.0,
+    "50%": 12.0,
+    "90%": 67.60000000000218,
+    "99%": 841.6599999999962,
+    "max": 8084.0
+  },
+  "professional_information_security_rows": 491,
+  "professional_information_security_firms": 82,
+  "raw_total_rcid_year_varies_within_firmyear": 30147,
+  "interpretation": "In the pilot, the raw total_rcid_year and percent_with_photo fields vary across occupations within the same firm-year. All95m source rows satisfy gender proportion=gender count/total_rcid_year. Treat this released total as the occupational-cell denominator; do not repeat the dictionary firm-year interpretation or sum proportions. Exact individual workforce coverage is not independently observed."
+}

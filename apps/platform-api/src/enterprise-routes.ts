@@ -48,7 +48,7 @@ export class EnterpriseRepository {
   tasks() { return (this.db.prepare('SELECT * FROM enterprise_tasks ORDER BY rowid DESC').all() as TaskRow[]).map(r => ({ ...JSON.parse(r.payload) as EnterpriseTask, closed: !!r.closed })); }
   task(id: string) { const r = this.db.prepare('SELECT * FROM enterprise_tasks WHERE id=?').get(id) as TaskRow | undefined; return r ? { ...JSON.parse(r.payload) as EnterpriseTask, closed: !!r.closed } : undefined; }
   publish(input: { title: string; config: unknown; deadline?: string | null; maxAttempts: number; completeRequired: boolean }) {
-    const config = cleanEnterpriseConfig(input.config); config.mode = 'exam';
+    const config = cleanEnterpriseConfig(input.config);if(config.tutorial)throw campusError(400,'GUIDED_CONFIG_FORBIDDEN','固定带教场次不能发布为正式考核。'); config.mode = 'exam';
     const task: EnterpriseTask = { id: randomUUID(), title: input.title, courseId: COURSE, config, rules: { ...ENTERPRISE_RULES }, createdAt: new Date().toISOString(), deadline: input.deadline ?? null, maxAttempts: input.maxAttempts, completeRequired: input.completeRequired, closed: false };
     if (task.deadline && Date.parse(task.deadline) <= Date.now()) throw campusError(400, 'DEADLINE_PASSED', '截止时间应在当前时间之后。');
     this.db.prepare('INSERT INTO enterprise_tasks(id,payload) VALUES(?,?)').run(task.id, JSON.stringify(task)); return task;
@@ -123,7 +123,7 @@ export class EnterpriseRepository {
         this.current = enterpriseVerificationWorker(JSON.parse(row.package!));
         const verified = await this.current.promise; if (this.closed) return;
         const task = this.task(row.task_id)!;
-        if (task.completeRequired && !verified.complete) throw Error('正式任务要求完成全部经营期，提前封存记录只可作为练习。');
+        if (task.completeRequired && !verified.complete) throw Error('正式任务要求完成经营期或形成可核验的经营失败结算；普通提前封存只可作为练习。');
         if (!ENTERPRISE_NOTE_TOPICS.every(topic => verified.view.notes.some(n => n.topic === topic && n.text.trim().length >= 20))) throw Error('正式任务需要经营决策、设备投资、生产调度、异常与边界四类各不少于20字的个人决策说明。');
         this.db.prepare("UPDATE enterprise_attempts SET status='verified',verified=?,result=?,verified_at=?,error=NULL WHERE id=?").run(JSON.stringify(verified), JSON.stringify(verified.result), new Date().toISOString(), row.id);
       } catch (error) {

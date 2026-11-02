@@ -26,7 +26,7 @@ export function EnterprisePortalCard({ variant = 'course' }: { variant?: 'course
   return <section className={variant === 'tasks' ? 'workspace-card' : 'workspace-section'} aria-label="港口长期独立经营" data-enterprise-portal={variant}><div>
     <span>港口管理概论 · 单人任务 · 本机运行</span>
     <h2>{variant === 'history' ? '长期经营提交记录' : '港口长期独立经营'}</h2>
-    <p>1／3／5年经营；设备、建设、人员、生产、财务与应急沿同一时间线运行。</p>
+    <p>1／3／5／10年经营；设备、建设、人员、生产、财务与应急沿同一时间线运行。</p>
     {data && <p role="status">{data.totals.openTasks}项开放任务 · {data.totals.verified}场已核验 · {data.totals.pending}场等待核验{!data.teacher && ` · ${data.totals.started}场可以继续`}</p>}
     {error && <p role="alert" className="workspace-error">{error}</p>}
     <div className="workspace-actions">

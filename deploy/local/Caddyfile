@@ -33,7 +33,7 @@ https://localhost {
 
 	# Vite serves source modules, HMR WebSockets and the optional avatar proxy.
 	handle {
-		reverse_proxy 127.0.0.1:5173 {
+		reverse_proxy 127.0.0.1:{$EDU_WEB_PORT:5173} {
 			flush_interval -1
 		}
 	}

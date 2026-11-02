@@ -1,0 +1,37 @@
+{
+  "status": "expanded count panel extracted; candidate incidents remain unvalidated",
+  "source_integrity": "Original member sizes checked; full member hashes and source-row alignment were verified in prior extraction/audits. No redundant30GB rehash here.",
+  "plan_sha256": "d6a340d79c33eb62828861e9281456aaf8bb4898352992e0e200792b50bef380",
+  "government_source_candidate_ids": 1445,
+  "named_fixed_random_frame_ids": 1979,
+  "union_ids": 3414,
+  "tables": {
+    "composition": {
+      "source_rows": 95242511,
+      "selected_rows": 1206067,
+      "selected_ids_observed": 3410,
+      "path": "data\\odd\\workforce-candidates-composition.csv",
+      "bytes": 55397300,
+      "sha256": "e79696126982656606fb92fcd7f67238533846108802ed3a8444ecd7eed945cf",
+      "original_sha256_from_extraction_receipt": "348fa19845c84b23b2d516b5f6602dfaaa0edf5db4d40fc0c70dc14a37518c96"
+    },
+    "promotion": {
+      "source_rows": 95242511,
+      "selected_rows": 1206067,
+      "selected_ids_observed": 3410,
+      "path": "data\\odd\\workforce-candidates-promotion.csv",
+      "bytes": 57818305,
+      "sha256": "58d29bec028615665baa144fec3916c26d64dce0c7dd4f29e76d7e28dc3425a4",
+      "original_sha256_from_extraction_receipt": "6359d76f67db9d76fd05f6f8e7cb5ce1d865b5a9ec198dde37c6c8fe781d3d01"
+    },
+    "turnover": {
+      "source_rows": 95242511,
+      "selected_rows": 1206067,
+      "selected_ids_observed": 3410,
+      "path": "data\\odd\\workforce-candidates-turnover.csv",
+      "bytes": 57849440,
+      "sha256": "8bdae1561fbc85021649fecf041e4e015b3da29ebb816f2516e7b4c1132ea0d1",
+      "original_sha256_from_extraction_receipt": "449ce8ae1b6aa2f8826187ebe228502a80bd32649cb705f81e2293152a8a46d7"
+    }
+  }
+}

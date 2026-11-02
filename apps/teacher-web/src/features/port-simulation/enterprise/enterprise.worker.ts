@@ -4,10 +4,10 @@ import {compareEnterpriseYards} from '@edu/port-simulation-core';
 let state: EnterpriseState | null = null;
 let replaying = false;
 type Request = { id: number; type: 'create' | 'restore' | 'command' | 'record' | 'package' | 'csv' | 'seek' | 'live' | 'experiment'; config?: EnterpriseConfig; record?: EnterpriseRecord; command?: EnterpriseCommand; position?: number };
-function snapshot(id: number, persist = true, preview?: EnterpriseState) {
+function snapshot(id: number, persist = true, preview?: EnterpriseState,includeHash=true) {
   const s = preview ?? state;
   if (!s) throw Error('尚未建立经营场次。');
-  postMessage({ id, type: 'state', view: enterpriseView(s), replaying, persist, record: persist ? enterpriseRecord(s) : undefined, hash: persist ? enterpriseHash(s) : undefined });
+  postMessage({ id, type: 'state', view: enterpriseView(s), replaying, persist, record: persist ? enterpriseRecord(s) : undefined, hash: persist&&includeHash ? enterpriseHash(s) : undefined });
 }
 self.onmessage = (event: MessageEvent<Request>) => {
   const m = event.data;
@@ -19,7 +19,7 @@ self.onmessage = (event: MessageEvent<Request>) => {
     if (m.type === 'command') {
       if (replaying) throw Error('当前为只读回放，请先返回当前经营现场。');
       if (!m.command) throw Error('缺少业务指令。');
-      state = executeEnterprise(state, m.command, hour => postMessage({ id: m.id, type: 'progress', hour, horizon: state!.horizon })); snapshot(m.id); return;
+      state = executeEnterprise(state, m.command, hour => postMessage({ id: m.id, type: 'progress', hour, horizon: state!.horizon }),true); snapshot(m.id,true,undefined,m.command.kind!=='advance'); return;
     }
     if (m.type === 'seek') { const preview=restoreEnterprise(enterpriseRecord(state),m.position??0,hour=>{if(hour%168===0)postMessage({id:m.id,type:'progress',hour});});replaying = true; snapshot(m.id, false, preview); return; }
     if (m.type === 'live') { replaying = false; snapshot(m.id, false); return; }

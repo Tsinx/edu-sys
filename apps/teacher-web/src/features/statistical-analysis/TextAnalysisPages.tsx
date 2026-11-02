@@ -1,0 +1,55 @@
+import {Download,ExternalLink} from 'lucide-react';
+import katex from 'katex';
+import {getResearchPage,TEXT_DATA as D,TEXT_MATERIAL_BASE,textDescriptions,type ResearchPage} from '@edu/course-content/statistical-analysis';
+import {PageToolsContribution,usePageToolsScope} from '../classroom/PageTools';
+import './text-analysis-pages.css';
+const ink='#152e3e',teal='#197f7a',amber='#b87921';
+const pct=(v:number)=>(100*v).toFixed(1)+'%';
+function Resources({page}:{page:number}){const scope=usePageToolsScope();if(!scope)return null;return <PageToolsContribution pageKey={getResearchPage(15,page)!.stableKey!} title="评论分析学生包" audience="local" priority={scope.role==='reader'?'primary':'secondary'}><div className="sat-resources"><p>从分词、Counter计数开始。打开classroom.ipynb，逐步得到与屏幕一致的表和图。</p>{[['text-analysis-student.zip','下载完整学生包（含原始数据）'],['README.md','运行说明与步骤索引'],['classroom.ipynb','逐步Notebook（含已运行结果）'],['service-brief-template.md','服务分析简报模板'],['extensions/method-card.md','课后方法卡与拓展阅读']].map(([file,label])=><a key={file} href={TEXT_MATERIAL_BASE+'/'+file} download><Download size={16}/>{label}</a>)}<a href="https://aclanthology.org/2021.naacl-main.167/" target="_blank" rel="noreferrer"><ExternalLink size={16}/>ASAP原论文与数据来源</a></div></PageToolsContribution>;}
+function Table({headers,rows}:{headers:string[];rows:readonly (readonly string[])[]}){return <table className="sat-table"><thead><tr>{headers.map(x=><th key={x}>{x}</th>)}</tr></thead><tbody>{rows.map((row,i)=><tr key={i}>{row.map((x,j)=><td key={j}>{x}</td>)}</tr>)}</tbody></table>;}
+function Excerpts({question=false}:{question?:boolean}){return <div className={'sat-excerpts'+(question?' sat-excerpts--compact':'')}>{D.excerpts.map(e=><section key={e.name}><span>{e.name}<small>{e.id}</small></span><p>{e.text}</p></section>)}</div>;}
+function WordBars({raw=false}:{raw?:boolean}){const rows=(raw?D.frequency.raw_top:D.frequency.top).slice(0,10),step=raw?100000:25000,max=Math.ceil(Math.max(...rows.map(r=>r.count))/step)*step,ticks=Array.from({length:max/step+1},(_,i)=>i*step);return <svg className="sat-chart" viewBox="0 0 1424 490" role="img" aria-label={textDescriptions[raw?'text-frequency-raw':'text-frequency']}><title>{raw?'保留常见虚词的词频':'按课堂词表整理的词频'}</title>{ticks.map(v=><g key={v}><path d={'M'+(230+v/max*900)+' 15V442'} stroke="#152e3e18"/><text x={230+v/max*900} y="480" textAnchor="middle">{v.toLocaleString()}</text></g>)}{rows.map((r,i)=><g key={r.word}><text x="5" y={38+i*42} fontSize="28">{r.word}</text><rect x="230" y={16+i*42} width={r.count/max*900} height="27" fill={teal}/><text x={250+r.count/max*900} y={38+i*42} fontSize="25">{r.count.toLocaleString()}</text></g>)}<text x="1300" y="480">次</text></svg>;}
+function Matrix({weighted=false}:{weighted?:boolean}){return <div className="sat-matrix"><Table headers={['摘句',...D.toy.vocabulary]} rows={(weighted?D.toy.weights:D.toy.counts).map((r,i)=>[['A','B','C'][i]!,...r.map(v=>weighted?(v===0?'0':v.toFixed(3)):String(v))])}/><p>{weighted?'同一词表，同一列顺序。加权后，每段仍然是一行。':'词表固定以后，A、B、C都在相同位置记录同一个词。'}</p></div>;}
+function Quote(){return <div className="sat-quote"><span>评论43901 / 4星</span><blockquote>“芝士好厚 <em>但是做了好久</em>”<br/>“不过<mark>味道还是不错的</mark>”</blockquote><p className="sat-quote-tail">先留下不同的感受，再决定怎样整理它们。</p></div>;}
+function Confusion(){const m=D.classifier.metrics;return <div className="sat-binary"><Table headers={['真实 / 预测','预测其他 0','预测抱怨 1']} rows={[
+ ['真实其他 0',String(m.tn),String(m.fp)],['真实抱怨 1',String(m.fn),String(m.tp)]]}/><div className="sat-binary-read"><p><b>{m.tp}</b>条抱怨被找到</p><p><b>{m.fn}</b>条抱怨被漏过</p><p><b>{m.fp}</b>条其他评论被列入抱怨</p></div></div>;}
+function Metrics(){const m=D.classifier.metrics;return <div className="sat-metric-pair"><section><span>预测为抱怨的评论中，判断正确多少</span><h2>精确率</h2><strong>{m.tp} / {m.tp+m.fp}</strong><b>{pct(m.precision)}</b><p>分母：全部预测为抱怨的评论</p></section><section><span>真正的抱怨中，找到了多少</span><h2>召回率</h2><strong>{m.tp} / {m.tp+m.fn}</strong><b>{pct(m.recall)}</b><p>分母：全部人工标为抱怨的评论</p></section></div>;}
+function AspectBars({negative=false}:{negative?:boolean}){const max=negative?.4:1;return <svg viewBox="0 0 700 430" role="img" aria-label={D.aspects.map(r=>r.name+pct(negative?r.negative_share:r.mention_rate)).join('；')}><title>{negative?'提及后的负向比例':'全部评论的提及率'}</title><text x="0" y="25" fontSize="29">{negative?'提到以后，多少是负向':'全部评论，多少谈到它'}</text>{D.aspects.map((r,i)=>{const v=negative?r.negative_share:r.mention_rate;return <g key={r.name}><text x="0" y={80+i*53} fontSize="25">{r.name}</text><rect x="160" y={56+i*53} width={v/max*400} height="27" fill={negative?amber:teal}/><text x={172+v/max*400} y={79+i*53} fontSize="24">{pct(v)}</text></g>})}<path d="M160 390H560" stroke="#152e3e44"/>{(negative?[0,.1,.2,.3,.4]:[0,.25,.5,.75,1]).map(v=><text key={v} x={160+v/max*400} y="425" textAnchor="middle" fontSize="21">{v*100}%</text>)}</svg>;}
+function Scatter(){const x=(v:number)=>135+v*1050,y=(v:number)=>410-v/.4*350;return <svg className="sat-chart" viewBox="0 0 1424 490" role="img" aria-label={textDescriptions['text-priorities']}><title>提及率与负向比例</title>{[0,.1,.2,.3,.4].map(v=><g key={v}><path d={'M135 '+y(v)+'H1185'} stroke="#152e3e20"/><text x="110" y={y(v)+8} textAnchor="end">{v*100}%</text></g>)}{[0,.2,.4,.6,.8,1].map(v=><text key={v} x={x(v)} y="449" textAnchor="middle">{v*100}%</text>)}<text x="1270" y="450">提及率</text><text x="0" y="25">负向比例</text>{D.aspects.map((r,i)=><g key={r.name}><circle cx={x(r.mention_rate)} cy={y(r.negative_share)} r="11" fill={i===1?amber:teal}/><text x={x(r.mention_rate)+16} y={y(r.negative_share)+(i===3?-13:i===5?30:8)} fontSize="28">{r.name}</text></g>)}</svg>;}
+function Prediction(){const w=D.classifier.worked;return <div className="sat-prediction"><Table headers={['输入词','TF-IDF','模型系数','对η的贡献']} rows={w.top.map(t=>[t.word,t.weight.toFixed(3),t.coefficient.toFixed(3),t.contribution.toFixed(3)])}/><div><p>常数 {w.intercept.toFixed(3)}　其余词合计 {w.other.toFixed(3)}</p><strong>η = {w.eta.toFixed(3)}</strong><span>下一步：把η转换成概率</span><small>同一条测试评论 {w.id} 的实际计算</small></div></div>;}
+function PredictionRows(){const w=D.classifier.worked,err=D.classifier.errors.filter(r=>r.id!==w.id),correct=D.classifier.predictions_preview.find(r=>r.actual===r.predicted)!;return <Table headers={['评论id','抱怨概率p','预测结果','人工结果y']} rows={[correct,w,...err].map(r=>[String(r.id),pct(r.probability),String(r.predicted),String(r.actual)])}/>;}
+function Visual({id}:{id:string}){
+ if(id==='text-review')return <Quote/>;
+ if(id==='text-excerpts'||id==='text-count-question')return <Excerpts question={id==='text-count-question'}/>;
+ if(id==='text-frequency-raw')return <WordBars raw/>;
+ if(id==='text-frequency')return <WordBars/>;
+ if(id==='text-count-matrix')return <Matrix/>;
+ if(id==='text-weight-matrix')return <Matrix weighted/>;
+ if(id==='text-confusion')return <Confusion/>;
+ if(id==='text-confusion-question')return <Table headers={['真实 / 预测','预测其他 0','预测抱怨 1']} rows={[
+ ['真实其他 0',String(D.classifier.metrics.tn),String(D.classifier.metrics.fp)],['真实抱怨 1',String(D.classifier.metrics.fn),String(D.classifier.metrics.tp)]]}/>;
+ if(id==='text-metrics')return <Metrics/>;
+ if(id==='text-priorities')return <Scatter/>;
+ if(id==='text-prediction')return <Prediction/>;
+ if(id==='text-validation')return <Table headers={['验证评论id','人工结果y','速度负向概率p']} rows={D.classifier.validation_preview.map(r=>[String(r.id),String(r.actual),pct(r.probability)])}/>;
+ if(id==='text-model-input')return <div className="sat-model-input"><blockquote>{D.classifier.worked.review}</blockquote><p>先读清原话；下一页查看同一条评论的词向量与系数怎样相乘。</p></div>;
+ if(id==='text-prediction-rows')return <PredictionRows/>;
+ if(id==='text-project')return <div className="sat-project"><div><span>先读、再数、再解释</span><h2>一张词频表<br/>一份服务简报</h2></div><div><p><b>数清词</b>顾客常用哪些表达</p><p><b>整理评论</b>哪些文字在抱怨上菜速度</p><p><b>讨论服务</b>结合比例与原话，提出具体安排</p></div></div>;
+ if(id==='text-labels')return <Table headers={['原始标签','原文摘句','速度评价']} rows={[
+ ['正向 1','“感觉上菜速度，整体口味都特别不错”','肯定速度'],['中性 0','“上菜速度适中”','中性描述'],['负向 −1','“但是做了好久”','不满意等待'],['未提及 −2','20264谈牛角包和团购，原速度标签为−2','没有谈到速度']]}/>;
+ if(id==='text-splits')return <div className="sat-splits">{[['36,850','训练集','学习词表、IDF与模型'],['4,940','验证集','检查当前方案的表现'],['4,940','测试集','最后评价新样例']].map(([n,label,detail])=><section key={label}><span>{label}</span><strong>{n}</strong><p>{detail}</p></section>)}</div>;
+ if(id==='text-error'){const e=D.classifier.errors.find(r=>r.id===33204)??D.classifier.errors[0];return <div className="sat-error"><span>测试评论{e.id} / 人工y={e.actual} / 预测{e.predicted}</span><blockquote>{e.review}</blockquote><p>先找到评价速度的那一句，再看其他表达。</p></div>;}
+ if(id==='text-workflow')return <div className="sat-workflow">{[['原文','保留顾客原句'],['分词','沿用领域词表和停用词表'],['词向量','按训练词表计算TF-IDF'],['概率','模型综合各列数值'],['分类','以0.5为阈值得到0或1']].map((r,i)=><section key={r[0]}><span>0{i+1}</span><h2>{r[0]}</h2><p>{r[1]}</p></section>)}</div>;
+ if(id==='text-two-aspects')return <div className="sat-two-charts"><AspectBars/><AspectBars negative/></div>;
+ if(id==='text-service-quotes')return <div className="sat-service-quotes"><section><span>47010 / 午餐高峰与等待</span><blockquote>“一般点个菜上个菜要挺久的，催了也不快。”</blockquote><p>查看点单至上菜时间，区分高峰与其他时段。</p></section><section><span>29189 / 忙碌时的回应</span><blockquote>“可能太忙了，态度不耐烦，有待改善”</blockquote><p>观察顾客催问时，由谁回应、怎样告知等待。</p></section></div>;
+ if(id==='text-brief')return <div className="sat-brief"><span>课堂服务简报 / 上菜速度</span><h2>先查看午餐高峰的出餐等待</h2><p>46,730条评论中，7,190条提到上菜速度，其中2,508条为负向，占提及者的34.9%。</p><p>评论47010谈到午餐高峰，并写下“上个菜要挺久的，催了也不快”。可先记录点单至上菜时间，讨论高峰出餐与催问回应安排，再继续记录顾客评价。</p><small>数字、原话与试行安排，在同一段里相互对应。</small></div>;
+ if(id==='text-finish')return <div className="sat-finish-steps">{['词频表','TF-IDF表','分类结果','服务简报'].map((x,i)=><section key={x}><span>0{i+1}</span><h2>{x}</h2></section>)}</div>;
+ throw new Error('Unknown text visual '+id);
+}
+function Content({p}:{p:ResearchPage}){
+ if(p.visual==='text-paper')return <div className="sat-paper"><h2 lang="en">{p.text[0]}</h2><div className="sat-paper-summary">{p.text.slice(1).map(t=><p key={t}>{t}</p>)}</div></div>;
+ return <><div className="sat-main">{p.code?<pre className="sat-code-block">{p.code}</pre>:p.table?<Table {...p.table}/>:p.visual?<Visual id={p.visual}/>:null}</div>{p.text.length>0&&<div className={p.code||p.table||p.visual?'sat-copy':'sat-prose'}>{p.text.map((t,i)=><p key={t}><span>{String(i+1).padStart(2,'0')}</span>{t}</p>)}</div>}</>;
+}
+export function TextAnalysisPageView({page}:{page:number}){const p=getResearchPage(15,page)!;return <><Resources page={page}/>{page===1?<div className="sat-cover"><span>STATISTICAL ANALYSIS METHODS / 15</span><h1>顾客说了什么，<br/>我们一步步数清楚</h1><p>文本数据分析 · 从词频到服务简报</p><div className="sat-cover-quote">一个词，出现几次？<br/><em>多少条评论提到它？</em></div><small>46,730条真实餐饮评论 / Python跟做</small></div>:<div className={'sat-page sat-page-v2'+(p.formula?' sat-page--formula':'')+(p.kind?' sat-page--'+p.kind:'')}>
+ {p.formula&&<div className="sat-equation" dangerouslySetInnerHTML={{__html:katex.renderToString(p.formula,{displayMode:true,throwOnError:true})}}/>}
+ <div className={'sat-content'+(p.text.length?' sat-content--copy':'')}><Content p={p}/></div><p className="sat-caption">{p.caption}</p></div>}</>;}

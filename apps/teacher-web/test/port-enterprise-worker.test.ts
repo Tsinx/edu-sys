@@ -1,3 +1,4 @@
+import {ENTERPRISE_INITIAL_CASH} from '@edu/port-simulation-core';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {Worker} from 'node:worker_threads';
@@ -14,13 +15,13 @@ test('the real worker preserves its live port after invalid seeks, failed import
   try{
     await new Promise<void>((resolve,reject)=>{worker.on('message',m=>{if(m.ready)resolve();});worker.once('error',reject);});
     const created=await request({type:'create',config:{seed:20261025,years:1,scenario:'balanced',mode:'practice'}});assert.equal(created.type,'state');
-    const loan=await request({type:'command',command:{kind:'loan',amount:500000}});assert.equal(loan.view!.cash,85500000);
+    const loan=await request({type:'command',command:{kind:'loan',amount:500000,product:'working',termMonths:3}});assert.equal(loan.view!.cash,(ENTERPRISE_INITIAL_CASH+500000));
     const badSeek=await request({type:'seek',position:NaN});assert.equal(badSeek.type,'error');assert.match(badSeek.error!,/位置/);
     const continued=await request({type:'command',command:{kind:'advance',hours:1}});assert.equal(continued.type,'state');assert.equal(continued.view!.hour,1);assert.equal(continued.replaying,false);
     const badImport=await request({type:'restore',record:{schema:'bad'} as never});assert.equal(badImport.type,'error');
     const before=await request({type:'record'});assert.equal(before.record!.commands.length,2);assert.equal(before.record!.config.seed,20261025);
     for(const position of [-1,Infinity,.5,1000])assert.equal((await request({type:'seek',position})).type,'error');
-    const preview=await request({type:'seek',position:0});assert.equal(preview.replaying,true);assert.equal(preview.view!.cash,85000000);
+    const preview=await request({type:'seek',position:0});assert.equal(preview.replaying,true);assert.equal(preview.view!.cash,ENTERPRISE_INITIAL_CASH);
     assert.match((await request({type:'command',command:{kind:'loan',amount:1000000}})).error!,/只读/);
     assert.equal((await request({type:'unknown'})).type,'error');
     const live=await request({type:'live'});assert.equal(live.view!.hour,1);assert.equal(live.view!.cash,continued.view!.cash);

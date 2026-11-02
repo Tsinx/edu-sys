@@ -1,0 +1,3968 @@
+{
+  "source_sha256": "d11687c4423ad0469159a6c386073fcfd104166af6948501bea15d96f94f9441",
+  "status": "read-only OpenXML inspection; original unchanged",
+  "zip_crc_all_members": "passed",
+  "shared_strings": 160200,
+  "number_formats": {
+    "164": "[$-10C09]d/mm/yyyy",
+    "165": "[$-10C09]#,##0.0;\\-#,##0.0",
+    "166": "[$-10C09]0;\\(0\\)",
+    "167": "[$-10C09]0.0;\\(0.0\\)"
+  },
+  "style_numfmt": [
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "164",
+    "165",
+    "166",
+    "167",
+    "0",
+    "0",
+    "164",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "14",
+    "0",
+    "0",
+    "0",
+    "0"
+  ],
+  "sheets": [
+    {
+      "name": "Information",
+      "member": "xl/worksheets/sheet1.xml",
+      "uncompressed_xml_bytes": 4149,
+      "preview": [
+        {
+          "row": 2,
+          "cells": {
+            "A2": {
+              "value": "\nPayment Times Reports Register\nThis\u00a0Payment Times Reports Register\u00a0shows information on payments from large businesses, and other reporting entities, to their small business suppliers.\nIt provides information that reporting entities include in their payment times reports.\nRead more about what's in the register on our website.",
+              "type": "s",
+              "style": 18,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 3,
+          "cells": {
+            "A3": {
+              "value": "What's in the Register - Payment Times Reporting Scheme website",
+              "type": "s",
+              "style": 19,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 4,
+          "cells": {
+            "A4": {
+              "value": "\nAgree to Terms of Use\nBefore you use the register you must read, understand and agree to be bound by these Terms of Use. \nIf you are representing an organisation, you must agree that it will be bound by these terms and warrant that you are authorised to make that statement and to bind the organisation.",
+              "type": "s",
+              "style": 18,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 5,
+          "cells": {
+            "A5": {
+              "value": "Terms of Use - Payment Times Reporting Scheme Website",
+              "type": "s",
+              "style": 20,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 6,
+          "cells": {
+            "A6": {
+              "value": "\nGet the latest version\nThe Payment Times Reports Register is regularly updated. Check you've got the latest version on the register website.",
+              "type": "s",
+              "style": 21,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 7,
+          "cells": {
+            "A7": {
+              "value": "Payment Times Reports Register website",
+              "type": "s",
+              "style": 20,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 9,
+          "cells": {
+            "A9": {
+              "value": "From 30 May 2025 the Register has been updated with new payment times reports in the following worksheets: Standard report, No SB procurement report, External Administration report, Has Nominee report, Using AASB8 report, Applications and Historical Reports. From 15 July 2026, a new worksheet has been added for Notices.",
+              "type": "s",
+              "style": 22,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 10,
+          "cells": {
+            "A10": {
+              "value": "Note: Historical reports worksheet can still be updated under certain circumstances, e.g. where a new reporting entity joins the Payment Times Reporting Scheme and is required to submit past reports.",
+              "type": "s",
+              "style": 23,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 11,
+          "cells": {
+            "A11": {
+              "value": "\nVersion History (in the last 12 months)\n",
+              "type": "s",
+              "style": 18,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 12,
+          "cells": {
+            "A12": {
+              "value": "30/10/2026: Routine update",
+              "type": "s",
+              "style": 24,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 13,
+          "cells": {
+            "A13": {
+              "value": "30/09/2026: Routine update",
+              "type": "s",
+              "style": 24,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 14,
+          "cells": {
+            "A14": {
+              "value": "19/08/2026: Routine update",
+              "type": "s",
+              "style": 21,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 15,
+          "cells": {
+            "A15": {
+              "value": "15/07/2026: Routine update",
+              "type": "s",
+              "style": 21,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 16,
+          "cells": {
+            "A16": {
+              "value": "03/06/2026: Routine update",
+              "type": "s",
+              "style": 17,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 17,
+          "cells": {
+            "A17": {
+              "value": "18/05/2026: Routine update",
+              "type": "s",
+              "style": 17,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 18,
+          "cells": {
+            "A18": {
+              "value": "07/04/2026: Routine update",
+              "type": "s",
+              "style": 17,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 19,
+          "cells": {
+            "A19": {
+              "value": "03/03/2026: Routine update",
+              "type": "s",
+              "style": 25,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 20,
+          "cells": {
+            "A20": {
+              "value": "06/02/2026: Routine update",
+              "type": "s",
+              "style": 25,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 21,
+          "cells": {
+            "A21": {
+              "value": "20/12/2025: Routine update",
+              "type": "s",
+              "style": 25,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 22,
+          "cells": {
+            "A22": {
+              "value": "28/11/2025: Routine update",
+              "type": "s",
+              "style": 25,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 23,
+          "cells": {
+            "A23": {
+              "value": "31/10/2025: Routine update",
+              "type": "s",
+              "style": 25,
+              "formula": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Standard report",
+      "member": "xl/worksheets/sheet2.xml",
+      "uncompressed_xml_bytes": 15623257,
+      "preview": [
+        {
+          "row": 1,
+          "cells": {
+            "A1": {
+              "value": "",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "B1": {
+              "value": "Reporting entity's name as registered on the Business Names Register.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "C1": {
+              "value": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "D1": {
+              "value": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community. Australian Registered Body Number, a unique nine-digit number assigned by ASIC to entities not registered as companies.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "E1": {
+              "value": "The type of report that has been published.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "F1": {
+              "value": "Start date of the reporting period covered in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "G1": {
+              "value": "End date of the reporting period covered in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "H1": {
+              "value": "Indicates when the report has been revised by the entity",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "I1": {
+              "value": "Indicates if the report has been modified by the Regulator",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "J1": {
+              "value": "Indicates whether the entity has offered supply chain finance arrangement during the reporting period",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "K1": {
+              "value": "Indicates whether the entity charged fees as part of the procurement process",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "L1": {
+              "value": "Indicates whether any Australian laws, voluntary codes or agreements impose requirements on the entity's payment times and practices to small businesses",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "M1": {
+              "value": "Most Common Payment Term (Statistical Mode)",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "N1": {
+              "value": "Range Of Most Common Payment Terms - Minimum",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "O1": {
+              "value": "Range Of Most Common Payment Terms - Maximum",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "P1": {
+              "value": "Estimated Most Common Payment Term For Next Period",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "Q1": {
+              "value": "Estimated Minimum Common Payment Terms Next Period",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "R1": {
+              "value": "Estimated Maximum Common Payment Terms Next Period",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "S1": {
+              "value": "Whether the standard(i.e. default) payment terms is longer or shorter than the common payment term.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "T1": {
+              "value": "Percentage of payments that had a payment time that was less than or equal to the payment term",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "U1": {
+              "value": "Average of all payment times.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "V1": {
+              "value": "Median of all payment times.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "W1": {
+              "value": "80th percentile of payment times which represents the number of days it took to make 80% of the payments",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "X1": {
+              "value": "95th percentile of payment times which represents the number of days it took to make 95% of the payments",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "Y1": {
+              "value": "The total NUMBER of small business invoices paid (within 30 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "Z1": {
+              "value": "The total NUMBER of small business invoices paid (between 31 - 60 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AA1": {
+              "value": "The total NUMBER of small business invoices paid (in 60 or more calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AB1": {
+              "value": "Value of all small business trade credit payments (including any partial small business trade credit payments) as a percentage of the total value of all trade credit payments(i.e. including to non-small business suppliers).",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AC1": {
+              "value": "Number of payments that were 'Peppol eInvoice enabled' as a percentage of the total number of payments .",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AD1": {
+              "value": "Any additional written information to provide context or explanation in relation to the information provided in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AE1": {
+              "value": "Description of changes. This field is mandatory when the report is revised.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AF1": {
+              "value": "Description of the ANZSIC Subdivision for reporting entity's main industry or business activity. Codes are based on the ATO's Business Industry Codes.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AG1": {
+              "value": "Industry division for reporting entity's main industry or business activity. Codes are based on the ATO's Business Industry Codes.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AH1": {
+              "value": "Date the report was submitted.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 2,
+          "cells": {
+            "A2": {
+              "value": "ReportId",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "B2": {
+              "value": "Business Name",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "C2": {
+              "value": "ABN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "D2": {
+              "value": "ACN/ARBN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "E2": {
+              "value": "Type",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "F2": {
+              "value": "Reporting Period Start Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "G2": {
+              "value": "Reporting Period End Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "H2": {
+              "value": "Revised Report",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "I2": {
+              "value": "Redacted report",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "J2": {
+              "value": "Supply Chain Finance offered",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "K2": {
+              "value": "Procurement fees charged",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "L2": {
+              "value": "Payment Practices to small businesses - Legal or voluntary obligations",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "M2": {
+              "value": "Common Payment Terms (days)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "N2": {
+              "value": "Common Payment Term (minimum)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "O2": {
+              "value": "Common Payment Term (maximum)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "P2": {
+              "value": "Forecast Payment Term",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "Q2": {
+              "value": "Forecast Minimum Payment Term",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "R2": {
+              "value": "Forecast Maximum Payment Term",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "S2": {
+              "value": "Receivable terms compared to Common Payment Term",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "T2": {
+              "value": "Percentage of SB invoices paid within Payment Term",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "U2": {
+              "value": "Average Payment Time (days)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "V2": {
+              "value": "Median Payment Time (days)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "W2": {
+              "value": "80th Percentile Payment Time (days)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "X2": {
+              "value": "95th Percentile Payment Time (days)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "Y2": {
+              "value": "Payments 30 days or less",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "Z2": {
+              "value": "Payments 31 - 60 days",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AA2": {
+              "value": "Payments more than 60 days",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AB2": {
+              "value": "Percentage of Small Business Trade Credit Payments",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AC2": {
+              "value": "Percentage Peppol Enabled Small Business Procurement",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AD2": {
+              "value": "Report Comments",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AE2": {
+              "value": "Description Of Changes",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AF2": {
+              "value": "ANZSIC Industry subdivision",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AG2": {
+              "value": "Industry Division",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AH2": {
+              "value": "Submitted date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 3,
+          "cells": {
+            "A3": {
+              "value": "PTR20011191",
+              "type": "s",
+              "style": 3,
+              "formula": null
+            },
+            "B3": {
+              "value": "1ST ENERGY PTY LTD",
+              "type": "s",
+              "style": 3,
+              "formula": null
+            },
+            "C3": {
+              "value": "71604999706",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "D3": {
+              "value": "604999706",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "E3": {
+              "value": "Standard",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "F3": {
+              "value": "45474",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            },
+            "G3": {
+              "value": "45657",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            },
+            "H3": {
+              "value": "No",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "I3": {
+              "value": "No",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "J3": {
+              "value": "No",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "K3": {
+              "value": "No",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "L3": {
+              "value": "No",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "M3": {
+              "value": "7",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "N3": {
+              "value": "7",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "O3": {
+              "value": "7",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "P3": {
+              "value": "7",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "Q3": {
+              "value": "7",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "R3": {
+              "value": "7",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "S3": {
+              "value": "Same",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "T3": {
+              "value": "97.65",
+              "type": "n",
+              "style": 6,
+              "formula": null
+            },
+            "U3": {
+              "value": "4.62",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "V3": {
+              "value": "4",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "W3": {
+              "value": "10",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "X3": {
+              "value": "23",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "Y3": {
+              "value": "99.64",
+              "type": "n",
+              "style": 6,
+              "formula": null
+            },
+            "Z3": {
+              "value": "0.36",
+              "type": "n",
+              "style": 6,
+              "formula": null
+            },
+            "AA3": {
+              "value": "0",
+              "type": "n",
+              "style": 6,
+              "formula": null
+            },
+            "AB3": {
+              "value": "4.5",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "AC3": {
+              "value": "0",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "AD3": {
+              "value": "As part of our preparation process to complete this submission, a review of transactional data and reporting methodologies was performed. Reported metrics have been prepared using the best available information for the reporting period and supported by validation procedures undertaken with available business stakeholders. Following the acquisition of the entity in April 2026, Origin Energy Limited will assume future responsibility for PTRS governance and reporting obligations for the entity",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AE3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AF3": {
+              "value": "Electricity supply",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AG3": {
+              "value": "Electricity, Gas, Water and Waste Services",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AH3": {
+              "value": "46170",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "No SB procurement report",
+      "member": "xl/worksheets/sheet3.xml",
+      "uncompressed_xml_bytes": 467678,
+      "preview": [
+        {
+          "row": 1,
+          "cells": {
+            "A1": {
+              "value": "",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "B1": {
+              "value": "Reporting entity's name as registered on the Business Names Register.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "C1": {
+              "value": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "D1": {
+              "value": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community. Australian Registered Body Number, a unique nine-digit number assigned by ASIC to entities not registered as companies.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "E1": {
+              "value": "The type of report that has been published.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "F1": {
+              "value": "Start date of the reporting period covered in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "G1": {
+              "value": "End date of the reporting period covered in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "H1": {
+              "value": "Indicates when the report has been revised by the entity",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "I1": {
+              "value": "Indicates if the report has been modified by the Regulator",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "J1": {
+              "value": "Value of all small business trade credit payments (including any partial small business trade credit payments) as a percentage of the total value of all trade credit payments(i.e. including to non-small business suppliers).",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "K1": {
+              "value": "Any additional written information to provide context or explanation in relation to the information provided in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "L1": {
+              "value": "Description of changes. This field is mandatory when the report is revised.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "M1": {
+              "value": "Date the report was submitted.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 2,
+          "cells": {
+            "A2": {
+              "value": "ReportId",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "B2": {
+              "value": "Business Name",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "C2": {
+              "value": "ABN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "D2": {
+              "value": "ACN/ARBN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "E2": {
+              "value": "Type",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "F2": {
+              "value": "Reporting Period Start Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "G2": {
+              "value": "Reporting Period End Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "H2": {
+              "value": "Revised Report",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "I2": {
+              "value": "Redacted report",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "J2": {
+              "value": "Percentage of Small Business Trade Credit Payments",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "K2": {
+              "value": "Report Comments",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "L2": {
+              "value": "Description Of Changes",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "M2": {
+              "value": "Submitted date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 3,
+          "cells": {
+            "A3": {
+              "value": "PTR20012559",
+              "type": "s",
+              "style": 3,
+              "formula": null
+            },
+            "B3": {
+              "value": "ABP FINANCE PTY LIMITED",
+              "type": "s",
+              "style": 3,
+              "formula": null
+            },
+            "C3": {
+              "value": "58139991101",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "D3": {
+              "value": "139991101",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "E3": {
+              "value": "No SB procurement",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "F3": {
+              "value": "46023",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            },
+            "G3": {
+              "value": "46203",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            },
+            "H3": {
+              "value": "No",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "I3": {
+              "value": "No",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "J3": {
+              "value": "0",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "K3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "L3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "M3": {
+              "value": "46261",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "External Administration report",
+      "member": "xl/worksheets/sheet4.xml",
+      "uncompressed_xml_bytes": 14141,
+      "preview": [
+        {
+          "row": 1,
+          "cells": {
+            "A1": {
+              "value": "",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "B1": {
+              "value": "Reporting entity's name as registered on the Business Names Register.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "C1": {
+              "value": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "D1": {
+              "value": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community. Australian Registered Body Number, a unique nine-digit number assigned by ASIC to entities not registered as companies.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "E1": {
+              "value": "The type of report that has been published.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "F1": {
+              "value": "Start date of the reporting period covered in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "G1": {
+              "value": "End date of the reporting period covered in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "H1": {
+              "value": "Indicates when the report has been revised by the entity",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "I1": {
+              "value": "Indicates if the report has been modified by the Regulator",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "J1": {
+              "value": "External Administrator Appointment  type",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "K1": {
+              "value": "Firm Name Of External Administrator",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "L1": {
+              "value": "External Administrator Appointment Date",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "M1": {
+              "value": "Any additional written information to provide context or explanation in relation to the information provided in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "N1": {
+              "value": "Description of changes. This field is mandatory when the report is revised.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "O1": {
+              "value": "Date the report was submitted.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 2,
+          "cells": {
+            "A2": {
+              "value": "ReportId",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "B2": {
+              "value": "Business Name",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "C2": {
+              "value": "ABN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "D2": {
+              "value": "ACN/ARBN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "E2": {
+              "value": "Type",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "F2": {
+              "value": "Reporting Period Start Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "G2": {
+              "value": "Reporting Period End Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "H2": {
+              "value": "Revised Report",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "I2": {
+              "value": "Redacted report",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "J2": {
+              "value": "Ex Admin Appointment type",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "K2": {
+              "value": "External Administrator",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "L2": {
+              "value": "Ex Admin Appointment Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "M2": {
+              "value": "Report Comments",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "N2": {
+              "value": "Description Of Changes",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "O2": {
+              "value": "Submitted date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 3,
+          "cells": {
+            "A3": {
+              "value": "PTR20010647",
+              "type": "s",
+              "style": 3,
+              "formula": null
+            },
+            "B3": {
+              "value": "ABRA MINING PTY LIMITED",
+              "type": "s",
+              "style": 3,
+              "formula": null
+            },
+            "C3": {
+              "value": "30110233577",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "D3": {
+              "value": "110233577",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "E3": {
+              "value": "Ex Admin",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "F3": {
+              "value": "45474",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            },
+            "G3": {
+              "value": "45657",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            },
+            "H3": {
+              "value": "No",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "I3": {
+              "value": "No",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "J3": {
+              "value": "Administrator in a voluntary administration",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "K3": {
+              "value": "KordaMentha",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "L3": {
+              "value": "45386",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            },
+            "M3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "N3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "O3": {
+              "value": "46134",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Has Nominee report",
+      "member": "xl/worksheets/sheet5.xml",
+      "uncompressed_xml_bytes": 3187,
+      "preview": [
+        {
+          "row": 1,
+          "cells": {
+            "A1": {
+              "value": "",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "B1": {
+              "value": "Reporting entity's name as registered on the Business Names Register.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "C1": {
+              "value": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "D1": {
+              "value": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community. Australian Registered Body Number, a unique nine-digit number assigned by ASIC to entities not registered as companies.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "E1": {
+              "value": "The type of report that has been published.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "F1": {
+              "value": "Start date of the reporting period covered in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "G1": {
+              "value": "End date of the reporting period covered in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "H1": {
+              "value": "Indicates when the report has been revised by the entity",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "I1": {
+              "value": "Indicates if the report has been modified by the Regulator",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "J1": {
+              "value": "Name of the Reporting Nominee",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "K1": {
+              "value": "ABN of the Reporting Nominee",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "L1": {
+              "value": "ACN/ARBN of the Reporting Nominee",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "M1": {
+              "value": "Any additional written information to provide context or explanation in relation to the information provided in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "N1": {
+              "value": "Description of changes. This field is mandatory when the report is revised.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "O1": {
+              "value": "Date the report was submitted.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 2,
+          "cells": {
+            "A2": {
+              "value": "ReportId",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "B2": {
+              "value": "Business Name",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "C2": {
+              "value": "ABN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "D2": {
+              "value": "ACN/ARBN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "E2": {
+              "value": "Type",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "F2": {
+              "value": "Reporting Period Start Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "G2": {
+              "value": "Reporting Period End Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "H2": {
+              "value": "Revised Report",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "I2": {
+              "value": "Redacted report",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "J2": {
+              "value": "Reporting Nominee Name",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "K2": {
+              "value": "Reporting Nominee ABN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "L2": {
+              "value": "Reporting Nominee ACN/ARBN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "M2": {
+              "value": "Report Comments",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "N2": {
+              "value": "Description Of Changes",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "O2": {
+              "value": "Submitted date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AASB8 report",
+      "member": "xl/worksheets/sheet6.xml",
+      "uncompressed_xml_bytes": 5398556,
+      "preview": [
+        {
+          "row": 1,
+          "cells": {
+            "A1": {
+              "value": "",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "B1": {
+              "value": "Reporting entity's name as registered on the Business Names Register.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "C1": {
+              "value": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "D1": {
+              "value": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community. Australian Registered Body Number, a unique nine-digit number assigned by ASIC to entities not registered as companies.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "E1": {
+              "value": "The type of report that has been published.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "F1": {
+              "value": "Start date of the reporting period covered in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "G1": {
+              "value": "End date of the reporting period covered in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "H1": {
+              "value": "Indicates when the report has been revised by the entity",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "I1": {
+              "value": "Indicates if the report has been modified by the Regulator",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "J1": {
+              "value": "Indicates whether the entity has offered supply chain finance arrangement during the reporting period",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "K1": {
+              "value": "Indicates whether the entity charged fees as part of the procurement process",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "L1": {
+              "value": "Indicates whether any Australian laws, voluntary codes or agreements impose requirements on the entity's payment times and practices to small businesses",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "M1": {
+              "value": "Most Common Payment Term (Statistical Mode)",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "N1": {
+              "value": "Most Common Payment Term (Statistical Mode)",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "O1": {
+              "value": "Range Of Most Common Payment Terms - Maximum",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "P1": {
+              "value": "Estimated Most Common Payment Term For Next Period",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "Q1": {
+              "value": "Estimated Minimum Common Payment Terms Next Period",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "R1": {
+              "value": "Estimated Maximum Common Payment Terms Next Period",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "S1": {
+              "value": "Whether the standard(i.e. default) payment terms is longer or shorter than the common payment term.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "T1": {
+              "value": "Percentage of payments that had a payment time that was less than or equal to the payment term",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "U1": {
+              "value": "Average of all payment times.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "V1": {
+              "value": "Median of all payment times.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "W1": {
+              "value": "80th percentile of payment times which represents the number of days it took to make 80% of the payments",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "X1": {
+              "value": "95th percentile of payment times which represents the number of days it took to make 95% of the payments",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "Y1": {
+              "value": "The total NUMBER of small business invoices paid (within 30 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "Z1": {
+              "value": "The total NUMBER of small business invoices paid (between 31 - 60 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AA1": {
+              "value": "The total NUMBER of small business invoices paid (in 60 or more calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AB1": {
+              "value": "Value of all small business trade credit payments (including any partial small business trade credit payments) as a percentage of the total value of all trade credit payments(i.e. including to non-small business suppliers).",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AC1": {
+              "value": "Number of payments that were 'Peppol eInvoice enabled' as a percentage of the total number of payments .",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AD1": {
+              "value": "Any additional written information to provide context or explanation in relation to the information provided in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AE1": {
+              "value": "Description of changes. This field is mandatory when the report is revised.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AF1": {
+              "value": "Description of the ANZSIC Subdivision for reporting entity's main industry or business activity. Codes are based on the ATO's Business Industry Codes.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AG1": {
+              "value": "Industry division for reporting entity's main industry or business activity. Codes are based on the ATO's Business Industry Codes.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AH1": {
+              "value": "Date the report was submitted.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AI1": {
+              "value": "Operating Segment Name",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AJ1": {
+              "value": "Operating segment Most Common Payment Term (Statistical Mode).",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AK1": {
+              "value": "Operating Segment total NUMBER of small business invoices paid (within 30 calendar days) divided by the Operating Segment total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AL1": {
+              "value": "Operating Segment  total NUMBER of small business invoices paid (between 31 - 60 calendar days) divided by the Operating Segment total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AM1": {
+              "value": "Operating Segment total NUMBER of small business invoices paid (in 60 or more calendar days) divided by the Operating Segment total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AN1": {
+              "value": "Operating Segment average payment time in days",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AO1": {
+              "value": "Median of all Operating Segment payment times.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AP1": {
+              "value": "Operating Segment 80th percentile of payment times which represents the number of days it took to make 80% of the payments within the Operating Segment",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AQ1": {
+              "value": "Operating Segment 95th percentile of payment times which represents the number of days it took to make 95% of the payments within the Operating Segment",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AR1": {
+              "value": "Operating Segment percentage of payments that had a payment time that was less than or equal to the payment term",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 2,
+          "cells": {
+            "A2": {
+              "value": "ReportId",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "B2": {
+              "value": "Business Name",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "C2": {
+              "value": "ABN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "D2": {
+              "value": "ACN/ARBN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "E2": {
+              "value": "Type",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "F2": {
+              "value": "Reporting Period Start Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "G2": {
+              "value": "Reporting Period End Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "H2": {
+              "value": "Revised Report",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "I2": {
+              "value": "Redacted report",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "J2": {
+              "value": "Supply Chain Finance offered",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "K2": {
+              "value": "Procurement fees charged",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "L2": {
+              "value": "Payment Practices to small businesses - Legal or voluntary obligations",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "M2": {
+              "value": "Common Payment Terms (days)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "N2": {
+              "value": "Common Payment Term (minimum)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "O2": {
+              "value": "Common Payment Term (maximum)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "P2": {
+              "value": "Forecast Payment Term",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "Q2": {
+              "value": "Forecast Minimum Payment Term",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "R2": {
+              "value": "Forecast Maximum Payment Term",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "S2": {
+              "value": "Receivable terms compared to Common Payment Term",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "T2": {
+              "value": "Percentage of SB invoices paid within Payment Term",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "U2": {
+              "value": "Average Payment Time (days)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "V2": {
+              "value": "Median Payment Time (days)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "W2": {
+              "value": "80th Percentile Payment Time (days)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "X2": {
+              "value": "95th Percentile Payment Time (days)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "Y2": {
+              "value": "Payments 30 days or less",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "Z2": {
+              "value": "Payments 31 - 60 days",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AA2": {
+              "value": "Payments more than 60 days",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AB2": {
+              "value": "Percentage of Small Business Trade Credit Payments",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AC2": {
+              "value": "Percentage Peppol Enabled Small Business Procurement",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AD2": {
+              "value": "Report Comments",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AE2": {
+              "value": "Description Of Changes",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AF2": {
+              "value": "ANZSIC Industry subdivision",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AG2": {
+              "value": "Industry Division",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AH2": {
+              "value": "Submitted date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AI2": {
+              "value": "Operating Segment",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AJ2": {
+              "value": "Operating Segment Common Payment Terms (days)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AK2": {
+              "value": "Operating Segment Payments 30 days or less",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AL2": {
+              "value": "Operating Segment Payments 31-60 days",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AM2": {
+              "value": "Operating Segment Payments 60 days or more",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AN2": {
+              "value": "Operating Segment Average Payment Time (days)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AO2": {
+              "value": "Operating Segment Median Payment Time (days)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AP2": {
+              "value": "Operating Segment 80th Percentile Payment Time (days)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AQ2": {
+              "value": "Operating Segment 95th Percentile Payment Time (days)",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AR2": {
+              "value": "Operating Segment Percentage of SB invoices paid within Payment Term",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 3,
+          "cells": {
+            "A3": {
+              "value": "PTR20000907",
+              "type": "s",
+              "style": 3,
+              "formula": null
+            },
+            "B3": {
+              "value": "29METALS LIMITED",
+              "type": "s",
+              "style": 3,
+              "formula": null
+            },
+            "C3": {
+              "value": "95650096094",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "D3": {
+              "value": "650096094",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "E3": {
+              "value": "AASB8",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "F3": {
+              "value": "45474",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            },
+            "G3": {
+              "value": "45657",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            },
+            "H3": {
+              "value": "No",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "I3": {
+              "value": "No",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "J3": {
+              "value": "No",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "K3": {
+              "value": "No",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "L3": {
+              "value": "No",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "M3": {
+              "value": "61",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "N3": {
+              "value": "31",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "O3": {
+              "value": "61",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "P3": {
+              "value": "61",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "Q3": {
+              "value": "31",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "R3": {
+              "value": "61",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "S3": {
+              "value": "Shorter",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "T3": {
+              "value": "80.53",
+              "type": "n",
+              "style": 6,
+              "formula": null
+            },
+            "U3": {
+              "value": "31.28",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "V3": {
+              "value": "30",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "W3": {
+              "value": "43",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "X3": {
+              "value": "57",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "Y3": {
+              "value": "51.01",
+              "type": "n",
+              "style": 6,
+              "formula": null
+            },
+            "Z3": {
+              "value": "46.01",
+              "type": "n",
+              "style": 6,
+              "formula": null
+            },
+            "AA3": {
+              "value": "2.99",
+              "type": "n",
+              "style": 6,
+              "formula": null
+            },
+            "AB3": {
+              "value": "17.14",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "AC3": {
+              "value": "0",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "AD3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AE3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AF3": {
+              "value": "Metal ore mining",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AG3": {
+              "value": "Mining",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AH3": {
+              "value": "45832",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            },
+            "AI3": {
+              "value": "29Metals",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AJ3": {
+              "value": "31",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "AK3": {
+              "value": "79.28",
+              "type": "n",
+              "style": 6,
+              "formula": null
+            },
+            "AL3": {
+              "value": "19.82",
+              "type": "n",
+              "style": 6,
+              "formula": null
+            },
+            "AM3": {
+              "value": "0.9",
+              "type": "n",
+              "style": 6,
+              "formula": null
+            },
+            "AN3": {
+              "value": "18.62",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "AO3": {
+              "value": "15",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "AP3": {
+              "value": "31",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "AQ3": {
+              "value": "35",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "AR3": {
+              "value": "67.569999999999993",
+              "type": "n",
+              "style": 6,
+              "formula": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Historical Reports",
+      "member": "xl/worksheets/sheet7.xml",
+      "uncompressed_xml_bytes": 158141405,
+      "preview": [
+        {
+          "row": 1,
+          "cells": {
+            "A1": {
+              "value": "",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "B1": {
+              "value": "Reporting entity's name as registered on the Business Names Register.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "C1": {
+              "value": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "D1": {
+              "value": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "E1": {
+              "value": "The type of report that has been published. Eg Original, Original 1, Original 2, Revised, Revised 1",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "F1": {
+              "value": "Name of the reporting entity's controlling corporation, if applicable. A controlling corporation is an Australian body corporate that isn\u2019t a subsidiary of another Australian body corporate.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "G1": {
+              "value": "ABN of controlling corporation, if applicable.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "H1": {
+              "value": "ACN of controlling corporation, if applicable.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "I1": {
+              "value": "Head entity name is included if a reporting entity is a member of a group of related entities (such as a partnership, trust or foreign group) and the head entity isn\u2019t a controlling corporation.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "J1": {
+              "value": "ABN of head entity, if applicable.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "K1": {
+              "value": "ACN of head entity, if applicable.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "L1": {
+              "value": "Code for reporting entity's main industry or business activity. Codes are based on the ATO's Business Industry Codes.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "M1": {
+              "value": "Start date of the reporting period covered in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "N1": {
+              "value": "End date of the reporting period covered in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "O1": {
+              "value": "Reporting entity's standard (i.e. default) payment terms offered in their contracts to their small business suppliers at the start of the reporting period (in calendar days). It doesn't account for any supply chain finance arrangements.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "P1": {
+              "value": "Changes to the standard (i.e. default) payment terms offered by the reporting entity over the 6 month reporting period (in calendar days). If no change to the standard payment terms, the same number is repeated.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "Q1": {
+              "value": "Explanation of any changes to the standard (i.e. default) payment terms offered by the reporting entity over the 6 month reporting period.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "R1": {
+              "value": "Shortest standard (i.e. default) payment terms offered in contracts by the reporting entity at the start of the 6 month reporting period to their small business suppliers (in calendar days).",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "S1": {
+              "value": "Changes to the shortest standard payment terms offered by the reporting entity over the 6 month reporting period (in calendar days).",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "T1": {
+              "value": "Explanation of any changes to the shortest standard payment terms offered by the reporting entity during the 6 month reporting period.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "U1": {
+              "value": "Longest standard (i.e. default) payment terms offered by the reporting entity at the start of the 6 month reporting period to their small business suppliers (in calendar days).",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "V1": {
+              "value": "Changes to the longest standard payment terms offered by the reporting entity over the 6 month reporting period (in calendar days).",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "W1": {
+              "value": "Explanation of any changes to the longest standard payment terms offered by the reporting entity during the 6 month reporting period (in calendar days).",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "X1": {
+              "value": "The total NUMBER of small business invoices paid (within 20 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "Y1": {
+              "value": "The total NUMBER of small business invoices paid (between 21 - 30 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "Z1": {
+              "value": "The total NUMBER of small business invoices paid (between 31 - 60 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AA1": {
+              "value": "The total NUMBER of small business invoices paid (between 61 - 90 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AB1": {
+              "value": "The total NUMBER of small business invoices paid (between 91 - 120 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AC1": {
+              "value": "The total NUMBER of small business invoices paid (over 120 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AD1": {
+              "value": "The total VALUE of small business invoices paid (within 20 calendar days) divided by the total VALUE of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AE1": {
+              "value": "The total VALUE of small business invoices paid (between 21 - 30 calendar days) divided by the total VALUE of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AF1": {
+              "value": "The total VALUE of small business invoices paid (between 31 - 60 calendar days) divided by the total VALUE of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AG1": {
+              "value": "The total VALUE of small business invoices paid (between 61 - 90 calendar days) divided by the total VALUE of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AH1": {
+              "value": "The total VALUE of small business invoices paid (between 91 - 120 calendar days) divided by the total VALUE of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AI1": {
+              "value": "The total VALUE of small business invoices paid (over 120 calendar days) divided by the total VALUE of all small business invoices paid over the reporting period, expressed as a percentage.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AJ1": {
+              "value": "Details of any practices or arrangements used by the reporting entity during the reporting period for the receiving or paying of small business invoices.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AK1": {
+              "value": "Details of any practices or arrangements used by reporting entity during the reporting period that required small business suppliers to pay an amount, such as a subscription or membership fee, to participate in the reporting entity's procurement processes, including to lodge a tender.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AL1": {
+              "value": "Details of any practices or arrangements used by entity during the reporting period requiring small business suppliers to pay an amount, such as a subscription or membership fee, for the reporting entity to accept an invoice issued by the small business supplier.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AM1": {
+              "value": "The total value of all procurement by the reporting entity during the reporting period that was from small business suppliers. Expressed as a percentage of all procurement by the reporting entity.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AN1": {
+              "value": "A description of any supply chain finance arrangements that are provided or used by the reporting entity for small business suppliers.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AO1": {
+              "value": "The total value of small business invoices where these supply chain finance arrangements were used. Expressed as a percentage of all small business invoices paid by the reporting entity.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AP1": {
+              "value": "The total number of small business invoices where these supply chain finance arrangements were used. Expressed as a percentage of all small busines invoices paid by the reporting entity.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AQ1": {
+              "value": "Details of any benefits, including commissions or other payments, received by the reporting entity from the provider of any supply chain finance arrangements.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AR1": {
+              "value": "Statement on whether small business suppliers were required to agree to use supply chain finance arrangements to participate in the reporting entity's procurement process or to receive payments for invoices during the reporting period.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AS1": {
+              "value": "The new start date of the reporting entity\u2019s income year (accounting period). Only used if there has been a change.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AT1": {
+              "value": "Information about any changes to the reporting entity\u2019s business name that occurred during the reporting period.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AU1": {
+              "value": "Information about any changes to any member entities whose income was below $10 million in the two most recent income years. These entities will cease to be a reporting entity.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AV1": {
+              "value": "Any additional written information to provide context or explanation in relation to the information provided in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AW1": {
+              "value": "The \"Original report date\" value is derived from the CreatedOn date of the \"Previous Report\" field within the Resubmission fields",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AX1": {
+              "value": "The \"Revised report date\" value is derived from the CreatedOn of the revised/resubmitted Report",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AY1": {
+              "value": "The \"Changes from prior report\" value is derived from the \"Summary of Changes\" field from the Resubmission.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "AZ1": {
+              "value": "Name of the principal governing body of the reporting entity. The principal governing body has primary responsibility for the governance of the reporting entity.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "BA1": {
+              "value": "Description of the principal governing body of the reporting entity. The principal governing body has primary responsibility for the governance of the reporting entity.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "BB1": {
+              "value": "Description of the ANZSIC code for reporting entity's main industry or business activity. Codes are based on the ATO's Business Industry Codes.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "BC1": {
+              "value": "Industry division code for reporting entity's main industry or business activity. Codes are based on the ATO's Business Industry Codes.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 2,
+          "cells": {
+            "A2": {
+              "value": "ReportId",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "B2": {
+              "value": "Business Name",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "C2": {
+              "value": "ABN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "D2": {
+              "value": "ACN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "E2": {
+              "value": "Type",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "F2": {
+              "value": "Controlling Corporation Name",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "G2": {
+              "value": "Controlling Corporation ABN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "H2": {
+              "value": "Controlling Corporation ACN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "I2": {
+              "value": "Head Entity Name",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "J2": {
+              "value": "Head Entity ABN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "K2": {
+              "value": "Head Entity ACN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "L2": {
+              "value": "Business Industry Code",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "M2": {
+              "value": "Reporting Period Start Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "N2": {
+              "value": "Reporting Period End Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "O2": {
+              "value": "Standard Payment Terms",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "P2": {
+              "value": "Changes to Standard Payment Terms",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "Q2": {
+              "value": "Details of Changes to Standard Payment Terms",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "R2": {
+              "value": "Shortest Standard Payment Terms",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "S2": {
+              "value": "Change to Shortest Standard Payment Terms",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "T2": {
+              "value": "Details of Changes to Shortest Payment Terms",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "U2": {
+              "value": "Longest Standard Payment Terms",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "V2": {
+              "value": "Changes to Longest Payment Terms",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "W2": {
+              "value": "Details of Changes to Longest Payment Terms",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "X2": {
+              "value": "Percentage of Number Invoices Paid Within 20 Days ",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "Y2": {
+              "value": "Percentage of Number Invoices Paid Between 21 and 30 Days",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "Z2": {
+              "value": "Percentage of Number Invoices Paid Between 31 and 60 Days",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AA2": {
+              "value": "Percentage of Number Invoices Paid Between 61 and 90 Days",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AB2": {
+              "value": "Percentage of Number Invoices Paid Between 91 and 120 Days",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AC2": {
+              "value": "Percentage of Number Invoices Paid in More Than 120 Days",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AD2": {
+              "value": "Percentage of Value Invoices Paid Within 20 Days",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AE2": {
+              "value": "Percentage of Value Invoices Paid Between 21 and 30 Days",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AF2": {
+              "value": "Percentage of Value Invoices Paid Between 31 and 60 Days",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AG2": {
+              "value": "Percentage of Value Invoices Paid Between 61 and 90 Days",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AH2": {
+              "value": "Percentage of Value Invoices Paid Between 91 and 120 Days",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AI2": {
+              "value": "Percentage of Value Invoices Paid in More Than 120 Days",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AJ2": {
+              "value": "Invoice Practices and Arrangements",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AK2": {
+              "value": "Practices and Arrangements for Lodging Tenders",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AL2": {
+              "value": "Practices and Arrangements to Accept Invoices",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AM2": {
+              "value": "Percentage of Total Value of Small Business Procurement",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AN2": {
+              "value": "Supply Chain Finance Arrangements",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AO2": {
+              "value": "Percentage of Total Value Supply Chain Finance Arrangements",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AP2": {
+              "value": "Percentage of Total Number of Supply Chain Finance Arrangements",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AQ2": {
+              "value": "Benefits of Supply Chain Finance Arrangements",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AR2": {
+              "value": "Requirement to Use Supply Chain Finance",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AS2": {
+              "value": "Detail of Change in Income Year",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AT2": {
+              "value": "Detail of Change in Business Name",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AU2": {
+              "value": "Detail Entities Below Reporting Threshold",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AV2": {
+              "value": "Report Comments",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AW2": {
+              "value": "Original report date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AX2": {
+              "value": "Revised report date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AY2": {
+              "value": "Changes from prior report",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "AZ2": {
+              "value": "Principal Governing Body Name",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "BA2": {
+              "value": "Principal Governing Body Description",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "BB2": {
+              "value": "Business Industry Code Description",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "BC2": {
+              "value": "Industry Division",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 3,
+          "cells": {
+            "A3": {
+              "value": "PTR00020022",
+              "type": "s",
+              "style": 3,
+              "formula": null
+            },
+            "B3": {
+              "value": "01-Servco Australia Pty Ltd",
+              "type": "s",
+              "style": 3,
+              "formula": null
+            },
+            "C3": {
+              "value": "16123482717",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "D3": {
+              "value": "123482717",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "E3": {
+              "value": "Original report",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "F3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "G3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "H3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "I3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "J3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "K3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "L3": {
+              "value": "62400",
+              "type": "n",
+              "style": 7,
+              "formula": null
+            },
+            "M3": {
+              "value": "44562",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            },
+            "N3": {
+              "value": "44742",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            },
+            "O3": {
+              "value": "14",
+              "type": "n",
+              "style": 7,
+              "formula": null
+            },
+            "P3": {
+              "value": "0",
+              "type": "n",
+              "style": 7,
+              "formula": null
+            },
+            "Q3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "R3": {
+              "value": "7",
+              "type": "n",
+              "style": 7,
+              "formula": null
+            },
+            "S3": {
+              "value": "0",
+              "type": "n",
+              "style": 7,
+              "formula": null
+            },
+            "T3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "U3": {
+              "value": "30",
+              "type": "n",
+              "style": 7,
+              "formula": null
+            },
+            "V3": {
+              "value": "0",
+              "type": "n",
+              "style": 7,
+              "formula": null
+            },
+            "W3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "X3": {
+              "value": "69.400000000000006",
+              "type": "n",
+              "style": 8,
+              "formula": null
+            },
+            "Y3": {
+              "value": "14.7",
+              "type": "n",
+              "style": 8,
+              "formula": null
+            },
+            "Z3": {
+              "value": "14",
+              "type": "n",
+              "style": 8,
+              "formula": null
+            },
+            "AA3": {
+              "value": "1.4",
+              "type": "n",
+              "style": 8,
+              "formula": null
+            },
+            "AB3": {
+              "value": "0.5",
+              "type": "n",
+              "style": 8,
+              "formula": null
+            },
+            "AC3": {
+              "value": "0",
+              "type": "n",
+              "style": 8,
+              "formula": null
+            },
+            "AD3": {
+              "value": "86.9",
+              "type": "n",
+              "style": 8,
+              "formula": null
+            },
+            "AE3": {
+              "value": "4.7",
+              "type": "n",
+              "style": 8,
+              "formula": null
+            },
+            "AF3": {
+              "value": "6.5",
+              "type": "n",
+              "style": 8,
+              "formula": null
+            },
+            "AG3": {
+              "value": "1.5",
+              "type": "n",
+              "style": 8,
+              "formula": null
+            },
+            "AH3": {
+              "value": "0.4",
+              "type": "n",
+              "style": 8,
+              "formula": null
+            },
+            "AI3": {
+              "value": "0",
+              "type": "n",
+              "style": 8,
+              "formula": null
+            },
+            "AJ3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AK3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AL3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AM3": {
+              "value": "38.200000000000003",
+              "type": "n",
+              "style": 8,
+              "formula": null
+            },
+            "AN3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AO3": {
+              "value": "0",
+              "type": "n",
+              "style": 8,
+              "formula": null
+            },
+            "AP3": {
+              "value": "0",
+              "type": "n",
+              "style": 8,
+              "formula": null
+            },
+            "AQ3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AR3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AS3": {
+              "value": "",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "AT3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AU3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AV3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AW3": {
+              "value": "44824",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            },
+            "AX3": {
+              "value": "",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "AY3": {
+              "value": "",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "AZ3": {
+              "value": "Board of Directors",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "BA3": {
+              "value": "The board of directors governs the operation of the company.",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "BB3": {
+              "value": "Financial asset investing",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "BC3": {
+              "value": "Financial and Insurance Services",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Records of Non-compliance",
+      "member": "xl/worksheets/sheet8.xml",
+      "uncompressed_xml_bytes": 121531,
+      "preview": [
+        {
+          "row": 1,
+          "cells": {
+            "A1": {
+              "value": "",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "B1": {
+              "value": "Reporting entity's name as registered on the Business Names Register.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "C1": {
+              "value": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "D1": {
+              "value": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community. Australian Registered Body Number, a unique nine-digit number assigned by ASIC to entities not registered as companies.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "E1": {
+              "value": "The type of non compliance",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "F1": {
+              "value": "Start date of the reporting period covered in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "G1": {
+              "value": "End date of the reporting period covered in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "H1": {
+              "value": "Any additional written information to provide context or explanation in relation to the information provided in the report.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 2,
+          "cells": {
+            "A2": {
+              "value": "Failure to Comply Id",
+              "type": "s",
+              "style": 9,
+              "formula": null
+            },
+            "B2": {
+              "value": "Business Name",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "C2": {
+              "value": "ABN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "D2": {
+              "value": "ACN/ARBN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "E2": {
+              "value": "Type",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "F2": {
+              "value": "Reporting Period Start Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "G2": {
+              "value": "Reporting Period End Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "H2": {
+              "value": "Report Comments",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 3,
+          "cells": {
+            "A3": {
+              "value": "FTC00000039",
+              "type": "s",
+              "style": 3,
+              "formula": null
+            },
+            "B3": {
+              "value": "AAPC LIMITED",
+              "type": "s",
+              "style": 3,
+              "formula": null
+            },
+            "C3": {
+              "value": "87009175820",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "D3": {
+              "value": "009175820",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "E3": {
+              "value": "Publication \u2013 Failure to report on time",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "F3": {
+              "value": "44562",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            },
+            "G3": {
+              "value": "44742",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            },
+            "H3": {
+              "value": "The Payment Times Reporting Regulator is reasonably satisfied that AAPC Limited was a reporting entity for the reporting period ended 30 June 2022 and failed to comply with its obligation to give the Payment Times Reporting Regulator a payment times report within the required timeframe under Division 2 of Part 2 of the Payment Times Reporting Act 2020 as in force at the time",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Applications",
+      "member": "xl/worksheets/sheet9.xml",
+      "uncompressed_xml_bytes": 492819,
+      "preview": [
+        {
+          "row": 1,
+          "cells": {
+            "A1": {
+              "value": "",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "B1": {
+              "value": "Reporting entity's name as registered on the Business Names Register.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "C1": {
+              "value": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "D1": {
+              "value": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community. Australian Registered Body Number, a unique nine-digit number assigned by ASIC to entities not registered as companies.",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "E1": {
+              "value": "The type of application report that has been accepted. Eg Single Extension, Modified Extension, Modifiable Extension, Volunteering Entity, Subsidiary Entity, Reporting Nominee or Exempt Entity",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "F1": {
+              "value": "Approved report due date for the following applications: Single Extension, Modifiable Extension or Modified Extension",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "G1": {
+              "value": "Approved commencement date for the following application types: Volunteering Entity, Subsidiary Entity or Reporting Nominee",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "H1": {
+              "value": "Approved reporting period start date for eligible exempt applications",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            },
+            "I1": {
+              "value": "Approved reporting period end date for eligible exempt applications",
+              "type": "s",
+              "style": 1,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 2,
+          "cells": {
+            "A2": {
+              "value": "Application Id",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "B2": {
+              "value": "Entity Name",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "C2": {
+              "value": "ABN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "D2": {
+              "value": "ACN/ARBN",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "E2": {
+              "value": "Application Type",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "F2": {
+              "value": "Regulator Approved Report Due Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "G2": {
+              "value": "Determination Commencement Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "H2": {
+              "value": "Exempt Reporting Period Start Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            },
+            "I2": {
+              "value": "Exempt Reporting Period End Date",
+              "type": "s",
+              "style": 2,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 3,
+          "cells": {
+            "A3": {
+              "value": "APP00004245",
+              "type": "s",
+              "style": 3,
+              "formula": null
+            },
+            "B3": {
+              "value": "155 063 362 PTY LTD",
+              "type": "s",
+              "style": 3,
+              "formula": null
+            },
+            "C3": {
+              "value": "13155063362",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "D3": {
+              "value": "155063362",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "E3": {
+              "value": "Single Extension",
+              "type": "s",
+              "style": 4,
+              "formula": null
+            },
+            "F3": {
+              "value": "45593",
+              "type": "n",
+              "style": 5,
+              "formula": null
+            },
+            "G3": {
+              "value": "",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "H3": {
+              "value": "",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            },
+            "I3": {
+              "value": "",
+              "type": "n",
+              "style": 4,
+              "formula": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notices",
+      "member": "xl/worksheets/sheet10.xml",
+      "uncompressed_xml_bytes": 19531,
+      "preview": [
+        {
+          "row": 1,
+          "cells": {
+            "A1": {
+              "value": "",
+              "type": "s",
+              "style": 12,
+              "formula": null
+            },
+            "B1": {
+              "value": "",
+              "type": "s",
+              "style": 13,
+              "formula": null
+            },
+            "C1": {
+              "value": "Reporting entity's name as registered on the Business Names Register.",
+              "type": "s",
+              "style": 14,
+              "formula": null
+            },
+            "D1": {
+              "value": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community.",
+              "type": "s",
+              "style": 14,
+              "formula": null
+            },
+            "E1": {
+              "value": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community. Australian Registered Body Number, a unique nine-digit number assigned by ASIC to entities not registered as companies.",
+              "type": "s",
+              "style": 14,
+              "formula": null
+            },
+            "F1": {
+              "value": "The notice type that has been accepted. E.g. Reporting Entity Ceased (Entity) - s10H, Subsidiary Reporting Entity Determination Revoked (Entity) - s10G(3)",
+              "type": "s",
+              "style": 14,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 2,
+          "cells": {
+            "A2": {
+              "value": "Effective Date",
+              "type": "s",
+              "style": 15,
+              "formula": null
+            },
+            "B2": {
+              "value": "Notice Id",
+              "type": "s",
+              "style": 15,
+              "formula": null
+            },
+            "C2": {
+              "value": "Business Name",
+              "type": "s",
+              "style": 15,
+              "formula": null
+            },
+            "D2": {
+              "value": "ABN",
+              "type": "s",
+              "style": 15,
+              "formula": null
+            },
+            "E2": {
+              "value": "ACN ARBN",
+              "type": "s",
+              "style": 15,
+              "formula": null
+            },
+            "F2": {
+              "value": "Notices Type",
+              "type": "s",
+              "style": 15,
+              "formula": null
+            }
+          }
+        },
+        {
+          "row": 3,
+          "cells": {
+            "A3": {
+              "value": "46204",
+              "type": "n",
+              "style": 11,
+              "formula": null
+            },
+            "B3": {
+              "value": "NOT00001191",
+              "type": "s",
+              "style": 10,
+              "formula": null
+            },
+            "C3": {
+              "value": "VGW HOLDINGS PTY LTD",
+              "type": "s",
+              "style": 10,
+              "formula": null
+            },
+            "D3": {
+              "value": "36147193511",
+              "type": "s",
+              "style": 10,
+              "formula": null
+            },
+            "E3": {
+              "value": "147193511",
+              "type": "s",
+              "style": 10,
+              "formula": null
+            },
+            "F3": {
+              "value": "Reporting Entity Ceased (Entity) - s10H",
+              "type": "s",
+              "style": 10,
+              "formula": null
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

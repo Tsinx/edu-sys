@@ -5,7 +5,7 @@ import {renderToStaticMarkup} from 'react-dom/server';
 import {ECONOMIC_MATHEMATICS_SLIDES as slides,ECONOMIC_MATHEMATICS_LESSONS as lessons,ECONOMIC_MATHEMATICS_DECK_ID as deckId,DIFFERENTIATION_EXERCISES as bank,lesson08Narration,lesson09Narration,lesson10Narration,getEconomicMathematicsInteractionDefinition as definition,validateEconomicMathematicsInteractionState as valid,economicVisibleCopy,foundationReadout,differentialCostEvidence,differentiationModels as M,getEconomicMathematicsHistoricalCounts as historical} from '@edu/course-content/economic-mathematics';
 import {EconomicMathematicsTeachingSlides as Slide} from '../src/features/economic-mathematics/EconomicMathematicsTeachingSlides';
 import {DIFFERENTIATION_WRITTEN_EXERCISES as written} from '@edu/course-content/economic-mathematics';
-const pages=slides.filter(p=>p.lesson>=8&&p.lesson<=10),speech={...lesson08Narration,...lesson09Narration,...lesson10Narration};
+const pages=slides.filter(p=>p.lesson>=8&&p.lesson<=10&&!p.moduleId?.startsWith('operators-')),speech={...lesson08Narration,...lesson09Narration,...lesson10Narration};
 
 test('every main-route individual task has a platform source and written feedback remains on the following page',()=>{
  assert.equal(written.length,7);

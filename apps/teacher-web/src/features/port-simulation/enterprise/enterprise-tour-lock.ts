@@ -20,7 +20,7 @@ export function useEnterpriseTourLock({rootRef,selector,enabled,blocked,replay,o
   const [rect,setRect]=useState<TourRect|null>(null),[bounds,setBounds]=useState({width:1280,height:720});
   useLayoutEffect(()=>{
     const root=rootRef.current;if(!root||!enabled){setRect(null);return;}
-    const locked=new Map<HTMLElement,boolean>();let target:HTMLElement|null=null,described:string|null=null,raf=0,observeTimer=0;
+    const locked=new Map<HTMLElement,boolean>();let target:HTMLElement|null=null,described:string|null=null,raf=0;
     root.dataset.tourActive='true';
     const permitted=(node:EventTarget|null)=>node instanceof Element&&(!!node.closest(safeSelector)||!blocked&&!!target&&(node===target||target.contains(node)));
     const synchronize=()=>{
@@ -36,6 +36,8 @@ export function useEnterpriseTourLock({rootRef,selector,enabled,blocked,replay,o
       // A resize or fullscreen change can hide the same field without changing
       // its identity. Keep the active control inside its real scroll window.
       if(target){
+        const menu=target.closest<HTMLElement>('.enterprise-director-topbar nav');
+        if(menu){const r=target.getBoundingClientRect(),m=menu.getBoundingClientRect();if(r.left<m.left||r.right>m.right)menu.scrollLeft+=r.left<m.left?r.left-m.left:r.right-m.right;}
         const scroller=target.closest<HTMLElement>('.enterprise-game-window__body');
         if(scroller){
           const r=target.getBoundingClientRect(),s=scroller.getBoundingClientRect(),b=root.getBoundingClientRect();
@@ -63,14 +65,17 @@ export function useEnterpriseTourLock({rootRef,selector,enabled,blocked,replay,o
     const stop=(e:Event)=>{e.preventDefault();e.stopImmediatePropagation();};
     const capture=(e:Event)=>{
       if(permitted(e.target)){
-        if(e.type==='click'&&onObserve&&target&&(e.target===target||target.contains(e.target as Node))&&!blocked){clearTimeout(observeTimer);observeTimer=window.setTimeout(onObserve,0);}
+        // Record the permitted observation before the control opens another
+        // window. Deferring this until after navigation loses the receipt when
+        // this effect is cleaned up by the new target.
+        if(e.type==='click'&&onObserve&&target&&(e.target===target||target.contains(e.target as Node))&&!blocked)onObserve();
         return;
       }
       stop(e);if(e.type==='click'||e.type==='pointerdown')onBlocked();
     };
     const submission=(e:Event)=>{
       const submitter=(e as SubmitEvent).submitter;
-      if(!blocked&&target&&submitter===target&&target.matches('button[type="submit"]'))return;
+      if(!blocked&&target&&submitter&&(submitter===target&&target.matches('button[type="submit"]')||target.matches('form')&&target.contains(submitter)))return;
       stop(e);onBlocked();
     };
     const key=(e:KeyboardEvent)=>{
@@ -94,7 +99,7 @@ export function useEnterpriseTourLock({rootRef,selector,enabled,blocked,replay,o
     document.addEventListener('submit',submission,true);document.addEventListener('keydown',key,true);document.addEventListener('focusin',focus,true);
     window.addEventListener('resize',queue);document.addEventListener('scroll',queue,true);synchronize();
     return()=>{
-      cancelAnimationFrame(raf);clearTimeout(observeTimer);observer.disconnect();resize.disconnect();
+      cancelAnimationFrame(raf);observer.disconnect();resize.disconnect();
       for(const name of ['pointerdown','click','dblclick','contextmenu','wheel','touchstart'] as const)document.removeEventListener(name,capture,true);
       document.removeEventListener('submit',submission,true);document.removeEventListener('keydown',key,true);document.removeEventListener('focusin',focus,true);window.removeEventListener('resize',queue);document.removeEventListener('scroll',queue,true);
       for(const [el,inert]of locked){el.inert=inert;delete el.dataset.tourLocked;}

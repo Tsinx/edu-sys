@@ -16,10 +16,11 @@ export function yardBlockCapacity(s:EnterpriseState,b:YardBlock){
   return Math.floor(capacity/10)+(b.index<capacity%10?1:0);
 }
 function columnCapacity(s:EnterpriseState,b:YardBlock,index:number){const n=yardBlockCapacity(s,b);return Math.floor(n/5)+(index<n%5?1:0);}
-function room(s:EnterpriseState,b:YardBlock,c:YardColumn,index:number,layer:YardLayer){
+function room(s:EnterpriseState,b:YardBlock,c:YardColumn,index:number,layer:YardLayer,relocating=false){
   const physical=columnCapacity(s,b,index),unit=Math.ceil(physical/4),top=c.layers.at(-1),plan=s.management.yardPlans[b.terminalId]!;
-  if(c.layers.length>plan.maxTiers)return 0;
-  const available=top?.lotId===layer.lotId&&top.quantity<unit?unit-top.quantity:c.layers.length<plan.maxTiers?unit:0;
+  const tiers=relocating?4:plan.maxTiers;
+  if(c.layers.length>tiers)return 0;
+  const available=top?.lotId===layer.lotId&&top.quantity<unit?unit-top.quantity:c.layers.length<tiers?unit:0;
   return Math.max(0,Math.min(physical-total(c),available));
 }
 const distance=(block:YardBlock,flow:CargoLot['flow'],retrieving=false)=>1+((flow==='import')!==retrieving?block.index:9-block.index)*.06;
@@ -35,7 +36,7 @@ function layerFor(s:EnterpriseState,l:CargoLot):YardLayer{
   const plan=s.management.yardPlans[l.terminalId]!;
   return {lotId:l.id,quantity:0,expectedHour,group:plan.classification==='voyage'?l.callId:remaining<=24?'A':remaining<=48?'B':'C'};
 }
-function candidates(s:EnterpriseState,l:CargoLot,layer:YardLayer,exclude?:YardColumn,avoidLot?:string){
+function candidates(s:EnterpriseState,l:CargoLot,layer:YardLayer,exclude?:YardColumn,avoidLot?:string,relocating=false){
   const plan=s.management.yardPlans[l.terminalId]!;
   // Scores are fixed during this search. Compute each once instead of allocating
   // and re-evaluating a ranking function for every sort comparison.
@@ -44,7 +45,7 @@ function candidates(s:EnterpriseState,l:CargoLot,layer:YardLayer,exclude?:YardCo
     if(b.terminalId!==l.terminalId||!eligible(plan,b,l.flow))continue;
     for(let index=0;index<b.columns.length;index++){
       const c=b.columns[index]!;
-      if(c===exclude||avoidLot&&c.layers.some(p=>p.lotId===avoidLot)||room(s,b,c,index,layer)<=0)continue;
+      if(c===exclude||avoidLot&&c.layers.some(p=>p.lotId===avoidLot)||room(s,b,c,index,layer,relocating)<=0)continue;
       const top=c.layers.at(-1);
       const rank=top?.lotId===l.id?-100:plan.classification==='arrival'?distance(b,l.flow)*10+index*.01:
         (top?.group===layer.group?-5:!top?-2:3)+(top&&top.expectedHour<layer.expectedHour?8:0)+distance(b,l.flow,true)*(layer.group==='A'?3:1)+index*.01;
@@ -75,13 +76,13 @@ export function storeYard(s:EnterpriseState,l:CargoLot,requested:number,movement
 function relocate(s:EnterpriseState,source:{b:YardBlock;c:YardColumn},targetLot:string,yardBudget:number,transportBudget:number){
   const top=source.c.layers.at(-1);if(!top||top.lotId===targetLot||top.quantity>=yardBudget)return null;
   const owner=lotIndex(s).get(top.lotId)!;
-  const options=candidates(s,owner,top,source.c,targetLot),shadow=new Map<YardColumn,YardColumn>();
+  const options=candidates(s,owner,top,source.c,targetLot,true),shadow=new Map<YardColumn,YardColumn>();
   let remaining=top.quantity,transport=0;
   for(const x of options){
     const column={layers:x.c.layers.map(p=>({...p}))};
     const factor=x.b.id===source.b.id?0:1+Math.abs(x.b.index-source.b.index)*.06;
     const limit=factor?Math.floor((transportBudget-transport)/factor):remaining;
-    const n=Math.min(remaining,room(s,x.b,column,x.index,top),limit);if(n<=0)continue;
+    const n=Math.min(remaining,room(s,x.b,column,x.index,top,true),limit);if(n<=0)continue;
     append(column,top,n,Math.ceil(columnCapacity(s,x.b,x.index)/4));shadow.set(x.c,column);remaining-=n;transport+=Math.ceil(n*factor);if(!remaining)break;
   }
   if(remaining)return null;

@@ -1,0 +1,32 @@
+{
+  "original_hashes": "pass",
+  "all_excerpts": "pass",
+  "independent_toy_counts": "pass",
+  "independent_toy_weights": "pass",
+  "full_word_table_totals": "pass",
+  "all_test_predictions_and_metrics": "pass",
+  "all_validation_predictions": "pass",
+  "independent_logit_prediction": "pass",
+  "six_aspect_counts": "pass",
+  "word_tokens": 5811234,
+  "test_confusion": [
+    [
+      4564,
+      115
+    ],
+    [
+      152,
+      109
+    ]
+  ],
+  "validation_confusion": [
+    [
+      4575,
+      112
+    ],
+    [
+      155,
+      98
+    ]
+  ]
+}

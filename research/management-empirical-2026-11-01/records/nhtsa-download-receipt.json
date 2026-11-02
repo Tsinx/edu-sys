@@ -1,0 +1,34 @@
+{
+  "source": "https://www.nhtsa.gov/nhtsa-datasets-and-apis",
+  "retrieved": "2026-11-01",
+  "files": [
+    {
+      "url": "https://static.nhtsa.gov/odi/ffdd/rcl/RCL.txt",
+      "path": "data\\nhtsa-RCL.txt",
+      "bytes": 3053,
+      "sha256": "3438cc7e4131efa401dfe6437dbe035607e092c129155dfb411d459d58802203",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://static.nhtsa.gov/odi/ffdd/rcl/RCL_Qtrly_Rpts.txt",
+      "path": "data\\nhtsa-RCL_Qtrly_Rpts.txt",
+      "bytes": 1244,
+      "sha256": "b76ab35073e3585a56912f058aa0a53dc865de68c8ea12b687faa32f3952c8bf",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://static.nhtsa.gov/odi/ffdd/rcl/FLAT_RCL_Qrtly_Rpts.zip",
+      "path": "data\\nhtsa-FLAT_RCL_Qrtly_Rpts.zip",
+      "bytes": 1507213,
+      "sha256": "9a57f8bab1173c08432692580a851cd7033a4b52c9c6e5960150380e0eea0d3a",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://static.nhtsa.gov/odi/ffdd/rcl/FLAT_RCL_POST_2010.zip",
+      "path": "data\\nhtsa-FLAT_RCL_POST_2010.zip",
+      "bytes": 14981449,
+      "sha256": "9af7523e671e4de3125944c13d1ad2ebd218bfce2c240abb2fa0256889870867",
+      "status": "downloaded"
+    }
+  ]
+}

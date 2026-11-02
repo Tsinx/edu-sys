@@ -1,18 +1,21 @@
+import {workspaceParent} from './EnterpriseStrategyPanels';
 import type {EnterpriseView} from '@edu/port-simulation-core';
 import {enterpriseIncidentLesson,type TeachingStep} from './enterprise-teaching';
-export interface EnterpriseGuideAction {id:string;title:string;selector:string;kind:'click'|'field'|'submit'|'observe'|'advance'|'finish';value?:string;submit?:boolean}
+export interface EnterpriseGuideAction {id:string;title:string;selector:string;kind:'click'|'field'|'submit'|'observe'|'advance'|'finish'|'choice';value?:string;submit?:boolean}
 export const enterpriseControl=(id:string)=>'[data-enterprise-control="'+id.replaceAll('"','\\"')+'"]';
 export function enterpriseGuideActions(step:TeachingStep,_v:EnterpriseView):EnterpriseGuideAction[]{
   const base=enterpriseControl(step.target);
+  if(step.alternatives)return [{id:step.id,title:step.now,selector:base,kind:'choice',submit:true}];
   if(step.fields)return [...step.fields.map(f=>({id:step.id+'-'+f.name,title:f.title,selector:base+' [data-enterprise-field="'+f.name+'"]',kind:'field' as const,value:f.value})),{id:step.id+'-submit',title:'点击亮起的按钮，提交本次管理决定',selector:base+' button[type="submit"]',kind:'submit',submit:true}];
   return [{id:step.id,title:step.now,selector:base,kind:step.kind==='command'?'click':step.kind==='observe'?'observe':step.kind==='finish'?'finish':'advance',submit:step.kind==='command'}];
 }
 export function resolveEnterpriseGuideAction(step:TeachingStep,tab:string,v:EnterpriseView,readValue:(selector:string)=>string|undefined):EnterpriseGuideAction{
   const incident=enterpriseIncidentLesson(v),destination=incident?.tab??step.tab;
   if(tab!==destination){
-    if(tab!=='overview'&&tab!=='menu')return {id:'close-for-'+(incident?.incident.id??step.id),title:incident?'先返回港口，打开异常处置':'点击关闭，回到港口现场',selector:enterpriseControl('window-close'),kind:'click'};
-    if(tab==='overview'&&destination!=='overview')return {id:'menu-for-'+(incident?.incident.id??step.id),title:'点击“经营菜单”',selector:enterpriseControl('hud-menu'),kind:'click'};
-    if(tab==='menu'&&destination!=='overview')return {id:'entry-'+destination,title:'点击菜单中的“'+({management:'经营方针',yard:'堆场规划',review:'经营周报与收获',finance:'财务与资金',assets:'设备与采购',staff:'人员与排班',energy:'能源与环境',technology:'技术与升级',market:'客户与合同',emergency:'风险与恢复'} as Record<string,string>)[destination]+'”',selector:enterpriseControl('menu-'+destination),kind:'click'};
+    if(tab!=='overview'&&tab!=='menu'&&tab!==workspaceParent(destination))return {id:'close-for-'+(incident?.incident.id??step.id),title:incident?'先返回港口，打开异常处置':'点击关闭，回到港口现场',selector:enterpriseControl('window-close'),kind:'click'};
+    if(tab==='overview'&&destination!=='overview'){const parent=workspaceParent(destination);if(['operations','resources','investment','market','funds','reports'].includes(parent))return {id:'top-for-'+(incident?.incident.id??step.id),title:'点击顶部“'+({operations:'经营',resources:'资源',investment:'建设',market:'市场',funds:'财务',reports:'报告'} as Record<string,string>)[parent]+'”菜单',selector:enterpriseControl('top-'+parent),kind:'click'};return {id:'menu-for-'+step.id,title:'点击“经营菜单”',selector:enterpriseControl('hud-menu'),kind:'click'};}
+    if(tab===workspaceParent(destination)&&tab!==destination)return {id:'hub-entry-'+destination,title:'打开亮起的管理窗口',selector:enterpriseControl('entry-'+destination),kind:'click'};
+    if(tab==='menu'&&destination!=='overview')return {id:'entry-'+destination,title:'点击菜单中的“'+({operations:'运营规则',resources:'人力与设备',investment:'投资与技术',funds:'资金与风险',reports:'经营报告',management:'运营规则',yard:'堆场规划',review:'经营周报与收获',finance:'财务与资金',assets:'设备与采购',staff:'人员与排班',energy:'能源与环境',technology:'技术与升级',market:'客户与合同',emergency:'风险与恢复'} as Record<string,string>)[workspaceParent(destination)]+'”',selector:enterpriseControl('menu-'+workspaceParent(destination)),kind:'click'};
     return {id:'return-'+step.id,title:'关闭窗口，回到港口现场',selector:enterpriseControl('window-close'),kind:'click'};
   }
   if(incident){

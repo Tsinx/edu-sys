@@ -1,0 +1,534 @@
+{
+  "version": "release-economic-mathematics-integral-methods-2026-11-01",
+  "status": "prepared-not-synchronized",
+  "activities": [
+    {
+      "id": "l18-integral-methods-20261101-1",
+      "lesson": 18,
+      "number": 1,
+      "title": "第十八讲·个人练习1：u与dv的选择",
+      "minutes": 7,
+      "questions": [
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "用分部积分计算 $\\displaystyle \\int xe^x dx$，列出u、dv、du、v。 在实数范围讨论。",
+          "formula": "\\int xe^x dx",
+          "conditions": [
+            "在实数范围讨论。"
+          ],
+          "hint": "选好u和dv后，v需要先积分得到。",
+          "answer": "$(x-1)e^x+C$",
+          "explanation": "取u=x、dv=e^x dx，则du=dx、v=e^x。得到xe^x−∫e^x dx=(x−1)e^x+C。",
+          "scoring": [
+            "正确列出四个量：4分。",
+            "分部及剩余积分：4分。",
+            "完整结果与C：2分。"
+          ],
+          "spoken": "第一题，用分部积分计算x乘e的x次方的不定积分，写清u、dv、du和v。",
+          "steps": [
+            {
+              "title": "选择两个部分",
+              "formula": "u=x,\\quad dv=e^x dx,\\quad du=dx,\\quad v=e^x",
+              "speech": "把x作为要微分的部分，指数乘dx作为要积分的部分。"
+            },
+            {
+              "title": "乘积项减去剩余积分",
+              "formula": "I=xe^x-\\int e^x dx=(x-1)e^x+C",
+              "speech": "剩余积分比原来的乘积更简单，得到x减一乘指数，加常数。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int x\\cos x\\,dx$，并用求导核对最后的符号。 在实数范围讨论。",
+          "formula": "\\int x\\cos x\\,dx",
+          "conditions": [
+            "在实数范围讨论。"
+          ],
+          "hint": "分部公式的减号与三角函数积分的负号要分别处理。",
+          "answer": "$x\\sin x+\\cos x+C$",
+          "explanation": "u=x、dv=cos x dx，得x sin x−∫sin x dx。正弦的原函数为负余弦，因此最终是加余弦。",
+          "scoring": [
+            "u、dv及微分积分：3分。",
+            "分部与符号：4分。",
+            "答案与求导核验：3分。"
+          ],
+          "spoken": "第二题，计算x乘余弦x的不定积分，结果必须用求导核对符号。",
+          "steps": [
+            {
+              "title": "写出剩余积分",
+              "formula": "I=x\\sin x-\\int\\sin x\\,dx",
+              "speech": "公式先给一个减号，而正弦的积分再给一个负号。"
+            },
+            {
+              "title": "结果与核验",
+              "formula": "I=x\\sin x+\\cos x+C,\\quad(x\\sin x+\\cos x)'=x\\cos x",
+              "speech": "求导时多出来的正弦与负正弦相消，符号正确。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int\\ln(2x)\\,dx$。将其中隐含的乘积写出来。 x>0。",
+          "formula": "\\int\\ln(2x)\\,dx",
+          "conditions": [
+            "x>0。"
+          ],
+          "hint": "单独的对数也可以视为与1的乘积。",
+          "answer": "$x\\ln(2x)-x+C$",
+          "explanation": "取u=ln(2x)、dv=dx。由于du=dx/x，得到x ln(2x)−∫1 dx。",
+          "scoring": [
+            "识别与1的乘积并选取：3分。",
+            "对数求导及分部：4分。",
+            "答案、C与范围：3分。"
+          ],
+          "spoken": "第三题，在正半轴计算自然对数二x的不定积分，先把它与一的乘积写出来。",
+          "steps": [
+            {
+              "title": "把1作为积分部分",
+              "formula": "u=\\ln(2x),\\quad dv=dx,\\quad du=dx/x,\\quad v=x",
+              "speech": "自然对数二x求导时，内层的二会与分母二x中的二约去。"
+            },
+            {
+              "title": "剩余积分变成常数",
+              "formula": "I=x\\ln(2x)-\\int1\\,dx=x\\ln(2x)-x+C",
+              "speech": "分部后的剩余部分只是一，结果适用于正半轴。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int\\arctan x\\,dx$，说明为什么选择反正切作为u。 在实数范围讨论。",
+          "formula": "\\int\\arctan x\\,dx",
+          "conditions": [
+            "在实数范围讨论。"
+          ],
+          "hint": "一个函数求导后变成更易处理的结构，可以优先考虑对它微分。",
+          "answer": "$x\\arctan x-\\frac12\\ln(1+x^2)+C$",
+          "explanation": "u=arctan x、dv=dx，剩余积分为∫x/(1+x²)dx，利用第17讲换元得(1/2)ln(1+x²)。",
+          "scoring": [
+            "选择并解释u：3分。",
+            "正确分部：3分。",
+            "剩余换元、完整结果：4分。"
+          ],
+          "spoken": "第四题，计算反正切x的不定积分，解释为什么将反正切选为u，再把分部后剩下的积分求完。",
+          "steps": [
+            {
+              "title": "先用分部改变结构",
+              "formula": "I=x\\arctan x-\\int\\frac{x}{1+x^2}dx",
+              "speech": "反正切求导变成有理式，剩余积分已在换元讲中处理过。"
+            },
+            {
+              "title": "换元完成剩余积分",
+              "formula": "I=x\\arctan x-\\frac12\\ln(1+x^2)+C",
+              "speech": "剩余对数项带二分之一，前面保留分部公式给出的减号。"
+            }
+          ]
+        }
+      ],
+      "page": 7,
+      "slideKey": "em-l18-integral-methods-20261101-p007",
+      "platformGroup": "第十八讲·积分方法·个人简答"
+    },
+    {
+      "id": "l18-integral-methods-20261101-2",
+      "lesson": 18,
+      "number": 2,
+      "title": "第十八讲·个人练习2：重复分部与复杂度降低",
+      "minutes": 9,
+      "questions": [
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int(x^2+1)e^x dx$，说明每次分部后哪个部分变简单。 在实数范围讨论。",
+          "formula": "\\int(x^2+1)e^x dx",
+          "conditions": [
+            "在实数范围讨论。"
+          ],
+          "hint": "多项式逐次求导会降低次数，指数积分保持同类。",
+          "answer": "$(x^2-2x+3)e^x+C$",
+          "explanation": "先得(x²+1)e^x−2∫xe^x dx，代入第一组结果，合并为(x²−2x+3)e^x+C。",
+          "scoring": [
+            "第一次分部：3分。",
+            "重复分部或使用已知剩余积分：3分。",
+            "合并与解释复杂度：4分。"
+          ],
+          "spoken": "第一题，计算x平方加一乘e的x次方的不定积分，并说明反复分部时为什么会逐渐结束。",
+          "steps": [
+            {
+              "title": "降低多项式次数",
+              "formula": "I=(x^2+1)e^x-2\\int xe^x dx",
+              "speech": "原来的二次多项式在剩余积分中降成一次。"
+            },
+            {
+              "title": "再用一次分部",
+              "formula": "I=(x^2+1)e^x-2(x-1)e^x+C=(x^2-2x+3)e^x+C",
+              "speech": "剩余一次乘指数已知，合并后得到完整结果。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int xe^{2x}dx$，特别写明v的系数。 在实数范围讨论。",
+          "formula": "\\int xe^{2x}dx",
+          "conditions": [
+            "在实数范围讨论。"
+          ],
+          "hint": "分部之前，dv的积分本身也可能需要换元。",
+          "answer": "$\\frac{e^{2x}}4(2x-1)+C$",
+          "explanation": "u=x，dv=e^(2x)dx，则v=e^(2x)/2。分部后剩余积分又带一个1/2，得到x e^(2x)/2−e^(2x)/4+C。",
+          "scoring": [
+            "v中的1/2：3分。",
+            "分部与第二个1/2：4分。",
+            "完整结果与C：3分。"
+          ],
+          "spoken": "第二题，计算x乘e的二x次方的不定积分，先写明v，注意两个阶段的系数。",
+          "steps": [
+            {
+              "title": "先正确求v",
+              "formula": "u=x,\\quad v=\\tfrac12e^{2x},\\quad I=\\tfrac x2e^{2x}-\\tfrac12\\int e^{2x}dx",
+              "speech": "v不是指数本身，要带二分之一。"
+            },
+            {
+              "title": "继续积分并合并",
+              "formula": "I=\\frac{x}{2}e^{2x}-\\frac14e^{2x}+C=\\frac{e^{2x}}4(2x-1)+C",
+              "speech": "剩余积分再次给一个二分之一，因此常数项系数是四分之一。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int x\\ln x\\,dx$，比较选择ln x或x作为u后所需处理的结构。 x>0。",
+          "formula": "\\int x\\ln x\\,dx",
+          "conditions": [
+            "x>0。"
+          ],
+          "hint": "选择要看余下的积分是否更容易，不只看哪个因子先写。",
+          "answer": "$\\frac{x^2}{2}\\ln x-\\frac{x^2}{4}+C$",
+          "explanation": "取u=ln x、dv=x dx，v=x²/2。剩余积分是(1/2)∫x dx，结构简化。反向选择需要先积分ln x，再产生较复杂的表达式，并无优势。",
+          "scoring": [
+            "选择与比较：3分。",
+            "正确分部：3分。",
+            "剩余积分、答案与范围：4分。"
+          ],
+          "spoken": "第三题，计算x乘自然对数x的不定积分，并比较把对数或x选为u，哪一个会使剩余积分更简单。",
+          "steps": [
+            {
+              "title": "对数微分、幂函数积分",
+              "formula": "u=\\ln x,\\quad v=x^2/2,\\quad I=\\frac{x^2}{2}\\ln x-\\frac12\\int x\\,dx",
+              "speech": "对数求导中的一除以x，约掉平方因子中的一个x。"
+            },
+            {
+              "title": "基本幂积分收尾",
+              "formula": "I=\\frac{x^2}{2}\\ln x-\\frac{x^2}{4}+C",
+              "speech": "最后是直接幂积分，比原来的幂乘对数简单。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int x^2\\cos x\\,dx$，完整记录两次分部中的符号。 在实数范围讨论。",
+          "formula": "\\int x^2\\cos x\\,dx",
+          "conditions": [
+            "在实数范围讨论。"
+          ],
+          "hint": "第一次的剩余积分与第二次分部的减号需分层处理。",
+          "answer": "$x^2\\sin x+2x\\cos x-2\\sin x+C$",
+          "explanation": "第一次得到x² sin x−2∫x sin x dx。后一个积分为−x cos x+sin x，代回得到结果。",
+          "scoring": [
+            "第一次分部：3分。",
+            "第二次分部及符号：4分。",
+            "代回和合并：3分。"
+          ],
+          "spoken": "第四题，计算x平方乘余弦x的不定积分，写出两次分部，特别核对外面的负二乘进来之后的符号。",
+          "steps": [
+            {
+              "title": "先把二次降为一次",
+              "formula": "I=x^2\\sin x-2J,\\qquad J=\\int x\\sin x\\,dx=-x\\cos x+\\sin x",
+              "speech": "把剩余积分记为J，先在J内部完成第二次分部。"
+            },
+            {
+              "title": "回到原积分合并",
+              "formula": "I=x^2\\sin x+2x\\cos x-2\\sin x+C",
+              "speech": "外面的负二同时改变J中两项的符号。"
+            }
+          ]
+        }
+      ],
+      "page": 16,
+      "slideKey": "em-l18-integral-methods-20261101-p016",
+      "platformGroup": "第十八讲·积分方法·个人简答"
+    },
+    {
+      "id": "l18-integral-methods-20261101-3",
+      "lesson": 18,
+      "number": 3,
+      "title": "第十八讲·个人练习3：循环能否提供新信息",
+      "minutes": 9,
+      "questions": [
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "用两次分部计算 $\\displaystyle \\int e^x\\cos x\\,dx$，写出含原积分的方程。 在实数范围讨论，常数最终统一合并。",
+          "formula": "\\int e^x\\cos x\\,dx",
+          "conditions": [
+            "在实数范围讨论，常数最终统一合并。"
+          ],
+          "hint": "回到原积分后，需要先移项再求解。",
+          "answer": "$\\frac12e^x(\\sin x+\\cos x)+C$",
+          "explanation": "设I为所求原函数，J为∫e^x sin x dx。先得I=e^x sin x−J，再得J=−e^x cos x+I；代回得2I=e^x(sin x+cos x)，最终加C。",
+          "scoring": [
+            "两次分部关系：4分。",
+            "移项得到2I：3分。",
+            "正确结果与常数：3分。"
+          ],
+          "spoken": "第一题，用两次分部计算e的x次方乘余弦x的不定积分，必须写出回到原积分后得到的方程。",
+          "steps": [
+            {
+              "title": "建立两个相联的积分关系",
+              "formula": "I=e^x\\sin x-J,\\qquad J=-e^x\\cos x+I",
+              "speech": "两次分部分别产生正弦与余弦，最终重新出现I。"
+            },
+            {
+              "title": "代回并移项",
+              "formula": "2I=e^x(\\sin x+\\cos x),\\quad I=\\tfrac12e^x(\\sin x+\\cos x)+C",
+              "speech": "原积分的系数变成二，除以二后得到结果，常数统一保留。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int e^{2x}\\cos x\\,dx$，说明移项后原积分的系数。 在实数范围讨论。",
+          "formula": "\\int e^{2x}\\cos x\\,dx",
+          "conditions": [
+            "在实数范围讨论。"
+          ],
+          "hint": "两次分部都要保留指数积分带来的1/2。",
+          "answer": "$\\frac15e^{2x}(2\\cos x+\\sin x)+C$",
+          "explanation": "取指数部分积分：I=(1/2)e^(2x)cos x+(1/2)J，J=(1/2)e^(2x)sin x−(1/2)I，故(5/4)I=(1/2)e^(2x)cos x+(1/4)e^(2x)sin x。",
+          "scoring": [
+            "两次系数均正确：4分。",
+            "移项得到5I/4：3分。",
+            "最终系数及结果：3分。"
+          ],
+          "spoken": "第二题，计算e的二x次方乘余弦x的不定积分。两次分部都要保留二分之一，并写出移项以后原积分的系数。",
+          "steps": [
+            {
+              "title": "保留两次尺度系数",
+              "formula": "I=\\tfrac12e^{2x}\\cos x+\\tfrac12J,\\quad J=\\tfrac12e^{2x}\\sin x-\\tfrac12I",
+              "speech": "两个二分之一相乘，在回到I时产生四分之一。"
+            },
+            {
+              "title": "解含I的等式",
+              "formula": "\\frac54 I=\\frac12e^{2x}\\cos x+\\frac14e^{2x}\\sin x,\\quad I=\\frac{e^{2x}}5(2\\cos x+\\sin x)+C",
+              "speech": "移项后是四分之五I，等号两边乘五分之四，得到最终结果。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "不先用倍角恒等式，用分部积分计算 $\\displaystyle \\int\\sin^2x\\,dx$；随后用倍角恒等式核对。 可使用sin²x+cos²x=1。",
+          "formula": "\\int\\sin^2x\\,dx",
+          "conditions": [
+            "可使用sin²x+cos²x=1。"
+          ],
+          "hint": "分部后出现cos²x，可用恒等式将它写回原积分。",
+          "answer": "$\\frac x2-\\frac12\\sin x\\cos x+C=\\frac x2-\\frac14\\sin2x+C$",
+          "explanation": "取u=sin x、dv=sin x dx，得到I=−sin x cos x+∫cos²x dx=−sin x cos x+x−I，移项后解出I。",
+          "scoring": [
+            "正确分部：3分。",
+            "用恒等式形成含I方程：3分。",
+            "结果与倍角核对：4分。"
+          ],
+          "spoken": "第三题，先不用倍角公式，以正弦x乘正弦x为起点，用分部积分计算正弦平方的不定积分。完成后再用倍角公式核对。",
+          "steps": [
+            {
+              "title": "把新的积分写回原积分",
+              "formula": "I=-\\sin x\\cos x+\\int\\cos^2x\\,dx=-\\sin x\\cos x+x-I",
+              "speech": "余弦平方等于一减正弦平方，所以原积分重新出现。"
+            },
+            {
+              "title": "移项并比较两种表示",
+              "formula": "I=\\frac x2-\\frac12\\sin x\\cos x+C=\\frac x2-\\frac14\\sin2x+C",
+              "speech": "两种外形由二倍角恒等式直接互相转化。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "为求 $\\displaystyle I=\\int e^x dx$，有人取u=eˣ、dv=dx，得到I=xeˣ−J，其中J=∫xeˣdx。再对J取u=x、dv=eˣdx。能否由这个循环求出I？写出理由。 讨论该循环是否增加信息；不是问这个基本积分能否用其他方法算出。",
+          "formula": "I=\\int e^x dx,\\qquad J=\\int xe^x dx",
+          "conditions": [
+            "讨论该循环是否增加信息；不是问这个基本积分能否用其他方法算出。"
+          ],
+          "hint": "关键是移项后I的系数，而不是是否重新看见I。",
+          "answer": "不能靠该循环确定I。代回只得到I=I（忽略可合并常数），没有新增约束；原基本公式当然仍可求I。",
+          "explanation": "第二步给J=xe^x−I，代回第一步得到I=xe^x−(xe^x−I)=I。与前面得到2I或5I/4不同，移项后只剩0=0，不能据此计算。",
+          "scoring": [
+            "写出J=xe^x−I：3分。",
+            "代回得到恒等式：4分。",
+            "区分循环无效与积分不可求：3分。"
+          ],
+          "spoken": "第四题，有人把e的x次方的积分分部成x乘指数减去J，再把J分部成x乘指数减去I。这个循环是否帮助求出了I？请写出代回后的关系，区分方法没有进展和积分本身不能计算。",
+          "steps": [
+            {
+              "title": "代回以后只剩原关系",
+              "formula": "I=xe^x-J,\\quad J=xe^x-I\\quad\\Longrightarrow\\quad I=I",
+              "speech": "前后两次分部只是互相撤销，没有产生可以确定I的新等式。"
+            },
+            {
+              "title": "信息量不同",
+              "text": "移项只得到0=0。基本积分I=eˣ+C仍然已知；失效的是这条循环路线。",
+              "speech": "不能从一条没有进展的路线，反推原积分没有原函数或无法计算。"
+            }
+          ]
+        }
+      ],
+      "page": 27,
+      "slideKey": "em-l18-integral-methods-20261101-p027",
+      "platformGroup": "第十八讲·积分方法·个人简答"
+    },
+    {
+      "id": "l18-integral-methods-20261101-4",
+      "lesson": 18,
+      "number": 4,
+      "title": "第十八讲·个人练习4：方法配合与综合判断",
+      "minutes": 11,
+      "questions": [
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int\\frac{\\ln x}{x^2}\\,dx$，写出u和dv的选择。 x>0。",
+          "formula": "\\int\\frac{\\ln x}{x^2}\\,dx",
+          "conditions": [
+            "x>0。"
+          ],
+          "hint": "分母幂可以先积分，对数适合微分。",
+          "answer": "$-\\frac{\\ln x+1}{x}+C$",
+          "explanation": "取u=ln x、dv=x^(−2)dx，v=−1/x。于是I=−ln x/x+∫x^(−2)dx=−(ln x+1)/x+C。",
+          "scoring": [
+            "四个量正确：4分。",
+            "分部的符号：3分。",
+            "剩余积分和完整结果：3分。"
+          ],
+          "spoken": "第一题，在正半轴计算自然对数x除以x平方的不定积分，列出u和dv，注意v的负号。",
+          "steps": [
+            {
+              "title": "先积分负幂",
+              "formula": "u=\\ln x,\\quad v=-1/x,\\quad I=-\\frac{\\ln x}{x}+\\int x^{-2}dx",
+              "speech": "v为负的一除以x，分部的减号因此变成加一个剩余积分。"
+            },
+            {
+              "title": "完成幂积分",
+              "formula": "I=-\\frac{\\ln x}{x}-\\frac1x+C=-\\frac{\\ln x+1}{x}+C",
+              "speech": "剩余积分又给负的一除以x，合并为完整结果。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int x\\arctan x\\,dx$。分部后先整理出现的有理式。 在实数范围讨论。",
+          "formula": "\\int x\\arctan x\\,dx",
+          "conditions": [
+            "在实数范围讨论。"
+          ],
+          "hint": "x²/(1+x²)可以写成1减一个基本倒数。",
+          "answer": "$\\frac{x^2+1}{2}\\arctan x-\\frac x2+C$",
+          "explanation": "取u=arctan x、dv=x dx，得到x² arctan x/2−(1/2)∫x²/(1+x²)dx。把分式写为1−1/(1+x²)，用基本公式完成。",
+          "scoring": [
+            "分部：3分。",
+            "有理式拆分：3分。",
+            "基本积分及合并：4分。"
+          ],
+          "spoken": "第二题，计算x乘反正切x的不定积分。分部之后会出现一个有理式，请先用代数拆分，再用基本公式。",
+          "steps": [
+            {
+              "title": "分部后整理剩余积分",
+              "formula": "I=\\frac{x^2}{2}\\arctan x-\\frac12\\int\\left(1-\\frac1{1+x^2}\\right)dx",
+              "speech": "将x平方除以一加x平方拆成一减一个倒数。"
+            },
+            {
+              "title": "合并反正切项",
+              "formula": "I=\\frac{x^2+1}{2}\\arctan x-\\frac x2+C",
+              "speech": "两个反正切项合并，得到二分之一乘x平方加一，再乘反正切。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int x^3e^{x^2}dx$。说明先换元还是先分部更简洁，并核对x=0。 要求给出整个实数区间的原函数。",
+          "formula": "\\int x^3e^{x^2}dx",
+          "conditions": [
+            "要求给出整个实数区间的原函数。"
+          ],
+          "hint": "把x³dx看成x²与x dx的乘积。",
+          "answer": "$\\frac12(x^2-1)e^{x^2}+C$",
+          "explanation": "先令u=x²，x³dx=(u/2)du，得到(1/2)∫u e^u du，再分部。回代结果在0处可导且导数为0，所以整个实数区间成立。",
+          "scoring": [
+            "先换元及因子：3分。",
+            "分部计算：3分。",
+            "回代、C及零点核验：4分。"
+          ],
+          "spoken": "第三题，计算x立方乘e的x平方次方的不定积分。比较先换元和先分部的结构，给出完整计算，并说明零点是否要排除。",
+          "steps": [
+            {
+              "title": "先让复合结构变成普通乘积",
+              "formula": "u=x^2,\\quad x^3dx=\\frac u2du,\\quad I=\\frac12\\int ue^u du",
+              "speech": "先换元把原来的复合指数乘积，化成一次多项式乘普通指数。"
+            },
+            {
+              "title": "再分部并回代",
+              "formula": "I=\\frac12(u-1)e^u+C=\\frac12(x^2-1)e^{x^2}+C",
+              "speech": "分部结果回代以后直接求导，在零点也正确，不必额外排除。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int\\ln(1+x^2)dx$，保留分部、代数拆分和基本公式三个环节。 在整个实数范围讨论。",
+          "formula": "\\int\\ln(1+x^2)dx",
+          "conditions": [
+            "在整个实数范围讨论。"
+          ],
+          "hint": "对数适合微分，剩余的分式先拆成常数与倒数。",
+          "answer": "$x\\ln(1+x^2)-2x+2\\arctan x+C$",
+          "explanation": "u=ln(1+x²)、dv=dx。分部后是x ln(1+x²)−2∫x²/(1+x²)dx，再拆为1−1/(1+x²)即可。",
+          "scoring": [
+            "对数求导与分部：4分。",
+            "有理式拆分：3分。",
+            "完整答案与范围：3分。"
+          ],
+          "spoken": "第四题，计算自然对数一加x平方的不定积分。请依次写出分部、分式拆分和使用基本公式的过程，并注明适用范围。",
+          "steps": [
+            {
+              "title": "分部后先作代数整理",
+              "formula": "I=x\\ln(1+x^2)-2\\int\\left(1-\\frac1{1+x^2}\\right)dx",
+              "speech": "对数求导产生二x，乘上v等于x后成为二x平方，再拆分有理式。"
+            },
+            {
+              "title": "基本公式完成结果",
+              "formula": "I=x\\ln(1+x^2)-2x+2\\arctan x+C",
+              "speech": "原式在整个实数范围有意义，求导可以核验这个结果。"
+            }
+          ]
+        }
+      ],
+      "page": 36,
+      "slideKey": "em-l18-integral-methods-20261101-p036",
+      "platformGroup": "第十八讲·积分方法·个人简答"
+    }
+  ]
+}

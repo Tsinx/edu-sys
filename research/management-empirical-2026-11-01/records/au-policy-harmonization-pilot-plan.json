@@ -1,0 +1,18 @@
+{
+  "recorded": "2026-11-01",
+  "stage": "frozen before inspecting associations or outcomes for entity-modal-term ranges and forecasts",
+  "question": "Do group payment-policy ranges and anticipated harmonization explain persistent differences in payment execution?",
+  "source_definition": "Reporting Fields March2025 PDF12 and21: minimum/maximum are extrema of each legal entity's separately calculated modal SME payment term, not tied aggregate modes or forecast confidence intervals. Fields shown when controlled entities exist.",
+  "prior_inspection": "Univariate value counts of aggregate/current/forecast fields and source definitions only; no range-change outcomes or event counts inspected",
+  "units": "Valid ABN by calendar half-year; latest valid actual reporting period and earliest retained unrevised forecast report version kept separately",
+  "periods": ["2024H2", "2025H1", "2025H2", "2026H1"],
+  "range_quality": ["Both endpoints present, nonnegative whole days, minimum <= maximum", "No requirement for the pooled modal term to lie in the range of individual-entity modal terms", "Nil-procurement and external-administration reports excluded"],
+  "forecast_timing": "Primary: earliest retained report has Revised Report No and was submitted at least90days before next period ends; latest revised values never substituted as the original forecast. Submitted date is not certified publication time.",
+  "plan_exposure": "Predicted next legal-entity modal-term spread <= current spread -7days; secondary threshold any positive contraction; distinguish from reduction of aggregate mode",
+  "descriptive_outcomes": ["Next actual spread change", "Next actual minimum and maximum shifts", "Share of anticipated contractions realized", "Group payment days and contract-relative on-time share changes"],
+  "forecast_benchmark": "Forecast spread MAE compared on identical rows to unchanged-current-spread benchmark; ABN-equal weighting and paired ABN bootstrap; fixed seed20261107,1999draws",
+  "segment_test": "At latest clean multi-active AASB8 reports, compare segment-level modal terms and on-time/P30 dispersion when all legal-entity modal terms are reported identical versus different. This observes policy uniformity, not centralized decision rights or identical invoice portfolios.",
+  "statistical_design": "First report event counts, timing, revision and endpoint consistency. Run a baseline-adjusted associative change regression only if >=30distinct groups anticipate a >=7day contraction; include baseline spread/mode/payment performance and period indicators; cluster by ABN. No causal treatment effect asserted from endogenous plans.",
+  "falsification_and_alternatives": ["Convergence from raising minimum terms versus lowering maximum terms", "Forecast revisions after target period", "Ownership/perimeter changes and shifts in which subsidiaries make SME payments", "Uniform modal terms can coexist with heterogeneous nonmodal contracts", "Publication and submission dates differ"],
+  "go_no_go": "A forecast-accuracy fact alone is not the proposed contribution. Need an empirically distinguishable organizational pattern or stop the harmonization mechanism route."
+}

@@ -1,7 +1,8 @@
 [CmdletBinding()]
 param(
     [ValidateSet('start', 'reload', 'stop', 'status', 'validate', 'install')]
-    [string]$Action = 'start'
+    [string]$Action = 'start',
+    [ValidateRange(1024, 65535)][int]$WebPort = 5173
 )
 
 Set-StrictMode -Version Latest
@@ -86,11 +87,13 @@ function Trust-LocalCertificate {
 $mutex = $null
 $ownsMutex = $false
 $previousStorage = $env:EDU_CADDY_STORAGE
+$previousWebPort = $env:EDU_WEB_PORT
 try {
     $mutex = New-Object System.Threading.Mutex($false, 'Local\EduSysLocalCaddy-2020')
     try { $ownsMutex = $mutex.WaitOne(0) } catch [System.Threading.AbandonedMutexException] { $ownsMutex = $true }
     if (-not $ownsMutex) { throw 'Another local Caddy command is running. Try again after it finishes.' }
     $env:EDU_CADDY_STORAGE = (Join-Path $RuntimeRoot 'data').Replace('\', '/')
+    $env:EDU_WEB_PORT = [string]$WebPort
     $owned = Get-OwnedCaddy
     if ($Action -eq 'status') {
         if ($null -eq $owned) { Write-Host 'Project Caddy is stopped.'; exit 0 }
@@ -162,6 +165,7 @@ try {
     exit 1
 } finally {
     $env:EDU_CADDY_STORAGE = $previousStorage
+    $env:EDU_WEB_PORT = $previousWebPort
     if ($ownsMutex) { $mutex.ReleaseMutex() }
     if ($null -ne $mutex) { $mutex.Dispose() }
 }

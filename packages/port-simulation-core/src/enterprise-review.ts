@@ -1,4 +1,7 @@
+import {financeView,depositPrincipal,nonPrincipalPayables} from './enterprise-finance.js';
+import {enterpriseDirector,enterpriseTelemetryView} from './enterprise-director.js';
 import { sha256Hex } from './sha256.js';
+import {strategyView} from './enterprise-strategy.js';
 import {managementView} from './enterprise-management.js';
 import { assetSpec, ENTERPRISE_PARAMETER_NOTES } from './enterprise-catalogue.js';
 import { assertEnterprise, cleanEnterpriseConfig, createEnterprise, executeEnterprise, validateEnterpriseCommand } from './enterprise-engine.js';
@@ -33,14 +36,15 @@ export function enterpriseGoods(s: EnterpriseState) {
 }
 export function enterpriseScore(s: EnterpriseState): EnterpriseScore {
   const goods = enterpriseGoods(s), observed = goods.filter(g => g.due > 0), rate = observed.length ? observed.reduce((n, g) => n + (g.fulfillment ?? 0), 0) / observed.length : 0;
-  const value = assetValue(s), receivables = s.receivables.reduce((n, r) => n + r.amount, 0), inventory = money(s.fuelStock * 7.2 + s.spareParts * 4000);
+  const value = assetValue(s), receivables = s.receivables.reduce((n, r) => n + r.amount, 0), inventory = money(s.fuelStock * 7.2 + s.spareParts * 4000+s.supplyOrders.filter(o=>o.status==='transit').reduce((n,o)=>n+o.price,0));
   const leases = s.assets.filter(a => a.ownership === 'leased' && a.status !== 'retired').reduce((n, a) => n + Math.max(0, Math.min(90, Math.ceil((leaseDeliveryHour(a) + 365 * 24 - s.hour) / 24))) * assetSpec(a.model).leaseDaily, 0);
   const contracts = s.contracts.filter(c => c.accepted && !c.settled).reduce((n, c) => n + Math.max(0, c.promised - c.shipped) * c.price * c.penalty, 0);
   const prepaidLease=s.assets.reduce((n,a)=>n+a.leaseCredit,0);
   // Prepaid rent is already an asset below; keep gross exit obligations here.
-  const futureObligations = money(leases + contracts), equity = money(s.cash + value + receivables + inventory+prepaidLease - s.debt - futureObligations);
+  const futureObligations = money(leases + contracts), equity = money(s.cash + depositPrincipal(s) + value + receivables + inventory+prepaidLease - s.debt - futureObligations-nonPrincipalPayables(s)-s.finance.loans.reduce((n,l)=>n+l.accruedInterest,0));
   const profit = s.months.reduce((n, m) => n + m.revenue - m.operating - m.interest - m.depreciation - m.tax, 0);
-  const complete = s.hour >= s.horizon, progress = s.hour / s.horizon;
+  const outcome=s.finance.status==='bankrupt'?'bankrupt' as const:s.hour>=s.horizon?'completed' as const:'operating' as const;
+  const complete = outcome!=='operating', progress = s.hour / s.horizon;
   const active = s.assets.filter(a => a.status !== 'retired' && a.readyHour <= s.hour), health = active.length ? active.reduce((n, a) => n + a.health / 100, 0) / active.length : 0;
   const unresolved = s.incidents.filter(i => i.status !== 'resolved').length;
   const notes = new Set(s.notes.filter(n => ENTERPRISE_NOTE_TOPICS.includes(n.topic) && n.text.trim().length >= 20).map(n => n.topic)).size;
@@ -50,7 +54,7 @@ export function enterpriseScore(s: EnterpriseState): EnterpriseScore {
   const work = goods.reduce((n, g) => n + g.delivered * conversion[g.kind]!, 0), intensity = work ? s.stats.emissions / work : 0;
   const pieces = [
     { id: 'service', label: '到期履约', max: 30, value: rate, detail: '六类业务分别计算到期按时交付率，再取平均；未完成与货损留在分母。' },
-    { id: 'finance', label: '经营与资金', max: 20, value: clamp(.4 + (equity - s.initialEquity) / Math.max(1, s.initialEquity * .15), 0, 1) * (s.cash < 0 ? .5 : 1), detail: '依据期末净资产、应收、债务、存货及后续义务；不以现金余额替代利润。' },
+    { id: 'finance', label: '经营与资金', max: 20, value: clamp(.4 + (equity - s.initialEquity) / Math.max(1, s.initialEquity * .65*Math.max(.25,s.hour/8760)), 0, 1) * (s.finance.status==='bankrupt'?0:s.finance.status==='distress'?.5:1), detail: '依据期末净资产、应收、债务、存货及后续义务；不以现金余额替代利润。' },
     { id: 'assets', label: '资产与维护', max: 15, value: health * (active.length ? active.filter(a => a.status !== 'failed').length / active.length : 0), detail: '资产健康与可用状态共同计入；闲置大额投资仍负担折旧和资金占用。' },
     { id: 'safety', label: '风险与恢复', max: 10, value: clamp(1 - unresolved * .18 - lossRate * 10, 0, 1), detail: '保留未恢复事件与分货种货损率的平均值；被系统拒绝的安全操作不等同事故。' },
     { id: 'environment', label: '能源与环境', max: 10, value: work ? clamp(1 - intensity / 150, 0, 1) : 0, detail: '按版本化教学工作量折算因子诊断能耗影响；150为教学标尺，非现实行业标准。' },
@@ -60,7 +64,7 @@ export function enterpriseScore(s: EnterpriseState): EnterpriseScore {
   const earned = clamp(progress, 0, 1);
   const components = pieces.map(p => ({ id: p.id, label: p.label, max: p.max, score: Math.round(p.max * p.value * earned * 100) / 100, detail: p.detail }));
   const completedWaiting=s.calls.filter(c=>c.stage==='departed').reduce((n,c)=>n+c.wait.berth+c.wait.channel+c.wait.documents,0);
-  return { total: Math.round(components.reduce((n, p) => n + p.score, 0) * 100) / 100, complete, progress, components, equity, assetValue: value, receivables, futureObligations, profit,prepaidLease,deliveryRate: rate, waitingHours: s.stats.departed ? completedWaiting / s.stats.departed : 0, emissionsPerUnit: intensity, benchmark: '教学诊断量规/2；分项按已完成经营期折算，原实验评分不变。' };
+  return { total: Math.min(outcome==='bankrupt'?40:100,Math.round(components.reduce((n, p) => n + p.score, 0) * 100) / 100),outcome,failureReason:s.finance.failureReason, complete, progress, components, equity, assetValue: value, receivables, futureObligations, profit,prepaidLease,deliveryRate: rate, waitingHours: s.stats.departed ? completedWaiting / s.stats.departed : 0, emissionsPerUnit: intensity, benchmark: '教学诊断量规/4；分项按已完成经营期折算，原实验评分不变。' };
 }
 export function enterpriseView(s: EnterpriseState) {
   const visible = s.calls.filter(c => c.eta <= s.hour + 24 && c.stage !== 'departed');
@@ -68,11 +72,11 @@ export function enterpriseView(s: EnterpriseState) {
   const lots = s.lots.filter(l => ids.has(l.callId) || l.completed + l.lost < l.quantity);
   const calls = visible.map(({ arrival, issue, ...c }) => ({ ...c, actualArrival: c.arrivedHour, needsCorrection: c.documents.manifest.status === 'correction' }));
   return {
-    schema: s.schema, rules: s.rules, config: s.config, hour: s.hour, date: hourLabel(s.hour), horizon: s.horizon, sealed: s.sealed,management:managementView(s),
+    schema: s.schema, rules: s.rules, config: s.config, hour: s.hour, date: hourLabel(s.hour), horizon: s.horizon, sealed: s.sealed,finance:financeView(s),strategy:strategyView(s),management:managementView(s),director:enterpriseDirector(s),telemetry:enterpriseTelemetryView(s),
     quarter: quarterIndex(s.hour) + 1, weather: weather(s), cash: s.cash, debt: s.debt, score: enterpriseScore(s), goods: enterpriseGoods(s),
     terminals: s.terminals.map(t => ({ ...t, stock: terminalStock(s, t.id), queued: visible.filter(c => c.terminalId === t.id && c.stage === 'waiting').length })),
     assets: s.assets, crews: s.crews, calls, lots, outstandingLots: lots.length,
-    projects: s.projects, contracts: s.contracts, customers: s.customers, incidents: s.incidents, policy: s.policy, stats: s.stats,
+    projects: s.projects, supplyOrders:s.supplyOrders.filter(o=>o.status==='transit'||o.ordered>=s.hour-30*24),contracts: s.contracts, customers: s.customers, incidents: s.incidents, policy: s.policy, stats: s.stats,
     events: s.events.slice(-120), months: s.months, ledger: s.ledger.slice(-400), notes: s.notes, gridKw: s.gridKw, solarKw: s.solarKw,
     digitalLevel: s.digitalLevel, fuelStock: s.fuelStock, spareParts: s.spareParts, governance: s.governance, concessionRate: s.concessionRate,
     journal: s.journal.map(({ hour, command, ok, message }, index) => ({ index, hour, kind: command.kind, ok, message })),
@@ -90,10 +94,10 @@ export function verifyEnterprisePackage(pkg: EnterprisePackage,onProgress?:(hour
   if (!pkg || pkg.schema !== ENTERPRISE_SUBMISSION_SCHEMA || !pkg.expected || !/^[a-f0-9]{64}$/.test(pkg.expected.hash) || !Number.isFinite(pkg.expected.score)) throw Error('经营提交包格式无效。');
   const s = restoreEnterprise(pkg.record,undefined,onProgress);
   if (!s.sealed || enterpriseHash(s) !== pkg.expected.hash || enterpriseScore(s).total !== pkg.expected.score) throw Error('经营记录、状态或成绩与独立重放不一致。');
-  return { result: enterpriseScore(s), stateHash: enterpriseHash(s), config: s.config, hour: s.hour, complete: s.hour === s.horizon, view: enterpriseView(s) };
+  return { result: enterpriseScore(s), stateHash: enterpriseHash(s), config: s.config, hour: s.hour, complete: s.hour === s.horizon||s.finance.status==='bankrupt', view: enterpriseView(s) };
 }
 export function enterpriseCsv(s: EnterpriseState) {
   const escape = (v: unknown) => '"' + String(v ?? '').replaceAll('"', '""') + '"';
-  const header = ['月份', '收入元', '运营成本元', '投资现金支出元', '利息元', '折旧元', '税费元', '月末现金元', '月末债务元', '用电量含补能kWh', '模型排放kgCO2e'];
-  return '\ufeff' + [header, ...s.months.map(m => [m.month, m.revenue, m.operating, m.capital, m.interest, m.depreciation, m.tax, m.cashEnd, m.debtEnd, m.energy, m.emissions])].map(row => row.map(escape).join(',')).join('\r\n');
+  const header = ['月份', '收入元', '运营成本元', '投资现金支出元', '利息元', '折旧元', '税费元', '月末现金元', '月末债务元','存款利息收入元','偿还本金元','月末定存本金元','月末应付款元', '用电量含补能kWh', '模型排放kgCO2e'];
+  return '\ufeff' + [header, ...s.months.map(m => [m.month, m.revenue, m.operating, m.capital, m.interest, m.depreciation, m.tax, m.cashEnd, m.debtEnd,m.interestIncome,m.principalPaid,m.depositEnd,m.payablesEnd, m.energy, m.emissions])].map(row => row.map(escape).join(',')).join('\r\n');
 }

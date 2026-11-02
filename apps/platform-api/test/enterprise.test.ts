@@ -59,7 +59,7 @@ test('personal enterprise tasks enforce identity, immutable conditions, ownershi
     const fullTask=(await post('tasks',{...input,title:'必须完成经营期',completeRequired:true},teacher)).json();
     const incomplete=(await post('tasks/'+fullTask.id+'/attempts',{requestId:randomUUID()})).json();
     await post('attempts/'+incomplete.id+'/submit',{requestId:randomUUID(),package:pkg});
-    const incompleteResult=await wait(incomplete.id);assert.equal(incompleteResult.status,'rejected');assert.match(incompleteResult.error!,/完成全部经营期/);
+    const incompleteResult=await wait(incomplete.id);assert.equal(incompleteResult.status,'rejected');assert.match(incompleteResult.error!,/完成经营期或形成可核验的经营失败结算/);
     assert.equal((await app.inject({method:'PATCH',url:'/api/port-enterprise/tasks/'+task.id,headers:{cookie:student},payload:{closed:true}})).statusCode,403);
     await app.inject({method:'PATCH',url:'/api/port-enterprise/tasks/'+task.id,headers:{cookie:teacher},payload:{closed:true}});
     assert.equal((await post('tasks/'+task.id+'/attempts',{requestId:randomUUID()},other)).statusCode,409);

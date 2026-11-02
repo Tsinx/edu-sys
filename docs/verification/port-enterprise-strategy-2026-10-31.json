@@ -1,0 +1,530 @@
+{
+  "schema": "port-enterprise-strategy-verification/1",
+  "verifiedAt": "2026-10-31T14:38:57.230042+00:00",
+  "scope": "local offline single-player teaching scenarios; no campus deployment or real student grades changed",
+  "rules": {
+    "engine": "port-enterprise/3.2",
+    "operations": "port-operations/3.2",
+    "catalogue": "port-assets/3.0",
+    "demand": "port-market/2.0",
+    "finance": "port-finance/3.0",
+    "indicators": "port-enterprise-score/3.0"
+  },
+  "teaching": "port-enterprise-teaching/5",
+  "localUrl": "http://127.0.0.1:8217/",
+  "tests": [
+    {
+      "log": "core32-all.log",
+      "passed": 182,
+      "failed": 0
+    },
+    {
+      "log": "web32.log",
+      "passed": 40,
+      "failed": 0
+    },
+    {
+      "log": "api32.log",
+      "passed": 5,
+      "failed": 0
+    }
+  ],
+  "totalTests": 227,
+  "typechecks": [
+    "core",
+    "platform-api",
+    "teacher-web"
+  ],
+  "productionBuild": "vite32.log; existing chunk-size warning only",
+  "matrices": [
+    {
+      "path": "output\\port-enterprise-strategy-20261031\\accepted-matrix32\\strategy-comparisons.json",
+      "sha256": "8b4bd8408732539694538f5cd5928f8e6f6bad9bd9284fb6cda6ba4c4847d241",
+      "cases": 72
+    },
+    {
+      "path": "output\\port-enterprise-strategy-20261031\\extended-matrix32\\strategy-comparisons.json",
+      "sha256": "bea7f09ff59252df0fafd0429eacdd2dc3b6f2b64cb2d0cf1e423629ed32c9fd",
+      "cases": 22
+    }
+  ],
+  "totalStrategyCases": 94,
+  "matrixMethod": "Each case starts from a versioned seed and config, changes published commands, conserves cargo and accounting, then independently replays and checks its state hash. These finite cases do not establish a globally optimal policy.",
+  "browserSemester": {
+    "hour": 4345,
+    "rules": {
+      "engine": "port-enterprise/3.2",
+      "operations": "port-operations/3.2",
+      "catalogue": "port-assets/3.0",
+      "demand": "port-market/2.0",
+      "finance": "port-finance/3.0",
+      "indicators": "port-enterprise-score/3.0"
+    },
+    "hash": "056687eb24db0de6413483f1ac94bd89addb4002f396e68dc42d87bf2f5ea0f9",
+    "result": {
+      "total": 13.95,
+      "complete": false,
+      "progress": 0.16518400243309003,
+      "components": [
+        {
+          "id": "service",
+          "label": "到期履约",
+          "max": 30,
+          "score": 4.73,
+          "detail": "六类业务分别计算到期按时交付率，再取平均；未完成与货损留在分母。"
+        },
+        {
+          "id": "finance",
+          "label": "经营与资金",
+          "max": 20,
+          "score": 3.3,
+          "detail": "依据期末净资产、应收、债务、存货及后续义务；不以现金余额替代利润。"
+        },
+        {
+          "id": "assets",
+          "label": "资产与维护",
+          "max": 15,
+          "score": 1.96,
+          "detail": "资产健康与可用状态共同计入；闲置大额投资仍负担折旧和资金占用。"
+        },
+        {
+          "id": "safety",
+          "label": "风险与恢复",
+          "max": 10,
+          "score": 1.65,
+          "detail": "保留未恢复事件与分货种货损率的平均值；被系统拒绝的安全操作不等同事故。"
+        },
+        {
+          "id": "environment",
+          "label": "能源与环境",
+          "max": 10,
+          "score": 1.48,
+          "detail": "按版本化教学工作量折算因子诊断能耗影响；150为教学标尺，非现实行业标准。"
+        },
+        {
+          "id": "coverage",
+          "label": "业务完整性",
+          "max": 5,
+          "score": 0.83,
+          "detail": "六类业务均有实际交付，经营期和未完成状态分别显示。"
+        },
+        {
+          "id": "notes",
+          "label": "决策证据",
+          "max": 10,
+          "score": 0,
+          "detail": "四类不少于20字的决策说明仅核验完整性，不自动评价文字质量。"
+        }
+      ],
+      "equity": 267854446,
+      "assetValue": 211357705,
+      "receivables": 15797625,
+      "futureObligations": 0,
+      "profit": 45701091,
+      "prepaidLease": 0,
+      "deliveryRate": 0.9545821300676658,
+      "waitingHours": 5.367321867321867,
+      "emissionsPerUnit": 15.741516643228634,
+      "benchmark": "教学诊断量规/3；分项按已完成经营期折算，原实验评分不变。"
+    },
+    "commands": 28,
+    "months": 7,
+    "cash": 60627345,
+    "notes": 0,
+    "learning": {
+      "schema": "port-enterprise-learning-report/5",
+      "hour": 4344,
+      "completed": 32
+    },
+    "recordMatchesPackage": true,
+    "csvByteExact": true
+  },
+  "browserUI": {
+    "narrow": {
+      "canvas": 1,
+      "card": {
+        "bottom": 707.09375,
+        "height": 259.328125,
+        "left": 27.5,
+        "right": 347.5,
+        "top": 447.765625,
+        "width": 320,
+        "x": 27.5,
+        "y": 447.765625
+      },
+      "height": 844,
+      "step": "staff-template",
+      "target": {
+        "bottom": 420.765625,
+        "height": 203.59375,
+        "left": 21,
+        "right": 354,
+        "top": 217.171875,
+        "width": 333,
+        "x": 21,
+        "y": 217.171875
+      },
+      "width": 390
+    },
+    "refresh": {
+      "canvas": 1,
+      "draft": "day-heavy",
+      "hour": "744",
+      "step": "staff-template"
+    },
+    "fullscreen": {
+      "buttons": [
+        {
+          "label": "退出网页全屏",
+          "pressed": "true"
+        },
+        {
+          "label": "退出屏幕全屏",
+          "pressed": "true"
+        }
+      ],
+      "canvas": 1,
+      "draft": "day-heavy",
+      "hour": "744",
+      "step": "staff-template"
+    },
+    "consoleErrors": [],
+    "negativeImport": {
+      "alerts": [
+        "经营记录的引擎、设备目录或规则版本不兼容；原文件应保留。"
+      ],
+      "hour": "0",
+      "recordRows": 1
+    },
+    "fiveYearImport": {
+      "alerts": [],
+      "hour": "43824",
+      "schema": "port-enterprise/3.2"
+    },
+    "replayHour": "0",
+    "returnedHour": "43824",
+    "cleanConsoleErrors": [],
+    "lock": {
+      "dialogs": 0,
+      "hour": "0",
+      "step": "strategy",
+      "target": "[data-enterprise-control=\"hud-menu\"]"
+    }
+  },
+  "fiveYear": {
+    "hour": 43824,
+    "months": 60,
+    "commands": 43,
+    "preSealHash": "91cf960c28d419cee514fcaccdfd1020425a9d6912a5258cd1427e8440ab18ed",
+    "hash": "0472475ae8e5f4bae59eda46065e8c192409cf8cb92d413fb3ebbac7f02c1a65",
+    "rules": {
+      "engine": "port-enterprise/3.2",
+      "operations": "port-operations/3.2",
+      "catalogue": "port-assets/3.0",
+      "demand": "port-market/2.0",
+      "finance": "port-finance/3.0",
+      "indicators": "port-enterprise-score/3.0"
+    },
+    "config": {
+      "seed": 20261031,
+      "years": 5,
+      "scenario": "balanced",
+      "mode": "practice"
+    },
+    "result": {
+      "total": 85.42,
+      "complete": true,
+      "progress": 1,
+      "components": [
+        {
+          "id": "service",
+          "label": "到期履约",
+          "max": 30,
+          "score": 29.55,
+          "detail": "六类业务分别计算到期按时交付率，再取平均；未完成与货损留在分母。"
+        },
+        {
+          "id": "finance",
+          "label": "经营与资金",
+          "max": 20,
+          "score": 20,
+          "detail": "依据期末净资产、应收、债务、存货及后续义务；不以现金余额替代利润。"
+        },
+        {
+          "id": "assets",
+          "label": "资产与维护",
+          "max": 15,
+          "score": 11.87,
+          "detail": "资产健康与可用状态共同计入；闲置大额投资仍负担折旧和资金占用。"
+        },
+        {
+          "id": "safety",
+          "label": "风险与恢复",
+          "max": 10,
+          "score": 10,
+          "detail": "保留未恢复事件与分货种货损率的平均值；被系统拒绝的安全操作不等同事故。"
+        },
+        {
+          "id": "environment",
+          "label": "能源与环境",
+          "max": 10,
+          "score": 9,
+          "detail": "按版本化教学工作量折算因子诊断能耗影响；150为教学标尺，非现实行业标准。"
+        },
+        {
+          "id": "coverage",
+          "label": "业务完整性",
+          "max": 5,
+          "score": 5,
+          "detail": "六类业务均有实际交付，经营期和未完成状态分别显示。"
+        },
+        {
+          "id": "notes",
+          "label": "决策证据",
+          "max": 10,
+          "score": 0,
+          "detail": "四类不少于20字的决策说明仅核验完整性，不自动评价文字质量。"
+        }
+      ],
+      "equity": 655832148,
+      "assetValue": 118772578,
+      "receivables": 14744553,
+      "futureObligations": 0,
+      "profit": 442249435,
+      "prepaidLease": 0,
+      "deliveryRate": 0.9850872101948038,
+      "waitingHours": 1.815056004167752,
+      "emissionsPerUnit": 14.992263745490556,
+      "benchmark": "教学诊断量规/3；分项按已完成经营期折算，原实验评分不变。"
+    },
+    "browserReexportMatches": true,
+    "replayExportMatchesLiveRecord": true,
+    "weeklyVs93DayPartitionMatch": true
+  },
+  "batchTraining": {
+    "record": {
+      "schema": "port-enterprise/3.2",
+      "rules": {
+        "engine": "port-enterprise/3.2",
+        "operations": "port-operations/3.2",
+        "catalogue": "port-assets/3.0",
+        "demand": "port-market/2.0",
+        "finance": "port-finance/3.0",
+        "indicators": "port-enterprise-score/3.0"
+      },
+      "config": {
+        "seed": 20261025,
+        "years": 3,
+        "scenario": "balanced",
+        "mode": "practice"
+      },
+      "commands": [
+        {
+          "kind": "train",
+          "crewId": "crew-crane-0",
+          "count": 3
+        }
+      ]
+    },
+    "doubleClickProducesOneCommand": true,
+    "cost": 6600,
+    "verifiedState": {
+      "total": 201,
+      "training": 3,
+      "cash": 31993400,
+      "cost": 6600,
+      "commands": 1
+    }
+  },
+  "launcher": {
+    "reused": true,
+    "shell": "Windows PowerShell 5.1.26100.9711",
+    "health": {
+      "app": "port-enterprise",
+      "instance": "95c93b34941e",
+      "version": "port-enterprise/3.2",
+      "pid": 40704
+    }
+  },
+  "archive": {
+    "archive": "D:\\codes\\edu-sys\\output\\东湾港-长期经营3.2-教学更新-20261031.zip",
+    "sha256": "3845ec644fadc038e9b3f39c487d61b8bf06fc1f39d9731d63cb5361fbecf87a",
+    "bytes": 37874850,
+    "files": 14,
+    "verifiedManifestFiles": 13,
+    "rules": "port-enterprise/3.2",
+    "extracted": "D:\\codes\\edu-sys\\output\\port-enterprise-strategy-20261031\\clean-package32"
+  },
+  "servedFilesMatch": [
+    "web/index.html",
+    "web/enterprise.js",
+    "web/enterprise.css",
+    "web/enterprise.worker.js"
+  ],
+  "liveHealth": {
+    "app": "port-enterprise",
+    "instance": "5d4b24601dfc",
+    "version": "port-enterprise/3.2",
+    "pid": 11604
+  },
+  "sourceHashes": [
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseApp.tsx",
+      "sha256": "9c28801fb42b6f48040e112119caa7a55bd2401d0c581668e4bf4e185817b8c4"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseManagement.tsx",
+      "sha256": "c300a4b87b2e2290d33f9d87e05034dfc55b519b29442a0c1205ed4ea6546274"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterprisePanels.tsx",
+      "sha256": "b0ff89da8f56f00ca0175431993551c339d23b6e434d1d7d72c8b37db5b786b4"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseStrategyPanels.tsx",
+      "sha256": "11494468d0f9441ffd66f6ffcf9cc72b49f9ac5294f9e7e0bbf983cfe0901732"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/EnterpriseTeachingCoach.tsx",
+      "sha256": "57b5c1865ba0e48a0edc0921fa44c3294f93d1043c69600472ed796cf10d084c"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-game.ts",
+      "sha256": "7d118d3baf59613791286c7cb26e487d6ae866831ad7b5e02d452358c56efe7c"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-guidance.ts",
+      "sha256": "abe27a9512c09dfd387fc92bbfd9a321a9f6359805e1ee832a9f9f32656599f2"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-management.css",
+      "sha256": "d33c45e605787dde250ebd50d81dea8780eb02b1d16b80a71bbfdd4374751acc"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-teaching.ts",
+      "sha256": "7f24bade6cd81aab83aa2283e69d03e97d301108a77999188bdebd52c3f9977c"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-tour-lock.ts",
+      "sha256": "577dce1e269a4d1c4e00b05e471e32d24588d7bde36d729fd4b8c5e189a46aaf"
+    },
+    {
+      "path": "apps/teacher-web/src/features/port-simulation/enterprise/enterprise-tour.css",
+      "sha256": "8988c8060952944f3216cfdea6f011515ef6e904693360feef15e7c46d12b441"
+    },
+    {
+      "path": "apps/teacher-web/test/port-enterprise-channel.test.ts",
+      "sha256": "a570cd89110cb49c058c3679222b1f62eb79e2e792fa76b7899a23580474b0b0"
+    },
+    {
+      "path": "apps/teacher-web/test/port-enterprise-game.test.tsx",
+      "sha256": "a5d2d96618b7961bc17f8f4b0e17b96bf89010101162bd3bbbfadbf4c7b796cd"
+    },
+    {
+      "path": "apps/teacher-web/test/port-enterprise-import.test.ts",
+      "sha256": "69716f206f9306ad80e6a2d2d631c1198b131163ad158bc52b6d5f22dd16b68d"
+    },
+    {
+      "path": "apps/teacher-web/test/port-enterprise-runtime.test.tsx",
+      "sha256": "5bcd0a7cc4f3cf09868ff9bdbec0c15e9f7c2cb74e75909e5c5a57e615e43531"
+    },
+    {
+      "path": "apps/teacher-web/test/port-enterprise-storage.test.ts",
+      "sha256": "cf8f7fe8b840f16bfd0da8057808d336d496998d61f1d8a5839e9cadf915a142"
+    },
+    {
+      "path": "apps/teacher-web/test/port-enterprise-tasks.test.tsx",
+      "sha256": "725b3e7c5c41a13068a589381b3f7ab044aa3db49f25de743806c96248f9cd41"
+    },
+    {
+      "path": "apps/teacher-web/test/port-enterprise-teaching.test.tsx",
+      "sha256": "e075fe170b1de404c9a7da4090c213c69f0bc6721d41aa193dabccf333dfa03f"
+    },
+    {
+      "path": "apps/teacher-web/test/port-enterprise-worker.test.ts",
+      "sha256": "d17fd44f091f3980ce8614064326553ee2f90ab34d63eb636668f1e4a35f535a"
+    },
+    {
+      "path": "docs/port-enterprise-guide.md",
+      "sha256": "7a63001be0eb880378448258966e2d30d1b576d2c7e86188846322c2379ccaa0"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise-catalogue.ts",
+      "sha256": "3ce0c34424b6b9905746f95c816d12eaa9f148cb9fb2153fd88b476cab6bacd2"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise-engine.ts",
+      "sha256": "4182b0e993ce6cbad456fde6111a931a12c93b77eda4b0bd6317abe974d8aebd"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise-management.ts",
+      "sha256": "e326f0f196fd3ac7c818986d181150fccc1c8081d1208e9846d1b65c968c7238"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise-model.ts",
+      "sha256": "6bf243028b04a736cdf46607c670c48e91fd71a9d00c0a085ac7918ff288cc00"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise-operations.ts",
+      "sha256": "b9f5d01313ded7b6ee2157c0a38cce9584a2a7a804ff00c512eb0020c5700666"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise-review.ts",
+      "sha256": "0e66fe2ffb8143d99e999e442103668b1e9f4da76405fe633cfe9a268af324e8"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise-strategy.ts",
+      "sha256": "dab9bd524cffe1ed73715efd5bb1fec38180e88dbfe8c8639cd7a4cd0c32facd"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise-supplies.ts",
+      "sha256": "063647ac426fdf08686aad01df4331e16927cad5e4144a89b6c960cb9f8b456a"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise-support.ts",
+      "sha256": "bd17078dc6ff82f2c267e0caa87df1cced791f92dea5f9c4068b7587a2427464"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise-yard.ts",
+      "sha256": "2935080bbd60a33e19d9396fa152f280716cc453d0761d8f4908495858108605"
+    },
+    {
+      "path": "packages/port-simulation-core/src/enterprise.ts",
+      "sha256": "d9b4f958eafbc7deef65d1546e6df42d20b0c36aada8e621d61e4267f496f374"
+    },
+    {
+      "path": "packages/port-simulation-core/test/enterprise-management.test.ts",
+      "sha256": "1049f4d9bd31bb0ebcc9d721b593fd334997ef2534fc6c18c08e4830c81f70b8"
+    },
+    {
+      "path": "packages/port-simulation-core/test/enterprise-strategy.test.ts",
+      "sha256": "f29c37ede9c960b70213d8bdc039507244859c9ecdc8efbf0d1c0c8a3283eabd"
+    },
+    {
+      "path": "packages/port-simulation-core/test/enterprise-version.test.ts",
+      "sha256": "b4a44272dd44466ca25f8766e95098740c7a06810b9889d05c77fceda9def856"
+    },
+    {
+      "path": "packages/port-simulation-core/test/enterprise.test.ts",
+      "sha256": "7e17943b48a6b1d7e9879f8ae31a7860b3b00d7db2c5c77b32ba6157cae919d9"
+    },
+    {
+      "path": "scripts/package-port-enterprise.mjs",
+      "sha256": "6c3288156e89ee9a094ec57f317f6b4ccf07e72f3c0f9f7c9377acfa25e32178"
+    },
+    {
+      "path": "scripts/port-enterprise-strategy-audit.mts",
+      "sha256": "038a38d2648fa48ef996d8e24607893b274572e5c3faa7453cf253679014589d"
+    }
+  ],
+  "limitations": [
+    "Large expansion did not beat rule-first profit in the tested growth cases. It admits more opportunities but can increase construction losses, congestion and financial exposure; no universal payoff is claimed.",
+    "Some strategies converge when current load does not trigger their different rules; balanced versus rail-first diverges at the real shared-window limit covered by a regression test.",
+    "This validates synthetic teaching scenarios and software behavior; it is not campus-server release acceptance or a classroom learning-outcome trial."
+  ],
+  "diffCheck": "passed; existing LF/CRLF notices only",
+  "cleanup": {
+    "8218": "stopped",
+    "8231": "stopped"
+  }
+}

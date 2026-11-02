@@ -1,3 +1,4 @@
+import {getEconomicMathematicsCurrentLesson} from '@edu/course-content/economic-mathematics';
 import { PortClassroomResources } from '../port-lbl/PortClassroomResources';
 import {PortExpansionControls} from '../port-expansion/PortExpansionStage';
 import { NARRATION_PRESENTATION_EVENT, type NarrationPresentation } from '../economic-mathematics/narration-events';
@@ -941,7 +942,8 @@ export function ClassroomSubsystem() {
     if (replacementRequest.current?.sessionId !== snapshot.session.id)
       replacementRequest.current = { sessionId: snapshot.session.id, requestId: crypto.randomUUID() };
     try {
-      const lesson = courseDeck.lessons.find(lesson => lesson.number === snapshot.slide.lessonNumber && lesson.status === 'ready')
+      const requestedLesson=snapshot.courseId===ECONOMIC_MATHEMATICS_COURSE_ID ? getEconomicMathematicsCurrentLesson(snapshot.slide.versionId, snapshot.slide.lessonNumber ?? 1) : snapshot.slide.lessonNumber;
+      const lesson = courseDeck.lessons.find(lesson => lesson.number === requestedLesson && lesson.status === 'ready')
         ?? courseDeck.lessons.find(lesson => lesson.status === 'ready');
       const next = await api.startClass(snapshot.courseId, { mode: 'new', lesson: lesson?.number,
         room: snapshot.session.room, requestId: replacementRequest.current.requestId });
@@ -983,7 +985,7 @@ export function ClassroomSubsystem() {
   const isRegisteredCourse = isEconomicMathematics || isStatisticalAnalysis || isManagement || isInternationalMathematics;
   const slidePosition = classroomSlidePosition(snapshot.courseId, snapshot.slide, courseDeck);
   if (!slidePosition) return <ClassroomDeckNotice courseId={snapshot.courseId} english={isInternationalMathematics}
-    issue={classroomDeckIssue(snapshot.courseId, snapshot.slide, courseDeck)} lessonNumber={courseDeck?.lessons.find(lesson => lesson.number === snapshot.slide.lessonNumber && lesson.status === 'ready')?.number}
+    issue={classroomDeckIssue(snapshot.courseId, snapshot.slide, courseDeck)} lessonNumber={courseDeck?.lessons.find(lesson => lesson.number === (snapshot.courseId===ECONOMIC_MATHEMATICS_COURSE_ID ? getEconomicMathematicsCurrentLesson(snapshot.slide.versionId,snapshot.slide.lessonNumber??1) : snapshot.slide.lessonNumber) && lesson.status === 'ready')?.number}
     onStartNew={() => void startCurrentDeckClassroom()} busy={busy} error={error} />;
 
   const isLive = snapshot.session.status === "live";

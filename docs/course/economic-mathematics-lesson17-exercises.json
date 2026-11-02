@@ -1,0 +1,535 @@
+{
+  "version": "release-economic-mathematics-integral-methods-2026-11-01",
+  "status": "prepared-not-synchronized",
+  "activities": [
+    {
+      "id": "l17-integral-methods-20261101-1",
+      "lesson": 17,
+      "number": 1,
+      "title": "第十七讲·个人练习1：内层与微分因子",
+      "minutes": 7,
+      "questions": [
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int\\cos(3x-1)\\,dx$，写出换元与微分关系，并回代。 在实数范围讨论。",
+          "formula": "\\int\\cos(3x-1)\\,dx",
+          "conditions": [
+            "在实数范围讨论。"
+          ],
+          "hint": "常数系数也必须与微分同时匹配。",
+          "answer": "$\\frac13\\sin(3x-1)+C$",
+          "explanation": "令u=3x−1，则du=3dx，积分变为 $\\frac13\\int\\cos u\\,du$，回代得到结果。",
+          "scoring": [
+            "设元与du：3分。",
+            "系数1/3和基本积分：4分。",
+            "回代、C及范围：3分。"
+          ],
+          "spoken": "第一题，计算余弦三x减一的不定积分，写出新变量、微分关系与回代，范围为全体实数。",
+          "steps": [
+            {
+              "title": "同时改变变量与微分",
+              "formula": "u=3x-1,\\quad du=3dx,\\quad I=\\frac13\\int\\cos u\\,du",
+              "speech": "设u为三x减一，du等于三dx，所以原积分前面保留三分之一。"
+            },
+            {
+              "title": "积分后回代",
+              "formula": "\\frac13\\sin u+C=\\frac13\\sin(3x-1)+C",
+              "speech": "积分得到三分之一正弦u，加常数，再回代三x减一。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int xe^{x^2}\\,dx$。说明所得公式能否在x=0处继续成立。 原被积函数在整个实数范围有定义。",
+          "formula": "\\int xe^{x^2}\\,dx",
+          "conditions": [
+            "原被积函数在整个实数范围有定义。"
+          ],
+          "hint": "第一类换元不需要先把x反解成新变量。",
+          "answer": "$\\frac12e^{x^2}+C$，在整个实数区间成立。",
+          "explanation": "令u=x²，du=2x dx，得到 $\\frac12\\int e^u du$。直接对回代结果求导，零点也满足要求；没有除以x，不必排除0。",
+          "scoring": [
+            "设元及因子1/2：3分。",
+            "积分与回代：4分。",
+            "核验x=0并说明不需反解：3分。"
+          ],
+          "spoken": "第二题，计算x乘e的x平方次方的不定积分，并说明结果能否在零点成立。",
+          "steps": [
+            {
+              "title": "使用完整微分",
+              "formula": "u=x^2,\\quad du=2x\\,dx,\\quad I=\\frac12\\int e^u du",
+              "speech": "设u为x平方，x乘dx等于二分之一du，无需除以x。"
+            },
+            {
+              "title": "在原变量中核验",
+              "formula": "I=\\frac12e^{x^2}+C,\\qquad\\left(\\frac12e^{x^2}\\right)'=xe^{x^2}",
+              "speech": "回代后求导，在所有实数点都正确，包括零点。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int\\frac{2x}{1+x^2}\\,dx$，说明结果中的对数是否需要绝对值。 在整个实数区间讨论。",
+          "formula": "\\int\\frac{2x}{1+x^2}\\,dx",
+          "conditions": [
+            "在整个实数区间讨论。"
+          ],
+          "hint": "对数的写法由内层函数的符号决定。",
+          "answer": "$\\ln(1+x^2)+C$，因为1+x²>0。",
+          "explanation": "令u=1+x²，du=2x dx，得到ln|u|+C。由于u≥1，回代后可去掉绝对值。",
+          "scoring": [
+            "设元与微分：3分。",
+            "对数积分与C：4分。",
+            "说明内层恒正：3分。"
+          ],
+          "spoken": "第三题，计算二x除以一加x平方的不定积分，说明对数中的绝对值是否必须保留。",
+          "steps": [
+            {
+              "title": "分母与其微分配套",
+              "formula": "u=1+x^2,\\quad du=2x\\,dx,\\quad I=\\int\\frac{du}{u}",
+              "speech": "分子正好给出分母的微分。"
+            },
+            {
+              "title": "符号决定绝对值",
+              "formula": "I=\\ln|u|+C=\\ln(1+x^2)+C",
+              "speech": "一加x平方始终为正，因此回代后无需绝对值。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int\\frac{2x+1}{x^2+x+2}\\,dx$，并写明可以使用的最大实数区间。 先检查分母是否会为0。",
+          "formula": "\\int\\frac{2x+1}{x^2+x+2}\\,dx",
+          "conditions": [
+            "先检查分母是否会为0。"
+          ],
+          "hint": "完成积分之后，还要回收原式的定义域。",
+          "answer": "$\\ln(x^2+x+2)+C$，适用于ℝ。",
+          "explanation": "令u=x²+x+2，du=(2x+1)dx。由于 $x^2+x+2=(x+1/2)^2+7/4>0$，整个实数区间均可使用。",
+          "scoring": [
+            "设元与du：3分。",
+            "积分与回代：4分。",
+            "配方证明恒正及范围：3分。"
+          ],
+          "spoken": "第四题，计算二x加一除以x平方加x加二的不定积分，检查分母，并给出可以使用的最大实数区间。",
+          "steps": [
+            {
+              "title": "识别对数结构",
+              "formula": "u=x^2+x+2,\\quad du=(2x+1)dx",
+              "speech": "分子正好是分母的导数，得到对数结构。"
+            },
+            {
+              "title": "核验范围与结果",
+              "formula": "x^2+x+2=(x+\\tfrac12)^2+\\tfrac74>0,\\quad I=\\ln(x^2+x+2)+C",
+              "speech": "配方以后看出分母恒正，所以结果适用于全部实数。"
+            }
+          ]
+        }
+      ],
+      "page": 7,
+      "slideKey": "em-l17-integral-methods-20261101-p007",
+      "platformGroup": "第十七讲·积分方法·个人简答"
+    },
+    {
+      "id": "l17-integral-methods-20261101-2",
+      "lesson": 17,
+      "number": 2,
+      "title": "第十七讲·个人练习2：尺度、根式与对数",
+      "minutes": 9,
+      "questions": [
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int\\frac{dx}{4+x^2}$，写清换元后的整体常数。 在实数范围讨论。",
+          "formula": "\\int\\frac{dx}{4+x^2}",
+          "conditions": [
+            "在实数范围讨论。"
+          ],
+          "hint": "分母提出的常数与dx带出的常数要同时计算。",
+          "answer": "$\\frac12\\arctan\\frac x2+C$",
+          "explanation": "令u=x/2，dx=2du，分母成为4(1+u²)，因此整体系数为2/4=1/2。",
+          "scoring": [
+            "设元与dx：3分。",
+            "分母尺度与整体系数：4分。",
+            "反正切、回代与C：3分。"
+          ],
+          "spoken": "第一题，计算一除以四加x平方的不定积分，重点写清分母和微分共同带出的常数。",
+          "steps": [
+            {
+              "title": "同时处理分母和微分",
+              "formula": "u=x/2,\\quad dx=2du,\\quad 4+x^2=4(1+u^2)",
+              "speech": "微分带出二，分母带出四，整体系数是二分之一。"
+            },
+            {
+              "title": "使用基本公式",
+              "formula": "I=\\frac12\\int\\frac{du}{1+u^2}=\\frac12\\arctan\\frac x2+C",
+              "speech": "变成标准反正切公式，再回代。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int\\frac{dx}{\\sqrt{9-4x^2}}$，写出原式的实数定义区间。 分母根式必须有定义且非0。",
+          "formula": "\\int\\frac{dx}{\\sqrt{9-4x^2}}",
+          "conditions": [
+            "分母根式必须有定义且非0。"
+          ],
+          "hint": "根号中的常数提出后，需要与dx的系数合并。",
+          "answer": "$\\frac12\\arcsin\\frac{2x}{3}+C$，$|x|<3/2$。",
+          "explanation": "令u=2x/3，则dx=(3/2)du，根式为3√(1−u²)，整体剩1/2。原式要求9−4x²>0。",
+          "scoring": [
+            "定义域：2分。",
+            "设元与系数：4分。",
+            "公式、回代与C：4分。"
+          ],
+          "spoken": "第二题，计算一除以根号九减四x平方的不定积分，先写出原式允许的实数区间。",
+          "steps": [
+            {
+              "title": "标准化根式",
+              "formula": "u=2x/3,\\quad dx=\\tfrac32du,\\quad\\sqrt{9-4x^2}=3\\sqrt{1-u^2}",
+              "speech": "分子dx变成二分之三乘du，分母中的三再约去，合并后是二分之一。"
+            },
+            {
+              "title": "保留原区间",
+              "formula": "I=\\frac12\\arcsin\\frac{2x}{3}+C,\\qquad-\\frac32<x<\\frac32",
+              "speech": "原分母不能为零，所以两个端点都不包含。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int\\frac{x}{\\sqrt{1-x^2}}\\,dx$，写出换元中的负号来源。 −1<x<1。",
+          "formula": "\\int\\frac{x}{\\sqrt{1-x^2}}\\,dx",
+          "conditions": [
+            "−1<x<1。"
+          ],
+          "hint": "内层函数递减会在微分中带出负号。",
+          "answer": "$-\\sqrt{1-x^2}+C$",
+          "explanation": "令u=1−x²，du=−2x dx，得到−(1/2)∫u^(−1/2)du=−√u+C。",
+          "scoring": [
+            "设元与负号：3分。",
+            "幂积分与系数：4分。",
+            "回代、C及范围：3分。"
+          ],
+          "spoken": "第三题，计算x除以根号一减x平方的不定积分，范围为负一到一之间，并说明负号从哪里来。",
+          "steps": [
+            {
+              "title": "由微分保留负号",
+              "formula": "u=1-x^2,\\quad du=-2x\\,dx,\\quad I=-\\frac12\\int u^{-1/2}du",
+              "speech": "内层导数为负二x，负号必须保留。"
+            },
+            {
+              "title": "幂函数积分后回代",
+              "formula": "I=-\\sqrt u+C=-\\sqrt{1-x^2}+C",
+              "speech": "二分之一与幂公式中的二相消，得到负的根式。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int\\frac{(\\ln x)^2}{x}\\,dx$，并说明换元后为什么不再出现x。 x>0。",
+          "formula": "\\int\\frac{(\\ln x)^2}{x}\\,dx",
+          "conditions": [
+            "x>0。"
+          ],
+          "hint": "替换内层函数时，剩余部分必须全部转为同一变量。",
+          "answer": "$\\frac13(\\ln x)^3+C$",
+          "explanation": "令u=ln x，du=dx/x，整个积分成为∫u²du。若仍保留一个x在积分中，就没有完成变量替换。",
+          "scoring": [
+            "设元与微分：3分。",
+            "完全改写为u的积分：3分。",
+            "积分、回代与C：4分。"
+          ],
+          "spoken": "第四题，计算自然对数x的平方除以x的不定积分，x为正，说明换元后为什么整个式子里不应继续留有x。",
+          "steps": [
+            {
+              "title": "一次替换全部相关部分",
+              "formula": "u=\\ln x,\\quad du=\\frac{dx}{x},\\quad I=\\int u^2du",
+              "speech": "对数平方成为u平方，一除以x乘dx成为du，所有部分都完成替换。"
+            },
+            {
+              "title": "幂公式与回代",
+              "formula": "I=\\frac{u^3}{3}+C=\\frac{(\\ln x)^3}{3}+C",
+              "speech": "最后回到原积分变量x，并保留常数。"
+            }
+          ]
+        }
+      ],
+      "page": 16,
+      "slideKey": "em-l17-integral-methods-20261101-p016",
+      "platformGroup": "第十七讲·积分方法·个人简答"
+    },
+    {
+      "id": "l17-integral-methods-20261101-3",
+      "lesson": 17,
+      "number": 3,
+      "title": "第十七讲·个人练习3：反向设元与区间选择",
+      "minutes": 9,
+      "questions": [
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "用x=t²计算 $\\displaystyle \\int\\frac{dx}{\\sqrt x(1+\\sqrt x)}$，写明t的范围。 x>0。",
+          "formula": "\\int\\frac{dx}{\\sqrt x(1+\\sqrt x)}",
+          "conditions": [
+            "x>0。"
+          ],
+          "hint": "使平方根变成t，必须先选定t的符号。",
+          "answer": "$2\\ln(1+\\sqrt x)+C$",
+          "explanation": "取t>0，x=t²，则√x=t、dx=2t dt，积分成为2∫dt/(1+t)。此时t=√x可唯一回代。",
+          "scoring": [
+            "选t>0并说明反解：3分。",
+            "根式与微分同时改写：4分。",
+            "积分及回代：3分。"
+          ],
+          "spoken": "第一题，正半轴上计算一除以根号x乘一加根号x的不定积分，要求使用x等于t平方，并写明t的范围。",
+          "steps": [
+            {
+              "title": "选择正支再变换",
+              "formula": "x=t^2,\\ t>0,\\quad\\sqrt x=t,\\quad dx=2t\\,dt",
+              "speech": "选择t为正，才能把根号x直接写成t，并由t等于根号x唯一回代。"
+            },
+            {
+              "title": "约分并回代",
+              "formula": "I=2\\int\\frac{dt}{1+t}=2\\ln(1+t)+C=2\\ln(1+\\sqrt x)+C",
+              "speech": "t约掉后是一个一次式的倒数，积分后回代正平方根。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "用x=sin t计算 $\\displaystyle \\int\\sqrt{1-x^2}\\,dx$，说明区间选择和根号去除的依据。 −1<x<1；可用cos²t=(1+cos2t)/2。",
+          "formula": "\\int\\sqrt{1-x^2}\\,dx",
+          "conditions": [
+            "−1<x<1；可用cos²t=(1+cos2t)/2。"
+          ],
+          "hint": "平方根给出绝对值，选支后才能去掉绝对值。",
+          "answer": "$\\frac12\\bigl(x\\sqrt{1-x^2}+\\arcsin x\\bigr)+C$",
+          "explanation": "取−π/2<t<π/2，使cos t>0。积分成为∫cos²t dt=t/2+sin2t/4+C；由t=arcsin x和sin2t=2x√(1−x²)回代。",
+          "scoring": [
+            "选支及√(cos²t)=cos t：3分。",
+            "变为cos²t并积分：4分。",
+            "完整回代：3分。"
+          ],
+          "spoken": "第二题，负一到一之间计算根号一减x平方的不定积分，使用x等于正弦t。说明区间和绝对值怎样处理，可用余弦平方的倍角恒等式。",
+          "steps": [
+            {
+              "title": "选支与三角恒等式",
+              "formula": "x=\\sin t,\\quad |t|<\\pi/2,\\quad I=\\int\\cos^2t\\,dt=\\frac t2+\\frac{\\sin2t}{4}+C",
+              "speech": "这个区间内余弦为正，根式和dx各给一个余弦，因此积分是余弦平方。"
+            },
+            {
+              "title": "把角与三角量全部回代",
+              "formula": "I=\\frac12\\arcsin x+\\frac12x\\sqrt{1-x^2}+C",
+              "speech": "角度回代为反正弦，二倍角正弦回代为二x乘正平方根，不能只回代其中一部分。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "在x>0上，用x=t³计算 $\\displaystyle \\int\\frac{dx}{1+x^{2/3}}$。 x>0，取t>0。",
+          "formula": "\\int\\frac{dx}{1+x^{2/3}}",
+          "conditions": [
+            "x>0，取t>0。"
+          ],
+          "hint": "先把幂次消去，再对有理式作代数拆分。",
+          "answer": "$3x^{1/3}-3\\arctan(x^{1/3})+C$",
+          "explanation": "dx=3t²dt，x^(2/3)=t²。把3t²/(1+t²)写为3−3/(1+t²)，分别积分并回代。t>0上3t²不为0，符合本讲第二类换元的条件。",
+          "scoring": [
+            "设元、范围、dx：3分。",
+            "代数拆分与积分：4分。",
+            "回代与C：3分。"
+          ],
+          "spoken": "第三题，在正半轴上，用x等于t立方，计算一除以一加x的三分之二次方的不定积分，取t为正。",
+          "steps": [
+            {
+              "title": "消去分数幂并整理",
+              "formula": "x=t^3,\\quad dx=3t^2dt,\\quad I=3\\int\\left(1-\\frac1{1+t^2}\\right)dt",
+              "speech": "分数幂变为t平方，分子t平方再拆成一减一个倒数。"
+            },
+            {
+              "title": "基本公式与回代",
+              "formula": "I=3t-3\\arctan t+C=3x^{1/3}-3\\arctan(x^{1/3})+C",
+              "speech": "得到一次函数与反正切的组合，最后所有t都要回代。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "用x=tan t重新推导 $\\displaystyle \\int\\frac{dx}{1+x^2}$。为什么不能直接取t∈ℝ？ 原变量x在实数范围；须选一个可唯一反解的t区间。",
+          "formula": "\\int\\frac{dx}{1+x^2}",
+          "conditions": [
+            "原变量x在实数范围；须选一个可唯一反解的t区间。"
+          ],
+          "hint": "作为换元的正切函数需要一个确定的反函数。",
+          "answer": "取 $-\\pi/2<t<\\pi/2$，结果为 $\\arctan x+C$。",
+          "explanation": "选定主值区间，dx=dt/cos²t，1+x²=1/cos²t，积分成为∫dt。正切在整个实数域既不处处有定义，也不一一对应，不能不选支就回代。",
+          "scoring": [
+            "选定主值区间：3分。",
+            "分母与dx抵消：4分。",
+            "回代并说明不能取全体实数：3分。"
+          ],
+          "spoken": "第四题，用x等于正切t，重新推导一除以一加x平方的积分，并说明为什么不能不加限制地取所有实数t。",
+          "steps": [
+            {
+              "title": "限制区间后替换",
+              "formula": "|t|<\\pi/2,\\quad dx=\\frac{dt}{\\cos^2t},\\quad1+x^2=\\frac1{\\cos^2t}",
+              "speech": "主值区间保证正切有唯一反函数，两个余弦平方因子抵消。"
+            },
+            {
+              "title": "回代需要主值",
+              "formula": "I=\\int dt=t+C=\\arctan x+C",
+              "speech": "回代反正切的前提正是刚才选定的主值区间。"
+            }
+          ]
+        }
+      ],
+      "page": 28,
+      "slideKey": "em-l17-integral-methods-20261101-p028",
+      "platformGroup": "第十七讲·积分方法·个人简答"
+    },
+    {
+      "id": "l17-integral-methods-20261101-4",
+      "lesson": 17,
+      "number": 4,
+      "title": "第十七讲·个人练习4：结构、范围与方法边界",
+      "minutes": 11,
+      "questions": [
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int\\frac{3x+1}{x^2+2x+5}\\,dx$，解释为何结果有两类基本函数。 在实数范围讨论。",
+          "formula": "\\int\\frac{3x+1}{x^2+2x+5}\\,dx",
+          "conditions": [
+            "在实数范围讨论。"
+          ],
+          "hint": "分子先拆成分母导数的倍数与剩余常数。",
+          "answer": "$\\frac32\\ln(x^2+2x+5)-\\arctan\\frac{x+1}{2}+C$",
+          "explanation": "3x+1=(3/2)(2x+2)−2。第一项给对数；第二项分母为(x+1)²+4，换元u=(x+1)/2后给负反正切。",
+          "scoring": [
+            "分子拆分：3分。",
+            "对数项：2分。",
+            "配方、尺度与反正切项：3分。",
+            "完整答案与C：2分。"
+          ],
+          "spoken": "第一题，计算三x加一除以x平方加二x加五的不定积分。说明分子怎样拆开，为什么结果同时出现对数和反正切。",
+          "steps": [
+            {
+              "title": "按分母导数拆分",
+              "formula": "I=\\frac32\\int\\frac{2x+2}{x^2+2x+5}dx-2\\int\\frac{dx}{(x+1)^2+4}",
+              "speech": "先拆出分母导数的二分之三倍，余下负二。"
+            },
+            {
+              "title": "两种结构分别处理",
+              "formula": "I=\\frac32\\ln(x^2+2x+5)-\\arctan\\frac{x+1}{2}+C",
+              "speech": "第一项给二分之三倍对数，第二项标准化后系数恰好成为负一。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int\\frac{x}{1+x^4}\\,dx$。u=x²在ℝ不单调，是否因此不能使用？ 在整个实数区间讨论，特别核对x=0。",
+          "formula": "\\int\\frac{x}{1+x^4}\\,dx",
+          "conditions": [
+            "在整个实数区间讨论，特别核对x=0。"
+          ],
+          "hint": "先判断正在使用第一类还是第二类换元。",
+          "answer": "$\\frac12\\arctan(x^2)+C$；第一类换元无需u=x²一一对应。",
+          "explanation": "u=x²、du=2x dx把积分写为(1/2)∫du/(1+u²)。这是链式法则的反向使用，不需要把x全局反解成u的函数。回代结果在0处导数也正确。",
+          "scoring": [
+            "换元与系数：3分。",
+            "积分回代：3分。",
+            "区分类别、解释非单调与零点：4分。"
+          ],
+          "spoken": "第二题，计算x除以一加x四次方的不定积分。若取u为x平方，它在全体实数上不单调，这是否妨碍当前的计算？请说明方法依据，并核对零点。",
+          "steps": [
+            {
+              "title": "第一类换元直接匹配",
+              "formula": "u=x^2,\\quad du=2x\\,dx,\\quad I=\\frac12\\int\\frac{du}{1+u^2}",
+              "speech": "这里没有反解x，只在使用链式法则。"
+            },
+            {
+              "title": "回代后直接核验",
+              "formula": "I=\\frac12\\arctan(x^2)+C,\\qquad I'=\\frac{x}{1+x^4}",
+              "speech": "求导结果在整个实数范围正确，不需要因为换元函数不单调就删除零点或负半轴。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "计算 $\\displaystyle \\int\\frac{dx}{x\\ln x}$，给出最大实数定义区间，并讨论不同区间的积分常数。 x>0且x≠1。",
+          "formula": "\\int\\frac{dx}{x\\ln x}",
+          "conditions": [
+            "x>0且x≠1。"
+          ],
+          "hint": "新变量的正负与原变量的区间需要对应。",
+          "answer": "$\\ln|\\ln x|+C$，在(0,1)、(1,+∞)上分别取独立常数。",
+          "explanation": "u=ln x，du=dx/x。原式要求x>0并排除ln x=0的x=1。u在两个区间分别为负、为正，积分ln|u|的绝对值不能统一去掉。",
+          "scoring": [
+            "设元与对数积分：4分。",
+            "原定义域分成两个区间：3分。",
+            "保留绝对值与独立常数：3分。"
+          ],
+          "spoken": "第三题，计算一除以x乘自然对数x的不定积分。给出最大的实数定义区间，说明两个区间的常数是否必须相同。",
+          "steps": [
+            {
+              "title": "变量与原区间同时核对",
+              "formula": "u=\\ln x,\\quad du=dx/x,\\quad I=\\ln|u|+C",
+              "speech": "对数x不能为零，原变量一处必须排除。"
+            },
+            {
+              "title": "绝对值与分离区间",
+              "formula": "I=\\ln|\\ln x|+C,\\quad x\\in(0,1)\\ \\text{或}\\ (1,+\\infty)",
+              "speech": "两个分离区间各有一个常数，题目没有给出跨越缺失点的连接条件。"
+            }
+          ]
+        },
+        {
+          "type": "written",
+          "points": 10,
+          "stem": "求 $\\displaystyle \\int\\sqrt{x^2}\\,dx$ 在整个实数区间的原函数族。若用u=x²反解x，须注意什么？ 须核验零点导数。",
+          "formula": "\\int\\sqrt{x^2}\\,dx",
+          "conditions": [
+            "须核验零点导数。"
+          ],
+          "hint": "平方根取非负值，正负半轴的反解不同。",
+          "answer": "$x|x|/2+C$。u=x²的反解须分x>0和x<0讨论。",
+          "explanation": "√(x²)=|x|。两侧积分分别为x²/2+C₊与−x²/2+C₋。连续连接要求C₊=C₋；取F=x|x|/2+C，零点差商为|h|/2→0，故零点也满足F′=|x|。",
+          "scoring": [
+            "辨明√(x²)=|x|及分支：3分。",
+            "两侧积分：3分。",
+            "共同常数与零点核验：4分。"
+          ],
+          "spoken": "第四题，求根号x平方在整个实数区间的不定积分，零点也要满足原函数定义。若设u为x平方再反解x，需要分别处理什么？",
+          "steps": [
+            {
+              "title": "两侧的平方根不同",
+              "formula": "\\sqrt{x^2}=|x|,\\qquad F(x)=\\begin{cases}-x^2/2+C_-,&x<0,\\\\x^2/2+C_+,&x>0.\\end{cases}",
+              "speech": "负半轴的根号x平方是负x，正半轴才是x，所以两段原函数的符号不同。"
+            },
+            {
+              "title": "共同常数并核验零点",
+              "formula": "F=\\frac{x|x|}{2}+C,\\qquad\\frac{F(h)-F(0)}h=\\frac{|h|}{2}\\to0",
+              "speech": "同一个常数使两段连续连接，零点差商趋于零，因此整个区间都满足原函数定义。"
+            }
+          ]
+        }
+      ],
+      "page": 37,
+      "slideKey": "em-l17-integral-methods-20261101-p037",
+      "platformGroup": "第十七讲·积分方法·个人简答"
+    }
+  ]
+}

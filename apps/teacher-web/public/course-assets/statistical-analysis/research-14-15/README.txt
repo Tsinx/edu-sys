@@ -1,6 +1,6 @@
-# 统计分析方法第14—15讲阅读与复习包
+# 统计分析方法第14—15讲阅读与项目材料
 
-第14讲：五篇期刊论文，联系组织行为、战略、营销、运营与人力资源。第15讲：围绕酒店订单和自选论文综合复习。
+第14讲：五篇期刊论文，联系组织行为、战略、营销、运营与人力资源。第15讲：中文餐饮评论分析。完整原始数据与Notebook单独放在../text-15/text-analysis-student.zip。
 
 文件：paper-reading-guide.txt/md（题录与阅读卡）；review-worksheet.txt/md（个人工作纸，无答案）；report-checklist.txt/md（报告核查）；bibliography.json；references.bib；verify-numbers.py（公开数值换算）；manifest.json（SHA256）。
 

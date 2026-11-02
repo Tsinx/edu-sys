@@ -1,0 +1,179 @@
+{
+  "deckId": "deck-economic-mathematics-2026-integral-foundations",
+  "version": "release-economic-mathematics-integral-foundations-2026-11-01",
+  "counts": [
+    40,
+    59,
+    85,
+    60,
+    66,
+    64,
+    64,
+    64,
+    64,
+    107,
+    56,
+    30,
+    44,
+    56,
+    54,
+    34,
+    40,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    14,
+    10,
+    10,
+    10,
+    11,
+    14,
+    12
+  ],
+  "files": [
+    {
+      "file": "packages/course-content/src/economic-mathematics/lesson-16-antiderivatives.ts",
+      "sha256": "8e3f8b1082fb2285b9bb1a14aaf5ab2b66e2e1f23439e76c721de8ec8dc97e85"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/lesson-16-integral-density.ts",
+      "sha256": "45ca4453ae68a7d50117ff3d994077cd74312daa24eff3b1fa60a3c42d1b4d58"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/lesson-17-basic-integrals.ts",
+      "sha256": "4944c8d2e800e1d5af726d33b24e1e6ba2792e66060110388483b489d7761b60"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/integral-authoring.ts",
+      "sha256": "de7156efd9a79a2189da0a334a47b92af9e0ec7eaca68df68c2406755c479b0f"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/integral-exercises.ts",
+      "sha256": "711712913976de4b559e108f4ac6af4585a6659b8157b7ebf887970a537a05f3"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/integral-density-exercises.ts",
+      "sha256": "f46966bdc9c73a18db1e678a3746045c025cb19f40f88899ab2a999f68aab882"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/integral-model.ts",
+      "sha256": "239f2989dcc1ec3e8ad6fe11cd16765529cead5a0e24a3d3014789298bd21039"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "sha256": "8bc1e1dfca9935447f3ceb32fafa2ef52973e62df1433229454df0ae328733f8"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/slides.ts",
+      "sha256": "be2ed16b01d79f830ceedcf2278d321df0d754327e4ed0c8bcc55080c144bf69"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/index.ts",
+      "sha256": "5636cf759ec2ac4460c8bfee0d71012192b74299e31442276d708c6c87d043ea"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/next-lesson-plan.ts",
+      "sha256": "e79f09da4cde80756b6a79943ea12e9712116bdfbacdb88f4f289fa7a18d040a"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/EconomicPageNarrator.tsx",
+      "sha256": "ec9e056e6ca8e005788d426699850c9a7a6c55ada56811beb257adbf89f9b734"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/PresentationChrome.tsx",
+      "sha256": "63cc758f613cffb9ca846bc778afb01bfb2c989a437a1cf7f14d6fefbedde378"
+    },
+    {
+      "file": "apps/teacher-web/src/economic-narration.tsx",
+      "sha256": "deb93f9f7bc50ab9034b28cb2caf53287f3e8c67290d3aaaed4dd821579b733f"
+    },
+    {
+      "file": "scripts/prepare-economic-integral-foundations.mjs",
+      "sha256": "5cf6725ecdf1f365931051ebfafab539e873e98704c9832d03ed14516e10a5c6"
+    },
+    {
+      "file": "scripts/verify-economic-integral-foundations.mjs",
+      "sha256": "73e0ffa535d39b77cfc739017af5027ed55aef5b6a93cf2da0cab5acc6dcb270"
+    },
+    {
+      "file": "docs/course/economic-mathematics-integral-exercises.json",
+      "sha256": "91cff05f8495b444f183079c3dc1836737647b21c508fd4b65a41a1e95c93d86"
+    },
+    {
+      "file": "docs/course/economic-mathematics-integral-foundations-design-2026-11-01.md",
+      "sha256": "e30555da6afa8cb01582a2dac8e33f3ce6c8a895f3d77bb897c453df822a62ae"
+    },
+    {
+      "file": "docs/course/economic-mathematics-integral-foundations-validation-2026-11-01.md",
+      "sha256": "8cff01ad208932305f6d64674f8d715448d9032749ee2a50378e898d6e3c32e2"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson16-design-2026-10-31.md",
+      "sha256": "26623ff148b263b3866c208fdffbc7d98be85907a18db094bf397b87600a1035"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson16-exercises.json",
+      "sha256": "9ecaf4f4e53544ab1927709e8e128cd0e757dd9e39b67c4afdb26bd3c20c0473"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson16-script.md",
+      "sha256": "1ccceee3c75ee40e7014e8138e19708457e46f745a35e9ee67f10d2d2860b9a6"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson16-validation-2026-10-31.md",
+      "sha256": "c6db0e273dc51f9a1d2f192012f21b008a984c17b274189b7d720f2f40432f18"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson17-exercises.json",
+      "sha256": "1e3f8f75d3335c84b4f33fe830c71031de14e51bc095f799ca80ec8578922611"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson17-script.md",
+      "sha256": "a6845517c614a7cebec2634bf7bf5e1789b1bfe57e77b0506f16d4d4007b6b6e"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-answers.html",
+      "sha256": "2fce757619336f746864287f3a5dc2e3ee64bba7270fccc07d0440fee2963b5c"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-script.html",
+      "sha256": "a1f69382be8f640faa8a498f4b6f3804450f766d220ff6b53af4f61cf5ac6782"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-teacher.html",
+      "sha256": "294fd9482182cee9f82b8734e2ef7f8ab20c6196193c917999fb25b203406c99"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-teacher.pdf",
+      "sha256": "549f9d5c78b5153e3664511fe5493880696fdc47b835c04057775dd6e7004a86"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-worksheet.html",
+      "sha256": "ffa73cd8dd4d709a59234d730860d900f949fb1d7914a782dbe03a3e6722ad9f"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson17-answers.html",
+      "sha256": "219211dfdd456f8312c9fe145f1ba4e4f847c52aba6736457efaf15dad6eb003"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson17-script.html",
+      "sha256": "c3de0d4dba9e244f2b435c436b4aeba55c951d4fd427a60a22b515ad2749e6ce"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson17-teacher.html",
+      "sha256": "06dd8b36601849c9bb7040cd5bac354b007c78ee61fb187628a182faaf9ebdb7"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson17-teacher.pdf",
+      "sha256": "f41f6b279d96b62247538b6be4796bd90cbe96585fd865b0a5c3ffd6a176d9c9"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson17-worksheet.html",
+      "sha256": "4d17ca1aeae74cd8576159e2787b7f6a1b14ef9a4d26a65de857b314d9e8ff81"
+    }
+  ]
+}

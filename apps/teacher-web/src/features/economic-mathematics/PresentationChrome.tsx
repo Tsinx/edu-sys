@@ -27,7 +27,7 @@ export function useCourseFullscreen() {
 }
 
 interface CourseHeaderProps {
-  lesson: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+  lesson: number;
   duration: string;
   onRestart: () => void;
 }
@@ -46,7 +46,7 @@ export function CourseHeader({ lesson, duration, onRestart }: CourseHeaderProps)
       <select aria-label="选择讲次" value={lesson} onChange={event => {
         const next = Number(event.target.value);
         if (next !== lesson) location.assign(next === 1 ? '/course-assets/economic-mathematics/prelude/index.html' : '/economic-narration.html?lesson=' + next);
-      }}>{ECONOMIC_MATHEMATICS_LESSONS.slice(0,12).map(l=><option key={l.number} value={l.number}>{'第'+l.number+'讲 · '+l.title}</option>)}</select>
+      }}>{ECONOMIC_MATHEMATICS_LESSONS.map(l=><option key={l.number} value={l.number}>{'第'+l.number+'讲 · '+l.title}</option>)}</select>
       <span className="em-course-duration">{duration}</span>
       <details className="em-course-resources" ref={resources}><summary>资料与帮助</summary><div>
         {lesson === 1 ? <>
@@ -57,12 +57,14 @@ export function CourseHeader({ lesson, duration, onRestart }: CourseHeaderProps)
           <a href="/course-assets/economic-mathematics/refined/worksheet-print.html" target="_blank" rel="noreferrer">课堂练习单</a>
           <a href="/course-assets/economic-mathematics/refined/answers-print.html" target="_blank" rel="noreferrer">练习答案</a>
           <a href="/course-assets/economic-mathematics/refined/teacher-print.html" target="_blank" rel="noreferrer">备课讲稿</a>
-        </> : lesson >= 11 ? <>
+        </> : lesson === 11 || lesson > 18 ? <>
           <p>本讲课件、数字人讲稿与课堂练习已接入；PDF与下载材料稍后补齐。</p>
         </> : <>
+          {(lesson>=12&&lesson<=18)&&<a href={'/course-assets/economic-mathematics/limits/lesson'+lesson+'-teacher.pdf'} download>下载备课PDF</a>}
           {lesson<8?<a href={'/course-assets/economic-mathematics/limits/lesson' + String(lesson).padStart(2,'0') + '-teacher.pdf'} download>下载备课PDF</a>:<a href={'/course-assets/economic-mathematics/limits/lesson' + String(lesson).padStart(2,'0') + '-teacher.html'} target="_blank" rel="noreferrer">完整课件（打印）</a>}
           <a href={'/course-assets/economic-mathematics/limits/lesson' + String(lesson).padStart(2,'0') + '-worksheet.html'} target="_blank" rel="noreferrer">课堂练习单</a>
           <a href={'/course-assets/economic-mathematics/limits/lesson' + String(lesson).padStart(2,'0') + '-script.html'} target="_blank" rel="noreferrer">完整讲稿与答案</a>
+          {lesson===10&&<><a href="/economic-narration.html?lesson=10&page=76">算子与微分记号（补充）</a><a href="/course-assets/economic-mathematics/limits/lesson10-operators-worksheet.html" target="_blank" rel="noreferrer">算子扩充练习单</a><p>算子扩充：基础30分钟、进阶15分钟，另行安排。</p></>}
           {lesson<=4&&<a href="/course-assets/economic-mathematics/calculus-history/index.html" target="_blank" rel="noreferrer">独立短片与来源</a>}
         </>}
         <p>← → 翻页 · 空格展开步骤<br/>Esc 返回教师界面 · 自动保存进度</p>

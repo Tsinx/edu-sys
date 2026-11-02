@@ -4,7 +4,7 @@ import {listEnterpriseSaves,saveEnterprise,EnterpriseSaveConflict,type Enterpris
 import {ENTERPRISE_TEACHING_VERSION,newEnterpriseTeaching,restartEnterpriseTeaching,type EnterpriseTeaching} from './enterprise-teaching';
 import {EnterpriseChannel,type EnterpriseRequest,type EnterpriseResponse} from './enterprise-channel';
 type Activation={save:EnterpriseSave;clearConflict:boolean;write:boolean};
-const defaultConfig:EnterpriseConfig={seed:20261025,years:3,scenario:'balanced',mode:'practice'};
+const defaultConfig:EnterpriseConfig={seed:20261025,years:10,scenario:'balanced',mode:'practice'};
 export function useEnterprise(scope:string){
   const [view,setView]=useState<EnterpriseResponse['view']>(),[busy,setBusy]=useState(false),[error,setError]=useState('');
   const [storageError,setStorageError]=useState(''),[savedAt,setSavedAt]=useState(''),[saves,setSaves]=useState<EnterpriseSave[]>([]),[replaying,setReplaying]=useState(false),[progress,setProgress]=useState('');
@@ -106,7 +106,7 @@ export function useEnterprise(scope:string){
   },[scope,activate,persist,generation]);
   const command=useCallback((command:EnterpriseCommand)=>send({type:'command',command}),[send]);
   const create=useCallback((config:EnterpriseConfig)=>activate(undefined,config),[activate]);
-  const createTeaching=useCallback(()=>activate(undefined,defaultConfig,newEnterpriseTeaching()),[activate]);
+  const createTeaching=useCallback(()=>activate(undefined,{...defaultConfig,tutorial:true},newEnterpriseTeaching()),[activate]);
   const load=useCallback((save:EnterpriseSave)=>activate(save),[activate]);
   const importRecord=useCallback((record:EnterpriseRecord)=>activate({id:crypto.randomUUID(),scope,title:'导入 · '+new Date().toLocaleString('zh-CN'),schema:ENTERPRISE_VERSION,savedAt:'',record,checkpoints:[]}),[activate,scope]);
   const retryTeaching=useCallback(async(stepId:string,position:number)=>{

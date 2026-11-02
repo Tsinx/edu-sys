@@ -1,0 +1,260 @@
+[
+  {
+    "id": "l10-operators-choice-01",
+    "lesson": 10,
+    "number": 1,
+    "title": "第十讲扩充·个人练习01：算子的对象与规则",
+    "type": "single-choice",
+    "minutes": 2,
+    "questions": [
+      {
+        "stem": "对函数f(x)=x²施加求导算子d/dx，结果是什么？",
+        "options": [
+          "导函数2x",
+          "某一点的导数值2",
+          "原函数x²",
+          "微分2x dx"
+        ],
+        "answer": "A",
+        "explanation": "(d/dx)(x²)=2x，是导函数。只有再指定x=1，才得到点处导数值2；对x²取微分才得到2x dx。"
+      },
+      {
+        "stem": "y=x²，在x=1处取dx=Δx=0.1。微分dy与真实增量Δy依次为：",
+        "options": [
+          "0.21与0.2",
+          "0.2与0.21",
+          "2与2.1",
+          "0.01与0.2"
+        ],
+        "answer": "B",
+        "explanation": "dy=2x dx=0.2，而Δy=1.1²−1=0.21。固定基点并给出非零dx后，微分数值比为0.2/0.1=2，真实增量比为2.1。"
+      }
+    ],
+    "page": 82,
+    "slideKey": "em-l10-calculus-operators-20261029-p07",
+    "platformGroup": "第十讲扩充·算子与微分记号·个人练习",
+    "routeRole": "optional"
+  },
+  {
+    "id": "l10-operators-choice-02",
+    "lesson": 10,
+    "number": 2,
+    "title": "第十讲扩充·个人练习02：整块替换与乘积微分",
+    "type": "single-choice",
+    "minutes": 2,
+    "questions": [
+      {
+        "stem": "由d(eˣ)=eˣ dx，xeˣ dx可以直接改写为：",
+        "options": [
+          "x d(eˣ)",
+          "d(xeˣ)",
+          "d(x) d(eˣ)",
+          "eˣ d(x²)"
+        ],
+        "answer": "A",
+        "explanation": "将eˣ dx整块替换为相等的d(eˣ)，再乘原有系数x，得到x d(eˣ)。这里没有把x移入微分运算的括号。"
+      },
+      {
+        "stem": "d(xeˣ)等于下列哪一项？",
+        "options": [
+          "xeˣ dx",
+          "eˣ dx",
+          "x d(eˣ)",
+          "(x+1)eˣ dx"
+        ],
+        "answer": "D",
+        "explanation": "乘积微分给d(xeˣ)=x d(eˣ)+eˣ dx=(x+1)eˣ dx。只写x d(eˣ)会漏掉x自身变化产生的eˣ dx。"
+      }
+    ],
+    "page": 86,
+    "slideKey": "em-l10-calculus-operators-20261029-p11",
+    "platformGroup": "第十讲扩充·算子与微分记号·个人练习",
+    "routeRole": "optional"
+  },
+  {
+    "id": "l10-operators-choice-03",
+    "lesson": 10,
+    "number": 3,
+    "title": "第十讲扩充·个人练习03：微分括号与系数",
+    "type": "single-choice",
+    "minutes": 2,
+    "questions": [
+      {
+        "stem": "下列哪个等式正确？",
+        "options": [
+          "d(e^(2x))=e^(2x)dx",
+          "d(e^(2x))=2e^(2x)dx",
+          "d(e^(2x))=2xe^(2x)dx",
+          "d(e^(2x))=2e^(2x)"
+        ],
+        "answer": "B",
+        "explanation": "d(f(x))=f′(x)dx。对e^(2x)求导还须乘内层导数2，再保留dx。这里使用已证明的链式法则与微分定义。"
+      },
+      {
+        "stem": "xe^(x²)dx在整个实数范围可改写为：",
+        "options": [
+          "d(e^(x²))",
+          "2d(e^(x²))",
+          "x d(e^(x²))",
+          "(1/2)d(e^(x²))"
+        ],
+        "answer": "D",
+        "explanation": "d(e^(x²))=e^(x²)d(x²)=2xe^(x²)dx，所以原式为其一半。全过程只除以常数2，没有除以x，因此x=0也包含在恒等式中。"
+      }
+    ],
+    "page": 89,
+    "slideKey": "em-l10-calculus-operators-20261029-p14",
+    "platformGroup": "第十讲扩充·算子与微分记号·个人练习",
+    "routeRole": "optional"
+  },
+  {
+    "id": "l10-operators-choice-04",
+    "lesson": 10,
+    "number": 4,
+    "title": "第十讲扩充·个人练习04：链式简写与零导数",
+    "type": "single-choice",
+    "minutes": 2,
+    "questions": [
+      {
+        "stem": "u=x²，y=eᵘ。在x=0对应u=0处，哪一组导数正确？",
+        "options": [
+          "dy/du无定义，因为沿x变化有du=0",
+          "dy/du=0，du/dx=0，dy/dx=0",
+          "dy/du=1，du/dx=0，dy/dx=1",
+          "dy/du=1，du/dx=0，dy/dx=0"
+        ],
+        "answer": "D",
+        "explanation": "外层函数eᵘ在u=0的导数为1，内层x²在x=0的导数为0，复合导数为1×0=0。链式法则不要求内层导数非零；它不是把两个零微分的数值相除。"
+      },
+      {
+        "stem": "u=3x+1，y=u²，在x=1对应的位置，dy/dx为：",
+        "options": [
+          "6",
+          "8",
+          "24",
+          "96"
+        ],
+        "answer": "C",
+        "explanation": "先找对应点u=4，再取外层导数2u=8，内层导数为3，相乘得到24。外层系数要在u=4取值，不能把x=1直接代入2u。"
+      }
+    ],
+    "page": 93,
+    "slideKey": "em-l10-calculus-operators-20261029-p18",
+    "platformGroup": "第十讲扩充·算子与微分记号·个人练习",
+    "routeRole": "optional"
+  },
+  {
+    "id": "l10-operators-choice-05",
+    "lesson": 10,
+    "number": 5,
+    "title": "第十讲扩充·个人练习05：反函数与倒数条件",
+    "type": "single-choice",
+    "minutes": 2,
+    "questions": [
+      {
+        "stem": "已知y=x²、dy=2x dx。在x=0处，下列哪句准确？",
+        "options": [
+          "dy=2x dx本身失效",
+          "可以除以2x得到dx=dy/(2x)",
+          "微分等式仍成立，但不能除以该点为0的系数2x",
+          "由dy=0可推出dx=0"
+        ],
+        "answer": "C",
+        "explanation": "微分等式在x=0仍给dy=0，不论输入dx取何值。此时2x=0，不能用除法解出dx；系数为零不会使原微分等式失效。"
+      },
+      {
+        "stem": "y=x²限制在x>0，反函数x=√y。在y=4处，dx/dy是多少？",
+        "options": [
+          "1/2",
+          "1/4",
+          "4",
+          "2"
+        ],
+        "answer": "B",
+        "explanation": "y=4对应x=2，原函数导数dy/dx=2x=4，非零，所以对应点的反函数导数为1/4。也可直接对√y求导再代入4。"
+      }
+    ],
+    "page": 96,
+    "slideKey": "em-l10-calculus-operators-20261029-p21",
+    "platformGroup": "第十讲扩充·算子与微分记号·个人练习",
+    "routeRole": "optional"
+  },
+  {
+    "id": "l10-operators-choice-06",
+    "lesson": 10,
+    "number": 6,
+    "title": "第十讲扩充·个人练习06：除法改写与微分规则",
+    "type": "single-choice",
+    "minutes": 2,
+    "questions": [
+      {
+        "stem": "[2x/(x²+1)]dx可在整个实数范围改写为：",
+        "options": [
+          "d[ln(x²+1)]",
+          "d[ln(x²)]",
+          "d(x²+1)/(2x)",
+          "[1/(x²+1)]d(x)"
+        ],
+        "answer": "A",
+        "explanation": "d[ln(x²+1)]=d(x²+1)/(x²+1)=2x dx/(x²+1)。分母x²+1始终为正，定义域与非零分母条件都满足。"
+      },
+      {
+        "stem": "c为常数，f、g可导。下列哪个等式总成立？",
+        "options": [
+          "d(xf)=x df",
+          "d(fg)=df dg",
+          "d(cf)=f dc",
+          "d(cf)=c df"
+        ],
+        "answer": "D",
+        "explanation": "由常倍规则d(cf)=c df。乘积规则是d(fg)=f dg+g df；x是变量时，d(xf)=x df+f dx，不能按常数处理。"
+      }
+    ],
+    "page": 98,
+    "slideKey": "em-l10-calculus-operators-20261029-p23",
+    "platformGroup": "第十讲扩充·算子与微分记号·个人练习",
+    "routeRole": "optional"
+  },
+  {
+    "id": "l10-operators-written-second-chain",
+    "lesson": 10,
+    "number": 1,
+    "title": "第十讲扩充·深入短答01：二阶约分漏掉了什么",
+    "type": "written",
+    "minutes": 4,
+    "stem": "设u=x²，y=F(u)=u²。一位同学把一阶链式记号照搬到二阶，写成d²y/dx²=(d²y/du²)(du/dx)²。①先将y写成x的函数，求x=1处的二阶导数。②计算错误公式在该点给出的值。③从y′=F′(u)u′再求一次导数，找出漏项，并核对它在该点的数值。",
+    "answer": "①y=x⁴，y″=12x²，在x=1处为12。②F″(u)=2、u′(1)=2，错式得到2×2²=8。③对F′(u)与u′这个乘积求导，得到y″=F″(u)(u′)²+F′(u)u″。该点u=1、F′(1)=2、u″=2，漏项为2×2=4，因此8+4=12。",
+    "explanation": "一阶链式法则只给出两个随x变化的因素的乘积。再次求导时，两个因素都可能变化，须重新使用乘积与链式法则。即使此处u′(1)=2非零，按普通分数外形搬到二阶仍会漏项。",
+    "scoring": [
+      "直接化为x⁴并得二阶导数12（2分）。",
+      "算出错误公式给8（2分）。",
+      "正确使用乘积和链式法则，写出完整二阶式（4分）。",
+      "漏项值4，与直接计算一致（2分）。"
+    ],
+    "page": 102,
+    "slideKey": "em-l10-calculus-operators-20261029-p27",
+    "platformGroup": "第十讲扩充·算子与微分记号·个人练习",
+    "routeRole": "optional"
+  },
+  {
+    "id": "l10-operators-written-rules",
+    "lesson": 10,
+    "number": 2,
+    "title": "第十讲扩充·深入短答02：为每次变形写出依据",
+    "type": "written",
+    "minutes": 5,
+    "stem": "逐项判断并写出计算依据；错误项须补公式或适用范围：①xeˣ dx=x d(eˣ)。②x d(eˣ)=d(xeˣ)。③xe^(x²)dx=(1/2)d(e^(x²))，包括x=0。④由y=x²、dy=2x dx，在所有x处写dx=dy/(2x)。",
+    "answer": "①正确。由d(eˣ)=eˣ dx，把等式两边乘同一个x即可。②错误。d(xeˣ)=x d(eˣ)+eˣ dx，漏项是eˣ dx。③正确。d(e^(x²))=e^(x²)d(x²)=2xe^(x²)dx，除以常数2即得；没有除以x，所以包含0。④错误。解dx的式子要求x≠0；在x=0原微分等式仍成立，只是不能除以系数2x。若进一步解释为反函数导数，还需选定x>0或x<0的可逆分支。",
+    "explanation": "整块替换、把等式乘已知函数、把等式除以非零系数，以及链式代入都可以按已有法则熟练使用。把变量擅自移入微分括号会漏掉乘积项；把变量系数作除数则必须保留它非零的范围。",
+    "scoring": [
+      "第①项正确，指出整块替换或等式同乘x（2分）。",
+      "第②项补出乘积微分公式及漏项eˣ dx（3分）。",
+      "第③项算出内层系数2x，并说明只除以2、包含0（3分）。",
+      "第④项限定x≠0，并区分原等式成立与除法失效（2分）。"
+    ],
+    "page": 105,
+    "slideKey": "em-l10-calculus-operators-20261029-p30",
+    "platformGroup": "第十讲扩充·算子与微分记号·个人练习",
+    "routeRole": "optional"
+  }
+]

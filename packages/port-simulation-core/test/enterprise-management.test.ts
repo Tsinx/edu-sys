@@ -58,13 +58,13 @@ test('charging respects finite grid capacity and staggered plans retain an avail
   const limited=act(s,{kind:'advance',hours:1});
   assert.ok(limited.management.metrics.chargingEnergy<=90.00001);assert.equal(limited.management.metrics.chargingWaitHours,2);
   const p=createEnterprise(),base=p.assets.find(a=>a.model==='electric-tractor')!;
-  p.assets=[...Array.from({length:4},(_,n)=>({...base,id:'fleet-'+n,battery:150}))];p.management.plan.charging='staggered';
+  p.assets=[...Array.from({length:4},(_,n)=>({...base,id:'fleet-'+n,battery:150,health:100,serviceHours:0}))];p.management.plan.charging='staggered';
   const planned=act(p,{kind:'advance',hours:1});
-  assert.equal(planned.management.metrics.chargingHours,2);assert.equal(planned.assets.filter(a=>a.note==='可用').length,2);
+  assert.equal(planned.management.metrics.chargingHours,2);assert.equal(planned.assets.filter(a=>a.status==='active'&&a.note.startsWith('待命')).length,2);
 });
 
 test('major incidents need authorization; repair consumes time and backup never exceeds its budget',()=>{
-  let s=createEnterprise();s.incidents.push({id:'test-outage',type:'power',title:'测试供电中断',terminalId:null,started:0,status:'active',response:'none',resolves:null,evidence:false,loss:0,blockedHours:0});
+  let s=createEnterprise();s.management.plan.routineResponse='ask';s.incidents.push({id:'test-outage',type:'power',title:'测试供电中断',terminalId:null,started:0,status:'active',response:'none',resolves:null,evidence:false,loss:0,severity:1,blockedHours:0});
   s=act(s,{kind:'advance',hours:1});assert.equal(s.stats.delivered,0);assert.equal(s.incidents[0]!.evidence,false);
   s=act(s,{kind:'incident-plan',incidentId:'test-outage',plan:'continuity',budget:75000});
   assert.ok(s.incidents[0]!.resolves!>s.hour);assert.equal(s.incidents[0]!.backupActive,false,'cannot start an unbudgeted hour');
@@ -76,7 +76,7 @@ test('weekly feedback uses separate cargo units and historical experiments prese
   let s=act(createEnterprise(),{kind:'management-plan',patch:{goal:'balanced'}});
   assert.throws(()=>compareEnterpriseYards(s),/一周/);
   s=act(s,{kind:'advance',hours:168});assertEnterprise(s);
-  const r=s.management.reviews[0]!;assert.equal(r.endHour,168);assert.equal(r.cashChange,s.cash-85000000);
+  const r=s.management.reviews[0]!;assert.equal(r.endHour,168);assert.equal(r.cashChange,s.cash-32000000);
   assert.equal(r.delivered.container,s.lots.filter(l=>l.goods==='container').reduce((n,l)=>n+l.completed,0));
   const hash=enterpriseHash(s),length=s.journal.length,comparison=compareEnterpriseYards(s);
   assert.equal(comparison.variants.length,2);assert.equal(enterpriseHash(s),hash);assert.equal(s.journal.length,length);

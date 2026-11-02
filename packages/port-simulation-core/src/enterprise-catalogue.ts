@@ -51,7 +51,7 @@ export const ENTERPRISE_PROJECTS: ProjectSpec[] = [
   { id: 'security', name: '保安与监测改造', price: 2_500_000, days: 40, target: 'terminal', effect: 'security', description: '降低侵入和危险事件暴露，改善应急监测。' },
   { id: 'flood', name: '防洪与排涝改造', price: 5_500_000, days: 90, target: 'terminal', effect: 'flood', description: '降低洪水停工时间和货损风险。' },
   { id: 'dust', name: '抑尘与污水收集', price: 3_000_000, days: 60, target: 'terminal', effect: 'dust', description: '减少散货作业环境暴露及整改停工风险。' },
-  { id: 'bonded-warehouse', name: '监管仓储与业务接口', price: 6_500_000, days: 100, target: 'terminal', effect: 'bonded', description: '启用教学情境中的保税仓储路径；出区仍需放行与交付条件。' },
+  { id: 'bonded-warehouse', name: '监管仓储与业务接口', price: 2_400_000, days: 100, target: 'terminal', effect: 'bonded', description: '承接有预约提货需求的进口仓储；按真实在库量计费，预约到期自动申请出区，仍需独立放行。每日设施运维600元。' },
   { id: 'channel-depth', name: '泊位水深维护与提升', price: 12_000_000, days: 120, target: 'terminal', effect: 'depth', description: '目标泊位教学可用水深增加1.5m；施工期不能靠泊。' },
   { id: 'berth-extension', name: '泊位岸线延长', price: 20_000_000, days: 180, target: 'terminal', effect: 'berth', description: '岸线增加60m、库场增加20%；施工期间该泊位停用。' },
 ];

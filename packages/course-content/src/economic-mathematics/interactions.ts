@@ -176,10 +176,24 @@ export const ECONOMIC_MATHEMATICS_INTERACTIONS: Readonly<
 };
 
 export function getEconomicMathematicsInteractionDefinition(
-  slide: Pick<EconomicMathematicsSlideSpec, "interactionId" | "slideKey" | "steps" | "interactionDefaults" | "merchantLab" | "limitLab" | "historyFilm" | "foundationLab" | "analysisLab">
+  slide: Pick<EconomicMathematicsSlideSpec, "interactionId" | "slideKey" | "steps" | "interactionDefaults" | "merchantLab" | "limitLab" | "historyFilm" | "foundationLab" | "analysisLab" | "businessLab" | "integralLab">
 ): EconomicMathematicsInteractionDefinition | null {
-  if (!slide.interactionId && !slide.steps?.length && !slide.limitLab && !slide.historyFilm && !slide.foundationLab && !slide.analysisLab) return null;
-  const definition: EconomicMathematicsInteractionDefinition = slide.analysisLab ? {
+  if (!slide.interactionId && !slide.steps?.length && !slide.limitLab && !slide.historyFilm && !slide.foundationLab && !slide.analysisLab && !slide.businessLab && !slide.integralLab) return null;
+  const definition: EconomicMathematicsInteractionDefinition = slide.integralLab ? {
+    id:'presentation',label:slide.integralLab==='arctan'?'反正切：主值角与导数':'原函数族：高度与斜率',
+    ...(slide.integralLab==='arctan'?{defaults:{arctanX:1},rules:{arctanX:numberRule(-4,4,.25)}}:{defaults:{primitiveC:0,primitiveX:1},rules:{primitiveC:numberRule(-3,3,.5),primitiveX:numberRule(-1.5,1.5,.25)}})
+  } : slide.businessLab ? {
+    id:'presentation',label:slide.businessLab==='menu'?'价格菜单与顾客选择':slide.businessLab==='marginal'?'销量、产能与边际比较':'价格、弹性与目标比较',
+    ...(slide.businessLab==='menu'?{
+      defaults:{menuSlowPrice:99,menuFastPrice:288,menuUrgentSlowValue:110},
+      rules:{menuSlowPrice:numberRule(0,150,1),menuFastPrice:numberRule(100,330,1),menuUrgentSlowValue:numberRule(80,220,1)}
+    }:slide.businessLab==='market-elasticity'?{
+      defaults:{marketPrice:100},rules:{marketPrice:numberRule(60,280,1)}
+    }:slide.businessLab==='marginal'?{
+      defaults:{businessQuantity:400,businessCapacity:500,businessFixed:2000,businessTax:0},
+      rules:{businessQuantity:numberRule(0,1000,10),businessCapacity:numberRule(0,1000,10),businessFixed:numberRule(0,30000,500),businessTax:numberRule(0,120,2)}
+    }:{defaults:{businessPrice:80},rules:{businessPrice:numberRule(5,115,1)}})
+  } : slide.analysisLab ? {
     id:'presentation',label:'本页数学实验',
     ...({
       mvt:{defaults:{mvtModel:'square',cutFraction:.25},rules:{mvtModel:{type:'enum',values:['square','cubic','cubic-symmetric','absolute','endpoint-jump','root','sine']},cutFraction:numberRule(.01,.99,.01)}},

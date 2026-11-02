@@ -1,0 +1,71 @@
+{
+  "source": "NHTSA24-case UI links; five chronology attachments and one observed amendment",
+  "files": [
+    {
+      "campaign": "22V825000",
+      "role": "chronology attachment",
+      "url": "https://static.nhtsa.gov/odi/rcl/2022/RMISC-22V825-1818.pdf",
+      "source": "actual visible associated-document link on official search page",
+      "status": "downloaded",
+      "path": "data\\nhtsa-chronology-pilot\\RMISC-22V825-1818.pdf",
+      "bytes": 24950,
+      "sha256": "0a063e008d4d7c761b3af0dd3f3c8670ab4daa68e1d9feb8fc031f2e5023e60b",
+      "pdf_pages": 2
+    },
+    {
+      "campaign": "21V058000",
+      "role": "chronology attachment",
+      "url": "https://static.nhtsa.gov/odi/rcl/2021/RMISC-21V058-0532.pdf",
+      "source": "actual visible associated-document link on official search page",
+      "status": "downloaded",
+      "path": "data\\nhtsa-chronology-pilot\\RMISC-21V058-0532.pdf",
+      "bytes": 214780,
+      "sha256": "61156b27ccdf1a978eea1e093382ed8c2089f5d78050bdb60c4f5df9f2c26095",
+      "pdf_pages": 1
+    },
+    {
+      "campaign": "22V365000",
+      "role": "chronology attachment",
+      "url": "https://static.nhtsa.gov/odi/rcl/2022/RMISC-22V365-7389.pdf",
+      "source": "actual visible associated-document link on official search page",
+      "status": "downloaded",
+      "path": "data\\nhtsa-chronology-pilot\\RMISC-22V365-7389.pdf",
+      "bytes": 134824,
+      "sha256": "4ac1902bd54892b1276330365fabf11003f3f9aed39b87797a35ee62a1999d8f",
+      "pdf_pages": 1
+    },
+    {
+      "campaign": "24V806000",
+      "role": "chronology attachment",
+      "url": "https://static.nhtsa.gov/odi/rcl/2024/RMISC-24V806-2306.pdf",
+      "source": "actual visible associated-document link on official search page",
+      "status": "downloaded",
+      "path": "data\\nhtsa-chronology-pilot\\RMISC-24V806-2306.pdf",
+      "bytes": 65799,
+      "sha256": "f7c21f3336aefe296759a9f4373068213139c9214995f890170af584feb6aa46",
+      "pdf_pages": 2
+    },
+    {
+      "campaign": "23V204000",
+      "role": "chronology attachment",
+      "url": "https://static.nhtsa.gov/odi/rcl/2023/RMISC-23V204-0101.pdf",
+      "source": "actual visible associated-document link on official search page",
+      "status": "downloaded",
+      "path": "data\\nhtsa-chronology-pilot\\RMISC-23V204-0101.pdf",
+      "bytes": 195910,
+      "sha256": "c93bb393c637bd7289b7169cdb25b14f9e026d327240970631de6ec76c668a42",
+      "pdf_pages": 1
+    },
+    {
+      "campaign": "21V599000",
+      "role": "observed amendment1; original says chronology will be supplemented",
+      "url": "https://static.nhtsa.gov/odi/rcl/2021/RCLRPT-21V599-9316.PDF",
+      "source": "actual visible associated-document link on official search page",
+      "status": "downloaded",
+      "path": "data\\nhtsa-chronology-pilot\\RCLRPT-21V599-9316.PDF",
+      "bytes": 216232,
+      "sha256": "d6baec9884b4a1c83330b37a998dbc909cb8728688cf1df7bdb4b014bc45ea5f",
+      "pdf_pages": 4
+    }
+  ]
+}

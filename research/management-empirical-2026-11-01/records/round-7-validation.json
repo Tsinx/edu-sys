@@ -1,0 +1,45 @@
+{
+  "python_ast_files": 40,
+  "python_errors": [],
+  "selected_json_valid": 13,
+  "selected_text_files": 31,
+  "trailing_whitespace": [],
+  "small_original_hashes": [
+    {
+      "path": "data/odd/methodology.pdf",
+      "valid": true
+    },
+    {
+      "path": "data/odd/dictionary.xlsx",
+      "valid": true
+    },
+    {
+      "path": "data/odd/company_name.dta",
+      "valid": true
+    },
+    {
+      "path": "data\\au-payment-times-register-2026-10-30.xlsx",
+      "valid": true
+    }
+  ],
+  "notice_original_hashes_checked": 32,
+  "notice_hashes_passed": true,
+  "ch_original_hashes_checked": 233,
+  "ch_hashes_passed": true,
+  "large_stata_integrity": "Original member SHA256/gzip CRC recorded during extraction; all three files then fully scanned with source-row alignment. No redundant full30GB rehash in this final check.",
+  "status": "passed",
+  "name_coverage_check": {
+    "status": "complete name-empty-string and source-coverage check",
+    "mapping_identities": 466626,
+    "blank_name_identities": 3339,
+    "nonblank_name_identities": 463287,
+    "all_source_rows": 95242511,
+    "raw_rows_with_blank_mapped_name": 466406,
+    "period_2003_2023_rows_with_blank_mapped_name": 274349,
+    "nonblank_named_identities_observed_2003_2023": 462751,
+    "fixed2000_sample_blank_names": 21,
+    "fixed2000_sample_observed_rows_with_blank_name": 2722,
+    "correction": "Initial isna-only inspection missed Stata empty strings. Existing sample identities and outcomes are preserved. Main-source membership counts certify mapping IDs, not nonblank names; unnamed identities cannot be treated as known unbreached controls."
+  },
+  "source_targets_unchanged_after_name_correction": true
+}

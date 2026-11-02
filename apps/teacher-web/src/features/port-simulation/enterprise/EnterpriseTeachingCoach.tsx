@@ -14,12 +14,13 @@ export function EnterpriseTeachingCoach({runtime,tab,navigate,pause,compact=fals
   const v=runtime.view!,profile=runtime.currentSave?.teaching;
   const eligible=v.config.mode==='practice'&&!runtime.currentSave?.attemptId&&!v.sealed;
   const compatible=profile?.schema===ENTERPRISE_TEACHING_VERSION;
-  const active=!!(eligible&&compatible&&profile.active&&!runtime.replaying&&!runtime.conflict&&!runtime.workerFailed);
+  const active=!!(eligible&&compatible&&profile.active&&!v.finance.tutorialPaused&&!runtime.replaying&&!runtime.conflict&&!runtime.workerFailed);
   const steps=compatible?enterpriseTeachingSteps(v,runtime.currentSave?.record,profile):[];
   const step=steps.find(s=>s.id===profile?.selected)??steps.find(s=>!s.complete)??steps.at(-1);
   const index=step?steps.indexOf(step):0,incident=active?enterpriseIncidentLesson(v):undefined;
   const drafts=useContext(DraftsContext),prepared=useRef(''),card=useRef<HTMLElement>(null);
   const [host,setHost]=useState<HTMLElement|null>(null),[hint,setHint]=useState(''),[replay,setReplay]=useState(0),[success,setSuccess]=useState(''),[exitPending,setExitPending]=useState(false);
+  const [choicePoint,setChoicePoint]=useState<{left:number;top:number;dx:number;dy:number}|null>(null);
   const [action,setAction]=useState<EnterpriseGuideAction>(),[cardSize,setCardSize]=useState({width:320,height:216});
   // On a direct reload the parent's host ref is attached after child layout
   // effects. Resolve the portal after the whole tree has committed.
@@ -42,6 +43,13 @@ export function EnterpriseTeachingCoach({runtime,tab,navigate,pause,compact=fals
   },[active,step?.id,step?.target,step?.planHour,step?.complete,tab,v,drafts.values,rootRef,runtime.currentSave?.id,replay]);
   const transitioning=!!success||!!step?.complete;
   const {rect,bounds}=useEnterpriseTourLock({rootRef,selector:action?.selector,enabled:active,blocked:runtime.busy||transitioning,replay,onObserve:action?.kind==='observe'?observe:undefined,onBlocked:blockedClick});
+  useLayoutEffect(()=>{
+    const root=rootRef.current,target=action?.kind==='choice'&&action.selector?root?.querySelector<HTMLElement>(action.selector):null;
+    const field=target?.querySelector<HTMLElement>('select,input'),submit=target?.querySelector<HTMLElement>('button[type="submit"]');
+    if(!root||!field||!submit){setChoicePoint(old=>old===null?old:null);return;}
+    const r=root.getBoundingClientRect(),a=field.getBoundingClientRect(),b=submit.getBoundingClientRect(),next={left:a.left-r.left+a.width/2,top:a.top-r.top+a.height/2,dx:b.left+b.width/2-a.left-a.width/2,dy:b.top+b.height/2-a.top-a.height/2};
+    setChoicePoint(old=>old&&Object.keys(next).every(k=>Math.abs(old[k as keyof typeof next]-next[k as keyof typeof next])<.5)?old:next);
+  },[action?.kind,action?.selector,rect?.left,rect?.top,rect?.width,rect?.height,bounds.width,bounds.height,rootRef]);
   useEffect(()=>{
     if(!active||!step||!profile||runtime.busy||incident||exitPending)return;
     if(!profile.starts[step.id])runtime.updateTeaching(p=>p.starts[step.id]?p:{...p,starts:{...p.starts,[step.id]:{hour:v.hour,position:v.journal.length}}});
@@ -76,10 +84,10 @@ export function EnterpriseTeachingCoach({runtime,tab,navigate,pause,compact=fals
   if(runtime.conflict||runtime.workerFailed)return null;
   if(!active||!step){
     if(!compact&&tab!=='learning')return null;
-    const resumable=eligible&&compatible&&profile&&!profile.active&&profile.pausedAt===v.hour&&v.hour<ENTERPRISE_TEACHING_END_HOUR&&!runtime.replaying;
+    const resumable=eligible&&compatible&&profile&&!profile.active&&profile.pausedAt===v.hour&&v.hour<ENTERPRISE_TEACHING_END_HOUR&&!v.finance.tutorialPaused&&!runtime.replaying;
     const finished=compatible&&!!profile?.receipts.graduate;
-    if(compact&&(!eligible||finished))return null;
-    return <section className={'enterprise-coach enterprise-tour-welcome'+(compact?' is-compact':'')} aria-label="游戏带教入口"><span className="enterprise-eyebrow">单人经营 · 本机运行</span><h2>{finished?'余下经营由你接管':'跟着鼠标，管理第一个半年'}</h2><p>{finished?'前半年的设备、合同和经营记录继续保留。':resumable?'带教已暂停，当前港口与操作进度都已保留。':'亮起哪个按钮，就操作哪里。半年里亲手安排规则、堆场、班表、补能和投资。'}</p>
+    if(compact&&(!eligible||finished||v.hour>0&&!resumable&&!v.finance.tutorialPaused))return null;
+    return <section className={'enterprise-coach enterprise-tour-welcome'+(compact?' is-compact':'')} aria-label="游戏带教入口"><span className="enterprise-eyebrow">单人经营 · 本机运行</span><h2>{v.finance.tutorialPaused?'固定带教资金方案已暂停':finished?'余下经营由你接管':'跟着鼠标，管理第一个半年'}</h2><p>{v.finance.tutorialPaused?'本场记录保留。资金保护不会无限透支，可另开一场固定方案带教重试。':finished?'前半年的设备、合同和经营记录继续保留。':resumable?'带教已暂停，当前港口与操作进度都已保留。':'跟随鼠标完成接管，再亲自选择运输、班表、补能、报价与改造。每次发布后用真实经营结果检验。'}</p>
       {resumable&&<button className="enterprise-button--primary" disabled={runtime.busy} onClick={()=>{pause();runtime.updateTeaching(p=>({...p,active:true}));navigate('overview');}}>继续前半年带教</button>}
       <button className="enterprise-button--primary" disabled={runtime.busy} onClick={start}><MousePointer2 size={17}/>开始前半年带教</button><small>带教另开一座港口，已有经营记录保留。</small>
       {!eligible&&<small>考核与封存记录保持原状，带教在独立练习中进行。</small>}
@@ -99,10 +107,10 @@ export function EnterpriseTeachingCoach({runtime,tab,navigate,pause,compact=fals
   const month=Math.min(6,Math.max(1,step.month));
   const instruction=exitPending?'本轮结算结束后退出，进度会保留。':success?'这一步已完成':runtime.busy?'港口正在按规则经营…':action?.title??'正在定位下一步…';
   const error=runtime.error||runtime.storageError||runtime.listError||drafts.error;
-  const cursorStyle=rect?{left:rect.left+rect.width/2,top:rect.top+rect.height/2,'--tour-dx':Math.max(-180,bounds.width/2-rect.left-rect.width/2)+'px','--tour-dy':Math.max(-100,bounds.height/2-rect.top-rect.height/2)+'px'} as CSSProperties:undefined;
+  const cursorStyle=rect?{left:choicePoint?.left??rect.left+rect.width/2,top:choicePoint?.top??rect.top+rect.height/2,'--choice-dx':(choicePoint?.dx??0)+'px','--choice-dy':(choicePoint?.dy??0)+'px','--tour-dx':Math.max(-180,bounds.width/2-rect.left-rect.width/2)+'px','--tour-dy':Math.max(-100,bounds.height/2-rect.top-rect.height/2)+'px'} as CSSProperties:undefined;
   return createPortal(<div className="enterprise-tour-layer" data-tour-step={step.id} data-tour-action={action?.kind} data-tour-selector={action?.selector}>
     {masks.map((r,i)=><div key={i} className="enterprise-tour-mask" style={r} aria-hidden="true"/>)}
-    {hole&&<><div className="enterprise-tour-spotlight" style={hole} aria-hidden="true"/><div key={action?.id+':'+replay} className="enterprise-tour-cursor" style={cursorStyle} aria-hidden="true"><MousePointer2 size={32}/><i/><b>点击这里</b></div></>}
+    {hole&&<><div className="enterprise-tour-spotlight" style={hole} aria-hidden="true"/><div key={action?.id+':'+replay} className={'enterprise-tour-cursor'+(action?.kind==='choice'?' is-choice':'')} style={cursorStyle} aria-hidden="true"><MousePointer2 size={32}/><i/><b>{action?.kind==='choice'?'选择并发布':'点击这里'}</b></div></>}
     <section ref={card} className={'enterprise-tour-card'+(graduating?' is-graduation':'')} style={position} data-enterprise-tour-ui aria-label="前半年管理引导">
       <header><span><ShipWheel size={17}/>{incident?'紧急插单':step.chapter}</span><button type="button" data-tour-exit disabled={exitPending} onClick={exit} aria-label="退出带教，保留当前进度"><DoorOpen size={16}/>{exitPending?'正在退出':'退出带教'}</button></header>
       <ol className="enterprise-tour-months" aria-label="六个月管理进度">{Array.from({length:6},(_,i)=><li key={i} data-current={i+1===month} data-done={i+1<month||graduating}><span>{i+1<month||graduating?'✓':i+1}</span>{i+1}月</li>)}</ol>
@@ -110,7 +118,7 @@ export function EnterpriseTeachingCoach({runtime,tab,navigate,pause,compact=fals
       <p id="enterprise-tour-instruction" className="enterprise-tour-instruction" aria-live="polite">{graduating?'你的港口已经经营181日，接下来由你决定方向。':instruction}</p>
       {runtime.busy&&<p className="enterprise-tour-computing" role="status">{runtime.progress||'正在计算实际作业、费用和事件…'}</p>}
       {!graduating&&<div className="enterprise-tour-knowledge" role="status">{success?<><CheckCircle2 size={16}/>{success}</>:incident?<><Anchor size={16}/>{incident.why}</>:previous?.complete?<><CheckCircle2 size={16}/>{previous.why}</>:<><Anchor size={16}/>经营决定由你完成，常规事务按规则执行。</>}</div>}
-      {graduating&&<><div className="enterprise-tour-results"><div><span>经营月报</span><strong>{v.months.length}期</strong></div><div><span>集装箱已交付</span><strong>{fmt(v.goods.find(g=>g.kind==='container')?.delivered??0)} TEU</strong></div><div><span>恢复的事件</span><strong>{v.stats.recovered}项</strong></div><div><span>可用现金</span><strong>{wan(v.cash)}</strong></div></div><button type="button" data-enterprise-control="tour-graduate" className="enterprise-button--primary" onClick={finish}>接管余下经营</button><button type="button" onClick={()=>downloadEnterprise('东湾港-前半年带教足迹.json',{schema:'port-enterprise-learning-report/4',hour:v.hour,rules:v.rules,steps:steps.filter(s=>s.kind!=='finish').map(s=>({id:s.id,title:s.title,complete:s.complete,evidence:profile?.receipts[s.id]}))})}>导出带教足迹</button></>}
+      {graduating&&<><div className="enterprise-tour-results"><div><span>经营月报</span><strong>{v.months.length}期</strong></div><div><span>集装箱已交付</span><strong>{fmt(v.goods.find(g=>g.kind==='container')?.delivered??0)} TEU</strong></div><div><span>恢复的事件</span><strong>{v.stats.recovered}项</strong></div><div><span>可用现金</span><strong>{wan(v.cash)}</strong></div></div><button type="button" data-enterprise-control="tour-graduate" className="enterprise-button--primary" onClick={finish}>接管余下经营</button><button type="button" onClick={()=>downloadEnterprise('东湾港-前半年带教足迹.json',{schema:'port-enterprise-learning-report/7',hour:v.hour,rules:v.rules,steps:steps.filter(s=>s.kind!=='finish').map(s=>({id:s.id,title:s.title,complete:s.complete,evidence:profile?.receipts[s.id]}))})}>导出带教足迹</button></>}
       {!graduating&&<footer><span>{Math.min(index+1,steps.length)}/{steps.length}项管理任务 · 仅当前操作开放</span><button type="button" onClick={()=>{setReplay(n=>n+1);setHint('');}} aria-label="重播鼠标示范"><RotateCcw size={14}/>再示范</button></footer>}
       {hint&&<p className="enterprise-tour-hint" role="status">{hint}</p>}{error&&<p className="enterprise-tour-error" role="alert">{error}</p>}
       {runtime.listError&&<button disabled={runtime.busy} onClick={()=>void runtime.retryStorage().catch(e=>runtime.setError(e.message))}>重试读取本机存档</button>}

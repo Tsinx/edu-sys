@@ -1,0 +1,13 @@
+{
+  "status": "complete name-empty-string and source-coverage check",
+  "mapping_identities": 466626,
+  "blank_name_identities": 3339,
+  "nonblank_name_identities": 463287,
+  "all_source_rows": 95242511,
+  "raw_rows_with_blank_mapped_name": 466406,
+  "period_2003_2023_rows_with_blank_mapped_name": 274349,
+  "nonblank_named_identities_observed_2003_2023": 462751,
+  "fixed2000_sample_blank_names": 21,
+  "fixed2000_sample_observed_rows_with_blank_name": 2722,
+  "correction": "Initial isna-only inspection missed Stata empty strings. Existing sample identities and outcomes are preserved. Main-source membership counts certify mapping IDs, not nonblank names; unnamed identities cannot be treated as known unbreached controls."
+}

@@ -1,0 +1,501 @@
+{
+  "status": "question-bank-imported-and-readback-verified",
+  "savedAt": "2026-11-01T09:12:38.962Z",
+  "courseId": "267794051",
+  "classId": "156507419",
+  "sourceVersion": "release-economic-mathematics-integral-methods-2026-11-01",
+  "destination": "course-question-bank",
+  "questionBankOnly": true,
+  "teachingActivitiesChanged": false,
+  "originalQuestionCount": 105,
+  "currentQuestionCount": 137,
+  "newQuestionCount": 32,
+  "questionType": "简答题",
+  "groupSize": 4,
+  "groupCount": 8,
+  "mainFolders": [
+    {
+      "id": "253817410",
+      "text": "  \n第17讲 换元积分\nPublic\n in total 16 questions\n-\n-\n-\n-\n李行之\n11-01",
+      "type": "folder"
+    },
+    {
+      "id": "253817415",
+      "text": "  \n第18讲 分部积分\nPublic\n in total 16 questions\n-\n-\n-\n-\n李行之\n11-01",
+      "type": "folder"
+    }
+  ],
+  "groupFolders": [
+    {
+      "id": "253817411",
+      "lesson": 17,
+      "name": "练习1 内层与微分因子"
+    },
+    {
+      "id": "253817412",
+      "lesson": 17,
+      "name": "练习2 尺度、根式与对数"
+    },
+    {
+      "id": "253817413",
+      "lesson": 17,
+      "name": "练习3 反向设元与区间选择"
+    },
+    {
+      "id": "253817414",
+      "lesson": 17,
+      "name": "练习4 结构、范围与方法边界"
+    },
+    {
+      "id": "253817416",
+      "lesson": 18,
+      "name": "练习1 u与dv的选择"
+    },
+    {
+      "id": "253817417",
+      "lesson": 18,
+      "name": "练习2 重复分部与复杂度降低"
+    },
+    {
+      "id": "253817418",
+      "lesson": 18,
+      "name": "练习3 循环能否提供新信息"
+    },
+    {
+      "id": "253817419",
+      "lesson": 18,
+      "name": "练习4 方法配合与综合判断"
+    }
+  ],
+  "questions": [
+    {
+      "sourceId": "17-1-1",
+      "questionBankId": "94a384eb1ff64004be05b7d59d12e1df",
+      "folderId": "253817411",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817411&questionId=94a384eb1ff64004be05b7d59d12e1df&curCourseId=267794051&qbanksystem=0&isMap=false&microTopicId=0",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "17-1-2",
+      "questionBankId": "fbd80e042bcc4246808146e857e818bf",
+      "folderId": "253817411",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817411&questionId=fbd80e042bcc4246808146e857e818bf&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "17-1-3",
+      "questionBankId": "2e672067d2b14bf499c61b2fb7ca49a2",
+      "folderId": "253817411",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817411&questionId=2e672067d2b14bf499c61b2fb7ca49a2&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "17-1-4",
+      "questionBankId": "1b40137b28014aba87adeebbdb2d77b1",
+      "folderId": "253817411",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817411&questionId=1b40137b28014aba87adeebbdb2d77b1&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "17-2-1",
+      "questionBankId": "5b8ce360550f4fc48fc425c5a695de9d",
+      "folderId": "253817412",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817412&questionId=5b8ce360550f4fc48fc425c5a695de9d&curCourseId=267794051&qbanksystem=0&isMap=false&microTopicId=0",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "17-2-2",
+      "questionBankId": "dc6f12829f4c40d9a3c1726e568bc29f",
+      "folderId": "253817412",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817412&questionId=dc6f12829f4c40d9a3c1726e568bc29f&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "17-2-3",
+      "questionBankId": "8f9e72852d7b4583965d88af6dad1cdd",
+      "folderId": "253817412",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817412&questionId=8f9e72852d7b4583965d88af6dad1cdd&curCourseId=267794051&qbanksystem=0&fromEdit=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "17-2-4",
+      "questionBankId": "59988a0359be4cd086aee87c9e1c6d1a",
+      "folderId": "253817412",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817412&questionId=59988a0359be4cd086aee87c9e1c6d1a&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "17-3-1",
+      "questionBankId": "e5e4665794c846beb955ff0cc8ae9d70",
+      "folderId": "253817413",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817413&questionId=e5e4665794c846beb955ff0cc8ae9d70&curCourseId=267794051&qbanksystem=0&isMap=false&microTopicId=0",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "17-3-2",
+      "questionBankId": "3612bd00cc31481e8482679e30a93286",
+      "folderId": "253817413",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817413&questionId=3612bd00cc31481e8482679e30a93286&curCourseId=267794051&qbanksystem=0&fromEdit=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "17-3-3",
+      "questionBankId": "2209502e0b6c42f49521d18eac385c85",
+      "folderId": "253817413",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817413&questionId=2209502e0b6c42f49521d18eac385c85&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "17-3-4",
+      "questionBankId": "06999c41d2914a549b322d08452a09f0",
+      "folderId": "253817413",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817413&questionId=06999c41d2914a549b322d08452a09f0&curCourseId=267794051&qbanksystem=0&fromEdit=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "17-4-1",
+      "questionBankId": "5288bda5577544168ed7d8b70dbe5d3e",
+      "folderId": "253817414",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817414&questionId=5288bda5577544168ed7d8b70dbe5d3e&curCourseId=267794051&qbanksystem=0&isMap=false&microTopicId=0",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "17-4-2",
+      "questionBankId": "82adbea779544e7ead9f050b5044d45f",
+      "folderId": "253817414",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817414&questionId=82adbea779544e7ead9f050b5044d45f&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "17-4-3",
+      "questionBankId": "6c8ae3f6b1574858b0ef4b8fdd3a7fa9",
+      "folderId": "253817414",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817414&questionId=6c8ae3f6b1574858b0ef4b8fdd3a7fa9&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "17-4-4",
+      "questionBankId": "57ba816bc5464670b5b399170c2e9ae6",
+      "folderId": "253817414",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817414&questionId=57ba816bc5464670b5b399170c2e9ae6&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "18-1-1",
+      "questionBankId": "3c3bb8e8b68540319e950b5ae56510a0",
+      "folderId": "253817416",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817416&questionId=3c3bb8e8b68540319e950b5ae56510a0&curCourseId=267794051&qbanksystem=0&isMap=false&microTopicId=0",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "18-1-2",
+      "questionBankId": "06f6c62d226548fc9146b910bdcca514",
+      "folderId": "253817416",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817416&questionId=06f6c62d226548fc9146b910bdcca514&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "18-1-3",
+      "questionBankId": "4dad86ee1e974faeaddf497726c0e678",
+      "folderId": "253817416",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817416&questionId=4dad86ee1e974faeaddf497726c0e678&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "18-1-4",
+      "questionBankId": "05db9904f377494e9720be224380b19e",
+      "folderId": "253817416",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817416&questionId=05db9904f377494e9720be224380b19e&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "18-2-1",
+      "questionBankId": "67211e7372a34ab1ac03555f72f9ef8a",
+      "folderId": "253817417",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817417&questionId=67211e7372a34ab1ac03555f72f9ef8a&curCourseId=267794051&qbanksystem=0&isMap=false&microTopicId=0",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "18-2-2",
+      "questionBankId": "ce77b21a73104154bf0129416ce78525",
+      "folderId": "253817417",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817417&questionId=ce77b21a73104154bf0129416ce78525&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "18-2-3",
+      "questionBankId": "4fb42f2234d347e392218da55f2d77bb",
+      "folderId": "253817417",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817417&questionId=4fb42f2234d347e392218da55f2d77bb&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "18-2-4",
+      "questionBankId": "2e600d3d9e2b4c0d9ced3b45097d66f1",
+      "folderId": "253817417",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817417&questionId=2e600d3d9e2b4c0d9ced3b45097d66f1&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "18-3-1",
+      "questionBankId": "f24f6d8233cf455aa03d4d3abd6ba53c",
+      "folderId": "253817418",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817418&questionId=f24f6d8233cf455aa03d4d3abd6ba53c&curCourseId=267794051&qbanksystem=0&isMap=false&microTopicId=0",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "18-3-2",
+      "questionBankId": "3b79687c04254210a40864921085c52e",
+      "folderId": "253817418",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817418&questionId=3b79687c04254210a40864921085c52e&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "18-3-3",
+      "questionBankId": "4c897c92b177433c80e8f23ffa10bb12",
+      "folderId": "253817418",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817418&questionId=4c897c92b177433c80e8f23ffa10bb12&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "18-3-4",
+      "questionBankId": "68c4cd2423694ca59d9ce9231ae09613",
+      "folderId": "253817418",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817418&questionId=68c4cd2423694ca59d9ce9231ae09613&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "18-4-1",
+      "questionBankId": "aec347ad704a4725aa4db997648d9736",
+      "folderId": "253817419",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817419&questionId=aec347ad704a4725aa4db997648d9736&curCourseId=267794051&qbanksystem=0&isMap=false&microTopicId=0",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "18-4-2",
+      "questionBankId": "d43aabceb137488fae99f6716693d4f5",
+      "folderId": "253817419",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817419&questionId=d43aabceb137488fae99f6716693d4f5&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "18-4-3",
+      "questionBankId": "a42c517b51bc44df82c062141e2c3870",
+      "folderId": "253817419",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817419&questionId=a42c517b51bc44df82c062141e2c3870&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    },
+    {
+      "sourceId": "18-4-4",
+      "questionBankId": "4c0b1d8768824c07888869dfd2eae483",
+      "folderId": "253817419",
+      "url": "https://mooc2-ans.chaoxing.com/mooc2-ans/qbank/view-question?courseid=267794051&cpi=189544644&dirId=253817419&questionId=4c0b1d8768824c07888869dfd2eae483&curCourseId=267794051&qbanksystem=0&isMap=false",
+      "matches": {
+        "stem": true,
+        "answer": true,
+        "explanation": true
+      }
+    }
+  ],
+  "sourceVerification": [
+    {
+      "file": "D:/codes/edu-sys/docs/course/economic-mathematics-lesson17-exercises.json",
+      "sha256": "745f7b56205a73848479aa29e984f552d0a199296ec5080668e69725c3487c6a",
+      "currentSha256": "745f7b56205a73848479aa29e984f552d0a199296ec5080668e69725c3487c6a",
+      "unchanged": true
+    },
+    {
+      "file": "D:/codes/edu-sys/docs/course/economic-mathematics-lesson18-exercises.json",
+      "sha256": "e4a61c26a209742f8d6352ea55062987a47747b4f9e55234e84d02d470bb4356",
+      "currentSha256": "e4a61c26a209742f8d6352ea55062987a47747b4f9e55234e84d02d470bb4356",
+      "unchanged": true
+    }
+  ],
+  "originalQuestionPreservation": {
+    "before": 105,
+    "after": 105,
+    "missing": [],
+    "changedStems": [],
+    "unexpected": []
+  },
+  "importFiles": [
+    {
+      "file": "01-first-group-4.xls",
+      "sha256": "4c25ae9749c154f7d122c54c420b7537b0f2e7d6b1aa53bfa0cc002097b5f875"
+    },
+    {
+      "file": "02-remaining-28.xls",
+      "sha256": "1ce824d0bfc171498f6a2d2d92b5034ab935862f3dff5669ac0e73d5f0ed95a1"
+    }
+  ],
+  "importResults": [
+    {
+      "file": "01-first-group-4.xls",
+      "success": 4
+    },
+    {
+      "file": "02-remaining-28.xls",
+      "success": 28
+    }
+  ],
+  "manualRepairs": [
+    {
+      "id": "17-2-3",
+      "fields": [
+        "stem"
+      ],
+      "reason": "Escaped a literal less-than range in the editor",
+      "saved": true
+    },
+    {
+      "id": "17-3-2",
+      "fields": [
+        "stem",
+        "explanation"
+      ],
+      "saved": true,
+      "reason": "Restored literal inequality characters via editor"
+    },
+    {
+      "id": "17-3-4",
+      "fields": [
+        "answer"
+      ],
+      "saved": true,
+      "reason": "Restored literal inequality characters via editor"
+    }
+  ],
+  "notes": [
+    "Official XLS import succeeded. Initial XLSX attempt produced no saved questions.",
+    "Three newly imported questions had literal inequalities parsed as HTML; four affected fields were restored through the editor and re-opened for comparison.",
+    "Full saved stems, answers and explanations including scoring references were read back and compared with source records, ignoring whitespace only.",
+    "Scores are retained as 10-point scoring references in explanations because the course question-bank import template has no score column.",
+    "Do not re-import these files without checking existing questionBankId values; the 32 questions already exist."
+  ],
+  "auditDirectory": "output/chaoxing/economic-integral-methods-qbank-2026-11-01",
+  "proof": "output/chaoxing/economic-integral-methods-qbank-2026-11-01/question-bank-complete.jpg"
+}

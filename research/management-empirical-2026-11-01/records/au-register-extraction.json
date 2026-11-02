@@ -1,0 +1,1156 @@
+{
+  "source_sha256": "d11687c4423ad0469159a6c386073fcfd104166af6948501bea15d96f94f9441",
+  "xlsx_unchanged": true,
+  "method": "streamed OpenXML cells; retained source row numbers; no forward fill, aggregation or deduplication",
+  "date_system": "1900",
+  "date_styles": [
+    5,
+    11,
+    24
+  ],
+  "tables": [
+    {
+      "sheet": "Standard report",
+      "path": "data\\au-register-extracts\\standard_report.csv",
+      "rows": 12335,
+      "columns": [
+        {
+          "excel_column": "A",
+          "name": "ReportId",
+          "definition": ""
+        },
+        {
+          "excel_column": "B",
+          "name": "Business Name",
+          "definition": "Reporting entity's name as registered on the Business Names Register."
+        },
+        {
+          "excel_column": "C",
+          "name": "ABN",
+          "definition": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community."
+        },
+        {
+          "excel_column": "D",
+          "name": "ACN/ARBN",
+          "definition": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community. Australian Registered Body Number, a unique nine-digit number assigned by ASIC to entities not registered as companies."
+        },
+        {
+          "excel_column": "E",
+          "name": "Type",
+          "definition": "The type of report that has been published."
+        },
+        {
+          "excel_column": "F",
+          "name": "Reporting Period Start Date",
+          "definition": "Start date of the reporting period covered in the report."
+        },
+        {
+          "excel_column": "G",
+          "name": "Reporting Period End Date",
+          "definition": "End date of the reporting period covered in the report."
+        },
+        {
+          "excel_column": "H",
+          "name": "Revised Report",
+          "definition": "Indicates when the report has been revised by the entity"
+        },
+        {
+          "excel_column": "I",
+          "name": "Redacted report",
+          "definition": "Indicates if the report has been modified by the Regulator"
+        },
+        {
+          "excel_column": "J",
+          "name": "Supply Chain Finance offered",
+          "definition": "Indicates whether the entity has offered supply chain finance arrangement during the reporting period"
+        },
+        {
+          "excel_column": "K",
+          "name": "Procurement fees charged",
+          "definition": "Indicates whether the entity charged fees as part of the procurement process"
+        },
+        {
+          "excel_column": "L",
+          "name": "Payment Practices to small businesses - Legal or voluntary obligations",
+          "definition": "Indicates whether any Australian laws, voluntary codes or agreements impose requirements on the entity's payment times and practices to small businesses"
+        },
+        {
+          "excel_column": "M",
+          "name": "Common Payment Terms (days)",
+          "definition": "Most Common Payment Term (Statistical Mode)"
+        },
+        {
+          "excel_column": "N",
+          "name": "Common Payment Term (minimum)",
+          "definition": "Range Of Most Common Payment Terms - Minimum"
+        },
+        {
+          "excel_column": "O",
+          "name": "Common Payment Term (maximum)",
+          "definition": "Range Of Most Common Payment Terms - Maximum"
+        },
+        {
+          "excel_column": "P",
+          "name": "Forecast Payment Term",
+          "definition": "Estimated Most Common Payment Term For Next Period"
+        },
+        {
+          "excel_column": "Q",
+          "name": "Forecast Minimum Payment Term",
+          "definition": "Estimated Minimum Common Payment Terms Next Period"
+        },
+        {
+          "excel_column": "R",
+          "name": "Forecast Maximum Payment Term",
+          "definition": "Estimated Maximum Common Payment Terms Next Period"
+        },
+        {
+          "excel_column": "S",
+          "name": "Receivable terms compared to Common Payment Term",
+          "definition": "Whether the standard(i.e. default) payment terms is longer or shorter than the common payment term."
+        },
+        {
+          "excel_column": "T",
+          "name": "Percentage of SB invoices paid within Payment Term",
+          "definition": "Percentage of payments that had a payment time that was less than or equal to the payment term"
+        },
+        {
+          "excel_column": "U",
+          "name": "Average Payment Time (days)",
+          "definition": "Average of all payment times."
+        },
+        {
+          "excel_column": "V",
+          "name": "Median Payment Time (days)",
+          "definition": "Median of all payment times."
+        },
+        {
+          "excel_column": "W",
+          "name": "80th Percentile Payment Time (days)",
+          "definition": "80th percentile of payment times which represents the number of days it took to make 80% of the payments"
+        },
+        {
+          "excel_column": "X",
+          "name": "95th Percentile Payment Time (days)",
+          "definition": "95th percentile of payment times which represents the number of days it took to make 95% of the payments"
+        },
+        {
+          "excel_column": "Y",
+          "name": "Payments 30 days or less",
+          "definition": "The total NUMBER of small business invoices paid (within 30 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "Z",
+          "name": "Payments 31 - 60 days",
+          "definition": "The total NUMBER of small business invoices paid (between 31 - 60 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AA",
+          "name": "Payments more than 60 days",
+          "definition": "The total NUMBER of small business invoices paid (in 60 or more calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AB",
+          "name": "Percentage of Small Business Trade Credit Payments",
+          "definition": "Value of all small business trade credit payments (including any partial small business trade credit payments) as a percentage of the total value of all trade credit payments(i.e. including to non-small business suppliers)."
+        },
+        {
+          "excel_column": "AC",
+          "name": "Percentage Peppol Enabled Small Business Procurement",
+          "definition": "Number of payments that were 'Peppol eInvoice enabled' as a percentage of the total number of payments ."
+        },
+        {
+          "excel_column": "AD",
+          "name": "Report Comments",
+          "definition": "Any additional written information to provide context or explanation in relation to the information provided in the report."
+        },
+        {
+          "excel_column": "AE",
+          "name": "Description Of Changes",
+          "definition": "Description of changes. This field is mandatory when the report is revised."
+        },
+        {
+          "excel_column": "AF",
+          "name": "ANZSIC Industry subdivision",
+          "definition": "Description of the ANZSIC Subdivision for reporting entity's main industry or business activity. Codes are based on the ATO's Business Industry Codes."
+        },
+        {
+          "excel_column": "AG",
+          "name": "Industry Division",
+          "definition": "Industry division for reporting entity's main industry or business activity. Codes are based on the ATO's Business Industry Codes."
+        },
+        {
+          "excel_column": "AH",
+          "name": "Submitted date",
+          "definition": "Date the report was submitted."
+        }
+      ],
+      "distinct_record_ids": 12335,
+      "repeated_record_id_rows": 0,
+      "cached_formula_cells": 0,
+      "converted_explicit_date_cells": 37005,
+      "source_types": {
+        "Standard": 12335
+      },
+      "sha256": "3a0a0ca03b22bd17dcf00aa4c991dfa72c276fb958e6c07b2e5404c50e7dfafd"
+    },
+    {
+      "sheet": "No SB procurement report",
+      "path": "data\\au-register-extracts\\no_sb_procurement_report.csv",
+      "rows": 876,
+      "columns": [
+        {
+          "excel_column": "A",
+          "name": "ReportId",
+          "definition": ""
+        },
+        {
+          "excel_column": "B",
+          "name": "Business Name",
+          "definition": "Reporting entity's name as registered on the Business Names Register."
+        },
+        {
+          "excel_column": "C",
+          "name": "ABN",
+          "definition": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community."
+        },
+        {
+          "excel_column": "D",
+          "name": "ACN/ARBN",
+          "definition": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community. Australian Registered Body Number, a unique nine-digit number assigned by ASIC to entities not registered as companies."
+        },
+        {
+          "excel_column": "E",
+          "name": "Type",
+          "definition": "The type of report that has been published."
+        },
+        {
+          "excel_column": "F",
+          "name": "Reporting Period Start Date",
+          "definition": "Start date of the reporting period covered in the report."
+        },
+        {
+          "excel_column": "G",
+          "name": "Reporting Period End Date",
+          "definition": "End date of the reporting period covered in the report."
+        },
+        {
+          "excel_column": "H",
+          "name": "Revised Report",
+          "definition": "Indicates when the report has been revised by the entity"
+        },
+        {
+          "excel_column": "I",
+          "name": "Redacted report",
+          "definition": "Indicates if the report has been modified by the Regulator"
+        },
+        {
+          "excel_column": "J",
+          "name": "Percentage of Small Business Trade Credit Payments",
+          "definition": "Value of all small business trade credit payments (including any partial small business trade credit payments) as a percentage of the total value of all trade credit payments(i.e. including to non-small business suppliers)."
+        },
+        {
+          "excel_column": "K",
+          "name": "Report Comments",
+          "definition": "Any additional written information to provide context or explanation in relation to the information provided in the report."
+        },
+        {
+          "excel_column": "L",
+          "name": "Description Of Changes",
+          "definition": "Description of changes. This field is mandatory when the report is revised."
+        },
+        {
+          "excel_column": "M",
+          "name": "Submitted date",
+          "definition": "Date the report was submitted."
+        }
+      ],
+      "distinct_record_ids": 876,
+      "repeated_record_id_rows": 0,
+      "cached_formula_cells": 0,
+      "converted_explicit_date_cells": 2628,
+      "source_types": {
+        "No SB procurement": 876
+      },
+      "sha256": "db10c03c2b8971dc3398ec8794b6f17ff4a01e1f61a2a042a7fa2e8448557f5b"
+    },
+    {
+      "sheet": "External Administration report",
+      "path": "data\\au-register-extracts\\external_administration_report.csv",
+      "rows": 18,
+      "columns": [
+        {
+          "excel_column": "A",
+          "name": "ReportId",
+          "definition": ""
+        },
+        {
+          "excel_column": "B",
+          "name": "Business Name",
+          "definition": "Reporting entity's name as registered on the Business Names Register."
+        },
+        {
+          "excel_column": "C",
+          "name": "ABN",
+          "definition": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community."
+        },
+        {
+          "excel_column": "D",
+          "name": "ACN/ARBN",
+          "definition": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community. Australian Registered Body Number, a unique nine-digit number assigned by ASIC to entities not registered as companies."
+        },
+        {
+          "excel_column": "E",
+          "name": "Type",
+          "definition": "The type of report that has been published."
+        },
+        {
+          "excel_column": "F",
+          "name": "Reporting Period Start Date",
+          "definition": "Start date of the reporting period covered in the report."
+        },
+        {
+          "excel_column": "G",
+          "name": "Reporting Period End Date",
+          "definition": "End date of the reporting period covered in the report."
+        },
+        {
+          "excel_column": "H",
+          "name": "Revised Report",
+          "definition": "Indicates when the report has been revised by the entity"
+        },
+        {
+          "excel_column": "I",
+          "name": "Redacted report",
+          "definition": "Indicates if the report has been modified by the Regulator"
+        },
+        {
+          "excel_column": "J",
+          "name": "Ex Admin Appointment type",
+          "definition": "External Administrator Appointment  type"
+        },
+        {
+          "excel_column": "K",
+          "name": "External Administrator",
+          "definition": "Firm Name Of External Administrator"
+        },
+        {
+          "excel_column": "L",
+          "name": "Ex Admin Appointment Date",
+          "definition": "External Administrator Appointment Date"
+        },
+        {
+          "excel_column": "M",
+          "name": "Report Comments",
+          "definition": "Any additional written information to provide context or explanation in relation to the information provided in the report."
+        },
+        {
+          "excel_column": "N",
+          "name": "Description Of Changes",
+          "definition": "Description of changes. This field is mandatory when the report is revised."
+        },
+        {
+          "excel_column": "O",
+          "name": "Submitted date",
+          "definition": "Date the report was submitted."
+        }
+      ],
+      "distinct_record_ids": 18,
+      "repeated_record_id_rows": 0,
+      "cached_formula_cells": 0,
+      "converted_explicit_date_cells": 72,
+      "source_types": {
+        "Ex Admin": 18
+      },
+      "sha256": "bf2fa0928b95baeb4b321f94c17f9894ba4da2cf8366c41d6d842b99da92e359"
+    },
+    {
+      "sheet": "Has Nominee report",
+      "path": "data\\au-register-extracts\\has_nominee_report.csv",
+      "rows": 0,
+      "columns": [
+        {
+          "excel_column": "A",
+          "name": "ReportId",
+          "definition": ""
+        },
+        {
+          "excel_column": "B",
+          "name": "Business Name",
+          "definition": "Reporting entity's name as registered on the Business Names Register."
+        },
+        {
+          "excel_column": "C",
+          "name": "ABN",
+          "definition": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community."
+        },
+        {
+          "excel_column": "D",
+          "name": "ACN/ARBN",
+          "definition": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community. Australian Registered Body Number, a unique nine-digit number assigned by ASIC to entities not registered as companies."
+        },
+        {
+          "excel_column": "E",
+          "name": "Type",
+          "definition": "The type of report that has been published."
+        },
+        {
+          "excel_column": "F",
+          "name": "Reporting Period Start Date",
+          "definition": "Start date of the reporting period covered in the report."
+        },
+        {
+          "excel_column": "G",
+          "name": "Reporting Period End Date",
+          "definition": "End date of the reporting period covered in the report."
+        },
+        {
+          "excel_column": "H",
+          "name": "Revised Report",
+          "definition": "Indicates when the report has been revised by the entity"
+        },
+        {
+          "excel_column": "I",
+          "name": "Redacted report",
+          "definition": "Indicates if the report has been modified by the Regulator"
+        },
+        {
+          "excel_column": "J",
+          "name": "Reporting Nominee Name",
+          "definition": "Name of the Reporting Nominee"
+        },
+        {
+          "excel_column": "K",
+          "name": "Reporting Nominee ABN",
+          "definition": "ABN of the Reporting Nominee"
+        },
+        {
+          "excel_column": "L",
+          "name": "Reporting Nominee ACN/ARBN",
+          "definition": "ACN/ARBN of the Reporting Nominee"
+        },
+        {
+          "excel_column": "M",
+          "name": "Report Comments",
+          "definition": "Any additional written information to provide context or explanation in relation to the information provided in the report."
+        },
+        {
+          "excel_column": "N",
+          "name": "Description Of Changes",
+          "definition": "Description of changes. This field is mandatory when the report is revised."
+        },
+        {
+          "excel_column": "O",
+          "name": "Submitted date",
+          "definition": "Date the report was submitted."
+        }
+      ],
+      "distinct_record_ids": 0,
+      "repeated_record_id_rows": 0,
+      "cached_formula_cells": 0,
+      "converted_explicit_date_cells": 0,
+      "source_types": {},
+      "sha256": "98a1d9c38178485aff00f7371abe8433fcfcafa5507358a13d33a70d865da411"
+    },
+    {
+      "sheet": "AASB8 report",
+      "path": "data\\au-register-extracts\\aasb8_report.csv",
+      "rows": 3322,
+      "columns": [
+        {
+          "excel_column": "A",
+          "name": "ReportId",
+          "definition": ""
+        },
+        {
+          "excel_column": "B",
+          "name": "Business Name",
+          "definition": "Reporting entity's name as registered on the Business Names Register."
+        },
+        {
+          "excel_column": "C",
+          "name": "ABN",
+          "definition": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community."
+        },
+        {
+          "excel_column": "D",
+          "name": "ACN/ARBN",
+          "definition": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community. Australian Registered Body Number, a unique nine-digit number assigned by ASIC to entities not registered as companies."
+        },
+        {
+          "excel_column": "E",
+          "name": "Type",
+          "definition": "The type of report that has been published."
+        },
+        {
+          "excel_column": "F",
+          "name": "Reporting Period Start Date",
+          "definition": "Start date of the reporting period covered in the report."
+        },
+        {
+          "excel_column": "G",
+          "name": "Reporting Period End Date",
+          "definition": "End date of the reporting period covered in the report."
+        },
+        {
+          "excel_column": "H",
+          "name": "Revised Report",
+          "definition": "Indicates when the report has been revised by the entity"
+        },
+        {
+          "excel_column": "I",
+          "name": "Redacted report",
+          "definition": "Indicates if the report has been modified by the Regulator"
+        },
+        {
+          "excel_column": "J",
+          "name": "Supply Chain Finance offered",
+          "definition": "Indicates whether the entity has offered supply chain finance arrangement during the reporting period"
+        },
+        {
+          "excel_column": "K",
+          "name": "Procurement fees charged",
+          "definition": "Indicates whether the entity charged fees as part of the procurement process"
+        },
+        {
+          "excel_column": "L",
+          "name": "Payment Practices to small businesses - Legal or voluntary obligations",
+          "definition": "Indicates whether any Australian laws, voluntary codes or agreements impose requirements on the entity's payment times and practices to small businesses"
+        },
+        {
+          "excel_column": "M",
+          "name": "Common Payment Terms (days)",
+          "definition": "Most Common Payment Term (Statistical Mode)"
+        },
+        {
+          "excel_column": "N",
+          "name": "Common Payment Term (minimum)",
+          "definition": "Most Common Payment Term (Statistical Mode)"
+        },
+        {
+          "excel_column": "O",
+          "name": "Common Payment Term (maximum)",
+          "definition": "Range Of Most Common Payment Terms - Maximum"
+        },
+        {
+          "excel_column": "P",
+          "name": "Forecast Payment Term",
+          "definition": "Estimated Most Common Payment Term For Next Period"
+        },
+        {
+          "excel_column": "Q",
+          "name": "Forecast Minimum Payment Term",
+          "definition": "Estimated Minimum Common Payment Terms Next Period"
+        },
+        {
+          "excel_column": "R",
+          "name": "Forecast Maximum Payment Term",
+          "definition": "Estimated Maximum Common Payment Terms Next Period"
+        },
+        {
+          "excel_column": "S",
+          "name": "Receivable terms compared to Common Payment Term",
+          "definition": "Whether the standard(i.e. default) payment terms is longer or shorter than the common payment term."
+        },
+        {
+          "excel_column": "T",
+          "name": "Percentage of SB invoices paid within Payment Term",
+          "definition": "Percentage of payments that had a payment time that was less than or equal to the payment term"
+        },
+        {
+          "excel_column": "U",
+          "name": "Average Payment Time (days)",
+          "definition": "Average of all payment times."
+        },
+        {
+          "excel_column": "V",
+          "name": "Median Payment Time (days)",
+          "definition": "Median of all payment times."
+        },
+        {
+          "excel_column": "W",
+          "name": "80th Percentile Payment Time (days)",
+          "definition": "80th percentile of payment times which represents the number of days it took to make 80% of the payments"
+        },
+        {
+          "excel_column": "X",
+          "name": "95th Percentile Payment Time (days)",
+          "definition": "95th percentile of payment times which represents the number of days it took to make 95% of the payments"
+        },
+        {
+          "excel_column": "Y",
+          "name": "Payments 30 days or less",
+          "definition": "The total NUMBER of small business invoices paid (within 30 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "Z",
+          "name": "Payments 31 - 60 days",
+          "definition": "The total NUMBER of small business invoices paid (between 31 - 60 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AA",
+          "name": "Payments more than 60 days",
+          "definition": "The total NUMBER of small business invoices paid (in 60 or more calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AB",
+          "name": "Percentage of Small Business Trade Credit Payments",
+          "definition": "Value of all small business trade credit payments (including any partial small business trade credit payments) as a percentage of the total value of all trade credit payments(i.e. including to non-small business suppliers)."
+        },
+        {
+          "excel_column": "AC",
+          "name": "Percentage Peppol Enabled Small Business Procurement",
+          "definition": "Number of payments that were 'Peppol eInvoice enabled' as a percentage of the total number of payments ."
+        },
+        {
+          "excel_column": "AD",
+          "name": "Report Comments",
+          "definition": "Any additional written information to provide context or explanation in relation to the information provided in the report."
+        },
+        {
+          "excel_column": "AE",
+          "name": "Description Of Changes",
+          "definition": "Description of changes. This field is mandatory when the report is revised."
+        },
+        {
+          "excel_column": "AF",
+          "name": "ANZSIC Industry subdivision",
+          "definition": "Description of the ANZSIC Subdivision for reporting entity's main industry or business activity. Codes are based on the ATO's Business Industry Codes."
+        },
+        {
+          "excel_column": "AG",
+          "name": "Industry Division",
+          "definition": "Industry division for reporting entity's main industry or business activity. Codes are based on the ATO's Business Industry Codes."
+        },
+        {
+          "excel_column": "AH",
+          "name": "Submitted date",
+          "definition": "Date the report was submitted."
+        },
+        {
+          "excel_column": "AI",
+          "name": "Operating Segment",
+          "definition": "Operating Segment Name"
+        },
+        {
+          "excel_column": "AJ",
+          "name": "Operating Segment Common Payment Terms (days)",
+          "definition": "Operating segment Most Common Payment Term (Statistical Mode)."
+        },
+        {
+          "excel_column": "AK",
+          "name": "Operating Segment Payments 30 days or less",
+          "definition": "Operating Segment total NUMBER of small business invoices paid (within 30 calendar days) divided by the Operating Segment total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AL",
+          "name": "Operating Segment Payments 31-60 days",
+          "definition": "Operating Segment  total NUMBER of small business invoices paid (between 31 - 60 calendar days) divided by the Operating Segment total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AM",
+          "name": "Operating Segment Payments 60 days or more",
+          "definition": "Operating Segment total NUMBER of small business invoices paid (in 60 or more calendar days) divided by the Operating Segment total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AN",
+          "name": "Operating Segment Average Payment Time (days)",
+          "definition": "Operating Segment average payment time in days"
+        },
+        {
+          "excel_column": "AO",
+          "name": "Operating Segment Median Payment Time (days)",
+          "definition": "Median of all Operating Segment payment times."
+        },
+        {
+          "excel_column": "AP",
+          "name": "Operating Segment 80th Percentile Payment Time (days)",
+          "definition": "Operating Segment 80th percentile of payment times which represents the number of days it took to make 80% of the payments within the Operating Segment"
+        },
+        {
+          "excel_column": "AQ",
+          "name": "Operating Segment 95th Percentile Payment Time (days)",
+          "definition": "Operating Segment 95th percentile of payment times which represents the number of days it took to make 95% of the payments within the Operating Segment"
+        },
+        {
+          "excel_column": "AR",
+          "name": "Operating Segment Percentage of SB invoices paid within Payment Term",
+          "definition": "Operating Segment percentage of payments that had a payment time that was less than or equal to the payment term"
+        }
+      ],
+      "distinct_record_ids": 1318,
+      "repeated_record_id_rows": 2004,
+      "cached_formula_cells": 0,
+      "converted_explicit_date_cells": 9966,
+      "source_types": {
+        "AASB8": 3322
+      },
+      "sha256": "c39944853c85d92bcfdce7fc7538f53afaa702981521c329e67dd4f2a77bd5a0"
+    },
+    {
+      "sheet": "Historical Reports",
+      "path": "data\\au-register-extracts\\historical_reports.csv",
+      "rows": 75404,
+      "columns": [
+        {
+          "excel_column": "A",
+          "name": "ReportId",
+          "definition": ""
+        },
+        {
+          "excel_column": "B",
+          "name": "Business Name",
+          "definition": "Reporting entity's name as registered on the Business Names Register."
+        },
+        {
+          "excel_column": "C",
+          "name": "ABN",
+          "definition": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community."
+        },
+        {
+          "excel_column": "D",
+          "name": "ACN",
+          "definition": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community."
+        },
+        {
+          "excel_column": "E",
+          "name": "Type",
+          "definition": "The type of report that has been published. Eg Original, Original 1, Original 2, Revised, Revised 1"
+        },
+        {
+          "excel_column": "F",
+          "name": "Controlling Corporation Name",
+          "definition": "Name of the reporting entity's controlling corporation, if applicable. A controlling corporation is an Australian body corporate that isn\u2019t a subsidiary of another Australian body corporate."
+        },
+        {
+          "excel_column": "G",
+          "name": "Controlling Corporation ABN",
+          "definition": "ABN of controlling corporation, if applicable."
+        },
+        {
+          "excel_column": "H",
+          "name": "Controlling Corporation ACN",
+          "definition": "ACN of controlling corporation, if applicable."
+        },
+        {
+          "excel_column": "I",
+          "name": "Head Entity Name",
+          "definition": "Head entity name is included if a reporting entity is a member of a group of related entities (such as a partnership, trust or foreign group) and the head entity isn\u2019t a controlling corporation."
+        },
+        {
+          "excel_column": "J",
+          "name": "Head Entity ABN",
+          "definition": "ABN of head entity, if applicable."
+        },
+        {
+          "excel_column": "K",
+          "name": "Head Entity ACN",
+          "definition": "ACN of head entity, if applicable."
+        },
+        {
+          "excel_column": "L",
+          "name": "Business Industry Code",
+          "definition": "Code for reporting entity's main industry or business activity. Codes are based on the ATO's Business Industry Codes."
+        },
+        {
+          "excel_column": "M",
+          "name": "Reporting Period Start Date",
+          "definition": "Start date of the reporting period covered in the report."
+        },
+        {
+          "excel_column": "N",
+          "name": "Reporting Period End Date",
+          "definition": "End date of the reporting period covered in the report."
+        },
+        {
+          "excel_column": "O",
+          "name": "Standard Payment Terms",
+          "definition": "Reporting entity's standard (i.e. default) payment terms offered in their contracts to their small business suppliers at the start of the reporting period (in calendar days). It doesn't account for any supply chain finance arrangements."
+        },
+        {
+          "excel_column": "P",
+          "name": "Changes to Standard Payment Terms",
+          "definition": "Changes to the standard (i.e. default) payment terms offered by the reporting entity over the 6 month reporting period (in calendar days). If no change to the standard payment terms, the same number is repeated."
+        },
+        {
+          "excel_column": "Q",
+          "name": "Details of Changes to Standard Payment Terms",
+          "definition": "Explanation of any changes to the standard (i.e. default) payment terms offered by the reporting entity over the 6 month reporting period."
+        },
+        {
+          "excel_column": "R",
+          "name": "Shortest Standard Payment Terms",
+          "definition": "Shortest standard (i.e. default) payment terms offered in contracts by the reporting entity at the start of the 6 month reporting period to their small business suppliers (in calendar days)."
+        },
+        {
+          "excel_column": "S",
+          "name": "Change to Shortest Standard Payment Terms",
+          "definition": "Changes to the shortest standard payment terms offered by the reporting entity over the 6 month reporting period (in calendar days)."
+        },
+        {
+          "excel_column": "T",
+          "name": "Details of Changes to Shortest Payment Terms",
+          "definition": "Explanation of any changes to the shortest standard payment terms offered by the reporting entity during the 6 month reporting period."
+        },
+        {
+          "excel_column": "U",
+          "name": "Longest Standard Payment Terms",
+          "definition": "Longest standard (i.e. default) payment terms offered by the reporting entity at the start of the 6 month reporting period to their small business suppliers (in calendar days)."
+        },
+        {
+          "excel_column": "V",
+          "name": "Changes to Longest Payment Terms",
+          "definition": "Changes to the longest standard payment terms offered by the reporting entity over the 6 month reporting period (in calendar days)."
+        },
+        {
+          "excel_column": "W",
+          "name": "Details of Changes to Longest Payment Terms",
+          "definition": "Explanation of any changes to the longest standard payment terms offered by the reporting entity during the 6 month reporting period (in calendar days)."
+        },
+        {
+          "excel_column": "X",
+          "name": "Percentage of Number Invoices Paid Within 20 Days ",
+          "definition": "The total NUMBER of small business invoices paid (within 20 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "Y",
+          "name": "Percentage of Number Invoices Paid Between 21 and 30 Days",
+          "definition": "The total NUMBER of small business invoices paid (between 21 - 30 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "Z",
+          "name": "Percentage of Number Invoices Paid Between 31 and 60 Days",
+          "definition": "The total NUMBER of small business invoices paid (between 31 - 60 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AA",
+          "name": "Percentage of Number Invoices Paid Between 61 and 90 Days",
+          "definition": "The total NUMBER of small business invoices paid (between 61 - 90 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AB",
+          "name": "Percentage of Number Invoices Paid Between 91 and 120 Days",
+          "definition": "The total NUMBER of small business invoices paid (between 91 - 120 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AC",
+          "name": "Percentage of Number Invoices Paid in More Than 120 Days",
+          "definition": "The total NUMBER of small business invoices paid (over 120 calendar days) divided by the total NUMBER of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AD",
+          "name": "Percentage of Value Invoices Paid Within 20 Days",
+          "definition": "The total VALUE of small business invoices paid (within 20 calendar days) divided by the total VALUE of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AE",
+          "name": "Percentage of Value Invoices Paid Between 21 and 30 Days",
+          "definition": "The total VALUE of small business invoices paid (between 21 - 30 calendar days) divided by the total VALUE of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AF",
+          "name": "Percentage of Value Invoices Paid Between 31 and 60 Days",
+          "definition": "The total VALUE of small business invoices paid (between 31 - 60 calendar days) divided by the total VALUE of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AG",
+          "name": "Percentage of Value Invoices Paid Between 61 and 90 Days",
+          "definition": "The total VALUE of small business invoices paid (between 61 - 90 calendar days) divided by the total VALUE of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AH",
+          "name": "Percentage of Value Invoices Paid Between 91 and 120 Days",
+          "definition": "The total VALUE of small business invoices paid (between 91 - 120 calendar days) divided by the total VALUE of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AI",
+          "name": "Percentage of Value Invoices Paid in More Than 120 Days",
+          "definition": "The total VALUE of small business invoices paid (over 120 calendar days) divided by the total VALUE of all small business invoices paid over the reporting period, expressed as a percentage."
+        },
+        {
+          "excel_column": "AJ",
+          "name": "Invoice Practices and Arrangements",
+          "definition": "Details of any practices or arrangements used by the reporting entity during the reporting period for the receiving or paying of small business invoices."
+        },
+        {
+          "excel_column": "AK",
+          "name": "Practices and Arrangements for Lodging Tenders",
+          "definition": "Details of any practices or arrangements used by reporting entity during the reporting period that required small business suppliers to pay an amount, such as a subscription or membership fee, to participate in the reporting entity's procurement processes, including to lodge a tender."
+        },
+        {
+          "excel_column": "AL",
+          "name": "Practices and Arrangements to Accept Invoices",
+          "definition": "Details of any practices or arrangements used by entity during the reporting period requiring small business suppliers to pay an amount, such as a subscription or membership fee, for the reporting entity to accept an invoice issued by the small business supplier."
+        },
+        {
+          "excel_column": "AM",
+          "name": "Percentage of Total Value of Small Business Procurement",
+          "definition": "The total value of all procurement by the reporting entity during the reporting period that was from small business suppliers. Expressed as a percentage of all procurement by the reporting entity."
+        },
+        {
+          "excel_column": "AN",
+          "name": "Supply Chain Finance Arrangements",
+          "definition": "A description of any supply chain finance arrangements that are provided or used by the reporting entity for small business suppliers."
+        },
+        {
+          "excel_column": "AO",
+          "name": "Percentage of Total Value Supply Chain Finance Arrangements",
+          "definition": "The total value of small business invoices where these supply chain finance arrangements were used. Expressed as a percentage of all small business invoices paid by the reporting entity."
+        },
+        {
+          "excel_column": "AP",
+          "name": "Percentage of Total Number of Supply Chain Finance Arrangements",
+          "definition": "The total number of small business invoices where these supply chain finance arrangements were used. Expressed as a percentage of all small busines invoices paid by the reporting entity."
+        },
+        {
+          "excel_column": "AQ",
+          "name": "Benefits of Supply Chain Finance Arrangements",
+          "definition": "Details of any benefits, including commissions or other payments, received by the reporting entity from the provider of any supply chain finance arrangements."
+        },
+        {
+          "excel_column": "AR",
+          "name": "Requirement to Use Supply Chain Finance",
+          "definition": "Statement on whether small business suppliers were required to agree to use supply chain finance arrangements to participate in the reporting entity's procurement process or to receive payments for invoices during the reporting period."
+        },
+        {
+          "excel_column": "AS",
+          "name": "Detail of Change in Income Year",
+          "definition": "The new start date of the reporting entity\u2019s income year (accounting period). Only used if there has been a change."
+        },
+        {
+          "excel_column": "AT",
+          "name": "Detail of Change in Business Name",
+          "definition": "Information about any changes to the reporting entity\u2019s business name that occurred during the reporting period."
+        },
+        {
+          "excel_column": "AU",
+          "name": "Detail Entities Below Reporting Threshold",
+          "definition": "Information about any changes to any member entities whose income was below $10 million in the two most recent income years. These entities will cease to be a reporting entity."
+        },
+        {
+          "excel_column": "AV",
+          "name": "Report Comments",
+          "definition": "Any additional written information to provide context or explanation in relation to the information provided in the report."
+        },
+        {
+          "excel_column": "AW",
+          "name": "Original report date",
+          "definition": "The \"Original report date\" value is derived from the CreatedOn date of the \"Previous Report\" field within the Resubmission fields"
+        },
+        {
+          "excel_column": "AX",
+          "name": "Revised report date",
+          "definition": "The \"Revised report date\" value is derived from the CreatedOn of the revised/resubmitted Report"
+        },
+        {
+          "excel_column": "AY",
+          "name": "Changes from prior report",
+          "definition": "The \"Changes from prior report\" value is derived from the \"Summary of Changes\" field from the Resubmission."
+        },
+        {
+          "excel_column": "AZ",
+          "name": "Principal Governing Body Name",
+          "definition": "Name of the principal governing body of the reporting entity. The principal governing body has primary responsibility for the governance of the reporting entity."
+        },
+        {
+          "excel_column": "BA",
+          "name": "Principal Governing Body Description",
+          "definition": "Description of the principal governing body of the reporting entity. The principal governing body has primary responsibility for the governance of the reporting entity."
+        },
+        {
+          "excel_column": "BB",
+          "name": "Business Industry Code Description",
+          "definition": "Description of the ANZSIC code for reporting entity's main industry or business activity. Codes are based on the ATO's Business Industry Codes."
+        },
+        {
+          "excel_column": "BC",
+          "name": "Industry Division",
+          "definition": "Industry division code for reporting entity's main industry or business activity. Codes are based on the ATO's Business Industry Codes."
+        }
+      ],
+      "distinct_record_ids": 75404,
+      "repeated_record_id_rows": 0,
+      "cached_formula_cells": 0,
+      "converted_explicit_date_cells": 229744,
+      "source_types": {
+        "Original report": 72812,
+        "Revised report": 2294,
+        "Report redaction": 248,
+        "Revised report - 3": 1,
+        "Revised report - 1": 22,
+        "Revised report - 2": 22,
+        "Revised report - 4": 1,
+        "Original report - 1": 2,
+        "Original report - 2": 2
+      },
+      "sha256": "5cb3446cbd9a9478b4f9080c29305b928a5f5c4b0e40442d039fffd9196de6d6"
+    },
+    {
+      "sheet": "Records of Non-compliance",
+      "path": "data\\au-register-extracts\\records_of_non_compliance.csv",
+      "rows": 322,
+      "columns": [
+        {
+          "excel_column": "A",
+          "name": "Failure to Comply Id",
+          "definition": ""
+        },
+        {
+          "excel_column": "B",
+          "name": "Business Name",
+          "definition": "Reporting entity's name as registered on the Business Names Register."
+        },
+        {
+          "excel_column": "C",
+          "name": "ABN",
+          "definition": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community."
+        },
+        {
+          "excel_column": "D",
+          "name": "ACN/ARBN",
+          "definition": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community. Australian Registered Body Number, a unique nine-digit number assigned by ASIC to entities not registered as companies."
+        },
+        {
+          "excel_column": "E",
+          "name": "Type",
+          "definition": "The type of non compliance"
+        },
+        {
+          "excel_column": "F",
+          "name": "Reporting Period Start Date",
+          "definition": "Start date of the reporting period covered in the report."
+        },
+        {
+          "excel_column": "G",
+          "name": "Reporting Period End Date",
+          "definition": "End date of the reporting period covered in the report."
+        },
+        {
+          "excel_column": "H",
+          "name": "Report Comments",
+          "definition": "Any additional written information to provide context or explanation in relation to the information provided in the report."
+        }
+      ],
+      "distinct_record_ids": 322,
+      "repeated_record_id_rows": 0,
+      "cached_formula_cells": 0,
+      "converted_explicit_date_cells": 626,
+      "source_types": {
+        "Publication \u2013 Failure to report on time": 313,
+        "Infringement Notice \u2013 Failure to report on time": 9
+      },
+      "sha256": "3e209dbbeb89455c4f10cfe6e9e1746c10df1b806212674749f91d3984bc5baf"
+    },
+    {
+      "sheet": "Applications",
+      "path": "data\\au-register-extracts\\applications.csv",
+      "rows": 1408,
+      "columns": [
+        {
+          "excel_column": "A",
+          "name": "Application Id",
+          "definition": ""
+        },
+        {
+          "excel_column": "B",
+          "name": "Entity Name",
+          "definition": "Reporting entity's name as registered on the Business Names Register."
+        },
+        {
+          "excel_column": "C",
+          "name": "ABN",
+          "definition": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community."
+        },
+        {
+          "excel_column": "D",
+          "name": "ACN/ARBN",
+          "definition": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community. Australian Registered Body Number, a unique nine-digit number assigned by ASIC to entities not registered as companies."
+        },
+        {
+          "excel_column": "E",
+          "name": "Application Type",
+          "definition": "The type of application report that has been accepted. Eg Single Extension, Modified Extension, Modifiable Extension, Volunteering Entity, Subsidiary Entity, Reporting Nominee or Exempt Entity"
+        },
+        {
+          "excel_column": "F",
+          "name": "Regulator Approved Report Due Date",
+          "definition": "Approved report due date for the following applications: Single Extension, Modifiable Extension or Modified Extension"
+        },
+        {
+          "excel_column": "G",
+          "name": "Determination Commencement Date",
+          "definition": "Approved commencement date for the following application types: Volunteering Entity, Subsidiary Entity or Reporting Nominee"
+        },
+        {
+          "excel_column": "H",
+          "name": "Exempt Reporting Period Start Date",
+          "definition": "Approved reporting period start date for eligible exempt applications"
+        },
+        {
+          "excel_column": "I",
+          "name": "Exempt Reporting Period End Date",
+          "definition": "Approved reporting period end date for eligible exempt applications"
+        }
+      ],
+      "distinct_record_ids": 1408,
+      "repeated_record_id_rows": 0,
+      "cached_formula_cells": 0,
+      "converted_explicit_date_cells": 1411,
+      "source_types": {
+        "Single Extension": 1266,
+        "Subsidiary Reporting Entity": 54,
+        "Modifiable Extension": 75,
+        "Volunteering Entity": 1,
+        "Modified Extension": 9,
+        "Exempt Entity": 3
+      },
+      "sha256": "2b87c9e4c09b7a0df8625276f2a04e137006bac05d431040e9adc47f9dfaa326"
+    },
+    {
+      "sheet": "Notices",
+      "path": "data\\au-register-extracts\\notices.csv",
+      "rows": 60,
+      "columns": [
+        {
+          "excel_column": "A",
+          "name": "Effective Date",
+          "definition": ""
+        },
+        {
+          "excel_column": "B",
+          "name": "Notice Id",
+          "definition": ""
+        },
+        {
+          "excel_column": "C",
+          "name": "Business Name",
+          "definition": "Reporting entity's name as registered on the Business Names Register."
+        },
+        {
+          "excel_column": "D",
+          "name": "ABN",
+          "definition": "Australian Business Number, a unique 11 digit number that identifies businesses to the government and community."
+        },
+        {
+          "excel_column": "E",
+          "name": "ACN ARBN",
+          "definition": "Australian Company Number, a unique 9 digit number that identifies companies to the government and community. Australian Registered Body Number, a unique nine-digit number assigned by ASIC to entities not registered as companies."
+        },
+        {
+          "excel_column": "F",
+          "name": "Notices Type",
+          "definition": "The notice type that has been accepted. E.g. Reporting Entity Ceased (Entity) - s10H, Subsidiary Reporting Entity Determination Revoked (Entity) - s10G(3)"
+        }
+      ],
+      "distinct_record_ids": 60,
+      "repeated_record_id_rows": 0,
+      "cached_formula_cells": 0,
+      "converted_explicit_date_cells": 60,
+      "source_types": {
+        "Reporting Entity Ceased (Entity) - s10H": 57,
+        "Subsidiary Reporting Entity Determination Revoked (Entity) - s10G(3)": 3
+      },
+      "sha256": "5ca9080e9bcfdf4846b9c6764fe901f149d155e2f1364562d89dabe19c06f6e7"
+    }
+  ]
+}

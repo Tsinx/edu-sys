@@ -35,9 +35,9 @@ const film = scope.EconomicPreludeFilm;
 const require = createRequire(import.meta.url);
 const notes = require('../../../docs/course/economic-mathematics-prelude-notes.cjs') as [number, string, string, string][];
 
-test('prelude is lesson one, former lessons one and two combine without changing later numbering', () => {
+test('prelude is lesson one, former lessons one and two combine and later merged applications retain a versioned history', () => {
   const deck = getCourseDeckByCourseId('course-economic-mathematics')!;
-  assert.equal(deck.slideTotal, ECONOMIC_MATHEMATICS_SLIDES.length); assert.equal(deck.lessons.length, 32); assert.equal(deck.totalHours, 64);
+  assert.equal(deck.slideTotal, ECONOMIC_MATHEMATICS_SLIDES.length); assert.equal(deck.lessons.length, 30); assert.equal(deck.totalHours, 64);
   assert.equal(deck.versionId, ECONOMIC_MATHEMATICS_VERSION_ID);
   assert.equal(deck.lessons[0]!.slideTotal, 40); assert.equal(deck.lessons[1]!.slideTotal, 59);
   assert.equal(deck.lessons[2]!.number, 3); assert.equal(deck.lessons[2]!.slideStart, 100);

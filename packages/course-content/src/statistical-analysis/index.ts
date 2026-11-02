@@ -41,7 +41,7 @@ const titles = [
   '回归诊断、模型设定与稳健性','回归拓展：调节效应与二元选择','问卷设计与变量测量',
   '主成分分析与多指标降维','探索性因子分析与量表结构探索','验证性因子分析与结构方程模型入门',
   '因果推断基础与匹配、加权方法','面板数据与固定效应模型','双重差分与事件研究',
-  '工具变量与两阶段最小二乘','工商管理研究中的统计方法应用','综合复习：从管理问题到研究论文','时间序列预测与模型评价'
+  '工具变量与两阶段最小二乘','工商管理研究中的统计方法应用','文本数据分析：从顾客评论到服务改进','时间序列预测与模型评价'
 ];
 const authoredTotals=[48,52,...regressionLessons.map(l=>l.length),...measurementLessons.map(l=>l.length),...causalLessons.map(l=>l.length),...policyLessons.map(l=>l.length),...researchLessons.map(l=>l.length)];
 const authoredStarts=authoredTotals.map((_,i)=>1+authoredTotals.slice(0,i).reduce((a,b)=>a+b,0));
@@ -53,7 +53,7 @@ export const STATISTICAL_ANALYSIS_LESSONS = titles.map((title, i) => ({
   totalHours: 2,
   teachingCue: i === 0
     ? '90分钟，LBL讲解。以会员消费结论为主线，依次核查问题、记录、抽样和解释。每次揭示由教师翻页触发。'
-    : i === 1 ? '90分钟，LBL讲解。先揭示Anscombe四重奏，再用同一零售案例贯穿六类图形任务。修图段落逐页比较；不组织分组、提交或代码运行。' : i>=11&&i<=12 ? '90分钟，教师讲解与个人项目跟做。55分钟讲述、25分钟Python或vibe coding、10分钟观察判断；12—13讲同一真实数据。' : i<authoredTotals.length ? '90分钟，LBL讲解。逐页观察证据、解释模型并核查边界；教师控制翻页与揭示。' : '待建设，不进入课堂播放。'
+    : i === 1 ? '90分钟，LBL讲解。先揭示Anscombe四重奏，再用同一零售案例贯穿六类图形任务。修图段落逐页比较；不组织分组、提交或代码运行。' : i===14 ? '90分钟，中文餐饮评论项目。逐页讲解、个人判断与Python跟做；原始数据、Notebook和表图随包。教师控制翻页。' : i>=11&&i<=12 ? '90分钟，教师讲解与个人项目跟做。55分钟讲述、25分钟Python或vibe coding、10分钟观察判断；12—13讲同一真实数据。' : i<authoredTotals.length ? '90分钟，LBL讲解。逐页观察证据、解释模型并核查边界；教师控制翻页与揭示。' : '待建设，不进入课堂播放。'
 }));
 
 // Each row is individually authored: title, visible takeaway, teaching focus,
@@ -245,11 +245,11 @@ const policySlides:StatisticalAnalysisSlide[]=policyLessons.flatMap((rows,li)=>r
 }));
 const researchSlides:StatisticalAnalysisSlide[]=researchLessons.flatMap((rows,li)=>rows.map((p,i)=>{
  const lesson=li+14,localIndex=i+1,time=researchTiming(lesson,localIndex),source=researchSourceLabel(p);
- return {index:642+li*48+localIndex,slideKey:'stats-l'+lesson+'-'+String(localIndex).padStart(2,'0'),
+ return {index:authoredStarts[lesson-1]!+i,slideKey:p.stableKey??'stats-l'+lesson+'-'+String(localIndex).padStart(2,'0'),
   lesson,lessonNumber:lesson,localIndex,localTotal:rows.length,lessonTitle:titles[lesson-1]!,
   title:p.title,lead:p.lead,summary:p.lead,section:time.section+(p.readingStep?' / '+p.readingStep:''),minutes:(time.spokenSeconds+time.pauseSeconds)/60,source,
   teachingCue:'讲解重点：'+p.note+'\n停顿位置：'+p.question+'\n来源：'+source+'。教师手动翻页；先个人判断，再翻到反馈页。',
-  assistantCue:'当前页：'+p.title+'。公开要点：'+p.lead+'；'+p.text.join('；')+'。图注：'+p.caption+'。本页证据：'+researchEvidenceText(p)+'。来源：'+source+'。只回应当前页公开内容，不主动提供后页练习反馈、未显示结果或教师逐字稿。论文题录与作者公开稿版本分别说明；不假称本地完整复现了论文，也不编造原始个体资料或酒店订单输出。课堂示意和真实论文数值保持区分。量表信度、模型拟合、显著性、固定效应和聚类推断均不自动证明因果。说明比较、估计对象、量级、精度与适用范围。允许个人记录与复核，不自动翻页、运行代码或提交。第14—15讲已建设，第16讲仍待建设。'};
+  assistantCue:(lesson===15?'当前页：'+p.title+'。公开内容：'+p.lead+'；'+p.text.join('；')+'。图注：'+p.caption+'。本页表图与代码：'+researchEvidenceText(p)+'。来源：'+source+'。按当前页解释，不提前给出后页反馈或未显示结果。原始方面标签由作者人工整理；离线分类器预测另行评价。主线先讲分词、词频、df和TF-IDF，再用二元Logit整理速度抱怨。原速度负向对应y=1，其余原标签对应y=0。实际模型使用中文词和普通TF×平滑IDF，课堂不展开四分类调参或宏平均F1。服务统计使用人工四类原标签，管理安排以具体试行为建议。教师逐字稿不进入回答。按明确指令提供个人Python或vibe coding帮助，不自动执行、翻页或提交。第14—15讲已建设，第16讲仍待建设。': '当前页：'+p.title+'。公开要点：'+p.lead+'；'+p.text.join('；')+'。图注：'+p.caption+'。本页证据：'+researchEvidenceText(p)+'。来源：'+source+'。只回应当前页公开内容，不主动提供后页练习反馈、未显示结果或教师逐字稿。论文题录与作者公开稿版本分别说明；不假称本地完整复现了论文，也不编造原始个体资料或酒店订单输出。课堂示意和真实论文数值保持区分。量表信度、模型拟合、显著性、固定效应和聚类推断均不自动证明因果。说明比较、估计对象、量级、精度与适用范围。允许个人记录与复核，不自动翻页、运行代码或提交。第14—15讲已建设，第16讲仍待建设。')};
 }));
 export const STATISTICAL_ANALYSIS_SLIDES=[...originalSlides,...regressionSlides,...measurementSlides,...causalSlides,...policySlides,...researchSlides];
 export function getStatisticalAnalysisSlide(index: number) {
@@ -265,3 +265,7 @@ export function getStatisticalAnalysisGlobalIndex(lesson: number, local=1) {
   const l=STATISTICAL_ANALYSIS_LESSONS.find(l=>l.number===lesson);
   return l?.status==='ready' && l.slideStart !== null && Number.isInteger(local) && local>=1 && local<=l.slideTotal ? l.slideStart+local-1 : null;
 }
+
+export {TEXT_DATA} from './text-analysis-data.js';
+export {TEXT_MATERIAL_BASE,textDescriptions} from './text-lessons.js';
+export {textTiming} from './text-lessons.js';

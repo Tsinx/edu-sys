@@ -1,0 +1,162 @@
+{
+  "deckId": "deck-economic-mathematics-2026-integral-merged",
+  "version": "release-economic-mathematics-integral-merged-2026-11-01",
+  "counts": [
+    40,
+    59,
+    85,
+    60,
+    66,
+    64,
+    64,
+    64,
+    64,
+    107,
+    56,
+    30,
+    44,
+    56,
+    54,
+    35,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    14,
+    10,
+    10,
+    10,
+    11,
+    14,
+    12
+  ],
+  "files": [
+    {
+      "file": "packages/course-content/src/economic-mathematics/v2/lesson-19.ts",
+      "sha256": "b45fe0232fde03f274f5129f0eb84136b33184b79e9bbf27fe0de3d5ec3fbc7f"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/v2/lesson-20.ts",
+      "sha256": "d682a16a0fdb0c3d3e9baf4467c7833da1dbf43afb614e7ef4c891b9808ad5af"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/lesson-16-integral-merged.ts",
+      "sha256": "7974417dcdcc242cff681b98d7bd8e198c8c59d27ab409c0cb387eb0c021639f"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/integral-authoring.ts",
+      "sha256": "4ad2b0409c9fb66115001cf2b23f25696a53c5aa979cdb268138943417fb6192"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/integral-merged-exercises.ts",
+      "sha256": "eb958a4e0c39a4a8613c2a26b6e41ac26ea6560cb206d977d3fd6d40f3d6b413"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/integral-model.ts",
+      "sha256": "239f2989dcc1ec3e8ad6fe11cd16765529cead5a0e24a3d3014789298bd21039"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/types.ts",
+      "sha256": "3e234d3af0836199a5e3bc9c2b7cb189822bfc4fb39888cf787415e155e7c443"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/curriculum.ts",
+      "sha256": "bacaf40b2235d88077616fb6fdb83c2c0a6439cee73ba0498e7e484ec57dc09c"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/slides.ts",
+      "sha256": "75e8784f6cda758cf6510aa5fb0f5077a9652df28fcc3d2e140e3a67ef6bcafe"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/index.ts",
+      "sha256": "8f21a291264346bd0d9545296add48c10a5e31c4f454ec34cfef4ab8b7f5fef0"
+    },
+    {
+      "file": "packages/course-content/src/economic-mathematics/next-lesson-plan.ts",
+      "sha256": "36d5ed342aa4d04307d27b6031ff82fd77e25a8cf479faf892eb1b96da216ae0"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/IntegralFigure.tsx",
+      "sha256": "e59b2fc6a954a040bdc2811214c55c5a61a5ea3c6cf7089d2818c7c5d4e439e3"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/EconomicPageNarrator.tsx",
+      "sha256": "d979ce20e7b7fbea61e8cf8dfa0fe8bbe8be166905fcf55de769de58953df8fc"
+    },
+    {
+      "file": "apps/teacher-web/src/features/economic-mathematics/PresentationChrome.tsx",
+      "sha256": "e862de740adef260032b26f13a559d60eb0d65b046c75271902c9e1ac673b6ba"
+    },
+    {
+      "file": "apps/teacher-web/src/economic-narration.tsx",
+      "sha256": "466691ee68f02e54fe3fff1c677c84b34bd527111bc21abfccc4d863a51d514f"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson16-design-2026-10-31.md",
+      "sha256": "26623ff148b263b3866c208fdffbc7d98be85907a18db094bf397b87600a1035"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson16-exercises.json",
+      "sha256": "357bcff66a87173e87324ae4fd3c31e2fa2c310e45e53151405a90f7270173c2"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson16-script.md",
+      "sha256": "7fa8d3afad90c2d50eb8838b1f66e85450a1023cb598e5dea171d0014ec2b98e"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson16-validation-2026-10-31.md",
+      "sha256": "c6db0e273dc51f9a1d2f192012f21b008a984c17b274189b7d720f2f40432f18"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson17-exercises.json",
+      "sha256": "bc666c692d5b2506cec97c374d52febf2cb628c0187b99a8b7091f3df7cb5c50"
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson17-script.md",
+      "sha256": "5e1eacf9d57ebaf35a6f7b57979b9fda758322a2cf4d32236e7559fc9c77377d"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-answers.html",
+      "sha256": "5db978b36fc53e5b780835895bbf10394047d06ddc4cccff0f34b749c2631605"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-script.html",
+      "sha256": "8ccee7a7bd53bdeb722d16c0d548d614be2e50a61985f275d355741c0cbec00c"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-teacher.html",
+      "sha256": "5ce51826fb5eb59847f94830f4cf373008035b73f6e624f6210a8f3530413f24"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-teacher.pdf",
+      "sha256": "7a7c9cc41fd9e5e721592e794ae69bcaed3e23bb780badcc59c65f7cd1f8a742"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson16-worksheet.html",
+      "sha256": "301a9a74fa2d81d751a093eea70695604e4150951b60648095ecf748db01fa5a"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson17-answers.html",
+      "sha256": "8e7be027665ed26f892ace22640f29bc6cd37384f00fb142e397eae67f789907"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson17-script.html",
+      "sha256": "8e7be027665ed26f892ace22640f29bc6cd37384f00fb142e397eae67f789907"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson17-teacher.html",
+      "sha256": "8e7be027665ed26f892ace22640f29bc6cd37384f00fb142e397eae67f789907"
+    },
+    {
+      "file": "apps/teacher-web/public/course-assets/economic-mathematics/limits/lesson17-worksheet.html",
+      "sha256": "8e7be027665ed26f892ace22640f29bc6cd37384f00fb142e397eae67f789907"
+    },
+    {
+      "file": "scripts/prepare-economic-integral-merge.mjs",
+      "sha256": "0ded6653f1f38b14fc49dc629316d36b1b898086fcfd1019f6003db096b8171b"
+    }
+  ]
+}

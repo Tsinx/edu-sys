@@ -1,37 +1,50 @@
 import {assetSpec} from './enterprise-catalogue.js';
-import {CARGO_LABELS,STAFF_LABELS,type Asset,type CargoKind,type Crew,type EnterpriseManagement,type EnterpriseState,type ManagementBaseline,type ManagementMetrics,type ManagementPlan,type YardPlan,type Incident} from './enterprise-model.js';
+import {CARGO_LABELS,STAFF_LABELS,ENTERPRISE_INITIAL_CASH,type Asset,type CargoKind,type Crew,type EnterpriseManagement,type EnterpriseState,type ManagementBaseline,type ManagementMetrics,type ManagementPlan,type YardPlan,type Incident,type LogisticsPlan} from './enterprise-model.js';
+import {DEFAULT_LOGISTICS_PLAN,incidentRepairHours,staffCapacity} from './enterprise-strategy.js';
 import {event,post,terminal} from './enterprise-support.js';
 import {createYardBlocks,DEFAULT_YARD_PLAN,yardOverview} from './enterprise-yard.js';
 
 const kinds=Object.keys(CARGO_LABELS) as CargoKind[];
 const emptyGoods=()=>Object.fromEntries(kinds.map(k=>[k,0])) as Record<CargoKind,number>;
-export const emptyManagementMetrics=():ManagementMetrics=>({yardStored:0,yardRetrieved:0,yardRehandles:0,travelWork:0,yardBlockedHours:0,sharedUnits:0,chargingHours:0,chargingWaitHours:0,chargingEnergy:0});
+export const emptyManagementMetrics=():ManagementMetrics=>({yardStored:0,yardRetrieved:0,yardRehandles:0,travelWork:0,yardBlockedHours:0,sharedUnits:0,chargingHours:0,chargingWaitHours:0,chargingEnergy:0,reserveCoverHours:0,absenceHours:0,warehouseRevenue:0,roadReservationCost:0});
 export function createManagement():EnterpriseManagement{
-  return {plan:{goal:'balanced',staffing:'balanced',charging:'threshold',chargeTarget:80,chargeReserve:35,chargingLimit:50,maintenance:'standard',escalation:'major'},
+  return {plan:{goal:'balanced',staffing:'balanced',charging:'threshold',chargeTarget:80,chargeReserve:35,chargingLimit:50,maintenance:'standard',escalation:'major',fuelDays:7,partsTarget:12,routineResponse:'repair',routineBudget:120000},
+    logisticsPlans:Object.fromEntries(Array.from({length:7},(_,i)=>['T'+(i+1),{...DEFAULT_LOGISTICS_PLAN}])),missedDemand:emptyGoods(),reserveDay:-1,reserveUsed:{},dutyUsed:{},
     yardPlans:{T1:{...DEFAULT_YARD_PLAN},T2:{...DEFAULT_YARD_PLAN}},blocks:[...createYardBlocks('T1'),...createYardBlocks('T2')],metrics:emptyManagementMetrics(),
-    baseline:{hour:0,cash:85_000_000,revenue:0,operating:0,delivered:emptyGoods(),metrics:emptyManagementMetrics(),energy:0},reviews:[],changes:[],planCount:0,yardPlanCount:0};
+    baseline:{hour:0,cash:ENTERPRISE_INITIAL_CASH,revenue:0,operating:0,delivered:emptyGoods(),metrics:emptyManagementMetrics(),energy:0},reviews:[],changes:[],planCount:0,yardPlanCount:0};
 }
 function enumValue(value:unknown,allowed:readonly string[]){if(typeof value!=='string'||!allowed.includes(value))throw Error('管理策略选项无效。');}
 function numberValue(value:unknown,min:number,max:number,step=1){if(typeof value!=='number'||!Number.isFinite(value)||value<min||value>max||value%step!==0)throw Error('管理参数应在'+min+'至'+max+'之间，步长'+step+'。');}
 export function applyManagementPlan(s:EnterpriseState,patch:Partial<ManagementPlan>){
   if(!patch||typeof patch!=='object'||Array.isArray(patch)||!Object.keys(patch).length)throw Error('请选择至少一项运营规则。');
-  const enums:Record<string,readonly string[]>={goal:['balanced','service','flow','green'],staffing:['balanced','day-heavy','reserve','custom'],charging:['threshold','staggered','offpeak'],maintenance:['standard','offpeak','risk'],escalation:['major','all']};
+  const enums:Record<string,readonly string[]>={goal:['balanced','service','flow','green'],staffing:['balanced','day-heavy','reserve','custom'],charging:['threshold','staggered','offpeak'],maintenance:['standard','offpeak','risk'],escalation:['major','all'],routineResponse:['ask','repair','continuity']};
   for(const [key,value]of Object.entries(patch)){
     if(!Object.hasOwn(s.management.plan,key))throw Error('未知的管理策略字段。');
     if(enums[key])enumValue(value,enums[key]);
     else if(key==='chargeTarget')numberValue(value,40,95,5);
     else if(key==='chargeReserve')numberValue(value,0,80,5);
     else if(key==='chargingLimit')numberValue(value,10,100,5);
+    else if(key==='fuelDays'&&(typeof value!=='number'||![3,7,14].includes(value)))throw Error('燃料保障天数应为3、7或14日。');
+    else if(key==='partsTarget'&&(typeof value!=='number'||![6,12,24].includes(value)))throw Error('备件目标应为6、12或24份。');
+    else if(key==='routineBudget')numberValue(value,30000,300000,1000);
   }
   // Staffing is applied by a physical cohort-preserving command, never by a hidden productivity multiplier.
   if(patch.staffing!==undefined&&patch.staffing!==s.management.plan.staffing)throw Error('请通过班表模板安排实际人员。');
   if(patch.goal&&Object.keys(patch).length===1){
     const goal=patch.goal;
-    s.policy={...s.policy,autoBerth:true,documents:'automatic',verifiedExceptions:true,transport:'balanced',roadQuota:goal==='service'?300:240,priority:goal==='flow'?'fifo':'deadline',shorePower:true};
-    Object.assign(s.management.plan,{charging:goal==='green'?'offpeak':goal==='balanced'?'threshold':'staggered',chargeTarget:goal==='green'?90:80,chargeReserve:goal==='service'?50:35,chargingLimit:goal==='green'?40:50});
+    s.policy={...s.policy,priority:goal==='flow'?'fifo':'deadline'};
   }
   Object.assign(s.management.plan,patch);s.management.planCount++;
-  return '运营规则已生效。常规单证、靠泊与补给按授权执行；真实回执、资源条件和成本仍逐项计算。';
+  return '运营规则已生效。经营方针只调整优先级、资源排序；现金保障由资金规则统一管理；原班表、补能、堆场及运输设置保留。';
+}
+export function applyLogisticsPlan(s:EnterpriseState,terminalId:string,patch:Partial<LogisticsPlan>){
+  const t=terminal(s,terminalId),next={...(s.management.logisticsPlans[t.id]??DEFAULT_LOGISTICS_PLAN)};
+  if(!patch||typeof patch!=='object'||Array.isArray(patch)||!Object.keys(patch).length)throw Error('接续规则不能为空。');
+  const options={road:['basic','reserved','surge'],routing:['road','balanced','rail-first','barge-first'],warehousing:['direct','bonded']};
+  for(const [key,value]of Object.entries(patch)){if(!Object.hasOwn(options,key))throw Error('未知接续规则。');enumValue(value,options[key as keyof typeof options]);Object.assign(next,{[key]:value});}
+  if(next.warehousing==='bonded'&&!t.bonded)throw Error('请先建设监管仓储接口。');
+  s.management.logisticsPlans[t.id]=next;
+  return '接续规则已发布。后续货批自动分流；铁路未接入时使用公路，已集结和已进场库存保留原路径。';
 }
 export function applyYardPlan(s:EnterpriseState,terminalId:string,patch:Partial<YardPlan>){
   const t=terminal(s,terminalId),current=s.management.yardPlans[terminalId];
@@ -89,12 +102,12 @@ export function plannedMaintenanceAllowed(s:EnterpriseState,a:Asset){
   return a.health<(p.maintenance==='risk'?Math.max(75,s.policy.maintenanceHealth):s.policy.maintenanceHealth)||a.serviceHours>spec.maintenanceHours*(p.maintenance==='risk'?.8:1);
 }
 export function needsManagementAttention(i:Incident){return i.status!=='resolved'&&(!i.authorization||!!i.authorizationPaused);}
-function technicians(s:EnterpriseState){return Math.max(0,s.crews.filter(c=>c.role==='technician'&&c.shift===Math.floor(s.hour%24/8)&&c.trainingUntil<=s.hour).reduce((n,c)=>n+c.count*c.skill/100,0)-s.assets.filter(a=>a.status==='maintenance').length-s.incidents.filter(i=>i.resolves!==null).length);}
+function technicians(s:EnterpriseState){const c=staffCapacity(s,'technician');return Math.max(0,c.base+c.reserve-s.assets.filter(a=>a.status==='maintenance').length-s.incidents.filter(i=>i.resolves!==null).length);}
 export function authorizeIncident(s:EnterpriseState,id:string,plan:'repair'|'continuity',budget:number){
   const i=s.incidents.find(i=>i.id===id);if(!i||i.status==='resolved')throw Error('该事件已经恢复或不存在。');
   enumValue(plan,['repair','continuity']);numberValue(budget,30000,1_000_000,1000);
   if(plan==='continuity'&&!['power','system'].includes(i.type))throw Error('该类事件须恢复现场条件，备用供电或系统不能绕过限制。');
-  if(budget<(i.authorizedSpent??0)+(i.resolves===null&&i.response!=='repair'?30000:0))throw Error('授权上限不足以覆盖已发生费用及后续修复。');
+  if(budget<(i.authorizedSpent??0)+(i.resolves===null&&i.response!=='repair'?30000*(i.severity??1):0))throw Error('授权上限不足以覆盖已发生费用及后续修复。');
   i.authorization=plan;i.authorizedBudget=budget;i.authorizedSpent??=0;i.authorizationPaused=false;i.authorizationNote='';
   if(plan==='repair')i.backupActive=false;
   processIncidentAuthorizations(s);
@@ -103,7 +116,8 @@ export function authorizeIncident(s:EnterpriseState,id:string,plan:'repair'|'con
 export function processIncidentAuthorizations(s:EnterpriseState){
   for(const i of s.incidents){
     if(i.status==='resolved')continue;
-    if(!i.authorization&&i.type==='road'&&s.management.plan.escalation==='major'&&s.cash>s.policy.reserveCash){i.authorization='repair';i.authorizedBudget=40000;i.authorizedSpent=0;}
+    const p=s.management.plan;
+    if(!i.authorization&&i.severity===1&&!['spill','security'].includes(i.type)&&p.escalation==='major'&&p.routineResponse!=='ask'&&s.cash>s.policy.reserveCash){i.authorization=p.routineResponse==='continuity'&&['power','system'].includes(i.type)?'continuity':'repair';i.authorizedBudget=p.routineBudget;i.authorizedSpent=0;}
     if(!i.authorization)continue;
     const notify=(reason:string)=>{i.authorizationPaused=true;if(i.authorizationNote!==reason){i.authorizationNote=reason;event(s,'decision',i.title+'需要调整授权',reason,i.id);}};
     const pay=(amount:number,note:string)=>{if((i.authorizedSpent??0)+amount>(i.authorizedBudget??0)||s.cash<amount){notify('可用现金或授权预算不足，请调整预算或恢复方案。');return false;}post(s,'incident',amount,-amount,note);i.authorizedSpent=(i.authorizedSpent??0)+amount;return true;};
@@ -112,14 +126,14 @@ export function processIncidentAuthorizations(s:EnterpriseState){
     if(i.resolves===null&&i.response==='repair'){i.status='resolved';i.backupActive=false;s.stats.recovered++;event(s,'recovery',i.title+'按授权恢复','技术工作已实际完成，积压按原规则继续处理。',i.id);continue;}
     if(i.authorizationPaused)continue;
     if(i.authorization==='continuity'&&!i.backupActive&&i.resolves===null&&i.response!=='repair'){
-      if(!pay(45000,'按授权启用备用资源'))continue;i.backupActive=true;i.response='backup';
+      if(!pay(45000*(i.severity??1),'按授权启用备用资源'))continue;i.backupActive=true;i.response='backup';
     }
     if(i.resolves===null&&i.response!=='repair'&&technicians(s)>=1){
-      if(!pay(30000,'按授权安排技术修复'))continue;
-      i.response='repair';i.resolves=s.hour+(i.type==='system'?Math.max(4,18-s.digitalLevel*3):12);
+      if(!pay(30000*(i.severity??1),'按授权安排技术修复'))continue;
+      i.response='repair';i.resolves=s.hour+incidentRepairHours(s,i);
       event(s,'incident',i.title+'进入技术修复','预计完成于第'+i.resolves+'小时；完成前仍受实际限制。',i.id);
     }
-    if(i.backupActive&&((i.authorizedSpent??0)+1200>(i.authorizedBudget??0)||s.cash<1200)){i.backupActive=false;notify('备用预算不足以覆盖下一小时，请调整预算或等待修复。');}
+    if(i.backupActive&&((i.authorizedSpent??0)+1200*(i.severity??1)>(i.authorizedBudget??0)||s.cash<1200*(i.severity??1))){i.backupActive=false;notify('备用预算不足以覆盖下一小时，请调整预算或等待修复。');}
   }
 }
 export function managementBaseline(s:EnterpriseState):ManagementBaseline{

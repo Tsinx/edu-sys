@@ -14,7 +14,7 @@ test('equivalent version and configuration objects restore identically regardles
 test('version admission still rejects missing, extra, changed, malformed and future rules',()=>{
   const record=enterpriseRecord(createEnterprise());
   const missing={...record.rules} as Record<string,unknown>;delete missing.engine;
-  for(const rules of [missing,{...record.rules,unknown:'1'},{...record.rules,engine:'port-enterprise/3.0'},{...record.rules,finance:2},[],null,'latest']){
+  for(const rules of [missing,{...record.rules,unknown:'1'},{...record.rules,engine:'port-enterprise/999.0'},{...record.rules,finance:2},[],null,'latest']){
     assert.throws(()=>restoreEnterprise({...record,rules}),/版本/);
   }
 });

@@ -71,6 +71,15 @@
 .em-analysis.em-concept-check .em-reveal{padding:10px 16px 0}
 .em-analysis.em-concept-check .em-reveal h2{font-size:30px;margin-bottom:6px}
 .em-analysis.em-concept-check .em-reveal p{font-size:30px;line-height:1.35}
+.em-analysis.em-business-lab .em-limit-evidence>svg{max-height:420px;flex-shrink:0}
+.em-integral-figure{display:block;width:100%;height:auto;overflow:visible}
+.em-integral.em-cover .em-header,.em-integral.em-cover .em-header h1{max-width:1200px}
+.em-integral-figure text{font:30px "Noto Sans SC","Microsoft YaHei",sans-serif;fill:#202c2d}
+.em-integral-figure .em-integral-tick{font-size:26px}
+.em-integral.em-integral-lab .em-limit-evidence>svg{max-height:420px}
+.em-integral.em-integral-lab .em-limit-readout{grid-template-columns:1fr 1fr;margin-top:4px}
+.em-analysis.em-business-lab .em-limit-readout{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 18px}
+.em-analysis.em-business-lab .em-limit-readout dd{font-size:26px}
 @media print{
   .em-history-video,.em-film-failure{display:none}
   .em-history-slide{background:#f6f3e9}
