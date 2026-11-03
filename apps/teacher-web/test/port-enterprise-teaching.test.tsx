@@ -12,7 +12,7 @@ import type {useEnterprise} from '../src/features/port-simulation/enterprise/use
 
 test('the semester route teaches six months through real actions and does not credit defaults or failures',()=>{
   let s=createEnterprise({...createEnterprise().config,tutorial:true});const p=newEnterpriseTeaching(),steps=()=>enterpriseTeachingSteps(enterpriseView(s),enterpriseRecord(s),p);
-  assert.equal(p.schema,'port-enterprise-teaching/7');assert.equal(p.selected,'strategy');assert.equal(ENTERPRISE_TEACHING_END_HOUR,4344);
+  assert.equal(p.schema,'port-enterprise-teaching/8');assert.equal(p.selected,'strategy');assert.equal(ENTERPRISE_TEACHING_END_HOUR,4344);
   assert.equal(steps().length,43);assert.equal(steps()[0]!.complete,false);assert.ok(steps().every(x=>!Object.hasOwn(x,'quiz')));
   s=executeEnterprise(s,{kind:'management-plan',patch:{chargeTarget:99}});assert.equal(steps()[0]!.complete,false);
   s=executeEnterprise(s,{kind:'management-plan',patch:{goal:'balanced'}});assert.equal(steps()[0]!.complete,true);
@@ -50,13 +50,13 @@ test('all 43 management tasks reach a real half-year handover and preserve deter
     if(step.kind==='advance')while(s.hour<step.planHour!){const incident=enterpriseIncidentLesson(enterpriseView(s));if(incident)act(incident.expected);else act({kind:'advance',hours:Math.min(24*93,step.planHour!-s.hour),stopOnIncident:true});}
     if(step.id==='vehicle-accept')assert.equal(s.assets.at(-1)!.model,'electric-tractor');
     if(step.id==='digital-accept')assert.equal(s.digitalLevel,2);
-    if(step.id==='road-accept')assert.ok(s.projects.some(p=>p.status==='completed'&&['road-upgrade','yard-extension'].includes(p.type)));
+    if(step.id==='road-accept')assert.ok(!s.projects.some(p=>['road-upgrade','yard-extension'].includes(p.type)),'defer must not build a fictitious project');
     p.receipts[step.id]={hour:s.hour,position:s.journal.length,evidence:step.evidence};
     assert.ok(enterpriseTeachingSteps(enterpriseView(s),enterpriseRecord(s),p)[n]!.complete,step.id);
   }
   assertEnterprise(s);assert.equal(s.hour,4344);assert.equal(s.months.length,6);assert.equal(s.sealed,false);assert.equal(s.config.years,3);
   assert.ok(s.horizon>s.hour);assert.ok(s.assets.filter(a=>a.model==='electric-tractor').length===2);assert.ok(s.contracts.some(c=>c.accepted&&c.shipped>0));
-  assert.equal(s.notes.length,0,'the game tutorial does not require writing documents');
+  assert.equal(s.notes.length,1,'defer records a fixed decision, without asking the student to write a document');
   assert.equal(enterpriseHash(restoreEnterprise(enterpriseRecord(s))),enterpriseHash(s));
 });
 

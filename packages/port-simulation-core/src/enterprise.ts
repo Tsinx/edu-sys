@@ -9,3 +9,5 @@ export * from './enterprise-strategy.js';
 export * from './enterprise-supplies.js';
 export * from './enterprise-finance.js';
 export * from './enterprise-director.js';
+export * from './enterprise-investment.js';
+export * from './enterprise-benchmark.js';

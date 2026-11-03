@@ -1,6 +1,7 @@
 import type {EnterpriseConfig,EnterpriseCommand,EnterpriseRecord,EnterpriseView,EnterprisePackage,EnterpriseYardExperiment} from '@edu/port-simulation-core';
-export type EnterpriseResponse={id:number;type:string;view?:EnterpriseView;record?:EnterpriseRecord;package?:EnterprisePackage;csv?:string;error?:string;persist?:boolean;replaying?:boolean;hour?:number;horizon?:number;experiment?:EnterpriseYardExperiment};
-export type EnterpriseRequest={type:string;config?:EnterpriseConfig;command?:EnterpriseCommand;record?:EnterpriseRecord;position?:number};
+import type {EnterpriseTeaching} from './enterprise-teaching';
+export type EnterpriseResponse={id:number;type:string;view?:EnterpriseView;record?:EnterpriseRecord;package?:EnterprisePackage;csv?:string;error?:string;persist?:boolean;replaying?:boolean;hour?:number;horizon?:number;experiment?:EnterpriseYardExperiment;teaching?:EnterpriseTeaching};
+export type EnterpriseRequest={type:string;config?:EnterpriseConfig;command?:EnterpriseCommand;record?:EnterpriseRecord;position?:number;backupTeaching?:unknown};
 export interface EnterpriseWorkerPort {postMessage:(message:EnterpriseRequest&{id:number})=>void;terminate:()=>void}
 /** One admitted operation at a time, independent of React's render timing. */
 export class EnterpriseChannel<Context=undefined>{

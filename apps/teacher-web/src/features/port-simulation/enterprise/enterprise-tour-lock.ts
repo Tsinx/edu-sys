@@ -16,16 +16,17 @@ export function placeTourCard(target:TourRect|null,width:number,height:number,ca
 const safeSelector='[data-enterprise-tour-ui],button[aria-label*="全屏"]';
 const focusable='button,input,select,textarea,a[href],summary,[tabindex]';
 const same=(a:TourRect|null,b:TourRect|null)=>a===b||!!a&&!!b&&(['left','top','width','height'] as const).every(k=>Math.abs(a[k]-b[k])<.5);
-export function useEnterpriseTourLock({rootRef,selector,enabled,blocked,replay,onObserve,onBlocked}:{rootRef:RefObject<HTMLElement|null>;selector?:string;enabled:boolean;blocked:boolean;replay:number;onObserve?:()=>void;onBlocked:()=>void}){
+export function useEnterpriseTourLock({rootRef,selector,enabled,blocked,replay,onObserve,onBlocked,readOnlyScene=false,quiet=false}:{rootRef:RefObject<HTMLElement|null>;selector?:string;enabled:boolean;blocked:boolean;replay:number;onObserve?:()=>void;onBlocked:()=>void;readOnlyScene?:boolean;quiet?:boolean}){
   const [rect,setRect]=useState<TourRect|null>(null),[bounds,setBounds]=useState({width:1280,height:720});
   useLayoutEffect(()=>{
     const root=rootRef.current;if(!root||!enabled){setRect(null);return;}
     const locked=new Map<HTMLElement,boolean>();let target:HTMLElement|null=null,described:string|null=null,raf=0;
     root.dataset.tourActive='true';
-    const permitted=(node:EventTarget|null)=>node instanceof Element&&(!!node.closest(safeSelector)||!blocked&&!!target&&(node===target||target.contains(node)));
+    const permitted=(node:EventTarget|null)=>node instanceof Element&&(!!node.closest(safeSelector)||readOnlyScene&&!!node.closest('[data-enterprise-scene-readonly]')||!blocked&&!!target&&(node===target||target.contains(node)));
     const synchronize=()=>{
       raf=0;const next=selector?root.querySelector<HTMLElement>(selector):null;
-      if(next!==target){
+      const changed=next!==target;
+      if(changed){
         if(target){target.classList.remove('enterprise-tour-target');delete target.dataset.teachingHighlight;if(described===null)target.removeAttribute('aria-describedby');else target.setAttribute('aria-describedby',described);}
         target=next;
         if(target){
@@ -42,21 +43,22 @@ export function useEnterpriseTourLock({rootRef,selector,enabled,blocked,replay,o
         if(scroller){
           const r=target.getBoundingClientRect(),s=scroller.getBoundingClientRect(),b=root.getBoundingClientRect();
           const top=Math.max(s.top,b.top)+10,bottom=Math.min(s.bottom,b.bottom)-10;
-          if(r.top<top||r.bottom>bottom)scroller.scrollTo({top:Math.max(0,scroller.scrollTop+r.top-top-(bottom-top-r.height)/2),behavior:'instant'});
+          if(changed&&r.height>bottom-top)scroller.scrollTo({top:Math.max(0,scroller.scrollTop+r.top-top),behavior:'instant'});
+          else if(r.height<=bottom-top&&(r.top<top||r.bottom>bottom))scroller.scrollTo({top:Math.max(0,scroller.scrollTop+r.top-top-(bottom-top-r.height)/2),behavior:'instant'});
         }
       }
       for(const el of root.querySelectorAll<HTMLElement>(focusable)){
         if(!locked.has(el))locked.set(el,el.inert);
-        const allow=!!el.closest(safeSelector)||!blocked&&!!target&&(el===target||target.contains(el)||el.contains(target));
+        const allow=!!el.closest(safeSelector)||readOnlyScene&&!!el.closest('[data-enterprise-scene-readonly]')||!blocked&&!!target&&(el===target||target.contains(el)||el.contains(target));
         el.inert=allow?locked.get(el)!:true;
         if(allow)delete el.dataset.tourLocked;else el.dataset.tourLocked='true';
       }
       const box=root.getBoundingClientRect();setBounds(old=>old.width===box.width&&old.height===box.height?old:{width:box.width,height:box.height});
       if(target&&target.getClientRects().length){
-        target.classList.toggle('enterprise-tour-target',!blocked);target.dataset.teachingHighlight=String(!blocked);
-        const r=target.getBoundingClientRect(),pad=7;
-        const left=Math.max(0,r.left-box.left-pad),top=Math.max(0,r.top-box.top-pad);
-        const nextRect={left,top,width:Math.max(0,Math.min(box.width,r.right-box.left+pad)-left),height:Math.max(0,Math.min(box.height,r.bottom-box.top+pad)-top)};
+        target.classList.toggle('enterprise-tour-target',!blocked&&!quiet);target.dataset.teachingHighlight=String(!blocked&&!quiet);
+        const r=target.getBoundingClientRect(),pad=7,clip=target.closest('.enterprise-game-window__body')?.getBoundingClientRect()??box;
+        const left=Math.max(0,r.left-box.left-pad,clip.left-box.left),top=Math.max(0,r.top-box.top-pad,clip.top-box.top);
+        const nextRect={left,top,width:Math.max(0,Math.min(box.width,r.right-box.left+pad,clip.right-box.left)-left),height:Math.max(0,Math.min(box.height,r.bottom-box.top+pad,clip.bottom-box.top)-top)};
         setRect(old=>same(old,nextRect)?old:nextRect);
         if(!blocked&&!permitted(document.activeElement))target.focus({preventScroll:true});
       }else setRect(old=>old===null?old:null);
@@ -64,6 +66,8 @@ export function useEnterpriseTourLock({rootRef,selector,enabled,blocked,replay,o
     const queue=()=>{if(!raf)raf=requestAnimationFrame(synchronize);};
     const stop=(e:Event)=>{e.preventDefault();e.stopImmediatePropagation();};
     const capture=(e:Event)=>{
+      // Reading a result can require scrolling, without enabling its other business controls.
+      if((e.type==='wheel'||e.type==='touchstart')&&e.target instanceof Element&&e.target.closest('.enterprise-game-window__body'))return;
       if(permitted(e.target)){
         // Record the permitted observation before the control opens another
         // window. Deferring this until after navigation loses the receipt when
@@ -88,7 +92,10 @@ export function useEnterpriseTourLock({rootRef,selector,enabled,blocked,replay,o
         if(!choices.length){stop(e);return;}
         e.preventDefault();e.stopImmediatePropagation();
         const index=choices.indexOf(document.activeElement as HTMLElement),next=e.shiftKey?(index<=0?choices.length-1:index-1):(index+1)%choices.length;
-        choices[next]!.focus({preventScroll:true});return;
+        const focused=choices[next]!;focused.focus({preventScroll:true});
+        const scroller=focused.closest<HTMLElement>('.enterprise-game-window__body');
+        if(scroller){const r=focused.getBoundingClientRect(),s=scroller.getBoundingClientRect();if(r.top<s.top+8||r.bottom>s.bottom-8)scroller.scrollTo({top:Math.max(0,scroller.scrollTop+r.top-s.top-(s.height-r.height)/2),behavior:'instant'});}
+        return;
       }
       if(!permitted(e.target))stop(e);
     };
@@ -106,6 +113,6 @@ export function useEnterpriseTourLock({rootRef,selector,enabled,blocked,replay,o
       if(target){target.classList.remove('enterprise-tour-target');delete target.dataset.teachingHighlight;if(described===null)target.removeAttribute('aria-describedby');else target.setAttribute('aria-describedby',described);}
       delete root.dataset.tourActive;
     };
-  },[rootRef,selector,enabled,blocked,replay,onObserve,onBlocked]);
+  },[rootRef,selector,enabled,blocked,replay,onObserve,onBlocked,readOnlyScene,quiet]);
   return {rect,bounds};
 }

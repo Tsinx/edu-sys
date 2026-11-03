@@ -72,6 +72,23 @@ test('a worker crash retains the last confirmed record and recovery restores it 
   assert.equal(result.current.currentSave!.id,before.id);assert.deepEqual(result.current.currentSave!.record,before.record);
   assert.equal((await listEnterpriseSaves(scope))[0]!.revision,before.revision);
 });
+
+test('a complete tutorial backup survives a new save identity, rejects bad metadata atomically and exports after quota or worker failure',{timeout:30000},async()=>{
+  globalThis.indexedDB=new IDBFactory();const {result}=await mounted('teaching-backup:'+randomUUID());
+  await act(async()=>{await result.current.createTeaching();await result.current.command({kind:'management-plan',patch:{goal:'balanced'}});result.current.updateTeaching(p=>({...p,active:false,selected:'director-calendar',pausedAt:0,starts:{strategy:{hour:0,position:0}},receipts:{strategy:{hour:0,position:1,evidence:['已确认稳健经营']}}}));await result.current.waitForSave();});
+  const before=result.current.currentSave!,backup=await result.current.exportBackup();
+  assert.equal(backup.teaching!.selected,'director-calendar');
+  await act(async()=>{await result.current.importRecord(backup.record,backup.teaching);await result.current.waitForSave();});
+  assert.notEqual(result.current.currentSave!.id,before.id);assert.deepEqual(result.current.currentSave!.record,before.record);assert.deepEqual(result.current.currentSave!.teaching,backup.teaching);
+  const imported=result.current.currentSave!;
+  await act(async()=>{await assert.rejects(result.current.importRecord(backup.record,{...backup.teaching,receipts:{strategy:{hour:9999,position:1,evidence:[]}}}),/带教进度/);});
+  assert.equal(result.current.currentSave!.id,imported.id);assert.equal(result.current.view!.hour,0);
+  failWrites=true;await act(async()=>{result.current.updateTeaching(p=>({...p,actions:{'director-calendar':1}}));await assert.rejects(result.current.waitForSave(),/quota/);});
+  assert.equal((await result.current.exportBackup()).teaching!.actions['director-calendar'],1);
+  await act(async()=>workers.at(-1)!.crash());
+  assert.deepEqual((await result.current.exportBackup()).record,backup.record);
+  assert.equal((await result.current.exportBackup()).teaching!.selected,'director-calendar');
+});
 test('overlapping activations cannot mix a new record identity with another port',{timeout:30000},async()=>{
   globalThis.indexedDB=new IDBFactory();const scope='activate:'+randomUUID(),{result}=await mounted(scope);
   let outcomes:PromiseSettledResult<string>[]=[];

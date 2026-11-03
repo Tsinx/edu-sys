@@ -1,9 +1,11 @@
 import { createEnterprise, executeEnterprise, enterpriseView, enterpriseRecord, restoreEnterprise, makeEnterprisePackage, enterpriseCsv, enterpriseHash, type EnterpriseConfig, type EnterpriseCommand, type EnterpriseState, type EnterpriseRecord } from '@edu/port-simulation-core';
 import {compareEnterpriseYards} from '@edu/port-simulation-core';
+import {restoreEnterpriseTeaching} from './enterprise-import';
+import type {EnterpriseRequest} from './enterprise-channel';
 
 let state: EnterpriseState | null = null;
 let replaying = false;
-type Request = { id: number; type: 'create' | 'restore' | 'command' | 'record' | 'package' | 'csv' | 'seek' | 'live' | 'experiment'; config?: EnterpriseConfig; record?: EnterpriseRecord; command?: EnterpriseCommand; position?: number };
+type Request = EnterpriseRequest & {id:number};
 function snapshot(id: number, persist = true, preview?: EnterpriseState,includeHash=true) {
   const s = preview ?? state;
   if (!s) throw Error('尚未建立经营场次。');
@@ -13,7 +15,12 @@ self.onmessage = (event: MessageEvent<Request>) => {
   const m = event.data;
   try {
     if (m.type === 'create') { state = createEnterprise(m.config); replaying = false; snapshot(m.id); return; }
-    if (m.type === 'restore') { const next = restoreEnterprise(m.record,undefined,hour=>{if(hour%168===0)postMessage({id:m.id,type:'progress',hour});}); state = next; replaying = false; snapshot(m.id); return; }
+    if (m.type === 'restore') {
+      const next=restoreEnterprise(m.record,undefined,hour=>{if(hour%168===0)postMessage({id:m.id,type:'progress',hour});});
+      const view=enterpriseView(next),record=enterpriseRecord(next),teaching=restoreEnterpriseTeaching(m.backupTeaching,record,view);
+      state=next;replaying=false;
+      postMessage({id:m.id,type:'state',view,record,persist:true,replaying:false,hash:enterpriseHash(next),...(teaching?{teaching}:{})});return;
+    }
     if (!state) throw Error('请先创建或恢复个人经营场次。');
     if(m.type==='experiment'){if(replaying)throw Error('请返回当前经营现场后进行对照。');postMessage({id:m.id,type:'experiment',experiment:compareEnterpriseYards(state)});return;}
     if (m.type === 'command') {

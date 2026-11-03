@@ -1,0 +1,96 @@
+{
+  "date": "2026-11-03",
+  "scope": "local-only",
+  "engine": "port-enterprise/5.1",
+  "indicators": "port-enterprise-score/5.0",
+  "teaching": "port-enterprise-teaching/8",
+  "backup": "port-enterprise-backup/1",
+  "tests": {
+    "core": {
+      "passed": 210,
+      "failed": 0
+    },
+    "frontend": {
+      "passed": 416,
+      "failed": 0
+    },
+    "enterpriseApi": {
+      "passed": 6,
+      "failed": 0
+    }
+  },
+  "typecheck": "passed",
+  "viteBuild": "passed",
+  "offlinePackage": "passed",
+  "allCoursePdfBatch": "stopped-outside-scope",
+  "browserPlaythrough": "passed",
+  "output": "output/port-enterprise-teaching-fix-20261102",
+  "zip": {
+    "Path": "D:\\codes\\edu-sys\\output\\东湾港-长期经营5.1-带教修正-20261103.zip",
+    "Hash": "E3FAF27F2759B199255235829B79AB82BC6FF49C953EE6316333545312D7F260"
+  },
+  "gitCommitted": false,
+  "campusDeployment": false,
+  "studentGradesSubmitted": false,
+  "finalTargetedWebTests": {
+    "passed": 21,
+    "failed": 0
+  },
+  "halfYear": {
+    "hour": 4344,
+    "days": 181,
+    "months": 6,
+    "commands": 339,
+    "teaching": "port-enterprise-teaching/8",
+    "steps": 43,
+    "allGraduated": true,
+    "cash": 15458244,
+    "debt": 16666664,
+    "deposits": 46880000,
+    "unpaid": 0,
+    "profit": 45192826,
+    "hash": "c093d630c04e621323e641933844e2666e1dea2acaf845f01bc208af16d23a46",
+    "sealedHash": "1c6741dbfcaef8f5fbfe799d071c5803e3a80fe0edc4a098ccde9442c6b4f462",
+    "independentVerification": true,
+    "stageScore": 3.36,
+    "fullBusinessComplete": false,
+    "investmentProjects": [],
+    "deferDecisions": [
+      {
+        "hour": 2185,
+        "topic": "设备投资",
+        "text": "本期暂缓T1扩建，先按当前规则观察积压、等待和班次保障，再决定是否投资。"
+      }
+    ],
+    "rules": {
+      "engine": "port-enterprise/5.1",
+      "operations": "port-operations/5.0",
+      "catalogue": "port-assets/3.0",
+      "demand": "port-market/2.0",
+      "finance": "port-finance/4.0",
+      "indicators": "port-enterprise-score/5.0",
+      "director": "port-director/1",
+      "telemetry": "port-enterprise-telemetry/1"
+    }
+  },
+  "localService": {
+    "before": {
+      "app": "port-enterprise",
+      "instance": "5617a8d23be3",
+      "version": "port-enterprise/5.0",
+      "pid": 93576
+    },
+    "after": {
+      "app": "port-enterprise",
+      "instance": "4bd2a5d9b49f",
+      "version": "port-enterprise/5.1",
+      "pid": 102948
+    },
+    "oldPackagePreserved": true,
+    "url": "http://127.0.0.1:8217/"
+  },
+  "packageFilesVerified": 13,
+  "manifestAlsoMatched": true,
+  "servedBundlesMatched": true,
+  "browserErrors": []
+}

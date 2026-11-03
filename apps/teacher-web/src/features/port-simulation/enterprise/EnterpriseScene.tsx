@@ -13,9 +13,9 @@ export function enterpriseAssetVisual(v:EnterpriseView,a:Asset,layer:EnterpriseS
   const color=a.status==='failed'?0xb45a47:a.status==='maintenance'?0xc69a48:a.status!=='active'||flag==='停产'||flag==='受阻'?0x899c9c:layer==='normal'?0xd3ad58:value===null?0x96a5a3:value<.25?0x6b9eaf:value<.55?0x58a593:value<.8?0xc9ad60:0xc87854;
   return {color,flag,value};
 }
-export function EnterpriseScene({ view, selected, onSelect, onObjectSelect, animate = false,layer='load',mode='briefing' }: { view: EnterpriseView; selected: string; onSelect: (id: string) => void; onObjectSelect?:(selection:EnterpriseSceneSelection)=>void; animate?: boolean;layer?:EnterpriseSceneLayer;mode?:'briefing'|'observation'|'emergency' }) {
-  const host = useRef<HTMLDivElement>(null), latest = useRef({ view, selected, onSelect, onObjectSelect, animate,layer,mode });
-  latest.current = { view, selected, onSelect, onObjectSelect, animate,layer,mode };
+export function EnterpriseScene({ view, selected, onSelect, onObjectSelect, animate = false,layer='load',mode='briefing',focusToken=0 }: { view: EnterpriseView; selected: string; onSelect: (id: string) => void; onObjectSelect?:(selection:EnterpriseSceneSelection)=>void; animate?: boolean;layer?:EnterpriseSceneLayer;mode?:'briefing'|'observation'|'emergency';focusToken?:number }) {
+  const host = useRef<HTMLDivElement>(null), latest = useRef({ view, selected, onSelect, onObjectSelect, animate,layer,mode,focusToken });
+  latest.current = { view, selected, onSelect, onObjectSelect, animate,layer,mode,focusToken };
   const [fallback, setFallback] = useState(false), [ready, setReady] = useState(false);
   useEffect(() => {
     const el = host.current; if (!el) return;
@@ -67,7 +67,7 @@ export function EnterpriseScene({ view, selected, onSelect, onObjectSelect, anim
     }
     const waiting: THREE.Group[] = [];
     for (let i = 0; i < 10; i++) { const g = new THREE.Group(); scene.add(g); box(g, 0, 3, 0, 13, 7, 30, i % 2 ? 0x397a91 : 0xdda34a); box(g, 0, 8, -8, 9, 5, 8, 0xc5d5d6); g.position.set(-140 - i % 3 * 38, 0, -140 + Math.floor(i / 3) * 90); waiting.push(g); }
-    let lastSignature = '', frame = 0, disposed = false,lastMode='',visualTime=0,lastNow=0,cameraMoving=false;
+    let lastSignature = '', frame = 0, disposed = false,lastMode='',lastFocus=-1,visualTime=0,lastNow=0,cameraMoving=false;
     const cameraTo=new THREE.Vector3(),lookTo=new THREE.Vector3();controls.addEventListener('start',()=>{cameraMoving=false;});
     const resize = () => { const w = el.clientWidth, h = el.clientHeight; if (!w || !h) return; renderer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix(); };
     const observer = new ResizeObserver(resize); observer.observe(el); resize();
@@ -79,7 +79,7 @@ export function EnterpriseScene({ view, selected, onSelect, onObjectSelect, anim
       if (disposed) return;
       const { view: v, selected: pick, animate: running,layer:heat,mode:directorMode } = latest.current;
       const now=performance.now(),dt=lastNow?Math.min(.08,(now-lastNow)/1000):0;lastNow=now;if(running&&!document.hidden)visualTime+=dt;
-      if(directorMode!==lastMode){lastMode=directorMode;const z=zones.find(t=>t.id===pick)?.z??0;if(directorMode==='briefing'){cameraTo.set(280,320,430);lookTo.set(15,0,0);}else{cameraTo.set(185,200,z+250);lookTo.set(38,0,z);}cameraMoving=true;}
+      if(directorMode!==lastMode||latest.current.focusToken!==lastFocus){lastMode=directorMode;lastFocus=latest.current.focusToken;const z=zones.find(t=>t.id===pick)?.z??0;if(directorMode==='briefing'&&!lastFocus){cameraTo.set(280,320,430);lookTo.set(15,0,0);}else{cameraTo.set(185,200,z+250);lookTo.set(38,0,z);}cameraMoving=true;}
       if(cameraMoving){const alpha=Math.min(1,dt*3);camera.position.lerp(cameraTo,alpha);controls.target.lerp(lookTo,alpha);if(camera.position.distanceTo(cameraTo)<.5)cameraMoving=false;}
       const daylight=directorMode==='briefing'?1:Math.max(.15,Math.sin((v.hour%24-6)/12*Math.PI));sun.intensity+=(2.5*daylight-sun.intensity)*Math.min(1,dt*2);ambient.intensity+=(1.1+daylight*1.1-ambient.intensity)*Math.min(1,dt*2);
       const signature = v.hour + ':' + v.assets.length + ':' + v.projects.length + ':' + v.journal.length+':'+heat+':'+directorMode+':'+pick;

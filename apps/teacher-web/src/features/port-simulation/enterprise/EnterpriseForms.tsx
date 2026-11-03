@@ -34,7 +34,7 @@ export interface EnterpriseField {
   disabledOptions?: Record<string,string>;
   minLength?:number;
 }
-export function CommandForm({ id, title, fields, onSubmit, disabled, submit = '确认安排', help,draftGroup }: { id: string; title: string; fields: EnterpriseField[]; onSubmit: (values: Record<string, string>) => void; disabled?: boolean; submit?: string; help?: string;draftGroup?:string }) {
+export function CommandForm({ id, title, fields, onSubmit, disabled, submit = '确认安排', help,draftGroup,children }: { id: string; title: string; fields: EnterpriseField[]; onSubmit: (values: Record<string, string>) => void; disabled?: boolean; submit?: string; help?: string;draftGroup?:string;children?:ReactNode }) {
   const context = useContext(DraftsContext);
   const feedback = useContext(EnterpriseFeedbackContext);
   const [validation, setValidation] = useState('');
@@ -46,7 +46,7 @@ export function CommandForm({ id, title, fields, onSubmit, disabled, submit = '�
     return f.type === 'select' && !f.options?.some(o => o[0] === v) ? f.options?.[0]?.[0] ?? '' : v;
   };
   return <form className="enterprise-form" aria-label={title} data-enterprise-control={id} onInvalidCapture={e=>{const input=e.target as HTMLInputElement;setValidation('请检查“'+(input.getAttribute('aria-label')??'输入值')+'”：'+input.validationMessage);}} onChangeCapture={()=>setValidation('')} onSubmit={e => { e.preventDefault(); setValidation(''); feedback.submit(id); onSubmit(Object.fromEntries(fields.map(f => [f.name, value(f)]))); }}>
-    <h3>{title}</h3>{help && <p className="enterprise-muted">{help}</p>}
+    <h3>{title}</h3>{help && <p className="enterprise-muted">{help}</p>}{children}
     <div className="enterprise-form__fields">{fields.map(f => <label key={f.name} className={f.type === 'textarea' ? 'enterprise-field enterprise-field--wide' : 'enterprise-field'}><span>{f.label}</span>
       {f.type === 'select' ? <select data-enterprise-field={f.name} aria-label={f.label} value={value(f)} onChange={e => context.set(draftKey(f), e.target.value)} disabled={disabled}>{f.options?.map(([v, label]) => <option key={v} value={v} disabled={!!f.disabledOptions?.[v]}>{label}{f.disabledOptions?.[v]?' · '+f.disabledOptions[v]:''}</option>)}</select>
         : f.type === 'textarea' ? <textarea data-enterprise-field={f.name} aria-label={f.label} rows={4} value={value(f)} maxLength={5000} minLength={f.minLength} required={!!f.minLength} onChange={e => context.set(draftKey(f), e.target.value)} disabled={disabled}/>

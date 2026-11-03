@@ -3,6 +3,7 @@ import {ENTERPRISE_VERSION,quarterIndex,type EnterpriseConfig,type EnterpriseCom
 import {listEnterpriseSaves,saveEnterprise,EnterpriseSaveConflict,type EnterpriseSave} from './enterprise-storage';
 import {ENTERPRISE_TEACHING_VERSION,newEnterpriseTeaching,restartEnterpriseTeaching,type EnterpriseTeaching} from './enterprise-teaching';
 import {EnterpriseChannel,type EnterpriseRequest,type EnterpriseResponse} from './enterprise-channel';
+import {enterpriseBackup} from './enterprise-import';
 type Activation={save:EnterpriseSave;clearConflict:boolean;write:boolean};
 const defaultConfig:EnterpriseConfig={seed:20261025,years:10,scenario:'balanced',mode:'practice'};
 export function useEnterprise(scope:string){
@@ -42,7 +43,7 @@ export function useEnterprise(scope:string){
     if(!c)return Promise.reject(Error('本机仿真线程尚未就绪。'));
     setError('');return c.request(request);
   },[]);
-  const activate=useCallback(async(save?:EnterpriseSave,config=defaultConfig,teaching?:EnterpriseTeaching,allowUnsaved=false)=>{
+  const activate=useCallback(async(save?:EnterpriseSave,config=defaultConfig,teaching?:EnterpriseTeaching,allowUnsaved=false,backupTeaching?:unknown)=>{
     if(channel.current?.busy)throw Error('正在完成上一项操作，请稍候；本次切换未执行。');
     await queue.current;
     if(!allowUnsaved&&meta.current&&issues.current.has(meta.current.id))throw Error('当前进度尚未保存。请先导出存档，或选择冲突恢复方式。');
@@ -50,7 +51,7 @@ export function useEnterprise(scope:string){
     const next:EnterpriseSave=latest??save??{id:crypto.randomUUID(),scope,title:(teaching?'教学路线 · ':'东湾港 · ')+new Date().toLocaleString('zh-CN'),schema:ENTERPRISE_VERSION,savedAt:'',record:{schema:ENTERPRISE_VERSION,rules:{} as EnterpriseRecord['rules'],config,commands:[]},checkpoints:[],...(teaching?{teaching}:{})};
     if(next.scope!==scope)throw Error('该记录不属于当前个人空间。');
     if(!channel.current)throw Error('本机仿真线程尚未就绪。');
-    await channel.current.request(save?{type:'restore',record:next.record}:{type:'create',config},{save:next,clearConflict:true,write:!latest});
+    await channel.current.request(save?{type:'restore',record:next.record,backupTeaching}:{type:'create',config},{save:next,clearConflict:true,write:!latest});
     return next.id;
   },[scope]);
   useEffect(()=>{
@@ -72,7 +73,7 @@ export function useEnterprise(scope:string){
               const checkpoints=[...base.checkpoints],last=checkpoints.at(-1);
               if(!last||quarterIndex(last.hour)!==quarterIndex(m.view.hour)||m.record.commands.length-last.position>=25||m.view.sealed)checkpoints.push({hour:m.view.hour,position:m.record.commands.length,record:m.record});
               const write=!activation||activation.write;
-              const saved={...base,revision:revisions.current.get(base.id)??base.revision??0,record:m.record,savedAt:write?new Date().toISOString():base.savedAt,checkpoints:checkpoints.slice(-8)};
+              const saved={...base,...(m.teaching?{teaching:m.teaching}:{}),revision:revisions.current.get(base.id)??base.revision??0,record:m.record,savedAt:write?new Date().toISOString():base.savedAt,checkpoints:checkpoints.slice(-8)};
               if(activation)try{window.sessionStorage.setItem('edu-enterprise-active-run:'+scope,base.id);}catch{/* The record itself remains in IndexedDB and can be exported. */}
               meta.current=saved;if(write)void persist(saved).catch(()=>{});else setSavedAt(saved.savedAt);
             }
@@ -108,7 +109,12 @@ export function useEnterprise(scope:string){
   const create=useCallback((config:EnterpriseConfig)=>activate(undefined,config),[activate]);
   const createTeaching=useCallback(()=>activate(undefined,{...defaultConfig,tutorial:true},newEnterpriseTeaching()),[activate]);
   const load=useCallback((save:EnterpriseSave)=>activate(save),[activate]);
-  const importRecord=useCallback((record:EnterpriseRecord)=>activate({id:crypto.randomUUID(),scope,title:'导入 · '+new Date().toLocaleString('zh-CN'),schema:ENTERPRISE_VERSION,savedAt:'',record,checkpoints:[]}),[activate,scope]);
+  const importRecord=useCallback((record:EnterpriseRecord,teaching?:unknown)=>activate({id:crypto.randomUUID(),scope,title:'导入 · '+new Date().toLocaleString('zh-CN'),schema:ENTERPRISE_VERSION,savedAt:'',record,checkpoints:[]},defaultConfig,undefined,false,teaching),[activate,scope]);
+  const exportBackup=useCallback(async()=>{
+    // Export the last confirmed in-memory state even if IndexedDB is full or the worker failed.
+    const r=await send({type:'record'});if(!r.record)throw Error('尚无可导出的经营记录。');
+    return enterpriseBackup(r.record,meta.current?.teaching);
+  },[send]);
   const retryTeaching=useCallback(async(stepId:string,position:number)=>{
     const save=meta.current;if(!save?.teaching||save.attemptId||save.record.config.mode!=='practice')throw Error('本节重试仅用于独立教学练习。');
     return activate({...save,id:crypto.randomUUID(),revision:0,title:'本节重试 · '+new Date().toLocaleString('zh-CN'),record:{...save.record,commands:save.record.commands.slice(0,Math.max(0,position)).filter(c=>c.kind!=='seal')},checkpoints:[],teaching:restartEnterpriseTeaching(save.teaching,stepId,position)});
@@ -150,5 +156,5 @@ export function useEnterprise(scope:string){
     if(!issues.current.has(save.id))return;
     meta.current={...save,savedAt:new Date().toISOString()};renderMetadata(n=>n+1);await persist(meta.current);setError('');
   },[persist]);
-  return {view,busy,error,setError,storageError,listError,savedAt,saves,replaying,progress,send,command,create,createTeaching,retryTeaching,updateTeaching,load,importRecord,bindAttempt,savePending,currentSave:meta.current,waitForSave,saveNow,retryStorage,conflict,workerFailed,recover,reloadLatest,keepConflictCopy};
+  return {view,busy,error,setError,storageError,listError,savedAt,saves,replaying,progress,send,command,create,createTeaching,retryTeaching,updateTeaching,load,importRecord,exportBackup,bindAttempt,savePending,currentSave:meta.current,waitForSave,saveNow,retryStorage,conflict,workerFailed,recover,reloadLatest,keepConflictCopy};
 }

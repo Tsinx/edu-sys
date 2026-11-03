@@ -1,7 +1,8 @@
 import {GUIDED_FINANCE_PLAN,hourLabel,incidentBudget,type EnterpriseCommand,type EnterpriseRecord,type EnterpriseView} from '@edu/port-simulation-core';
 
-export const ENTERPRISE_TEACHING_VERSION='port-enterprise-teaching/7' as const;
+export const ENTERPRISE_TEACHING_VERSION='port-enterprise-teaching/8' as const;
 export const ENTERPRISE_TEACHING_END_HOUR=181*24;
+export const ENTERPRISE_DEFER_INVESTMENT='本期暂缓T1扩建，先按当前规则观察积压、等待和班次保障，再决定是否投资。';
 export interface TeachingReceipt {hour:number;position:number;evidence:string[]}
 export interface EnterpriseTeaching {
   schema:typeof ENTERPRISE_TEACHING_VERSION;active:boolean;selected:string;pausedAt?:number;
@@ -34,18 +35,18 @@ export function enterpriseTeachingSteps(v:EnterpriseView,record:EnterpriseRecord
   const commands=record?.commands??[],steps:TeachingStep[]=[];
   const ok=(id:string,expected:EnterpriseCommand)=>v.journal.some(j=>j.index>=(learning.starts[id]?.position??0)&&j.ok&&enterpriseCommandMatches(commands[j.index],expected));
   const receipt=(id:string)=>{const r=learning.receipts[id];return !!r&&r.position<=commands.length;};
-  const add=(s:TeachingStep)=>{s.complete||=receipt(s.id);steps.push(s);};
+  const add=(s:TeachingStep)=>{steps.push(s);};
   const chapter=(m:number)=>['','一月 · 接管港口','二月 · 安排资源','三月 · 设备与补能','四月 · 技术与客户','五月 · 投资与履约','六月 · 改造与交接'][m]!;
   const command=(id:string,month:number,title:string,tab:string,target:string,expected:EnterpriseCommand,now:string,why:string,fields?:TeachingField[],drafts?:Record<string,string>,alternatives?:EnterpriseCommand[])=>{const valid=[expected,...alternatives??[]],complete=valid.some(c=>ok(id,c));add({id,month,chapter:chapter(month),title,tab,target,kind:'command',expected,alternatives,now,why,fields,drafts,complete,evidence:complete?[v.journal.filter(j=>j.ok&&valid.some(c=>enterpriseCommandMatches(commands[j.index],c))).at(-1)?.message??'管理决定已真实执行']:[]});};
   const wait=(id:string,month:number,title:string,hour:number,why:string)=>add({id,month,chapter:chapter(month),title,tab:'overview',target:'tour-advance',kind:'advance',planHour:Math.min(ENTERPRISE_TEACHING_END_HOUR,hour),now:'点击时间按钮，让港口按已批准的规则经营。',why,complete:v.hour>=hour,evidence:['已经营至'+hourLabel(v.hour)]});
   const observe=(id:string,month:number,title:string,tab:string,target:string,now:string,why:string,evidence:string[],drafts?:Record<string,string>)=>add({id,month,chapter:chapter(month),title,tab,target,kind:'observe',now,why,evidence,drafts,complete:receipt(id)});
-  command('strategy',1,'接管第一周的经营','management','goal-balanced',{kind:'management-plan',patch:{goal:'balanced'}},'点亮“稳健经营”，把常规业务交给运行规则。','经营方针改变优先级和资源排序，资金保障由固定资金方案统一管理。');
+  command('strategy',1,'接管第一周的经营','management','goal-balanced',{kind:'management-plan',patch:{goal:'balanced'}},'确认“稳健经营”，把常规业务交给运行规则。','经营方针改变优先级和资源排序，资金保障由固定资金方案统一管理。');
   observe('director-calendar',1,'核对总经理的每月现场日','director','director-calendar-check','点击日历中的8日，确认本月现场安排。','日常快进、每月现场日和重大异常共用同一个港口；现场日自动放慢。',['每月8日观察24小时，前半年资金方式继续固定']);
   command('finance-policy',1,'固定前半年的资金安排','finance','finance-policy',{kind:'finance-plan',patch:{...GUIDED_FINANCE_PLAN}},'确认30日现金保障、30日定存和500万元周转授信。','前半年资金规则固定，借款资金不增加计息自有资金；到期付款自动处理。',[{name:'reserveDays',value:'30',title:'现金保障固定30日'},{name:'depositDays',value:'30',title:'闲置自有资金固定30日定存'},{name:'creditLimit',value:'5000000',title:'自动授信上限固定500万元'}]);
   observe('loan-schedule',1,'认识每一期还本和付息','finance','finance-loan-check','点击核对贷款还款表。','初始借款分36期还本，利息按真实占用时间计提；本金偿付不是费用。',['已查看初始贷款的真实还款计划']);
   wait('first-week',1,'让港口经营第一周',168,'先运行一周，再用真实交付判断港口是否运转。');
   observe('first-site',1,'抵达第一个现场观察日','overview','director-site-inspect','点击“查看现场”，核对岸桥与泊位。','人手少于设备数时先保障正在装卸的泊位，剩余岗位再按工作量分配。',['当前管理状态 '+(v.director.scheduled?'每月现场观察日':'日常简报')]);
-  observe('scene-load',1,'在港口里找出设备压力','overview','scene-load','点击“设备负荷”，让实际作业数据映射到设备。','高负荷需要结合等待与缺人判断，停机用独立标记，无样本不会冒充低负荷。',['查看过去24小时的真实作业时长占比']);
+  observe('scene-load',1,'在港口里找出设备压力','overview','scene-load','点击“设备负荷”，再点击场景中的一台设备，核对其作业、岗位和等待数据。','高负荷需要结合等待与缺人判断，停机用独立标记，无样本不会冒充低负荷。',['查看过去24小时的真实作业时长占比']);
   const week=v.management.reviews.find(r=>r.endHour===168)??v.management.latestReview;
   observe('first-delivery',1,'领取第一周经营反馈','review','review-container','点击集装箱交付数，看看这一周的真实成果。','TEU、吨、立方米、辆和人各按自己的单位比较。',['首周集装箱交付 '+(week?.delivered.container??0)+' TEU']);
   observe('capacity',1,'先找值得核对的瓶颈','resources','capacity-T1','点击T1，查看四个环节的能力。','先找约束，再决定是否投资；名义能力还要核对班次、供电和实际积压。',['已查看T1能力核对板']);
@@ -79,13 +80,13 @@ export function enterpriseTeachingSteps(v:EnterpriseView,record:EnterpriseRecord
   const accepted=acceptedCommand?commands[acceptedCommand.index]:undefined;
   const contract=accepted?.kind==='accept-contract'?v.contracts.find(c=>c.id===accepted.contractId):tutorialContract(v);
   command('contract',4,'承接一项季度服务协议','market','contract-'+(contract?.id??'pending'),{kind:'accept-contract',contractId:contract?.id??''},'点击亮起的协议，承接相对基础业务量较小的一项增量。','合同增加未来工作量和违约责任；收入仍按真实交付确认。');
-  command('investment-choice',4,'决定本期优先改造什么','technology','investment-choice',{kind:'project',type:'road-upgrade',terminalId:'T1'},'选择流线改造或库场扩容，再批准开工。','流线解决运输距离，扩容增加空间；都要付费、施工，并接受真实业务检验。',undefined,undefined,[{kind:'project',type:'yard-extension',terminalId:'T1'}]);
+  command('investment-choice',4,'决定本期是否需要扩建','technology','investment-choice',{kind:'note',topic:'设备投资',text:ENTERPRISE_DEFER_INVESTMENT},'先核对积压和各环节能力，再选择暂缓、流线改造或库场扩容。','暂缓保留现金与现有能力；流线缩短运输距离，扩容增加空间。扩建都要付费、施工，并接受真实业务检验。',undefined,undefined,[{kind:'project',type:'road-upgrade',terminalId:'T1'},{kind:'project',type:'yard-extension',terminalId:'T1'}]);
   wait('month-four',4,'经营到五月',120*24,'让新设备、运行规则与合同一起接受实际业务检验。');
   observe('contract-review',5,'检查合同有没有真正交付','market','contract-status-'+(contract?.id??'pending'),'点击协议的履约进度。','承接合同不等于已经挣到合同金额，要核对承诺量与实际交付。',contract?['已承诺 '+contract.promised+'；已交付 '+contract.shipped]:[]);
   command('routing-choice',5,'把集疏运分配交给策略','logistics','routing-policy-T2',{kind:'logistics-plan',terminalId:'T2',patch:{routing:'balanced'}},'T2已有铁路，选择一条分流规则，再发布。','公路灵活但单价较高；铁路和驳船按固定窗口发运。新规则只影响后续货批。',undefined,{'logistics-terminal':'T2'},(['road','balanced','rail-first','barge-first'] as const).map(routing=>({kind:'logistics-plan',terminalId:'T2',patch:{routing}})));
   const investment=v.projects.find(p=>['road-upgrade','yard-extension'].includes(p.type)&&p.terminalId==='T1');
-  wait('road-ready',5,'让所选改造走完工期',(investment?.completes??166*24)+1,'所选项目按自己的工期完成；建设影响和资金支出持续保留。');
-  observe('road-accept',6,'验收所选改造并判断收益','technology','inspect-investment','点击核对本期改造成果。','投产不等于已经回本。把能力变化与周报中的交付、翻箱、费用一起看。',['T1距离系数 '+(v.terminals.find(t=>t.id==='T1')?.distance??0).toFixed(2)+'；库场 '+(v.terminals.find(t=>t.id==='T1')?.storageCapacity??0)+' TEU']);
+  wait('road-ready',5,investment?'让所选改造走完工期':'观察暂缓扩建后的业务',investment?investment.completes+1:151*24,'用后续经营结果检查当时的决定；暂缓不虚构工程或投产收益。');
+  observe('road-accept',6,investment?'验收所选改造并判断收益':'复核暂缓扩建的决定','technology','inspect-investment','点击复核本期投资决定。','把能力变化与实际积压、交付、翻箱和费用一起看；暂缓也要持续观察。',['T1距离系数 '+(v.terminals.find(t=>t.id==='T1')?.distance??0).toFixed(2)+'；库场 '+(v.terminals.find(t=>t.id==='T1')?.storageCapacity??0)+' TEU']);
   wait('half-year',6,'经营到前半年结束',ENTERPRISE_TEACHING_END_HOUR,'把前半年所有决定留在同一个港口里，继续观察实际成果。');
   observe('finance-june',6,'核对六月收支并准备交接','finance','finance-summary-2027-06','点击“六月收支”，核对半年的经营结果。','没有完成的货物、应收、借款和建设责任会交给后续经营。',['已形成 '+v.months.length+'期月报']);
   observe('finance-handover',6,'接管半年的存款和贷款责任','finance','finance-handover','查看接管后的资金规则，再回到港口。','原有存款、到期计划和欠款不会清零；半年后可以调整规则，也可能因持续付款失败而破产。',['资金锁定已结束；未偿本金 '+v.debt+'元']);

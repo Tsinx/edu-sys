@@ -1,3 +1,4 @@
+import {enterpriseDefaultReference} from './enterprise-benchmark.js';
 import {financeView,depositPrincipal,nonPrincipalPayables} from './enterprise-finance.js';
 import {enterpriseDirector,enterpriseTelemetryView} from './enterprise-director.js';
 import { sha256Hex } from './sha256.js';
@@ -34,7 +35,7 @@ export function enterpriseGoods(s: EnterpriseState) {
     return { kind, ...info, generated, due: dueQuantity, delivered, onTime, lost: lots.reduce((n, l) => n + l.lost, 0), outstanding: generated - delivered - lots.reduce((n, l) => n + l.lost, 0), revenue: lots.reduce((n, l) => n + l.revenue, 0),averageTime:delivered?lots.reduce((n,l)=>n+l.completedTimeSum,0)/delivered:null,systemUnitHours:lots.reduce((n,l)=>n+l.waitingUnitHours,0), fulfillment: dueQuantity ? onTime / dueQuantity : null };
   });
 }
-export function enterpriseScore(s: EnterpriseState): EnterpriseScore {
+function enterpriseOutcomeMetrics(s:EnterpriseState){
   const goods = enterpriseGoods(s), observed = goods.filter(g => g.due > 0), rate = observed.length ? observed.reduce((n, g) => n + (g.fulfillment ?? 0), 0) / observed.length : 0;
   const value = assetValue(s), receivables = s.receivables.reduce((n, r) => n + r.amount, 0), inventory = money(s.fuelStock * 7.2 + s.spareParts * 4000+s.supplyOrders.filter(o=>o.status==='transit').reduce((n,o)=>n+o.price,0));
   const leases = s.assets.filter(a => a.ownership === 'leased' && a.status !== 'retired').reduce((n, a) => n + Math.max(0, Math.min(90, Math.ceil((leaseDeliveryHour(a) + 365 * 24 - s.hour) / 24))) * assetSpec(a.model).leaseDaily, 0);
@@ -47,24 +48,35 @@ export function enterpriseScore(s: EnterpriseState): EnterpriseScore {
   const complete = outcome!=='operating', progress = s.hour / s.horizon;
   const active = s.assets.filter(a => a.status !== 'retired' && a.readyHour <= s.hour), health = active.length ? active.reduce((n, a) => n + a.health / 100, 0) / active.length : 0;
   const unresolved = s.incidents.filter(i => i.status !== 'resolved').length;
-  const notes = new Set(s.notes.filter(n => ENTERPRISE_NOTE_TOPICS.includes(n.topic) && n.text.trim().length >= 20).map(n => n.topic)).size;
   const observedLoss = goods.filter(g => g.generated > 0);
   const lossRate = observedLoss.length ? observedLoss.reduce((n, g) => n + g.lost / g.generated, 0) / observedLoss.length : 0;
   const conversion: Record<string, number> = { container: 1, bulk: .1, liquid: .12, general: .3, roro: .5, passenger: .04 };
   const work = goods.reduce((n, g) => n + g.delivered * conversion[g.kind]!, 0), intensity = work ? s.stats.emissions / work : 0;
-  const pieces = [
-    { id: 'service', label: '到期履约', max: 30, value: rate, detail: '六类业务分别计算到期按时交付率，再取平均；未完成与货损留在分母。' },
-    { id: 'finance', label: '经营与资金', max: 20, value: clamp(.4 + (equity - s.initialEquity) / Math.max(1, s.initialEquity * .65*Math.max(.25,s.hour/8760)), 0, 1) * (s.finance.status==='bankrupt'?0:s.finance.status==='distress'?.5:1), detail: '依据期末净资产、应收、债务、存货及后续义务；不以现金余额替代利润。' },
-    { id: 'assets', label: '资产与维护', max: 15, value: health * (active.length ? active.filter(a => a.status !== 'failed').length / active.length : 0), detail: '资产健康与可用状态共同计入；闲置大额投资仍负担折旧和资金占用。' },
-    { id: 'safety', label: '风险与恢复', max: 10, value: clamp(1 - unresolved * .18 - lossRate * 10, 0, 1), detail: '保留未恢复事件与分货种货损率的平均值；被系统拒绝的安全操作不等同事故。' },
-    { id: 'environment', label: '能源与环境', max: 10, value: work ? clamp(1 - intensity / 150, 0, 1) : 0, detail: '按版本化教学工作量折算因子诊断能耗影响；150为教学标尺，非现实行业标准。' },
-    { id: 'coverage', label: '业务完整性', max: 5, value: goods.filter(g => g.delivered > 0).length / goods.length, detail: '六类业务均有实际交付，经营期和未完成状态分别显示。' },
-    { id: 'notes', label: '决策证据', max: 10, value: Math.min(1, notes / 4), detail: '四类不少于20字的决策说明仅核验完整性，不自动评价文字质量。' },
-  ];
-  const earned = clamp(progress, 0, 1);
-  const components = pieces.map(p => ({ id: p.id, label: p.label, max: p.max, score: Math.round(p.max * p.value * earned * 100) / 100, detail: p.detail }));
   const completedWaiting=s.calls.filter(c=>c.stage==='departed').reduce((n,c)=>n+c.wait.berth+c.wait.channel+c.wait.documents,0);
-  return { total: Math.min(outcome==='bankrupt'?40:100,Math.round(components.reduce((n, p) => n + p.score, 0) * 100) / 100),outcome,failureReason:s.finance.failureReason, complete, progress, components, equity, assetValue: value, receivables, futureObligations, profit,prepaidLease,deliveryRate: rate, waitingHours: s.stats.departed ? completedWaiting / s.stats.departed : 0, emissionsPerUnit: intensity, benchmark: '教学诊断量规/4；分项按已完成经营期折算，原实验评分不变。' };
+  return {goods,value,receivables,futureObligations,equity,profit,outcome,complete,progress,health,active,unresolved,lossRate,work,intensity,prepaidLease,
+    deliveryRate:rate,waitingHours:s.stats.departed?completedWaiting/s.stats.departed:0,emissionsPerUnit:intensity};
+}
+export function enterpriseScore(s:EnterpriseState):EnterpriseScore{
+  const m=enterpriseOutcomeMetrics(s),reference=enterpriseDefaultReference(s.config,s.hour,state=>{const x=enterpriseOutcomeMetrics(state);return {equity:x.equity,profit:x.profit,deliveryRate:x.deliveryRate,waitingHours:x.waitingHours,emissionsPerUnit:x.intensity,work:x.work};});
+  const eligible=m.work>=reference.work*.85&&m.deliveryRate>=reference.deliveryRate-.03&&s.finance.status!=='bankrupt'&&s.finance.status!=='distress';
+  const equityGain=m.equity-reference.equity;
+  const waitingReduction=reference.waitingHours>0?(reference.waitingHours-m.waitingHours)/reference.waitingHours:0;
+  const emissionsReduction=reference.emissionsPerUnit>0?(reference.emissionsPerUnit-m.intensity)/reference.emissionsPerUnit:0;
+  const pieces=[
+    {id:'service',label:'基础履约',max:22,value:m.deliveryRate,detail:'六类到期按时交付率分别计算，未完成与货损留在分母。'},
+    {id:'finance',label:'资金与偿付',max:14,value:clamp(.4+(m.equity-s.initialEquity)/Math.max(1,s.initialEquity*.65*Math.max(.25,s.hour/8760)),0,1)*(s.finance.status==='bankrupt'?0:s.finance.status==='distress'?.5:1),detail:'净资产计入应收、债务、存货、应付及后续义务。'},
+    {id:'assets',label:'资产与维护',max:11,value:m.health*(m.active.length?m.active.filter(a=>a.status!=='failed').length/m.active.length:0),detail:'健康与可用状态共同计入，闲置投资承担折旧。'},
+    {id:'safety',label:'风险与恢复',max:7,value:clamp(1-m.unresolved*.18-m.lossRate*10,0,1),detail:'保留未恢复事件与分货种货损率。'},
+    {id:'environment',label:'基础能源效率',max:7,value:m.work?clamp(1-m.intensity/150,0,1):0,detail:'按版本化教学工作量折算；150为教学标尺。'},
+    {id:'coverage',label:'业务完整性',max:4,value:m.goods.filter(g=>g.delivered>0).length/m.goods.length,detail:'各货种分别保留自己的业务单位。'},
+    {id:'improvement-finance',label:'经营改善',max:15,value:eligible?clamp(equityGain/Math.max(100000,Math.abs(reference.profit)*.05,s.initialEquity*.01*Math.max(.25,s.hour/8760)),0,1):0,detail:'同种子、同情景、同时点对照默认经营；净资产改善达到对照利润5%或初始权益每年1%时取满（取较高标尺）。'},
+    {id:'improvement-service',label:'服务改善',max:10,value:eligible?clamp(waitingReduction/.25,0,1):0,detail:'对照默认经营减少平均已离港等候，减少25%取满。'},
+    {id:'improvement-resource',label:'资源改善',max:10,value:eligible?clamp(emissionsReduction/.15,0,1):0,detail:'对照默认经营降低单位工作量排放，降低15%取满。'},
+  ];
+  const earned=clamp(m.progress,0,1),components=pieces.map(p=>({id:p.id,label:p.label,max:p.max,score:Math.round(p.max*p.value*earned*100)/100,detail:p.detail}));
+  return {total:Math.min(m.outcome==='bankrupt'?40:100,Math.round(components.reduce((n,p)=>n+p.score,0)*100)/100),outcome:m.outcome,failureReason:s.finance.failureReason,complete:m.complete,progress:m.progress,components,equity:m.equity,assetValue:m.value,receivables:m.receivables,futureObligations:m.futureObligations,profit:m.profit,prepaidLease:m.prepaidLease,deliveryRate:m.deliveryRate,waitingHours:m.waitingHours,emissionsPerUnit:m.intensity,
+    comparison:{reference,eligible,equityGain,waitingReduction,emissionsReduction},
+    benchmark:'教学诊断量规/5：基础经营65分，同情景改善35分。改善要求工作量至少为对照85%、到期履约不低于对照3个百分点且无付款困难。文字说明供教师审阅，不按字数加分；各项按完成经营期折算。'};
 }
 export function enterpriseView(s: EnterpriseState) {
   const visible = s.calls.filter(c => c.eta <= s.hour + 24 && c.stage !== 'departed');

@@ -1,7 +1,7 @@
 /** Long-horizon, single-player teaching model. Currency is CNY; rates are scenario assumptions. */
 export const ENTERPRISE_INITIAL_CASH=32_000_000;
-export const ENTERPRISE_VERSION = 'port-enterprise/5.0' as const;
-export const ENTERPRISE_RULES = Object.freeze({ engine: ENTERPRISE_VERSION, operations:'port-operations/5.0',catalogue: 'port-assets/3.0', demand: 'port-market/2.0', finance: 'port-finance/4.0', indicators: 'port-enterprise-score/4.0',director:'port-director/1',telemetry:'port-enterprise-telemetry/1' });
+export const ENTERPRISE_VERSION = 'port-enterprise/5.1' as const;
+export const ENTERPRISE_RULES = Object.freeze({ engine: ENTERPRISE_VERSION, operations:'port-operations/5.0',catalogue: 'port-assets/3.0', demand: 'port-market/2.0', finance: 'port-finance/4.0', indicators: 'port-enterprise-score/5.0',director:'port-director/1',telemetry:'port-enterprise-telemetry/1' });
 export function enterpriseRulesMatch(value:unknown,expected:Readonly<Record<string,string>>=ENTERPRISE_RULES):boolean{
   if(!value||typeof value!=='object'||Array.isArray(value))return false;
   const rules=value as Record<string,unknown>,keys=Object.keys(expected);
@@ -213,6 +213,7 @@ export interface EnterpriseScore {
   equity: number; assetValue: number; receivables: number; futureObligations: number; profit: number;
   deliveryRate: number; waitingHours: number; emissionsPerUnit: number; benchmark: string;
   prepaidLease: number;
+  comparison:{reference:import('./enterprise-benchmark.js').EnterpriseOutcomeMetrics;eligible:boolean;equityGain:number;waitingReduction:number;emissionsReduction:number;};
   outcome:'operating'|'completed'|'bankrupt';failureReason:string;
 }
 export interface EnterpriseTask {

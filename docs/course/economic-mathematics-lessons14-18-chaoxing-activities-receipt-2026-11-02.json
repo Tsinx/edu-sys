@@ -1,0 +1,1343 @@
+{
+  "status": "synchronized-and-readback-verified",
+  "completedAt": "2026-11-03T03:50:35.689Z",
+  "clientDate": "2026-11-02",
+  "courseId": "267794051",
+  "classId": "156507419",
+  "className": "营销[2601-2602]班",
+  "destination": "teaching-activities",
+  "createdActivities": 31,
+  "createdQuestions": 70,
+  "allNewStatus": "not-started",
+  "originalActivityCount": 185,
+  "finalActivityCount": 216,
+  "duplicateNewActivities": 0,
+  "missingActivities": 0,
+  "sourceContentUnchanged": [
+    {
+      "file": "docs/course/economic-mathematics-business-exercises.json",
+      "sha256": "cc548eab6cf20aa0be56ed3f3ca098529435f2ef1cf9b030d84cddb96a672572",
+      "currentSha256": "cc548eab6cf20aa0be56ed3f3ca098529435f2ef1cf9b030d84cddb96a672572",
+      "unchanged": true
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson16-exercises.json",
+      "sha256": "357bcff66a87173e87324ae4fd3c31e2fa2c310e45e53151405a90f7270173c2",
+      "currentSha256": "357bcff66a87173e87324ae4fd3c31e2fa2c310e45e53151405a90f7270173c2",
+      "unchanged": true
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson17-exercises.json",
+      "sha256": "745f7b56205a73848479aa29e984f552d0a199296ec5080668e69725c3487c6a",
+      "currentSha256": "745f7b56205a73848479aa29e984f552d0a199296ec5080668e69725c3487c6a",
+      "unchanged": true
+    },
+    {
+      "file": "docs/course/economic-mathematics-lesson18-exercises.json",
+      "sha256": "e4a61c26a209742f8d6352ea55062987a47747b4f9e55234e84d02d470bb4356",
+      "currentSha256": "e4a61c26a209742f8d6352ea55062987a47747b4f9e55234e84d02d470bb4356",
+      "unchanged": true
+    }
+  ],
+  "oldActivityCheck": {
+    "before": 185,
+    "after": 216,
+    "created": 31,
+    "questions": 70,
+    "missingOriginal": [],
+    "changedOriginal": [],
+    "missingNew": [],
+    "duplicateNew": [],
+    "unexpectedNewStatus": []
+  },
+  "byLesson": [
+    {
+      "lesson": 14,
+      "groupId": "4000007252652",
+      "groupName": "第十四讲·边际思想与价格菜单·个人练习",
+      "activities": 8,
+      "questions": 14
+    },
+    {
+      "lesson": 15,
+      "groupId": "4000007252672",
+      "groupName": "第十五讲·需求弹性·个人练习（新版2026-10-31）",
+      "activities": 8,
+      "questions": 14
+    },
+    {
+      "lesson": 16,
+      "groupId": "4000007252686",
+      "groupName": "第十六讲·原函数与反三角函数·个人练习",
+      "activities": 7,
+      "questions": 10
+    },
+    {
+      "lesson": 17,
+      "groupId": "4000007252570",
+      "groupName": "第十七讲·积分方法·个人简答",
+      "activities": 4,
+      "questions": 16
+    },
+    {
+      "lesson": 18,
+      "groupId": "4000007252627",
+      "groupName": "第十八讲·积分方法·个人简答",
+      "activities": 4,
+      "questions": 16
+    }
+  ],
+  "activities": [
+    {
+      "sourceId": "l17-integral-methods-20261101-1",
+      "activityId": "4000178771386",
+      "lesson": 17,
+      "number": 1,
+      "title": "第十七讲·个人练习1：内层与微分因子",
+      "groupId": "4000007252570",
+      "groupName": "第十七讲·积分方法·个人简答",
+      "questionCount": 4,
+      "minutes": 7,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l17-integral-methods-20261101-2",
+      "activityId": "4000178773116",
+      "lesson": 17,
+      "number": 2,
+      "title": "第十七讲·个人练习2：尺度、根式与对数",
+      "groupId": "4000007252570",
+      "groupName": "第十七讲·积分方法·个人简答",
+      "questionCount": 4,
+      "minutes": 9,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l17-integral-methods-20261101-3",
+      "activityId": "4000178773343",
+      "lesson": 17,
+      "number": 3,
+      "title": "第十七讲·个人练习3：反向设元与区间选择",
+      "groupId": "4000007252570",
+      "groupName": "第十七讲·积分方法·个人简答",
+      "questionCount": 4,
+      "minutes": 9,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l17-integral-methods-20261101-4",
+      "activityId": "4000178773498",
+      "lesson": 17,
+      "number": 4,
+      "title": "第十七讲·个人练习4：结构、范围与方法边界",
+      "groupId": "4000007252570",
+      "groupName": "第十七讲·积分方法·个人简答",
+      "questionCount": 4,
+      "minutes": 11,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l18-integral-methods-20261101-1",
+      "activityId": "4000178773832",
+      "lesson": 18,
+      "number": 1,
+      "title": "第十八讲·个人练习1：u与dv的选择",
+      "groupId": "4000007252627",
+      "groupName": "第十八讲·积分方法·个人简答",
+      "questionCount": 4,
+      "minutes": 7,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l18-integral-methods-20261101-2",
+      "activityId": "4000178774014",
+      "lesson": 18,
+      "number": 2,
+      "title": "第十八讲·个人练习2：重复分部与复杂度降低",
+      "groupId": "4000007252627",
+      "groupName": "第十八讲·积分方法·个人简答",
+      "questionCount": 4,
+      "minutes": 9,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l18-integral-methods-20261101-3",
+      "activityId": "4000178774235",
+      "lesson": 18,
+      "number": 3,
+      "title": "第十八讲·个人练习3：循环能否提供新信息",
+      "groupId": "4000007252627",
+      "groupName": "第十八讲·积分方法·个人简答",
+      "questionCount": 4,
+      "minutes": 9,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l18-integral-methods-20261101-4",
+      "activityId": "4000178774324",
+      "lesson": 18,
+      "number": 4,
+      "title": "第十八讲·个人练习4：方法配合与综合判断",
+      "groupId": "4000007252627",
+      "groupName": "第十八讲·积分方法·个人简答",
+      "questionCount": 4,
+      "minutes": 11,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l14-market-20261031-1",
+      "activityId": "4000178775063",
+      "lesson": 14,
+      "number": 1,
+      "title": "第十四讲·个人练习01：统一价格下的最优与规则",
+      "groupId": "4000007252652",
+      "groupName": "第十四讲·边际思想与价格菜单·个人练习",
+      "questionCount": 2,
+      "minutes": 2,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l14-market-20261031-2",
+      "activityId": "4000178775962",
+      "lesson": 14,
+      "number": 2,
+      "title": "第十四讲·个人练习02：效用、追加价值与愿付金额",
+      "groupId": "4000007252652",
+      "groupName": "第十四讲·边际思想与价格菜单·个人练习",
+      "questionCount": 2,
+      "minutes": 2,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l14-market-20261031-3",
+      "activityId": "4000178776111",
+      "lesson": 14,
+      "number": 3,
+      "title": "第十四讲·个人练习03：价格菜单的选择条件",
+      "groupId": "4000007252652",
+      "groupName": "第十四讲·边际思想与价格菜单·个人练习",
+      "questionCount": 2,
+      "minutes": 2,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l14-market-20261031-4",
+      "activityId": "4000178776243",
+      "lesson": 14,
+      "number": 4,
+      "title": "第十四讲·个人练习04：限速策略的条件变化",
+      "groupId": "4000007252652",
+      "groupName": "第十四讲·边际思想与价格菜单·个人练习",
+      "questionCount": 2,
+      "minutes": 2,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l14-market-20261031-5",
+      "activityId": "4000178776312",
+      "lesson": 14,
+      "number": 5,
+      "title": "第十四讲·个人练习05：沉没成本与生产路径",
+      "groupId": "4000007252652",
+      "groupName": "第十四讲·边际思想与价格菜单·个人练习",
+      "questionCount": 2,
+      "minutes": 2,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l14-market-20261031-6",
+      "activityId": "4000178776536",
+      "lesson": 14,
+      "number": 6,
+      "title": "第十四讲·个人练习06：社会效果与比较参照",
+      "groupId": "4000007252652",
+      "groupName": "第十四讲·边际思想与价格菜单·个人练习",
+      "questionCount": 2,
+      "minutes": 2,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l14-market-20261031-7",
+      "activityId": "4000178776705",
+      "lesson": 14,
+      "number": 7,
+      "title": "第十四讲·个人练习07：自己设计并检验菜单",
+      "groupId": "4000007252652",
+      "groupName": "第十四讲·边际思想与价格菜单·个人练习",
+      "questionCount": 1,
+      "minutes": 6,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l14-market-20261031-8",
+      "activityId": "4000178776847",
+      "lesson": 14,
+      "number": 8,
+      "title": "第十四讲·个人练习08：低物料成本一定更便宜吗",
+      "groupId": "4000007252652",
+      "groupName": "第十四讲·边际思想与价格菜单·个人练习",
+      "questionCount": 1,
+      "minutes": 6,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l15-market-20261031-1",
+      "activityId": "4000178776940",
+      "lesson": 15,
+      "number": 1,
+      "title": "第十五讲·个人练习01：绝对变化与相对变化",
+      "groupId": "4000007252672",
+      "groupName": "第十五讲·需求弹性·个人练习（新版2026-10-31）",
+      "questionCount": 2,
+      "minutes": 2,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l15-market-20261031-2",
+      "activityId": "4000178777229",
+      "lesson": 15,
+      "number": 2,
+      "title": "第十五讲·个人练习02：点弹性定义与边界",
+      "groupId": "4000007252672",
+      "groupName": "第十五讲·需求弹性·个人练习（新版2026-10-31）",
+      "questionCount": 2,
+      "minutes": 2,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l15-market-20261031-3",
+      "activityId": "4000178777333",
+      "lesson": 15,
+      "number": 3,
+      "title": "第十五讲·个人练习03：收入方向与驻点",
+      "groupId": "4000007252672",
+      "groupName": "第十五讲·需求弹性·个人练习（新版2026-10-31）",
+      "questionCount": 2,
+      "minutes": 2,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l15-market-20261031-4",
+      "activityId": "4000178777527",
+      "lesson": 15,
+      "number": 4,
+      "title": "第十五讲·个人练习04：局部信息能说明多远",
+      "groupId": "4000007252672",
+      "groupName": "第十五讲·需求弹性·个人练习（新版2026-10-31）",
+      "questionCount": 2,
+      "minutes": 2,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l15-market-20261031-5",
+      "activityId": "4000178777685",
+      "lesson": 15,
+      "number": 5,
+      "title": "第十五讲·个人练习05：边际收入与完整成本",
+      "groupId": "4000007252672",
+      "groupName": "第十五讲·需求弹性·个人练习（新版2026-10-31）",
+      "questionCount": 2,
+      "minutes": 2,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l15-market-20261031-6",
+      "activityId": "4000178778054",
+      "lesson": 15,
+      "number": 6,
+      "title": "第十五讲·个人练习06：单一价格公式的使用范围",
+      "groupId": "4000007252672",
+      "groupName": "第十五讲·需求弹性·个人练习（新版2026-10-31）",
+      "questionCount": 2,
+      "minutes": 2,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l15-market-20261031-7",
+      "activityId": "4000178778136",
+      "lesson": 15,
+      "number": 7,
+      "title": "第十五讲·个人练习07：涨价5%，近似与精确",
+      "groupId": "4000007252672",
+      "groupName": "第十五讲·需求弹性·个人练习（新版2026-10-31）",
+      "questionCount": 1,
+      "minutes": 6,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l15-market-20261031-8",
+      "activityId": "4000178778311",
+      "lesson": 15,
+      "number": 8,
+      "title": "第十五讲·个人练习08：产能改变了什么条件",
+      "groupId": "4000007252672",
+      "groupName": "第十五讲·需求弹性·个人练习（新版2026-10-31）",
+      "questionCount": 1,
+      "minutes": 6,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l16-integral-merged-20261101-01",
+      "activityId": "4000178778443",
+      "lesson": 16,
+      "number": 1,
+      "title": "第十六讲·个人练习01：区间与给定条件",
+      "groupId": "4000007252686",
+      "groupName": "第十六讲·原函数与反三角函数·个人练习",
+      "questionCount": 2,
+      "minutes": 2,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l16-integral-merged-20261101-02",
+      "activityId": "4000178778613",
+      "lesson": 16,
+      "number": 2,
+      "title": "第十六讲·个人练习02：直接积分与给定点",
+      "groupId": "4000007252686",
+      "groupName": "第十六讲·原函数与反三角函数·个人练习",
+      "questionCount": 1,
+      "minutes": 4,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l16-integral-merged-20261101-03",
+      "activityId": "4000178778681",
+      "lesson": 16,
+      "number": 3,
+      "title": "第十六讲·个人练习03：一个参数与三个给定值",
+      "groupId": "4000007252686",
+      "groupName": "第十六讲·原函数与反三角函数·个人练习",
+      "questionCount": 1,
+      "minutes": 5,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l16-integral-merged-20261101-04",
+      "activityId": "4000178778793",
+      "lesson": 16,
+      "number": 4,
+      "title": "第十六讲·个人练习04：反正切的主值",
+      "groupId": "4000007252686",
+      "groupName": "第十六讲·原函数与反三角函数·个人练习",
+      "questionCount": 2,
+      "minutes": 2,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l16-integral-merged-20261101-05",
+      "activityId": "4000178778851",
+      "lesson": 16,
+      "number": 5,
+      "title": "第十六讲·个人练习05：基本公式与适用区间",
+      "groupId": "4000007252686",
+      "groupName": "第十六讲·原函数与反三角函数·个人练习",
+      "questionCount": 1,
+      "minutes": 4,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l16-integral-merged-20261101-06",
+      "activityId": "4000178778953",
+      "lesson": 16,
+      "number": 6,
+      "title": "第十六讲·个人练习06：反正弦与积分区间",
+      "groupId": "4000007252686",
+      "groupName": "第十六讲·原函数与反三角函数·个人练习",
+      "questionCount": 2,
+      "minutes": 2,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          },
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "l16-integral-merged-20261101-07",
+      "activityId": "4000178779093",
+      "lesson": 16,
+      "number": 7,
+      "title": "第十六讲·个人练习07：导数的对称性与原函数",
+      "groupId": "4000007252686",
+      "groupName": "第十六讲·原函数与反三角函数·个人练习",
+      "questionCount": 1,
+      "minutes": 5,
+      "notStarted": true,
+      "checked": {
+        "title": true,
+        "questionCount": true,
+        "duration": true,
+        "autoSubmit": true,
+        "answerAfterEnd": true,
+        "noBankDuplicates": true,
+        "questions": [
+          {
+            "stem": true,
+            "points": true,
+            "type": true,
+            "answer": true,
+            "explanation": true,
+            "options": true
+          }
+        ]
+      }
+    }
+  ],
+  "notes": [
+    "Created only the latest missing lecture 14-18 activities; all previous activities and their states were preserved.",
+    "All 31 activities were reopened and compared with the source for titles, question types, stems, options, keys/reference answers, explanations/rubrics, points and timing.",
+    "The new lecture 15 exercises use a dated group to distinguish them from the older lesson version.",
+    "The option to add questions to the bank on activity start is disabled to avoid duplicating the existing question bank.",
+    "The final proof uses the search view; its hidden cached list is not counted as additional activities."
+  ],
+  "proof": "output/chaoxing/economic-pending-activities-2026-11-02/lesson18-activities.jpg",
+  "auditDirectory": "output/chaoxing/economic-pending-activities-2026-11-02"
+}
