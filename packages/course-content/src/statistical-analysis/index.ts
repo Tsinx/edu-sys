@@ -4,6 +4,9 @@ import {policyLessons,policyTiming} from './policy-lessons.js';
 import {policyEvidenceText} from './policy-evidence.js';
 import {researchLessons,researchTiming,researchSourceLabel} from './research-lessons.js';
 import {researchEvidenceText} from './research-evidence.js';
+import {forecastLessonSixteen,forecastTiming,forecastVisualDescriptions} from './forecast-lessons.js';
+export {forecastLessonSixteen,forecastTiming,forecastVisualDescriptions,FORECAST_MATERIAL_BASE,type ForecastPage} from './forecast-lessons.js';
+export {FORECAST_DATA} from './forecast-data.js';
 export {researchLessons,researchLessonFourteen,researchLessonFifteen,getResearchPage,researchTiming,researchSourceLabel,type ResearchPage,type ResearchTable,type ResearchModel} from './research-lessons.js';
 export {researchDescriptions,researchEvidenceText} from './research-evidence.js';
 export {researchPapers,getResearchPaper,RESEARCH_MATERIAL_BASE,type ResearchPaperId} from './research-literature.js';
@@ -41,9 +44,9 @@ const titles = [
   '回归诊断、模型设定与稳健性','回归拓展：调节效应与二元选择','问卷设计与变量测量',
   '主成分分析与多指标降维','探索性因子分析与量表结构探索','验证性因子分析与结构方程模型入门',
   '因果推断基础与匹配、加权方法','面板数据与固定效应模型','双重差分与事件研究',
-  '工具变量与两阶段最小二乘','工商管理研究中的统计方法应用','文本数据分析：从顾客评论到服务改进','时间序列预测与模型评价'
+  '工具变量与两阶段最小二乘','工商管理研究中的统计方法应用','文本数据分析：从顾客评论到服务改进','经营预测：日历变量与简单自回归'
 ];
-const authoredTotals=[48,52,...regressionLessons.map(l=>l.length),...measurementLessons.map(l=>l.length),...causalLessons.map(l=>l.length),...policyLessons.map(l=>l.length),...researchLessons.map(l=>l.length)];
+const authoredTotals=[48,52,...regressionLessons.map(l=>l.length),...measurementLessons.map(l=>l.length),...causalLessons.map(l=>l.length),...policyLessons.map(l=>l.length),...researchLessons.map(l=>l.length),forecastLessonSixteen.length];
 const authoredStarts=authoredTotals.map((_,i)=>1+authoredTotals.slice(0,i).reduce((a,b)=>a+b,0));
 export const STATISTICAL_ANALYSIS_LESSONS = titles.map((title, i) => ({
   number: i + 1, title, status: i < authoredTotals.length ? 'ready' as const : 'planned' as const,
@@ -53,7 +56,7 @@ export const STATISTICAL_ANALYSIS_LESSONS = titles.map((title, i) => ({
   totalHours: 2,
   teachingCue: i === 0
     ? '90分钟，LBL讲解。以会员消费结论为主线，依次核查问题、记录、抽样和解释。每次揭示由教师翻页触发。'
-    : i === 1 ? '90分钟，LBL讲解。先揭示Anscombe四重奏，再用同一零售案例贯穿六类图形任务。修图段落逐页比较；不组织分组、提交或代码运行。' : i===14 ? '90分钟，中文餐饮评论项目。逐页讲解、个人判断与Python跟做；原始数据、Notebook和表图随包。教师控制翻页。' : i>=11&&i<=12 ? '90分钟，教师讲解与个人项目跟做。55分钟讲述、25分钟Python或vibe coding、10分钟观察判断；12—13讲同一真实数据。' : i<authoredTotals.length ? '90分钟，LBL讲解。逐页观察证据、解释模型并核查边界；教师控制翻页与揭示。' : '待建设，不进入课堂播放。'
+    : i === 1 ? '90分钟，LBL讲解。先揭示Anscombe四重奏，再用同一零售案例贯穿六类图形任务。修图段落逐页比较；不组织分组、提交或代码运行。' : i===15 ? '90分钟，经营预测项目。60分钟讲述、20分钟个人Python跟做、10分钟个人判断。真实日租借数据；节假日、日历回归与简单自回归逐步相接。' : i===14 ? '90分钟，中文餐饮评论项目。逐页讲解、个人判断与Python跟做；原始数据、Notebook和表图随包。教师控制翻页。' : i>=11&&i<=12 ? '90分钟，教师讲解与个人项目跟做。55分钟讲述、25分钟Python或vibe coding、10分钟观察判断；12—13讲同一真实数据。' : i<authoredTotals.length ? '90分钟，LBL讲解。逐页观察证据、解释模型并核查边界；教师控制翻页与揭示。' : '待建设，不进入课堂播放。'
 }));
 
 // Each row is individually authored: title, visible takeaway, teaching focus,
@@ -224,7 +227,7 @@ const measurementSlides:StatisticalAnalysisSlide[]=measurementLessons.flatMap((r
   if(id==='wholesale-score-example')return `${measurementEvidenceText[id]}；W001 PC1/PC2：${JSON.stringify(measurementData.wholesale.model.scores[0]!.slice(0,2))}`;
   return measurementEvidenceText[id]??'';
  }).join('\n');
- const measurementBoundary=li>=2?'本讲EFA来自原240份模拟的221份六题完整记录；CFA/SEM来自独立C001—C400教学模拟，不能合并为真实调查。EFA用多分相关、MINRES、oblimin；斜交共同度为ΛΦΛ转置的对角，模式系数与结构相关分开。CFA是五级顺序响应WLSMV，先核查定标、识别、收敛与可接受性；载荷解释潜在响应，拟合不证明理论、全部效度或代表性。只按本页实际显示的拟合和残差评价模型；不得宣称理论已被证明。成熟量表仅在构念、版本、对象、语言、用途与使用条件相符时采用；适配删改需要新证据。九题SEM另加S1—S3，不把满意度虚构成原六题变量。非标准化a/b/c来自同一定标；ab及总项区间是delta方法，不是假称bootstrap。横截面乘积不识别因果；两个特定递归模型可协方差等价。不提供本页未显示的数值、后页练习反馈或生成过程真值；第10—11讲已建设；第12—13讲已建设；第14—15讲已建设；第16讲仍待建设。':li===0?'调查方式与抽样方法分开解释；名单随机抽取不自动修复覆盖和未回应。六题问卷为独立教学模拟，不能称为真实调查或已验证量表；邀请400的流程另为假设示意，不是模拟答卷的真实来源。成熟量表只在构念、对象、语言、用途和使用条件合适时采用；翻译删改不自动继承原证据。原始回答、反向编码、领域均分与α的完整样本分别说明；NA不当成3分。高α不证明单维性、效度或代表性。当前页练习不主动透露后页答案；第7讲采购数据独立，渠道与地区不进入拟合，不提前透露后页计算结果。未显示数值不得编造；第8—9讲已建设，但不提前透露其数值结果；第10—11讲已建设；第12—13讲已建设；第14—15讲已建设；第16讲仍待建设。':'六题问卷为独立教学模拟，不能称为真实调查或已验证量表；高α不证明单维性与效度，不适用与NA不当成3分。PCA主案例仅六列公开年采购额，log(1+x)后用样本SD标准化；渠道与地区不进入拟合；本页所示保留比例属于该输入尺度上的总方差，不是利润解释率、预测精度或客户价值；未展示的后页数值不提前给出。系数与得分不同；相关载荷为变量与成分的相关，不混用因子载荷；零相关不等于独立，符号可整体翻转。未显示数值不得编造；第8—9讲已建设，但不提前透露其数值结果；第10—11讲已建设；第12—13讲已建设；第14—15讲已建设；第16讲仍待建设。';
+ const measurementBoundary=li>=2?'本讲EFA来自原240份模拟的221份六题完整记录；CFA/SEM来自独立C001—C400教学模拟，不能合并为真实调查。EFA用多分相关、MINRES、oblimin；斜交共同度为ΛΦΛ转置的对角，模式系数与结构相关分开。CFA是五级顺序响应WLSMV，先核查定标、识别、收敛与可接受性；载荷解释潜在响应，拟合不证明理论、全部效度或代表性。只按本页实际显示的拟合和残差评价模型；不得宣称理论已被证明。成熟量表仅在构念、版本、对象、语言、用途与使用条件相符时采用；适配删改需要新证据。九题SEM另加S1—S3，不把满意度虚构成原六题变量。非标准化a/b/c来自同一定标；ab及总项区间是delta方法，不是假称bootstrap。横截面乘积不识别因果；两个特定递归模型可协方差等价。不提供本页未显示的数值、后页练习反馈或生成过程真值；第10—11讲已建设；第12—13讲已建设；第14—15讲已建设；第1—16讲均已建设。':li===0?'调查方式与抽样方法分开解释；名单随机抽取不自动修复覆盖和未回应。六题问卷为独立教学模拟，不能称为真实调查或已验证量表；邀请400的流程另为假设示意，不是模拟答卷的真实来源。成熟量表只在构念、对象、语言、用途和使用条件合适时采用；翻译删改不自动继承原证据。原始回答、反向编码、领域均分与α的完整样本分别说明；NA不当成3分。高α不证明单维性、效度或代表性。当前页练习不主动透露后页答案；第7讲采购数据独立，渠道与地区不进入拟合，不提前透露后页计算结果。未显示数值不得编造；第8—9讲已建设，但不提前透露其数值结果；第10—11讲已建设；第12—13讲已建设；第14—15讲已建设；第1—16讲均已建设。':'六题问卷为独立教学模拟，不能称为真实调查或已验证量表；高α不证明单维性与效度，不适用与NA不当成3分。PCA主案例仅六列公开年采购额，log(1+x)后用样本SD标准化；渠道与地区不进入拟合；本页所示保留比例属于该输入尺度上的总方差，不是利润解释率、预测精度或客户价值；未展示的后页数值不提前给出。系数与得分不同；相关载荷为变量与成分的相关，不混用因子载荷；零相关不等于独立，符号可整体翻转。未显示数值不得编造；第8—9讲已建设，但不提前透露其数值结果；第10—11讲已建设；第12—13讲已建设；第14—15讲已建设；第1—16讲均已建设。';
  return {index:authoredStarts[lesson-1]!+i,slideKey:`stats-l${lesson}-${String(i+1).padStart(2,'0')}`,lesson,lessonNumber:lesson,localIndex:i+1,localTotal:rows.length,lessonTitle:titles[lesson-1]!,title:p.title,lead:p.lead,summary:p.lead,section:block[2],minutes:p.durationMinutes??block[1]/(block[0]-previous),source,
  teachingCue:`讲解重点：${p.note}\n停顿位置：${p.question}\n证据口径：${source}。\n投影说明：${p.caption}`,
  assistantCue:`当前页：${p.title}。公开要点：${p.lead}；${p.text.join('；')}。图注：${p.caption}。本页证据：${evidence}。解释边界：${p.note}。来源：${source}。LBL由教师控制翻页；只回应当前页，不自动进入后页或待建设讲次，不组织分组、投票、提交或代码运行。${measurementBoundary}`};
@@ -234,14 +237,14 @@ const causalSlides:StatisticalAnalysisSlide[]=causalLessons.flatMap((rows,li)=>r
  const source='自编门店培训模拟 · 120店 × 24月 · seed 20261017';
  return {index:450+li*48+localIndex,slideKey:`stats-l${lesson}-${String(localIndex).padStart(2,'0')}`,lesson,lessonNumber:lesson,localIndex,localTotal:48,lessonTitle:titles[lesson-1]!,title:p.title,lead:p.lead,summary:p.lead,section:time.section,minutes:time.minutes,source,
  teachingCue:`讲解重点：${p.note}\n停顿位置：${p.question}\n证据口径：${source}。`,
- assistantCue:`当前页：${p.title}。公开要点：${p.lead}；${p.text.join('；')}。图注：${p.caption}。本页证据：${causalEvidenceText(p.visual)}。${p.formula?'本页公式：'+p.formula:''}。来源：${source}。LBL教师手动翻页；仅回应本页，不提前透露后页反馈、计算或讲稿。不组织分组、提交或现场代码。主数据与独立概念示意分开，不能称为实际企业研究或随机试验。效应目标、支持、平衡和识别条件分开解释；不把相关、显著或固定效应当成因果证明。销售额不等于利润或生产率。未测生成因素与参数不是观测发现，不得编造本页未显示的数值。第12—13讲已建设；第14—15讲已建设；第16讲仍待建设。`};
+ assistantCue:`当前页：${p.title}。公开要点：${p.lead}；${p.text.join('；')}。图注：${p.caption}。本页证据：${causalEvidenceText(p.visual)}。${p.formula?'本页公式：'+p.formula:''}。来源：${source}。LBL教师手动翻页；仅回应本页，不提前透露后页反馈、计算或讲稿。不组织分组、提交或现场代码。主数据与独立概念示意分开，不能称为实际企业研究或随机试验。效应目标、支持、平衡和识别条件分开解释；不把相关、显著或固定效应当成因果证明。销售额不等于利润或生产率。未测生成因素与参数不是观测发现，不得编造本页未显示的数值。第12—13讲已建设；第14—15讲已建设；第1—16讲均已建设。`};
 }));
 const policySlides:StatisticalAnalysisSlide[]=policyLessons.flatMap((rows,li)=>rows.map((p,i)=>{
  const lesson=li+12,localIndex=i+1,time=policyTiming(lesson,localIndex);
  const source='INPRES · 1995 SUPAS公开处理版 · 简化教学规格 · Duflo (2001)';
  return {index:546+li*48+localIndex,slideKey:`stats-l${lesson}-${String(localIndex).padStart(2,'0')}`,lesson,lessonNumber:lesson,localIndex,localTotal:rows.length,lessonTitle:titles[lesson-1]!,title:p.title,lead:p.lead,summary:p.lead,section:time.section,minutes:(time.spokenSeconds+time.pauseSeconds)/60,source,
  teachingCue:`讲解重点：${p.note}\n停顿位置：${p.question}\n证据口径：${source}。\n${p.checkpoint?`${p.checkpoint}个人跟做；约${time.pauseSeconds/60}分钟。`:'观察与判断；教师控制翻页。'}`,
- assistantCue:`当前页：${p.title}。公开要点：${p.lead}；${p.text.join('；')}。图注：${p.caption}。本页证据：${policyEvidenceText(p.visual)}。${p.formula?'本页公式：'+p.formula:''}${p.code?'本页公开代码：'+p.code:''}。来源：${source}。LBL由教师控制翻页；本讲允许个人Python或vibe coding跟做，不自动运行代码，不组织分组或提交。只回应当前页公开内容，不提前给出后页判断反馈或未展示估计，不提供教师讲稿。真实资料是一次1995年截面；年龄队列图不是日历时间事件研究或个人面板。当前规格不是原论文完整复制；权重是调查观测权重，出生地区CR1聚类未重建复杂抽样设计。平行变化、工具外生性、排除限制、工资样本选择与弱识别分别讨论；不把显著、聚类或检验通过当作因果保证。第14—15讲已建设；第16讲仍待建设。`};
+ assistantCue:`当前页：${p.title}。公开要点：${p.lead}；${p.text.join('；')}。图注：${p.caption}。本页证据：${policyEvidenceText(p.visual)}。${p.formula?'本页公式：'+p.formula:''}${p.code?'本页公开代码：'+p.code:''}。来源：${source}。LBL由教师控制翻页；本讲允许个人Python或vibe coding跟做，不自动运行代码，不组织分组或提交。只回应当前页公开内容，不提前给出后页判断反馈或未展示估计，不提供教师讲稿。真实资料是一次1995年截面；年龄队列图不是日历时间事件研究或个人面板。当前规格不是原论文完整复制；权重是调查观测权重，出生地区CR1聚类未重建复杂抽样设计。平行变化、工具外生性、排除限制、工资样本选择与弱识别分别讨论；不把显著、聚类或检验通过当作因果保证。第14—15讲已建设；第1—16讲均已建设。`};
 }));
 const researchSlides:StatisticalAnalysisSlide[]=researchLessons.flatMap((rows,li)=>rows.map((p,i)=>{
  const lesson=li+14,localIndex=i+1,time=researchTiming(lesson,localIndex),source=researchSourceLabel(p);
@@ -249,9 +252,16 @@ const researchSlides:StatisticalAnalysisSlide[]=researchLessons.flatMap((rows,li
   lesson,lessonNumber:lesson,localIndex,localTotal:rows.length,lessonTitle:titles[lesson-1]!,
   title:p.title,lead:p.lead,summary:p.lead,section:time.section+(p.readingStep?' / '+p.readingStep:''),minutes:(time.spokenSeconds+time.pauseSeconds)/60,source,
   teachingCue:'讲解重点：'+p.note+'\n停顿位置：'+p.question+'\n来源：'+source+'。教师手动翻页；先个人判断，再翻到反馈页。',
-  assistantCue:(lesson===15?'当前页：'+p.title+'。公开内容：'+p.lead+'；'+p.text.join('；')+'。图注：'+p.caption+'。本页表图与代码：'+researchEvidenceText(p)+'。来源：'+source+'。按当前页解释，不提前给出后页反馈或未显示结果。原始方面标签由作者人工整理；离线分类器预测另行评价。主线先讲分词、词频、df和TF-IDF，再用二元Logit整理速度抱怨。原速度负向对应y=1，其余原标签对应y=0。实际模型使用中文词和普通TF×平滑IDF，课堂不展开四分类调参或宏平均F1。服务统计使用人工四类原标签，管理安排以具体试行为建议。教师逐字稿不进入回答。按明确指令提供个人Python或vibe coding帮助，不自动执行、翻页或提交。第14—15讲已建设，第16讲仍待建设。': '当前页：'+p.title+'。公开要点：'+p.lead+'；'+p.text.join('；')+'。图注：'+p.caption+'。本页证据：'+researchEvidenceText(p)+'。来源：'+source+'。只回应当前页公开内容，不主动提供后页练习反馈、未显示结果或教师逐字稿。论文题录与作者公开稿版本分别说明；不假称本地完整复现了论文，也不编造原始个体资料或酒店订单输出。课堂示意和真实论文数值保持区分。量表信度、模型拟合、显著性、固定效应和聚类推断均不自动证明因果。说明比较、估计对象、量级、精度与适用范围。允许个人记录与复核，不自动翻页、运行代码或提交。第14—15讲已建设，第16讲仍待建设。')};
+  assistantCue:(lesson===15?'当前页：'+p.title+'。公开内容：'+p.lead+'；'+p.text.join('；')+'。图注：'+p.caption+'。本页表图与代码：'+researchEvidenceText(p)+'。来源：'+source+'。按当前页解释，不提前给出后页反馈或未显示结果。原始方面标签由作者人工整理；离线分类器预测另行评价。主线先讲分词、词频、df和TF-IDF，再用二元Logit整理速度抱怨。原速度负向对应y=1，其余原标签对应y=0。实际模型使用中文词和普通TF×平滑IDF，课堂不展开四分类调参或宏平均F1。服务统计使用人工四类原标签，管理安排以具体试行为建议。教师逐字稿不进入回答。按明确指令提供个人Python或vibe coding帮助，不自动执行、翻页或提交。第14—15讲已建设，第1—16讲均已建设。': '当前页：'+p.title+'。公开要点：'+p.lead+'；'+p.text.join('；')+'。图注：'+p.caption+'。本页证据：'+researchEvidenceText(p)+'。来源：'+source+'。只回应当前页公开内容，不主动提供后页练习反馈、未显示结果或教师逐字稿。论文题录与作者公开稿版本分别说明；不假称本地完整复现了论文，也不编造原始个体资料或酒店订单输出。课堂示意和真实论文数值保持区分。量表信度、模型拟合、显著性、固定效应和聚类推断均不自动证明因果。说明比较、估计对象、量级、精度与适用范围。允许个人记录与复核，不自动翻页、运行代码或提交。第14—15讲已建设，第1—16讲均已建设。')};
 }));
-export const STATISTICAL_ANALYSIS_SLIDES=[...originalSlides,...regressionSlides,...measurementSlides,...causalSlides,...policySlides,...researchSlides];
+const forecastSlides:StatisticalAnalysisSlide[]=forecastLessonSixteen.map((p,i)=>{
+ const localIndex=i+1,time=forecastTiming(localIndex),source='UCI Capital Bikeshare · 真实日数据 · 历史预测项目';
+ const publicContent=[...p.text,p.caption,p.formula??'',p.code??'',p.table?JSON.stringify(p.table):'',p.visual?forecastVisualDescriptions[p.visual]??'':''].join('；');
+ return {index:authoredStarts[15]!+i,slideKey:`stats-l16-${String(localIndex).padStart(2,'0')}`,lesson:16,lessonNumber:16,localIndex,localTotal:forecastLessonSixteen.length,lessonTitle:titles[15]!,title:p.title,lead:p.lead,summary:p.lead,section:time.section,minutes:(time.spokenSeconds+time.pauseSeconds)/60,source,
+ teachingCue:`讲解重点：${p.lead}\n停顿位置：${p.question}\n来源：${source}。教师手动翻页；${time.practice?'个人Python跟做':'先观察、再解释'}。`,
+ assistantCue:`当前页：${p.title}。公开内容：${p.lead}；${publicContent}。来源：${source}。LBL教师手动翻页。只按当前页公开内容回答，不提供后页反馈、未显示的数值或教师讲稿。按学生指令解释个人Python跟做，不自动执行、翻页或提交。预测起点为2012-11-18，未来输入仅含提前可知的日历。数值与算法按当前页已经展开的表图和代码解释。cnt单位为租借次数，不是人数、车辆数或利润。第1—16讲均已建设。`};
+});
+export const STATISTICAL_ANALYSIS_SLIDES=[...originalSlides,...regressionSlides,...measurementSlides,...causalSlides,...policySlides,...researchSlides,...forecastSlides];
 export function getStatisticalAnalysisSlide(index: number) {
   return STATISTICAL_ANALYSIS_SLIDES[Math.max(1,Math.min(STATISTICAL_ANALYSIS_SLIDES.length,Math.trunc(index)||1))-1]!;
 }

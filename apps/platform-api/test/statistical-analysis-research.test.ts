@@ -7,8 +7,8 @@ import {statisticalAnalysisTeacherScripts as scripts} from '@edu/course-content/
 import {buildPromptWorkspace} from '../src/assistant/prompts.js';
 test('applications and review extend the authored course with unique public pages and honest timing',()=>{
  assert.deepEqual(lessons.slice(13,15).map(l=>[l.status,l.slideStart,l.slideEnd,l.slideTotal]),[['ready',643,690,48],['ready',691,744,54]]);
- assert.equal(lessons[15]!.status,'planned');assert.equal(slides.length,744);
- assert.equal(new Set(slides.map(s=>s.slideKey)).size,744);
+ assert.equal(lessons[15]!.status,'ready');assert.equal(slides.length,834);
+ assert.equal(new Set(slides.map(s=>s.slideKey)).size,834);
  for(const [i,pages] of researchLessons.entries()){
   assert.equal(pages.length,i===0?48:54);assert.equal(pages.filter(p=>p.kind==='question').length,6);
   const times=pages.map((_,j)=>researchTiming(i+14,j+1));
@@ -63,7 +63,7 @@ test('full manuscripts stay private and export from the identical source',()=>{
    assert.ok(doc.includes(s.paragraphs.join('\n\n')));
    const slide=slides.find(p=>p.slideKey===s.slideKey)!;
    const w=buildPromptWorkspace('statistical-analysis','统计分析方法',undefined,slide.index);
-   assert.equal(w.coverage.slides,744);assert.match(w.compiled,/第16讲仍待建设/);
+   assert.equal(w.coverage.slides,834);assert.match(w.compiled,/第1—16讲均已建设/);
    assert.ok(!w.compiled.includes(s.paragraphs[0]!));
    assert.doesNotMatch(w.compiled,/spokenSeconds|paragraphs|transitionToNext/);
   }

@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "checks": [
+    "calendar independent QR and recursion",
+    "ar1 independent QR and recursion",
+    "arx independent QR and recursion",
+    "validation dates and independently aggregated errors",
+    "test dates and independently aggregated errors",
+    "original ZIP bytes and SHA-256",
+    "lag dates and simple hand calculations",
+    "future outcome perturbation",
+    "holiday impulse algebra",
+    "all additive contributions"
+  ],
+  "main_train_rows": 688,
+  "main_model_rows": {
+    "calendar": 688,
+    "ar1": 687,
+    "arx": 681
+  },
+  "selected": "mean7"
+}

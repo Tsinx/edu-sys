@@ -1,6 +1,9 @@
 # Preserve the frozen dataset bytes used by regression provenance checks.
 packages/course-content/src/statistical-analysis/data.json text eol=lf
 
+# Retain the source ZIP's original CRLF bytes and whitespace for provenance checks.
+apps/teacher-web/public/course-assets/statistical-analysis/forecast-16/data/raw/* -text -whitespace
+
 # Archived snapshots and verified media must retain their recorded file bytes.
 archive/** -text whitespace=-blank-at-eof,cr-at-eol
 apps/teacher-web/public/course-assets/international-mathematics/** -text

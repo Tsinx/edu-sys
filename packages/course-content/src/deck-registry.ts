@@ -343,7 +343,7 @@ const statisticalAnalysisDescriptor: CourseDeckDescriptor = {
   lessons: STATISTICAL_ANALYSIS_LESSONS, allowedActivities: ['slides'],
   presentation: {
     shortTitle: '统计分析', categoryLabel: '商科研究生',
-    description: '从研究问题与数据分析出发，衔接科研可视化、回归、问卷测量、因果推断、文本分析与时间序列。32课时16讲，前十五讲已建设，共744页，各90分钟；第12—13讲使用同一真实资料完成Python项目，第14讲研读工商管理论文，第15讲完成中文餐饮评论分析项目。',
+    description: '从研究问题与数据分析出发，衔接科研可视化、回归、问卷测量、因果推断、文本分析与时间序列。32课时16讲，十六讲均已建设，共834页，各90分钟；第12—13讲使用同一真实资料完成Python项目，第14讲研读工商管理论文，第15讲完成中文餐饮评论分析项目，第16讲完成真实日租借数据的经营预测项目。',
     heroImage: '/course-assets/statistical-analysis/images/l1-01-retail-night.png',
     accent: 'statistical-analysis', assistantName: '小麦老师', supportsStudy: false,
     resources: [
