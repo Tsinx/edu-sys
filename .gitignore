@@ -10,6 +10,9 @@ students_id.xlsx
 initial-teacher.json
 admin-login.json
 
+# Local personal documents and research unrelated to teaching
+/gitignore/
+
 # Local runtimes and generated evidence
 .runtime/
 artifacts/
